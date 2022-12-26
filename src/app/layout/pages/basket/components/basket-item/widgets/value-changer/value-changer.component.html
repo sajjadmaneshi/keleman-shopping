@@ -1,0 +1,10 @@
+
+<div class="d-flex align-items-center justify-content-between value-changer kfs-3 fw-bold">
+  <button class="btn border-0" (click)="increase()">
+    <span class="svg-icon svg-icon-4x svg-icon-danger" [inlineSVG]="'assets/media/icons/duotune/arrows/arr075.svg'"></span>
+  </button>
+ <span >{{value}}</span>
+  <button class="btn border-0" (click)="decrease()">
+    <span class="svg-icon svg-icon-lg-4x svg-icon-danger" [inlineSVG]="'assets/media/icons/duotune/'+(value>1?'arrows/arr090.svg':'general/gen027.svg')"></span>
+  </button>
+</div>

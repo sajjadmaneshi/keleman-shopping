@@ -1,0 +1,16 @@
+.keleman-mag-item__description{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+
+
+  -webkit-line-clamp: 4; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+.keleman-mag-item__tumbnail{
+  img{
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+}

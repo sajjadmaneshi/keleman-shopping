@@ -1,0 +1,52 @@
+html {
+  text-size-adjust: 100%; // 2
+  -webkit-text-size-adjust: 100%; // 2
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  font-size: $k-font-size-base*3 !important;
+  font-weight: $font-weight-base;
+  font-family: $font-family-base;
+
+  // Tablet mode
+  @include media-breakpoint-down(lg) {
+    font-size: $k-font-size-base*2 !important;
+  }
+
+  // Mobile mode
+  @include media-breakpoint-down(md) {
+    font-size: $k-font-size-base*2!important;
+  }
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  a:hover,
+  a:active,
+  a:focus {
+    text-decoration: none !important;
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+}
+
+// Angular integration
+router-outlet {
+  display: none;
+}
+
+.keleman-shopping-content{
+  padding: $root-space 0;
+}
+.form-control{
+  background-color: white!important;
+}

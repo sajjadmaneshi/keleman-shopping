@@ -5,6 +5,7 @@
   "projects": {
     "keleman-shopping": {
       "projectType": "application",
+
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -30,8 +31,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            },
             "scripts": []
           },
           "configurations": {
@@ -93,6 +98,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -100,5 +106,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "332564eb-ef06-46b2-9b21-099d931ca562"
   }
 }

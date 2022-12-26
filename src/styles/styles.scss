@@ -1,0 +1,18 @@
+
+@import "base/variables/colors";
+
+@import "bootstrap/scss/bootstrap";
+@import "base/init";
+@import "../../node_modules/swiper/swiper";
+@import "../../node_modules/swiper/modules/pagination/pagination";
+@import "../../node_modules/swiper/modules/navigation/navigation";
+@import "../../node_modules/swiper/modules/autoplay/autoplay";
+
+
+
+html, body { height: 100%; }
+
+a{
+  text-decoration: none;
+}
+

@@ -1,0 +1,53 @@
+<span class="d-flex justify-content-between align-items-center">
+    <h3 class="keleman-head-extra-strong-3  related-products-title">دسته بندی محصولات</h3>
+  </span>
+
+<div class="position-relative">
+  <swiper [slidesPerView]="'auto'"
+          [grabCursor]="true"
+          [freeMode]="true"
+          [navigation]="{  prevEl: '.product-category-swiper-button-next',
+      nextEl: '.product-category-swiper-button-prev'}">
+
+    <ng-template swiperSlide>
+        <app-product-category-item></app-product-category-item>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-product-category-item></app-product-category-item>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-product-category-item></app-product-category-item>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-product-category-item></app-product-category-item>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-product-category-item></app-product-category-item>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-product-category-item></app-product-category-item>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-product-category-item></app-product-category-item>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-product-category-item></app-product-category-item>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-product-category-item></app-product-category-item>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-product-category-item></app-product-category-item>
+    </ng-template>
+
+  </swiper>
+  <div class="product-category-swiper-button-prev">
+      <span class="svg-icon svg-icon-5x svg-icon-primary"
+            [inlineSVG]="'assets/media/icons/duotune/arrows/arr074.svg'"></span>
+  </div>
+  <div class="product-category-swiper-button-next">
+      <span class="svg-icon svg-icon-5x svg-icon-primary"
+            [inlineSVG]="'assets/media/icons/duotune/arrows/arr071.svg'"></span>
+  </div>
+</div>
+

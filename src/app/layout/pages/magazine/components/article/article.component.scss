@@ -1,0 +1,18 @@
+.article-content__body{
+  line-height: 2.5rem;
+  clear: right;
+  text-align: justify;
+}
+::ng-deep .category-chip{
+  span{
+    color: white!important;
+  }
+}
+.article__banner{
+  height: 630px;
+  img{
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+}

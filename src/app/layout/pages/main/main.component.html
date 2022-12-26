@@ -1,0 +1,54 @@
+<div class="keleman-main-content">
+
+  <section id="top-slider">
+    <swiper [slidesPerView]="1" [autoplay]="{delay:5000}" [spaceBetween]="15">
+      <ng-container *ngFor="let _ of shareVariableService.counter(3);let i=index">
+        <ng-template  swiperSlide>
+          <div class="card">
+            <img alt="keleman" class=" main-slider-image" [src]="'assets/media/slider/menu-slide'+(i+1)+'.jpg'" >
+          </div>
+        </ng-template>
+      </ng-container>
+    </swiper>
+  </section>
+
+  <section id="product-category">
+ <app-product-category-swiper></app-product-category-swiper>
+  </section>
+
+<section>
+  <app-amazing-offer-swiper></app-amazing-offer-swiper>
+</section>
+  <section >
+    <app-carousel-slider   [title]="'انواع موتور'" [moreButtonText]="'مشاهده بیشتر محصولات'"></app-carousel-slider>
+  </section>
+  <section>
+    <app-elevator-packages-swiper></app-elevator-packages-swiper>
+  </section>
+  <section>
+    <section id="types-of-sales">
+      <div class="grid-container">
+        <div class="grid-item">
+          <div class="card">
+            <img  src="assets/media/temp/9a6d4a6c-43ac-481f-87ee-ce8f00a3b634.jpg">
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="card">
+            <img  src="assets/media/temp/ddc55288-999a-40b6-bde1-77518c0eaa3f.jpg">
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="card">
+            <img  src="assets/media/temp/9a6d4a6c-43ac-481f-87ee-ce8f00a3b634.jpg">
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="card">
+            <img  src="assets/media/temp/ddc55288-999a-40b6-bde1-77518c0eaa3f.jpg">
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>

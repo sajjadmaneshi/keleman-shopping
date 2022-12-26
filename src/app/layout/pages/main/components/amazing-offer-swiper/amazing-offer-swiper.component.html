@@ -1,0 +1,55 @@
+
+<div class="card amazing-offer-container">
+  <div class="card-body ">
+    <div class="row mx-0">
+      <div class="col-2">
+        <div class="h-100 d-flex flex-column align-items-center">
+          <img class="keleman-amazing-offer-text"  ngSrc="assets/media/img2.png" height="146" width="127">
+          <img class="keleman-amazing-offer-box" ngSrc="assets/media/img.png" height="157" width="213" >
+        </div>
+      </div>
+      <div class="col-10">
+        <div class=" position-relative">
+          <swiper  [grabCursor]="true" [navigation]="{  prevEl: '.amazing-offer-swiper-button-next',
+      nextEl: '.amazing-offer-swiper-button-prev'}"
+                  [slidesPerView]="'auto'"
+
+                  [spaceBetween]="5">
+
+            <ng-template swiperSlide>
+              <app-amazing-offer-item></app-amazing-offer-item>
+            </ng-template>
+            <ng-template swiperSlide>
+              <app-amazing-offer-item></app-amazing-offer-item>
+            </ng-template>
+            <ng-template swiperSlide>
+              <app-amazing-offer-item></app-amazing-offer-item>
+            </ng-template>
+            <ng-template swiperSlide>
+              <app-amazing-offer-item></app-amazing-offer-item>
+            </ng-template>
+            <ng-template swiperSlide>
+              <app-amazing-offer-item></app-amazing-offer-item>
+            </ng-template>
+            <ng-template swiperSlide>
+              <app-amazing-offer-item></app-amazing-offer-item>
+            </ng-template>
+
+          </swiper>
+          <div class="amazing-offer-swiper-button-prev">
+      <span class="svg-icon svg-icon-5x svg-icon-primary"
+            [inlineSVG]="'assets/media/icons/duotune/arrows/arr074.svg'"></span>
+          </div>
+          <div class="amazing-offer-swiper-button-next">
+      <span class="svg-icon svg-icon-5x svg-icon-primary"
+            [inlineSVG]="'assets/media/icons/duotune/arrows/arr071.svg'"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+

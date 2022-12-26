@@ -1,0 +1,9 @@
+@import "../base/variables/spacers";
+
+.card{
+  border-radius: map-get($k-spacers,4);
+  border: 0;
+  .card-body{
+    padding: map-get($k-spacers,3);
+  }
+}

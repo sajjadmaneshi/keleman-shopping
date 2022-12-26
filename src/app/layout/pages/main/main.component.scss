@@ -1,0 +1,24 @@
+@import "base/variables/spacers";
+::ng-deep #top-slider .swiper-slide{
+  width: 100%!important;
+}
+.main-slider-image{
+  border-radius: inherit;
+}
+section{
+  margin-bottom: map-get($k-spacers,8);
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+
+
+}
+.grid-item:not(:last-child) {
+
+  padding-left: 15px;
+
+}
+img{
+  border-radius: inherit;
+}

@@ -1,0 +1,20 @@
+
+@import "base/variables/colors";
+@import "components/swiper";
+@include swiper-button('elevator-packages');
+
+.related-products-title {
+  border-bottom: 2px solid black;
+}
+
+.elevator-package-container{
+  background-color: map-get($theme-colors,'primary');
+}
+.keleman-elevator-package-box{
+  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.25));
+}
+.elevator-package-container-start{
+  img{
+    object-fit: contain;
+  }
+}

@@ -1,0 +1,8 @@
+@import "base/variables/colors";
+.k-carousel-item{
+  height: 456px!important;
+  width: 302px!important;
+}
+.product-price{
+  border-bottom: 3px solid map-get($theme-colors,'primary');
+}
