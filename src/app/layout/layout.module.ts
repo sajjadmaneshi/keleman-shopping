@@ -12,7 +12,7 @@ import {CarouselSliderComponent} from "../../shared/components/carousel-slider/c
 import { AmazingOfferSwiperComponent } from './pages/main/components/amazing-offer-swiper/amazing-offer-swiper.component';
 import { AmazingOfferItemComponent } from './pages/main/components/amazing-offer-swiper/amazing-offer-item/amazing-offer-item.component';
 import { ElevatorPackagesSwiperComponent } from './pages/main/components/elevator-packages-swiper/elevator-packages-swiper.component';
-import { ProductCategorySwiperComponent } from './pages/main/components/product-category-swiper/product-category-swiper.component';
+import { ProductCategoryComponent } from './pages/main/components/product-category-swiper/product-category.component';
 import { ProductCategoryItemComponent } from './pages/main/components/product-category-swiper/product-category-item/product-category-item.component';
 
 
@@ -26,7 +26,7 @@ import { ProductCategoryItemComponent } from './pages/main/components/product-ca
     AmazingOfferSwiperComponent,
     AmazingOfferItemComponent,
     ElevatorPackagesSwiperComponent,
-    ProductCategorySwiperComponent,
+    ProductCategoryComponent,
     ProductCategoryItemComponent,
   ],
   imports: [

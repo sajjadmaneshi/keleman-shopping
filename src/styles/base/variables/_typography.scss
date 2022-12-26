@@ -8,50 +8,6 @@ $prefix:'keleman-';
 $head-size:30px;
 $font-family-base:IranYekan;
 
-@mixin font-builder-extra-strong{
-
-  @for $i from 0 through  8{
-    .#{$prefix}head-extra-strong-#{$i+1}{
-      font-size:$head-size - ($i*2)!important;
-      font-weight: 800!important;
-      font-style: normal!important;
-      margin-bottom: 1rem;
-    }
-  }
-}
-@mixin font-builder-strong{
-
-  @for $i from 0 through  8{
-    .#{$prefix}head-strong-#{$i+1}{
-      font-size:$head-size - ($i*2)!important;
-      font-weight: 700!important;
-      font-style: normal!important;
-      margin-bottom: 1rem;;
-    }
-  }
-}
-@mixin font-builder-body-strong{
-
-  @for $i from 0 through  8{
-    .#{$prefix}body-extra-strong-#{$i+1}{
-      font-size:$head-size - ($i*2)!important;
-      font-weight: 500!important;
-      font-style: normal!important;
-      margin-bottom: 1rem;
-    }
-  }
-}
-@mixin font-builder-body{
-
-  @for $i from 0 through  8{
-    .#{$prefix}body-strong-#{$i+1}{
-      font-size:$head-size - ($i*2)!important;
-      font-weight: 400!important;
-      font-style: normal!important;
-      margin-bottom: 1rem;
-    }
-  }
-}
 
 .#{$prefix}button{
   font-size:$base_font_size;
@@ -70,7 +26,3 @@ $font-family-base:IranYekan;
   font-style: normal!important;
 }
 
-@include font-builder-extra-strong;
-@include font-builder-strong;
-@include font-builder-body-strong;
-@include font-builder-body;

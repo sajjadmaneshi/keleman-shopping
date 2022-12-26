@@ -1,7 +1,7 @@
 $k-font-size-base:              						5px !default;
 
 $keleman-font-sizes: (
-  1: $k-font-size-base,   // 22.75px
+  1: $k-font-size-base,
   2: $k-font-size-base*2,   // 19.50px
   3: $k-font-size-base*3,   // 17.55px
   4: $k-font-size-base*4,   // 16.25px
@@ -14,7 +14,6 @@ $keleman-font-sizes: (
 
   base: $k-font-size-base, // 13px
   fluid: 100%, // 100%
-
   2x: $k-font-size-base * 2,        // 26px
   2qx: $k-font-size-base * 2.25,    // 29.25px
   2hx: $k-font-size-base * 2.5,     // 32.5px

@@ -1,6 +1,6 @@
 <div class="basket-item d-flex  justify-content-start py-2">
   <button class="basket-item__remove bg-danger" *ngIf="!(responsiveService.isMobile|async)">
-   <span class="svg-icon svg-icon-2 svg-icon-white remove" [inlineSVG]="'assets/media/icons/duotune/abstract/abs012.svg'"></span>
+   <span class="svg-icon svg-icon-3 svg-icon-white remove" [inlineSVG]="'assets/media/icons/duotune/abstract/abs012.svg'"></span>
   </button>
   <div class="d-flex flex-column justify-content-around">
     <div class="symbol symbol-90px symbol-lg-160px">
@@ -10,25 +10,25 @@
 <app-value-changer></app-value-changer>
 </div>
   <div class="basket-item__details d-flex flex-column">
-    <span class="keleman-head-strong-5">M/S2 1KW AC12 5/5NR  موتور گیربکس الکو</span>
+    <h5 class="fw-bold">M/S2 1KW AC12 5/5NR  موتور گیربکس الکو</h5>
         <span class="basket-item__warranty d-flex align-items-center">
           <span class="svg-icon" [inlineSVG]="'assets/media/icons/duotune/general/gen048.svg'"></span>
-          <h6 class="keleman-body-strong-8"> گارانتی اصالت و سلامت فیزیکی کالا</h6>
+          <h6> گارانتی اصالت و سلامت فیزیکی کالا</h6>
         </span>
 
     <span class="basket-item__shop d-flex align-items-center">
           <span class="svg-icon" [inlineSVG]="'assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
-          <h6 class="keleman-body-strong-8"> کلمان</h6>
+          <h6 > کلمان</h6>
         </span>
 
     <span class="basket-item__off d-flex align-items-center text-danger">
           <span class="svg-icon svg-icon-danger" [inlineSVG]="'assets/media/icons/duotune/ecommerce/ecm011.svg'"></span>
-          <h6 class="keleman-body-strong-8">{{50000|number:'.0'}} تومان تخفیف </h6>
+          <h6 >{{50000|number:'.0'}} تومان تخفیف </h6>
         </span>
 
     <span class="basket-item__price d-flex align-items-center ">
           <span class="svg-icon svg-icon-warning" [inlineSVG]="'assets/media/icons/duotune/ecommerce/ecm003.svg'"></span>
-          <h6 class="keleman-body-strong-8">{{50000|number:'.0'}} تومان </h6>
+          <h6 >{{50000|number:'.0'}} تومان </h6>
         </span>
 
   </div>

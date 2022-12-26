@@ -1,9 +1,23 @@
 @import "../base/variables/spacers";
 
 .card{
-  border-radius: map-get($k-spacers,4);
+
   border: 0;
   .card-body{
     padding: map-get($k-spacers,3);
   }
+  @each $breakpoint in map-keys($grid-breakpoints) {
+
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+
+
+        &.card-rounded#{$infix} {
+         border-radius: 25px!important;
+
+      }
+    }
+  }
 }
+
