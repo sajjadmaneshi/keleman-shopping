@@ -1,24 +1,19 @@
 @import "base/variables/spacers";
-::ng-deep #top-slider .swiper-slide{
-  width: 100%!important;
+
+section {
+  margin-bottom: map-get($k-spacers, 8);
 }
-.main-slider-image{
+
+img {
   border-radius: inherit;
 }
-section{
-  margin-bottom: map-get($k-spacers,8);
-}
-.grid-container {
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
 
+#types-of-sales > div > [class*="col-"] {
+  &:last-child {
+    padding-left: 0;
+  }
 
-}
-.grid-item:not(:last-child) {
-
-  padding-left: 15px;
-
-}
-img{
-  border-radius: inherit;
+  &:first-child {
+    padding-right: 0;
+  }
 }

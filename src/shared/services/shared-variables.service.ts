@@ -1,11 +1,10 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from '@angular/core';
 
+@Injectable({ providedIn: 'root' })
+export class SharedVariablesService {
+  constructor() {}
 
-@Injectable({providedIn:"root"})
-export class SharedVariablesService{
-
-  counter(count:number){
+  counter(count: number) {
     return new Array(count);
   }
-
 }

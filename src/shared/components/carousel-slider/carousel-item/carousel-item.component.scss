@@ -1,19 +1,29 @@
 @import "base/variables/colors";
-.k-carousel-item{
+
+.k-carousel-item {
   position: relative;
-  height: 456px!important;
-  width: 302px!important;
-  &:hover{
-    border: 1px solid map-get($theme-colors,'secondary');
-    .overlay{
+  height: 100%;
+  &:hover {
+    border: 1px solid map-get($theme-colors, "secondary") !important;
+    .overlay {
       visibility: visible;
       opacity: 1;
     }
   }
 }
 
+@media (max-width: 425px) {
+  .k-carousel-item {
+    width: 135px !important;
+  }
+}
+@media (min-width: 426px) {
+  .k-carousel-item {
+    width: 236px !important;
+  }
+}
 
-.overlay{
+.overlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -21,6 +31,12 @@
   opacity: 0;
   transition: visibility 0s, opacity 0.2s linear;
 }
-.product-price{
-  border-bottom: 3px solid map-get($theme-colors,'primary');
+
+.product-price-bottom {
+  position: absolute;
+  bottom: 0;
+  height: 5px;
+  border-radius: 15px 15px 0 0;
+  background-color: map-get($theme-colors, "primary");
+  width: 90%;
 }

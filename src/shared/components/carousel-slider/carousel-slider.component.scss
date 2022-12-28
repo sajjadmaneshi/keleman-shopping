@@ -1,7 +1,18 @@
-
 @import "components/swiper";
-@include swiper-button('k');
-.related-products-title {
-  border-bottom: 1px solid black;
+@import "base/variables/colors";
+@include swiper-button("k");
+
+.carousel-container {
+  height: 320px !important;
 }
 
+.related-products-title {
+  border-bottom: 2px solid map-get($theme-colors, "gray-500");
+}
+.grid-divider > * {
+  position: relative;
+  margin-bottom: 15px;
+}
+.grid-divider > [class*="col-"]:nth-child(2n) {
+  border-right: 2px solid map-get($theme-colors, "gray-500");
+}
