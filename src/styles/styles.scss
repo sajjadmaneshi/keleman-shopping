@@ -15,4 +15,5 @@ app-root {
 
 a {
   text-decoration: none;
+  color: map-get($theme-text-colors, "primary");
 }

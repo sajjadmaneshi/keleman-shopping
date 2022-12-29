@@ -3,7 +3,7 @@
   margin-bottom: 3.125rem;
 }
 
-.register-body {
+.keleman-register-body {
   min-width: 500px;
   height: auto;
   background-color: #f5f5f3;
@@ -19,4 +19,11 @@
   .register-button {
     height: 3.125rem;
   }
+}
+.visibility {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
 }

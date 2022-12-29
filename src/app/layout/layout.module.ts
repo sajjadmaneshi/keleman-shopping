@@ -17,6 +17,7 @@ import { TopSliderComponent } from './pages/main/components/top-slider/top-slide
 import { RegisterComponent } from './pages/authentication/register/register.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { CountdownComponent } from 'ngx-countdown';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CountdownComponent } from 'ngx-countdown';
     ImageResponsiveDirective,
     NgOtpInputModule,
     CountdownComponent,
+    MatIconModule,
   ],
 })
 export class LayoutModule {}
