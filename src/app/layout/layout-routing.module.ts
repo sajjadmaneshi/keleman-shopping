@@ -23,6 +23,13 @@ const routes: Routes = [
             (m) => m.MagazineModule
           ),
       },
+      {
+        path: Routing.products,
+        loadChildren: () =>
+          import('./pages/products/products.module').then(
+            (m) => m.ProductsModule
+          ),
+      },
       { path: Routing.register, component: RegisterComponent },
     ],
   },

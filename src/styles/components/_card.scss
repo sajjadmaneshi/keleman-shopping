@@ -3,6 +3,10 @@
 .card {
   border-radius: 1rem !important;
   border: none;
+  margin-bottom: 1rem;
+  .card-header {
+    border: none;
+  }
   .card-body {
     padding: map-get($k-spacers, 3);
   }
@@ -11,7 +15,13 @@
       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
       &.card-rounded#{$infix} {
-        border-radius: 25px !important;
+        border-radius: 1rem !important;
+        .card-header {
+          border-radius: 1rem 1rem 0 0 !important;
+        }
+        .card-body {
+          border-radius: 0 0 1rem 1rem !important;
+        }
       }
     }
   }
