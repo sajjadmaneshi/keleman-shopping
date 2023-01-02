@@ -6,17 +6,50 @@ import { ProductsComponent } from './products.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { SwiperModule } from 'swiper/angular';
 import { BarRatingModule } from 'ngx-bar-rating';
-import { CommentsComponent } from './product-details/components/comments/comments.component';
-import { CommentItemComponent } from './product-details/components/comments/comment-item/comment-item.component';
+import { ProductCommentsComponent } from './product-details/widgets/comments/product-comments.component';
+import { CommentItemComponent } from './product-details/widgets/comments/comment-item/comment-item.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MagazineModule } from '../magazine/magazine.module';
+import { PriceChartComponent } from './product-details/widgets/price-chart/price-chart.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import {
+  SwiperContentDirective,
+  SwiperTemplateDirective,
+} from '../../../../shared/directives/swiper-template.directive';
+import { ProductNavbarComponent } from './product-details/widgets/navbar/product-navbar.component';
+import { ProductAlbumComponent } from './product-details/widgets/album/product-album.component';
+import { ProductMetaComponent } from './product-details/widgets/meta/product-meta.component';
+import { KelemanSwiperComponent } from '../../../../shared/components/keleman-swiper/keleman-swiper.component';
+import {
+  NgbNav,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';
+import { ProductSpecificationsComponent } from './product-details/widgets/specifications/product-specifications.component';
+import { ProductCheckingComponent } from './product-details/widgets/checking/product-checking.component';
+import { ProductRateComponent } from './product-details/widgets/rate/product-rate.component';
+import { ProductContentComponent } from './product-details/widgets/content/product-content.component';
+import { LayoutModule } from '../../layout.module';
+import { KelemanProductSwiperItemComponent } from '../../../../shared/components/keleman-swiper/keleman-product-swiper-item/keleman-product-swiper-item.component';
+import { ProductRelatesComponent } from './product-details/widgets/relateds/product-relates.component';
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ProductDetailsComponent,
-    CommentsComponent,
+    ProductCommentsComponent,
     CommentItemComponent,
+    PriceChartComponent,
+    ProductNavbarComponent,
+    ProductAlbumComponent,
+    ProductMetaComponent,
+    ProductSpecificationsComponent,
+    ProductCheckingComponent,
+    ProductRateComponent,
+    ProductContentComponent,
+    ProductRelatesComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +59,17 @@ import { MagazineModule } from '../magazine/magazine.module';
     BarRatingModule,
     InlineSVGModule,
     MagazineModule,
+    HighchartsChartModule,
+    SwiperContentDirective,
+    SwiperTemplateDirective,
+    KelemanSwiperComponent,
+    NgbNav,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavContent,
+    NgbNavOutlet,
+    LayoutModule,
+    KelemanProductSwiperItemComponent,
   ],
 })
 export class ProductsModule {}

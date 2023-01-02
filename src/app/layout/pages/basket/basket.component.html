@@ -1,33 +1,30 @@
-
-  <div class="row mx-0 klm-basket">
-
-    <div class="col-lg-8">
-      <h2 class="fw-bolder pb-3">سبد خرید</h2>
-      <div class="card border-0 ">
-        <div class="card-body">
-          <div class="basket-body d-flex flex-column align-items-center ">
-            <ng-container *ngIf="true; then full else full">
+<div class="row mx-0 klm-basket">
+  <div class="col-12 col-lg-8">
+    <h5 class="fw-bolder pb-3">سبد خرید</h5>
+    <div class="card card-rounded border-0">
+      <div class="card-body">
+        <div class="basket-body d-flex flex-column align-items-center">
+          <ng-container *ngIf="true; then full; else full"> </ng-container>
+          <ng-template #empty>
+            <ng-container>
+              <span
+                class="svg-icon svg-icon-5x svg-icon-accent"
+                [inlineSVG]="'assets/media/icons/duotune/ecommerce/ecm001.svg'"
+              ></span>
+              <h6>سبد خرید شما خالی است!</h6>
             </ng-container>
-            <ng-template #empty>
-              <ng-container>
-                <span class="svg-icon svg-icon-5x svg-icon-accent"
-                      [inlineSVG]="'assets/media/icons/duotune/ecommerce/ecm001.svg'"></span>
-                <h6>سبد خرید شما خالی است!</h6>
-              </ng-container>
-            </ng-template>
-            <ng-template #full>
-              <app-basket-item></app-basket-item>
-              <app-basket-item></app-basket-item>
-              <app-basket-item></app-basket-item>
-              <app-basket-item></app-basket-item>
-            </ng-template>
-          </div>
+          </ng-template>
+          <ng-template #full>
+            <app-basket-item></app-basket-item>
+            <app-basket-item></app-basket-item>
+            <app-basket-item></app-basket-item>
+            <app-basket-item></app-basket-item>
+          </ng-template>
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
-      <app-purchase></app-purchase>
-    </div>
   </div>
-
-
+  <div class="col-12 col-lg-4">
+    <app-purchase></app-purchase>
+  </div>
+</div>

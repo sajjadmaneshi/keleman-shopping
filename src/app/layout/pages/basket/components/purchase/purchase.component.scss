@@ -1,13 +1,15 @@
 @import "src/styles/base/variables/spacers";
 @import "src/styles/base/variables/colors";
 
-.klm-basket__purchase-button{
+.klm-basket__purchase-button {
   width: 100%;
   height: 100%;
   color: white;
-  background-color: map-get($theme-colors,'success');
+  background-color: map-get($theme-colors, "success");
 }
-.klm-basket__mobile-view-purchase-bar{
-  max-height: map-get($k-spacers,14);
+.klm-basket__mobile-view-purchase-bar {
+  max-height: map-get($k-spacers, 14);
+  ::ng-deep keleman-price > span {
+    justify-content: left !important;
+  }
 }
-

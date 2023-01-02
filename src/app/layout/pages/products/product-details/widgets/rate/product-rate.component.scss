@@ -1,0 +1,11 @@
+.rating {
+  display: flex;
+  align-items: center;
+  bar-rating {
+    margin: 0 0.5rem;
+  }
+}
+:host ::ng-deep .br-stars .br-unit-inner {
+  width: 20px !important;
+  height: 20px !important;
+}

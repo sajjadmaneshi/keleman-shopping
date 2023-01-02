@@ -1,0 +1,29 @@
+<div class="card elevator-package-container">
+  <div class="card-body position-relative">
+    <div class="swiper-start d-flex flex-column">
+      <h1 class="swiper-start-text text-center">پکیج های <br />آسانسور</h1>
+      <img
+        alt="keleman-package"
+        class="swiper-start-image"
+        src="../../../../../../../assets/media/elevator-packages/img.png"
+      />
+    </div>
+    <div class="keleman-swiper">
+      <keleman-swiper
+        [spaceBetween]="10"
+        [showMoreButton]="false"
+        [showTitle]="false"
+        [navigation]="true"
+        [navigationButtonClassPrefix]="'elevator-packages'"
+      >
+        <appSwiperContent *ngFor="let slide of slides">
+          <ng-template appSwiperTemplate>
+            <keleman-background-swiper-item
+              [product]="slide"
+            ></keleman-background-swiper-item>
+          </ng-template>
+        </appSwiperContent>
+      </keleman-swiper>
+    </div>
+  </div>
+</div>

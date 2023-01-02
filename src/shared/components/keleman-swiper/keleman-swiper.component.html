@@ -1,0 +1,47 @@
+<!--swiper top-bar-->
+
+<span class="d-flex justify-content-between align-items-center">
+  <ng-template [ngIf]="showTitle">
+    <h4 class="fw-bolder swiper-title" [class.border-btm]="titleBorder">
+      {{ title }}
+    </h4>
+  </ng-template>
+  <ng-template [ngIf]="showMoreButton">
+    <a class="text-aqua-primary" href="#"> {{ moreButtonText }} > </a>
+  </ng-template>
+</span>
+<!--swiper top-bar-->
+
+<div class="position-relative">
+  <swiper
+    [slidesPerView]="'auto'"
+    [spaceBetween]="spaceBetween"
+    [freeMode]="true"
+    [grabCursor]="true"
+    [containerModifierClass]="'keleman-swiper-'"
+    [navigation]="{
+      prevEl: '.' + navigationButtonClassPrefix + '-swiper-button-next',
+      nextEl: '.' + navigationButtonClassPrefix + '-swiper-button-prev'
+    }"
+    class="h-100 keleman-swiper"
+  >
+    <ng-template *ngFor="let slide of contents" swiperSlide>
+      <ng-template [ngTemplateOutlet]="slide.template">
+        <ng-template
+          [ngTemplateOutlet]="slide.template"
+          [ngTemplateOutletContext]="{
+            $implicit: slide.template
+          }"
+        ></ng-template>
+      </ng-template>
+    </ng-template>
+  </swiper>
+  <ng-template [ngIf]="navigation">
+    <div [ngClass]="navigationButtonClassPrefix + '-swiper-button-next'">
+      <mat-icon fontIcon="chevron_right"></mat-icon>
+    </div>
+    <div [ngClass]="navigationButtonClassPrefix + '-swiper-button-prev'">
+      <mat-icon fontIcon="chevron_left"></mat-icon>
+    </div>
+  </ng-template>
+</div>

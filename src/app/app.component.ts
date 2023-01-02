@@ -1,22 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {ResponsiveService} from "../shared/services/responsive.service";
-
+import { Component, OnInit } from '@angular/core';
+import { ApplicationStateService } from '../shared/services/application-state.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  providers:[ResponsiveService]
+  providers: [ApplicationStateService],
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   title = 'بازرگانی آسانسور کلمان';
 
-  constructor(private _responsiveService:ResponsiveService) {
-
+  constructor(
+    private _applicationState: ApplicationStateService,
+    private _title: Title
+  ) {
+    _title.setTitle(this.title);
+    this._applicationState.init();
   }
-
-  ngOnInit(): void {
-  this._responsiveService.mobileChange();
-  }
-
-
 }

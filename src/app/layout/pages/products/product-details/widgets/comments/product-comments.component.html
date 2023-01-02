@@ -1,0 +1,21 @@
+<div class="card card-rounded mb-3">
+  <div class="card-body">
+    <h4 class="fw-bold text-klm-primary mb-5">نظرات کاربران</h4>
+    <div class="position-relative mb-3">
+      <keleman-swiper
+        [showTitle]="false"
+        [showMoreButton]="false"
+        [spaceBetween]="5"
+        [navigation]="true"
+        [navigationButtonClassPrefix]="'comment-'"
+      >
+        <appSwiperContent *ngFor="let slide of slides">
+          <ng-template appSwiperTemplate>
+            <app-comment-item [comment]="slide"></app-comment-item>
+          </ng-template>
+        </appSwiperContent>
+      </keleman-swiper>
+    </div>
+    <button class="btn rounded-4 add-comment">افزودن نظر</button>
+  </div>
+</div>

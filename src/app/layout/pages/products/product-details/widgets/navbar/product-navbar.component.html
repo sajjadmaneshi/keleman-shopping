@@ -1,0 +1,80 @@
+<div class="card card-rounded-md product-details-navbar mb-3 sticky-md-top">
+  <div class="card-body">
+    <ng-container
+      *ngIf="applicationState.isPhone; then mobile; else web"
+    ></ng-container>
+    <ng-template #mobile>
+      <ul ngbNav #nav="ngbNav" class="nav-pills">
+        <li ngbNavItem="details">
+          <a ngbNavLink>
+            <span class="material-icons"> insights </span>
+            مشخصات
+          </a>
+          <ng-template ngbNavContent>
+            <keleman-product-specifications></keleman-product-specifications>
+          </ng-template>
+        </li>
+
+        <li ngbNavItem="check">
+          <a ngbNavLink>
+            <span class="material-icons"> list </span>
+            بررسی
+          </a>
+          <ng-template ngbNavContent>
+            <keleman-product-checking></keleman-product-checking>
+          </ng-template>
+        </li>
+        <li ngbNavItem="rate">
+          <a ngbNavLink>
+            <span class="material-icons"> star_border </span>
+            امتیاز</a
+          >
+          <ng-template ngbNavContent>
+            <keleman-product-rate></keleman-product-rate>
+          </ng-template>
+        </li>
+        <li ngbNavItem="comment">
+          <a ngbNavLink>
+            <span class="material-icons"> message </span>
+            نظرات</a
+          >
+          <ng-template ngbNavContent>
+            <keleman-product-comments></keleman-product-comments>
+          </ng-template>
+        </li>
+      </ul>
+
+      <div [ngbNavOutlet]="nav" class="ms-4"></div>
+    </ng-template>
+    <ng-template #web>
+      <nav class="navbar navbar-expand">
+        <ul class="navbar-nav d-flex justify-content-between w-100 p-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="material-icons"> insights </span>
+              مشخصات
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="material-icons"> list </span>
+              بررسی
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="material-icons"> star_border </span>
+              امتیاز</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="material-icons"> message </span>
+              نظرات</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </ng-template>
+  </div>
+</div>

@@ -1,9 +1,8 @@
 @import "../base/variables/spacers";
 
 .card {
-  border-radius: 1rem !important;
-  border: none;
-  margin-bottom: 1rem;
+  border: none !important;
+  border-radius: 0 !important;
   .card-header {
     border: none;
   }

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { SharedVariablesService } from '../../../../../shared/services/shared-variables.service';
+import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
 
 @Component({
   selector: 'app-product-details',
@@ -7,12 +9,15 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent {
-  isFavorite = new BehaviorSubject(false);
+  constructor(public applicationState: ApplicationStateService) {}
+  @HostListener('mousewheel', ['$event'])
+  onScroll() {
+    const productDetailsNavbar = document.querySelector(
+      '.product-details-navbar'
+    )!;
 
-  addToFavorite() {
-    this.isFavorite.next(true);
-  }
-  removeFromFavorite() {
-    this.isFavorite.next(false);
+    (productDetailsNavbar as HTMLElement).offsetTop > 700
+      ? productDetailsNavbar.classList.add('add-shadow')
+      : productDetailsNavbar.classList.remove('add-shadow');
   }
 }

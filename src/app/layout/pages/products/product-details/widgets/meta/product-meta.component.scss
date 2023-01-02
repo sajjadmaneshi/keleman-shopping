@@ -1,0 +1,15 @@
+@import "base/variables/colors";
+.product-details-meta {
+  border: 1px solid map-get($theme-colors, "klm-primary") !important;
+  background-color: transparent;
+
+  .add-to-basket {
+    height: 65px;
+    border-radius: 25px;
+  }
+}
+@media (max-width: 767.98px) {
+  .product-details-meta {
+    border: none !important;
+  }
+}

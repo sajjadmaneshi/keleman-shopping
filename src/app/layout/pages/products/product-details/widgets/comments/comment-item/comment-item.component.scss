@@ -1,0 +1,24 @@
+@import "base/variables/colors";
+
+.comment-item {
+  height: 210px;
+  width: 270px;
+
+  border: 2px solid map-get($theme-colors, "accent") !important;
+  .commenter-name {
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid map-get($theme-colors, "klm-primary");
+  }
+  .comment-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+@media (max-width: 768px) {
+  .comment-item {
+    height: 160px !important;
+  }
+}

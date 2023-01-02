@@ -1,41 +1,68 @@
 <div class="card">
   <div class="card-body text-end">
-    <h3 class="fw-bold comment-head ">دیدگاهتان را بنویسید</h3>
-    <form [formGroup]="commentForm" (ngSubmit)="submit()"  >
+    <h3 class="fw-bold comment-head">دیدگاهتان را بنویسید</h3>
+    <form [formGroup]="commentForm" (ngSubmit)="submit()">
       <div class="form-group">
         <label class="h6 fw-bolder" for="comment-text">دیدگاه شما</label>
-        <textarea class="form-control" id="comment-text" formControlName="text" [class.is-invalid]="text.invalid&&formIsSubmitted" ></textarea>
-        <ng-template [ngIf]="text.invalid&&formIsSubmitted">
-          <span class= "invalid-feedback">لطفا دیدگاه خود را وارد کنید</span>
-        </ng-template>
-      </div>
-
-      <div class="form-group ">
-        <label class="h6 fw-bolder" for="name">نام</label>
-        <input id="name" class="form-control" formControlName="name" [class.is-invalid]="name.invalid&&formIsSubmitted" required>
-        <ng-template [ngIf]="name.invalid&&formIsSubmitted">
-          <span class= "invalid-feedback">لطفا نام خود را وارد کنید</span>
-        </ng-template>
-      </div>
-
-      <div class="form-group  w-50">
-        <label class="h6 fw-bolder" for="email">ایمیل</label>
-        <input class="form-control" type="email" id="email" formControlName="email" [class.is-invalid]="email.invalid&&formIsSubmitted" >
-
-        <ng-template [ngIf]="email.hasError('required')&&formIsSubmitted">
-          <span class= "invalid-feedback">لطفا ایمیل خود را وارد کنید</span>
-        </ng-template>
-        <ng-template [ngIf]="email.hasError('email')&&formIsSubmitted">
-          <span class= "invalid-feedback">فرمت ایمیل وارد شده صحیح نمی باشد</span>
+        <textarea
+          class="form-control"
+          id="comment-text"
+          formControlName="text"
+          [class.is-invalid]="text.invalid && formIsSubmitted"
+        ></textarea>
+        <ng-template [ngIf]="text.invalid && formIsSubmitted">
+          <span class="invalid-feedback">لطفا دیدگاه خود را وارد کنید</span>
         </ng-template>
       </div>
 
       <div class="form-group">
-        <input type="checkbox" class="form-check-input mx-2" id="save-cookie">
-        <label  class="h6 fw-bolder form-check-label " for="save-cookie">ذخیره نام و ایمیل من در مرورگر برای زمانی که دوباره دیدگاهی می نویسم.</label>
+        <label class="h6 fw-bolder" for="name">نام</label>
+        <input
+          id="name"
+          class="form-control"
+          formControlName="name"
+          [class.is-invalid]="name.invalid && formIsSubmitted"
+          required
+        />
+        <ng-template [ngIf]="name.invalid && formIsSubmitted">
+          <span class="invalid-feedback">لطفا نام خود را وارد کنید</span>
+        </ng-template>
       </div>
 
-      <button class="btn btn-primary rounded-pill float-start keleman-button" type="submit">فرستادن دیدگاه</button>
+      <div class="form-group w-50">
+        <label class="h6 fw-bolder" for="email">ایمیل</label>
+        <input
+          class="form-control"
+          type="email"
+          id="email"
+          formControlName="email"
+          [class.is-invalid]="email.invalid && formIsSubmitted"
+        />
+
+        <ng-template [ngIf]="email.hasError('required') && formIsSubmitted">
+          <span class="invalid-feedback">لطفا ایمیل خود را وارد کنید</span>
+        </ng-template>
+        <ng-template [ngIf]="email.hasError('email') && formIsSubmitted">
+          <span class="invalid-feedback"
+            >فرمت ایمیل وارد شده صحیح نمی باشد</span
+          >
+        </ng-template>
+      </div>
+
+      <div class="form-group">
+        <input type="checkbox" class="form-check-input mx-2" id="save-cookie" />
+        <label class="h6 fw-bolder form-check-label" for="save-cookie"
+          >ذخیره نام و ایمیل من در مرورگر برای زمانی که دوباره دیدگاهی می
+          نویسم.</label
+        >
+      </div>
+
+      <button
+        class="btn btn-klm-primary rounded-pill float-start keleman-button"
+        type="submit"
+      >
+        فرستادن دیدگاه
+      </button>
     </form>
   </div>
 </div>

@@ -1,28 +1,21 @@
-@font-face {
-  font-family: IranYekan;
-  src: url("../../../assets/fonts/iranYekan/iranyekanwebregular.woff2");
-}
-
 $base_font_size: 16px;
-$prefix:'keleman-';
-$head-size:30px;
-$font-family-base:IranYekan;
+$prefix: "keleman-";
+$head-size: 30px;
+$font-family-base: IranYekan;
 
-
-.#{$prefix}button{
-  font-size:$base_font_size;
-  font-weight: 400!important;
-  font-style: normal!important;
+.#{$prefix}button {
+  font-size: $base_font_size;
+  font-weight: 400 !important;
+  font-style: normal !important;
 }
 
-.#{$prefix}badge{
-  font-size:$base_font_size;
-  font-weight: 700!important;
-  font-style: normal!important;
+.#{$prefix}badge {
+  font-size: $base_font_size;
+  font-weight: 700 !important;
+  font-style: normal !important;
 }
-.#{$prefix}head-extra-bold{
-  font-size:35px;
-  font-weight: 700!important;
-  font-style: normal!important;
+.#{$prefix}head-extra-bold {
+  font-size: 35px;
+  font-weight: 700 !important;
+  font-style: normal !important;
 }
-

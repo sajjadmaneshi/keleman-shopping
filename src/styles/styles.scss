@@ -1,6 +1,7 @@
 @import "base/variables/colors";
 
 @import "bootstrap/scss/bootstrap";
+
 @import "base/init";
 @import "../../node_modules/swiper/swiper";
 @import "../../node_modules/swiper/modules/pagination/pagination";
@@ -8,7 +9,7 @@
 @import "../../node_modules/swiper/modules/autoplay/autoplay";
 
 @import "../../node_modules/ngx-bar-rating/themes/br-stars-theme";
-
+@import "../assets/fonts/Webfonts/style.css";
 html,
 body,
 app-root {
@@ -16,6 +17,12 @@ app-root {
 }
 
 a {
-  text-decoration: none;
-  color: map-get($theme-text-colors, "primary");
+  text-decoration: none !important;
+}
+.grid-divider > * {
+  position: relative;
+  margin-bottom: 15px;
+}
+.grid-divider > [class*="col-"]:nth-child(2n) {
+  border-right: 2px solid map-get($theme-colors, "gray-500");
 }

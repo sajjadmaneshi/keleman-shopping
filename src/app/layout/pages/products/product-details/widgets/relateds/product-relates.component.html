@@ -1,0 +1,30 @@
+<ng-container
+  *ngIf="!applicationState.isPhone; then web; else mobile"
+></ng-container>
+<ng-template #web>
+  <div class="card card-rounded bg-klm-primary">
+    <div class="card-body text-center text-white">
+      <h1>کالاهای مشابه</h1>
+    </div>
+  </div>
+  <div class="related-products">
+    <keleman-product-swiper-item
+      *ngFor="let product of products"
+      [product]="product"
+    ></keleman-product-swiper-item>
+  </div>
+</ng-template>
+<ng-template #mobile>
+  <h4 class="fw-bolder mb-3 px-3">'انواع موتور</h4>
+
+  <div class="row grid-divider mx-0">
+    <div class="col-6" *ngFor="let product of products">
+      <keleman-product-swiper-item
+        [product]="product"
+      ></keleman-product-swiper-item>
+    </div>
+  </div>
+  <div class="w-100 text-center">
+    <a class="text-aqua-primary" href="#"> مشاهده بیشتر محصولات > </a>
+  </div>
+</ng-template>

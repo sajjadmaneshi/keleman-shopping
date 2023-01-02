@@ -1,26 +1,21 @@
-.swiper-slide {
-  width: auto !important;
-}
-
-@mixin swiper-button($prefix) {
-  .#{$prefix}-swiper-button-prev,
-  .#{$prefix}-swiper-button-next {
+@mixin swiper-button() {
+  [class*="-swiper-button-prev"],
+  [class*="-swiper-button-next"] {
     width: 91px;
     z-index: 1;
     position: absolute;
     top: 0;
     height: 100%;
-
-    span {
+    mat-icon {
       z-index: 1;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
     }
   }
-  .#{$prefix}-swiper-button-prev {
+  [class*="-swiper-button-prev"] {
     left: 0;
-    span {
+    mat-icon {
       left: 0;
     }
     background-image: linear-gradient(
@@ -30,9 +25,9 @@
     );
   }
 
-  .#{$prefix}-swiper-button-next {
+  [class*="-swiper-button-next"] {
     right: 0;
-    span {
+    mat-icon {
       right: 0;
     }
     background-image: linear-gradient(to left, #eff2f7, rgba(239, 242, 247, 0));

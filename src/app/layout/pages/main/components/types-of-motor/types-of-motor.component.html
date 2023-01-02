@@ -1,0 +1,34 @@
+<ng-container
+  *ngIf="applicationState.isPhone; then mobile; else web"
+></ng-container>
+<ng-template #mobile>
+  <h4 class="fw-bolder mb-3 px-3">'انواع موتور</h4>
+
+  <div class="row grid-divider mx-0">
+    <div class="col-6" *ngFor="let product of slides">
+      <keleman-product-swiper-item
+        [product]="product"
+      ></keleman-product-swiper-item>
+    </div>
+  </div>
+  <div class="w-100 text-center">
+    <a class="text-aqua-primary" href="#"> مشاهده بیشتر محصولات > </a>
+  </div>
+</ng-template>
+<ng-template #web>
+  <keleman-swiper
+    [title]="'انواع موتور'"
+    [spaceBetween]="10"
+    [moreButtonText]="'مشاهده بیشتر محصولات'"
+    [navigation]="true"
+    [navigationButtonClassPrefix]="'type-of-motor'"
+  >
+    <appSwiperContent *ngFor="let slide of slides">
+      <ng-template appSwiperTemplate>
+        <keleman-product-swiper-item
+          [product]="slide"
+        ></keleman-product-swiper-item>
+      </ng-template>
+    </appSwiperContent>
+  </keleman-swiper>
+</ng-template>

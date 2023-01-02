@@ -1,50 +1,44 @@
-html {
-  text-size-adjust: 100%; // 2
-  -webkit-text-size-adjust: 100%; // 2
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-
 html,
 body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  font-size: $k-font-size-base*3 !important;
+  font-size: $k-font-size-base * 3 !important;
   font-weight: $font-weight-base;
   font-family: $font-family-base;
-
-  // Tablet mode
   @include media-breakpoint-down(lg) {
-    font-size: $k-font-size-base*2 !important;
+    font-size: $k-font-size-base * 2 !important;
   }
-
-  // Mobile mode
-  @include media-breakpoint-down(md) {
-    font-size: $k-font-size-base*2!important;
-  }
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  a:hover,
-  a:active,
-  a:focus {
-    text-decoration: none !important;
-  }
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-
 }
 
 // Angular integration
-router-outlet {
-  display: none;
+
+.form-control {
+  background-color: white !important;
 }
 
+.keleman-container {
+  section {
+    margin-bottom: 2.5rem;
+  }
+}
 
-.form-control{
-  background-color: white!important;
+@media (min-width: 992px) {
+  .keleman-container {
+    padding: 30px;
+  }
+  .app-container-fit-desktop {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+@media (max-width: 599.98px) {
+  .keleman-container {
+    max-width: none;
+    padding: 20px;
+  }
+  .app-container-fit-mobile {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }

@@ -1,0 +1,106 @@
+<span class="d-flex justify-content-center align-items-center">
+  <ng-container [ngSwitch]="size">
+    <ng-template [ngSwitchCase]="'h1'">
+      <h1
+        class="fw-bold product-price"
+        [ngClass]="{
+          'text-black': color === 'dark',
+          'text-light': color === 'light',
+          'text-klm-primary': color === 'primary',
+          'text-secondary': color === 'secondary',
+          'text-danger': color === 'danger',
+          'line-through': off
+        }"
+      >
+        {{ value | number : ".0" }}
+      </h1>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'h2'">
+      <h2
+        class="fw-bold product-price"
+        [ngClass]="{
+          'text-black': color === 'dark',
+          'text-light': color === 'light',
+          'text-klm-primary': color === 'primary',
+          'text-secondary': color === 'secondary',
+          'text-danger': color === 'danger',
+          'line-through': off
+        }"
+      >
+        {{ value | number : ".0" }}
+      </h2>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'h3'">
+      <h3
+        class="fw-bold product-price"
+        [ngClass]="{
+          'text-black': color === 'dark',
+          'text-light': color === 'light',
+          'text-klm-primary': color === 'primary',
+          'text-secondary': color === 'secondary',
+          'text-danger': color === 'danger',
+          'line-through': off
+        }"
+      >
+        {{ value | number : ".0" }}
+      </h3>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'h4'">
+      <h4
+        class="fw-bold product-price"
+        [ngClass]="{
+          'text-black': color === 'dark',
+          'text-light': color === 'light',
+          'text-klm-primary': color === 'primary',
+          'text-secondary': color === 'secondary',
+          'text-danger': color === 'danger',
+          'line-through': off
+        }"
+      >
+        {{ value | number : ".0" }}
+      </h4>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'h5'">
+      <h5
+        class="fw-bold product-price"
+        [ngClass]="{
+          'text-black': color === 'dark',
+          'text-light': color === 'light',
+          'text-klm-primary': color === 'primary',
+          'text-secondary': color === 'secondary',
+          'text-danger': color === 'danger',
+          'line-through': off
+        }"
+      >
+        {{ value | number : ".0" }}
+      </h5>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'h6'">
+      <h6
+        class="fw-bold product-price"
+        [ngClass]="{
+          'text-black': color === 'dark',
+          'text-light': color === 'light',
+          'text-klm-primary': color === 'primary',
+          'text-secondary': color === 'secondary',
+          'text-danger': color === 'danger',
+          'line-through': off
+        }"
+      >
+        {{ value | number : ".0" }}
+      </h6>
+    </ng-template>
+  </ng-container>
+
+  <img
+    alt="toman icon"
+    [ngSrc]="icon"
+    [width]="
+      size === 'h1' || size === 'h2' || size === 'h3' || size === 'h4' ? 25 : 20
+    "
+    [height]="
+      size === 'h1' || size === 'h2' || size === 'h3' || size === 'h4' ? 25 : 20
+    "
+    class="price-icon"
+  />
+</span>

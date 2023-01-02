@@ -1,9 +1,14 @@
-<swiper [slidesPerView]="1" [autoplay]="{ delay: 5000 }" [spaceBetween]="15">
+<swiper [spaceBetween]="15" [autoplay]="{ delay: 2500 }">
   <ng-container
     *ngFor="let _ of sharedVariableService.counter(3); let i = index"
   >
     <ng-template swiperSlide>
-      <div class="card card-rounded-md">
+      <div
+        class="card card-rounded-md slide"
+        [class.is-phone]="
+          applicationStateService.isPhone || applicationStateService.isTablet
+        "
+      >
         <img
           alt="keleman"
           class="main-slider-image"

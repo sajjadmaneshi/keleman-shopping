@@ -1,0 +1,33 @@
+@import "base/variables/colors";
+@import "components/swiper";
+
+@include swiper-button();
+
+.keleman-swiper {
+  margin-right: 14rem !important;
+}
+
+.related-products-title {
+  border-bottom: 2px solid black;
+}
+
+.amazing-offer-container {
+  max-height: 350px !important;
+  background-color: map-get($theme-colors, "klm-secondary");
+}
+
+.swiper-start {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+
+  .swiper-start-text {
+    font-family: Aviny !important;
+    color: white !important;
+    word-wrap: break-word;
+  }
+
+  .swiper-start-image {
+    max-height: 10rem;
+  }
+}

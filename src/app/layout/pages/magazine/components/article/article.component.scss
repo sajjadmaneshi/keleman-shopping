@@ -1,14 +1,20 @@
-.article-content__body{
+.article-content__body {
   line-height: 2.5rem;
   clear: right;
   text-align: justify;
 }
 
-.article__banner{
-  height: 630px;
-  img{
+.article__banner {
+  height: auto;
+  img {
     height: 100%;
     border-radius: inherit;
     object-fit: cover;
+  }
+}
+.article-meta {
+  img,
+  .svg-icon {
+    margin: 0 0.5rem;
   }
 }

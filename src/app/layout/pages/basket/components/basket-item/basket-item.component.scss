@@ -1,39 +1,33 @@
 @import "base/variables/spacers";
 
-
-:host{
-  width: 100%
+:host {
+  width: 100%;
 }
 
-
-
-.basket-item{
- & > *{
-    margin-left: map-get($k-spacers,5);
+.basket-item {
+  & > * {
+    margin-left: map-get($k-spacers, 5);
   }
 
-  .basket-item__remove{
+  .basket-item__remove {
     height: auto;
     width: auto;
     border: 0;
     padding: $k-spacer;
-    color:#ffff;
-    border-radius: map-get($k-spacers,3) 0 0 map-get($k-spacers,3);
-
+    color: #ffff;
+    border-radius: map-get($k-spacers, 3) 0 0 map-get($k-spacers, 3);
   }
 
-  .basket-item__details{
-    &> span{
-      padding-bottom: map-get($k-spacers,5);
+  .basket-item__details-meta {
+    & > span {
+      padding-bottom: 1rem;
     }
-
   }
-  h6{
+  h6 {
     margin: 0;
   }
 
-  span.svg-icon:not(.remove){
-    padding: 0 map-get($k-spacers,1);
+  span.svg-icon:not(.remove) {
+    padding: 0 map-get($k-spacers, 1);
   }
-
 }

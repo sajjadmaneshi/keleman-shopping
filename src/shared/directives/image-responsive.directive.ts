@@ -40,7 +40,6 @@ export class ImageResponsiveDirective implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const breakPointSubscription = this.breakpoint$.subscribe(() => {
-      console.log(1);
       this._breakpointChanged().then((currentBreakPoint) => {
         this._assignImageProperties(currentBreakPoint);
       });

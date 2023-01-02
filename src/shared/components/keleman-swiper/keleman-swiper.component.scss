@@ -1,0 +1,13 @@
+@import "components/swiper";
+@import "base/variables/colors";
+@include swiper-button();
+
+.keleman-swiper .swiper-slide {
+  width: auto !important;
+}
+
+.swiper-title {
+  &.border-btm {
+    border-bottom: 2px solid map-get($theme-colors, "gray-500");
+  }
+}

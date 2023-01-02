@@ -1,0 +1,60 @@
+@import "components/swiper";
+@import "base/variables/colors";
+
+@include swiper-button();
+
+.favorite-button {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 15px;
+  .product-details-seller {
+    .card-header {
+      background-color: map-get($theme-colors, "klm-primary");
+    }
+    .card-body {
+      background-color: map-get($theme-colors, "klm-primary");
+      opacity: 0.8;
+    }
+  }
+  .product-details-warranty {
+    .card-header {
+      background-color: map-get($theme-colors, "klm-secondary");
+    }
+    .card-body {
+      background-color: map-get($theme-colors, "klm-secondary");
+      opacity: 0.8;
+    }
+  }
+}
+
+.delivery > div {
+  height: 120px;
+}
+
+.delivery-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.product-main-image-swiper {
+  .swiper-pagination {
+    text-align: left;
+    .swiper-pagination-bullet:last-child:not(.swiper-pagination-bullet-active) {
+      transform: scale(0.7);
+    }
+    .swiper-pagination-bullet:first-child:not(
+        .swiper-pagination-bullet-active
+      ) {
+      transform: scale(0.7);
+    }
+    .swiper-pagination-bullet-active {
+      background-color: map-get($theme-colors, "gray-400");
+      transform: scale(1.2);
+    }
+  }
+}

@@ -1,89 +1,19 @@
-@import "components/swiper";
-@import "base/variables/colors";
-
-@include swiper-button("product-images");
-
-.favorite-button {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-}
-.after-swiper {
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 70px;
-  background-image: linear-gradient(to right, #eff2f7, rgba(239, 242, 247, 0));
-}
-.grid-container {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-column-gap: 15px;
-  .product-details-seller {
-    .card-header {
-      background-color: map-get($theme-colors, "primary");
-    }
-    .card-body {
-      background-color: map-get($theme-colors, "primary");
-      opacity: 0.8;
-    }
-  }
-  .product-details-warranty {
-    .card-header {
-      background-color: map-get($theme-colors, "secondary");
-    }
-    .card-body {
-      background-color: map-get($theme-colors, "secondary");
-      opacity: 0.8;
-    }
-  }
-}
-.product-details-meta {
-  border: 1px solid map-get($theme-colors, "primary");
-  background-color: transparent;
-
-  .add-to-basket {
-    height: 65px;
-    border-radius: 25px;
-  }
-}
-.delivery > div {
-  height: 120px;
-}
-
-.delivery-image {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-.nav-link {
-  color: black;
-  display: flex;
-  align-items: center;
-  span {
-    margin: 0 1rem;
-  }
-}
-ul {
+::ng-deep ul {
   margin: 0;
   padding: 0;
-  list-style: none;
+
   li {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
 }
-.rating {
-  display: flex;
-  align-items: center;
-  bar-rating {
-    margin: 0 0.5rem;
+@media (max-width: 767.98px) {
+  ::ng-deep li {
+    display: list-item !important;
+    justify-content: unset !important;
+    span {
+      margin: 0 1rem;
+    }
   }
-}
-:host ::ng-deep .br-stars .br-unit-inner {
-  width: 20px !important;
-  height: 20px !important;
 }
