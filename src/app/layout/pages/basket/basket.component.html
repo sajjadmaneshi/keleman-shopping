@@ -4,14 +4,17 @@
     <div class="card card-rounded border-0">
       <div class="card-body">
         <div class="basket-body d-flex flex-column align-items-center">
-          <ng-container *ngIf="true; then full; else full"> </ng-container>
+          <ng-container *ngIf="true; then empty; else full"> </ng-container>
           <ng-template #empty>
             <ng-container>
-              <span
-                class="svg-icon svg-icon-5x svg-icon-accent"
-                [inlineSVG]="'assets/media/icons/duotune/ecommerce/ecm001.svg'"
-              ></span>
+              <img
+                class="empty-basket-img"
+                src="assets/media/basket/empty.png"
+              />
               <h6>سبد خرید شما خالی است!</h6>
+              <a class="fw-bold text-klm-primary" [routerLink]="'/'"
+                ><u>بازگشت به فروشگاه</u></a
+              >
             </ng-container>
           </ng-template>
           <ng-template #full>
