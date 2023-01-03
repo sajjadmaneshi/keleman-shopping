@@ -40,6 +40,7 @@ import {
   ReadMoreTemplateDirective,
 } from '../../../shared/directives/read-more-list-template.directive';
 import { KelemanReadMoreComponent } from '../../../shared/components/keleman-read-more/keleman-read-more.component';
+import { RelatedArticlesComponent } from '../../views/shared/related-articles/related-articles.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { KelemanReadMoreComponent } from '../../../shared/components/keleman-rea
     ReadMoreContentDirective,
     ReadMoreTemplateDirective,
     KelemanReadMoreComponent,
+    RelatedArticlesComponent,
   ],
 })
 export class ProductsModule {}

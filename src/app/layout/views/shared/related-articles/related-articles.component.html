@@ -1,0 +1,17 @@
+<div class="mb-3">
+  <keleman-swiper
+    [title]="'مقالات مرتبط'"
+    [spaceBetween]="10"
+    [showMoreButton]="false"
+    [navigation]="true"
+    [navigationButtonClassPrefix]="'related-articles-'"
+  >
+    <appSwiperContent *ngFor="let article of articles">
+      <ng-template appSwiperTemplate>
+        <keleman-related-article-item
+          [article]="article"
+        ></keleman-related-article-item>
+      </ng-template>
+    </appSwiperContent>
+  </keleman-swiper>
+</div>

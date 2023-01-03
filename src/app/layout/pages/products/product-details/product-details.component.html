@@ -6,10 +6,10 @@
       <keleman-product-navbar></keleman-product-navbar>
 
       <ng-template [ngIf]="!applicationState.isPhone">
-        <section id="details">
+        <div id="details">
           <keleman-product-specifications></keleman-product-specifications>
-        </section>
-        <section id="checking-and-rate">
+        </div>
+        <div id="checking-and-rate">
           <div class="row mx-0 mb-3">
             <div class="col-6 pe-0">
               <keleman-product-checking></keleman-product-checking>
@@ -18,13 +18,16 @@
               <keleman-product-rate></keleman-product-rate>
             </div>
           </div>
-        </section>
-        <section id="comment">
+        </div>
+        <div id="comment">
           <keleman-product-comments></keleman-product-comments>
-        </section>
+        </div>
       </ng-template>
 
       <app-price-chart></app-price-chart>
+      <keleman-related-articles
+        [articles]="relatedArticles"
+      ></keleman-related-articles>
     </div>
     <div class="col-12 px-0 px-lg-3 col-lg-3">
       <div class="card card-rounded-lg">
