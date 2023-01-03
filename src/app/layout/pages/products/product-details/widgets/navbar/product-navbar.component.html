@@ -1,7 +1,11 @@
 <div class="card card-rounded-md product-details-navbar mb-3 sticky-md-top">
   <div class="card-body">
     <ng-container
-      *ngIf="applicationState.isPhone; then mobile; else web"
+      *ngIf="
+        applicationState.isPhone || applicationState.isTablet;
+        then mobile;
+        else web
+      "
     ></ng-container>
     <ng-template #mobile>
       <ul ngbNav #nav="ngbNav" class="nav-pills">
@@ -50,25 +54,25 @@
       <nav class="navbar navbar-expand">
         <ul class="navbar-nav d-flex justify-content-between w-100 p-0">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" routerLink="." fragment="details">
               <span class="material-icons"> insights </span>
               مشخصات
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" routerLink="." fragment="checking-and-rate">
               <span class="material-icons"> list </span>
               بررسی
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" routerLink="." fragment="checking-and-rate">
               <span class="material-icons"> star_border </span>
               امتیاز</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" routerLink="." fragment="comment">
               <span class="material-icons"> message </span>
               نظرات</a
             >

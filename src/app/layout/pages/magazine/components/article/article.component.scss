@@ -1,10 +1,17 @@
+.article-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
 .article-content__body {
   line-height: 2.5rem;
   clear: right;
   text-align: justify;
 }
 
-.article__banner {
+.article-container__banner {
   height: auto;
   img {
     height: 100%;
@@ -12,7 +19,7 @@
     object-fit: cover;
   }
 }
-.article-meta {
+.article-container__meta {
   img,
   .svg-icon {
     margin: 0 0.5rem;

@@ -1,6 +1,5 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { SharedVariablesService } from '../../../../../../../shared/services/shared-variables.service';
 import SwiperCore, { Pagination, SwiperOptions } from 'swiper';
 
 SwiperCore.use([Pagination]);
@@ -30,6 +29,4 @@ export class SuggestionComponent {
       },
     },
   };
-
-  constructor(public sharedVariables: SharedVariablesService) {}
 }

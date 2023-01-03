@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import SwiperCore, { Navigation } from 'swiper';
-import { CommentModel } from '../../../../../../../shared/models/comment.model';
+import { CommentModel } from '../../../../../../shared/models/comment.model';
 
 SwiperCore.use([Navigation]);
 @Component({

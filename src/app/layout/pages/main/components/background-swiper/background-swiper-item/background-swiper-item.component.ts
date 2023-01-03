@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ProductItemModel } from '../../../../../../../shared/models/product-item.model';
+import { Component, Input } from '@angular/core';
+import { ProductItemModel } from '../../../../../../shared/models/product-item.model';
 
 @Component({
   selector: 'keleman-background-swiper-item',

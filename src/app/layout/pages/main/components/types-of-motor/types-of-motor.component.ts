@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { ProductItemModel } from '../../../../../../shared/models/product-item.model';
-import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
+import { ProductItemModel } from '../../../../../shared/models/product-item.model';
+import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
 
 @Component({
   selector: 'keleman-types-of-motor',
   templateUrl: './types-of-motor.component.html',
-  styleUrls: ['./types-of-motor.component.scss'],
 })
 export class TypesOfMotorComponent {
   constructor(public applicationState: ApplicationStateService) {}

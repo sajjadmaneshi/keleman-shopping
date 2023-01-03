@@ -1,0 +1,17 @@
+@import "base/variables/colors";
+
+.page-link.active,
+.active > .page-link {
+  background-color: map-get($theme-colors, "primary");
+  border-color: map-get($theme-colors, "primary");
+  color: white;
+}
+.page-link {
+  color: map-get($theme-colors, "primary");
+}
+.page-item {
+  cursor: pointer;
+  &.disabled {
+    cursor: text;
+  }
+}

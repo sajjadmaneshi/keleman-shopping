@@ -9,3 +9,11 @@
     margin: 0.5rem 0;
   }
 }
+.related-products::-webkit-scrollbar {
+  display: none;
+}
+
+.related-products {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

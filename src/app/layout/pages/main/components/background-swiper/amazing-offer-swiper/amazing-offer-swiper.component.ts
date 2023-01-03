@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import SwiperCore, { Navigation } from 'swiper';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { SrcSet } from '../../../../../../../shared/directives/image-responsive.directive';
-import { ProductItemModel } from '../../../../../../../shared/models/product-item.model';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { ProductItemModel } from '../../../../../../shared/models/product-item.model';
 SwiperCore.use([Navigation]);
 @Component({
   selector: 'app-amazing-offer-swiper',

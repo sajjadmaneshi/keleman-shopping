@@ -1,23 +1,8 @@
-<div class="card card-rounded mb-0">
-  <div class="card-body">
-    <h4 class="fw-bold text-klm-primary">بررسی</h4>
-    <ul class="product-details-check">
-      <li>
-        <span>برند</span>
-        <span>الگو</span>
-      </li>
-      <li>
-        <span>مدل</span>
-        <span>الگو</span>
-      </li>
-      <li>
-        <span>مدل</span>
-        <span>الگو</span>
-      </li>
-      <li>
-        <span>مدل</span>
-        <span>الگو</span>
-      </li>
-    </ul>
-  </div>
-</div>
+<keleman-read-more [title]="'بررسی'" [limit]="6">
+  <appReadMoreContent *ngFor="let item of checkingList">
+    <ng-template appReadMoreTemplate>
+      <span>{{ item.title! }}</span>
+      <span>{{ item.value }}</span>
+    </ng-template>
+  </appReadMoreContent>
+</keleman-read-more>

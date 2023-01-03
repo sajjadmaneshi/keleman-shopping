@@ -1,6 +1,5 @@
-import { Component, HostListener, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { ApplicationStateService } from '../../../../../../../shared/services/application-state.service';
+import { Component } from '@angular/core';
+import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 
 @Component({
   selector: 'keleman-product-navbar',

@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -11,9 +11,8 @@ import { ArticleComponent } from './layout/pages/magazine/components/article/art
 import { MatChipsModule } from '@angular/material/chips';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MagazineModule } from './layout/pages/magazine/magazine.module';
-import { KelemanSwiperComponent } from '../shared/components/keleman-swiper/keleman-swiper.component';
-import { KelemanProductSwiperItemComponent } from '../shared/components/keleman-swiper/keleman-product-swiper-item/keleman-product-swiper-item.component';
-import { ApplicationStateService } from '../shared/services/application-state.service';
+import { KelemanSwiperComponent } from './shared/components/keleman-swiper/keleman-swiper.component';
+import { ApplicationStateService } from './shared/services/application-state.service';
 
 @NgModule({
   declarations: [AppComponent, ArticleComponent],
@@ -28,7 +27,6 @@ import { ApplicationStateService } from '../shared/services/application-state.se
     InlineSVGModule,
     MagazineModule,
     KelemanSwiperComponent,
-    KelemanProductSwiperItemComponent,
   ],
   providers: [ApplicationStateService],
   bootstrap: [AppComponent],

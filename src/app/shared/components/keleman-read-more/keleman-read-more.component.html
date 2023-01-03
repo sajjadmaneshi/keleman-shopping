@@ -1,0 +1,28 @@
+<div class="card card-rounded mb-0 product-checking position-relative">
+  <div class="card-body">
+    <h4 class="fw-bold text-klm-primary">بررسی</h4>
+    <ul class="product-details-check">
+      <li
+        *ngFor="let listItem of contents; let i = index"
+        [class.d-none]="i > limit - 1 && !showMore"
+      >
+        <ng-template [ngTemplateOutlet]="listItem.template">
+          <ng-template
+            [ngTemplateOutlet]="listItem.template"
+            [ngTemplateOutletContext]="{
+              $implicit: listItem.template
+            }"
+          ></ng-template>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
+  <div class="card card-rounded read-more-less-toggle">
+    <h5
+      class="fw-normal text-klm-primary cursor-pointer"
+      (click)="toggleShow()"
+    >
+      {{ showMore ? "مشاهده کمتر" : "مشاهده بیشتر" }}
+    </h5>
+  </div>
+</div>

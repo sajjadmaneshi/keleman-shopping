@@ -15,11 +15,11 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import {
   SwiperContentDirective,
   SwiperTemplateDirective,
-} from '../../../../shared/directives/swiper-template.directive';
+} from '../../../shared/directives/swiper-template.directive';
 import { ProductNavbarComponent } from './product-details/widgets/navbar/product-navbar.component';
 import { ProductAlbumComponent } from './product-details/widgets/album/product-album.component';
 import { ProductMetaComponent } from './product-details/widgets/meta/product-meta.component';
-import { KelemanSwiperComponent } from '../../../../shared/components/keleman-swiper/keleman-swiper.component';
+import { KelemanSwiperComponent } from '../../../shared/components/keleman-swiper/keleman-swiper.component';
 import {
   NgbNav,
   NgbNavContent,
@@ -32,8 +32,14 @@ import { ProductCheckingComponent } from './product-details/widgets/checking/pro
 import { ProductRateComponent } from './product-details/widgets/rate/product-rate.component';
 import { ProductContentComponent } from './product-details/widgets/content/product-content.component';
 import { LayoutModule } from '../../layout.module';
-import { KelemanProductSwiperItemComponent } from '../../../../shared/components/keleman-swiper/keleman-product-swiper-item/keleman-product-swiper-item.component';
 import { ProductRelatesComponent } from './product-details/widgets/relateds/product-relates.component';
+import { PurchaseMobileComponent } from '../../views/mobile/purchase-mobile/purchase-mobile.component';
+import { SwiperItemComponent } from '../../views/shared/swiper-item/swiper-item.component';
+import {
+  ReadMoreContentDirective,
+  ReadMoreTemplateDirective,
+} from '../../../shared/directives/read-more-list-template.directive';
+import { KelemanReadMoreComponent } from '../../../shared/components/keleman-read-more/keleman-read-more.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +75,11 @@ import { ProductRelatesComponent } from './product-details/widgets/relateds/prod
     NgbNavContent,
     NgbNavOutlet,
     LayoutModule,
-    KelemanProductSwiperItemComponent,
+    PurchaseMobileComponent,
+    SwiperItemComponent,
+    ReadMoreContentDirective,
+    ReadMoreTemplateDirective,
+    KelemanReadMoreComponent,
   ],
 })
 export class ProductsModule {}

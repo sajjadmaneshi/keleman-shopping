@@ -1,0 +1,20 @@
+<div class="fixed-bottom klm-basket__mobile-view-purchase-bar mt-5">
+  <div class="card rounded-0 shadow-lg">
+    <div class="card-body row m-0">
+      <div class="col-6">
+        <ng-content select=".purchase-button"></ng-content>
+      </div>
+      <div class="col-6">
+        <span class="d-flex flex-column kfs-3 text-start">
+          <span class="text-muted kfs-2">مجموع سبد خرید</span>
+          <keleman-price
+            [value]="3000000"
+            [color]="'dark'"
+            [size]="'h3'"
+            [icon]="'assets/media/icons/toman-icon/toman-icon-sm.png'"
+          ></keleman-price>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

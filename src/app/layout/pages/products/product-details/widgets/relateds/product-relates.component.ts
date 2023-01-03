@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ProductItemModel } from '../../../../../../../shared/models/product-item.model';
-import { ApplicationStateService } from '../../../../../../../shared/services/application-state.service';
+import { ProductItemModel } from '../../../../../../shared/models/product-item.model';
+import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 
 @Component({
   selector: 'keleman-product-relates',

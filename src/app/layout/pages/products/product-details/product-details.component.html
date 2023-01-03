@@ -6,16 +6,22 @@
       <keleman-product-navbar></keleman-product-navbar>
 
       <ng-template [ngIf]="!applicationState.isPhone">
-        <keleman-product-specifications></keleman-product-specifications>
-        <div class="row mx-0 mb-3">
-          <div class="col-6 pe-0">
-            <keleman-product-checking></keleman-product-checking>
+        <section id="details">
+          <keleman-product-specifications></keleman-product-specifications>
+        </section>
+        <section id="checking-and-rate">
+          <div class="row mx-0 mb-3">
+            <div class="col-6 pe-0">
+              <keleman-product-checking></keleman-product-checking>
+            </div>
+            <div class="col-6 ps-0">
+              <keleman-product-rate></keleman-product-rate>
+            </div>
           </div>
-          <div class="col-6 ps-0">
-            <keleman-product-rate></keleman-product-rate>
-          </div>
-        </div>
-        <keleman-product-comments></keleman-product-comments>
+        </section>
+        <section id="comment">
+          <keleman-product-comments></keleman-product-comments>
+        </section>
       </ng-template>
 
       <app-price-chart></app-price-chart>

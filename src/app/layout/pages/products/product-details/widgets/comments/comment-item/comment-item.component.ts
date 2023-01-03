@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { CommentModel } from '../../../../../../../../shared/models/comment.model';
-import { PersianDateTimeService } from '../../../../../../../../shared/services/date-time/persian-datetime.service';
+import { CommentModel } from '../../../../../../../shared/models/comment.model';
+import { PersianDateTimeService } from '../../../../../../../shared/services/date-time/persian-datetime.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -8,6 +8,6 @@ import { PersianDateTimeService } from '../../../../../../../../shared/services/
   styleUrls: ['./comment-item.component.scss'],
 })
 export class CommentItemComponent {
-  constructor(public persianDatatime: PersianDateTimeService) {}
+  constructor(public persianDatetime: PersianDateTimeService) {}
   @Input() comment!: CommentModel;
 }

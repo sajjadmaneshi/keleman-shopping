@@ -1,5 +1,5 @@
-@import "../../../../../../../styles/base/variables/colors";
-@import "../../../../../../../styles/components/swiper";
+@import "base/variables/colors";
+@import "components/swiper";
 @include swiper-button();
 
 .keleman-swiper {
@@ -20,7 +20,7 @@
   top: 1rem;
 
   .swiper-start-text {
-    font-family: Aviny !important;
+    font-family: Aviny !important  ;
     color: white !important;
     word-wrap: break-word;
   }

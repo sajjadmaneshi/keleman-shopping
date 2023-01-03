@@ -1,0 +1,18 @@
+<ng-container
+  *ngIf="
+    applicationStateService.isPhone || applicationStateService.isTablet;
+    then mobile;
+    else web
+  "
+></ng-container>
+<ng-template #mobile>
+  <keleman-product-item-mobile
+    [product]="product"
+  ></keleman-product-item-mobile>
+</ng-template>
+
+<ng-template #web>
+  <keleman-swiper-product-item-web
+    [product]="product"
+  ></keleman-swiper-product-item-web>
+</ng-template>

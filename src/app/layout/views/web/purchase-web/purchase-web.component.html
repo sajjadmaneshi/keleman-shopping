@@ -1,0 +1,36 @@
+<div class="card card-rounded">
+  <div class="card-body text-center">
+    <div class="header border-bottom border-1">
+      <span class="d-flex justify-content-between kfs-3 pb-3">
+        <h6 class="fw-bold">هزینه کل</h6>
+        <keleman-price
+          [value]="3000000"
+          [color]="'dark'"
+          [size]="'h6'"
+          [icon]="'assets/media/icons/toman-icon/toman-icon-sm.png'"
+        ></keleman-price>
+      </span>
+    </div>
+    <span class="d-flex justify-content-between kfs-3 text-danger py-3">
+      <h6 class="fw-bold">تخفیف</h6>
+      <keleman-price
+        [value]="3000000"
+        [color]="'danger'"
+        [size]="'h6'"
+        [icon]="'assets/media/icons/toman-icon/toman-icon-red.png'"
+      ></keleman-price>
+    </span>
+    <span class="d-flex flex-column text-center mb-3">
+      <h3>قابل پرداخت:</h3>
+      <keleman-price
+        [value]="3000000"
+        [color]="'dark'"
+        [size]="'h3'"
+        [icon]="'assets/media/icons/toman-icon/toman-icon-sm.png'"
+      ></keleman-price>
+    </span>
+    <button class="btn klm-basket__purchase-button keleman-button">
+      ثبت سفارش
+    </button>
+  </div>
+</div>

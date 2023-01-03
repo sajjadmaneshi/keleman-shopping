@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ApplicationStateService } from '../shared/services/application-state.service';
+import { Component } from '@angular/core';
+import { ApplicationStateService } from './shared/services/application-state.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({

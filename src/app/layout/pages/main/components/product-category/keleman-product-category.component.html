@@ -1,5 +1,9 @@
 <ng-container
-  *ngIf="applicationStateService.isPhone; then mobileView; else webView"
+  *ngIf="
+    applicationStateService.isPhone || applicationStateService.isTablet;
+    then mobileView;
+    else webView
+  "
 ></ng-container>
 <ng-template #mobileView>
   <keleman-product-category-mobile></keleman-product-category-mobile>

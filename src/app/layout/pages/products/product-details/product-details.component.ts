@@ -1,7 +1,5 @@
-import { Component, HostListener, Input } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { SharedVariablesService } from '../../../../../shared/services/shared-variables.service';
-import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
+import { Component, HostListener } from '@angular/core';
+import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 
 @Component({
   selector: 'app-product-details',

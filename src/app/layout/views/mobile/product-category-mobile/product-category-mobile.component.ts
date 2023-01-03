@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CategoryModel } from '../../../../../shared/models/category.model';
+import { CategoryModel } from '../../../../shared/models/category.model';
 
 @Component({
   selector: 'keleman-product-category-mobile',

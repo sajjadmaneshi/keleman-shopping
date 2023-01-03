@@ -1,14 +1,16 @@
 <ng-container
-  *ngIf="applicationState.isPhone; then mobile; else web"
+  *ngIf="
+    applicationState.isPhone || applicationState.isTablet;
+    then mobile;
+    else web
+  "
 ></ng-container>
 <ng-template #mobile>
   <h4 class="fw-bolder mb-3 px-3">'انواع موتور</h4>
 
   <div class="row grid-divider mx-0">
     <div class="col-6" *ngFor="let product of slides">
-      <keleman-product-swiper-item
-        [product]="product"
-      ></keleman-product-swiper-item>
+      <keleman-swiper-item [product]="product"></keleman-swiper-item>
     </div>
   </div>
   <div class="w-100 text-center">
@@ -25,9 +27,7 @@
   >
     <appSwiperContent *ngFor="let slide of slides">
       <ng-template appSwiperTemplate>
-        <keleman-product-swiper-item
-          [product]="slide"
-        ></keleman-product-swiper-item>
+        <keleman-swiper-item [product]="slide"></keleman-swiper-item>
       </ng-template>
     </appSwiperContent>
   </keleman-swiper>

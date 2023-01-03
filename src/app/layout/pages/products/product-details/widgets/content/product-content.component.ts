@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ApplicationStateService } from '../../../../../../../shared/services/application-state.service';
+import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 import SwiperCore, { Pagination } from 'swiper';
 
 SwiperCore.use([Pagination]);
