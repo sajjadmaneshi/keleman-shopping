@@ -3,4 +3,5 @@ export class Routing {
   static magazine = 'magazine';
   static register = 'register';
   static products = 'products';
+  static profile = 'profile';
 }

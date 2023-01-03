@@ -30,6 +30,11 @@ const routes: Routes = [
             (m) => m.ProductsModule
           ),
       },
+      {
+        path: Routing.profile,
+        loadChildren: () =>
+          import('./pages/profile/profile.module').then((m) => m.ProfileModule),
+      },
       { path: Routing.register, component: RegisterComponent },
     ],
   },

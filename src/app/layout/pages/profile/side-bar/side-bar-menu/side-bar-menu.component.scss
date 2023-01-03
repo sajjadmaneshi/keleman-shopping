@@ -1,0 +1,32 @@
+@import "base/variables/colors";
+.side-bar-menu {
+  padding: 0;
+  list-style: none;
+  .menu-item {
+    &:not(.default) {
+      cursor: pointer;
+    }
+    padding: 1rem;
+
+    &:not(.default):hover {
+      background-color: map-get($theme-colors, "klm-secondary");
+      .menu-link {
+        color: white !important;
+      }
+    }
+    &.active {
+      color: white !important;
+      background-color: map-get($theme-colors, "klm-secondary");
+      .menu-link {
+        color: white !important;
+      }
+    }
+
+    .menu-link {
+      text-align: start;
+      color: black;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
