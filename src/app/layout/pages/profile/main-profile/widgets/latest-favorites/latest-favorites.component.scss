@@ -1,0 +1,4 @@
+@import "base/variables/colors";
+.favorite-item:not(:last-child) {
+  border-bottom: 1px solid map-get($theme-colors, "gray-300") !important;
+}

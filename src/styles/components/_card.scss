@@ -13,13 +13,15 @@
     @include media-breakpoint-up($breakpoint) {
       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-      &.card-rounded#{$infix} {
-        border-radius: 1rem !important;
-        .card-header {
-          border-radius: 1rem 1rem 0 0 !important;
-        }
-        .card-body {
-          border-radius: 0 0 1rem 1rem !important;
+      @each $name, $value in $keleman-font-sizes {
+        &.card-rounded#{$infix}-#{$name} {
+          border-radius: $value !important;
+          .card-header {
+            border-radius: $value $value 0 0 !important;
+          }
+          .card-body {
+            border-radius: 0 0 $value $value !important;
+          }
         }
       }
     }

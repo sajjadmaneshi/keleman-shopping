@@ -28,6 +28,7 @@ import { ProductCategoryMobileComponent } from './views/mobile/product-category-
 import { ProductCategoryWebComponent } from './views/web/product-category-web/product-category-web.component';
 import { ContentComponent } from './_partials/content/content.component';
 import { SwiperItemComponent } from './views/shared/swiper-item/swiper-item.component';
+import { KelemanInputGroupComponent } from '../shared/components/keleman-input-group/keleman-input-group.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { SwiperItemComponent } from './views/shared/swiper-item/swiper-item.comp
     SwiperTemplateDirective,
     KelemanPriceComponent,
     SwiperItemComponent,
+    KelemanInputGroupComponent,
   ],
   exports: [ContentComponent],
 })

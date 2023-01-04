@@ -1,0 +1,21 @@
+<ng-container>
+  <h5 class="fw-bold mb-3">آخرین علاقه مندی ها</h5>
+  <div class="card card-rounded-1">
+    <div class="card-body d-flex flex-column justify-content-center">
+      <ng-container *ngIf="false; then empty; else full"></ng-container>
+      <ng-template #empty>
+        <keleman-empty-content></keleman-empty-content>
+      </ng-template>
+      <ng-template #full>
+        <div>
+          <keleman-favorite-item class="favorite-item"></keleman-favorite-item>
+          <keleman-favorite-item class="favorite-item"></keleman-favorite-item>
+          <keleman-favorite-item class="favorite-item"></keleman-favorite-item>
+          <div class="text-center">
+            <a>مشاهده لیست کامل علاقه مندی ها</a>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,20 @@
+.amount-card {
+  background: linear-gradient(255.17deg, #013083 9.7%, #00173f 100%);
+  .amount-card-value {
+    clear: both;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.13);
+  }
+}
+.texture-background {
+  max-width: 50%;
+  height: 275px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.logo {
+  max-width: 215px;
+  float: left;
+}

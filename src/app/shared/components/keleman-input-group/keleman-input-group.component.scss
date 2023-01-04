@@ -1,0 +1,17 @@
+:host {
+  width: 100%;
+}
+.input-group-input {
+  border: 1px solid #e6e6e6;
+  line-height: 3.125rem;
+  padding: 0 1rem;
+}
+
+.input-group-icon {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  line-height: 100%;
+}

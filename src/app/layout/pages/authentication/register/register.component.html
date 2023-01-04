@@ -4,7 +4,7 @@
   <img
     alt="keleman-logo"
     class="keleman-logo"
-    src="assets/media/keleman-logo.png"
+    src="../../../../../assets/media/logo/keleman-logo.png"
   />
 
   <div class="card keleman-register-body">
@@ -57,20 +57,14 @@
       </ng-template>
       <ng-template #enterPassword [ngIf]="false">
         <h5 class="fw-bolder">رمز عبور را وارد کنید</h5>
-
-        <div class="keleman-input-group w-100 position-relative">
+        <keleman-input-group [type]="isVisible ? 'text' : 'password'">
           <span
             class="material-icons visibility"
             (click)="changePasswordVisibility()"
           >
             {{ isVisible ? "visibility_off" : "visibility" }}
           </span>
-
-          <input
-            class="form-control rounded-pill text-center register-input"
-            [type]="isVisible ? 'text' : 'password'"
-          />
-        </div>
+        </keleman-input-group>
 
         <span class="d-flex justify-content-between w-100">
           <a class="fw-bolder cursor-pointer">
