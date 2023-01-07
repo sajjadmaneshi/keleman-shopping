@@ -10,5 +10,6 @@ import { CommonModule } from '@angular/common';
 })
 export class KelemanInputGroupComponent {
   @Input() placeHolder?: string;
+  @Input() textAlign: 'right' | 'center' | 'left' = 'right';
   @Input() type: 'text' | 'number' | 'password' = 'text';
 }

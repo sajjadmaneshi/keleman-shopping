@@ -6,6 +6,9 @@ import { Routing } from '../../../routing';
 import { WalletComponent } from './wallet/wallet.component';
 import { IncreaseWalletComponent } from './wallet/components/increase-wallet/increase-wallet.component';
 import { DecreaseWalletComponent } from './wallet/components/decrease-wallet/decrease-wallet.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { ReturnedRequestComponent } from './returned-request/returned-request.component';
+import { AddressesComponent } from './address/addresses.component';
 
 export const routes: Routes = [
   {
@@ -29,6 +32,14 @@ export const routes: Routes = [
           { path: 'decrease', component: DecreaseWalletComponent },
         ],
       },
+      {
+        path: Routing.orders,
+        loadChildren: () =>
+          import('./orders/orders.module').then((m) => m.OrdersModule),
+      },
+      { path: Routing.favorites, component: FavoritesComponent },
+      { path: Routing.returnedRequests, component: ReturnedRequestComponent },
+      { path: Routing.address, component: AddressesComponent },
     ],
   },
 ];
@@ -38,7 +49,3 @@ export const routes: Routes = [
   exports: [RouterModule],
 })
 export class ProfileRoutingModule {}
-export type RouteData = {
-  title?: string;
-  permission?: string[];
-};

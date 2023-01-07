@@ -13,6 +13,7 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MagazineModule } from './layout/pages/magazine/magazine.module';
 import { KelemanSwiperComponent } from './shared/components/keleman-swiper/keleman-swiper.component';
 import { ApplicationStateService } from './shared/services/application-state.service';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [AppComponent, ArticleComponent],
@@ -27,6 +28,7 @@ import { ApplicationStateService } from './shared/services/application-state.ser
     InlineSVGModule,
     MagazineModule,
     KelemanSwiperComponent,
+    LeafletModule,
   ],
   providers: [ApplicationStateService],
   bootstrap: [AppComponent],

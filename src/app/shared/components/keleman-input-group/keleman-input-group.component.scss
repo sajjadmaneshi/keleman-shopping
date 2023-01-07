@@ -4,14 +4,22 @@
 .input-group-input {
   border: 1px solid #e6e6e6;
   line-height: 3.125rem;
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
-.input-group-icon {
+.input-group-append,
+.input-group-prepend {
+  height: 100%;
   position: absolute;
-  left: 2rem;
   top: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
+  transform: translate(0, -50%);
   line-height: 100%;
+  display: flex;
+  align-items: center;
+}
+.input-group-prepend {
+  right: 0;
+}
+.input-group-append {
+  left: 0;
 }

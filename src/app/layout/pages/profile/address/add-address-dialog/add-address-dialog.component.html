@@ -1,0 +1,126 @@
+<div class="position-relative">
+  <span
+    class="material-icons-outlined text-danger close cursor-pointer"
+    (click)="close()"
+  >
+    close
+  </span>
+  <h6 class="w-50" mat-dialog-title>
+    {{ showMap ? "انتخاب آدرس از روی نقشه" : "افزودن آدرس جدید" }}
+  </h6>
+  <div mat-dialog-content>
+    <ng-container *ngIf="showMap; then map; else address"></ng-container>
+    <ng-template #map>
+      <keleman-map
+        [zoom]="50"
+        [showSearch]="true"
+        (mapClick)="onMapClick($event)"
+      ></keleman-map>
+      <div class="text-center mt-3">
+        <button
+          type="submit"
+          class="btn btn-warning rounded-pill text-white submit-button map-submit w-50"
+          (click)="toggleShowMap()"
+        >
+          ثبت و ادامه
+        </button>
+      </div>
+    </ng-template>
+    <ng-template #address>
+      <form [formGroup]="addressForm">
+        <div class="row mx-0">
+          <div class="dropdown col-6">
+            <div class="form-group">
+              <label for="province">استان</label>
+              <input
+                id="province"
+                type="text"
+                class="rounded-pill form-control"
+                formControlName="province"
+                [matAutocomplete]="autoGroup"
+              />
+            </div>
+
+            <mat-autocomplete #autoGroup="matAutocomplete">
+              <mat-option
+                *ngFor="let province of provinces"
+                [value]="province.name"
+              >
+                {{ province.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="dropdown col-6">
+            <div class="form-group">
+              <label for="city">شهر</label>
+              <input
+                id="city"
+                type="text"
+                class="form-control rounded-pill"
+                formControlName="city"
+                [matAutocomplete]="autoGroup"
+              />
+              <mat-autocomplete #autoGroup="matAutocomplete">
+                <mat-option
+                  *ngFor="let province of provinces"
+                  [value]="province.name"
+                >
+                  {{ province.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+
+          <div class="form-group col-12">
+            <label for="address">آدرس </label>
+            <input
+              id="address"
+              type="text"
+              placeholder="آدرس"
+              class="form-control rounded-pill"
+              formControlName="address"
+            />
+          </div>
+          <div class="form-group col-6">
+            <label for="postal-code">کدپستی </label>
+            <input
+              id="postal-code"
+              dir="ltr"
+              type="number"
+              placeholder="کدپستی"
+              class="form-control rounded-pill"
+              formControlName="postalCode"
+            />
+          </div>
+          <div class="form-group col-6">
+            <label for="name">نام آدرس </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="نام دلخواه خود را وارد کنید"
+              class="form-control rounded-pill"
+              formControlName="name"
+            />
+          </div>
+          <div class="col-6">
+            <button
+              type="submit"
+              class="btn btn-outline-klm-primary submit-button rounded-pill w-100"
+              (click)="toggleShowMap()"
+            >
+              اصلاح موقعیت روی نقشه
+            </button>
+          </div>
+          <div class="col-6">
+            <button
+              type="submit"
+              class="btn btn-warning rounded-pill submit-button text-white w-100"
+            >
+              ثبت
+            </button>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+  </div>
+</div>

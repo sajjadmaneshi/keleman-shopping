@@ -1,0 +1,33 @@
+<h4 class="fw-bold mb-3">آدرس های من</h4>
+<div class="card card-rounded-1 mb-3">
+  <div class="card-body">
+    <ng-container
+      *ngIf="myAddresses.length > 0; then full; else empty"
+    ></ng-container>
+    <ng-template #empty>
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <keleman-empty-content class="mb-3"></keleman-empty-content>
+        <button class="btn new-address-button" (click)="openDialog()">
+          <span class="material-icons-outlined">add</span>
+          افزودن آدرس جدید
+        </button>
+      </div>
+    </ng-template>
+    <ng-template #full>
+      <div class="d-flex flex-column align-items-end">
+        <button class="btn new-address-button mb-3" (click)="openDialog()">
+          <span class="material-icons-outlined">add</span>
+          افزودن آدرس جدید
+        </button>
+        <div class="row mx-0">
+          <div
+            class="col-12 col-md-6 col-lg-4"
+            *ngFor="let address of myAddresses"
+          >
+            <keleman-address-item [address]="address"></keleman-address-item>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

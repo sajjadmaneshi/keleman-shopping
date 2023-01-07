@@ -5,4 +5,8 @@ export class Routing {
   static products = 'products';
   static wallet = 'wallet';
   static profile = 'profile';
+  static orders = 'orders';
+  static favorites = 'favorites';
+  static returnedRequests = 'returned-requests';
+  static address = 'address';
 }

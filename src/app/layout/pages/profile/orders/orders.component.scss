@@ -1,0 +1,15 @@
+@import "base/variables/colors";
+
+.order-tab-bar {
+  .mat-mdc-tab-body-wrapper {
+    margin-top: 1rem;
+  }
+  .mat-mdc-tab {
+    flex-grow: unset !important;
+    font-family: IRANYekanXFaNum !important;
+  }
+  .mat-mdc-tab-labels {
+    width: fit-content;
+    border-bottom: 1px solid map-get($theme-colors, "gray-500");
+  }
+}

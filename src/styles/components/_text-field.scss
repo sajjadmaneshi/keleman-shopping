@@ -11,3 +11,13 @@ textarea.keleman-text-field {
   resize: none;
   min-height: 200px;
 }
+
+input:-moz-placeholder {
+  text-align: right !important;
+}
+input:-ms-input-placeholder {
+  text-align: right !important;
+}
+input::-webkit-input-placeholder {
+  text-align: right !important;
+}

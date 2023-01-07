@@ -1,0 +1,34 @@
+<mat-tab-group
+  class="order-tab-bar"
+  animationDuration="0s"
+  [selectedIndex]="selectedIndex | async"
+  (selectedIndexChange)="changeTab($event)"
+>
+  <mat-tab label="جاری">
+    <ng-template [ngTemplateOutlet]="tabContent"> </ng-template>
+  </mat-tab>
+  <mat-tab label="تحویل شده">
+    <ng-template [ngTemplateOutlet]="tabContent"> </ng-template>
+  </mat-tab>
+  <mat-tab label="مرجوع شده">
+    <ng-template [ngTemplateOutlet]="tabContent"> </ng-template
+  ></mat-tab>
+</mat-tab-group>
+
+<ng-template #tabContent>
+  <ng-container *ngIf="false; then empty; else full"></ng-container>
+  <ng-template #empty>
+    <div class="card card-rounded-1">
+      <div class="card-body">
+        <keleman-empty-content></keleman-empty-content>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #full>
+    <ng-container [ngSwitch]="selectedIndex | async">
+      <keleman-current-orders *ngSwitchCase="0"> </keleman-current-orders>
+      <keleman-delivered-orders *ngSwitchCase="1"> </keleman-delivered-orders>
+      <keleman-returned-orders *ngSwitchCase="2"> </keleman-returned-orders>
+    </ng-container>
+  </ng-template>
+</ng-template>

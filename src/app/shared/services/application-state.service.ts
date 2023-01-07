@@ -28,7 +28,6 @@ export class ApplicationStateService {
     const WEB = this._responsive.observe([Breakpoints.Web]);
 
     combineLatest(PHONE, TABLET, WEB).subscribe((data) => {
-      console.log(data);
       this._isPhone = data[0].matches;
       this._isTablet = data[1].matches;
       this._isWeb = data[2].matches;

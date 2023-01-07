@@ -6,9 +6,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let row of rows">
-      <td *ngFor="let rowValue of row | keyvalue : onCompare">
-        {{ rowValue.value }}
-      </td>
+      <td
+        *ngFor="let rowValue of row | keyvalue : onCompare"
+        [innerHTML]="rowValue.value"
+      ></td>
     </tr>
   </tbody>
 </table>

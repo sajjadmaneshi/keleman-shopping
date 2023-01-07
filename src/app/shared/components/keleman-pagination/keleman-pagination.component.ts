@@ -14,7 +14,6 @@ export class KelemanPaginationComponent implements OnInit {
   @Input() totalElement!: number;
   @Input() page: number = 0;
   @Input() limit: number = 5;
-
   @Output() pageChange = new EventEmitter<number>();
   @Output() previous = new EventEmitter<number>();
   @Output() next = new EventEmitter<number>();
@@ -29,7 +28,6 @@ export class KelemanPaginationComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageCount = this._calculatePageCount();
-    console.log(this.pageCount);
   }
 
   onChange(page: number) {

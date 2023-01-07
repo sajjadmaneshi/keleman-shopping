@@ -40,7 +40,9 @@
             },
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "highcharts"
+              "highcharts",
+              "jalali-moment",
+              "leaflet"
             ]
           },
           "configurations": {

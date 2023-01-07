@@ -1,0 +1,47 @@
+<div class="keleman-input-group w-100 position-relative mb-3">
+  <span class="input-group-prepend">
+    <span class="prepend material-icons-outlined mx-2">search</span>
+  </span>
+  <span class="input-group-append">
+    <button
+      class="append btn btn-klm-primary rounded-pill h-100 search-button"
+      [disabled]="loading | async"
+    >
+      <ng-container
+        *ngIf="loading | async; then spinner; else text"
+      ></ng-container>
+      <ng-template #text>
+        <span> جستجو </span>
+      </ng-template>
+      <ng-template #spinner>
+        <div class="spinner-border" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </ng-template>
+    </button>
+  </span>
+
+  <input
+    class="leaflet-geo-search rounded-pill w-100"
+    type="text"
+    placeholder="جستجو"
+    #addressSearch
+    (keyup)="onKeyUp(addressSearch.value)"
+    [value]="
+      addressSearch.value.length > 75
+        ? (addressSearch.value | slice : 0 : 75) + '...'
+        : addressSearch.value
+    "
+    [matAutocomplete]="auto"
+  />
+</div>
+
+<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+  <mat-option
+    *ngFor="let option of searchAddressResult"
+    [value]="option.label"
+    (onSelectionChange)="selectOption(option)"
+  >
+    {{ option.label }}
+  </mat-option>
+</mat-autocomplete>

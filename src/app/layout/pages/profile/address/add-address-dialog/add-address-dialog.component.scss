@@ -1,0 +1,50 @@
+form {
+  font-family: IRANYekanXFaNum !important;
+}
+
+.map-container {
+  height: 420px !important;
+  border-radius: 13px !important;
+}
+
+.address-container .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 12px !important;
+}
+.close {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.submit-button {
+  height: 55px;
+  .map-submit {
+    min-width: 400px;
+  }
+}
+
+mat-form-field {
+  width: 100% !important;
+}
+.form-control {
+  line-height: 40px !important;
+}
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 0.5rem;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown::after {
+  font-family: "Material Icons", serif;
+  position: absolute;
+  content: "\e5cf";
+  top: 60%;
+  left: 2rem;
+  height: 30px;
+  width: 30px;
+  transform: translate(-50%, -50%);
+}
