@@ -9,15 +9,20 @@
 
 .slide {
   height: 100%;
-  min-height: 636px !important;
+  max-height: 400px !important;
   &.is-phone {
     min-height: 300px !important;
   }
-  img {
-    min-height: inherit;
-    display: block;
-    width: auto;
-    height: auto;
-    object-fit: cover;
+  .img-container {
+    position: relative;
+    width: 100%;
+    padding-top: 21.25%; /* 16:9 Aspect Ratio */
+    img {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
   }
 }

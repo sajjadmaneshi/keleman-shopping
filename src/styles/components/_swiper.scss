@@ -1,36 +1,26 @@
+@import "base/variables/colors";
 @mixin swiper-button() {
   [class*="-swiper-button-prev"],
   [class*="-swiper-button-next"] {
-    width: 91px;
     z-index: 1;
     position: absolute;
-    top: 0;
-    height: 100%;
-    mat-icon {
-      z-index: 1;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    transform: translateY(-50%);
+    background-color: white !important;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid map-get($theme-colors, "gray-300");
   }
   [class*="-swiper-button-prev"] {
-    left: 0;
-    mat-icon {
-      left: 0;
-    }
-    background-image: linear-gradient(
-      to right,
-      #eff2f7,
-      rgba(239, 242, 247, 0)
-    );
+    left: 1.5rem;
   }
-
   [class*="-swiper-button-next"] {
-    right: 0;
-    mat-icon {
-      right: 0;
-    }
-    background-image: linear-gradient(to left, #eff2f7, rgba(239, 242, 247, 0));
+    right: 1.5rem;
   }
 }
 

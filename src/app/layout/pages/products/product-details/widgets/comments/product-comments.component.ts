@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import SwiperCore, { Navigation } from 'swiper';
 import { CommentModel } from '../../../../../../shared/models/comment.model';
+import { BehaviorSubject } from 'rxjs';
 
 SwiperCore.use([Navigation]);
 @Component({
@@ -9,6 +10,7 @@ SwiperCore.use([Navigation]);
   styleUrls: ['./product-comments.component.scss'],
 })
 export class ProductCommentsComponent {
+  isLoading = new BehaviorSubject(false);
   slides: CommentModel[] = [
     {
       commenter: 'سجاد منشی',

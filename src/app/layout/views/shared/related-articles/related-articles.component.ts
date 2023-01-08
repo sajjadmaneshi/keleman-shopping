@@ -8,6 +8,7 @@ import {
 } from '../../../../shared/directives/swiper-template.directive';
 import { RelatedArticleItemComponent } from './related-articles-item/related-article-item.component';
 import { CommonModule } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'keleman-related-articles',
@@ -23,6 +24,7 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class RelatedArticlesComponent {
+  isLoading = new BehaviorSubject(false);
   @Input() articles: RelatedArticleModel[] = [];
   constructor(public applicationState: ApplicationStateService) {}
 }

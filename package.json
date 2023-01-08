@@ -36,6 +36,7 @@
     "ngx-bar-rating": "^4.0.1",
     "ngx-countdown": "^14.0.0",
     "ngx-image-zoom": "^1.0.1",
+    "ngx-shimmer-loading": "^0.0.5",
     "rxjs": "~7.5.0",
     "swiper": "^8.4.5",
     "tslib": "^2.3.0",
