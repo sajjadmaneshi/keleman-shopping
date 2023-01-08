@@ -9,8 +9,8 @@ import { KelemanPriceComponent } from '../../../../shared/components/keleman-pri
   styles: [
     `
       .k-swiper-item {
-        height: 302px !important;
-        width: 250px !important;
+        height: 250px !important;
+        max-width: 200px !important;
       }
     `,
   ],

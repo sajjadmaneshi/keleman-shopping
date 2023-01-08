@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'keleman-product-album',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./product-album.component.scss'],
 })
 export class ProductAlbumComponent {
+  isLoading = new BehaviorSubject(false);
   slides: string[] = [
     'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg',
     'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg',

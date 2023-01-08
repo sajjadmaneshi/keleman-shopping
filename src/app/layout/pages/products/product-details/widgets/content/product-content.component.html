@@ -70,7 +70,7 @@
   <div class="row mx-0">
     <div class="col-12 col-lg-7 mb-md-3">
       <div class="h-100 d-flex flex-column">
-        <div class="card card-rounded position-relative mb-3 flex-grow-1">
+        <div class="card card-rounded-1 position-relative mb-3 flex-grow-1">
           <div
             class="card-body d-flex justify-content-center align-items-center"
           >
@@ -78,10 +78,11 @@
               [thumbImage]="
                 'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg'
               "
-              [fullImage]="'assets/media/temp/aaaa.jpg'"
+              [fullImage]="'assets/media/temp/img_4.png'"
               [magnification]="2"
             ></lib-ngx-image-zoom>
           </div>
+
           <ng-container
             *ngIf="isFavorite | async; then favorite; else notFavorite"
           ></ng-container>
@@ -110,7 +111,7 @@
         <div class="grid-container mb-3">
           <div class="grid-item">
             <div
-              class="card text-center card-rounded text-white product-details-seller mb-0"
+              class="card text-center card-rounded-1 text-white product-details-seller mb-0"
             >
               <div class="card-header">فروشنده</div>
               <div class="card-body">
@@ -120,7 +121,7 @@
           </div>
           <div class="grid-item">
             <div
-              class="card text-center card-rounded text-white product-details-warranty mb-0"
+              class="card text-center card-rounded-1 text-white product-details-warranty mb-0"
             >
               <div class="card-header">گارانتی</div>
               <div class="card-body">
@@ -130,7 +131,7 @@
           </div>
         </div>
         <keleman-product-meta></keleman-product-meta>
-        <div class="card card-rounded delivery">
+        <div class="card card-rounded-1 delivery">
           <div class="card-body p-0 row mx-0">
             <div
               class="col-6 d-flex justify-content-center text-center align-items-center pe-0"

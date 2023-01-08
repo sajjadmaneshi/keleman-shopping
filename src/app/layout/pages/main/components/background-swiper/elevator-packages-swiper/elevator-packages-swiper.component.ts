@@ -1,61 +1,25 @@
 import { Component } from '@angular/core';
-import { ProductItemModel } from '../../../../../../shared/models/product-item.model';
+import { ProductViewModel } from '../amazing-offer-swiper/data/models/product.view-model';
+import { AmazingOfferRepository } from '../amazing-offer-swiper/data/amazing-offer.repository';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Component({
   selector: 'keleman-elevator-packages-swiper',
   templateUrl: './elevator-packages-swiper.component.html',
   styleUrls: ['./elevator-packages-swiper.component.scss'],
+  providers: [AmazingOfferRepository],
 })
 export class ElevatorPackagesSwiperComponent {
-  slides: ProductItemModel[] = [
-    {
-      image: 'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg',
-      name: ' موتور گیربکس الکو',
-      price: 25000000,
-      off: 10,
-      priceWithOff: 4200000,
-    },
-    {
-      image: 'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg',
-      name: ' موتور گیربکس ',
-      price: 350000000,
-      off: 15,
-      priceWithOff: 3200000,
-    },
-    {
-      image: 'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg',
-      name: ' موتور گیربکس ',
-      price: 350000000,
-      off: 10,
-      priceWithOff: 50000,
-    },
-    {
-      image: 'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg',
-      name: ' موتور گیربکس ',
-      price: 350000000,
-      off: 10,
-      priceWithOff: 50000,
-    },
-    {
-      image: 'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg',
-      name: ' موتور گیربکس ',
-      price: 350000000,
-      off: 10,
-      priceWithOff: 50000,
-    },
-    {
-      image: 'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg',
-      name: ' موتور گیربکس ',
-      price: 350000000,
-      off: 10,
-      priceWithOff: 50000,
-    },
-    {
-      image: 'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg',
-      name: ' موتور گیربکس ',
-      price: 350000000,
-      off: 10,
-      priceWithOff: 50000,
-    },
-  ];
+  slides: ProductViewModel[] = [];
+  isLoading = new BehaviorSubject(false);
+  constructor(private _productRepository: AmazingOfferRepository) {
+    this._getProducts();
+  }
+  private _getProducts() {
+    this.isLoading.next(true);
+    this._productRepository.getAll().subscribe((res) => {
+      this.slides = res;
+      setTimeout(() => this.isLoading.next(false), 1500);
+    });
+  }
 }

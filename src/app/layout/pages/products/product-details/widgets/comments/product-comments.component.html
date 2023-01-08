@@ -1,4 +1,4 @@
-<div class="card card-rounded mb-3">
+<div class="card card-rounded-1 mb-3">
   <div class="card-body">
     <h4 class="fw-bold text-klm-primary mb-5">نظرات کاربران</h4>
     <div class="position-relative mb-3">
@@ -7,6 +7,7 @@
         [showMoreButton]="false"
         [spaceBetween]="5"
         [navigation]="true"
+        [isLoading]="isLoading"
         [navigationButtonClassPrefix]="'comment-'"
       >
         <appSwiperContent *ngFor="let slide of slides">

@@ -5,18 +5,20 @@
     <div
       class="card-body d-flex flex-column align-items-center justify-content-between"
     >
-      <div class="symbol symbol-150px">
+      <div class="symbol symbol-125px">
         <img alt="product-image" class="product-image" [src]="product.image!" />
       </div>
 
-      <h5 class="fw-normal text-center product-name">{{ product.name! }}</h5>
+      <h5 class="fw-normal text-center product-name pt-1">
+        {{ product.name! }}
+      </h5>
       <keleman-price [value]="product.price!"></keleman-price>
       <div class="product-price-bottom"></div>
     </div>
-    <div class="card card-rounded bg-warning overlay">
-      <div class="card-body d-flex flex-column">
+    <div class="card card-rounded-1 bg-warning overlay">
+      <div class="card-body d-flex flex-column h-100">
         <span>{{ product.description! }}</span>
-        <button class="btn btn-klm-primary">مشاهده محصول</button>
+        <button class="btn btn-klm-primary my-1">مشاهده محصول</button>
       </div>
     </div>
   </div>

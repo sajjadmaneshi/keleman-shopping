@@ -29,6 +29,7 @@ import { ProductCategoryWebComponent } from './views/web/product-category-web/pr
 import { ContentComponent } from './_partials/content/content.component';
 import { SwiperItemComponent } from './views/shared/swiper-item/swiper-item.component';
 import { KelemanInputGroupComponent } from '../shared/components/keleman-input-group/keleman-input-group.component';
+import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { KelemanInputGroupComponent } from '../shared/components/keleman-input-g
     KelemanPriceComponent,
     SwiperItemComponent,
     KelemanInputGroupComponent,
+    NgxShimmerLoadingModule,
   ],
   exports: [ContentComponent],
 })
