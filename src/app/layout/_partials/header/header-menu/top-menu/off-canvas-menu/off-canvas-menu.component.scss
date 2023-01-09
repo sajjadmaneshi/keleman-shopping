@@ -1,0 +1,22 @@
+@import "base/variables/colors";
+.off-canvas-menu {
+  padding: 0;
+  list-style: none;
+  .menu-item {
+    padding: 1rem;
+    border-bottom: 1px solid map-get($theme-colors, "gray-300");
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    &::after {
+      font-family: "Material Icons";
+      content: "\e5e0";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      font-size: 1.5rem;
+      transform: translateY(-50%);
+    }
+  }
+}

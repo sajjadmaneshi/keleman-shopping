@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 
 @Component({
-  selector: 'keleman-value-changer',
+  selector: 'standalone-value-changer',
   templateUrl: './keleman-value-changer.component.html',
   standalone: true,
   imports: [InlineSVGModule],

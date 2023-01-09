@@ -8,12 +8,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
-import { SuggestionSliderItemComponent } from '../../../layout/pages/magazine/components/list/suggestion/suggestion-slider-item/suggestion-slider-item.component';
-
 import SwiperCore, { Navigation } from 'swiper';
-
 import { InlineSVGModule } from 'ng-inline-svg-2';
-import { ApplicationStateService } from '../../services/application-state.service';
 import { SwiperContentDirective } from '../../directives/swiper-template.directive';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
@@ -22,12 +18,11 @@ import { BehaviorSubject } from 'rxjs';
 
 SwiperCore.use([Navigation]);
 @Component({
-  selector: 'keleman-swiper',
+  selector: 'standalone-swiper',
   standalone: true,
   imports: [
     CommonModule,
     SwiperModule,
-    SuggestionSliderItemComponent,
     InlineSVGModule,
     MatIconModule,
     NgxShimmerLoadingModule,
@@ -57,10 +52,7 @@ export class KelemanSwiperComponent implements OnInit {
 
   @Input() navigationButtonClassPrefix!: string;
 
-  constructor(
-    public applicationStateService: ApplicationStateService,
-    public sharedVariablesService: SharedVariablesService
-  ) {}
+  constructor(public sharedVariablesService: SharedVariablesService) {}
 
   ngOnInit(): void {
     document.querySelectorAll('.swiper-slide').forEach((test) => {

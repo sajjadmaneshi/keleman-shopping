@@ -4,4 +4,8 @@
   height: 100%;
   color: white;
   background-color: map-get($theme-colors, "success");
+  &:hover {
+    border: 1px solid map-get($theme-colors, "success");
+    color: map-get($theme-colors, "success");
+  }
 }

@@ -46,5 +46,6 @@ export class PriceChartComponent {
         ],
       },
     ],
+    accessibility: { enabled: false },
   };
 }

@@ -4,7 +4,6 @@ import { KelemanPriceComponent } from '../../../../shared/components/keleman-pri
 @Component({
   selector: 'keleman-purchase-web',
   templateUrl: './purchase-web.component.html',
-  styleUrls: ['./purchase-web.component.scss'],
   standalone: true,
   imports: [KelemanPriceComponent],
 })

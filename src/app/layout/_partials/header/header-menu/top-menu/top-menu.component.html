@@ -1,0 +1,42 @@
+<div class="d-flex align-items-center justify-content-between top-part w-100">
+  <span
+    class="material-icons-outlined cursor-pointer d-md-none"
+    (click)="openOffCanvas(content)"
+  >
+    menu
+  </span>
+  <div class="d-flex rounded-pill search-bar align-items-center">
+    <img src="assets/media/logo/keleman-logo-light.png" />
+    <div class="search-input-group">
+      <span class="search-icon material-icons-outlined mx-2">search</span>
+      <input
+        class="form-control search-input h-100 rounded-pill"
+        placeholder="جستجو"
+      />
+    </div>
+  </div>
+
+  <button
+    class="btn rounded-pill register-login-button p-3 d-none d-md-block"
+    [routerLink]="'register'"
+  >
+    ورود/ثبت نام
+  </button>
+  <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
+    <span class="material-icons-outlined d-block d-md-none" ngbDropdownToggle>
+      person
+    </span>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <keleman-user-dropdown-menu></keleman-user-dropdown-menu>
+    </div>
+  </div>
+
+  <span class="material-icons-outlined"
+    ><a class="basket" [routerLink]="'basket'"> shopping_cart </a></span
+  >
+</div>
+<ng-template #content let-offcanvas>
+  <keleman-off-canvas-menu
+    (close)="offcanvas.close('cross click')"
+  ></keleman-off-canvas-menu>
+</ng-template>

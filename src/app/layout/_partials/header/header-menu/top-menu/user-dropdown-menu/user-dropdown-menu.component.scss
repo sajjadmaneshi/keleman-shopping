@@ -1,0 +1,11 @@
+.user-menu {
+  margin: 0;
+  min-width: 250px;
+  padding: 0;
+  .dropdown-item {
+    padding: 1rem;
+    &:not(:last-child) {
+      border-bottom: 1px solid black;
+    }
+  }
+}

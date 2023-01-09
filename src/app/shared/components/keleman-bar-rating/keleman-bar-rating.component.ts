@@ -4,7 +4,7 @@ import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'keleman-keleman-bar-rating',
+  selector: 'standalone-bar-rating',
   standalone: true,
   imports: [CommonModule, NgbRating, MatIconModule],
   templateUrl: './keleman-bar-rating.component.html',

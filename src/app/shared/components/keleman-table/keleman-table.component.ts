@@ -7,7 +7,7 @@ import {
 import { CommonModule, KeyValue, KeyValuePipe } from '@angular/common';
 
 @Component({
-  selector: 'keleman-table',
+  selector: 'standalone-table',
   templateUrl: './keleman-table.component.html',
   styleUrls: ['./keleman-table.component.scss'],
   standalone: true,

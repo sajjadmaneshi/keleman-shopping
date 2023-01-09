@@ -1,5 +1,10 @@
+@import "base/variables/colors";
 .nav-link {
   color: black !important;
   padding-right: 2rem !important;
   padding-left: 2rem !important;
+}
+.active {
+  background-color: map-get($theme-colors, "klm-primary");
+  color: white !important;
 }

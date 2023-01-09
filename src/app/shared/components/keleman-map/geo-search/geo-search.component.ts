@@ -43,7 +43,7 @@ export class GeoSearchComponent implements OnInit {
   private _search(value: string) {
     this.loading.next(true);
     const provider = new OpenStreetMapProvider({
-      params: { 'accept-language': 'fa', countrycodes: '98' },
+      params: { 'accept-language': 'fa' },
     });
     provider.search({ query: value }).then((res) => {
       this.searchAddressResult = [...res];

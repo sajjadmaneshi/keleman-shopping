@@ -2,7 +2,7 @@
   <div class="card-body">
     <h4 class="fw-bold text-klm-primary mb-5">نظرات کاربران</h4>
     <div class="position-relative mb-3">
-      <keleman-swiper
+      <standalone-swiper
         [showTitle]="false"
         [showMoreButton]="false"
         [spaceBetween]="5"
@@ -15,7 +15,7 @@
             <app-comment-item [comment]="slide"></app-comment-item>
           </ng-template>
         </appSwiperContent>
-      </keleman-swiper>
+      </standalone-swiper>
     </div>
     <button class="btn rounded-4 add-comment">افزودن نظر</button>
   </div>

@@ -1,10 +1,9 @@
 <div class="d-flex flex-column align-items-center">
   <h4 class="fw-bolder related-products-title">دسته بندی محصولات</h4>
-  <div class="grid-container">
-    <app-product-category-item
-      *ngFor="let product of categories"
-      [category]="product"
-    >
-    </app-product-category-item>
+  <div class="row mx-0">
+    <div class="col-6 col-md-4" *ngFor="let product of categories">
+      <app-product-category-item [category]="product">
+      </app-product-category-item>
+    </div>
   </div>
 </div>

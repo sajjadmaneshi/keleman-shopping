@@ -27,9 +27,19 @@
         </div>
       </div>
     </li>
-
     <li class="nav-item">
-      <a class="nav-link" href="#">مجله کلمان</a>
+      <a
+        class="nav-link"
+        [routerLink]="''"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >صفحه نخست</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="'magazine'" routerLinkActive="active"
+        >مجله کلمان</a
+      >
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">خرید قطعات آسانسور</a>

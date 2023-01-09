@@ -1,7 +1,9 @@
 <div class="card card-rounded-3 elevator-package-container">
   <div class="card-body position-relative">
     <div class="swiper-start d-flex flex-column">
-      <h1 class="swiper-start-text text-center">پکیج های <br />آسانسور</h1>
+      <h1 class="swiper-start-text text-center text-white">
+        پکیج های <br />آسانسور
+      </h1>
       <img
         alt="keleman-package"
         class="swiper-start-image"
@@ -9,7 +11,7 @@
       />
     </div>
     <div class="keleman-swiper">
-      <keleman-swiper
+      <standalone-swiper
         [spaceBetween]="10"
         [showMoreButton]="false"
         [showTitle]="false"
@@ -24,7 +26,7 @@
             ></keleman-background-swiper-item>
           </ng-template>
         </appSwiperContent>
-      </keleman-swiper>
+      </standalone-swiper>
     </div>
   </div>
 </div>

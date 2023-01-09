@@ -1,4 +1,4 @@
-<div class="profile container">
+<div class="profile container py-3">
   <div class="row mx-0">
     <div class="col-3">
       <div class="side-bar">
@@ -11,7 +11,7 @@
       <router-outlet></router-outlet>
     </div>
     <div class="col-12 mt-3">
-      <keleman-swiper
+      <standalone-swiper
         [title]="'محصولات پیشنهادی برای شما'"
         [spaceBetween]="10"
         [moreButtonText]="'مشاهده بیشتر محصولات'"
@@ -23,7 +23,7 @@
             <keleman-swiper-item [product]="slide"></keleman-swiper-item>
           </ng-template>
         </appSwiperContent>
-      </keleman-swiper>
+      </standalone-swiper>
     </div>
   </div>
 </div>

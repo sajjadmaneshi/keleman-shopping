@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 @Component({
-  selector: 'keleman-price',
+  selector: 'standalone-price',
   standalone: true,
   imports: [CommonModule, NgOptimizedImage],
   templateUrl: './keleman-price.component.html',

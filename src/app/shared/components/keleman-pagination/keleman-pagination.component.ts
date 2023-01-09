@@ -4,7 +4,7 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { SharedVariablesService } from '../../services/shared-variables.service';
 
 @Component({
-  selector: 'keleman-pagination',
+  selector: 'standalone-pagination',
   standalone: true,
   imports: [CommonModule, InlineSVGModule],
   templateUrl: './keleman-pagination.component.html',

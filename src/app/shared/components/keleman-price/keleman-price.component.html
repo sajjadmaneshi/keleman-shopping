@@ -91,16 +91,14 @@
       </h6>
     </ng-template>
   </ng-container>
-
-  <img
-    alt="toman icon"
-    [ngSrc]="icon"
-    [width]="
-      size === 'h1' || size === 'h2' || size === 'h3' || size === 'h4' ? 25 : 20
+  <div
+    class="symbol"
+    [ngClass]="
+      size === 'h1' || size === 'h2' || size === 'h3' || size === 'h4'
+        ? 'symbol-25px'
+        : 'symbol-20px'
     "
-    [height]="
-      size === 'h1' || size === 'h2' || size === 'h3' || size === 'h4' ? 25 : 20
-    "
-    class="price-icon"
-  />
+  >
+    <img alt="toman icon" [src]="icon" loading="lazy" class="price-icon" />
+  </div>
 </span>

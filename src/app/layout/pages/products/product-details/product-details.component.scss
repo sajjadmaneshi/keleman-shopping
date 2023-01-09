@@ -1,19 +1,21 @@
-::ng-deep ul {
-  margin: 0;
-  padding: 0;
+.product-details {
+  ::ng-deep ul {
+    margin: 0;
+    padding: 0;
 
-  li {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
+    li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
   }
-}
-@media (max-width: 767.98px) {
-  ::ng-deep li {
-    display: list-item !important;
-    justify-content: unset !important;
-    span {
-      margin: 0 1rem;
+  @media (max-width: 767.98px) {
+    ::ng-deep li {
+      display: list-item;
+      justify-content: unset !important;
+      span {
+        margin: 0 1rem;
+      }
     }
   }
 }

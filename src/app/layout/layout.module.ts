@@ -39,6 +39,11 @@ import {
   NgbDropdownToggle,
 } from '@ng-bootstrap/ng-bootstrap';
 import { MegaMenuComponent } from './_partials/header/header-menu/mega-menu/mega-menu.component';
+import { TopMenuComponent } from './_partials/header/header-menu/top-menu/top-menu.component';
+import { OffCanvasMenuComponent } from './_partials/header/header-menu/top-menu/off-canvas-menu/off-canvas-menu.component';
+import { UserDropdownMenuComponent } from './_partials/header/header-menu/top-menu/user-dropdown-menu/user-dropdown-menu.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -58,6 +63,9 @@ import { MegaMenuComponent } from './_partials/header/header-menu/mega-menu/mega
     HeaderComponent,
     HeaderMenuComponent,
     MegaMenuComponent,
+    TopMenuComponent,
+    OffCanvasMenuComponent,
+    UserDropdownMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -81,6 +89,8 @@ import { MegaMenuComponent } from './_partials/header/header-menu/mega-menu/mega
     NgbDropdownMenu,
     NgbDropdownItem,
     NgbDropdownToggle,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
   ],
   exports: [ContentComponent],
 })

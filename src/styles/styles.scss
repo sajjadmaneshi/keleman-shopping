@@ -41,3 +41,10 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+textarea:focus,
+input:focus,
+textarea:active,
+input:active {
+  outline: none !important;
+  box-shadow: unset !important;
+}

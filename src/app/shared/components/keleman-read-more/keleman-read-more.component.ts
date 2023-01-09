@@ -1,5 +1,4 @@
 import { Component, ContentChildren, Input, QueryList } from '@angular/core';
-
 import { ReadMoreContentDirective } from '../../directives/read-more-list-template.directive';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'keleman-input-group',
+  selector: 'standalone-input-group',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './keleman-input-group.component.html',

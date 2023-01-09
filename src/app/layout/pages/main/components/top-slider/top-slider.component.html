@@ -9,7 +9,7 @@
   ></ngx-shimmer-loading>
 </ng-template>
 <ng-template #renderedView>
-  <swiper [spaceBetween]="15" [autoplay]="{ delay: 2500 }">
+  <swiper [spaceBetween]="15">
     <ng-container
       *ngFor="let _ of sharedVariableService.counter(3); let i = index"
     >
