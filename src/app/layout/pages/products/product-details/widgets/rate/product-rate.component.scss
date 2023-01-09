@@ -1,11 +1,19 @@
 .rating {
   display: flex;
   align-items: center;
-  bar-rating {
-    margin: 0 0.5rem;
-  }
 }
 :host ::ng-deep .br-stars .br-unit-inner {
   width: 20px !important;
   height: 20px !important;
+}
+i {
+  font-size: 1.5rem;
+  padding-right: 0.1rem;
+  color: #b0c4de;
+}
+.filled {
+  color: #1e90ff;
+}
+.low {
+  color: #deb0b0;
 }

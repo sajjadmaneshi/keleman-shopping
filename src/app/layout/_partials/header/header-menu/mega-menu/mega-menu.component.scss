@@ -1,0 +1,69 @@
+@import "base/variables/colors";
+.mega-menu-side-bar__menu {
+  width: 220px;
+  padding: 0;
+  list-style: none;
+  > li {
+    text-align: right;
+    padding: 1rem;
+    cursor: pointer;
+    border-left: 1px solid #e5e5e5;
+    &:hover {
+      background-color: map-get($theme-colors, "gray-300");
+      border-bottom: 1px solid map-get($theme-colors, "gray-500");
+      border-top: 1px solid map-get($theme-colors, "gray-500");
+      > .mega-menu-items-menu {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.mega-menu-items-menu {
+  right: 220px;
+  width: calc(100vw - 288px);
+  max-width: 1030px;
+  overflow-x: auto;
+  position: absolute;
+  top: 0;
+  background-color: white;
+  color: #000;
+  min-height: 400px;
+  visibility: hidden;
+  opacity: 0;
+  .row {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    ul {
+      padding: 0;
+      list-style: none;
+      li {
+        text-align: right;
+        padding: 0.5rem;
+        cursor: pointer;
+        &.head {
+          span {
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+            position: relative;
+            border-right: 3px solid map-get($theme-colors, "klm-primary");
+            &::after {
+              position: absolute;
+              font-family: "Material Icons";
+              content: "\e5de";
+              left: -1rem;
+              top: 50%;
+              font-size: 1.5rem;
+              transform: translateY(-50%);
+            }
+          }
+        }
+        &:not(.head) {
+          margin-right: 1.5rem;
+        }
+      }
+    }
+  }
+}

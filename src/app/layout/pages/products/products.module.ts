@@ -5,7 +5,6 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { SwiperModule } from 'swiper/angular';
-import { BarRatingModule } from 'ngx-bar-rating';
 import { ProductCommentsComponent } from './product-details/widgets/comments/product-comments.component';
 import { CommentItemComponent } from './product-details/widgets/comments/comment-item/comment-item.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
@@ -26,6 +25,7 @@ import {
   NgbNavItem,
   NgbNavLink,
   NgbNavOutlet,
+  NgbRating,
 } from '@ng-bootstrap/ng-bootstrap';
 import { ProductSpecificationsComponent } from './product-details/widgets/specifications/product-specifications.component';
 import { ProductCheckingComponent } from './product-details/widgets/checking/product-checking.component';
@@ -41,6 +41,7 @@ import {
 } from '../../../shared/directives/read-more-list-template.directive';
 import { KelemanReadMoreComponent } from '../../../shared/components/keleman-read-more/keleman-read-more.component';
 import { RelatedArticlesComponent } from '../../views/shared/related-articles/related-articles.component';
+import { KelemanBarRatingComponent } from '../../../shared/components/keleman-bar-rating/keleman-bar-rating.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,6 @@ import { RelatedArticlesComponent } from '../../views/shared/related-articles/re
     ProductsRoutingModule,
     NgxImageZoomModule,
     SwiperModule,
-    BarRatingModule,
     InlineSVGModule,
     MagazineModule,
     HighchartsChartModule,
@@ -82,6 +82,8 @@ import { RelatedArticlesComponent } from '../../views/shared/related-articles/re
     ReadMoreTemplateDirective,
     KelemanReadMoreComponent,
     RelatedArticlesComponent,
+    NgbRating,
+    KelemanBarRatingComponent,
   ],
 })
 export class ProductsModule {}

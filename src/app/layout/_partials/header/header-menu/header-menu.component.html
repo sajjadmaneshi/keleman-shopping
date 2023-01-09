@@ -1,0 +1,45 @@
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto my-3 p-0">
+    <li class="nav-item dropdown">
+      <div
+        ngbDropdown
+        #myDrop="ngbDropdown"
+        class="d-inline-block"
+        container="body"
+      >
+        <a
+          type="button"
+          class="nav-link dropdown-toggle d-flex align-items-center"
+          id="navbarDropdown"
+          ngbDropdownToggle
+          (mouseover)="$event.stopPropagation(); myDrop.open()"
+        >
+          <span class="material-icons-outlined"> grid_view </span>
+          دسته بندی ها
+        </a>
+
+        <div
+          ngbDropdownMenu
+          aria-labelledby="dropdownBasic1"
+          (mouseleave)="$event.stopPropagation(); myDrop.close()"
+        >
+          <keleman-mega-menu></keleman-mega-menu>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="#">مجله کلمان</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">خرید قطعات آسانسور</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="#">باشگاه مشتریان کلمان</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">با کلمان</a>
+    </li>
+  </ul>
+</div>

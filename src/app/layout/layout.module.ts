@@ -30,6 +30,15 @@ import { ContentComponent } from './_partials/content/content.component';
 import { SwiperItemComponent } from './views/shared/swiper-item/swiper-item.component';
 import { KelemanInputGroupComponent } from '../shared/components/keleman-input-group/keleman-input-group.component';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
+import { HeaderComponent } from './_partials/header/header.component';
+import { HeaderMenuComponent } from './_partials/header/header-menu/header-menu.component';
+import {
+  NgbDropdown,
+  NgbDropdownItem,
+  NgbDropdownMenu,
+  NgbDropdownToggle,
+} from '@ng-bootstrap/ng-bootstrap';
+import { MegaMenuComponent } from './_partials/header/header-menu/mega-menu/mega-menu.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +55,9 @@ import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
     ProductCategoryMobileComponent,
     ProductCategoryWebComponent,
     ContentComponent,
+    HeaderComponent,
+    HeaderMenuComponent,
+    MegaMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +77,10 @@ import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
     SwiperItemComponent,
     KelemanInputGroupComponent,
     NgxShimmerLoadingModule,
+    NgbDropdown,
+    NgbDropdownMenu,
+    NgbDropdownItem,
+    NgbDropdownToggle,
   ],
   exports: [ContentComponent],
 })
