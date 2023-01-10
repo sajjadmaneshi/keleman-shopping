@@ -6,9 +6,11 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, throwError, retry } from 'rxjs';
 import { HttpRequestOptions } from '../models/http/http-request-options';
 import { AppErrors } from '../common/app-errors';
+import { BadInputError } from '../common/errors/bad-input-error';
+import { NotFoundError } from '../common/errors/not-found-error';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
@@ -23,11 +25,7 @@ export class HttpInterceptorService implements HttpInterceptor {
         headers: result,
       });
     });
-    return next.handle(req).pipe(
-      catchError((error: Response) => {
-        throw new AppErrors(error);
-      })
-    );
+    return next.handle(req).pipe(retry(3), catchError(this._handleError));
   }
 
   private _setHeaders(
@@ -58,5 +56,16 @@ export class HttpInterceptorService implements HttpInterceptor {
         resolve(httpHeaders);
       }
     });
+  }
+
+  private _handleError(error: Response) {
+    switch (error.status) {
+      case 400:
+        return throwError(() => new BadInputError(error.json()));
+      case 404:
+        return throwError(() => new NotFoundError());
+      default:
+        return throwError(() => new AppErrors(error));
+    }
   }
 }

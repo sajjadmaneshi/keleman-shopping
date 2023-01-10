@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { map, Observable, startWith, timer } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -56,5 +56,9 @@ export class RegisterComponent {
       province: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
     });
+  }
+
+  test($event: Event) {
+    console.log($event);
   }
 }

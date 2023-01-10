@@ -29,46 +29,21 @@
     <ng-template #address>
       <form [formGroup]="addressForm">
         <div class="row mx-0">
-          <div class="dropdown col-6">
-            <div class="form-group">
-              <label for="province">استان</label>
-              <input
-                id="province"
-                type="text"
-                class="rounded-pill form-control"
-                formControlName="province"
-                [matAutocomplete]="autoGroup"
-              />
-            </div>
-
-            <mat-autocomplete #autoGroup="matAutocomplete">
-              <mat-option
-                *ngFor="let province of provinces"
-                [value]="province.name"
-              >
-                {{ province.name }}
-              </mat-option>
-            </mat-autocomplete>
+          <div class="col-6">
+            <keleman-autocomplete
+              [label]="'استان'"
+              [options]="provinces"
+              [formControl]="province"
+            >
+            </keleman-autocomplete>
           </div>
-          <div class="dropdown col-6">
-            <div class="form-group">
-              <label for="city">شهر</label>
-              <input
-                id="city"
-                type="text"
-                class="form-control rounded-pill"
-                formControlName="city"
-                [matAutocomplete]="autoGroup"
-              />
-              <mat-autocomplete #autoGroup="matAutocomplete">
-                <mat-option
-                  *ngFor="let province of provinces"
-                  [value]="province.name"
-                >
-                  {{ province.name }}
-                </mat-option>
-              </mat-autocomplete>
-            </div>
+          <div class="col-6">
+            <keleman-autocomplete
+              [label]="'شهر'"
+              [options]="provinces"
+              [formControl]="city"
+            >
+            </keleman-autocomplete>
           </div>
 
           <div class="form-group col-12">

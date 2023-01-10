@@ -44,6 +44,7 @@ import { OffCanvasMenuComponent } from './_partials/header/header-menu/top-menu/
 import { UserDropdownMenuComponent } from './_partials/header/header-menu/top-menu/user-dropdown-menu/user-dropdown-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { KelemanAutocompleteComponent } from '../shared/components/keleman-autocomplete/keleman-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     NgbDropdownToggle,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    KelemanAutocompleteComponent,
   ],
   exports: [ContentComponent],
 })

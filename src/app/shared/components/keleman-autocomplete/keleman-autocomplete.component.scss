@@ -1,0 +1,18 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.dropdown::after {
+  font-family: "Material Icons", serif;
+  position: absolute;
+  content: "\e5cf";
+  top: 65%;
+  left: 1rem;
+  height: 30px;
+  width: 30px;
+  transform: translate(-50%, -50%);
+}
+.form-control {
+  line-height: 40px !important;
+}

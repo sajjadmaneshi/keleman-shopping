@@ -44,6 +44,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AddressItemComponent } from './address/address-item/address-item.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { KelemanAutocompleteComponent } from '../../../shared/components/keleman-autocomplete/keleman-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatAutocompleteModule,
     MatButtonModule,
     MatMenuModule,
+    KelemanAutocompleteComponent,
   ],
 })
 export class ProfileModule {}

@@ -1,0 +1,23 @@
+<div class="dropdown">
+  <div class="form-group">
+    <label *ngIf="label">{{ label }}</label>
+    <input
+      [placeholder]="placeHolder ? placeHolder : ''"
+      type="text"
+      class="rounded-pill form-control"
+      #autoCompleteInput
+      [value]="value"
+      (input)="valueChange(autoCompleteInput.value)"
+      [matAutocomplete]="autoGroup1"
+    />
+  </div>
+
+  <mat-autocomplete #autoGroup1="matAutocomplete">
+    <mat-option
+      *ngFor="let item of filteredOptions | async"
+      [value]="item?.name"
+    >
+      {{ item?.name }}
+    </mat-option>
+  </mat-autocomplete>
+</div>

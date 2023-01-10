@@ -84,48 +84,25 @@
         </ng-template>
         <ng-template #completeDetails [ngIf]="true">
           <h5 class="fw-bolder">ورود اطلاعات</h5>
-          <form [formGroup]="registerForm">
-            <div class="dropdown">
-              <div class="form-group">
-                <label for="province">استان</label>
-                <input
-                  id="province"
-                  type="text"
-                  class="rounded-pill form-control"
-                  [formControl]="province"
-                  [matAutocomplete]="autoGroup1"
-                />
-              </div>
-
-              <mat-autocomplete #autoGroup1="matAutocomplete">
-                <mat-option
-                  *ngFor="let province of filteredStates | async"
-                  [value]="province.name"
-                >
-                  {{ province.name }}
-                </mat-option>
-              </mat-autocomplete>
+          <form class="w-100" [formGroup]="registerForm">
+            <div class="mb-5">
+              <keleman-autocomplete
+                [options]="provinces"
+                [formControl]="province"
+                [label]="'استان'"
+              ></keleman-autocomplete>
+              <keleman-autocomplete
+                [options]="provinces"
+                [formControl]="city"
+                [label]="'شهر'"
+              ></keleman-autocomplete>
             </div>
-            <!--            <div class="dropdown">-->
-            <!--              <div class="form-group">-->
-            <!--                <label for="city">شهر</label>-->
-            <!--                <input-->
-            <!--                  id="city"-->
-            <!--                  type="text"-->
-            <!--                  class="form-control rounded-pill"-->
-            <!--                  formControlName="city"-->
-            <!--                  [matAutocomplete]="autoGroup2"-->
-            <!--                />-->
-            <!--                <mat-autocomplete #autoGroup2="matAutocomplete">-->
-            <!--                  <mat-option-->
-            <!--                    *ngFor="let province of provinces"-->
-            <!--                    [value]="province.name"-->
-            <!--                  >-->
-            <!--                    {{ province.name }}-->
-            <!--                  </mat-option>-->
-            <!--                </mat-autocomplete>-->
-            <!--              </div>-->
-            <!--            </div>-->
+
+            <button
+              class="rounded-pill btn btn-warning text-white w-100 register-button"
+            >
+              تایید
+            </button>
           </form>
         </ng-template>
       </div>
