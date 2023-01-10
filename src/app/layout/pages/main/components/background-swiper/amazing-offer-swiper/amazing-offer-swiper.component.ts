@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import SwiperCore, { Navigation } from 'swiper';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AmazingOfferRepository } from './data/amazing-offer.repository';
 import { ProductViewModel } from './data/models/product.view-model';
 import { BehaviorSubject } from 'rxjs';
-SwiperCore.use([Navigation]);
 @Component({
   selector: 'app-amazing-offer-swiper',
   templateUrl: './amazing-offer-swiper.component.html',
