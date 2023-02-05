@@ -9,28 +9,20 @@
         <swiper [spaceBetween]="15" [pagination]="true">
           <ng-template swiperSlide>
             <div class="w-100 text-center">
-              <img
-                src="assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg"
-              />
+              <img src="../../../../../../../assets/media/temp/1.jpg" />
             </div>
           </ng-template>
           <ng-template swiperSlide>
             <div class="w-100 text-center">
-              <img
-                src="assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg"
-              />
+              <img src="../../../../../../../assets/media/temp/1.jpg" />
             </div>
           </ng-template>
           <ng-template swiperSlide>
-            <img
-              src="assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg"
-            />
+            <img src="../../../../../../../assets/media/temp/1.jpg" />
           </ng-template>
           <ng-template swiperSlide>
             <div class="w-100 text-center">
-              <img
-                src="assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg"
-              />
+              <img src="../../../../../../../assets/media/temp/1.jpg" />
             </div>
           </ng-template>
         </swiper>
@@ -75,16 +67,14 @@
             class="card-body d-flex justify-content-center align-items-center"
           >
             <lib-ngx-image-zoom
-              [thumbImage]="
-                'assets/media/temp/80e39485-22e5-42e9-ad6c-c11486818a75-thumb.jpg'
-              "
+              [thumbImage]="'assets/media/temp/1.jpg'"
               [fullImage]="'assets/media/temp/img_4.png'"
               [magnification]="2"
             ></lib-ngx-image-zoom>
           </div>
 
           <ng-container
-            *ngIf="isFavorite | async; then favorite; else notFavorite"
+            *ngIf="isFavorite$ | async; then favorite; else notFavorite"
           ></ng-container>
           <ng-template #favorite>
             <span

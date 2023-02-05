@@ -5,10 +5,10 @@
   <span class="input-group-append">
     <button
       class="append btn btn-klm-primary rounded-pill h-100 search-button"
-      [disabled]="loading | async"
+      [disabled]="isLoading$ | async"
     >
       <ng-container
-        *ngIf="loading | async; then spinner; else text"
+        *ngIf="isLoading$ | async; then spinner; else text"
       ></ng-container>
       <ng-template #text>
         <span> جستجو </span>

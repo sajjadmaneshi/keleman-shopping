@@ -1,27 +1,24 @@
 <div class="d-flex align-items-center justify-content-between top-part w-100">
   <span
-    class="material-icons-outlined cursor-pointer d-md-none"
+    class="material-icons-outlined cursor-pointer d-lg-none"
     (click)="openOffCanvas(content)"
   >
     menu
   </span>
-  <div class="d-flex rounded-pill search-bar align-items-center">
-    <img src="assets/media/logo/keleman-logo-light.png" />
-    <div class="search-input-group">
+  <img class="keleman-logo" src="assets/media/logo/keleman-logo.png" />
+  <div class="d-flex search-bar align-items-center">
+    <div class="search-input-group w-100">
       <span class="search-icon material-icons-outlined mx-2">search</span>
-      <input
-        class="form-control search-input h-100 rounded-pill"
-        placeholder="جستجو"
-      />
+      <input class="form-control search-input h-100" placeholder="جستجو" />
     </div>
   </div>
-
-  <button
-    class="btn rounded-pill register-login-button p-3 d-none d-md-block"
-    [routerLink]="'register'"
+  <div
+    class="d-none d-md-flex align-items-center bg-klm-primary rounded-1 p-1 login-register"
   >
-    ورود/ثبت نام
-  </button>
+    <button class="btn text-warning w-50">ثبت نام</button>
+    <button class="btn bg-white rounded-1 text-klm-primary w-50">ورود</button>
+  </div>
+
   <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
     <span class="material-icons-outlined d-block d-md-none" ngbDropdownToggle>
       person
@@ -30,10 +27,17 @@
       <keleman-user-dropdown-menu></keleman-user-dropdown-menu>
     </div>
   </div>
-
-  <span class="material-icons-outlined"
-    ><a class="basket" [routerLink]="'basket'"> shopping_cart </a></span
+  <span
+    class="d-none d-md-flex position-relative flex-column align-items-center basket"
   >
+    <h3 class="basket-count text-warning">0</h3>
+    <img
+      src="assets/media/static-resources/basket-icon.svg"
+      class="basket-icon"
+    />
+
+    <h6 class="mb-0">سبد خرید</h6>
+  </span>
 </div>
 <ng-template #content let-offcanvas>
   <keleman-off-canvas-menu

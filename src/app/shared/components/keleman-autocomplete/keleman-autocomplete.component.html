@@ -14,7 +14,7 @@
 
   <mat-autocomplete #autoGroup1="matAutocomplete">
     <mat-option
-      *ngFor="let item of filteredOptions | async"
+      *ngFor="let item of filteredOptions$ | async"
       [value]="item?.name"
     >
       {{ item?.name }}

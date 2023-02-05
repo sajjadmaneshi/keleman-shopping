@@ -9,7 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrdersComponent {
-  selectedIndex = new BehaviorSubject<number>(0);
+  selectedIndex$ = new BehaviorSubject<number>(0);
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -21,7 +21,7 @@ export class OrdersComponent {
   private _getSelectedIndexFromRoute() {
     this._activatedRoute.queryParams.subscribe((params: Params) => {
       if (params['selected']) {
-        this.selectedIndex.next(params['selected']);
+        this.selectedIndex$.next(params['selected']);
       } else {
         this._updateQueryParams(0);
       }
@@ -39,7 +39,7 @@ export class OrdersComponent {
   }
 
   changeTab(selectedTab: number) {
-    this.selectedIndex.next(selectedTab);
+    this.selectedIndex$.next(selectedTab);
     this._updateQueryParams(selectedTab);
   }
 }

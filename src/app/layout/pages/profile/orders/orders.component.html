@@ -1,7 +1,7 @@
 <mat-tab-group
   class="order-tab-bar"
   animationDuration="0s"
-  [selectedIndex]="selectedIndex | async"
+  [selectedIndex]="selectedIndex$ | async"
   (selectedIndexChange)="changeTab($event)"
 >
   <mat-tab label="جاری">
@@ -25,7 +25,7 @@
     </div>
   </ng-template>
   <ng-template #full>
-    <ng-container [ngSwitch]="selectedIndex | async">
+    <ng-container [ngSwitch]="selectedIndex$ | async">
       <keleman-current-orders *ngSwitchCase="0"> </keleman-current-orders>
       <keleman-delivered-orders *ngSwitchCase="1"> </keleman-delivered-orders>
       <keleman-returned-orders *ngSwitchCase="2"> </keleman-returned-orders>

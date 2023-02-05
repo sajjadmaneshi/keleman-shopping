@@ -1,0 +1,86 @@
+<div class="d-flex flex-column">
+  <div class="d-flex align-items-center">
+    <h3 class="fw-bold text-klm-primary px-3">پکیج ها</h3>
+    <div class="gradient-border flex-grow-1"></div>
+  </div>
+  <div class="package-swiper mb-3">
+    <swiper
+      [effect]="'creative'"
+      [centeredSlides]="true"
+      [slidesPerView]="'auto'"
+      [navigation]="true"
+      [initialSlide]="1"
+      [creativeEffect]="{
+        perspective: true,
+        prev: {
+          scale: 0.75,
+          shadow: true,
+
+          translate: ['-50%', 0, 0],
+          rotate: [0, 15, 0]
+        },
+        next: {
+          scale: 0.75,
+          shadow: true,
+
+          translate: ['50%', 0, 0],
+          rotate: [0, -15, 0]
+        }
+      }"
+    >
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p1.jpg" />
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p2.jpg" />
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p3.jpg" />
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p4.jpg" />
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p6.jpg" />
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p1.jpg" />
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p2.jpg" />
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p3.jpg" />
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p4.jpg" />
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="swiper-slide">
+          <img src="assets/media/package/p5.jpg" />
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+  <div class="text-center mb-3">
+    <img src="assets/media/static-resources/banner.jpg" class="w-100" />
+  </div>
+</div>

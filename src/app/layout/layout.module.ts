@@ -9,7 +9,6 @@ import { SwiperModule } from 'swiper/angular';
 import { KelemanSwiperComponent } from '../shared/components/keleman-swiper/keleman-swiper.component';
 import { AmazingOfferSwiperComponent } from './pages/main/components/background-swiper/amazing-offer-swiper/amazing-offer-swiper.component';
 import { BackgroundSwiperItemComponent } from './pages/main/components/background-swiper/background-swiper-item/background-swiper-item.component';
-import { ElevatorPackagesSwiperComponent } from './pages/main/components/background-swiper/elevator-packages-swiper/elevator-packages-swiper.component';
 import { KelemanProductCategoryComponent } from './pages/main/components/product-category/keleman-product-category.component';
 import { ProductCategoryItemComponent } from './views/shared/product-category-item/product-category-item.component';
 import { ImageResponsiveDirective } from '../shared/directives/image-responsive.directive';
@@ -17,8 +16,6 @@ import { TopSliderComponent } from './pages/main/components/top-slider/top-slide
 import { RegisterComponent } from './pages/authentication/register/register.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { CountdownComponent } from 'ngx-countdown';
-import { MatIconModule } from '@angular/material/icon';
-import { TypesOfMotorComponent } from './pages/main/components/types-of-motor/types-of-motor.component';
 import {
   SwiperContentDirective,
   SwiperTemplateDirective,
@@ -43,8 +40,10 @@ import { TopMenuComponent } from './_partials/header/header-menu/top-menu/top-me
 import { OffCanvasMenuComponent } from './_partials/header/header-menu/top-menu/off-canvas-menu/off-canvas-menu.component';
 import { UserDropdownMenuComponent } from './_partials/header/header-menu/top-menu/user-dropdown-menu/user-dropdown-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { KelemanAutocompleteComponent } from '../shared/components/keleman-autocomplete/keleman-autocomplete.component';
+import { MatComponentsModule } from '../mat-components.module';
+import { MagazineComponent } from './pages/main/components/magazine/magazine.component';
+import { PackageSwiperComponent } from './pages/main/components/package-swiper/package-swiper.component';
 
 @NgModule({
   declarations: [
@@ -52,12 +51,10 @@ import { KelemanAutocompleteComponent } from '../shared/components/keleman-autoc
     MainComponent,
     AmazingOfferSwiperComponent,
     BackgroundSwiperItemComponent,
-    ElevatorPackagesSwiperComponent,
     KelemanProductCategoryComponent,
     ProductCategoryItemComponent,
     TopSliderComponent,
     RegisterComponent,
-    TypesOfMotorComponent,
     ProductCategoryMobileComponent,
     ProductCategoryWebComponent,
     ContentComponent,
@@ -67,6 +64,8 @@ import { KelemanAutocompleteComponent } from '../shared/components/keleman-autoc
     TopMenuComponent,
     OffCanvasMenuComponent,
     UserDropdownMenuComponent,
+    MagazineComponent,
+    PackageSwiperComponent,
   ],
   imports: [
     CommonModule,
@@ -79,7 +78,6 @@ import { KelemanAutocompleteComponent } from '../shared/components/keleman-autoc
     ImageResponsiveDirective,
     NgOtpInputModule,
     CountdownComponent,
-    MatIconModule,
     SwiperContentDirective,
     SwiperTemplateDirective,
     KelemanPriceComponent,
@@ -91,8 +89,8 @@ import { KelemanAutocompleteComponent } from '../shared/components/keleman-autoc
     NgbDropdownItem,
     NgbDropdownToggle,
     ReactiveFormsModule,
-    MatAutocompleteModule,
     KelemanAutocompleteComponent,
+    MatComponentsModule,
   ],
   exports: [ContentComponent],
 })

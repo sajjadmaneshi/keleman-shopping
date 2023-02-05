@@ -1,26 +1,26 @@
 <div class="card card-rounded-3 amazing-offer-container">
   <div class="card-body position-relative">
     <div class="swiper-start d-flex flex-column">
-      <h1 class="swiper-start-text text-center text-danger">
+      <h1 class="swiper-start-text text-center text-klm-primary">
         پیشنهادات <br />شگفت انگیز <br />کِلِمان
       </h1>
       <img
         alt="keleman-package"
         class="swiper-start-image"
-        src="../../../../../../../assets/media/amazing-offer/img.png"
+        src="../../../../../../../assets/media/amazing-offer/amazing-offer.svg"
       />
     </div>
 
     <div class="keleman-swiper">
       <standalone-swiper
-        [spaceBetween]="5"
+        [spaceBetween]="0"
         [showMoreButton]="false"
         [showTitle]="false"
         [navigation]="true"
         [isLoading]="isLoading"
         [navigationButtonClassPrefix]="'amazing-offer'"
       >
-        <appSwiperContent *ngFor="let slide of slides">
+        <appSwiperContent *ngFor="let slide of slides; let i = index">
           <ng-template appSwiperTemplate>
             <keleman-background-swiper-item
               class="cursor-pointer"

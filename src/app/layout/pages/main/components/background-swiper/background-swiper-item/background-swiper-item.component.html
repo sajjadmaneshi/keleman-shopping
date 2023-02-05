@@ -1,10 +1,24 @@
-<div class="card card-rounded-1 amazing-offer-item mb-0">
+<div class="card amazing-offer-item mb-0">
   <div
     class="card-body d-flex flex-column justify-content-between align-items-center"
   >
-    <div class="symbol symbol-100px symbol-lg-150px">
+    <div class="symbol symbol-100px mb-3">
       <img class="amazing-offer-item__image" [src]="product.image!" />
     </div>
+    <h6 class="text-center fw-light">
+      {{
+        product.title.length > 20
+          ? (product.title | slice : 0 : 20) + "..."
+          : product.title
+      }}
+    </h6>
+    <standalone-price
+      class="mb-3"
+      [value]="product.price!"
+      [size]="'h5'"
+      [icon]="'assets/media/icons/toman-icon/toman-icon-sm.png'"
+      [color]="'dark'"
+    ></standalone-price>
     <span
       class="w-100 d-flex align-items-center mb-3 justify-content-between pt-1"
     >
@@ -17,22 +31,5 @@
         [color]="'dark'"
       ></standalone-price>
     </span>
-    <h6 class="fw-normal">
-      <span class="badge bg-danger">
-        <standalone-price
-          [value]="product.price!"
-          [size]="'h6'"
-          [icon]="'assets/media/icons/toman-icon/toman-icon-xs.png'"
-          [color]="'light'"
-        ></standalone-price>
-      </span>
-    </h6>
-    <h6 class="text-center fw-light">
-      {{
-        product.title.length > 20
-          ? (product.title | slice : 0 : 20) + "..."
-          : product.title
-      }}
-    </h6>
   </div>
 </div>

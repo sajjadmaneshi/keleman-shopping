@@ -1,0 +1,21 @@
+<div class="menu_overlay" (click)="removeClass()"></div>
+
+<div class="cornerMenu" (click)="toggleClass()">
+  <mat-icon class="menu-icon contact-us" [inline]="true">headset_mic</mat-icon>
+
+  <div class="menu menu1" ngbTooltip="درخواست تماس" container="body">
+    <mat-icon class="menu-icon" [inline]="true">edit</mat-icon>
+  </div>
+  <div class="menu menu2" ngbTooltip="واتساپ" container="body">
+    <img
+      class="w-50 h-50 align-middle"
+      src="assets/media/icons/social-icons/whatsapp.png"
+    />
+  </div>
+  <div class="menu menu3" ngbTooltip="شماره پیامک" container="body">
+    <mat-icon class="menu-icon" [inline]="true">sms</mat-icon>
+  </div>
+  <div class="menu menu4" ngbTooltip="شماره تماس" container="body">
+    <mat-icon class="menu-icon" [inline]="true">phone_in_talk</mat-icon>
+  </div>
+</div>

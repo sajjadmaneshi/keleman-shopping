@@ -31,7 +31,7 @@ export class GeoSearchComponent implements OnInit {
   @Output() onSelect = new EventEmitter<SearchResult<RawResult>>();
   searchAddressResult: SearchResult<RawResult>[] = [];
 
-  loading = new BehaviorSubject<boolean>(false);
+  isLoading$ = new BehaviorSubject<boolean>(false);
   private _searchSubject = new Subject<string>();
 
   ngOnInit(): void {
@@ -41,13 +41,13 @@ export class GeoSearchComponent implements OnInit {
   }
 
   private _search(value: string) {
-    this.loading.next(true);
+    this.isLoading$.next(true);
     const provider = new OpenStreetMapProvider({
       params: { 'accept-language': 'fa' },
     });
     provider.search({ query: value }).then((res) => {
       this.searchAddressResult = [...res];
-      this.loading.next(false);
+      this.isLoading$.next(false);
     });
   }
 

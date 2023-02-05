@@ -7,7 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SwiperModule } from 'swiper/angular';
+
 import SwiperCore, { Navigation } from 'swiper';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { SwiperContentDirective } from '../../directives/swiper-template.directive';
@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 import { SharedVariablesService } from '../../services/shared-variables.service';
 import { BehaviorSubject } from 'rxjs';
+import { SwiperModule } from 'swiper/angular';
 
 SwiperCore.use([Navigation]);
 @Component({
@@ -22,10 +23,11 @@ SwiperCore.use([Navigation]);
   standalone: true,
   imports: [
     CommonModule,
-    SwiperModule,
+
     InlineSVGModule,
     MatIconModule,
     NgxShimmerLoadingModule,
+    SwiperModule,
   ],
   templateUrl: './keleman-swiper.component.html',
   styleUrls: ['./keleman-swiper.component.scss'],
@@ -37,7 +39,7 @@ export class KelemanSwiperComponent implements OnInit {
   })
   contents!: QueryList<SwiperContentDirective>;
 
-  @Input() isLoading = new BehaviorSubject(true);
+  @Input('isLoading') isLoading$ = new BehaviorSubject(true);
   @Input() shimmerHeight = '300px';
   @Input() shimmerWidth = '250px';
 

@@ -11,13 +11,13 @@ SwiperCore.use([Pagination]);
   encapsulation: ViewEncapsulation.None,
 })
 export class ProductContentComponent {
-  isFavorite = new BehaviorSubject(false);
+  isFavorite$ = new BehaviorSubject(false);
 
   constructor(public applicationState: ApplicationStateService) {}
   addToFavorite() {
-    this.isFavorite.next(true);
+    this.isFavorite$.next(true);
   }
   removeFromFavorite() {
-    this.isFavorite.next(false);
+    this.isFavorite$.next(false);
   }
 }

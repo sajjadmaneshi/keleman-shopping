@@ -26,7 +26,7 @@ export class KelemanAutocompleteComponent
   @Input() label!: string;
 
   @Input() placeHolder!: string;
-  filteredOptions!: Observable<any[]>;
+  filteredOptions$!: Observable<any[]>;
   value!: string;
 
   private _searchSubject = new BehaviorSubject<string>('');
@@ -58,7 +58,7 @@ export class KelemanAutocompleteComponent
   }
 
   ngOnInit(): void {
-    this.filteredOptions = this._searchSubject.pipe(
+    this.filteredOptions$ = this._searchSubject.pipe(
       startWith(''),
       map((item) => (item ? this._filterStates(item) : this.options.slice()))
     );

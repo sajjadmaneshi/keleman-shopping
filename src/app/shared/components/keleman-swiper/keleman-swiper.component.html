@@ -26,7 +26,7 @@
     class="h-100 keleman-swiper"
   >
     <ng-container
-      *ngIf="isLoading | async; then loading; else renderedView"
+      *ngIf="isLoading$ | async; then loading; else renderedView"
     ></ng-container>
     <ng-template #renderedView>
       <ng-template *ngFor="let slide of contents" swiperSlide>

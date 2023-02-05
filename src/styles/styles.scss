@@ -7,6 +7,7 @@
 @import "../../node_modules/swiper/modules/pagination/pagination";
 @import "../../node_modules/swiper/modules/navigation/navigation";
 @import "../../node_modules/swiper/modules/autoplay/autoplay";
+@import "../../node_modules/swiper/modules/effect-creative/effect-creative";
 
 @import "../assets/fonts/Webfonts/style.css";
 @import "material-icons/iconfont/outlined";
@@ -18,7 +19,12 @@
 html,
 body,
 app-root {
+  margin: 0;
   height: 100%;
+}
+body {
+  background: url("../assets/media/static-resources/keleman-logo-background.svg")
+    no-repeat 10% 0;
 }
 
 a {
@@ -47,4 +53,20 @@ textarea:active,
 input:active {
   outline: none !important;
   box-shadow: unset !important;
+}
+
+.underline-text {
+  padding-bottom: 1rem;
+  font-weight: bold;
+  display: inline-block;
+  border-bottom: 2px solid map-get($theme-colors, "klm-primary");
+}
+.gradient-border {
+  border-bottom: 5px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+    to left,
+    map-get($theme-colors, "klm-primary"),
+    white
+  );
 }
