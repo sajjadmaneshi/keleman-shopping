@@ -21,6 +21,7 @@ body,
 app-root {
   margin: 0;
   height: 100%;
+  overflow: unset !important;
 }
 body {
   background: url("../assets/media/static-resources/keleman-logo-background.svg")

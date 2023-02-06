@@ -44,6 +44,8 @@ import { KelemanAutocompleteComponent } from '../shared/components/keleman-autoc
 import { MatComponentsModule } from '../mat-components.module';
 import { MagazineComponent } from './pages/main/components/magazine/magazine.component';
 import { PackageSwiperComponent } from './pages/main/components/package-swiper/package-swiper.component';
+import { PartnerBrandsComponent } from './pages/main/components/partner-brands/partner-brands.component';
+import { FooterComponent } from './_partials/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { PackageSwiperComponent } from './pages/main/components/package-swiper/p
     UserDropdownMenuComponent,
     MagazineComponent,
     PackageSwiperComponent,
+    PartnerBrandsComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
