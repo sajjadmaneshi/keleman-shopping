@@ -14,7 +14,12 @@ $gray-700: #5e6278 !default;
 $gray-800: #3f4254 !default;
 $gray-900: #181c32 !default;
 $text-muted: $gray-500 !default;
-
+$primary-light: #f1faff;
+$info-light: #eee5ff !default;
+$warning-light: #fff4de !default;
+$danger-light: #ffe2e5 !default;
+$success-light: #c9f7f5 !default;
+$dark-light: $gray-200 !default; // Custom variable
 $theme-text-colors: (
   "white": $white,
   "klm-primary": $klm-primary,
@@ -66,5 +71,15 @@ $theme-colors: (
   "gray-900": $gray-900,
   "accent": $klm-accent,
 );
+
+// Light colors
+$theme-light-colors: (
+  "primary": $primary-light,
+  "success": $success-light,
+  "info": $info-light,
+  "warning": $warning-light,
+  "danger": $danger-light,
+  "dark": $dark-light,
+) !default; // Custom variable
 
 $body-bg: white;

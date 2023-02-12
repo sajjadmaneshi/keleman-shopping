@@ -8,6 +8,8 @@ import { CurrentOrdersComponent } from './components/current-orders/current-orde
 import { DeliveredOrdersComponent } from './components/delivered-orders/delivered-orders.component';
 import { ReturnedOrdersComponent } from './components/returned-orders/returned-orders.component';
 import { RouterModule, Routes } from '@angular/router';
+import { OrderItemComponent } from './components/order-item/order-item.component';
+import { MatIconModule } from '@angular/material/icon';
 
 export const routes: Routes = [{ path: '', component: OrdersComponent }];
 
@@ -17,6 +19,7 @@ export const routes: Routes = [{ path: '', component: OrdersComponent }];
     CurrentOrdersComponent,
     DeliveredOrdersComponent,
     ReturnedOrdersComponent,
+    OrderItemComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +27,7 @@ export const routes: Routes = [{ path: '', component: OrdersComponent }];
     KelemanTableComponent,
     EmptyContentComponent,
     RouterModule.forChild(routes),
+    MatIconModule,
   ],
 })
 export class OrdersModule {}

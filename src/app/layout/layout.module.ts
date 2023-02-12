@@ -46,6 +46,7 @@ import { MagazineComponent } from './pages/main/components/magazine/magazine.com
 import { PackageSwiperComponent } from './pages/main/components/package-swiper/package-swiper.component';
 import { PartnerBrandsComponent } from './pages/main/components/partner-brands/partner-brands.component';
 import { FooterComponent } from './_partials/footer/footer.component';
+import { MagazineItemComponent } from './pages/main/components/magazine/magazine-item/magazine-item.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { FooterComponent } from './_partials/footer/footer.component';
     PackageSwiperComponent,
     PartnerBrandsComponent,
     FooterComponent,
+    MagazineItemComponent,
   ],
   imports: [
     CommonModule,

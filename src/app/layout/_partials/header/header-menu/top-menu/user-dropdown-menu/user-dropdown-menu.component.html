@@ -1,12 +1,16 @@
 <ul class="user-menu">
-  <li ngbDropdownItem class="d-flex justify-content-between align-items-center">
+  <li class="d-flex justify-content-between align-items-center p-3">
     <span class="d-flex align-items-center">
-      <mat-icon>person</mat-icon>
-      سجاد منشی
-    </span>
-    <span class="d-flex align-items-center">
-      <span>{{ 20000000 | number : ".0" }} تومان </span>
-      <mat-icon>account_balance_wallet</mat-icon>
+      <div class="symbol symbol-50px symbol-circle mx-1">
+        <img src="assets/media/blank.png" />
+      </div>
+      <div class="d-flex flex-column">
+        <h5 class="text-klm-primary text-end">سجاد منشی</h5>
+        <span class="d-flex align-items-center text-muted">
+          مشاهده پروفایل
+          <mat-icon>keyboard_backspace</mat-icon>
+        </span>
+      </div>
     </span>
   </li>
   <li ngbDropdownItem>

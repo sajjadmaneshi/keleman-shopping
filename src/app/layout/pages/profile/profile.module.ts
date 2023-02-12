@@ -3,8 +3,6 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { UserInfoComponent } from './side-bar/user-info/user-info.component';
-import { UserWalletComponent } from './side-bar/user-wallet/user-wallet.component';
-import { SideBarMenuComponent } from './side-bar/side-bar-menu/side-bar-menu.component';
 import { MainProfileComponent } from './main-profile/main-profile.component';
 import { PersonalInfoComponent } from './main-profile/widgets/personal-info/personal-info.component';
 import { LatestFavoritesComponent } from './main-profile/widgets/latest-favorites/latest-favorites.component';
@@ -44,8 +42,6 @@ import { MatComponentsModule } from '../../../mat-components.module';
   declarations: [
     ProfileComponent,
     UserInfoComponent,
-    UserWalletComponent,
-    SideBarMenuComponent,
     MainProfileComponent,
     PersonalInfoComponent,
     LatestFavoritesComponent,

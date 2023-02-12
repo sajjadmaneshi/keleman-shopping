@@ -1,5 +1,7 @@
 @import "base/variables/colors";
-
+.orders {
+  border: 1px solid $gray-300 !important;
+}
 .order-tab-bar {
   .mat-mdc-tab-body-wrapper {
     margin-top: 1rem;
@@ -9,7 +11,6 @@
     font-family: IRANYekanXFaNum !important;
   }
   .mat-mdc-tab-labels {
-    width: fit-content;
-    border-bottom: 1px solid map-get($theme-colors, "gray-500");
+    border-bottom: 1px solid map-get($theme-colors, "gray-300");
   }
 }

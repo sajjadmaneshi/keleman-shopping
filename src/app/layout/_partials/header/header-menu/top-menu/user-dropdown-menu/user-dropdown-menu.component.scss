@@ -4,8 +4,5 @@
   padding: 0;
   .dropdown-item {
     padding: 1rem;
-    &:not(:last-child) {
-      border-bottom: 1px solid black;
-    }
   }
 }

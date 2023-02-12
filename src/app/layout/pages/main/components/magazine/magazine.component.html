@@ -1,33 +1,22 @@
-<div class="magazine row mx-0">
-  <div class="col-12 text-center mb-3">
+<div class="magazine d-flex flex-column">
+  <div class="text-center mb-3">
     <div class="d-flex align-items-center">
       <h3 class="fw-bold text-klm-primary px-3">مجله کلمان</h3>
       <div class="gradient-border flex-grow-1"></div>
     </div>
   </div>
-  <div class="col-12 col-lg-8">
-    <div class="card card-rounded-lg pb-3">
-      <img src="assets/media/temp/2.jpg" />
+  <div class="mx-5 row">
+    <div class="col-12 col-md-6 col-lg-4">
+      <keleman-magazine-item
+        [isNew]="true"
+        [date]="'2022/01/02'"
+      ></keleman-magazine-item>
     </div>
-  </div>
-  <div class="col-12 col-lg-4 row m-0 p-0">
-    <div class="col-12 col-md-6 col-lg-12 pb-3">
-      <img src="assets/media/temp/2.jpg" />
+    <div class="col-12 col-md-6 col-lg-4">
+      <keleman-magazine-item [date]="'2022/01/02'"></keleman-magazine-item>
     </div>
-    <div class="col-12 col-md-6 col-lg-12 pb-3">
-      <img src="assets/media/temp/2.jpg" />
+    <div class="col-12 col-md-6 col-lg-4">
+      <keleman-magazine-item [date]="'2022/01/02'"></keleman-magazine-item>
     </div>
-  </div>
-  <div class="col-12 col-md-6 col-lg-3 pb-3">
-    <img src="assets/media/temp/2.jpg" />
-  </div>
-  <div class="col-12 col-md-6 col-lg-3 pb-3">
-    <img src="assets/media/temp/2.jpg" />
-  </div>
-  <div class="col-12 col-md-6 col-lg-3 pb-3">
-    <img src="assets/media/temp/2.jpg" />
-  </div>
-  <div class="col-12 col-md-6 col-lg-3 pb-3">
-    <img src="assets/media/temp/2.jpg" />
   </div>
 </div>

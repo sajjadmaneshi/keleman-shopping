@@ -17,7 +17,7 @@
         nextEl: '.top-slider-swiper-button-prev'
       }"
       [pagination]="{ el: '.swiper-pagination' }"
-      [autoplay]="{ delay: 3000 }"
+      [autoplay]="{ delay: 2500 }"
     >
       <ng-container
         *ngFor="let _ of sharedVariableService.counter(3); let i = index"
@@ -30,13 +30,44 @@
               applicationStateService.isTablet
             "
           >
-            <figure class="img-container">
-              <img
-                alt="keleman"
-                class="main-slider-image"
-                [src]="'assets/media/slider/menu-slide' + (i + 1) + '.jpg'"
-              />
-            </figure>
+            <ng-template [ngIf]="i === 0" [ngIfElse]="NextOne">
+              <figure class="img-container">
+                <img
+                  alt="keleman"
+                  class="main-slider-image"
+                  [src]="'assets/media/slider/menu-slide' + (i + 1) + '.jpg'"
+                />
+              </figure>
+            </ng-template>
+            <ng-template #NextOne>
+              <div class="grid-slide">
+                <div class="right-side">
+                  <div
+                    [ngStyle]="{
+                      'background-image':
+                        'url(assets/media/slider/menu-slide' + (i + 1) + '.jpg)'
+                    }"
+                  ></div>
+                  <div
+                    [ngStyle]="{
+                      'background-image':
+                        'url(assets/media/slider/menu-slide' + (i + 1) + '.jpg)'
+                    }"
+                  ></div>
+                </div>
+                <div>
+                  <figure class="img-container">
+                    <img
+                      alt="keleman"
+                      class="main-slider-image"
+                      [src]="
+                        'assets/media/slider/menu-slide' + (i + 1) + '.jpg'
+                      "
+                    />
+                  </figure>
+                </div>
+              </div>
+            </ng-template>
           </div>
         </ng-template>
       </ng-container>

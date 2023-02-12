@@ -25,10 +25,18 @@
   </div>
 
   <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
-    <span class="material-icons-outlined d-block d-md-none" ngbDropdownToggle>
-      person
-    </span>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <div
+      class="symbol symbol-50px symbol-circle cursor-pointer"
+      ngbDropdownToggle
+    >
+      <img src="assets/media/blank.png" />
+    </div>
+
+    <div
+      ngbDropdownMenu
+      aria-labelledby="dropdownBasic1"
+      class="rounded-3 shadow-lg border-0"
+    >
       <keleman-user-dropdown-menu></keleman-user-dropdown-menu>
     </div>
   </div>
