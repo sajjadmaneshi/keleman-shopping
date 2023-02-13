@@ -1,14 +1,5 @@
 @import "base/variables/colors";
-.new-address-button {
-  min-width: 500px;
-  min-height: 80px;
-  border: 1px dashed map-get($theme-colors, "klm-primary");
-  color: map-get($theme-colors, "klm-primary");
-  &:hover {
-    background-color: map-get($theme-colors, "klm-primary");
-    color: white;
-  }
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.address-top-bar {
+  border-bottom: 1px solid map-get($theme-colors, "gray-300");
 }

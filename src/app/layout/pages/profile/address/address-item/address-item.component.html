@@ -1,36 +1,23 @@
 <div
-  class="card card-rounded-1 address-item"
-  [class.selected]="address.selected!"
+  class="card card-rounded-1 address-item mb-3"
+  [class.selected]="address.selected"
 >
-  <div class="card-body d-flex flex-column align-items-start">
-    <keleman-map
-      [readOnly]="true"
-      [markerLatLng]="getMarkerLatLng(address.lat, address.lng)"
-      [zoom]="50"
-    ></keleman-map>
-    <span class="d-flex justify-content-between align-items-center w-100">
-      <h4>{{ address.name! }}</h4>
-
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_horiz</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>dialpad</mat-icon>
-          <span>Redial</span>
-        </button>
-        <button mat-menu-item disabled>
-          <mat-icon>voicemail</mat-icon>
-          <span>Check voice mail</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>notifications_off</mat-icon>
-          <span>Disable alerts</span>
-        </button>
-      </mat-menu>
-    </span>
-    <p class="address-content">
-      {{ address.address! }}
-    </p>
+  <div class="card-body d-flex align-items-center">
+    <div class="flex-column align-items-start flex-grow-1">
+      <h6 class="mb-3 address-text">
+        {{ address.address }}
+      </h6>
+      <span class="d-flex align-items-center mb-3">
+        <mat-icon class="text-danger ms-3">schedule</mat-icon>
+        2022/01/02
+      </span>
+      <span class="d-flex align-items-center mb-3">
+        <mat-icon class="text-danger ms-3">person</mat-icon>
+        2022/01/02
+      </span>
+    </div>
+    <div>
+      <mat-icon class="text-gray-500">chevron_left</mat-icon>
+    </div>
   </div>
 </div>

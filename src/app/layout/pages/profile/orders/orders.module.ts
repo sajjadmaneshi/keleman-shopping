@@ -10,6 +10,7 @@ import { ReturnedOrdersComponent } from './components/returned-orders/returned-o
 import { RouterModule, Routes } from '@angular/router';
 import { OrderItemComponent } from './components/order-item/order-item.component';
 import { MatIconModule } from '@angular/material/icon';
+import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
 
 export const routes: Routes = [{ path: '', component: OrdersComponent }];
 
@@ -28,6 +29,7 @@ export const routes: Routes = [{ path: '', component: OrdersComponent }];
     EmptyContentComponent,
     RouterModule.forChild(routes),
     MatIconModule,
+    PaginatorComponent,
   ],
 })
 export class OrdersModule {}

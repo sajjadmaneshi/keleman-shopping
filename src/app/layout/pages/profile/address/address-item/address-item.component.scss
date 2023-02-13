@@ -6,17 +6,11 @@
     border: 2px solid map-get($theme-colors, "klm-primary") !important;
   }
 }
-keleman-map {
-  width: 100%;
-}
-.address-item ::ng-deep .map-container {
-  height: 230px !important;
-  border-radius: 13px !important;
-}
-.address-content {
+.address-text {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+
+  -webkit-line-clamp: 2; /* number of lines to show */
   -webkit-box-orient: vertical;
 }

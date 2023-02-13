@@ -1,12 +1,16 @@
-<ng-template [ngIf]="showSearch">
-  <keleman-geo-search (onSelect)="onSelectAddress($event)"></keleman-geo-search>
-</ng-template>
+<div class="position-relative">
+  <ng-template [ngIf]="showSearch">
+    <keleman-geo-search
+      (onSelect)="onSelectAddress($event)"
+    ></keleman-geo-search>
+  </ng-template>
 
-<div
-  class="map-container"
-  leaflet
-  [leafletOptions]="getOptions()"
-  (leafletMapReady)="onMapReady($event)"
-  (leafletMapZoomEnd)="onMapZoomEnd($event)"
-  (leafletClick)="onMapClick($event)"
-></div>
+  <div
+    class="map-container"
+    leaflet
+    [leafletOptions]="getOptions()"
+    (leafletMapReady)="onMapReady($event)"
+    (leafletMapZoomEnd)="onMapZoomEnd($event)"
+    (leafletClick)="onMapClick($event)"
+  ></div>
+</div>

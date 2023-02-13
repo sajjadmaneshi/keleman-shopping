@@ -37,6 +37,7 @@ import { AddAddressDialogComponent } from './address/add-address-dialog/add-addr
 import { AddressItemComponent } from './address/address-item/address-item.component';
 import { KelemanAutocompleteComponent } from '../../../shared/components/keleman-autocomplete/keleman-autocomplete.component';
 import { MatComponentsModule } from '../../../mat-components.module';
+import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { MatComponentsModule } from '../../../mat-components.module';
     KelemanMapComponent,
     KelemanAutocompleteComponent,
     MatComponentsModule,
+    PaginatorComponent,
   ],
 })
 export class ProfileModule {}

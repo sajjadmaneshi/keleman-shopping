@@ -5,26 +5,29 @@
   >
     close
   </span>
-  <h6 class="w-50" mat-dialog-title>
-    {{ showMap ? "انتخاب آدرس از روی نقشه" : "افزودن آدرس جدید" }}
-  </h6>
-  <div mat-dialog-content>
+  <h6 class="w-50" mat-dialog-title *ngIf="!showMap">افزودن آدرس جدید</h6>
+  <div mat-dialog-content [class.p-0]="showMap">
     <ng-container *ngIf="showMap; then map; else address"></ng-container>
     <ng-template #map>
+      <span
+        class="material-icons-outlined back text-black cursor-pointer"
+        (click)="toggleShowMap()"
+      >
+        east
+      </span>
+
       <keleman-map
         [zoom]="50"
         [showSearch]="true"
         (mapClick)="onMapClick($event)"
       ></keleman-map>
-      <div class="text-center mt-3">
-        <button
-          type="submit"
-          class="btn btn-warning rounded-pill text-white submit-button map-submit w-50"
-          (click)="toggleShowMap()"
-        >
-          ثبت و ادامه
-        </button>
-      </div>
+      <button
+        type="submit"
+        class="btn btn-warning text-white submit-button map-submit"
+        (click)="toggleShowMap()"
+      >
+        ثبت و ادامه
+      </button>
     </ng-template>
     <ng-template #address>
       <form [formGroup]="addressForm">

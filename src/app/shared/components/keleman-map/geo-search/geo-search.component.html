@@ -1,28 +1,9 @@
 <div class="keleman-input-group w-100 position-relative mb-3">
-  <span class="input-group-prepend">
+  <span class="input-group-append">
     <span class="prepend material-icons-outlined mx-2">search</span>
   </span>
-  <span class="input-group-append">
-    <button
-      class="append btn btn-klm-primary rounded-pill h-100 search-button"
-      [disabled]="isLoading$ | async"
-    >
-      <ng-container
-        *ngIf="isLoading$ | async; then spinner; else text"
-      ></ng-container>
-      <ng-template #text>
-        <span> جستجو </span>
-      </ng-template>
-      <ng-template #spinner>
-        <div class="spinner-border" role="status">
-          <span class="sr-only"></span>
-        </div>
-      </ng-template>
-    </button>
-  </span>
-
   <input
-    class="leaflet-geo-search rounded-pill w-100"
+    class="leaflet-geo-search rounded-1 w-100"
     type="text"
     placeholder="جستجو"
     #addressSearch

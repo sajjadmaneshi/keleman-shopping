@@ -1,1 +1,11 @@
-<p>delivered-orders works!</p>
+<div>
+  <ng-template #full>
+    <keleman-order-item></keleman-order-item>
+    <keleman-order-item></keleman-order-item>
+    <keleman-paginator></keleman-paginator>
+  </ng-template>
+
+  <ng-template #empty [ngIf]="true">
+    <keleman-empty-content></keleman-empty-content>
+  </ng-template>
+</div>

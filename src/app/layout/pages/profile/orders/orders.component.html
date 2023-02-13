@@ -1,4 +1,4 @@
-<div class="card mb-3 card-rounded-3 shadow-sm orders">
+<div class="card mb-3 card-rounded-3 shadow-sm border border-gray-300">
   <div class="card-body d-flex flex-column">
     <h6>سفارش ها</h6>
     <mat-tab-group
@@ -7,13 +7,32 @@
       [selectedIndex]="selectedIndex$ | async"
       (selectedIndexChange)="changeTab($event)"
     >
-      <mat-tab label="جاری">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          جاری
+          <span class="text-danger mx-1">1</span>
+        </ng-template>
         <ng-template [ngTemplateOutlet]="tabContent"> </ng-template>
       </mat-tab>
-      <mat-tab label="تحویل شده">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          تحویل شده
+          <span class="text-danger mx-1">1</span>
+        </ng-template>
         <ng-template [ngTemplateOutlet]="tabContent"> </ng-template>
       </mat-tab>
-      <mat-tab label="مرجوع شده">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          مرجوع شده
+          <span class="text-danger mx-1">1</span>
+        </ng-template>
+        <ng-template [ngTemplateOutlet]="tabContent"> </ng-template
+      ></mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          لغو شده
+          <span class="text-danger mx-1">1</span>
+        </ng-template>
         <ng-template [ngTemplateOutlet]="tabContent"> </ng-template
       ></mat-tab>
     </mat-tab-group>

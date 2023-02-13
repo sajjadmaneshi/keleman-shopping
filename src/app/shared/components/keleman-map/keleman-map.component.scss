@@ -16,3 +16,11 @@
 ::ng-deep .leaflet-container {
   font-family: IRANYekanXFaNum !important;
 }
+
+keleman-geo-search {
+  position: absolute;
+  left: 50%;
+  bottom: 3rem;
+  transform: translateX(-50%);
+  z-index: 500;
+}

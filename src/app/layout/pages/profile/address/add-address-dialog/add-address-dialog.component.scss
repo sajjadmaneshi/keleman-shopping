@@ -16,11 +16,13 @@ form {
   left: 1rem;
 }
 
-.submit-button {
-  height: 55px;
-  .map-submit {
-    min-width: 400px;
-  }
+.map-submit {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 501;
+  font-family: IRANYekanXFaNum !important;
 }
 
 mat-form-field {
@@ -47,4 +49,11 @@ mat-form-field {
   height: 30px;
   width: 30px;
   transform: translate(-50%, -50%);
+}
+
+.back {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  z-index: 501;
 }

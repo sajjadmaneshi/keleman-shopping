@@ -1,7 +1,4 @@
 @import "base/variables/colors";
-.delete-button {
-  line-height: 100%;
-  vertical-align: middle;
-  border: 1px solid map-get($theme-colors, "gray-300");
-  color: map-get($theme-colors, "gray-300");
+.favorite-item {
+  border: 1px solid $gray-300 !important;
 }
