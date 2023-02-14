@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
-import { UserInfoComponent } from './side-bar/user-info/user-info.component';
+import { SideBarComponent } from './side-bar/side-bar.component';
 import { MainProfileComponent } from './main-profile/main-profile.component';
-import { PersonalInfoComponent } from './main-profile/widgets/personal-info/personal-info.component';
+
 import { LatestFavoritesComponent } from './main-profile/widgets/latest-favorites/latest-favorites.component';
 import { LatestOrdersComponent } from './main-profile/widgets/latest-orders/latest-orders.component';
 import { KelemanSwiperComponent } from '../../../shared/components/keleman-swiper/keleman-swiper.component';
@@ -38,13 +38,17 @@ import { AddressItemComponent } from './address/address-item/address-item.compon
 import { KelemanAutocompleteComponent } from '../../../shared/components/keleman-autocomplete/keleman-autocomplete.component';
 import { MatComponentsModule } from '../../../mat-components.module';
 import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
+import { PersonalInfoComponent } from './personal-info/personal-info.component';
+import { MatSelectModule } from '@angular/material/select';
+import { CommentsComponent } from './comments/comments.component';
+import { CommentItemComponent } from './comments/comment-item/comment-item.component';
 
 @NgModule({
   declarations: [
     ProfileComponent,
-    UserInfoComponent,
+    SideBarComponent,
     MainProfileComponent,
-    PersonalInfoComponent,
+
     LatestFavoritesComponent,
     LatestOrdersComponent,
     FavoriteItemComponent,
@@ -58,6 +62,9 @@ import { PaginatorComponent } from '../../../shared/components/paginator/paginat
     AddressesComponent,
     AddAddressDialogComponent,
     AddressItemComponent,
+    PersonalInfoComponent,
+    CommentsComponent,
+    CommentItemComponent,
   ],
   imports: [
     CommonModule,
@@ -79,6 +86,7 @@ import { PaginatorComponent } from '../../../shared/components/paginator/paginat
     KelemanAutocompleteComponent,
     MatComponentsModule,
     PaginatorComponent,
+    MatSelectModule,
   ],
 })
 export class ProfileModule {}

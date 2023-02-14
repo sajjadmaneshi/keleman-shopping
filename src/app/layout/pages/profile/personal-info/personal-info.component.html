@@ -1,0 +1,104 @@
+<div class="card mb-3 card-rounded-3 shadow-sm border border-gray-300">
+  <div class="card-body d-flex flex-column p-md-5">
+    <form class="position-relative">
+      <div>
+        <span
+          class="d-flex justify-content-between align-items-center border-bottom border-gray-300 mb-3"
+        >
+          <h6>اطلاعات کاربری</h6>
+          <h6
+            class="d-flex flex-column align-items-center text-warning cursor-pointer"
+          >
+            <mat-icon>edit</mat-icon>
+            <a> ویرایش </a>
+          </h6>
+        </span>
+        <div class="row mx-0">
+          <div class="form-group col-12 col-md-6">
+            <label for="name">نام و نام خانوادگی</label>
+            <mat-form-field class="w-100" appearance="fill">
+              <input id="name" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-group col-12 col-md-6">
+            <label for="mobileNumber">شماره موبایل</label>
+            <mat-form-field class="w-100" appearance="fill">
+              <input id="mobileNumber" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-group col-12 col-md-6">
+            <label for="nationalCode">کدملی</label>
+            <mat-form-field class="w-100" appearance="fill">
+              <input id="nationalCode" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-group col-12 col-md-6">
+            <label for="email">آدرس ایمیل</label>
+            <mat-form-field class="w-100" appearance="fill">
+              <input id="email" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-group col-12 col-md-6">
+            <label for="birthdate">تاریخ تولد</label>
+            <mat-form-field class="w-100" appearance="fill">
+              <input id="birthdate" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-group col-12 col-md-6">
+            <label for="gender">جنسیت</label>
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-select id="gender">
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span
+          class="d-flex justify-content-between align-items-center border-bottom border-gray-300 mb-3"
+        >
+          <h6>اطلاعات بانکی</h6>
+
+          <h6
+            class="d-flex flex-column align-items-center text-warning cursor-pointer"
+          >
+            <mat-icon>edit</mat-icon>
+            <a> ویرایش </a>
+          </h6>
+        </span>
+        <div class="row mx-0">
+          <div class="form-group col-12 col-md-6">
+            <label for="gender">نوع حساب</label>
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-select id="type">
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-12 col-md-6">
+            <label for="accountOwner">نام صاحب حساب</label>
+            <mat-form-field class="w-100" appearance="fill">
+              <input id="accountOwner" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-group col-12 col-md-6">
+            <label for="cardNumber">شماره کارت</label>
+            <mat-form-field class="w-100" appearance="fill">
+              <input id="cardNumber" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-group col-12 col-md-6">
+            <label for="shabaNumber">شماره شبا</label>
+            <mat-form-field class="w-100" appearance="fill">
+              <input id="shabaNumber" matInput />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-warning">ثبت</button>
+      </div>
+    </form>
+  </div>
+</div>

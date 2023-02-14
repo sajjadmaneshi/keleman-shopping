@@ -1,0 +1,15 @@
+<div class="card mb-3 card-rounded-3 shadow-sm border border-gray-300">
+  <div class="card-body d-flex flex-column">
+    <span class="d-flex align-items-center border-bottom border-gray-300 mb-3">
+      <h6>دیدگاه ها</h6>
+      <h6 class="text-danger mx-1">1</h6>
+    </span>
+    <ng-template #full [ngIf]="true">
+      <keleman-comment-item></keleman-comment-item>
+      <keleman-paginator></keleman-paginator>
+    </ng-template>
+    <ng-template #empty>
+      <keleman-empty-content></keleman-empty-content>
+    </ng-template>
+  </div>
+</div>

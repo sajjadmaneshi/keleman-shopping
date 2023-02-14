@@ -9,6 +9,8 @@ import { DecreaseWalletComponent } from './wallet/components/decrease-wallet/dec
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ReturnedRequestComponent } from './returned-request/returned-request.component';
 import { AddressesComponent } from './address/addresses.component';
+import { PersonalInfoComponent } from './personal-info/personal-info.component';
+import { CommentsComponent } from './comments/comments.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +42,8 @@ export const routes: Routes = [
       { path: Routing.favorites, component: FavoritesComponent },
       { path: Routing.returnedRequests, component: ReturnedRequestComponent },
       { path: Routing.address, component: AddressesComponent },
+      { path: Routing.personalInfo, component: PersonalInfoComponent },
+      { path: Routing.comments, component: CommentsComponent },
     ],
   },
 ];

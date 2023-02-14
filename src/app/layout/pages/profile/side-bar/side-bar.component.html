@@ -3,11 +3,16 @@
     <div class="border-bottom">
       <div class="d-flex align-items-center mb-3">
         <div class="symbol symbol-75px symbol-circle">
-          <img src="assets/media/blank.png" />
+          <img src="../../../../../assets/media/blank.png" />
         </div>
         <span class="d-flex flex-column flex-grow-1 align-items-start mx-4">
           <h5 class="text-klm-primary">سجاد منشی</h5>
-          <a href="#" class="text-muted">تکمیل اطلاعات کاربری</a>
+          <a
+            routerLink="personal-info"
+            routerLinkActive="active"
+            class="text-muted"
+            >تکمیل اطلاعات کاربری</a
+          >
         </span>
         <mat-icon class="material-icons-outlined text-muted"
           >drive_file_rename_outline</mat-icon
@@ -60,7 +65,7 @@
         <mat-icon> chevron_left</mat-icon>
       </li>
 
-      <li class="menu-item">
+      <li class="menu-item" [routerLink]="'comments'" routerLinkActive="active">
         <a class="menu-link"> دیدگاه ها </a>
         <mat-icon> chevron_left</mat-icon>
       </li>

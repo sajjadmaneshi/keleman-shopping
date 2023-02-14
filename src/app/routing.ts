@@ -9,4 +9,6 @@ export class Routing {
   static favorites = 'favorites';
   static returnedRequests = 'returned-requests';
   static address = 'address';
+  static personalInfo = 'personal-info';
+  static comments = 'comments';
 }
