@@ -1,17 +1,25 @@
-@import "base/variables/colors";
+$side-bar-width: 13.75rem;
+
 .mega-menu-side-bar__menu {
-  width: 220px;
+  width: $side-bar-width;
   padding: 0;
+  margin: 0;
   list-style: none;
   > li {
     text-align: right;
     padding: 1rem;
     cursor: pointer;
-    border-left: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    span {
+      margin: 0 0.5rem;
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid #e4e6ef;
+    }
     &:hover {
-      background-color: map-get($theme-colors, "gray-300");
-      border-bottom: 1px solid map-get($theme-colors, "gray-500");
-      border-top: 1px solid map-get($theme-colors, "gray-500");
+      border-right: 3px solid #001d8d;
+
       > .mega-menu-items-menu {
         visibility: visible;
         opacity: 1;
@@ -21,18 +29,22 @@
 }
 
 .mega-menu-items-menu {
-  right: 220px;
-  width: calc(100vw - 288px);
-  max-width: 1030px;
+  height: 100% !important;
+  right: $side-bar-width;
+  width: calc(100vw - 13.75rem);
+  max-width: 70rem;
   overflow-x: auto;
   position: absolute;
   top: 0;
   background-color: white;
   color: #000;
-  min-height: 400px;
+  min-height: 25rem;
   visibility: hidden;
+  border: 1px solid #e4e6ef;
+  padding: 1.5rem;
   opacity: 0;
-  .row {
+  .column {
+    flex-wrap: wrap;
     display: flex;
     flex-direction: column;
     max-height: 500px;
@@ -44,11 +56,11 @@
         padding: 0.5rem;
         cursor: pointer;
         &.head {
-          span {
-            padding-right: 0.5rem;
-            padding-left: 0.5rem;
+          a {
+            padding: 0 0.5rem;
             position: relative;
-            border-right: 3px solid map-get($theme-colors, "klm-primary");
+            font-weight: bolder;
+            border-right: 3px solid #001d8d;
             &::after {
               position: absolute;
               font-family: "Material Icons";
@@ -62,6 +74,10 @@
         }
         &:not(.head) {
           margin-right: 1.5rem;
+          &:hover {
+            font-weight: bold !important;
+            transition: all 0.15s ease-in;
+          }
         }
       }
     }

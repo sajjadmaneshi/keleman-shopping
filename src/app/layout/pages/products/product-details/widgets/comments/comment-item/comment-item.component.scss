@@ -1,15 +1,11 @@
 @import "base/variables/colors";
 
 .comment-item {
-  height: 210px;
+  height: 150px;
   width: 270px;
 
   border: 2px solid map-get($theme-colors, "accent") !important;
-  .commenter-name {
-    width: 100%;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid map-get($theme-colors, "klm-primary");
-  }
+
   .comment-text {
     display: -webkit-box;
     -webkit-line-clamp: 4;
@@ -21,4 +17,10 @@
   .comment-item {
     height: 160px !important;
   }
+}
+.status {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px 0 0 0;
+  background-color: green;
 }

@@ -4,13 +4,13 @@
       <h6>علاقه مندی ها</h6>
       <h6 class="text-danger mx-1">1</h6>
     </span>
-    <ng-template #full>
+    <ng-template #full [ngIf]="true">
       <keleman-favorite-item></keleman-favorite-item>
       <keleman-favorite-item></keleman-favorite-item>
       <keleman-favorite-item></keleman-favorite-item>
       <keleman-favorite-item></keleman-favorite-item>
     </ng-template>
-    <ng-template #empty [ngIf]="true">
+    <ng-template #empty>
       <keleman-empty-content></keleman-empty-content>
     </ng-template>
   </div>

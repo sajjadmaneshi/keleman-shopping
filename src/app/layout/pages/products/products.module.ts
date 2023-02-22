@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
@@ -9,7 +8,6 @@ import { ProductCommentsComponent } from './product-details/widgets/comments/pro
 import { CommentItemComponent } from './product-details/widgets/comments/comment-item/comment-item.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MagazineModule } from '../magazine/magazine.module';
-import { PriceChartComponent } from './product-details/widgets/price-chart/price-chart.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import {
   SwiperContentDirective,
@@ -28,7 +26,7 @@ import {
   NgbRating,
 } from '@ng-bootstrap/ng-bootstrap';
 import { ProductSpecificationsComponent } from './product-details/widgets/specifications/product-specifications.component';
-import { ProductCheckingComponent } from './product-details/widgets/checking/product-checking.component';
+import { ProductIntroductionComponent } from './product-details/widgets/specifications/introduction/product-introduction.component';
 import { ProductRateComponent } from './product-details/widgets/rate/product-rate.component';
 import { ProductContentComponent } from './product-details/widgets/content/product-content.component';
 import { LayoutModule } from '../../layout.module';
@@ -42,22 +40,32 @@ import {
 import { KelemanReadMoreComponent } from '../../../shared/components/keleman-read-more/keleman-read-more.component';
 import { RelatedArticlesComponent } from '../../views/shared/related-articles/related-articles.component';
 import { KelemanBarRatingComponent } from '../../../shared/components/keleman-bar-rating/keleman-bar-rating.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ProductSpecializedSpecificationsComponent } from './product-details/widgets/specifications/special-specification/product-specialized-specifications.component';
+import { KelemanIconTextComponent } from '../../../shared/components/keleman-icon-text/keleman-icon-text.component';
+import { PriceChartDialogComponent } from './product-details/widgets/content/price-chart-dialog/price-chart-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ExpertCheckComponent } from './product-details/widgets/specifications/expert-check/expert-check.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 @NgModule({
   declarations: [
     ProductsComponent,
-    ProductDetailsComponent,
+    ProductSpecializedSpecificationsComponent,
     ProductCommentsComponent,
     CommentItemComponent,
-    PriceChartComponent,
     ProductNavbarComponent,
     ProductAlbumComponent,
     ProductMetaComponent,
     ProductSpecificationsComponent,
-    ProductCheckingComponent,
+    ProductIntroductionComponent,
     ProductRateComponent,
     ProductContentComponent,
     ProductRelatesComponent,
+    ProductSpecializedSpecificationsComponent,
+    PriceChartDialogComponent,
+    ExpertCheckComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -84,6 +92,9 @@ import { KelemanBarRatingComponent } from '../../../shared/components/keleman-ba
     RelatedArticlesComponent,
     NgbRating,
     KelemanBarRatingComponent,
+    MatIconModule,
+    KelemanIconTextComponent,
+    MatDialogModule,
   ],
 })
 export class ProductsModule {}

@@ -27,6 +27,7 @@ import {
   NgbNavContent,
   NgbNavItem,
   NgbNavLink,
+  NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
 import { EmptyContentComponent } from './empty-content/empty-content.component';
 import { FavoritesComponent } from './favorites/favorites.component';
@@ -42,6 +43,7 @@ import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { MatSelectModule } from '@angular/material/select';
 import { CommentsComponent } from './comments/comments.component';
 import { CommentItemComponent } from './comments/comment-item/comment-item.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,8 @@ import { CommentItemComponent } from './comments/comment-item/comment-item.compo
     MatComponentsModule,
     PaginatorComponent,
     MatSelectModule,
+    NgbTooltip,
+    MatCheckboxModule,
   ],
 })
 export class ProfileModule {}

@@ -1,11 +1,24 @@
-<div class="card card-rounded-1 comment-item mb-0">
+<div class="card card-rounded-4 comment-item mb-0">
+  <div class="card-header row mx-0 p-0 border-bottom border-success">
+    <span class="col-6 align-self-center p-2">
+      <h6 class="fw-bolder commenter-name mb-0">{{ comment.commenter! }}</h6>
+    </span>
+    <span class="col-6 d-flex align-items-center p-0">
+      <keleman-icon-text
+        [text]="'2.5'"
+        [iconName]="'star'"
+        [iconClass]="'text-warning'"
+      ></keleman-icon-text>
+      <div class="status d-flex align-items-center justify-content-center">
+        <span class="text-white">{{
+          persianDatetime.fromGregorianString(comment.date, "DD jMMMM YYYY")
+        }}</span>
+      </div>
+    </span>
+  </div>
   <div class="card-body d-flex flex-column align-items-start">
-    <h6 class="fw-bolder commenter-name">{{ comment.commenter! }}</h6>
     <p class="comment-text mb-3">
       {{ comment.comment! }}
     </p>
-    <span class="text-muted mt-auto">{{
-      persianDatetime.fromGregorianString(comment.date, "DD jMMMM YYYY")
-    }}</span>
   </div>
 </div>

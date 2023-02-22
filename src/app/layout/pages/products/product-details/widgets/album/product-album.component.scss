@@ -1,3 +1,9 @@
 :host ::ng-deep .swiper-slide {
   width: auto !important;
 }
+.symbol {
+  border-radius: inherit !important;
+  img {
+    border-radius: inherit !important;
+  }
+}

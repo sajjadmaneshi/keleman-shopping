@@ -9,7 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrdersComponent {
-  selectedIndex$ = new BehaviorSubject<number>(0);
+  selectedIndex$ = new BehaviorSubject<number | null>(null);
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -23,7 +23,7 @@ export class OrdersComponent {
       if (params['selected']) {
         this.selectedIndex$.next(params['selected']);
       } else {
-        this._updateQueryParams(0);
+        this.selectedIndex$.next(null);
       }
     });
   }

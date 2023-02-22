@@ -1,0 +1,21 @@
+<div class="border-bottom border-gray-300 mb-3">
+  <h6 class="fw-bold text-klm-primary">مشخصات</h6>
+  <div class="row details">
+    <div class="col-12 col-md-6">
+      <ul class="product-details-check">
+        <li *ngFor="let item of checkingList; let i = index">
+          <span class="fw-bold">{{ item.title! }}</span>
+          <span>{{ item.value }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-12 col-md-6">
+      <ul class="product-details-check">
+        <li *ngFor="let item of checkingList; let i = index">
+          <span class="fw-bold">{{ item.title! }}</span>
+          <span>{{ item.value }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

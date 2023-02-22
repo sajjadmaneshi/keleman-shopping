@@ -7,8 +7,22 @@
   .mat-mdc-tab {
     flex-grow: unset !important;
     font-family: IRANYekanXFaNum !important;
+    letter-spacing: 0 !important;
   }
   .mat-mdc-tab-labels {
     border-bottom: 1px solid map-get($theme-colors, "gray-300");
   }
+}
+
+.seeAll {
+  display: flex;
+  align-items: center;
+  mat-icon {
+    margin: 0 0.5rem;
+  }
+}
+
+.order-link {
+  cursor: pointer;
+  color: black;
 }

@@ -11,6 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderItemComponent } from './components/order-item/order-item.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PaginatorComponent } from '../../../../shared/components/paginator/paginator.component';
+import { LazyLoadingDirective } from '../../../../shared/directives/lazy-loading.directive';
 
 export const routes: Routes = [{ path: '', component: OrdersComponent }];
 
@@ -30,6 +31,7 @@ export const routes: Routes = [{ path: '', component: OrdersComponent }];
     RouterModule.forChild(routes),
     MatIconModule,
     PaginatorComponent,
+    LazyLoadingDirective,
   ],
 })
 export class OrdersModule {}

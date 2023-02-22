@@ -1,13 +1,13 @@
-import { Component, ContentChildren, Input, QueryList } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import * as Highcharts from 'highcharts';
 @Component({
-  selector: 'app-price-chart',
-  templateUrl: './price-chart.component.html',
-  styleUrls: ['./price-chart.component.scss'],
+  selector: 'keleman-price-chart-dialog',
+  templateUrl: './price-chart-dialog.component.html',
+  styleUrls: ['./price-chart-dialog.component.scss'],
 })
-export class PriceChartComponent {
+export class PriceChartDialogComponent {
   @Input() items!: any[];
-
   Highcharts: typeof Highcharts = Highcharts;
 
   chartOptions: Highcharts.Options = {
@@ -48,4 +48,9 @@ export class PriceChartComponent {
     ],
     accessibility: { enabled: false },
   };
+  constructor(private _dialogRef: MatDialogRef<PriceChartDialogComponent>) {}
+
+  close() {
+    this._dialogRef.close();
+  }
 }

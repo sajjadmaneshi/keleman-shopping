@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'keleman-product-checking',
-  templateUrl: './product-checking.component.html',
+  selector: 'keleman-product-specialization',
+  templateUrl: './product-specialized-specifications.component.html',
   styles: [
     `
       .product-checking {
         min-height: 100%;
         overflow: auto;
       }
+      .details {
+        margin: 0 15rem;
+      }
     `,
   ],
 })
-export class ProductCheckingComponent {
+export class ProductSpecializedSpecificationsComponent {
   checkingList: any = [
     {
       title: 'مدل',

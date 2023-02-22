@@ -1,3 +1,12 @@
 button {
   min-width: 5rem;
 }
+::ng-deep {
+  .mdc-text-field--filled:not(.mdc-text-field--disabled),
+  .mdc-line-ripple:before {
+    border-bottom-color: transparent !important;
+  }
+  .mat-mdc-text-field-wrapper {
+    border-radius: 0.5rem !important;
+  }
+}

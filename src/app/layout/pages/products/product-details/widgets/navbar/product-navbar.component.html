@@ -1,4 +1,4 @@
-<div class="card card-rounded-md-1 product-details-navbar mb-3 sticky-md-top">
+<div class="card card-rounded-md-4 shadow product-details-navbar mb-3">
   <div class="card-body">
     <ng-container
       *ngIf="
@@ -11,8 +11,17 @@
       <ul ngbNav #nav="ngbNav" class="nav-pills justify-content-center">
         <li ngbNavItem="details">
           <a ngbNavLink>
-            <span class="material-icons"> insights </span>
+            <span class="material-icons"> list </span>
             مشخصات
+          </a>
+          <ng-template ngbNavContent>
+            <keleman-product-specifications></keleman-product-specifications>
+          </ng-template>
+        </li>
+        <li ngbNavItem="details">
+          <a ngbNavLink>
+            <span class="material-icons"> insights </span>
+            معرفی
           </a>
           <ng-template ngbNavContent>
             <keleman-product-specifications></keleman-product-specifications>
@@ -22,16 +31,16 @@
         <li ngbNavItem="check">
           <a ngbNavLink>
             <span class="material-icons"> list </span>
-            بررسی
+            بررسی تخصصی
           </a>
           <ng-template ngbNavContent>
-            <keleman-product-checking></keleman-product-checking>
+            <keleman-product-introduction></keleman-product-introduction>
           </ng-template>
         </li>
         <li ngbNavItem="rate">
           <a ngbNavLink>
             <span class="material-icons"> star_border </span>
-            امتیاز</a
+            دیدگاه ها</a
           >
           <ng-template ngbNavContent>
             <keleman-product-rate></keleman-product-rate>
@@ -40,7 +49,7 @@
         <li ngbNavItem="comment">
           <a ngbNavLink>
             <span class="material-icons"> message </span>
-            نظرات</a
+            پرسش ها</a
           >
           <ng-template ngbNavContent>
             <keleman-product-comments></keleman-product-comments>
@@ -51,30 +60,36 @@
       <div [ngbNavOutlet]="nav" class="ms-4"></div>
     </ng-template>
     <ng-template #web>
-      <nav class="navbar navbar-expand">
+      <nav class="navbar navbar-expand mx-5">
         <ul class="navbar-nav d-flex justify-content-between w-100 p-0">
           <li class="nav-item">
-            <a class="nav-link" routerLink="." fragment="details">
-              <span class="material-icons"> insights </span>
+            <a class="nav-link" routerLink="." fragment="specialization">
+              <span class="material-icons"> list </span>
               مشخصات
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="." fragment="checking-and-rate">
-              <span class="material-icons"> list </span>
-              بررسی
+            <a class="nav-link" routerLink="." fragment="introduction">
+              <mat-icon class="material-icons"> lightbulb </mat-icon>
+              معرفی
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="." fragment="checking-and-rate">
-              <span class="material-icons"> star_border </span>
-              امتیاز</a
+            <a class="nav-link" routerLink="." fragment="expert-check">
+              <span class="material-icons"> verified </span>
+              بررسی تخصصی
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="." fragment="comment">
+              <span class="material-icons"> mark_chat_unread </span>
+              دیدگاه ها</a
             >
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="." fragment="comment">
-              <span class="material-icons"> message </span>
-              نظرات</a
+              <span class="material-icons"> contact_support </span>
+              پرسش ها</a
             >
           </li>
         </ul>

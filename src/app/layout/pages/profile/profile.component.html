@@ -8,20 +8,5 @@
     <div class="col-9">
       <router-outlet></router-outlet>
     </div>
-    <div class="col-12 mt-3">
-      <standalone-swiper
-        [title]="'محصولات پیشنهادی برای شما'"
-        [spaceBetween]="10"
-        [moreButtonText]="'مشاهده بیشتر محصولات'"
-        [navigation]="true"
-        [navigationButtonClassPrefix]="'suggestion-product'"
-      >
-        <appSwiperContent *ngFor="let slide of slides">
-          <ng-template appSwiperTemplate>
-            <keleman-swiper-item [product]="slide"></keleman-swiper-item>
-          </ng-template>
-        </appSwiperContent>
-      </standalone-swiper>
-    </div>
   </div>
 </div>

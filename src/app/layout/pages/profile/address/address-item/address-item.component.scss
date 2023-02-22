@@ -1,4 +1,11 @@
 @import "base/variables/colors";
+
+.address-item ::ng-deep .map-container {
+  width: 9rem !important;
+  height: 9rem !important;
+  border-radius: 13px !important;
+}
+
 .address-item {
   margin-bottom: 1rem;
   border: 1px solid map-get($theme-colors, "gray-300") !important;
@@ -6,11 +13,30 @@
     border: 2px solid map-get($theme-colors, "klm-primary") !important;
   }
 }
+
+.actions {
+  a {
+    margin: 0 0.25rem;
+  }
+}
+
 .address-text {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
 
-  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-line-clamp: 1; /* number of lines to show */
   -webkit-box-orient: vertical;
+}
+.address-info {
+  list-style: none;
+  padding: 0;
+  li {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0;
+    mat-icon {
+      margin: 0 0.5rem;
+    }
+  }
 }

@@ -11,7 +11,7 @@ import { RawResult } from 'leaflet-geosearch/lib/providers/openStreetMapProvider
   encapsulation: ViewEncapsulation.None,
 })
 export class AddAddressDialogComponent {
-  showMap = false;
+  showMap = true;
   addressForm!: FormGroup;
   provinces: any[] = [
     { id: 1, name: 'شیراز' },

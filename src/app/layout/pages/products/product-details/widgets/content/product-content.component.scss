@@ -3,42 +3,41 @@
 
 @include swiper-button();
 
-.favorite-button {
+.action-buttons {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   right: 1rem;
   top: 1rem;
+  > * {
+    margin-bottom: 1.8rem;
+  }
 }
+
+.rate {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 15px;
-  .product-details-seller {
-    .card-header {
-      background-color: map-get($theme-colors, "klm-primary");
-    }
-    .card-body {
-      background-color: map-get($theme-colors, "klm-primary");
-      opacity: 0.8;
-    }
-  }
-  .product-details-warranty {
-    .card-header {
-      background-color: map-get($theme-colors, "klm-secondary");
-    }
-    .card-body {
-      background-color: map-get($theme-colors, "klm-secondary");
-      opacity: 0.8;
-    }
-  }
 }
 
-.delivery > div {
-  height: 90px;
+.delivery {
+  & > div {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1rem;
+  }
 }
 
 .delivery-image {
   height: 100%;
-  width: 100%;
+  width: 60%;
   object-fit: cover;
 }
 .product-main-image-swiper {
@@ -64,4 +63,7 @@
   height: 100%;
   color: white !important;
   background-color: map-get($theme-colors, "klm-secondary") !important;
+}
+.cdk-overlay-container {
+  z-index: 1021 !important;
 }
