@@ -17,9 +17,14 @@
     <div>
       <ng-template #full [ngIf]="true">
         <keleman-address-item
+          [mine]="true"
+          [address]="myAddresses[1]"
+        ></keleman-address-item>
+        <keleman-address-item
           *ngFor="let address of myAddresses"
           [address]="address"
         ></keleman-address-item>
+
         <keleman-paginator></keleman-paginator>
       </ng-template>
 

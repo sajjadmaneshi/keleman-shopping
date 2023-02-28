@@ -10,6 +10,7 @@ import { LatLngExpression } from 'leaflet';
 })
 export class AddressItemComponent {
   @Input() address!: AddressWithSelected;
+  @Input() mine: boolean = false;
 
   getMarkerLatLng(lat: number, lng: number): LatLngExpression {
     return { lat, lng } as LatLngExpression;

@@ -1,0 +1,9 @@
+@use "sass:math";
+@import "base/variables/colors";
+.keleman_gray_card {
+  border-radius: math.div(1rem, 4);
+  padding: 1.5rem;
+  background-color: $gray-300;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  margin-bottom: 1rem;
+}

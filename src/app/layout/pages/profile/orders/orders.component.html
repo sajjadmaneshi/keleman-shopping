@@ -12,9 +12,9 @@
       </a>
     </span>
     <ng-template [ngIf]="!(selectedIndex$ | async)" [ngIfElse]="tabBar">
-      <div class="row mx-0">
+      <div class="row mx-0 order-menu my-5">
         <a
-          class="col-4 d-flex align-items-center order-link"
+          class="col-3 d-flex align-items-center order-link"
           (click)="changeTab(0)"
         >
           <img
@@ -23,11 +23,11 @@
           />
           <span class="d-flex flex-column align-items-start mx-3">
             <h6>0 سفارش</h6>
-            <span>جاری</span>
+            <span class="processing">جاری</span>
           </span>
         </a>
         <a
-          class="col-4 d-flex align-items-center order-link"
+          class="col-3 d-flex align-items-center order-link"
           (click)="changeTab(1)"
         >
           <img
@@ -36,17 +36,30 @@
           />
           <span class="d-flex flex-column align-items-start mx-3">
             <h6>2 سفارش</h6>
-            <span>تحویل شده</span>
+            <span class="delivered">تحویل شده</span>
           </span>
         </a>
         <a
-          class="col-4 d-flex align-items-center order-link"
+          class="col-3 d-flex align-items-center order-link"
           (click)="changeTab(2)"
         >
           <img loadingLazy src="assets/media/user-orders/status-returned.svg" />
           <span class="d-flex flex-column align-items-start mx-3">
             <h6>2 سفارش</h6>
-            <span>مرجوع شده</span>
+            <span class="returned">مرجوع شده</span>
+          </span>
+        </a>
+        <a
+          class="col-3 d-flex align-items-center order-link"
+          (click)="changeTab(3)"
+        >
+          <img
+            loadingLazy
+            src="assets/media/user-orders/status-cancelled.svg"
+          />
+          <span class="d-flex flex-column align-items-start mx-3">
+            <h6>2 سفارش</h6>
+            <span class="cancelled">لغوشده</span>
           </span>
         </a>
       </div>

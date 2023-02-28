@@ -1,31 +1,12 @@
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M32 8.00001C27.5817 8.00001 24 11.5817 24 16C24 20.4183 27.5817 24 32 24C36.4183 24 40 20.4183 40 16C40 11.5817 36.4183 8.00001 32 8.00001ZM18.6667 16C18.6667 8.63621 24.6362 2.66667 32 2.66667C39.3638 2.66667 45.3334 8.63621 45.3334 16C45.3334 23.3638 39.3638 29.3333 32 29.3333C24.6362 29.3333 18.6667 23.3638 18.6667 16Z" fill="url(#paint0_linear)"/>
-<path d="M10.6667 17.9333C10.6667 16.2765 12.0098 14.9333 13.6667 14.9333H50.3333C51.9902 14.9333 53.3334 16.2765 53.3334 17.9333V53.6667C53.3334 56.4281 51.0948 58.6667 48.3334 58.6667H15.6667C12.9053 58.6667 10.6667 56.4281 10.6667 53.6667V17.9333Z" fill="url(#paint1_linear)"/>
-<g filter="url(#filter0_i)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M21.3333 37.12L24.9173 33.7067L29.3973 37.9733L40.1493 27.7333L43.7333 31.1467L29.3973 44.8L21.3333 37.12Z" fill="url(#paint2_linear)"/>
-</g>
-<defs>
-<filter id="filter0_i" x="21.3333" y="27.7333" width="22.4" height="17.0667" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.0493759 0 0 0 0 0.339079 0 0 0 0 0.0644254 0 0 0 0.4 0"/>
-<feBlend mode="normal" in2="shape" result="effect1_innerShadow"/>
-</filter>
-<linearGradient id="paint0_linear" x1="21.3334" y1="5.33334" x2="21.3334" y2="26.6667" gradientUnits="userSpaceOnUse">
-<stop stop-color="#83D788"/>
-<stop offset="1" stop-color="#4DB051"/>
-</linearGradient>
-<linearGradient id="paint1_linear" x1="10.6667" y1="14.9333" x2="10.6667" y2="58.6667" gradientUnits="userSpaceOnUse">
-<stop stop-color="#83D888"/>
-<stop offset="1" stop-color="#4CAF50"/>
-</linearGradient>
-<linearGradient id="paint2_linear" x1="24.5477" y1="25.8025" x2="21.5442" y2="43.2252" gradientUnits="userSpaceOnUse">
-<stop stop-color="#2E7B32"/>
-<stop offset="1" stop-color="#2E7B32"/>
-</linearGradient>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="55.12" height="61.164" viewBox="0 0 55.12 61.164">
+  <g id="Group_8688" data-name="Group 8688" transform="translate(-770 -325.336)">
+    <path id="Path_14625" data-name="Path 14625" d="M236.609,364.966h5.512v-5.315h-8.268a2.808,2.808,0,0,0-1.948.777,2.611,2.611,0,0,0-.807,1.88v7.974H192.8l-.8-4.9h0c-.353.151-4.028.181-4.287.457a2.644,2.644,0,0,0-.573.954,2.549,2.549,0,0,0-.123,1.1l2.758,26.581a2.62,2.62,0,0,0,.895,1.7,2.806,2.806,0,0,0,1.845.683H233.86a2.805,2.805,0,0,0,1.948-.777,2.608,2.608,0,0,0,.808-1.88Zm-5.51,45.184a5.652,5.652,0,0,1-3.063-.895,5.367,5.367,0,0,1-2.03-2.387,5.133,5.133,0,0,1-.312-3.07,5.25,5.25,0,0,1,1.507-2.721,5.581,5.581,0,0,1,2.822-1.455,5.7,5.7,0,0,1,3.186.3,5.473,5.473,0,0,1,2.473,1.957,5.176,5.176,0,0,1-.685,6.712,5.615,5.615,0,0,1-3.9,1.556Zm-35.829,0a5.651,5.651,0,0,1-3.061-.895,5.366,5.366,0,0,1-2.03-2.387,5.148,5.148,0,0,1-.314-3.07,5.265,5.265,0,0,1,1.508-2.721,5.581,5.581,0,0,1,2.822-1.455,5.691,5.691,0,0,1,3.184.3,5.478,5.478,0,0,1,2.475,1.957,5.16,5.16,0,0,1,.509,4.988,5.29,5.29,0,0,1-1.2,1.723,5.5,5.5,0,0,1-1.79,1.152,5.629,5.629,0,0,1-2.109.4ZM231.1,391.546V370.282H192.8l2.2,21.264Z" transform="translate(583 -23.651)" fill="#1e2d5e" fill-rule="evenodd"/>
+    <g id="how_to_reg_black_24dp" transform="translate(773 325.336)">
+      <path id="Path_14629" data-name="Path 14629" d="M0,0H42.945V42.945H0Z" fill="none" fill-rule="evenodd"/>
+      <g id="Group_8657" data-name="Group 8657" transform="translate(5.342 7.335)">
+        <path id="Path_14630" data-name="Path 14630" d="M13.683,27.147l5.342-5.235a16.631,16.631,0,0,0-1.781-.107C12.49,21.805,3,24.191,3,28.927v3.561H19.025Zm3.561-8.9a7.122,7.122,0,1,0-7.122-7.122,7.12,7.12,0,0,0,7.122,7.122" transform="translate(-3 -4)" fill="#57b894" fill-rule="evenodd"/>
+        <path id="Path_14631" data-name="Path 14631" d="M18.178,26.744,12,20.512,14.493,18l3.686,3.7L27.312,12.5l2.493,2.511Z" transform="translate(4.238 2.634)" fill="#57b894" fill-rule="evenodd"/>
+      </g>
+    </g>
+  </g>
 </svg>

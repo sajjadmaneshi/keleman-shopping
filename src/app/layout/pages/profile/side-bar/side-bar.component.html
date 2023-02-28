@@ -39,9 +39,12 @@
         </li>
       </ul>
     </div>
-    <ul class="side-bar-menu me-5">
+    <ul class="side-bar-menu me-3">
       <li class="menu-item" [routerLink]="'orders'" routerLinkActive="active">
-        <a class="menu-link"> سفارش ها </a>
+        <a class="menu-link">
+          <mat-icon class="mx-2">shopping_basket</mat-icon>
+          سفارش ها
+        </a>
         <mat-icon> chevron_left</mat-icon>
       </li>
       <li
@@ -49,7 +52,10 @@
         [routerLink]="'favorites'"
         routerLinkActive="active"
       >
-        <a class="menu-link"> علاقه مندی ها </a>
+        <a class="menu-link">
+          <mat-icon class="mx-2">favorite</mat-icon>
+          علاقه مندی ها
+        </a>
         <mat-icon> chevron_left</mat-icon>
       </li>
       <li
@@ -57,20 +63,32 @@
         [routerLink]="'returned-requests'"
         routerLinkActive="active"
       >
-        <a class="menu-link"> درخواست مرجوعی </a>
+        <a class="menu-link">
+          <mat-icon class="mx-2">assignment_return</mat-icon>
+          درخواست مرجوعی
+        </a>
         <mat-icon> chevron_left</mat-icon>
       </li>
       <li class="menu-item" [routerLink]="'address'" routerLinkActive="active">
-        <a class="menu-link"> آدرس ها </a>
+        <a class="menu-link">
+          <mat-icon class="mx-2">place</mat-icon>
+          آدرس ها
+        </a>
         <mat-icon> chevron_left</mat-icon>
       </li>
 
       <li class="menu-item" [routerLink]="'comments'" routerLinkActive="active">
-        <a class="menu-link"> دیدگاه ها </a>
+        <a class="menu-link">
+          <mat-icon class="mx-2">chat</mat-icon>
+          دیدگاه ها
+        </a>
         <mat-icon> chevron_left</mat-icon>
       </li>
       <li class="menu-item">
-        <a class="menu-link text-danger"> خروج </a>
+        <a class="menu-link text-danger">
+          <mat-icon class="mx-2">power_settings_new</mat-icon>
+          خروج
+        </a>
       </li>
     </ul>
   </div>

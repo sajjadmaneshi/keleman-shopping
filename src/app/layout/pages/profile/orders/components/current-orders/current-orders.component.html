@@ -1,11 +1,11 @@
 <div>
-  <ng-template #full>
+  <ng-template #full [ngIf]="true">
     <keleman-order-item></keleman-order-item>
     <keleman-order-item></keleman-order-item>
     <keleman-paginator></keleman-paginator>
   </ng-template>
 
-  <ng-template #empty [ngIf]="true">
+  <ng-template #empty>
     <keleman-empty-content></keleman-empty-content>
   </ng-template>
 </div>

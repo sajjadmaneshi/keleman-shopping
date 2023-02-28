@@ -1,5 +1,9 @@
 @import "base/variables/colors";
-
+.order-menu {
+  a {
+    justify-content: center;
+  }
+}
 .order-tab-bar {
   .mat-mdc-tab-body-wrapper {
     margin-top: 1rem;
@@ -25,4 +29,16 @@
 .order-link {
   cursor: pointer;
   color: black;
+  .processing {
+    color: #889cf0;
+  }
+  .delivered {
+    color: #57b894;
+  }
+  .returned {
+    color: #f98a62;
+  }
+  .cancelled {
+    color: #6a6867;
+  }
 }

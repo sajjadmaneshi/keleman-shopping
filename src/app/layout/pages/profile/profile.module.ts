@@ -44,6 +44,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommentsComponent } from './comments/comments.component';
 import { CommentItemComponent } from './comments/comment-item/comment-item.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FavoriteCategoriesItemComponent } from './favorites/components/favorite-categories/favorite-categories-item/favorite-categories-item.component';
+import { FavoriteCategoriesComponent } from './favorites/components/favorite-categories/favorite-categories.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     PersonalInfoComponent,
     CommentsComponent,
     CommentItemComponent,
+    FavoriteCategoriesItemComponent,
+    FavoriteCategoriesComponent,
   ],
   imports: [
     CommonModule,
