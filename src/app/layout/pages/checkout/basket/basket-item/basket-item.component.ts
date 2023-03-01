@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ApplicationStateService } from '../../../../shared/services/application-state.service';
+import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
 
 @Component({
   selector: 'app-basket-item',

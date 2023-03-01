@@ -1,0 +1,61 @@
+<div class="card border-0 card-rounded-3 shadow basket-item mb-3">
+  <div class="card-body p-0 d-flex justify-content-start align-items-center">
+    <mat-icon class="text-danger mx-3 fs-3" inline="true">delete</mat-icon>
+
+    <div
+      class="p-3 d-flex justify-content-start flex-grow-1 border-end border-gray-400"
+    >
+      <div class="d-flex flex-column align-items-center">
+        <div class="symbol symbol-90px symbol-lg-160px">
+          <img src="../../../../../../assets/media/temp/1.jpg" />
+        </div>
+        <standalone-value-changer class="w-100"></standalone-value-changer>
+      </div>
+
+      <div
+        class="basket-item__details d-flex flex-column justify-content-evenly flex-grow-1 mx-5"
+      >
+        <h5 class="basket-item__details-title fw-bold mb-5">
+          M/S2 1KW AC12 5/5NR موتور گیربکس الکو
+        </h5>
+
+        <div class="basket-item__details-meta">
+          <span class="basket-item__warranty d-flex align-items-center">
+            <mat-icon class="mx-3"> verified_user</mat-icon>
+
+            <h6>گارانتی اصالت و سلامت فیزیکی کالا</h6>
+          </span>
+
+          <span
+            class="basket-item__details-meta-shop d-flex align-items-center"
+          >
+            <mat-icon class="mx-3">store</mat-icon>
+            <h6>کلمان</h6>
+          </span>
+          <span
+            class="basket-item__details-meta-deliver d-flex align-items-center"
+          >
+            <mat-icon class="mx-3">local_shipping</mat-icon>
+            <h6>4 تا 10 روز کاری</h6>
+          </span>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column align-self-end">
+        <standalone-price
+          [value]="3000000"
+          [color]="'dark'"
+          [size]="'h3'"
+          [icon]="'assets/media/icons/toman-icon/toman-icon-sm.png'"
+        ></standalone-price>
+        <standalone-price
+          [value]="5000000"
+          [color]="'dark'"
+          [size]="'h3'"
+          [off]="true"
+          [icon]="'assets/media/icons/toman-icon/toman-icon-sm.png'"
+        ></standalone-price>
+      </div>
+    </div>
+  </div>
+</div>

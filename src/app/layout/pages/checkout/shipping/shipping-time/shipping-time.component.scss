@@ -1,0 +1,23 @@
+@import "base/variables/colors";
+::ng-deep {
+  .shipping-time .mat-mdc-radio-button .mdc-form-field {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  .mat-mdc-radio-button.mat-accent {
+    --mdc-radio-selected-focus-icon-color: #fcb527ff !important;
+    --mdc-radio-selected-hover-icon-color: #fcb527ff !important;
+    --mdc-radio-selected-icon-color: #fcb527ff !important;
+    --mdc-radio-selected-pressed-icon-color: #fcb527ff !important;
+    --mat-mdc-radio-checked-ripple-color: #fcb527ff !important;
+  }
+}
+
+mat-radio-button {
+  text-align: center;
+  padding: 1rem;
+  &:not(:first-child) {
+    border-right: 2px solid $gray-300;
+  }
+}

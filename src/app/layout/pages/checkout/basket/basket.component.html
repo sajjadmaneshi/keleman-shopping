@@ -1,0 +1,18 @@
+<div class="basket-body d-flex flex-column align-items-center">
+  <ng-container *ngIf="false; then empty; else full"> </ng-container>
+  <ng-template #empty>
+    <ng-container>
+      <img class="empty-basket-img" src="assets/media/basket/empty.png" />
+      <h6>سبد خرید شما خالی است!</h6>
+      <a class="fw-bold text-klm-primary" [routerLink]="'/'"
+        ><u>بازگشت به فروشگاه</u></a
+      >
+    </ng-container>
+  </ng-template>
+  <ng-template #full>
+    <app-basket-item></app-basket-item>
+    <app-basket-item></app-basket-item>
+    <app-basket-item></app-basket-item>
+    <app-basket-item></app-basket-item>
+  </ng-template>
+</div>

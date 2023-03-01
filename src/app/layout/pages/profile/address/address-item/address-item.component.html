@@ -3,29 +3,13 @@
   [class.selected]="address.selected"
 >
   <div class="card-body align-items-center">
-    <span class="d-flex align-items-center justify-content-between mb-3">
-      <h6 class="mb-3 address-text">
-        {{ address.address }}
-      </h6>
-      <span class="actions">
-        <button
-          class="btn btn-icon btn-info"
-          ngbTooltip="انتخاب به عنوان آدرس پیشفرض"
-          [disabled]="address.selected"
-        >
-          <mat-icon>star</mat-icon>
-        </button>
-        <a href="#" class="btn btn-icon btn-warning text-white">
-          <mat-icon>edit</mat-icon>
-        </a>
-        <a href="#" class="btn btn-icon btn-danger">
-          <mat-icon>delete</mat-icon>
-        </a>
-      </span>
-    </span>
-
-    <div class="d-flex justify-content-between align-items-start">
+    <div class="d-flex justify-content-between align-items-center">
       <ul class="address-info">
+        <li>
+          <h6 class="mb-3 address-text">
+            {{ address.address }}
+          </h6>
+        </li>
         <li class="text-muted">
           <mat-icon class="material-icons-outlined">place</mat-icon>
           شیراز
@@ -45,11 +29,28 @@
           سجاد منشی
         </li>
       </ul>
-      <keleman-map
-        [readOnly]="true"
-        [markerLatLng]="getMarkerLatLng(address.lat, address.lng)"
-        [zoom]="50"
-      ></keleman-map>
+      <div class="d-flex align-items-center">
+        <keleman-map
+          [readOnly]="true"
+          [markerLatLng]="getMarkerLatLng(address.lat, address.lng)"
+          [zoom]="50"
+        ></keleman-map>
+        <span class="actions d-flex flex-column mx-3">
+          <button
+            class="btn btn-icon text-info"
+            ngbTooltip="انتخاب به عنوان آدرس پیشفرض"
+            [disabled]="address.selected"
+          >
+            <mat-icon>star</mat-icon>
+          </button>
+          <button href="#" class="btn btn-icon text-warning">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button href="#" class="btn btn-icon text-danger">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
+      </div>
     </div>
   </div>
 </div>

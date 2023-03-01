@@ -1,36 +1,25 @@
-<div class="card card-rounded-1">
-  <div class="card-body text-center">
-    <div class="header border-bottom border-1">
+<div class="purchase card border-0 card-rounded-3 shadow sticky-top">
+  <div class="card-body text-center d-flex flex-column">
+    <div class="flex-grow-1">
       <span class="d-flex justify-content-between kfs-3 pb-3">
-        <h6 class="fw-bold">هزینه کل</h6>
-        <standalone-price
-          [value]="3000000"
-          [color]="'dark'"
-          [size]="'h6'"
-          [icon]="'assets/media/icons/toman-icon/toman-icon-sm.png'"
-        ></standalone-price>
+        <h6 class="fw-bold">مجموع قیمت کالا ها</h6>
+        <h6>{{ 3500000 | number : ".0" }} تومان</h6>
+      </span>
+      <span class="d-flex justify-content-between kfs-3 pb-3">
+        <h6 class="fw-bold">مبلغ پرداختی</h6>
+        <h6>{{ 3500000 | number : ".0" }} تومان</h6>
+      </span>
+      <span class="d-flex justify-content-between kfs-3 pb-3 text-success">
+        <h6 class="fw-bold">سود شما ازین خرید</h6>
+        <h6>{{ 3500000 | number : ".0" }} تومان</h6>
       </span>
     </div>
-    <span class="d-flex justify-content-between kfs-3 text-danger py-3">
-      <h6 class="fw-bold">تخفیف</h6>
-      <standalone-price
-        [value]="3000000"
-        [color]="'danger'"
-        [size]="'h6'"
-        [icon]="'assets/media/icons/toman-icon/toman-icon-red.png'"
-      ></standalone-price>
-    </span>
-    <span class="d-flex flex-column text-center mb-3">
-      <h3>قابل پرداخت:</h3>
-      <standalone-price
-        [value]="3000000"
-        [color]="'dark'"
-        [size]="'h3'"
-        [icon]="'assets/media/icons/toman-icon/toman-icon-sm.png'"
-      ></standalone-price>
-    </span>
-    <button class="btn klm-basket__purchase-button keleman-button">
-      ثبت سفارش
+
+    <button
+      class="btn btn-warning submit-button align-self-center"
+      (click)="checkoutService.nextStep()"
+    >
+      ادامه خرید
     </button>
   </div>
 </div>

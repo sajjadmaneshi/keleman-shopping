@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-basket',
+  selector: 'keleman-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss']
 })

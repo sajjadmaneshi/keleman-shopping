@@ -35,7 +35,6 @@ import { ReturnedRequestComponent } from './returned-request/returned-request.co
 import { AddressesComponent } from './address/addresses.component';
 import { KelemanMapComponent } from '../../../shared/components/keleman-map/keleman-map.component';
 import { AddAddressDialogComponent } from './address/add-address-dialog/add-address-dialog.component';
-import { AddressItemComponent } from './address/address-item/address-item.component';
 import { KelemanAutocompleteComponent } from '../../../shared/components/keleman-autocomplete/keleman-autocomplete.component';
 import { MatComponentsModule } from '../../../mat-components.module';
 import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
@@ -46,6 +45,7 @@ import { CommentItemComponent } from './comments/comment-item/comment-item.compo
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FavoriteCategoriesItemComponent } from './favorites/components/favorite-categories/favorite-categories-item/favorite-categories-item.component';
 import { FavoriteCategoriesComponent } from './favorites/components/favorite-categories/favorite-categories.component';
+import { AddressItemComponent } from './address/address-item/address-item.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +65,6 @@ import { FavoriteCategoriesComponent } from './favorites/components/favorite-cat
     ReturnedRequestComponent,
     AddressesComponent,
     AddAddressDialogComponent,
-    AddressItemComponent,
     PersonalInfoComponent,
     CommentsComponent,
     CommentItemComponent,
@@ -95,6 +94,7 @@ import { FavoriteCategoriesComponent } from './favorites/components/favorite-cat
     MatSelectModule,
     NgbTooltip,
     MatCheckboxModule,
+    AddressItemComponent,
   ],
 })
 export class ProfileModule {}

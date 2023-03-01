@@ -1,4 +1,7 @@
 export class Routing {
+  static checkout = 'checkout';
+  static shipping = 'shipping';
+  static payment = 'payment';
   static basket = 'basket';
   static magazine = 'magazine';
   static register = 'register';

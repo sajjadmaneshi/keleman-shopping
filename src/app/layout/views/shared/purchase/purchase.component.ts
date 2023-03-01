@@ -23,7 +23,7 @@ export class PurchaseComponent implements OnInit {
   }
 
   private _responseOnPageSizeChange() {
-    let kelemanBasket = document.querySelector('.klm-basket') as HTMLElement;
+    let kelemanBasket = document.querySelector('.klm-checkout') as HTMLElement;
     if (this.applicationState.isTablet || this.applicationState.isPhone)
       this._renderer.setStyle(kelemanBasket, 'margin-bottom', '70px');
     else this._renderer.removeStyle(kelemanBasket, 'margin-bottom');

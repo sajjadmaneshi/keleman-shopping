@@ -1,0 +1,5 @@
+@import "base/variables/colors";
+
+mat-checkbox:not(:last-child) {
+  border-bottom: 1px solid $gray-300;
+}

@@ -12,10 +12,13 @@ const routes: Routes = [
     children: [
       { path: '', component: MainComponent },
       {
-        path: Routing.basket,
+        path: Routing.checkout,
         loadChildren: () =>
-          import('./pages/basket/basket.module').then((m) => m.BasketModule),
+          import('./pages/checkout/checkout.module').then(
+            (m) => m.CheckoutModule
+          ),
       },
+
       {
         path: Routing.magazine,
         loadChildren: () =>

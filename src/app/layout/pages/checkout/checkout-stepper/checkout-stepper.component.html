@@ -1,0 +1,36 @@
+<div
+  class="d-flex justify-content-between justify-content-lg-center align-items-center w-100 px-6 mb-5"
+>
+  <button
+    class="btn d-flex justify-content-center align-items-center shrink-0 stepper-header"
+    [ngClass]="{
+      active: (checkoutService.selectedIndex | async) === 0,
+      passed: (checkoutService.selectedIndex | async)! > 0
+    }"
+    (click)="checkoutService.changeStep(0, 'basket')"
+  >
+    <mat-icon>shopping_cart</mat-icon>
+    سبد خرید
+  </button>
+  <button
+    class="btn d-flex justify-content-center align-items-center shrink-0 stepper-header"
+    [ngClass]="{
+      active: (checkoutService.selectedIndex | async) === 1,
+      passed: (checkoutService.selectedIndex | async)! > 1
+    }"
+    (click)="checkoutService.changeStep(1, 'shipping')"
+  >
+    <mat-icon>local_shipping</mat-icon>
+    زمان و نحوه ارسال
+  </button>
+  <button
+    class="btn d-flex justify-content-center align-items-center shrink-0 stepper-header"
+    [ngClass]="{
+      active: (checkoutService.selectedIndex | async) === 2
+    }"
+    (click)="checkoutService.changeStep(2, 'payment')"
+  >
+    <mat-icon>wallet</mat-icon>
+    پرداخت
+  </button>
+</div>
