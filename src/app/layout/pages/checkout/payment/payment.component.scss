@@ -3,3 +3,30 @@
 mat-checkbox:not(:last-child) {
   border-bottom: 1px solid $gray-300;
 }
+.payment-methods {
+  display: grid;
+
+  grid-gap: 1rem;
+  grid-template-columns: repeat(6, 1fr);
+  .payment-item {
+    justify-content: center;
+    min-height: 125px !important;
+    .symbol {
+      margin-bottom: 1rem;
+    }
+    &.selected {
+      border: 2px solid $klm-primary;
+    }
+  }
+}
+#description {
+  resize: none !important;
+  max-height: 5rem;
+}
+.remaining-time {
+  font-size: 0.75rem;
+  width: 100%;
+  border-bottom: 1px solid $gray-500;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}

@@ -29,38 +29,6 @@
   }
 }
 
-.search-bar {
-  flex-grow: 1;
-  padding-right: 1rem;
-  height: 3.125rem;
-  @media (max-width: 480px) {
-    img {
-      height: 30px !important;
-      width: 60px !important;
-    }
-  }
-  .search-input-group {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    .search-input {
-      padding-right: 4.5rem;
-      border: none !important;
-      background-color: map-get($theme-colors, "gray-300") !important;
-    }
-    .search-icon {
-      position: absolute;
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
-  @media (min-width: 769px) {
-    .search-input-group {
-      width: 70% !important;
-    }
-  }
-}
 .register-login-button {
   border: 1px solid black;
   color: black;
@@ -68,22 +36,4 @@
 
 .dropdown-toggle::after {
   display: none !important;
-}
-
-.search-result-menu {
-  padding: 0;
-  list-style: none;
-  position: absolute;
-  z-index: 1100;
-  width: 100%;
-  border-radius: 0 0 1rem 1rem;
-  background-color: white;
-  .search-result-menu-item {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    mat-icon {
-      margin: 0 0.5rem;
-    }
-  }
 }

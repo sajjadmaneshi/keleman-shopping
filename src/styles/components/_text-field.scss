@@ -1,13 +1,21 @@
+@use "sass:math";
+
 .keleman-text-field {
-  line-height: 3.125rem !important;
+  display: block;
+  width: 100%;
+  line-height: 3rem !important;
   padding: 0 1rem !important;
   background-image: none !important;
+  background-color: #e7e9ef !important;
+  border: none !important;
+  border-radius: math.div(1rem, 4);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  &::placeholder {
+    color: #b5b9ca !important;
+  }
 }
-input.keleman-text-field {
-  border-radius: 50rem !important;
-}
+
 textarea.keleman-text-field {
-  border-radius: 25px !important;
   resize: none;
   min-height: 200px;
 }

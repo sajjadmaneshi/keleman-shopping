@@ -1,0 +1,32 @@
+<div mat-dialog-content>
+  <h5 class="dialog-title mb-3 text-center text-klm-primary">
+    افزودن فیش بانکی
+  </h5>
+  <keleman-receipt-form
+    *ngFor="let form of receiptForms; let i = index"
+    [formGroup]="form"
+    [number]="i"
+    (remove)="removeReceiptForm($event)"
+  ></keleman-receipt-form>
+  <a
+    class="d-flex align-items-center text-klm-primary cursor-pointer"
+    (click)="addNewReceipt()"
+  >
+    <mat-icon>add_circle</mat-icon>
+    افزودن فیش بانکی
+  </a>
+  <span
+    class="text-center text-danger d-flex flex-column align-items-center my-3"
+  >
+    <h6>برای دریافت شماره حساب و اطلاعات بیشتر با شماره 3808 تماس بگیرید</h6>
+    <span class="d-flex align-items-center"
+      ><h6>زمان باقی مانده جهت پرداخت:</h6>
+    </span>
+  </span>
+  <div class="w-100 text-center">
+    <button class="btn btn-success text-white mx-3" (click)="validate()">
+      ذخیره
+    </button>
+    <button class="btn btn-danger">انصراف</button>
+  </div>
+</div>

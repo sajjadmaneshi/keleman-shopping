@@ -3,11 +3,84 @@
     >روش پرداخت</label
   >
   <div class="card card-rounded-3 mb-3" id="paymentMethod">
-    <div class="card-body d-flex flex-column">
-      <mat-checkbox>پرداخت اینترنتی</mat-checkbox>
-      <mat-checkbox>پرداخت نقدی</mat-checkbox>
-      <mat-checkbox>پرداخت از کیف پول</mat-checkbox>
-      <mat-checkbox>پرداخت از اعتبار</mat-checkbox>
+    <div class="card-body payment-methods">
+      <div
+        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center selected"
+      >
+        <div class="symbol">
+          <img src="assets/media/pGateway/bank-melat.jpg" />
+        </div>
+        <h6>درگاه بانگ ملت</h6>
+      </div>
+      <div
+        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+      >
+        <div class="symbol">
+          <img src="assets/media/pGateway/bank-melat.jpg" />
+        </div>
+        <h6>درگاه بانگ ملت</h6>
+      </div>
+      <div
+        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+      >
+        <div class="symbol">
+          <img src="assets/media/pGateway/bank-melat.jpg" />
+        </div>
+        <h6>درگاه بانگ ملت</h6>
+      </div>
+      <div
+        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+      >
+        <div class="symbol">
+          <img src="assets/media/pGateway/bank-melat.jpg" />
+        </div>
+        <h6>درگاه بانگ ملت</h6>
+      </div>
+      <button
+        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+        (click)="openDialog()"
+      >
+        <span
+          class="text-center d-flex justify-content-between text-danger w-100 remaining-time"
+        >
+          <span>زمان باقی مانده</span>
+          <span>11:54:09</span>
+        </span>
+        <div class="symbol">
+          <img src="assets/media/pGateway/bill.png" />
+        </div>
+        <h6>الصاق فیش بانکی</h6>
+      </button>
+      <div
+        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+      >
+        <span
+          class="text-center d-flex justify-content-between text-danger w-100 remaining-time"
+        >
+          <span>زمان باقی مانده</span>
+          <span>11:54:09</span>
+        </span>
+        <div class="symbol">
+          <img src="assets/media/pGateway/cheque.png" />
+        </div>
+        <h6>ثبت چک صیادی</h6>
+      </div>
+      <div
+        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+      >
+        <div class="symbol">
+          <img src="assets/media/pGateway/cash-payment.png" />
+        </div>
+        <h6>پرداخت در محل</h6>
+      </div>
+      <div
+        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+      >
+        <div class="symbol">
+          <img src="assets/media/pGateway/wallet.png" />
+        </div>
+        <h6>پرداخت از کیف پول</h6>
+      </div>
     </div>
   </div>
   <span class="text-danger mb-3"
@@ -26,5 +99,9 @@
   <label class="text-klm-primary fw-bolder mb-3" for="description"
     >توضیحات</label
   >
-  <input id="description" class="form-control" placeholder="توضیحات" />
+  <textarea
+    id="description"
+    class="form-control"
+    placeholder="توضیحات"
+  ></textarea>
 </div>

@@ -11,34 +11,7 @@
     src="assets/media/logo/keleman-logo.png"
     loading="lazy"
   />
-  <div class="d-flex search-bar align-items-center">
-    <div class="search-input-group w-100 position-relative">
-      <span class="search-icon material-icons-outlined mx-2">search</span>
-      <input class="form-control search-input h-100" placeholder="جستجو" />
-      <ul class="search-result-menu shadow-sm d-none">
-        <li class="search-result-menu-item">
-          <mat-icon>search</mat-icon>
-          <a>سیم بکسل در دسته سیم بکسل</a>
-        </li>
-        <li class="search-result-menu-item">
-          <mat-icon>search</mat-icon>
-          <a>سیم بکسل در دسته سیم بکسل</a>
-        </li>
-        <li class="search-result-menu-item">
-          <mat-icon>search</mat-icon>
-          <a>سیم بکسل در دسته سیم بکسل</a>
-        </li>
-        <li class="search-result-menu-item">
-          <mat-icon>search</mat-icon>
-          <a>سیم بکسل در دسته سیم بکسل</a>
-        </li>
-        <li class="search-result-menu-item">
-          <mat-icon>search</mat-icon>
-          <a>سیم بکسل در دسته سیم بکسل</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <keleman-search-bar class="flex-grow-1"></keleman-search-bar>
   <div
     class="d-none d-md-flex align-items-center bg-klm-primary rounded-1 p-1 login-register"
   >
@@ -62,8 +35,9 @@
       <keleman-user-dropdown-menu></keleman-user-dropdown-menu>
     </div>
   </div>
-  <span
+  <a
     class="d-none d-md-flex position-relative flex-column align-items-center basket"
+    [routerLink]="['checkout']"
   >
     <h3 class="basket-count text-warning">0</h3>
     <img
@@ -73,7 +47,7 @@
     />
 
     <h6 class="mb-0">سبد خرید</h6>
-  </span>
+  </a>
 </div>
 <ng-template #content let-offcanvas>
   <keleman-off-canvas-menu

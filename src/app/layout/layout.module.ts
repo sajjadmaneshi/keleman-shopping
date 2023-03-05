@@ -47,6 +47,8 @@ import { PackageSwiperComponent } from './pages/main/components/package-swiper/p
 import { PartnerBrandsComponent } from './pages/main/components/partner-brands/partner-brands.component';
 import { FooterComponent } from './_partials/footer/footer.component';
 import { MagazineItemComponent } from './pages/main/components/magazine/magazine-item/magazine-item.component';
+import { SearchBarComponent } from './_partials/header/header-menu/top-menu/search-bar/search-bar.component';
+import { SearchResultMenuComponent } from './_partials/header/header-menu/top-menu/search-bar/search-result-menu/search-result-menu.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { MagazineItemComponent } from './pages/main/components/magazine/magazine
     PartnerBrandsComponent,
     FooterComponent,
     MagazineItemComponent,
+    SearchBarComponent,
+    SearchResultMenuComponent,
   ],
   imports: [
     CommonModule,

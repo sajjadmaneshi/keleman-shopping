@@ -1,0 +1,58 @@
+<form [formGroup]="formGroup">
+  <div class="card card-rounded-3 border-1 mb-3 position-relative">
+    <ng-template [ngIf]="number > 0">
+      <button
+        class="btn btn-icon btn-icon-sm btn-circle btn-danger remove"
+        (click)="remove()"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+    </ng-template>
+
+    <div class="d-flex align-items-center">
+      <span class="text-warning payment-number">{{ number + 1 }} پرداخت </span>
+      <div
+        class="d-flex flex-column border-end border-gray-300 rounded mx-1 p-3"
+      >
+        <div class="receipt-form mb-3">
+          <div class="form-group">
+            <input
+              class="keleman-text-field"
+              placeholder="مبلغ (تومان)"
+              type="number"
+              [formControl]="amount"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              class="keleman-text-field"
+              placeholder="ازبانک"
+              [formControl]="from"
+            />
+          </div>
+          <div class="form-group">
+            <mat-select
+              id="type"
+              class="keleman-text-field"
+              placeholder="حساب مقصد"
+              panelClass="test-select"
+              [formControl]="to"
+            >
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </div>
+          <div class="form-group">
+            <input
+              class="keleman-text-field"
+              placeholder="کد پیگیری"
+              [formControl]="trackingCode"
+            />
+          </div>
+        </div>
+        <ng-template [ngIf]="amount.value">
+          <span>{{ amount.value | numberToPersian }}</span>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</form>

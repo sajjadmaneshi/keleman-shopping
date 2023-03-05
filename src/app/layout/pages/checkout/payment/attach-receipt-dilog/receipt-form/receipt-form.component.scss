@@ -1,0 +1,23 @@
+.payment-number {
+  rotate: 90deg;
+  text-align: center;
+  direction: ltr;
+  width: 15%;
+}
+.receipt-form {
+  flex-grow: 1;
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  .form-group {
+    margin-bottom: 0 !important;
+  }
+}
+.remove {
+  position: absolute;
+  top: 0;
+  right: -1rem;
+  transform: translateY(-50%);
+  height: 1.75rem;
+  width: 1.75rem;
+}

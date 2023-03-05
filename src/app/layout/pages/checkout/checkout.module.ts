@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { BasketItemComponent } from './basket/basket-item/basket-item.component';
 import { CheckoutComponent } from './checkout.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
@@ -16,11 +16,17 @@ import { ShippingComponent } from './shipping/shipping.component';
 import { AddressItemComponent } from '../profile/address/address-item/address-item.component';
 import { ShippingTimeComponent } from './shipping/shipping-time/shipping-time.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentComponent } from './payment/payment.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CheckoutService } from './services/checkout.service';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { AttachReceiptDialogComponent } from './payment/attach-receipt-dilog/attach-receipt-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReceiptFormComponent } from './payment/attach-receipt-dilog/receipt-form/receipt-form.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { NumberToPersianPipe } from '../../../shared/pipes/num2persian.pipe';
 
 export const routes: Routes = [
   {
@@ -45,6 +51,8 @@ export const routes: Routes = [
     ShippingTimeComponent,
     PaymentComponent,
     OrderSummaryComponent,
+    AttachReceiptDialogComponent,
+    ReceiptFormComponent,
   ],
   imports: [
     CommonModule,
@@ -59,7 +67,13 @@ export const routes: Routes = [
     MatRadioModule,
     FormsModule,
     MatCheckboxModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+
+    NumberToPersianPipe,
   ],
-  providers: [CheckoutService],
+  providers: [DecimalPipe, CheckoutService],
 })
 export class CheckoutModule {}
