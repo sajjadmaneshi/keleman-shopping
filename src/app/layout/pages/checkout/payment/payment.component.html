@@ -38,7 +38,7 @@
       </div>
       <button
         class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
-        (click)="openDialog()"
+        (click)="openAttachReceiptDialog()"
       >
         <span
           class="text-center d-flex justify-content-between text-danger w-100 remaining-time"
@@ -51,8 +51,9 @@
         </div>
         <h6>الصاق فیش بانکی</h6>
       </button>
-      <div
+      <button
         class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+        (click)="openAttachChequeDialog()"
       >
         <span
           class="text-center d-flex justify-content-between text-danger w-100 remaining-time"
@@ -64,7 +65,7 @@
           <img src="assets/media/pGateway/cheque.png" />
         </div>
         <h6>ثبت چک صیادی</h6>
-      </div>
+      </button>
       <div
         class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
       >

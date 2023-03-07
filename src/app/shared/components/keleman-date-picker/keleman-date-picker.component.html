@@ -1,0 +1,10 @@
+<input
+  id="date"
+  class="keleman-text-field"
+  placeholder="yyyy-mm-dd"
+  ngbDatepicker
+  [firstDayOfWeek]="6"
+  (dateSelect)="onDateSelect($event)"
+  #d="ngbDatepicker"
+  (click)="d.toggle()"
+/>

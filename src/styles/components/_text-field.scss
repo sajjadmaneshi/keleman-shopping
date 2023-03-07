@@ -13,6 +13,9 @@
   &::placeholder {
     color: #b5b9ca !important;
   }
+  &.is-invalid {
+    border: 2px solid red !important;
+  }
 }
 
 textarea.keleman-text-field {

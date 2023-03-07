@@ -1,0 +1,113 @@
+<div mat-dialog-content>
+  <h5 class="dialog-title mb-3 text-center text-klm-primary">ثبت چک صیادی</h5>
+  <ng-container
+    *ngIf="showForm; then chequeFormTemplate; else addNewCheque"
+  ></ng-container>
+  <ng-template #addNewCheque>
+    <a
+      class="d-flex align-items-center text-klm-primary cursor-pointer"
+      (click)="showForm = true"
+    >
+      <mat-icon>add_circle</mat-icon>
+      افزودن چک صیادی
+    </a></ng-template
+  >
+
+  <ng-template #chequeFormTemplate>
+    <form [formGroup]="chequeForm">
+      <label for="cheque-details">اطلاعات چک</label>
+      <div
+        id="cheque-details"
+        class="card card-rounded-3 border-1 cheque-details mb-3"
+      >
+        <div class="card-body" formGroupName="chequeDetails">
+          <div class="form-group">
+            <label for="bank-name">نام بانک</label>
+            <input
+              id="bank-name"
+              class="keleman-text-field"
+              placeholder="نام بانک را وارد نمایید"
+              formControlName="bankName"
+            />
+          </div>
+          <div class="form-group">
+            <label for="cheque-num">شناسه چک</label>
+            <input
+              id="cheque-num"
+              class="keleman-text-field"
+              placeholder="شناسه چک را وارد نمایید"
+              formControlName="chequeId"
+            />
+          </div>
+          <div class="form-group">
+            <label for="date">تاریخ</label>
+            <keleman-date-picker
+              id="date"
+              (onDatePickerClick)="selectDate($event)"
+            ></keleman-date-picker>
+          </div>
+          <div class="form-group"></div>
+          <div class="form-group">
+            <label for="amount">مبلغ</label>
+            <input
+              id="amount"
+              class="keleman-text-field"
+              placeholder="مبلغ چک را وارد نمایید"
+              formControlName="amount"
+              type="number"
+            />
+            <ng-template [ngIf]="amount.value">
+              <span class="d-flex">
+                <label class="fw-bold">معادل: </label>
+
+                <span>{{ amount.value | numberToPersian }}</span>
+              </span>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <label for="receiver-details"> اطلاعات دریافت کننده </label>
+      <div
+        id="receiver-details"
+        class="card card-rounded-3 border-1 receiver-details"
+      >
+        <div class="card-body" formGroupName="receiverDetails">
+          <div class="form-group">
+            <label for="fullName">نام و نام خانوادگی</label>
+            <input
+              class="keleman-text-field"
+              id="fullName"
+              placeholder="نام و نام خانوادگی دریافت کننده را وارد نمایید"
+              formControlName="fullName"
+            />
+          </div>
+          <div class="form-group">
+            <label for="national-code"> کدملی / شناسه ملی </label>
+            <input
+              class="keleman-text-field"
+              id="national-code"
+              placeholder="کد ملی یا شناسه ملی دریافت کننده را وارد نمایید"
+              formControlName="nationalCode"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <span
+    class="text-center text-danger d-flex flex-column align-items-center my-3"
+  >
+    <h6>
+      مشتری گرامی قبل از افزودن چک با ویزیتور مربوطه و یا شماره 3808 هماهنگ
+      فرمایید.
+    </h6>
+    <span class="d-flex align-items-center"
+      ><h6>زمان باقی مانده جهت پرداخت:</h6>
+    </span>
+  </span>
+  <div class="w-100 text-center">
+    <button class="btn btn-success text-white mx-3">ذخیره</button>
+    <button class="btn btn-danger">انصراف</button>
+  </div>
+</div>

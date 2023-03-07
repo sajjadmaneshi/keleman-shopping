@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { DecimalPipe } from '@angular/common';
+import { FormArray, FormControl } from '@angular/forms';
+import { BaseFormModel } from './base-form.model';
 
 @Component({
   selector: 'keleman-receipt-form',
@@ -8,7 +8,8 @@ import { DecimalPipe } from '@angular/common';
   styleUrls: ['./receipt-form.component.scss'],
 })
 export class ReceiptFormComponent {
-  @Input() formGroup!: FormGroup;
+  @Input() formData!: BaseFormModel;
+
   @Input() number: number = 1;
 
   @Output('remove') onRemove = new EventEmitter<number>();
@@ -18,19 +19,19 @@ export class ReceiptFormComponent {
   }
 
   public get amount(): FormControl {
-    return (this.formGroup.get('receipts') as FormArray)
+    return (this.formData?.form.get('receipts') as FormArray)
       .controls[0] as FormControl;
   }
   public get from(): FormControl {
-    return (this.formGroup.get('receipts') as FormArray)
+    return (this.formData?.form.get('receipts') as FormArray)
       .controls[1] as FormControl;
   }
   public get to(): FormControl {
-    return (this.formGroup.get('receipts') as FormArray)
+    return (this.formData?.form.get('receipts') as FormArray)
       .controls[2] as FormControl;
   }
   public get trackingCode(): FormControl {
-    return (this.formGroup.get('receipts') as FormArray)
+    return (this.formData?.form.get('receipts') as FormArray)
       .controls[3] as FormControl;
   }
 

@@ -1,4 +1,4 @@
-<form [formGroup]="formGroup">
+<form [formGroup]="formData.form">
   <div class="card card-rounded-3 border-1 mb-3 position-relative">
     <ng-template [ngIf]="number > 0">
       <button
@@ -21,14 +21,22 @@
               placeholder="مبلغ (تومان)"
               type="number"
               [formControl]="amount"
+              [class.is-invalid]="amount.invalid && formData.isSubmitted"
             />
+            <ng-template [ngIf]="amount.invalid && formData.isSubmitted">
+              <span class="invalid-feedback">لطفا مبلغ را وارد کنید</span>
+            </ng-template>
           </div>
           <div class="form-group">
             <input
               class="keleman-text-field"
               placeholder="ازبانک"
               [formControl]="from"
+              [class.is-invalid]="from.invalid && formData.isSubmitted"
             />
+            <ng-template [ngIf]="from.invalid && formData.isSubmitted">
+              <span class="invalid-feedback">لطفا بانک مبدا را وارد کنید</span>
+            </ng-template>
           </div>
           <div class="form-group">
             <mat-select
@@ -37,16 +45,24 @@
               placeholder="حساب مقصد"
               panelClass="test-select"
               [formControl]="to"
+              [class.is-invalid]="to.invalid && formData.isSubmitted"
             >
-              <mat-option value="option">Option</mat-option>
+              <mat-option>Option</mat-option>
             </mat-select>
+            <ng-template [ngIf]="to.invalid && formData.isSubmitted">
+              <span class="invalid-feedback">لطفا حساب مقصد را وارد کنید</span>
+            </ng-template>
           </div>
           <div class="form-group">
             <input
               class="keleman-text-field"
               placeholder="کد پیگیری"
               [formControl]="trackingCode"
+              [class.is-invalid]="trackingCode.invalid && formData.isSubmitted"
             />
+            <ng-template [ngIf]="trackingCode.invalid && formData.isSubmitted">
+              <span class="invalid-feedback">لطفا کد پیگیری را وارد کنید</span>
+            </ng-template>
           </div>
         </div>
         <ng-template [ngIf]="amount.value">
