@@ -7,7 +7,7 @@ import { SearchResult } from 'leaflet-geosearch/lib/providers/provider';
   providedIn: 'root',
 })
 export class MapService {
-  public getAddressByLatLng(latLng: LatLng): Promise<SearchResult<any>[]> {
+  public getAddressByLatLng(latLng: LatLng): Promise<SearchResult[]> {
     const provider = new OpenStreetMapProvider({
       params: {
         'accept-language': 'fa',
@@ -23,7 +23,7 @@ export class MapService {
     return provider.search({ query: contentPopup.replace(' ', '') });
   }
 
-  public searchAddress(text: string): Promise<SearchResult<any>[]> {
+  public searchAddress(text: string): Promise<SearchResult[]> {
     const provider = new OpenStreetMapProvider({
       params: {
         'accept-language': 'fa',

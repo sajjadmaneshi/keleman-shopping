@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CheckoutService } from './services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -7,5 +6,5 @@ import { CheckoutService } from './services/checkout.service';
   styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent {
-  constructor(public checkoutService: CheckoutService) {}
+  constructor() {}
 }

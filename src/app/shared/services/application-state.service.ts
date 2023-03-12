@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { combineLatest } from 'rxjs';
+import { combineLatestWith } from 'rxjs';
 @Injectable()
 export class ApplicationStateService {
   get isWeb(): boolean {
@@ -27,10 +27,12 @@ export class ApplicationStateService {
     const TABLET = this._responsive.observe([Breakpoints.TabletPortrait]);
     const WEB = this._responsive.observe([Breakpoints.Web]);
 
-    combineLatest(PHONE, TABLET, WEB).subscribe((data) => {
-      this._isPhone = data[0].matches;
-      this._isTablet = data[1].matches;
-      this._isWeb = data[2].matches;
-    });
+    PHONE.pipe(combineLatestWith(TABLET))
+      .pipe(combineLatestWith(WEB))
+      .subscribe((x) => {
+        this._isPhone = x[0][0].matches;
+        this._isTablet = x[0][1].matches;
+        this._isWeb = x[1].matches;
+      });
   }
 }

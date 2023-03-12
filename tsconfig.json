@@ -22,10 +22,7 @@
     "types": [
       "@angular/localize",
     ],
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["es2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

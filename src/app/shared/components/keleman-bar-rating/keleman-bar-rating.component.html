@@ -1,5 +1,5 @@
-<ngb-rating dir="ltr" [(rate)]="rate" [max]="max" [readonly]="readonly">
-  <ng-template let-fill="fill" let-index="index">
+<ngb-rating [dir]="'ltr'" [(rate)]="rate" [max]="max" [readonly]="readonly">
+  <ng-template let-fill="fill">
     <mat-icon [class.text-warning]="fill === 100">{{
       fill === 100 ? "star" : "star_border"
     }}</mat-icon>

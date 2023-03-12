@@ -36,7 +36,6 @@
     }
   }
 
-  // Vertical aligment
   &-vertical {
     .ribbon-label {
       padding: 5px 10px;
@@ -168,7 +167,7 @@
     border-top: solid 2rem red;
   }
 
-  // Botton start position
+  // Button start position
   &.ribbon-bottom-start {
     bottom: 0;
     left: 0;
@@ -180,7 +179,7 @@
     border-top: solid 2rem transparent !important;
   }
 
-  // Botton end position
+  // Button end position
   &.ribbon-bottom-end {
     bottom: 0;
     right: 0;

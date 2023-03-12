@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { KelemanPriceComponent } from '../../../../shared/components/keleman-price/keleman-price.component';
 import { DecimalPipe } from '@angular/common';
+import { CheckoutService } from '../../../pages/checkout/services/checkout.service';
 
 @Component({
   selector: 'keleman-purchase-web',
@@ -9,5 +10,5 @@ import { DecimalPipe } from '@angular/common';
   imports: [KelemanPriceComponent, DecimalPipe],
 })
 export class PurchaseWebComponent {
-  constructor() {}
+  constructor(public checkoutService: CheckoutService) {}
 }
