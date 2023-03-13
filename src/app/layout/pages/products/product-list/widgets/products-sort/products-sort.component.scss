@@ -1,0 +1,12 @@
+@import "base/variables/colors";
+.sort-products {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  li {
+    padding: 0 1rem;
+    &.selected {
+      border-bottom: 2px solid $klm-secondary;
+    }
+  }
+}

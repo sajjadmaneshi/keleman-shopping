@@ -47,6 +47,19 @@ import { PriceChartDialogComponent } from './product-details/widgets/content/pri
 import { MatDialogModule } from '@angular/material/dialog';
 import { ExpertCheckComponent } from './product-details/widgets/specifications/expert-check/expert-check.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductSearchComponent } from './product-list/widgets/product-search/product-search.component';
+import { KelemanInputGroupComponent } from '../../../shared/components/keleman-input-group/keleman-input-group.component';
+import { ProductFiltersComponent } from './product-list/widgets/product-filters/product-filters.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ProductPriceFilterComponent } from './product-list/widgets/product-price-filter/product-price-filter.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
+import { ProductsSortComponent } from './product-list/widgets/products-sort/products-sort.component';
+import { ProductItemComponent } from './product-list/widgets/product-item/product-item.component';
+import { KelemanPriceComponent } from '../../../shared/components/keleman-price/keleman-price.component';
+import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +79,12 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     PriceChartDialogComponent,
     ExpertCheckComponent,
     ProductDetailsComponent,
+    ProductListComponent,
+    ProductSearchComponent,
+    ProductFiltersComponent,
+    ProductPriceFilterComponent,
+    ProductsSortComponent,
+    ProductItemComponent,
   ],
   imports: [
     CommonModule,
@@ -95,6 +114,13 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     MatIconModule,
     KelemanIconTextComponent,
     MatDialogModule,
+    KelemanInputGroupComponent,
+    MatExpansionModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    FormsModule,
+    KelemanPriceComponent,
+    PaginatorComponent,
   ],
 })
 export class ProductsModule {}

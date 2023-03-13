@@ -1,11 +1,6 @@
 :host {
   width: 100%;
 }
-.input-group-input {
-  border: 1px solid #e6e6e6;
-  line-height: 3.125rem;
-  padding: 0 2rem;
-}
 
 .input-group-append,
 .input-group-prepend {
@@ -21,5 +16,5 @@
   right: 0;
 }
 .input-group-append {
-  left: 0;
+  left: 5%;
 }

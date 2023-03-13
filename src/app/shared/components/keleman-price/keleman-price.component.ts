@@ -10,9 +10,16 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 })
 export class KelemanPriceComponent {
   @Input() value: number = 0;
-  @Input() color: 'primary' | 'dark' | 'secondary' | 'light' | 'danger' =
-    'primary';
-  @Input() icon: string = 'assets/media/icons/toman-icon/toman-icon-lg.png';
+  @Input() color:
+    | 'primary'
+    | 'dark'
+    | 'secondary'
+    | 'light'
+    | 'danger'
+    | 'success'
+    | 'warning' = 'primary';
+  @Input() append: string = 'تومان';
   @Input() size: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' = 'h4';
   @Input() off = false;
+  @Input() discount = 0;
 }
