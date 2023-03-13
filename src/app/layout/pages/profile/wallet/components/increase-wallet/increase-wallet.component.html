@@ -1,42 +1,42 @@
-<span class="d-block mb-3">
-  <h4 class="fw-bold">افزایش اعتبار</h4>
-  <h6 class="fw-bold">
-    برای سفارش راحت و سریعتر، اعتبار کیف پول خود را افزایش دهید
-  </h6>
-</span>
-<div class="card card-rounded-1 mb-3">
+<div class="card card-rounded-3 shadow-sm border-gray-300 mb-3">
   <div class="card-body">
+    <h6 class="fw-bold">کیف پول</h6>
+
     <div class="row mx-0">
       <div class="col-7">
-        <div class="d-flex flex-column increase-credit w-75">
-          <h5 class="fw-normal text-muted">افزایش اعتبار</h5>
-          <standalone-input-group
-            class="mb-3"
-            [type]="'number'"
-            [placeHolder]="'مقدار را به تومان وارد کنید'"
+        <div class="form-group increase-credit">
+          <label for="increase-amount" class="fw-normal text-muted"
+            >افزایش موجودی کیف پول</label
           >
-            <span class="text-muted">تومان</span>
-          </standalone-input-group>
-          <button
-            class="btn btn-warning rounded-pill align-self-end text-white wallet-action-button"
-          >
-            پرداخت
-          </button>
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <standalone-input-group
+              id="increase-amount"
+              [type]="'number'"
+              [placeHolder]="'مقدار را به تومان وارد کنید'"
+            >
+              <span class="text-muted">تومان</span>
+            </standalone-input-group>
+            <button class="btn btn-warning text-white wallet-action-button">
+              پرداخت
+            </button>
+          </div>
         </div>
         <div class="separator my-3"></div>
-        <div class="d-flex flex-column w-75">
-          <h5 class="fw-normal text-muted">استفاده از کارت هدیه</h5>
-          <standalone-input-group
-            class="mb-3"
-            [type]="'number'"
-            [placeHolder]="'برای مثال : 855362200553'"
+        <div class="form-group">
+          <label for="gift-card" class="fw-normal text-muted"
+            >برداشت از کیف پول</label
           >
-          </standalone-input-group>
-          <button
-            class="btn btn-warning rounded-pill align-self-end text-white wallet-action-button"
-          >
-            بررسی
-          </button>
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <standalone-input-group
+              id="gift-card"
+              [type]="'number'"
+              [placeHolder]="'مقدار را به تومان وارد کنید'"
+            >
+            </standalone-input-group>
+            <button class="btn btn-warning text-white wallet-action-button">
+              بررسی
+            </button>
+          </div>
         </div>
       </div>
       <div class="col-5">
@@ -47,10 +47,13 @@
 </div>
 
 <div class="credits-history">
-  <h4 class="fw-bold mb-3">تاریخچه اعتبار</h4>
-  <div class="card card-rounded-1">
+  <div class="card card-rounded-3 shadow-sm border-gray-300">
     <div class="card-body">
-      <ng-container *ngIf="true; then empty"></ng-container>
+      <h6 class="fw-bold">تاریخچه تراکنش ها</h6>
+      <ng-container *ngIf="true; then full"></ng-container>
+      <ng-template #full>
+        <keleman-wallet-transaction-history></keleman-wallet-transaction-history>
+      </ng-template>
       <ng-template #empty>
         <keleman-empty-content></keleman-empty-content>
       </ng-template>

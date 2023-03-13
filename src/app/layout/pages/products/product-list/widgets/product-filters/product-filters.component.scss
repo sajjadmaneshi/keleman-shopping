@@ -1,0 +1,18 @@
+@import "base/variables/colors";
+
+.filter-list {
+  list-style: none;
+  padding: 0;
+  li:not(:last-child) {
+    border-bottom: 2px solid $gray-300;
+    mat-expansion-panel {
+      box-shadow: none !important;
+      mat-expansion-panel-header {
+        padding: 0 !important;
+      }
+    }
+  }
+  .available {
+    height: 50px;
+  }
+}

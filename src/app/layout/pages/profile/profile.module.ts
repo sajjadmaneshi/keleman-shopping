@@ -46,6 +46,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FavoriteCategoriesItemComponent } from './favorites/components/favorite-categories/favorite-categories-item/favorite-categories-item.component';
 import { FavoriteCategoriesComponent } from './favorites/components/favorite-categories/favorite-categories.component';
 import { AddressItemComponent } from './address/address-item/address-item.component';
+import { WalletTransactionHistoryComponent } from './wallet/components/increase-wallet/wallet-transaction-history/wallet-transaction-history.component';
+import { KelemanPriceComponent } from '../../../shared/components/keleman-price/keleman-price.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { AddressItemComponent } from './address/address-item/address-item.compon
     CommentItemComponent,
     FavoriteCategoriesItemComponent,
     FavoriteCategoriesComponent,
+    WalletTransactionHistoryComponent,
   ],
   imports: [
     CommonModule,
@@ -95,6 +98,7 @@ import { AddressItemComponent } from './address/address-item/address-item.compon
     NgbTooltip,
     MatCheckboxModule,
     AddressItemComponent,
+    KelemanPriceComponent,
   ],
 })
 export class ProfileModule {}
