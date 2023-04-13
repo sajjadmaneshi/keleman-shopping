@@ -1,6 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 import { RelatedArticleModel } from '../../../../shared/models/related-article.model';
+import { ActivatedRoute, Params } from '@angular/router';
+import { ProductViewModel } from '../data/models/view-models/product.view-model';
 
 @Component({
   selector: 'app-product-details',
@@ -9,9 +11,27 @@ import { RelatedArticleModel } from '../../../../shared/models/related-article.m
 })
 export class ProductDetailsComponent {
   relatedArticles: RelatedArticleModel[] = [];
-  constructor(public applicationState: ApplicationStateService) {
+  productDetails!: ProductViewModel;
+  constructor(
+    public applicationState: ApplicationStateService,
+    private _activatedRoute: ActivatedRoute
+  ) {
     this._initRelatedArticles();
+    this._getDataFromUrl().then((result) => {});
   }
+
+  private _getDataFromUrl(): Promise<string> {
+    return new Promise((resolve) => {
+      this._activatedRoute.params.subscribe((params: Params) => {
+        resolve(params['name']);
+      });
+    });
+  }
+
+  private _getProductDetails() {
+    // const product$=this.pr
+  }
+
   @HostListener('mousewheel', ['$event'])
   onScroll() {
     const productDetailsNavbar = document.querySelector(

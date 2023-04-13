@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CategoryModel } from '../../../shared/models/category.model';
+import { CategoryModel } from '../../../../../shared/models/category.model';
 
 @Injectable()
 export class ProductCategoryService {

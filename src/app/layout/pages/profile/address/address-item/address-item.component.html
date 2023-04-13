@@ -37,11 +37,13 @@
         ></keleman-map>
         <span class="actions d-flex flex-column mx-3">
           <button
-            class="btn btn-icon text-info"
+            class="btn btn-icon text-klm-primary"
             ngbTooltip="انتخاب به عنوان آدرس پیشفرض"
             [disabled]="address.selected"
           >
-            <mat-icon>star</mat-icon>
+            <mat-icon>{{
+              address.selected ? "bookmark" : "bookmark_border"
+            }}</mat-icon>
           </button>
           <button href="#" class="btn btn-icon text-warning">
             <mat-icon>edit</mat-icon>

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AmazingOfferRepository } from './data/amazing-offer.repository';
-import { ProductViewModel } from './data/models/product.view-model';
+import { ProductViewModel } from '../../../../products/data/models/view-models/product.view-model';
 import { BehaviorSubject } from 'rxjs';
+import { ProductItemModel } from 'src/app/shared/models/product-item.model';
 @Component({
   selector: 'app-amazing-offer-swiper',
   templateUrl: './amazing-offer-swiper.component.html',
@@ -11,19 +12,110 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AmazingOfferSwiperComponent {
   isLoading = new BehaviorSubject(false);
-  slides: ProductViewModel[] = [];
+  slides: ProductViewModel[] = [
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+    {
+      defaultPic: 'assets/media/temp/1.jpg',
+      name: ' موتور گیربکس ',
+      price: 350000000,
+      rate: { count: 3, average: 2 },
+      description: 'test',
+      id: 1,
+      deliveryDesc: '',
+      Introduction: '',
+    },
+  ];
   constructor(
     private _responsive: BreakpointObserver,
     private _productRepository: AmazingOfferRepository
-  ) {
-    this._getProducts();
-  }
-
-  private _getProducts() {
-    this.isLoading.next(true);
-    this._productRepository.getAll().subscribe((res) => {
-      this.slides = res;
-      this.isLoading.next(false);
-    });
-  }
+  ) {}
 }

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
 import { BaseFormModel } from './base-form.model';
+import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
+import { SelectedFiles } from '../../../../../../shared/components/keleman-dropzone/keleman-dropzone.component';
 
 @Component({
   selector: 'keleman-receipt-form',
@@ -8,6 +10,7 @@ import { BaseFormModel } from './base-form.model';
   styleUrls: ['./receipt-form.component.scss'],
 })
 export class ReceiptFormComponent {
+  files: File[] = [];
   @Input() formData!: BaseFormModel;
 
   @Input() number: number = 1;
@@ -36,4 +39,10 @@ export class ReceiptFormComponent {
   }
 
   constructor() {}
+
+  onFileSelected($event: NgxDropzoneChangeEvent) {
+    this.files.push(...$event.addedFiles);
+  }
+
+  selectedFiles($event: SelectedFiles) {}
 }

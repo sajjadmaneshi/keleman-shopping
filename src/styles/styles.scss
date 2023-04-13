@@ -1,14 +1,11 @@
 @import "base/variables/colors";
-
 @import "bootstrap/scss/bootstrap";
-
 @import "base/init";
 @import "../../node_modules/swiper/swiper";
 @import "../../node_modules/swiper/modules/pagination/pagination";
 @import "../../node_modules/swiper/modules/navigation/navigation";
 @import "../../node_modules/swiper/modules/autoplay/autoplay";
 @import "../../node_modules/swiper/modules/effect-creative/effect-creative";
-
 @import "../assets/fonts/Webfonts/style.css";
 @import "material-icons/iconfont/outlined";
 @import "material-icons/iconfont/sharp";
@@ -17,20 +14,6 @@
 @import "leaflet-geosearch/dist/geosearch.css";
 @import "mat_dialog_custom";
 
-html,
-body,
-app-root {
-  margin: 0;
-  height: 100%;
-}
-body {
-  background: url("../assets/media/static-resources/keleman-logo-background.svg")
-    no-repeat 10% 0;
-}
-
-a {
-  text-decoration: none !important;
-}
 .grid-divider > * {
   position: relative;
   margin-bottom: 15px;
@@ -45,16 +28,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-textarea:focus,
-input:focus,
-textarea:active,
-input:active {
-  outline: none !important;
-  box-shadow: unset !important;
-}
 
 .underline-text {
   padding-bottom: 1rem;
@@ -62,6 +35,7 @@ input:active {
   display: inline-block;
   border-bottom: 2px solid map-get($theme-colors, "klm-primary");
 }
+
 .gradient-border {
   border-bottom: 5px solid;
   border-image-slice: 1;
@@ -71,6 +45,6 @@ input:active {
     white
   );
 }
-.sticky-top {
-  z-index: 1000 !important;
+.dropdown-toggle::after {
+  margin-right: 0.25rem !important;
 }

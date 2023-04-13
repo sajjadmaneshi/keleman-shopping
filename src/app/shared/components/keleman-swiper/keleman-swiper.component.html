@@ -25,31 +25,14 @@
     }"
     class="h-100 keleman-swiper"
   >
-    <ng-container
-      *ngIf="isLoading$ | async; then loading; else renderedView"
-    ></ng-container>
-    <ng-template #renderedView>
-      <ng-template *ngFor="let slide of contents" swiperSlide>
-        <ng-template [ngTemplateOutlet]="slide.template">
-          <ng-template
-            [ngTemplateOutlet]="slide.template"
-            [ngTemplateOutletContext]="{
-              $implicit: slide.template
-            }"
-          ></ng-template>
-        </ng-template>
-      </ng-template>
-    </ng-template>
-    <ng-template #loading>
-      <ng-template
-        *ngFor="let shimmer of sharedVariablesService.counter(10)"
-        swiperSlide
-      >
-        <ngx-shimmer-loading
-          [shape]="'rect'"
-          [width]="shimmerWidth"
-          [height]="shimmerHeight"
-        ></ngx-shimmer-loading>
+    <ng-template *ngFor="let slide of contents" swiperSlide>
+      <ng-template [ngTemplateOutlet]="slide.template">
+        <ng-template
+          [ngTemplateOutlet]="slide.template"
+          [ngTemplateOutletContext]="{
+            $implicit: slide.template
+          }"
+        ></ng-template>
       </ng-template>
     </ng-template>
   </swiper>

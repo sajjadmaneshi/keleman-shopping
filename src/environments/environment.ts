@@ -4,5 +4,5 @@
 
 export const ENVIRONMENT = {
   production: false,
-  baseUrl: 'https://fakestoreapi.com/',
+  baseUrl: 'http://localhost:3000/',
 };

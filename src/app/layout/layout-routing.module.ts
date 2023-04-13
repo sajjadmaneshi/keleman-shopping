@@ -38,7 +38,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./pages/profile/profile.module').then((m) => m.ProfileModule),
       },
-      { path: Routing.register, component: RegisterComponent },
     ],
   },
 ];

@@ -1,18 +1,17 @@
 @import "base/variables/colors";
 
 nav {
-  height: 138px;
-}
-@media (max-width: 768px) {
-  nav {
-    height: 60px !important;
-  }
+  height: 9rem;
 }
 
 .header-container {
   margin: 0 auto;
 }
-
+@media (max-width: 768px) {
+  nav {
+    height: auto;
+  }
+}
 @media (min-width: 540px) {
   .header-container {
     max-width: 810px !important;

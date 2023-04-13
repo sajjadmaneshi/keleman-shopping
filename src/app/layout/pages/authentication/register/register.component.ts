@@ -1,11 +1,38 @@
 import { Component } from '@angular/core';
 import { map, Observable, startWith } from 'rxjs';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { KelemanAutocompleteComponent } from '../../../../shared/components/keleman-autocomplete/keleman-autocomplete.component';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { CommonModule } from '@angular/common';
+import { KelemanInputGroupComponent } from '../../../../shared/components/keleman-input-group/keleman-input-group.component';
+import { CountdownComponent } from 'ngx-countdown';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingProgressDirective } from '../../../../shared/directives/loading-progress.directive';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    KelemanAutocompleteComponent,
+    NgOtpInputModule,
+    ReactiveFormsModule,
+    KelemanInputGroupComponent,
+    CountdownComponent,
+    MatProgressSpinnerModule,
+    LoadingProgressDirective,
+    MatIconModule,
+    RouterLink,
+  ],
 })
 export class RegisterComponent {
   isVisible = false;

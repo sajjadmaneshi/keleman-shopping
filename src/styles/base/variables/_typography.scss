@@ -1,21 +1,4 @@
-$base_font_size: 16px;
-$prefix: "keleman-";
-$head-size: 30px;
 $font-family-base: IRANYekanXFaNum;
-
-.#{$prefix}button {
-  font-size: $base_font_size;
-  font-weight: 400 !important;
-  font-style: normal !important;
-}
-
-.#{$prefix}badge {
-  font-size: $base_font_size;
-  font-weight: 700 !important;
-  font-style: normal !important;
-}
-.#{$prefix}head-extra-bold {
-  font-size: 35px;
-  font-weight: 700 !important;
-  font-style: normal !important;
-}
+$font-size-base: 16px;
+$line-height-base: 1.5;
+$prefix: "keleman-";

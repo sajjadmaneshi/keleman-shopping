@@ -21,11 +21,7 @@
       object-fit: cover;
     }
   }
-  @media (max-width: 767px) {
-    .swiper-slide {
-      width: 20rem !important;
-    }
-  }
+
   .swiper-slide:nth-child(1n) {
     background-color: rgb(206, 17, 17);
   }

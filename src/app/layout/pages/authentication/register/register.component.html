@@ -1,111 +1,132 @@
-<div class="container h-100">
-  <div
-    class="keleman-register d-flex flex-column align-items-center justify-content-center h-100"
-  >
-    <img
-      alt="keleman-logo"
-      class="keleman-logo"
-      src="assets/media/logo/keleman-logo.png"
-    />
+<a
+  routerLink="/"
+  class="back-to-home d-flex align-items-center text-klm-primary cursor-pointer"
+>
+  <mat-icon class="mx-3">home</mat-icon> بازگشت به صفحه اصلی
+</a>
 
-    <div class="card card-rounded-3 keleman-register-body">
-      <div
-        class="card-body d-flex flex-column align-items-start justify-content-center"
-      >
-        <ng-template #register>
-          <h5 class="fw-bolder">ورود یا ثبت نام</h5>
-          <p class="text-muted">
-            سلام! به کِلِمان خوش آمدید. <br />لطفا شماره موبایل خود را وارد کنید
-          </p>
-          <input
-            class="form-control rounded-pill text-center register-input"
-            placeholder="شماره موبایل خود را وارد کنید"
-          />
-          <button
-            class="rounded-pill btn btn-warning text-white w-100 register-button mb-3"
-          >
-            ورود به کلمان
-          </button>
+<div class="container keleman-register-form">
+  <img
+    alt="keleman-logo"
+    class="keleman-logo"
+    src="assets/media/logo/keleman-logo.png"
+  />
+
+  <div class="keleman-register-body keleman-gray-card border-0 px-5">
+    <div
+      class="card-body d-flex flex-column align-items-center justify-content-center"
+    >
+      <ng-template #register>
+        <h5 class="fw-bolder">ورود یا ثبت نام</h5>
+        <h6 class="fw-bolder text-klm-primary">
+          لطفا شماره موبایل خود را وارد نمایید ...
+        </h6>
+        <input
+          class="form-control text-center keleman-text-field"
+          placeholder="شماره موبایل خود را وارد کنید"
+        />
+        <button
+          class="btn btn-warning text-white w-25 text-klm-primary register-button mb-3"
+        >
+          ادامه
+        </button>
+        <p class="text-muted mb-0">
+          ادامه به معنای پذیرش <a class="text-klm-primary">شرایط</a> و
+          <a class="text-klm-primary">قوانین</a> حریم خصوصی<br />
+          فروشگاه اینترنتی کِلِمان است.
+        </p>
+      </ng-template>
+      <ng-template #enterCode>
+        <h6 class="fw-bolder">کد تایید را وارد کنید</h6>
+        <span class="w-100 d-flex justify-content-between align-items-center">
           <p class="text-muted mb-0">
-            ادامه به معنای پذیرش <a class="text-klm-primary">شرایط</a> و
-            <a class="text-klm-primary">قوانین</a> حریم خصوصی<br />
-            فروشگاه اینترنتی کِلِمان است.
+            کد تایید برای شماره 09388894749 پیامک شد
           </p>
-        </ng-template>
-        <ng-template #enterCode [ngIf]="false">
-          <h5 class="fw-bolder">کد تایید را وارد کنید</h5>
-          <span class="w-100 d-flex justify-content-between align-items-center">
-            <p class="text-muted mb-0">
-              کد تایید برای شماره 09388894749 پیامک شد
-            </p>
-            <a class="fw-bolder"><u>تغییر شماره</u></a>
-          </span>
-          <ng-otp-input
-            class="align-self-center"
-            dir="ltr"
-            [config]="{ length: 6 }"
-          ></ng-otp-input>
-          <a class="fw-bolder"><u>ورود با رمزعبور</u></a>
-          <h6 class="align-self-center fw-bolder">
-            دریافت مجدد کد:
-            <countdown
-              [config]="{ leftTime: 120, format: 'mm:ss' }"
-            ></countdown>
-          </h6>
-          <button
-            class="rounded-pill btn btn-warning text-white w-100 register-button"
+          <a class="fw-bolder"><u>تغییر شماره</u></a>
+        </span>
+        <ng-otp-input
+          class="align-self-center"
+          dir="ltr"
+          [config]="{ length: 6 }"
+        ></ng-otp-input>
+        <a class="fw-bolder"><u>ورود با رمزعبور</u></a>
+        <h6 class="align-self-center fw-bolder">
+          دریافت مجدد کد:
+          <countdown [config]="{ leftTime: 120, format: 'mm:ss' }"></countdown>
+        </h6>
+        <button
+          class="btn btn-warning text-white w-25 text-klm-primary register-button"
+        >
+          تایید
+        </button>
+      </ng-template>
+      <ng-template #enterPassword>
+        <h6 class="fw-bolder">رمز عبور را وارد کنید</h6>
+        <standalone-input-group
+          [type]="isVisible ? 'text' : 'password'"
+          [placeHolder]="'رمز عبور را وارد نمایید'"
+        >
+          <span
+            class="material-icons visibility"
+            (click)="changePasswordVisibility()"
           >
-            تایید
-          </button>
-        </ng-template>
-        <ng-template #enterPassword [ngIf]="false">
-          <h5 class="fw-bolder">رمز عبور را وارد کنید</h5>
-          <standalone-input-group [type]="isVisible ? 'text' : 'password'">
-            <span
-              class="material-icons visibility"
-              (click)="changePasswordVisibility()"
-            >
-              {{ isVisible ? "visibility_off" : "visibility" }}
-            </span>
-          </standalone-input-group>
-
-          <span class="d-flex justify-content-between w-100">
-            <a class="fw-bolder cursor-pointer">
-              <u>ورود با رمز یکبار مصرف (پیامکی)</u></a
-            >
-            <a class="fw-bolder cursor-pointer"><u>فراموشی رمز عبور</u> </a>
+            {{ isVisible ? "visibility_off" : "visibility" }}
           </span>
+        </standalone-input-group>
 
-          <button
-            class="rounded-pill btn btn-warning text-white w-100 register-button"
+        <span class="d-flex justify-content-between w-100">
+          <a class="fw-bolder cursor-pointer">
+            <u>ورود با رمز یکبار مصرف (پیامکی)</u></a
           >
-            تایید
-          </button>
-        </ng-template>
-        <ng-template #completeDetails [ngIf]="true">
-          <h5 class="fw-bolder">ورود اطلاعات</h5>
-          <form class="w-100" [formGroup]="registerForm">
-            <div class="mb-5">
+          <a class="fw-bolder cursor-pointer"><u>فراموشی رمز عبور</u> </a>
+        </span>
+
+        <button
+          class="btn btn-warning text-white w-25 text-klm-primary register-button"
+        >
+          تایید
+        </button>
+      </ng-template>
+      <ng-template #completeDetails [ngIf]="true">
+        <h5 class="fw-bolder">تکمیل ثبت نام</h5>
+        <h6 class="fw-bolder text-klm-primary">
+          لطفا جهت عضویت اطلاعات خود را تکمیل کنید!
+        </h6>
+        <form
+          class="w-100 d-flex flex-column align-items-center"
+          [formGroup]="registerForm"
+        >
+          <div class="mb-5 row">
+            <div class="col-6 mb-3 form-group">
+              <label for="name">نام</label>
+              <input class="form-control keleman-text-field" id="name" />
+            </div>
+            <div class="col-6 mb-3 form-group">
+              <label for="family">نام خانوادگی</label>
+              <input class="form-control keleman-text-field" id="family" />
+            </div>
+
+            <div class="col-6">
               <keleman-autocomplete
                 [options]="provinces"
                 [formControl]="province"
                 [label]="'استان'"
               ></keleman-autocomplete>
+            </div>
+            <div class="col-6">
               <keleman-autocomplete
                 [options]="provinces"
                 [formControl]="city"
                 [label]="'شهر'"
               ></keleman-autocomplete>
             </div>
+          </div>
 
-            <button
-              class="rounded-pill btn btn-warning text-white w-100 register-button"
-            >
-              تایید
-            </button>
-          </form>
-        </ng-template>
-      </div>
+          <button class="btn btn-warning text-klm-primary w-25 register-button">
+            تایید
+          </button>
+        </form>
+      </ng-template>
     </div>
   </div>
 </div>

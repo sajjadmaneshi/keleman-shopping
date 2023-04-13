@@ -5,24 +5,20 @@ import { LayoutComponent } from './layout.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { KelemanValueChangerComponent } from '../shared/components/keleman-value-changer/keleman-value-changer.component';
 import { MainComponent } from './pages/main/main.component';
-import { SwiperModule } from 'swiper/angular';
 import { KelemanSwiperComponent } from '../shared/components/keleman-swiper/keleman-swiper.component';
 import { AmazingOfferSwiperComponent } from './pages/main/components/background-swiper/amazing-offer-swiper/amazing-offer-swiper.component';
 import { BackgroundSwiperItemComponent } from './pages/main/components/background-swiper/background-swiper-item/background-swiper-item.component';
 import { KelemanProductCategoryComponent } from './pages/main/components/product-category/keleman-product-category.component';
-import { ProductCategoryItemComponent } from './views/shared/product-category-item/product-category-item.component';
+import { ProductCategoryItemComponent } from './pages/main/components/product-category/product-category-item/product-category-item.component';
 import { ImageResponsiveDirective } from '../shared/directives/image-responsive.directive';
 import { TopSliderComponent } from './pages/main/components/top-slider/top-slider.component';
-import { RegisterComponent } from './pages/authentication/register/register.component';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { CountdownComponent } from 'ngx-countdown';
+
 import {
   SwiperContentDirective,
   SwiperTemplateDirective,
 } from '../shared/directives/swiper-template.directive';
 import { KelemanPriceComponent } from '../shared/components/keleman-price/keleman-price.component';
-import { ProductCategoryMobileComponent } from './views/mobile/product-category-mobile/product-category-mobile.component';
-import { ProductCategoryWebComponent } from './views/web/product-category-web/product-category-web.component';
 import { ContentComponent } from './_partials/content/content.component';
 import { SwiperItemComponent } from './views/shared/swiper-item/swiper-item.component';
 import { KelemanInputGroupComponent } from '../shared/components/keleman-input-group/keleman-input-group.component';
@@ -49,6 +45,8 @@ import { FooterComponent } from './_partials/footer/footer.component';
 import { MagazineItemComponent } from './pages/main/components/magazine/magazine-item/magazine-item.component';
 import { SearchBarComponent } from './_partials/header/header-menu/top-menu/search-bar/search-bar.component';
 import { SearchResultMenuComponent } from './_partials/header/header-menu/top-menu/search-bar/search-result-menu/search-result-menu.component';
+import { SwiperModule } from 'swiper/angular';
+import { HeaderMobileComponent } from './_partials/header/header-mobile/header-mobile.component';
 
 @NgModule({
   declarations: [
@@ -59,9 +57,7 @@ import { SearchResultMenuComponent } from './_partials/header/header-menu/top-me
     KelemanProductCategoryComponent,
     ProductCategoryItemComponent,
     TopSliderComponent,
-    RegisterComponent,
-    ProductCategoryMobileComponent,
-    ProductCategoryWebComponent,
+
     ContentComponent,
     HeaderComponent,
     HeaderMenuComponent,
@@ -76,18 +72,17 @@ import { SearchResultMenuComponent } from './_partials/header/header-menu/top-me
     MagazineItemComponent,
     SearchBarComponent,
     SearchResultMenuComponent,
+    HeaderMobileComponent,
   ],
   imports: [
     CommonModule,
     LayoutRoutingModule,
     InlineSVGModule,
     KelemanValueChangerComponent,
-    SwiperModule,
     NgOptimizedImage,
     KelemanSwiperComponent,
     ImageResponsiveDirective,
-    NgOtpInputModule,
-    CountdownComponent,
+
     SwiperContentDirective,
     SwiperTemplateDirective,
     KelemanPriceComponent,
@@ -101,6 +96,7 @@ import { SearchResultMenuComponent } from './_partials/header/header-menu/top-me
     ReactiveFormsModule,
     KelemanAutocompleteComponent,
     MatComponentsModule,
+    SwiperModule,
   ],
   exports: [ContentComponent],
 })

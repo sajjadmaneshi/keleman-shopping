@@ -16,6 +16,7 @@ import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 import { SharedVariablesService } from '../../services/shared-variables.service';
 import { BehaviorSubject } from 'rxjs';
 import { SwiperModule } from 'swiper/angular';
+import { ApplicationStateService } from '../../services/application-state.service';
 
 SwiperCore.use([Navigation]);
 @Component({
@@ -54,7 +55,10 @@ export class KelemanSwiperComponent implements OnInit {
 
   @Input() navigationButtonClassPrefix!: string;
 
-  constructor(public sharedVariablesService: SharedVariablesService) {}
+  constructor(
+    public sharedVariablesService: SharedVariablesService,
+    public applicationState: ApplicationStateService
+  ) {}
 
   ngOnInit(): void {
     document.querySelectorAll('.swiper-slide').forEach((test) => {

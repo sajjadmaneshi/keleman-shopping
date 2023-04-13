@@ -14,10 +14,14 @@
         <h6>{{ 3500000 | number : ".0" }} تومان</h6>
       </span>
     </div>
-    <div class="text-center">
-      <button class="btn invoice-button">دریافت پیش فاکتور</button>
+    <div class="text-center d-flex flex-column">
       <button
-        class="btn btn-warning submit-button align-self-center"
+        class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary mb-3"
+      >
+        دریافت پیش فاکتور
+      </button>
+      <button
+        class="btn btn-warning submit-button align-self-center w-100"
         (click)="checkoutService.nextStep()"
       >
         ادامه خرید

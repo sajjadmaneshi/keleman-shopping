@@ -3,7 +3,8 @@
 @include swiper-button();
 
 .keleman-swiper {
-  margin-right: 11rem !important;
+  margin-right: 1.5rem;
+  width: calc(100% - 12rem);
   ::ng-deep .swiper-slide {
     &:first-child {
       border-radius: 0 1rem 1rem 0 !important;
@@ -18,31 +19,21 @@
 }
 @media (max-width: 768px) {
   .keleman-swiper {
-    margin-right: 15rem !important;
+    width: calc(100% - 12rem) !important;
   }
 }
+
 .related-products-title {
   border-bottom: 2px solid black;
 }
 .swiper-start {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-
   .swiper-start-text {
     font-family: Aviny, serif !important;
     word-wrap: break-word;
   }
-  @media (max-width: 768px) {
-    .swiper-start-text {
-      line-height: 6rem;
-      font-size: 4rem;
-    }
-  }
 }
 
 .amazing-offer-container {
-  max-height: 350px !important;
   background-color: map-get($theme-colors, "klm-secondary");
 }
 .swiper-start-image {

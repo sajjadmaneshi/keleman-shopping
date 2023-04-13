@@ -30,6 +30,8 @@ import { NumberToPersianPipe } from '../../../shared/pipes/num2persian.pipe';
 import { AttachChequeDialogComponent } from './payment/attach-cheque-dialog/attach-cheque-dialog.component';
 import { NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { KelemanDatePickerComponent } from '../../../shared/components/keleman-date-picker/keleman-date-picker.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { KelemanDropzoneComponent } from '../../../shared/components/keleman-dropzone/keleman-dropzone.component';
 
 export const routes: Routes = [
   {
@@ -75,10 +77,11 @@ export const routes: Routes = [
     ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
-
     NumberToPersianPipe,
     NgbInputDatepicker,
     KelemanDatePickerComponent,
+    NgxDropzoneModule,
+    KelemanDropzoneComponent,
   ],
   providers: [DecimalPipe, CheckoutService],
 })

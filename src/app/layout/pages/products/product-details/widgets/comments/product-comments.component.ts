@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import SwiperCore, { Navigation } from 'swiper';
 import { CommentModel } from '../../../../../../shared/models/comment.model';
 import { BehaviorSubject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCommentDialogComponent } from './add-comment-dialog/add-comment-dialog.component';
 
 SwiperCore.use([Navigation]);
 @Component({
@@ -54,4 +56,13 @@ export class ProductCommentsComponent {
       date: '2022-02-01T13:34:45',
     },
   ];
+
+  constructor(private _dialog: MatDialog) {}
+
+  openDialog() {
+    this._dialog.open(AddCommentDialogComponent, {
+      width: '850px',
+      panelClass: 'custom-mat-dialog',
+    });
+  }
 }

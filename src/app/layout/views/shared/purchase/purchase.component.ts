@@ -18,14 +18,5 @@ export class PurchaseComponent implements OnInit {
     private _renderer: Renderer2
   ) {}
 
-  ngOnInit(): void {
-    this._responseOnPageSizeChange();
-  }
-
-  private _responseOnPageSizeChange() {
-    let kelemanBasket = document.querySelector('.klm-checkout') as HTMLElement;
-    if (this.applicationState.isTablet || this.applicationState.isPhone)
-      this._renderer.setStyle(kelemanBasket, 'margin-bottom', '70px');
-    else this._renderer.removeStyle(kelemanBasket, 'margin-bottom');
-  }
+  ngOnInit(): void {}
 }

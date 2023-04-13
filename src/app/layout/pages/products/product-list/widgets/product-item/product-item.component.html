@@ -1,22 +1,32 @@
-<div class="card card-rounded-3 border-gray-300 product mb-3">
+<div
+  class="card card-rounded-3 border-gray-300 product mb-3 cursor-pointer"
+  [routerLink]="[product.name]"
+>
   <div
     class="card-body d-flex align-items-center flex-column justify-content-between"
   >
-    <div class="symbol symbol-150px">
-      <img src="assets/media/product.jpg" />
+    <keleman-icon-text
+      class="rate align-self-end"
+      [text]="product.rate.average.toString()!"
+      [iconName]="'star'"
+      [iconClass]="'text-warning'"
+    ></keleman-icon-text>
+
+    <div class="symbol symbol-200px mb-3">
+      <img
+        loadingLazy
+        emptyImage
+        [src]="product.defaultPic!"
+        [alt]="product.name!"
+      />
     </div>
-    <span class="d-flex align-items-center justify-content-between w-100">
-      <h6>موتور گیربکس الکو</h6>
-      <keleman-icon-text
-        class="rate"
-        [text]="'2.5'"
-        [iconName]="'star'"
-        [iconClass]="'text-warning'"
-      ></keleman-icon-text>
-    </span>
-    <h5 class="fw-bold text-klm-primary">
-      {{ 3800000 | number : ".0" }} تومان
-    </h5>
+    <h6>{{ product.name! }}</h6>
+
+    <standalone-price
+      [value]="product.price!"
+      [off]="false"
+      [size]="'h5'"
+    ></standalone-price>
 
     <standalone-price
       [value]="4000000"

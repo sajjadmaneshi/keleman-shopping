@@ -17,17 +17,6 @@ $badge-size-lg: 2rem !default; // Custom variable
   @return get($theme-light-colors, $key);
 }
 .badge {
-  // Fixed size
-  &.badge-circle,
-  &.badge-square {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: $badge-size;
-    min-width: $badge-size;
-    padding: 0 0.5rem;
-  }
-
   // Circle
   &.badge-circle {
     border-radius: 50%;

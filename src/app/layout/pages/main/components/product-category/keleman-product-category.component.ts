@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
+import { BehaviorSubject } from 'rxjs';
+import { ProductCategoryService } from './product-category.service';
 
 @Component({
   selector: 'keleman-product-category',
   templateUrl: './keleman-product-category.component.html',
+  styleUrls: ['./keleman-product-category.component.scss'],
+  providers: [ProductCategoryService],
 })
 export class KelemanProductCategoryComponent {
-  constructor(public applicationStateService: ApplicationStateService) {}
+  isLoading = new BehaviorSubject(false);
+  constructor(public productCategoryService: ProductCategoryService) {}
 }

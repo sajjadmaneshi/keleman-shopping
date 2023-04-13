@@ -1,0 +1,22 @@
+.satisfaction {
+  grid-template-columns: repeat(3, 1fr);
+  mat-icon {
+    font-size: 2.5rem !important;
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+}
+.slider-with-ticks .mat-slider-ticks-container {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+}
+
+.slider-with-ticks .mat-slider-tick {
+  position: absolute;
+  top: 100%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}

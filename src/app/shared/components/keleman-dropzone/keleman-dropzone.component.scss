@@ -1,0 +1,9 @@
+@import "base/variables/colors";
+.keleman-dropzone {
+  max-height: 5rem !important;
+  border: 2px dashed $gray-300 !important;
+}
+
+.invalid-dr {
+  border: 2px dashed red !important;
+}

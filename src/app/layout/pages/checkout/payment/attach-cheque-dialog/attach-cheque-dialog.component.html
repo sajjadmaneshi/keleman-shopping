@@ -69,7 +69,7 @@
       <label for="receiver-details"> اطلاعات دریافت کننده </label>
       <div
         id="receiver-details"
-        class="card card-rounded-3 border-1 receiver-details"
+        class="card card-rounded-3 border-1 receiver-details mb-3"
       >
         <div class="card-body" formGroupName="receiverDetails">
           <div class="form-group">
@@ -91,6 +91,13 @@
             />
           </div>
         </div>
+      </div>
+      <div class="card card-rounded-3 border-0">
+        <keleman-keleman-dropzone [showSelectButton]="true" [multiple]="true">
+          <p class="mb-0">
+            برای بارگذاری عکس پشت و رو چک ، فایل را در اینجا رها کنید
+          </p>
+        </keleman-keleman-dropzone>
       </div>
     </form>
   </ng-template>

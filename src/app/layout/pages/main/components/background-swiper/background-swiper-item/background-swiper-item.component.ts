@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProductViewModel } from '../amazing-offer-swiper/data/models/product.view-model';
+import { ProductViewModel } from '../../../../products/data/models/view-models/product.view-model';
 
 @Component({
   selector: 'keleman-background-swiper-item',

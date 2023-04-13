@@ -2,32 +2,31 @@
   <div
     class="card-body d-flex flex-column justify-content-between align-items-center"
   >
-    <div class="symbol symbol-100px mb-3">
-      <img class="amazing-offer-item__image" [src]="product.image!" />
+    <div class="symbol symbol-100px symbol-lg-150px mb-3">
+      <img class="amazing-offer-item__image" [src]="product.defaultPic!" />
     </div>
-    <h6 class="text-center fw-light">
-      {{
-        product.title.length > 20
-          ? (product.title | slice : 0 : 20) + "..."
-          : product.title
-      }}
-    </h6>
+    <span class="d-flex align-items-center justify-content-between w-100 mb-3">
+      <h6 class="text-center fw-light mb-0">
+        {{ product.name }}
+      </h6>
+      <span class="d-flex align-items-center">
+        <h6 class="text-success mb-0">{{ product.rate.average }}</h6>
+        <mat-icon class="text-warning">star</mat-icon>
+      </span>
+    </span>
+
     <standalone-price
-      class="mb-3"
       [value]="product.price!"
       [size]="'h5'"
       [color]="'dark'"
+      class="mb-3"
     ></standalone-price>
-    <span
-      class="w-100 d-flex align-items-center mb-3 justify-content-between pt-1"
-    >
-      <h5 class="fw-normal text-danger mb-0">{{ 15 }}%</h5>
-      <standalone-price
-        [value]="product.price!"
-        [off]="true"
-        [size]="'h5'"
-        [color]="'dark'"
-      ></standalone-price>
-    </span>
+    <standalone-price
+      [value]="product.price!"
+      [off]="true"
+      [size]="'h6'"
+      [color]="'dark'"
+      [discount]="10"
+    ></standalone-price>
   </div>
 </div>

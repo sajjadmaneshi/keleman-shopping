@@ -1,13 +1,13 @@
-<ng-container
-  *ngIf="
-    applicationStateService.isPhone || applicationStateService.isTablet;
-    then mobileView;
-    else webView
-  "
-></ng-container>
-<ng-template #mobileView>
-  <keleman-product-category-mobile></keleman-product-category-mobile>
-</ng-template>
-<ng-template #webView>
-  <keleman-product-category-web></keleman-product-category-web>
-</ng-template>
+<standalone-swiper
+  [spaceBetween]="10"
+  [showMoreButton]="false"
+  [navigation]="true"
+  [titleBorder]="false"
+  [isLoading]="isLoading"
+>
+  <appSwiperContent *ngFor="let slide of productCategoryService.categories">
+    <ng-template appSwiperTemplate>
+      <app-product-category-item [category]="slide"></app-product-category-item>
+    </ng-template>
+  </appSwiperContent>
+</standalone-swiper>

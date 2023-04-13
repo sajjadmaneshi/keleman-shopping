@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
-import { SwiperModule } from 'swiper/angular';
 import { ProductCommentsComponent } from './product-details/widgets/comments/product-comments.component';
 import { CommentItemComponent } from './product-details/widgets/comments/comment-item/comment-item.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
@@ -55,11 +54,15 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ProductPriceFilterComponent } from './product-list/widgets/product-price-filter/product-price-filter.component';
 import { MatSliderModule } from '@angular/material/slider';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsSortComponent } from './product-list/widgets/products-sort/products-sort.component';
 import { ProductItemComponent } from './product-list/widgets/product-item/product-item.component';
 import { KelemanPriceComponent } from '../../../shared/components/keleman-price/keleman-price.component';
 import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
+import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
+import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
+import { AddCommentDialogComponent } from './product-details/widgets/comments/add-comment-dialog/add-comment-dialog.component';
+import { KelemanCardComponent } from '../../../shared/components/keleman-card/keleman-card.component';
 
 @NgModule({
   declarations: [
@@ -85,12 +88,12 @@ import { PaginatorComponent } from '../../../shared/components/paginator/paginat
     ProductPriceFilterComponent,
     ProductsSortComponent,
     ProductItemComponent,
+    AddCommentDialogComponent,
   ],
   imports: [
     CommonModule,
     ProductsRoutingModule,
     NgxImageZoomModule,
-    SwiperModule,
     InlineSVGModule,
     MagazineModule,
     HighchartsChartModule,
@@ -121,6 +124,10 @@ import { PaginatorComponent } from '../../../shared/components/paginator/paginat
     FormsModule,
     KelemanPriceComponent,
     PaginatorComponent,
+    LazyLoadingDirective,
+    EmptyImageDirective,
+    ReactiveFormsModule,
+    KelemanCardComponent,
   ],
 })
 export class ProductsModule {}

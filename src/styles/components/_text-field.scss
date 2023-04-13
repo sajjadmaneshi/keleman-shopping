@@ -6,7 +6,7 @@
   line-height: 3rem !important;
   padding: 0 1rem !important;
   background-image: none !important;
-  background-color: #e7e9ef !important;
+
   border: none !important;
   border-radius: math.div(1rem, 4);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
@@ -31,4 +31,15 @@ input:-ms-input-placeholder {
 }
 input::-webkit-input-placeholder {
   text-align: right !important;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+textarea:focus,
+input:focus,
+textarea:active,
+input:active {
+  outline: none !important;
+  box-shadow: unset !important;
 }

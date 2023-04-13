@@ -1,8 +1,9 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ProductViewModel } from '../background-swiper/amazing-offer-swiper/data/models/product.view-model';
+
 import Swiper, { EffectCreative, Navigation } from 'swiper';
 import SwiperCore from 'swiper';
+import { ProductViewModel } from '../../../products/data/models/view-models/product.view-model';
 
 SwiperCore.use([EffectCreative, Navigation]);
 @Component({

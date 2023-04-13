@@ -5,7 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SwiperModule } from 'swiper/angular';
+
 import { ArticleComponent } from './layout/pages/magazine/components/article/article.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MagazineModule } from './layout/pages/magazine/magazine.module';
@@ -16,6 +16,7 @@ import { HttpInterceptorService } from './shared/services/http-interceptor.servi
 import { AppErrorHandler } from './shared/common/app-error-handler';
 import { MatComponentsModule } from './mat-components.module';
 import { FloatingButtonMenuComponent } from './shared/components/floating-button-menu/floating-button-menu.component';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [AppComponent, ArticleComponent],
@@ -25,11 +26,12 @@ import { FloatingButtonMenuComponent } from './shared/components/floating-button
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SwiperModule,
     MatComponentsModule,
     InlineSVGModule,
+    SwiperModule,
     MagazineModule,
     KelemanSwiperComponent,
+
     LeafletModule,
     FloatingButtonMenuComponent,
   ],

@@ -1,9 +1,5 @@
 @import "base/variables/spacers";
 
-section {
-  margin-bottom: map-get($k-spacers, 8);
-}
-
 img {
   border-radius: inherit;
 }
@@ -29,4 +25,9 @@ picture {
     height: 100%;
     width: 100%;
   }
+}
+.category-keleman {
+  position: sticky;
+  top: 9.2rem;
+  z-index: 30000;
 }

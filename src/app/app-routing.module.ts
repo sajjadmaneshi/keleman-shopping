@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './layout/pages/not-found/not-found.component';
+import { Routing } from './routing';
+import { RegisterComponent } from './layout/pages/authentication/register/register.component';
 
 const routes: Routes = [
   {
@@ -8,6 +10,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./layout/layout.module').then((m) => m.LayoutModule),
   },
+  { path: Routing.register, component: RegisterComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

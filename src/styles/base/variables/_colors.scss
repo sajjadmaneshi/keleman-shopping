@@ -36,7 +36,7 @@ $secondary-light: $gray-100 !default; // Custom variable
 $secondary-inverse: $gray-800 !default; // Custom variable
 $primary-active: #187de4 !default; // Custom variable
 $primary-inverse: $white !default; // Custom variable
-
+$lilac: #889cf0 !default;
 $dark-light: $gray-200 !default; // Custom variable
 $white-active: $gray-100 !default; // Custom variable
 $white-inverse: $gray-600 !default; // Custom variable
@@ -64,6 +64,7 @@ $theme-text-colors: (
   "gray-800": $gray-800,
   "gray-900": $gray-900,
   "accent": $klm-accent,
+  "lilac": $lilac,
 ) !default; // Custom variable
 
 $theme-colors: (
@@ -90,6 +91,7 @@ $theme-colors: (
   "gray-800": $gray-800,
   "gray-900": $gray-900,
   "accent": $klm-accent,
+  "lilac": $lilac,
 );
 
 // Hover colors

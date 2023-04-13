@@ -3,7 +3,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-size: $k-font-size-base * 3 !important;
+  font-size: $font-size-base !important;
   font-weight: $font-weight-base;
   font-family: $font-family-base;
   @include media-breakpoint-down(lg) {
@@ -11,10 +11,13 @@ body {
   }
 }
 
-// Angular integration
+body {
+  background: url("../../assets/media/static-resources/keleman-logo-background.svg")
+    no-repeat 10% -15rem;
+}
 
-.form-control {
-  background-color: white !important;
+a {
+  text-decoration: none !important;
 }
 
 .keleman-container {
@@ -23,15 +26,6 @@ body {
   }
 }
 
-@media (min-width: 992px) {
-  .app-container-fit-desktop {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-}
-@media (max-width: 599.98px) {
-  .app-container-fit-mobile {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
+.sticky-top {
+  z-index: 1000 !important;
 }
