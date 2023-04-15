@@ -14,8 +14,8 @@ body.menuOpened {
   overflow: hidden;
 }
 .cornerMenu {
-  width: 85px;
-  height: 85px;
+  width: 5.2rem;
+  height: 5.2rem;
   position: fixed;
   right: 25px;
   bottom: 25px;
@@ -23,7 +23,7 @@ body.menuOpened {
   box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   text-align: center;
-  line-height: 85px;
+  line-height: 5.2rem;
   vertical-align: middle;
   color: map-get($theme-colors, "klm-primary");
   font-size: 22px;

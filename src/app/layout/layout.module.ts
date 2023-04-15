@@ -3,9 +3,9 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
-import { KelemanValueChangerComponent } from '../shared/components/keleman-value-changer/keleman-value-changer.component';
+import { ValueChangerComponent } from '../shared/components/value-changer/value-changer.component';
 import { MainComponent } from './pages/main/main.component';
-import { KelemanSwiperComponent } from '../shared/components/keleman-swiper/keleman-swiper.component';
+import { SwiperComponent } from '../shared/components/swiper/swiper.component';
 import { AmazingOfferSwiperComponent } from './pages/main/components/background-swiper/amazing-offer-swiper/amazing-offer-swiper.component';
 import { BackgroundSwiperItemComponent } from './pages/main/components/background-swiper/background-swiper-item/background-swiper-item.component';
 import { KelemanProductCategoryComponent } from './pages/main/components/product-category/keleman-product-category.component';
@@ -18,11 +18,10 @@ import {
   SwiperContentDirective,
   SwiperTemplateDirective,
 } from '../shared/directives/swiper-template.directive';
-import { KelemanPriceComponent } from '../shared/components/keleman-price/keleman-price.component';
+import { PriceComponent } from '../shared/components/price/price.component';
 import { ContentComponent } from './_partials/content/content.component';
 import { SwiperItemComponent } from './views/shared/swiper-item/swiper-item.component';
-import { KelemanInputGroupComponent } from '../shared/components/keleman-input-group/keleman-input-group.component';
-import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
+import { InputGroupComponent } from '../shared/components/input-group/input-group.component';
 import { HeaderComponent } from './_partials/header/header.component';
 import { HeaderMenuComponent } from './_partials/header/header-menu/header-menu.component';
 import {
@@ -36,7 +35,7 @@ import { TopMenuComponent } from './_partials/header/header-menu/top-menu/top-me
 import { OffCanvasMenuComponent } from './_partials/header/header-menu/top-menu/off-canvas-menu/off-canvas-menu.component';
 import { UserDropdownMenuComponent } from './_partials/header/header-menu/top-menu/user-dropdown-menu/user-dropdown-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { KelemanAutocompleteComponent } from '../shared/components/keleman-autocomplete/keleman-autocomplete.component';
+import { AutoCompleteComponent } from '../shared/components/auto-complete/auto-complete.component';
 import { MatComponentsModule } from '../mat-components.module';
 import { MagazineComponent } from './pages/main/components/magazine/magazine.component';
 import { PackageSwiperComponent } from './pages/main/components/package-swiper/package-swiper.component';
@@ -47,6 +46,8 @@ import { SearchBarComponent } from './_partials/header/header-menu/top-menu/sear
 import { SearchResultMenuComponent } from './_partials/header/header-menu/top-menu/search-bar/search-result-menu/search-result-menu.component';
 import { SwiperModule } from 'swiper/angular';
 import { HeaderMobileComponent } from './_partials/header/header-mobile/header-mobile.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { AdvertisingBannersComponent } from './pages/main/components/advertising-banners/advertising-banners.component';
 
 @NgModule({
   declarations: [
@@ -73,30 +74,31 @@ import { HeaderMobileComponent } from './_partials/header/header-mobile/header-m
     SearchBarComponent,
     SearchResultMenuComponent,
     HeaderMobileComponent,
+    AdvertisingBannersComponent,
   ],
   imports: [
     CommonModule,
     LayoutRoutingModule,
     InlineSVGModule,
-    KelemanValueChangerComponent,
+    ValueChangerComponent,
     NgOptimizedImage,
-    KelemanSwiperComponent,
+    SwiperComponent,
     ImageResponsiveDirective,
 
     SwiperContentDirective,
     SwiperTemplateDirective,
-    KelemanPriceComponent,
+    PriceComponent,
     SwiperItemComponent,
-    KelemanInputGroupComponent,
-    NgxShimmerLoadingModule,
+    InputGroupComponent,
     NgbDropdown,
     NgbDropdownMenu,
     NgbDropdownItem,
     NgbDropdownToggle,
     ReactiveFormsModule,
-    KelemanAutocompleteComponent,
+    AutoCompleteComponent,
     MatComponentsModule,
     SwiperModule,
+    NgxSkeletonLoaderModule,
   ],
   exports: [ContentComponent],
 })

@@ -14,18 +14,7 @@ img {
     }
   }
 }
-picture {
-  display: block;
-  position: relative;
-  padding-top: 40%;
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-  }
-}
+
 .category-keleman {
   position: sticky;
   top: 9.2rem;

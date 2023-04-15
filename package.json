@@ -40,9 +40,10 @@
     "ngx-countdown": "^15.0.0",
     "ngx-dropzone": "^3.1.0",
     "ngx-image-zoom": "^2.0.0",
-    "ngx-shimmer-loading": "^0.0.5",
-    "swiper": "^8.4.5",
+    "ngx-infinite-scroll": "^15.0.0",
+    "ngx-skeleton-loader": "^7.0.0",
     "rxjs": "~7.8.0",
+    "swiper": "^8.4.5",
     "tslib": "^2.5.0",
     "zone.js": "~0.13.0"
   },

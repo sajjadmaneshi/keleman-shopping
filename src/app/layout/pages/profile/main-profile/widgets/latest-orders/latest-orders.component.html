@@ -7,7 +7,7 @@
         <keleman-empty-content></keleman-empty-content>
       </ng-template>
       <ng-template #full>
-        <standalone-swiper
+        <keleman-swiper
           [showTitle]="false"
           [showMoreButton]="false"
           [spaceBetween]="10"
@@ -16,10 +16,10 @@
         >
           <appSwiperContent *ngFor="let slide of slides">
             <ng-template appSwiperTemplate>
-              <keleman-swiper-item [product]="slide"></keleman-swiper-item>
+              <swiper-item [product]="slide"></swiper-item>
             </ng-template>
           </appSwiperContent>
-        </standalone-swiper>
+        </keleman-swiper>
       </ng-template>
     </div>
   </div>

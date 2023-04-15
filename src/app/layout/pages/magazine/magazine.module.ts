@@ -9,7 +9,6 @@ import { ListComponent } from './components/list/list.component';
 import { MagazineRoutingModule } from './magazine-routing.module';
 import { CommentComponent } from './components/comment/comment.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { KelemanPaginationComponent } from '../../../shared/components/keleman-pagination/keleman-pagination.component';
 
 export const routes: Routes = [{ path: '', component: MagazineComponent }];
 
@@ -26,7 +25,6 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
     RouterModule.forChild(routes),
     MagazineRoutingModule,
     ReactiveFormsModule,
-    KelemanPaginationComponent,
   ],
 })
 export class MagazineModule {}

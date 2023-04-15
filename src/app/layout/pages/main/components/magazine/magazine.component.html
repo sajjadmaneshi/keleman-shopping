@@ -7,22 +7,52 @@
   </div>
   <div class="row">
     <div class="col-12 mb-3 col-md-6 mb-lg-0 col-lg-4">
-      <keleman-magazine-item
-        [isNew]="true"
-        [date]="'2022/01/02'"
-      ></keleman-magazine-item>
+      <ng-container
+        *ngIf="isLoading; then loading; else content"
+      ></ng-container>
+      <ng-template #loading>
+        <ngx-skeleton-loader
+          [theme]="{ width: '100%', height: '500px' }"
+        ></ngx-skeleton-loader>
+      </ng-template>
+      <ng-template #content>
+        <keleman-magazine-item
+          [isNew]="true"
+          [date]="'2022/01/02'"
+        ></keleman-magazine-item>
+      </ng-template>
     </div>
     <div class="col-12 mb-3 col-md-6 mb-lg-0 col-lg-4">
-      <keleman-magazine-item
-        [isNew]="true"
-        [date]="'2022/01/02'"
-      ></keleman-magazine-item>
+      <ng-container
+        *ngIf="isLoading; then loading; else content"
+      ></ng-container>
+      <ng-template #loading>
+        <ngx-skeleton-loader
+          [theme]="{ width: '100%', height: '500px' }"
+        ></ngx-skeleton-loader>
+      </ng-template>
+      <ng-template #content>
+        <keleman-magazine-item
+          [isNew]="true"
+          [date]="'2022/01/02'"
+        ></keleman-magazine-item>
+      </ng-template>
     </div>
     <div class="col-12 mb-3 col-md-6 mb-lg-0 col-lg-4">
-      <keleman-magazine-item
-        [isNew]="true"
-        [date]="'2022/01/02'"
-      ></keleman-magazine-item>
+      <ng-container
+        *ngIf="isLoading; then loading; else content"
+      ></ng-container>
+      <ng-template #loading>
+        <ngx-skeleton-loader
+          [theme]="{ width: '100%', height: '500px' }"
+        ></ngx-skeleton-loader>
+      </ng-template>
+      <ng-template #content>
+        <keleman-magazine-item
+          [isNew]="true"
+          [date]="'2022/01/02'"
+        ></keleman-magazine-item>
+      </ng-template>
     </div>
   </div>
 </div>

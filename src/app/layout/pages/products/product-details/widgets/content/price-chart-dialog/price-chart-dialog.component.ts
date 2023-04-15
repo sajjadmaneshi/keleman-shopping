@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import * as Highcharts from 'highcharts';
 @Component({
-  selector: 'keleman-price-chart-dialog',
+  selector: 'price-chart-dialog',
   templateUrl: './price-chart-dialog.component.html',
   styleUrls: ['./price-chart-dialog.component.scss'],
 })

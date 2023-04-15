@@ -3,16 +3,16 @@
   [routerLink]="[product.name]"
 >
   <div
-    class="card-body d-flex align-items-center flex-column justify-content-between"
+    class="card-body d-flex align-items-center flex-row flex-md-column justify-content-md-between"
   >
-    <keleman-icon-text
+    <keleman-text-with-icon
       class="rate align-self-end"
       [text]="product.rate.average.toString()!"
       [iconName]="'star'"
       [iconClass]="'text-warning'"
-    ></keleman-icon-text>
+    ></keleman-text-with-icon>
 
-    <div class="symbol symbol-200px mb-3">
+    <div class="symbol symbol-100px symbol-lg-200px mb-3">
       <img
         loadingLazy
         emptyImage
@@ -20,19 +20,24 @@
         [alt]="product.name!"
       />
     </div>
-    <h6>{{ product.name! }}</h6>
+    <h6 class="align-self-start align-self-md-center flex-grow-1">
+      {{ product.name! }}
+    </h6>
+    <div class="d-flex flex-column">
+      <keleman-price
+        [value]="product.price!"
+        [off]="false"
+        [size]="'h5'"
+        class="mb-3"
+      ></keleman-price>
 
-    <standalone-price
-      [value]="product.price!"
-      [off]="false"
-      [size]="'h5'"
-    ></standalone-price>
-
-    <standalone-price
-      [value]="4000000"
-      [off]="true"
-      [discount]="10"
-      [size]="'h6'"
-    ></standalone-price>
+      <keleman-price
+        [value]="4000000"
+        [off]="true"
+        [discount]="10"
+        [color]="'dark'"
+        [size]="'h6'"
+      ></keleman-price>
+    </div>
   </div>
 </div>

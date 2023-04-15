@@ -16,6 +16,9 @@
   &.is-invalid {
     border: 2px solid red !important;
   }
+  &:focus {
+    border: 1px solid $klm-primary !important;
+  }
 }
 
 textarea.keleman-text-field {

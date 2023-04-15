@@ -7,4 +7,5 @@ import { CategoryModel } from '../../../../../../shared/models/category.model';
 })
 export class ProductCategoryItemComponent {
   @Input() category!: CategoryModel;
+  @Input() isLoading = false;
 }

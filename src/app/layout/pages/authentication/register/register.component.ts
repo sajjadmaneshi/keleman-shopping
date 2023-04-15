@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { KelemanAutocompleteComponent } from '../../../../shared/components/keleman-autocomplete/keleman-autocomplete.component';
+import { AutoCompleteComponent } from '../../../../shared/components/auto-complete/auto-complete.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { CommonModule } from '@angular/common';
-import { KelemanInputGroupComponent } from '../../../../shared/components/keleman-input-group/keleman-input-group.component';
+import { InputGroupComponent } from '../../../../shared/components/input-group/input-group.component';
 import { CountdownComponent } from 'ngx-countdown';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingProgressDirective } from '../../../../shared/directives/loading-progress.directive';
@@ -23,10 +23,10 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [
     CommonModule,
-    KelemanAutocompleteComponent,
+    AutoCompleteComponent,
     NgOtpInputModule,
     ReactiveFormsModule,
-    KelemanInputGroupComponent,
+    InputGroupComponent,
     CountdownComponent,
     MatProgressSpinnerModule,
     LoadingProgressDirective,

@@ -12,10 +12,10 @@
     </div>
   </div>
   <div class="related-products">
-    <keleman-swiper-item
+    <swiper-item
       *ngFor="let product of products"
       [product]="product"
-    ></keleman-swiper-item>
+    ></swiper-item>
   </div>
 </ng-template>
 <ng-template #mobile>
@@ -23,7 +23,7 @@
 
   <div class="row grid-divider mx-0">
     <div class="col-6" *ngFor="let product of products">
-      <keleman-swiper-item [product]="product"></keleman-swiper-item>
+      <swiper-item [product]="product"></swiper-item>
     </div>
   </div>
   <div class="w-100 text-center">

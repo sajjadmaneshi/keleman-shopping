@@ -16,14 +16,144 @@ export class ProductListComponent {
 
   subscription = new Subscription();
   constructor(private _repository: ProductRepository) {
-    const getAll$ = this._repository.getAll().subscribe({
-      next: (result: ProductViewModel[]) => {
-        this.products = result;
+    this.products = [
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
       },
-      error: (error) => {
-        throw new AppErrors(error);
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
       },
-    });
-    this.subscription.add(getAll$);
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+    ];
+  }
+  throttle = 500;
+  scrollDistance = 1;
+
+  onScrollDown() {
+    this.products.push(
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      },
+      {
+        defaultPic: 'assets/media/temp/1.jpg',
+        name: ' موتور گیربکس ',
+        price: 350000000,
+        rate: { count: 3, average: 2 },
+        description: 'test',
+        id: 1,
+        deliveryDesc: '',
+        Introduction: '',
+      }
+    );
   }
 }

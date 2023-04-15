@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ArticleComponent } from './layout/pages/magazine/components/article/article.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MagazineModule } from './layout/pages/magazine/magazine.module';
-import { KelemanSwiperComponent } from './shared/components/keleman-swiper/keleman-swiper.component';
+import { SwiperComponent } from './shared/components/swiper/swiper.component';
 import { ApplicationStateService } from './shared/services/application-state.service';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
@@ -30,7 +30,7 @@ import { SwiperModule } from 'swiper/angular';
     InlineSVGModule,
     SwiperModule,
     MagazineModule,
-    KelemanSwiperComponent,
+    SwiperComponent,
 
     LeafletModule,
     FloatingButtonMenuComponent,

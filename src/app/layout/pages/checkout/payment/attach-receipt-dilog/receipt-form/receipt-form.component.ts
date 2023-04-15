@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
 import { BaseFormModel } from './base-form.model';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
-import { SelectedFiles } from '../../../../../../shared/components/keleman-dropzone/keleman-dropzone.component';
+import { SelectedFiles } from '../../../../../../shared/components/dropzone/dropzone.component';
 
 @Component({
   selector: 'keleman-receipt-form',

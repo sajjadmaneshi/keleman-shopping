@@ -1,30 +1,76 @@
-<ul class="sort-products">
-  <li class="label text-warning fw-bold">مرتب سازی بر اساس:</li>
-  <li>
-    <a>پرفروش ترین</a>
-  </li>
-  <li>
-    <a>مرتبط ترین</a>
-  </li>
-  <li>
-    <a>پربازدیدترین</a>
-  </li>
-  <li class="selected">
-    <a>جدیدترین</a>
-  </li>
-  <li>
-    <a>ارزان ترین</a>
-  </li>
-  <li>
-    <a>گران ترین</a>
-  </li>
-  <li>
-    <a>منتخب</a>
-  </li>
-  <li>
-    <a>سریع ترین ارسال</a>
-  </li>
-  <li>
-    <a></a>
-  </li>
-</ul>
+<ng-container
+  *ngIf="
+    applicationState.isPhone || applicationState.isTablet;
+    then mobile;
+    else desktop
+  "
+></ng-container>
+<ng-template #mobile>
+  <span class="d-inline-flex mb-3">
+    <a
+      class="cursor-pointer d-flex align-items-center text-klm-primary fw-bold"
+    >
+      <mat-icon class="mx-3">tune</mat-icon>
+      فیلتر
+    </a>
+    <a
+      class="d-flex align-items-center text-klm-primary fw-bold"
+      (click)="openSort()"
+    >
+      <mat-icon class="mx-3">sort</mat-icon>
+      مرتب سازی براساس
+    </a>
+  </span>
+</ng-template>
+<ng-template #desktop>
+  <ul class="sort-products p-0">
+    <li class="label text-warning fw-bold">مرتب سازی بر اساس:</li>
+    <li
+      *ngFor="let sortItem of sortItems"
+      [ngClass]="{ selected: selectedSortValue === sortItem.value }"
+      (click)="onSelectSort(sortItem.value)"
+      class="cursor-pointer"
+    >
+      <a>{{ sortItem.title }}</a>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #sortBottomSheet>
+  <keleman-bottom-sheet>
+    <span class="d-flex align-items-center">
+      <mat-icon class="mx-3" (click)="closeBottomSheet()">close</mat-icon>
+      <h3 class="mb-0">مرتب سازی براساس</h3>
+    </span>
+    <ul class="sort-products-mobile">
+      <li
+        *ngFor="let sortItem of sortItems"
+        (click)="onSelectSort(sortItem.value)"
+      >
+        <a>{{ sortItem.title }}</a>
+        <ng-template #selected [ngIf]="selectedSortValue === sortItem.value">
+          <mat-icon class="text-warning">check</mat-icon>
+        </ng-template>
+      </li>
+    </ul>
+  </keleman-bottom-sheet>
+</ng-template>
+
+<ng-template #filterBottomSheet>
+  <keleman-bottom-sheet>
+    <span class="d-flex align-items-center">
+      <mat-icon class="mx-3" (click)="closeBottomSheet()">close</mat-icon>
+      <h3 class="mb-0">مرتب سازی براساس</h3>
+    </span>
+    <ul class="sort-products-mobile">
+      <li
+        *ngFor="let sortItem of sortItems"
+        (click)="onSelectSort(sortItem.value)"
+      >
+        <a>{{ sortItem.title }}</a>
+        <ng-template #selected [ngIf]="selectedSortValue === sortItem.value">
+          <mat-icon class="text-warning">check</mat-icon>
+        </ng-template>
+      </li>
+    </ul>
+  </keleman-bottom-sheet>
+</ng-template>

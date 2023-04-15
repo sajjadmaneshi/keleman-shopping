@@ -15,7 +15,7 @@ import {
 import { ProductNavbarComponent } from './product-details/widgets/navbar/product-navbar.component';
 import { ProductAlbumComponent } from './product-details/widgets/album/product-album.component';
 import { ProductMetaComponent } from './product-details/widgets/meta/product-meta.component';
-import { KelemanSwiperComponent } from '../../../shared/components/keleman-swiper/keleman-swiper.component';
+import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import {
   NgbNav,
   NgbNavContent,
@@ -36,19 +36,19 @@ import {
   ReadMoreContentDirective,
   ReadMoreTemplateDirective,
 } from '../../../shared/directives/read-more-list-template.directive';
-import { KelemanReadMoreComponent } from '../../../shared/components/keleman-read-more/keleman-read-more.component';
+import { ReadMoreComponent } from '../../../shared/components/read-more/read-more.component';
 import { RelatedArticlesComponent } from '../../views/shared/related-articles/related-articles.component';
-import { KelemanBarRatingComponent } from '../../../shared/components/keleman-bar-rating/keleman-bar-rating.component';
+import { BarRatingComponent } from '../../../shared/components/bar-rating/bar-rating.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductSpecializedSpecificationsComponent } from './product-details/widgets/specifications/special-specification/product-specialized-specifications.component';
-import { KelemanIconTextComponent } from '../../../shared/components/keleman-icon-text/keleman-icon-text.component';
+import { TextWithIconComponent } from '../../../shared/components/text-with-icon/text-with-icon.component';
 import { PriceChartDialogComponent } from './product-details/widgets/content/price-chart-dialog/price-chart-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ExpertCheckComponent } from './product-details/widgets/specifications/expert-check/expert-check.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductSearchComponent } from './product-list/widgets/product-search/product-search.component';
-import { KelemanInputGroupComponent } from '../../../shared/components/keleman-input-group/keleman-input-group.component';
+import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
 import { ProductFiltersComponent } from './product-list/widgets/product-filters/product-filters.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -57,12 +57,13 @@ import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsSortComponent } from './product-list/widgets/products-sort/products-sort.component';
 import { ProductItemComponent } from './product-list/widgets/product-item/product-item.component';
-import { KelemanPriceComponent } from '../../../shared/components/keleman-price/keleman-price.component';
-import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
+import { PriceComponent } from '../../../shared/components/price/price.component';
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
 import { AddCommentDialogComponent } from './product-details/widgets/comments/add-comment-dialog/add-comment-dialog.component';
-import { KelemanCardComponent } from '../../../shared/components/keleman-card/keleman-card.component';
+import { CardComponent } from '../../../shared/components/card/card.component';
+import { BottomSheetComponent } from '../../../shared/components/bottom-sheet/bottom-sheet.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,7 @@ import { KelemanCardComponent } from '../../../shared/components/keleman-card/ke
     HighchartsChartModule,
     SwiperContentDirective,
     SwiperTemplateDirective,
-    KelemanSwiperComponent,
+    SwiperComponent,
     NgbNav,
     NgbNavItem,
     NgbNavLink,
@@ -110,24 +111,25 @@ import { KelemanCardComponent } from '../../../shared/components/keleman-card/ke
     SwiperItemComponent,
     ReadMoreContentDirective,
     ReadMoreTemplateDirective,
-    KelemanReadMoreComponent,
+    ReadMoreComponent,
     RelatedArticlesComponent,
     NgbRating,
-    KelemanBarRatingComponent,
+    BarRatingComponent,
     MatIconModule,
-    KelemanIconTextComponent,
+    TextWithIconComponent,
     MatDialogModule,
-    KelemanInputGroupComponent,
+    InputGroupComponent,
     MatExpansionModule,
     MatSlideToggleModule,
     MatSliderModule,
     FormsModule,
-    KelemanPriceComponent,
-    PaginatorComponent,
+    PriceComponent,
     LazyLoadingDirective,
     EmptyImageDirective,
     ReactiveFormsModule,
-    KelemanCardComponent,
+    CardComponent,
+    BottomSheetComponent,
+    InfiniteScrollModule,
   ],
 })
 export class ProductsModule {}

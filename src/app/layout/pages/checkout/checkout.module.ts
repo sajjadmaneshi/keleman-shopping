@@ -3,9 +3,9 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 import { BasketItemComponent } from './basket/basket-item/basket-item.component';
 import { CheckoutComponent } from './checkout.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
-import { KelemanValueChangerComponent } from '../../../shared/components/keleman-value-changer/keleman-value-changer.component';
+import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
 import { RouterModule, Routes } from '@angular/router';
-import { KelemanPriceComponent } from '../../../shared/components/keleman-price/keleman-price.component';
+import { PriceComponent } from '../../../shared/components/price/price.component';
 import { PurchaseComponent } from '../../views/shared/purchase/purchase.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CheckoutStepperComponent } from './checkout-stepper/checkout-stepper.component';
@@ -29,9 +29,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { NumberToPersianPipe } from '../../../shared/pipes/num2persian.pipe';
 import { AttachChequeDialogComponent } from './payment/attach-cheque-dialog/attach-cheque-dialog.component';
 import { NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import { KelemanDatePickerComponent } from '../../../shared/components/keleman-date-picker/keleman-date-picker.component';
+import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-import { KelemanDropzoneComponent } from '../../../shared/components/keleman-dropzone/keleman-dropzone.component';
+import { DropzoneComponent } from '../../../shared/components/dropzone/dropzone.component';
 
 export const routes: Routes = [
   {
@@ -63,9 +63,9 @@ export const routes: Routes = [
   imports: [
     CommonModule,
     InlineSVGModule,
-    KelemanValueChangerComponent,
+    ValueChangerComponent,
     RouterModule.forChild(routes),
-    KelemanPriceComponent,
+    PriceComponent,
     PurchaseComponent,
     MatIconModule,
     MatStepperModule,
@@ -79,9 +79,9 @@ export const routes: Routes = [
     MatSelectModule,
     NumberToPersianPipe,
     NgbInputDatepicker,
-    KelemanDatePickerComponent,
+    DatePickerComponent,
     NgxDropzoneModule,
-    KelemanDropzoneComponent,
+    DropzoneComponent,
   ],
   providers: [DecimalPipe, CheckoutService],
 })

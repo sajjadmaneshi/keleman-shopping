@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ProductItemModel } from '../../../../shared/models/product-item.model';
-import { KelemanPriceComponent } from '../../../../shared/components/keleman-price/keleman-price.component';
+import { PriceComponent } from '../../../../shared/components/price/price.component';
 
 @Component({
-  selector: 'keleman-swiper-product-item-web',
+  selector: 'swiper-product-item-web',
   templateUrl: './swiper-product-item-web.component.html',
   standalone: true,
   styles: [
@@ -14,7 +14,7 @@ import { KelemanPriceComponent } from '../../../../shared/components/keleman-pri
       }
     `,
   ],
-  imports: [KelemanPriceComponent],
+  imports: [PriceComponent],
 })
 export class SwiperProductItemWebComponent {
   @Input() product!: ProductItemModel;

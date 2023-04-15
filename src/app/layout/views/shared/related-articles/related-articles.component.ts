@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 import { RelatedArticleModel } from '../../../../shared/models/related-article.model';
-import { KelemanSwiperComponent } from '../../../../shared/components/keleman-swiper/keleman-swiper.component';
+import { SwiperComponent } from '../../../../shared/components/swiper/swiper.component';
 import {
   SwiperContentDirective,
   SwiperTemplateDirective,
@@ -17,7 +17,7 @@ import { BehaviorSubject } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule,
-    KelemanSwiperComponent,
+    SwiperComponent,
     SwiperContentDirective,
     RelatedArticleItemComponent,
     SwiperTemplateDirective,

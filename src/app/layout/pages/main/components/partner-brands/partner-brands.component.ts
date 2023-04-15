@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import SwiperCore, { Autoplay } from 'swiper';
+import { SharedVariablesService } from '../../../../../shared/services/shared-variables.service';
 
 SwiperCore.use([Autoplay]);
 @Component({
@@ -8,6 +9,7 @@ SwiperCore.use([Autoplay]);
   styleUrls: ['./partner-brands.component.scss'],
 })
 export class PartnerBrandsComponent {
+  isLoading = false;
   slides: string[] = [
     'assets/media/static-resources/partner-brands/behranlift.png',
     'assets/media/static-resources/partner-brands/yaran.png',
@@ -22,5 +24,5 @@ export class PartnerBrandsComponent {
     'assets/media/static-resources/partner-brands/yaran.png',
     'assets/media/logo/keleman-logo.png',
   ];
-  constructor() {}
+  constructor(public sharedVariableService: SharedVariablesService) {}
 }

@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { KelemanPriceComponent } from '../../../../shared/components/keleman-price/keleman-price.component';
+import { PriceComponent } from '../../../../shared/components/price/price.component';
 
 @Component({
   selector: 'keleman-purchase-mobile',
@@ -7,6 +7,6 @@ import { KelemanPriceComponent } from '../../../../shared/components/keleman-pri
   styleUrls: ['./purchase-mobile.component.scss'],
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [KelemanPriceComponent],
+  imports: [PriceComponent],
 })
 export class PurchaseMobileComponent {}

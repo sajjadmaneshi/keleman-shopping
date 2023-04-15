@@ -1,8 +1,19 @@
-<div
-  class="product-category-item d-flex flex-column align-items-center p-md-1 p-lg-3"
->
-  <div class="symbol symbol-50px symbol-md-75px symbol-lg-100px pb-3">
-    <img alt="category-image" [src]="category.image" />
+<ng-container *ngIf="isLoading; then loading; else content"></ng-container>
+<ng-template #loading>
+  <ngx-skeleton-loader
+    appearance="circle"
+    [theme]="{ height: '6.25rem', width: '6.25rem', direction: 'rtl' }"
+  ></ngx-skeleton-loader>
+  <ngx-skeleton-loader></ngx-skeleton-loader>
+</ng-template>
+
+<ng-template #content>
+  <div
+    class="product-category-item d-flex flex-column align-items-center p-md-1 p-lg-3"
+  >
+    <div class="symbol symbol-50px symbol-md-75px symbol-lg-100px pb-3">
+      <img alt="category-image" [src]="category.image" />
+    </div>
+    <h6 class="fw-bold">{{ category.title }}</h6>
   </div>
-  <h6 class="fw-bold">{{ category.title }}</h6>
-</div>
+</ng-template>

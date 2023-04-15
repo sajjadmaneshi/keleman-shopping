@@ -11,12 +11,18 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./floating-button-menu.component.scss'],
 })
 export class FloatingButtonMenuComponent {
+  menuOpened = false;
   removeClass() {
     document.body.classList.remove('menuOpened');
   }
   toggleClass() {
     const body = document.body;
-    if (body.classList.contains('menuOpened')) this.removeClass();
-    else body.classList.add('menuOpened');
+    if (body.classList.contains('menuOpened')) {
+      this.removeClass();
+      this.menuOpened = false;
+    } else {
+      body.classList.add('menuOpened');
+      this.menuOpened = true;
+    }
   }
 }

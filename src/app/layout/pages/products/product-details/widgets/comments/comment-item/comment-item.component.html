@@ -4,11 +4,11 @@
       <h6 class="fw-bolder commenter-name mb-0">{{ comment.commenter! }}</h6>
     </span>
     <span class="col-6 d-flex align-items-center p-0">
-      <keleman-icon-text
+      <keleman-text-with-icon
         [text]="'2.5'"
         [iconName]="'star'"
         [iconClass]="'text-warning'"
-      ></keleman-icon-text>
+      ></keleman-text-with-icon>
       <div class="status d-flex align-items-center justify-content-center">
         <span class="text-white">{{
           persianDatetime.fromGregorianString(comment.date, "DD jMMMM YYYY")

@@ -6,7 +6,7 @@ import { SwiperProductItemWebComponent } from '../../web/swiper-product-item-web
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'keleman-swiper-item',
+  selector: 'swiper-item',
   templateUrl: './swiper-item.component.html',
   styleUrls: ['./swiper-item.component.scss'],
   imports: [

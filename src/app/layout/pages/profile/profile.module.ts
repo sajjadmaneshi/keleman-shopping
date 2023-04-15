@@ -7,7 +7,7 @@ import { MainProfileComponent } from './main-profile/main-profile.component';
 
 import { LatestFavoritesComponent } from './main-profile/widgets/latest-favorites/latest-favorites.component';
 import { LatestOrdersComponent } from './main-profile/widgets/latest-orders/latest-orders.component';
-import { KelemanSwiperComponent } from '../../../shared/components/keleman-swiper/keleman-swiper.component';
+import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import {
   SwiperContentDirective,
   SwiperTemplateDirective,
@@ -17,9 +17,8 @@ import { FavoriteItemComponent } from './shared/favorite-item/favorite-item.comp
 import { WalletComponent } from './wallet/wallet.component';
 import { IncreaseWalletComponent } from './wallet/components/increase-wallet/increase-wallet.component';
 import { DecreaseWalletComponent } from './wallet/components/decrease-wallet/decrease-wallet.component';
-import { KelemanInputGroupComponent } from '../../../shared/components/keleman-input-group/keleman-input-group.component';
+import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
 import { WalletAmountCardComponent } from './wallet/components/wallet-amount-card/wallet-amount-card.component';
-import { KelemanTableComponent } from '../../../shared/components/keleman-table/keleman-table.component';
 import { WithdrawRequestDialogComponent } from './wallet/components/decrease-wallet/withdraw-request-dialog/withdraw-request-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
@@ -35,9 +34,8 @@ import { ReturnedRequestComponent } from './returned-request/returned-request.co
 import { AddressesComponent } from './address/addresses.component';
 import { KelemanMapComponent } from '../../../shared/components/keleman-map/keleman-map.component';
 import { AddAddressDialogComponent } from './address/add-address-dialog/add-address-dialog.component';
-import { KelemanAutocompleteComponent } from '../../../shared/components/keleman-autocomplete/keleman-autocomplete.component';
+import { AutoCompleteComponent } from '../../../shared/components/auto-complete/auto-complete.component';
 import { MatComponentsModule } from '../../../mat-components.module';
-import { PaginatorComponent } from '../../../shared/components/paginator/paginator.component';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { MatSelectModule } from '@angular/material/select';
 import { CommentsComponent } from './comments/comments.component';
@@ -47,7 +45,7 @@ import { FavoriteCategoriesItemComponent } from './favorites/components/favorite
 import { FavoriteCategoriesComponent } from './favorites/components/favorite-categories/favorite-categories.component';
 import { AddressItemComponent } from './address/address-item/address-item.component';
 import { WalletTransactionHistoryComponent } from './wallet/components/increase-wallet/wallet-transaction-history/wallet-transaction-history.component';
-import { KelemanPriceComponent } from '../../../shared/components/keleman-price/keleman-price.component';
+import { PriceComponent } from '../../../shared/components/price/price.component';
 
 @NgModule({
   declarations: [
@@ -78,12 +76,11 @@ import { KelemanPriceComponent } from '../../../shared/components/keleman-price/
     CommonModule,
     ProfileRoutingModule,
     DecimalPipe,
-    KelemanSwiperComponent,
+    SwiperComponent,
     SwiperContentDirective,
     SwiperTemplateDirective,
     SwiperItemComponent,
-    KelemanInputGroupComponent,
-    KelemanTableComponent,
+    InputGroupComponent,
     ReactiveFormsModule,
     NgbNav,
     NgbNavItem,
@@ -91,14 +88,13 @@ import { KelemanPriceComponent } from '../../../shared/components/keleman-price/
     NgbNavContent,
     EmptyContentComponent,
     KelemanMapComponent,
-    KelemanAutocompleteComponent,
+    AutoCompleteComponent,
     MatComponentsModule,
-    PaginatorComponent,
     MatSelectModule,
     NgbTooltip,
     MatCheckboxModule,
     AddressItemComponent,
-    KelemanPriceComponent,
+    PriceComponent,
   ],
 })
 export class ProfileModule {}
