@@ -1,0 +1,39 @@
+<mat-chip-listbox *ngIf="filterList">
+  <mat-chip *ngFor="let category of filterList.categories">
+    <span class="d-flex align-items-center">
+      <mat-icon (click)="removeCategoryChip(category)">cancel</mat-icon>
+      {{ category.title }}
+    </span>
+  </mat-chip>
+  <mat-chip *ngFor="let brand of filterList.brands">
+    <span class="d-flex align-items-center">
+      <mat-icon (click)="removeBrandChip(brand)">cancel</mat-icon>
+      {{ brand.title }}
+    </span>
+  </mat-chip>
+  <mat-chip *ngFor="let seller of filterList.sellers">
+    <span class="d-flex align-items-center">
+      <mat-icon (click)="removeSellerChip(seller)">cancel</mat-icon>
+      {{ seller.title }}
+    </span>
+  </mat-chip>
+  <ng-template
+    class="d-flex align-items-center"
+    [ngIf]="!filterList.isAvailable"
+  >
+    <mat-chip>
+      <span class="d-flex align-items-center">
+        <mat-icon (click)="removeAvailableChip()">cancel</mat-icon>
+        عدم موجودی
+      </span>
+    </mat-chip>
+  </ng-template>
+  <ng-template [ngIf]="filterList.price">
+    <mat-chip>
+      <span class="d-flex align-items-center">
+        <mat-icon>cancel</mat-icon>
+        از {{ filterList.price.min }} تا {{ filterList.price.max }} تومان
+      </span>
+    </mat-chip>
+  </ng-template>
+</mat-chip-listbox>

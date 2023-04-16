@@ -9,8 +9,6 @@ import { BottomSheetComponent } from '../../../../../../shared/components/bottom
   styleUrls: ['./products-sort.component.scss'],
 })
 export class ProductsSortComponent {
-  @ViewChild('sortBottomSheet') sortBottomSheet!: TemplateRef<any>;
-
   selectedSortValue = 1;
 
   sortItems = [
@@ -26,8 +24,8 @@ export class ProductsSortComponent {
     private _bottomSheet: MatBottomSheet
   ) {}
 
-  openSort() {
-    this._bottomSheet.open(this.sortBottomSheet);
+  openBottomSheet(element: TemplateRef<any>) {
+    this._bottomSheet.open(element);
   }
   onSelectSort(value: number) {
     this.selectedSortValue = value;

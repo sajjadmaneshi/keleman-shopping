@@ -47,16 +47,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ExpertCheckComponent } from './product-details/widgets/specifications/expert-check/expert-check.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductListComponent } from './product-list/product-list.component';
-import { ProductSearchComponent } from './product-list/widgets/product-search/product-search.component';
+import { ProductSearchComponent } from './product-list/components/product-search/product-search.component';
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
-import { ProductFiltersComponent } from './product-list/widgets/product-filters/product-filters.component';
+import { ProductFiltersComponent } from './product-list/components/product-filters/product-filters.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ProductPriceFilterComponent } from './product-list/widgets/product-price-filter/product-price-filter.component';
+import { ProductPriceFilterComponent } from './product-list/components/product-filters/product-price-filter/product-price-filter.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductsSortComponent } from './product-list/widgets/products-sort/products-sort.component';
-import { ProductItemComponent } from './product-list/widgets/product-item/product-item.component';
+import { ProductsSortComponent } from './product-list/components/products-sort/products-sort.component';
+import { ProductItemComponent } from './product-list/components/product-item/product-item.component';
 import { PriceComponent } from '../../../shared/components/price/price.component';
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
@@ -64,6 +64,9 @@ import { AddCommentDialogComponent } from './product-details/widgets/comments/ad
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { BottomSheetComponent } from '../../../shared/components/bottom-sheet/bottom-sheet.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ProductFilterBottomSheetComponent } from './product-list/components/product-filters/product-filter-bottom-sheet/product-filter-bottom-sheet.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { FilterChipListComponent } from './product-list/components/product-filters/filter-chip-list/filter-chip-list.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +93,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ProductsSortComponent,
     ProductItemComponent,
     AddCommentDialogComponent,
+    ProductFilterBottomSheetComponent,
   ],
   imports: [
     CommonModule,
@@ -130,6 +134,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     CardComponent,
     BottomSheetComponent,
     InfiniteScrollModule,
+    MatChipsModule,
+    FilterChipListComponent,
   ],
 })
 export class ProductsModule {}

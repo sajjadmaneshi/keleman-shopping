@@ -1,0 +1,32 @@
+<span class="d-flex flex-column">
+  <span class="d-flex align-items-center">
+    <mat-icon class="mx-3" (click)="closeBottomSheet()">close</mat-icon>
+    <h3 class="mb-0">فیلتر بر اساس</h3>
+  </span>
+
+  <keleman-filter-chip-list
+    [filterList]="filterList"
+  ></keleman-filter-chip-list>
+</span>
+<ul>
+  <li (click)="openCategoryDialog()">
+    <a>دسته بندی</a>
+    <mat-icon>chevron_left</mat-icon>
+  </li>
+  <li (click)="openBrandsDialog()">
+    <a>برند</a>
+    <mat-icon>chevron_left</mat-icon>
+  </li>
+  <li (click)="openSellerDialog()">
+    <a>فروشنده</a>
+    <mat-icon>chevron_left</mat-icon>
+  </li>
+  <li class="d-flex flex-column align-items-center">
+    <a>محدوده قیمت</a>
+    <keleman-product-price-filter></keleman-product-price-filter>
+  </li>
+  <li>
+    <a>کالای موجود</a>
+    <mat-slide-toggle color="primary"></mat-slide-toggle>
+  </li>
+</ul>

@@ -1,3 +1,4 @@
+@use "@angular/material" as mat;
 @import "base/variables/colors";
 @import "bootstrap/scss/bootstrap";
 @import "base/init";
@@ -13,6 +14,8 @@
 @import "leaflet/dist/leaflet.css";
 @import "leaflet-geosearch/dist/geosearch.css";
 @import "mat_dialog_custom";
+@import "animate.css";
+@import "theme";
 
 .grid-divider > * {
   position: relative;
@@ -47,4 +50,7 @@ input::-webkit-inner-spin-button {
 }
 .dropdown-toggle::after {
   margin-right: 0.25rem !important;
+}
+.fixed-top {
+  z-index: 995;
 }

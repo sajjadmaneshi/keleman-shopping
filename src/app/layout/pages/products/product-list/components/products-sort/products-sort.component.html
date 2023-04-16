@@ -9,13 +9,14 @@
   <span class="d-inline-flex mb-3">
     <a
       class="cursor-pointer d-flex align-items-center text-klm-primary fw-bold"
+      (click)="openBottomSheet(filterBottomSheet)"
     >
       <mat-icon class="mx-3">tune</mat-icon>
       فیلتر
     </a>
     <a
       class="d-flex align-items-center text-klm-primary fw-bold"
-      (click)="openSort()"
+      (click)="openBottomSheet(sortBottomSheet)"
     >
       <mat-icon class="mx-3">sort</mat-icon>
       مرتب سازی براساس
@@ -54,23 +55,8 @@
     </ul>
   </keleman-bottom-sheet>
 </ng-template>
-
 <ng-template #filterBottomSheet>
   <keleman-bottom-sheet>
-    <span class="d-flex align-items-center">
-      <mat-icon class="mx-3" (click)="closeBottomSheet()">close</mat-icon>
-      <h3 class="mb-0">مرتب سازی براساس</h3>
-    </span>
-    <ul class="sort-products-mobile">
-      <li
-        *ngFor="let sortItem of sortItems"
-        (click)="onSelectSort(sortItem.value)"
-      >
-        <a>{{ sortItem.title }}</a>
-        <ng-template #selected [ngIf]="selectedSortValue === sortItem.value">
-          <mat-icon class="text-warning">check</mat-icon>
-        </ng-template>
-      </li>
-    </ul>
+    <keleman-product-filter-bottom-sheet></keleman-product-filter-bottom-sheet>
   </keleman-bottom-sheet>
 </ng-template>

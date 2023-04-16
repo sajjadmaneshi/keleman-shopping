@@ -1,0 +1,31 @@
+<div class="d-flex flex-column">
+  <mat-slider
+    [min]="min"
+    [max]="max"
+    [step]="500000"
+    [discrete]="true"
+    [displayWith]="formatLabel"
+  >
+    <input [(ngModel)]="minValue" matSliderStartThumb />
+    <input [(ngModel)]="maxValue" matSliderEndThumb />
+  </mat-slider>
+  <div class="price-values">
+    <span class="price-values__item">
+      از
+      <input
+        class="keleman-text-field text-center my-3"
+        [(ngModel)]="minValue"
+      />
+      تومان
+    </span>
+
+    <span class="price-values__item">
+      تا
+      <input
+        class="keleman-text-field text-center my-3"
+        [(ngModel)]="maxValue"
+      />
+      تومان
+    </span>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+@import "base/variables/colors";
+
+ul {
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+  li {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &:not(:last-child) {
+      border-bottom: 1px solid $gray-300;
+    }
+  }
+}
