@@ -1,10 +1,11 @@
-@import "base/variables/colors";
+@import "../../../../../../../../styles/base/variables/colors";
 
 ul {
   list-style: none;
   padding: 0;
   max-height: 500px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   li {
     padding: 1rem;
     display: flex;

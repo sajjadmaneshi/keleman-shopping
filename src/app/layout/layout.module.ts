@@ -100,6 +100,5 @@ import { AdvertisingBannersComponent } from './pages/main/components/advertising
     SwiperModule,
     NgxSkeletonLoaderModule,
   ],
-  exports: [ContentComponent],
 })
 export class LayoutModule {}

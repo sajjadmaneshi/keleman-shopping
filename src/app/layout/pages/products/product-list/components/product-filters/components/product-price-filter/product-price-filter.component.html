@@ -5,6 +5,7 @@
     [step]="500000"
     [discrete]="true"
     [displayWith]="formatLabel"
+    (change)="changePrice()"
   >
     <input [(ngModel)]="minValue" matSliderStartThumb />
     <input [(ngModel)]="maxValue" matSliderEndThumb />

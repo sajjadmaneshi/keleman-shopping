@@ -1,38 +1,63 @@
 <div class="form-group">
-  <label class="text-warning fw-bold" for="product-filters">فیلتر ها:</label>
+  <label
+    class="fw-bold d-flex align-items-center justify-content-between"
+    for="product-filters"
+  >
+    <p class="text-warning mb-0">فیلتر ها</p>
+    <ng-template [ngIf]="productFilterService.canRemoveAll">
+      <a class="cursor-pointer" (click)="productFilterService.removeAll()">
+        حذف تمام فیلتر ها
+      </a>
+    </ng-template>
+  </label>
+  <ng-template [ngIf]="productFilterService.canRemoveAll">
+    <div class="card card-rounded-3 border-gray-300">
+      <div class="card-body">
+        <h6>انتخاب های شما</h6>
+        <keleman-filter-chip-list></keleman-filter-chip-list>
+      </div>
+    </div>
+  </ng-template>
+
   <div class="card card-rounded-3 border-gray-300" id="product-filters">
     <div class="card-body">
       <ul class="filter-list">
         <li>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title> دسته بندی </mat-panel-title>
-            </mat-expansion-panel-header>
-          </mat-expansion-panel>
+          <keleman-category-filter></keleman-category-filter>
         </li>
         <li>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title> برند </mat-panel-title>
-            </mat-expansion-panel-header>
-          </mat-expansion-panel>
+          <keleman-brand-filter></keleman-brand-filter>
         </li>
         <li>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title> فروشنده </mat-panel-title>
-            </mat-expansion-panel-header>
-          </mat-expansion-panel>
+          <keleman-seller-filter></keleman-seller-filter>
         </li>
         <li>
           <span
             class="d-flex align-items-center justify-content-between available"
           >
-            کالاهای موجود
-            <mat-slide-toggle color="primary"></mat-slide-toggle>
+            عدم موجودی
+            <mat-slide-toggle
+              color="primary"
+              [checked]="productFilterService.filterList.outOfStock"
+              (change)="changeOutOfStock($event.checked)"
+            ></mat-slide-toggle>
           </span>
         </li>
       </ul>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <label for="product-price-filter" class="text-warning fw-bold"
+    >محدوده قیمت:</label
+  >
+  <div id="product-price-filter" class="card card-rounded-3 border-gray-300">
+    <div class="card-body">
+      <keleman-product-price-filter
+        (changePrice)="onChangePrice($event)"
+        (afterReset)="productFilterService.priceSliderReset = false"
+        [reset]="productFilterService.priceSliderReset"
+      ></keleman-product-price-filter>
     </div>
   </div>
 </div>

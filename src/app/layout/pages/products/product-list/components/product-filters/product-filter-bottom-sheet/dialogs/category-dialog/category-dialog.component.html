@@ -12,26 +12,17 @@
     </span>
   </div>
 
-  <div mat-dialog-content>
-    <ul>
-      <li *ngFor="let category of categories">
-        <mat-checkbox
-          class="example-margin"
-          color="primary"
-          [checked]="category.selected"
-          (change)="onSelect(category, $event.checked)"
-        >
-          {{ category.title }}
-        </mat-checkbox>
-      </li>
-    </ul>
-  </div>
+  <keleman-category-filter-items
+    [selectedArray]="data"
+    (selectionChange)="selectionChange($event)"
+  ></keleman-category-filter-items>
+
   <div class="text-center">
     <button
       mat-raised-button
       class="btn-success"
       (click)="submit()"
-      [disabled]="selectedCategories.length === 0"
+      [disabled]="selectedArray.length === 0"
     >
       تایید
     </button>

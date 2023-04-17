@@ -39,21 +39,15 @@ import {
 import { ReadMoreComponent } from '../../../shared/components/read-more/read-more.component';
 import { RelatedArticlesComponent } from '../../views/shared/related-articles/related-articles.component';
 import { BarRatingComponent } from '../../../shared/components/bar-rating/bar-rating.component';
-import { MatIconModule } from '@angular/material/icon';
 import { ProductSpecializedSpecificationsComponent } from './product-details/widgets/specifications/special-specification/product-specialized-specifications.component';
 import { TextWithIconComponent } from '../../../shared/components/text-with-icon/text-with-icon.component';
 import { PriceChartDialogComponent } from './product-details/widgets/content/price-chart-dialog/price-chart-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { ExpertCheckComponent } from './product-details/widgets/specifications/expert-check/expert-check.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductSearchComponent } from './product-list/components/product-search/product-search.component';
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
-import { ProductFiltersComponent } from './product-list/components/product-filters/product-filters.component';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ProductPriceFilterComponent } from './product-list/components/product-filters/product-price-filter/product-price-filter.component';
-import { MatSliderModule } from '@angular/material/slider';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsSortComponent } from './product-list/components/products-sort/products-sort.component';
 import { ProductItemComponent } from './product-list/components/product-item/product-item.component';
@@ -64,9 +58,13 @@ import { AddCommentDialogComponent } from './product-details/widgets/comments/ad
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { BottomSheetComponent } from '../../../shared/components/bottom-sheet/bottom-sheet.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { ProductFilterBottomSheetComponent } from './product-list/components/product-filters/product-filter-bottom-sheet/product-filter-bottom-sheet.component';
-import { MatChipsModule } from '@angular/material/chips';
-import { FilterChipListComponent } from './product-list/components/product-filters/filter-chip-list/filter-chip-list.component';
+
+import { FilterChipListComponent } from './product-list/components/product-filters/components/filter-chip-list/filter-chip-list.component';
+import { CategoryFilterComponent } from './product-list/components/product-filters/components/category-filter/category-filter.component';
+import { BrandFilterComponent } from './product-list/components/product-filters/components/brand-filter/brand-filter.component';
+import { SellerFilterComponent } from './product-list/components/product-filters/components/seller-filter/seller-filter.component';
+import { MatComponentsModule } from '../../../mat-components.module';
+import { ProductFiltersModule } from './product-list/components/product-filters/product-filters.module';
 
 @NgModule({
   declarations: [
@@ -82,18 +80,14 @@ import { FilterChipListComponent } from './product-list/components/product-filte
     ProductRateComponent,
     ProductContentComponent,
     ProductRelatesComponent,
-    ProductSpecializedSpecificationsComponent,
     PriceChartDialogComponent,
     ExpertCheckComponent,
     ProductDetailsComponent,
     ProductListComponent,
     ProductSearchComponent,
-    ProductFiltersComponent,
-    ProductPriceFilterComponent,
     ProductsSortComponent,
     ProductItemComponent,
     AddCommentDialogComponent,
-    ProductFilterBottomSheetComponent,
   ],
   imports: [
     CommonModule,
@@ -110,7 +104,6 @@ import { FilterChipListComponent } from './product-list/components/product-filte
     NgbNavLink,
     NgbNavContent,
     NgbNavOutlet,
-    LayoutModule,
     PurchaseMobileComponent,
     SwiperItemComponent,
     ReadMoreContentDirective,
@@ -119,23 +112,17 @@ import { FilterChipListComponent } from './product-list/components/product-filte
     RelatedArticlesComponent,
     NgbRating,
     BarRatingComponent,
-    MatIconModule,
     TextWithIconComponent,
-    MatDialogModule,
     InputGroupComponent,
-    MatExpansionModule,
-    MatSlideToggleModule,
-    MatSliderModule,
     FormsModule,
     PriceComponent,
     LazyLoadingDirective,
     EmptyImageDirective,
     ReactiveFormsModule,
     CardComponent,
-    BottomSheetComponent,
     InfiniteScrollModule,
-    MatChipsModule,
-    FilterChipListComponent,
+    ProductFiltersModule,
+    MatComponentsModule,
   ],
 })
 export class ProductsModule {}

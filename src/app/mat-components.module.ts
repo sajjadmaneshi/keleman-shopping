@@ -7,6 +7,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   exports: [
@@ -19,6 +23,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatDialogModule,
     MatIconModule,
     MatAutocompleteModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatExpansionModule,
   ],
 })
 export class MatComponentsModule {}

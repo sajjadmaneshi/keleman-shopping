@@ -1,8 +1,12 @@
-import { Injectable } from '@angular/core';
+import { ApplicationRef, Injectable } from '@angular/core';
+import { SelectedFilterModel } from './product-filters/data/selected-filter.model';
 
 @Injectable()
 export class ProductFilterService {
-  static selected: any[] = [];
+  filterList = new SelectedFilterModel();
+  priceSliderReset = false;
+
+  constructor(private _cr: ApplicationRef) {}
   public determineSelectedFilters(selectedArray: any[], dataArray: any[]) {
     selectedArray.forEach((selected) => {
       const item = dataArray.find((data) => data.id === selected.id);
@@ -10,31 +14,39 @@ export class ProductFilterService {
     });
     return dataArray;
   }
-  onSelect(selected: any, checked: boolean, dataArray: any[]) {
-    if (checked) this._addToSelected(selected);
-    else this._removeFromSelected(selected);
 
+  onsSelectChange(selected: any, dataArray: any[], checked: boolean) {
     const item = dataArray.find((data) => data.id === selected.id);
-    if (item) {
-      item.selected = checked;
-    }
-    return ProductFilterService.selected;
+    if (item) item.selected = checked;
+    return dataArray;
   }
 
-  private _addToSelected(selectedValue: any) {
-    const index = ProductFilterService.selected.findIndex(
-      (selected) => selected.id === selectedValue.id
+  manageSelectedArray(selectedItem: any, selectedArray: any[]) {
+    const index = selectedArray.findIndex(
+      (selected) => selected.id === selectedItem.id
     );
-    if (index === -1) {
-      ProductFilterService.selected.push(selectedValue);
-    }
+    if (index == -1 && selectedItem.selected) selectedArray.push(selectedItem);
+    if (index != -1 && !selectedItem.selected) selectedArray.splice(index, 1);
+    return selectedArray;
   }
-  private _removeFromSelected(selectedValue: any) {
-    const index = ProductFilterService.selected.findIndex(
-      (selected) => selected.id === selectedValue.id
+
+  get canRemoveAll() {
+    return (
+      this.filterList?.categories?.length > 0 ||
+      this.filterList.outOfStock ||
+      this.filterList?.sellers?.length > 0 ||
+      this.filterList?.brands?.length > 0 ||
+      this.filterList.price
     );
-    if (index != -1) {
-      ProductFilterService.selected.splice(index, 1);
-    }
+  }
+
+  resetPrice() {
+    this.priceSliderReset = true;
+    this._cr.tick();
+  }
+
+  removeAll() {
+    this.filterList = new SelectedFilterModel();
+    this.resetPrice();
   }
 }

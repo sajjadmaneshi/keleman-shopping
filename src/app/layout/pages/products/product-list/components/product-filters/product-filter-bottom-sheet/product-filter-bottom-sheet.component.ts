@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   TemplateRef,
@@ -11,11 +12,13 @@ import {
 } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/overlay';
-import { CategoryDialogComponent } from './category-dialog/category-dialog.component';
-import { BrandsDialogComponent } from './brands-dialog/brands-dialog.component';
-import { SellersDialogComponent } from './sellers-dialog/sellers-dialog.component';
+import { CategoryDialogComponent } from './dialogs/category-dialog/category-dialog.component';
+import { BrandsDialogComponent } from './dialogs/brands-dialog/brands-dialog.component';
+import { SellersDialogComponent } from './dialogs/sellers-dialog/sellers-dialog.component';
 import { SelectedFilterModel } from '../data/selected-filter.model';
 import { filter } from 'rxjs';
+import { PriceRange } from '../components/product-price-filter/product-price-filter.component';
+import { ProductFilterService } from '../../product-filter.service';
 
 @Component({
   selector: 'keleman-product-filter-bottom-sheet',
@@ -23,8 +26,6 @@ import { filter } from 'rxjs';
   styleUrls: ['./product-filter-bottom-sheet.component.scss'],
 })
 export class ProductFilterBottomSheetComponent {
-  filterList = new SelectedFilterModel();
-
   dialogConfigs = {
     width: '500px',
     panelClass: 'custom-mat-dialog',
@@ -33,45 +34,58 @@ export class ProductFilterBottomSheetComponent {
     autoFocus: false,
   };
 
-  constructor(private _bottomSheet: MatBottomSheet, public dialog: MatDialog) {}
+  constructor(
+    private _bottomSheet: MatBottomSheet,
+    private _cr: ChangeDetectorRef,
+    public dialog: MatDialog,
+    public productFilterService: ProductFilterService
+  ) {}
 
   openCategoryDialog() {
     const dialogRef = this.dialog.open(CategoryDialogComponent, {
       ...this.dialogConfigs,
-      data: this.filterList.categories,
+      data: this.productFilterService.filterList.categories,
     });
     dialogRef
       .afterClosed()
       .pipe(filter((result) => result))
       .subscribe((result: [{ id: number; title: string }]) => {
-        this.filterList.categories = [...result];
+        this.productFilterService.filterList.categories = [...result];
       });
   }
 
   openBrandsDialog() {
     const dialogRef = this.dialog.open(BrandsDialogComponent, {
       ...this.dialogConfigs,
-      data: this.filterList.brands,
+      data: this.productFilterService.filterList.brands,
     });
     dialogRef
       .afterClosed()
       .pipe(filter((result) => result))
       .subscribe((result: [{ id: number; title: string }]) => {
-        this.filterList.brands = [...result];
+        this.productFilterService.filterList.brands = [...result];
       });
   }
 
   openSellerDialog() {
     const dialogRef = this.dialog.open(SellersDialogComponent, {
       ...this.dialogConfigs,
-      data: this.filterList.sellers,
+      data: this.productFilterService.filterList.sellers,
     });
     dialogRef
       .afterClosed()
       .pipe(filter((result) => result))
       .subscribe((result: [{ id: number; title: string }]) => {
-        this.filterList.sellers = [...result];
+        this.productFilterService.filterList.sellers = [...result];
       });
+  }
+
+  changeOutOfStock(checked: boolean) {
+    this.productFilterService.filterList.outOfStock = checked;
+  }
+
+  onChangePrice(priceRange: PriceRange) {
+    this.productFilterService.filterList.price = priceRange;
   }
 
   closeBottomSheet() {

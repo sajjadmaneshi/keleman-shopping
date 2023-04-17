@@ -17,9 +17,11 @@ export class SelectedFilterModel {
       title: string;
     }
   ];
-  price!: {
-    min: number;
-    max: number;
-  };
-  isAvailable: boolean = true;
+  price!:
+    | {
+        min: number;
+        max: number;
+      }
+    | undefined;
+  outOfStock: boolean = false;
 }

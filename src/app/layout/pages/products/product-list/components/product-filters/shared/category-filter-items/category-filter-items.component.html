@@ -1,0 +1,12 @@
+<ul>
+  <li *ngFor="let category of categories">
+    <mat-checkbox
+      class="example-margin"
+      color="primary"
+      [checked]="category.selected"
+      (change)="onSelectChange(category, $event.checked)"
+    >
+      {{ category.title }}
+    </mat-checkbox>
+  </li>
+</ul>
