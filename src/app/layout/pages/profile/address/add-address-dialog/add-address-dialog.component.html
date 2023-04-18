@@ -3,11 +3,11 @@
 >
   <span class="d-flex flex-column w-50">
     <ng-template [ngIf]="showMap" [ngIfElse]="addressDetailTitle">
-      <h6 class="mb-0">آدرس جدید</h6>
+      <h6>آدرس جدید</h6>
       <span class="text-muted">موقعیت مکانی آدرس را انتخاب نمایید</span>
     </ng-template>
     <ng-template #addressDetailTitle>
-      <h6 class="d-flex align-items-center mb-0">
+      <h6 class="d-flex align-items-center">
         <mat-icon class="cursor-pointer" (click)="toggleShowMap()"
           >east</mat-icon
         >
@@ -41,7 +41,7 @@
             id="address"
             type="text"
             placeholder="آدرس"
-            class="form-control mb-3"
+            class="mb-3 keleman-text-field"
             formControlName="address"
           ></textarea>
           <span class="d-block text-muted mb-3"
@@ -75,7 +75,7 @@
             <input
               id="num"
               type="text"
-              class="form-control"
+              class="keleman-text-field"
               formControlName="name"
             />
           </div>
@@ -84,7 +84,7 @@
             <input
               id="unit"
               type="text"
-              class="form-control"
+              class="keleman-text-field"
               formControlName="name"
             />
           </div>
@@ -96,7 +96,7 @@
             dir="ltr"
             type="number"
             placeholder="کدپستی"
-            class="form-control"
+            class="keleman-text-field"
             formControlName="postalCode"
           />
         </div>
@@ -110,7 +110,7 @@
             id="name"
             dir="ltr"
             type="number"
-            class="form-control"
+            class="keleman-text-field"
             formControlName="postalCode"
           />
         </div>
@@ -120,7 +120,7 @@
             id="family"
             dir="ltr"
             type="number"
-            class="form-control"
+            class="keleman-text-field"
             formControlName="postalCode"
           />
         </div>
@@ -130,7 +130,7 @@
             id="mobile-number"
             dir="ltr"
             type="number"
-            class="form-control"
+            class="keleman-text-field"
             formControlName="postalCode"
           />
         </div>
@@ -138,7 +138,7 @@
     </form>
   </ng-template>
 </div>
-<div
+<span
   class="border-top border-gray-300 d-flex align-items-center justify-content-between p-3 mx-3"
 >
   <ng-container
@@ -158,11 +158,11 @@
   <ng-template #submitButton>
     <button
       type="submit"
-      class="btn btn-warning submit-button text-white w-100"
+      class="btn btn-warning submit-button text-white"
       [disabled]="!address.value"
       (click)="toggleShowMap()"
     >
       ثبت آدرس
     </button>
   </ng-template>
-</div>
+</span>

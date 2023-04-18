@@ -3,11 +3,11 @@
     <span class="d-flex align-items-center justify-content-between">
       <span class="d-flex align-items-center">
         <mat-icon class="mx-3" (click)="closeBottomSheet()">close</mat-icon>
-        <h3 class="mb-0">فیلتر بر اساس</h3>
+        <h3>فیلتر بر اساس</h3>
       </span>
       <ng-template [ngIf]="productFilterService.canRemoveAll">
         <a (click)="productFilterService.removeAll()">
-          <h6 class="mb-0">حذف تمام فیلتر ها</h6>
+          <h6>حذف تمام فیلتر ها</h6>
         </a>
       </ng-template>
     </span>

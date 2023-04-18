@@ -123,6 +123,7 @@ import { ProductFiltersModule } from './product-list/components/product-filters/
     InfiniteScrollModule,
     ProductFiltersModule,
     MatComponentsModule,
+    BottomSheetComponent,
   ],
 })
 export class ProductsModule {}

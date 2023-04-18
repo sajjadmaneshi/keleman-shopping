@@ -46,6 +46,8 @@ import { FavoriteCategoriesComponent } from './favorites/components/favorite-cat
 import { AddressItemComponent } from './address/address-item/address-item.component';
 import { WalletTransactionHistoryComponent } from './wallet/components/increase-wallet/wallet-transaction-history/wallet-transaction-history.component';
 import { PriceComponent } from '../../../shared/components/price/price.component';
+import { ProfileMobileMenuComponent } from './profile-mobile-menu/profile-mobile-menu.component';
+import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { PriceComponent } from '../../../shared/components/price/price.component
     FavoriteCategoriesItemComponent,
     FavoriteCategoriesComponent,
     WalletTransactionHistoryComponent,
+    ProfileMobileMenuComponent,
+    ProfileMenuComponent,
   ],
   imports: [
     CommonModule,

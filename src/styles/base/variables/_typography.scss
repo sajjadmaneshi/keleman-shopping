@@ -2,3 +2,12 @@ $font-family-base: IRANYekanXFaNum;
 $font-size-base: 16px;
 $line-height-base: 1.5;
 $prefix: "keleman-";
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 0 !important;
+}

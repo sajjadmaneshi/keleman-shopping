@@ -105,6 +105,8 @@ export class KelemanMapComponent implements OnDestroy {
         }),
       ],
       zoom: this.zoom ?? 1,
+      zoomControl: false,
+      attributionControl: false,
       center: this.markerLatLng ?? this.defaultLatLng ?? latLng(0, 0),
     };
   }

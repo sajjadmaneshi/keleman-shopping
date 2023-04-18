@@ -10,6 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderItemComponent } from './components/order-item/order-item.component';
 import { MatIconModule } from '@angular/material/icon';
 import { LazyLoadingDirective } from '../../../../shared/directives/lazy-loading.directive';
+import { MatMenuModule } from '@angular/material/menu';
 
 export const routes: Routes = [{ path: '', component: OrdersComponent }];
 
@@ -28,6 +29,7 @@ export const routes: Routes = [{ path: '', component: OrdersComponent }];
     RouterModule.forChild(routes),
     MatIconModule,
     LazyLoadingDirective,
+    MatMenuModule,
   ],
 })
 export class OrdersModule {}
