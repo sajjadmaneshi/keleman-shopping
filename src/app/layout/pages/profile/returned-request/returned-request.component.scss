@@ -1,3 +1,6 @@
 .search-button {
   min-width: 150px;
 }
+::ng-deep .search-bar .input-group-append {
+  left: 0 !important;
+}

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ReturnRequestDialogComponent } from './return-request-dialog/return-request-dialog.component';
 
 @Component({
   selector: 'keleman-order-item',
@@ -7,5 +9,15 @@ import { ApplicationStateService } from '../../../../../../shared/services/appli
   styleUrls: ['./order-item.component.scss'],
 })
 export class OrderItemComponent {
-  constructor(public applicationState: ApplicationStateService) {}
+  constructor(
+    public applicationState: ApplicationStateService,
+    private _dialog: MatDialog
+  ) {}
+
+  openReturnRequestDialog(): void {
+    this._dialog.open(ReturnRequestDialogComponent, {
+      width: '550px',
+      panelClass: 'custom-mat-dialog',
+    });
+  }
 }

@@ -46,6 +46,7 @@ import { WalletTransactionHistoryComponent } from './wallet/components/increase-
 import { PriceComponent } from '../../../shared/components/price/price.component';
 import { ProfileMobileMenuComponent } from './profile-mobile-menu/profile-mobile-menu.component';
 import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.component';
+import { ReturnedRequestHistoryComponent } from './returned-request/returned-request-history/returned-request-history.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.compone
     WalletTransactionHistoryComponent,
     ProfileMobileMenuComponent,
     ProfileMenuComponent,
+    ReturnedRequestHistoryComponent,
   ],
   imports: [
     CommonModule,

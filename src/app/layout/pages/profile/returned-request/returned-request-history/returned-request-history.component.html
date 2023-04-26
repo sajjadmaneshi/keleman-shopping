@@ -1,0 +1,45 @@
+<div class="d-flex flex-column align-items-center mx-md-3 mx-lg-5">
+  <span class="d-flex align-items-center mb-3 filters">
+    <a class="text-black mx-3">همه</a>
+    <a class="text-success mx-3">تایید شده</a>
+    <a class="text-danger mx-3">رد شده</a>
+  </span>
+  <div class="transactions w-100">
+    <div
+      *ngFor="let request of requests"
+      class="alert d-flex align-items-center justify-content-between"
+      [ngClass]="{
+        'alert-danger': request.status === statusEnum.rejected,
+        'alert-success': request.status === statusEnum.approved,
+        'alert-warning': request.status === statusEnum.inProgress
+      }"
+    >
+      <mat-icon>{{
+        request.status === statusEnum.inProgress
+          ? "cached"
+          : request.status === statusEnum.approved
+          ? "done"
+          : "remove"
+      }}</mat-icon>
+      <h6>{{ request.returnedNum }}</h6>
+      <h6>{{ request.orderNum }}</h6>
+      <h6 class="mb-0">
+        {{
+          persianDateTimeService.fromGregorianString(
+            request.date,
+            "DD jMMMM YYYY"
+          )
+        }}
+      </h6>
+      <h6>
+        {{
+          request.status === statusEnum.inProgress
+            ? "در حال بررسی"
+            : request.status === statusEnum.approved
+            ? "تایید شده"
+            : "رد شده"
+        }}
+      </h6>
+    </div>
+  </div>
+</div>
