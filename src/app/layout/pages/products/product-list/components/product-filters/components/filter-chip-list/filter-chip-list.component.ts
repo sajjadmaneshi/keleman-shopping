@@ -1,8 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SelectedFilterModel } from '../../data/selected-filter.model';
-import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
+import { Component } from '@angular/core';
 import { ProductFilterService } from '../../../product-filter.service';
 
 @Component({
@@ -17,7 +13,7 @@ export class FilterChipListComponent {
     const index = this.productFilterService.filterList.categories.findIndex(
       (catergory) => catergory.id === value.id
     );
-    if (index != -1)
+    if (index !== -1)
       this.productFilterService.filterList.categories.splice(index, 1);
   }
 
@@ -25,7 +21,7 @@ export class FilterChipListComponent {
     const index = this.productFilterService.filterList.brands.findIndex(
       (brand) => brand.id === value.id
     );
-    if (index != -1)
+    if (index !== -1)
       this.productFilterService.filterList.brands.splice(index, 1);
   }
 
@@ -33,7 +29,7 @@ export class FilterChipListComponent {
     const index = this.productFilterService.filterList.sellers.findIndex(
       (seller) => seller.id === value.id
     );
-    if (index != -1)
+    if (index !== -1)
       this.productFilterService.filterList.sellers.splice(index, 1);
   }
 

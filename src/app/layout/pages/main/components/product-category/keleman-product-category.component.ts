@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
 import { BehaviorSubject } from 'rxjs';
 import { ProductCategoryService } from './product-category.service';
 

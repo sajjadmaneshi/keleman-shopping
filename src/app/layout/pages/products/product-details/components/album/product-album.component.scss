@@ -1,0 +1,14 @@
+:host ::ng-deep {
+  .swiper-slide {
+    width: auto !important;
+  }
+  .swiper-wrapper {
+    margin-bottom: 0.5rem;
+  }
+}
+.symbol {
+  border-radius: inherit !important;
+  img {
+    border-radius: inherit !important;
+  }
+}

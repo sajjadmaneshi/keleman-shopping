@@ -25,8 +25,8 @@ export class ProductFilterService {
     const index = selectedArray.findIndex(
       (selected) => selected.id === selectedItem.id
     );
-    if (index == -1 && selectedItem.selected) selectedArray.push(selectedItem);
-    if (index != -1 && !selectedItem.selected) selectedArray.splice(index, 1);
+    if (index === -1 && selectedItem.selected) selectedArray.push(selectedItem);
+    if (index !== -1 && !selectedItem.selected) selectedArray.splice(index, 1);
     return selectedArray;
   }
 

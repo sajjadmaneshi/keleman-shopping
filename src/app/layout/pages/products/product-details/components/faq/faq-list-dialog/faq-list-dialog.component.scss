@@ -1,0 +1,33 @@
+@import "base/variables/colors";
+.questions-list {
+  max-height: 700px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.question-item {
+  z-index: 1;
+}
+
+.answer-section:before {
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  right: 25px;
+  top: -3.5rem;
+  width: 3px;
+  background-color: $gray-500;
+  z-index: 0;
+}
+.answer-card:before {
+  content: "";
+  display: block;
+  height: 3px;
+  position: absolute;
+  right: -23px;
+  bottom: 3.25rem;
+  width: 20px;
+  background-color: $gray-500;
+}

@@ -1,10 +1,7 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
 
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductFilterService } from '../../../../product-filter.service';
-import { MatComponentsModule } from '../../../../../../../../../mat-components.module';
-import { BrandFilterItemsComponent } from '../../../shared/brand-filter-items/brand-filter-items.component';
 
 @Component({
   selector: 'keleman-brands-dialog',

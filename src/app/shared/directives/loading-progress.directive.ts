@@ -7,7 +7,6 @@ import {
   OnInit,
   Renderer2,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 @Directive({
   selector: '[kelemanLoadingProgress]',

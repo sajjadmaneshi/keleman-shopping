@@ -12,14 +12,12 @@ import {
   SwiperContentDirective,
   SwiperTemplateDirective,
 } from '../../../shared/directives/swiper-template.directive';
-import { SwiperItemComponent } from '../../views/shared/swiper-item/swiper-item.component';
+import { SwiperItemComponent } from '../../../shared/components/swiper/swiper-item/swiper-item.component';
 import { FavoriteItemComponent } from './shared/favorite-item/favorite-item.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { IncreaseWalletComponent } from './wallet/components/increase-wallet/increase-wallet.component';
-import { DecreaseWalletComponent } from './wallet/components/decrease-wallet/decrease-wallet.component';
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
 import { WalletAmountCardComponent } from './wallet/components/wallet-amount-card/wallet-amount-card.component';
-import { WithdrawRequestDialogComponent } from './wallet/components/decrease-wallet/withdraw-request-dialog/withdraw-request-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   NgbNav,
@@ -54,15 +52,12 @@ import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.compone
     ProfileComponent,
     SideBarComponent,
     MainProfileComponent,
-
     LatestFavoritesComponent,
     LatestOrdersComponent,
     FavoriteItemComponent,
     WalletComponent,
     IncreaseWalletComponent,
-    DecreaseWalletComponent,
     WalletAmountCardComponent,
-    WithdrawRequestDialogComponent,
     FavoritesComponent,
     ReturnedRequestComponent,
     AddressesComponent,
@@ -100,5 +95,6 @@ import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.compone
     AddressItemComponent,
     PriceComponent,
   ],
+  exports: [CommentItemComponent],
 })
 export class ProfileModule {}

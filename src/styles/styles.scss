@@ -54,3 +54,8 @@ input::-webkit-inner-spin-button {
 .fixed-top {
   z-index: 995;
 }
+@media (max-width: 768px) {
+  .box-shadow-none {
+    box-shadow: none !important;
+  }
+}

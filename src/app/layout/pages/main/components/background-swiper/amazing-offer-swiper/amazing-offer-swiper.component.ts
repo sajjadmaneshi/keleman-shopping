@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { AmazingOfferRepository } from './data/amazing-offer.repository';
 import { ProductViewModel } from '../../../../products/data/models/view-models/product.view-model';
 import { BehaviorSubject } from 'rxjs';
-import { ProductItemModel } from 'src/app/shared/models/product-item.model';
 import { SharedVariablesService } from '../../../../../../shared/services/shared-variables.service';
 @Component({
   selector: 'app-amazing-offer-swiper',
@@ -12,7 +10,7 @@ import { SharedVariablesService } from '../../../../../../shared/services/shared
   providers: [AmazingOfferRepository],
 })
 export class AmazingOfferSwiperComponent {
-  isLoading = new BehaviorSubject(true);
+  isLoading = new BehaviorSubject(false);
   slides: ProductViewModel[] = [
     {
       defaultPic: 'assets/media/temp/1.jpg',

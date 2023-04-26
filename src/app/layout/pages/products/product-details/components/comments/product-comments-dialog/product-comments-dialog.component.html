@@ -1,0 +1,31 @@
+<div mat-dialog-content>
+  <h3 class="text-center mb-3">دیدگاه ها ({{ data.length }})</h3>
+  <div class="comment-list">
+    <div
+      *ngFor="let comment of data"
+      class="card card-rounded-3 border-gray-500 mb-3 bg-white"
+    >
+      <div class="card-header row mx-0 p-0 border-bottom border-success">
+        <span class="col-6 col-md-8 align-self-center p-2">
+          <h6 class="fw-bolder commenter-name">{{ comment.commenter! }}</h6>
+        </span>
+        <span class="col-6 col-md-4 d-flex align-items-center p-0">
+          <keleman-text-with-icon
+            [text]="'2.5'"
+            [iconName]="'star'"
+            [iconClass]="'text-warning'"
+          ></keleman-text-with-icon>
+          <div class="status d-flex align-items-center justify-content-center">
+            <span class="text-white">{{
+              persianDateTime.fromGregorianString(comment.date, "DD jMMMM YYYY")
+            }}</span>
+          </div>
+        </span>
+      </div>
+
+      <div class="card-body">
+        <p class="py-3">{{ comment.comment }}</p>
+      </div>
+    </div>
+  </div>
+</div>

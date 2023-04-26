@@ -1,24 +1,18 @@
-<div class="product-details d-flex flex-column">
-  <keleman-product-content></keleman-product-content>
+<keleman-product-content></keleman-product-content>
 
-  <keleman-product-navbar class="sticky-md-top"></keleman-product-navbar>
+<keleman-product-navbar class="sticky-md-top"></keleman-product-navbar>
 
-  <ng-template [ngIf]="!applicationState.isPhone">
-    <keleman-product-specifications></keleman-product-specifications>
+<ng-template [ngIf]="!applicationState.isPhone">
+  <keleman-product-specifications></keleman-product-specifications>
 
-    <div id="checking-and-rate">
-      <div class="row mx-0 mb-3">
-        <div class="col-6 pe-0" id="comment">
-          <keleman-product-comments></keleman-product-comments>
-        </div>
-        <div class="col-6 ps-0">
-          <keleman-product-comments></keleman-product-comments>
-        </div>
+  <div id="checking-and-rate">
+    <div class="row mx-0 mb-3">
+      <div class="col-6 pe-0" id="comment">
+        <keleman-product-comments></keleman-product-comments>
+      </div>
+      <div class="col-6 ps-0">
+        <keleman-faq></keleman-faq>
       </div>
     </div>
-  </ng-template>
-
-  <keleman-related-articles
-    [articles]="relatedArticles"
-  ></keleman-related-articles>
-</div>
+  </div>
+</ng-template>

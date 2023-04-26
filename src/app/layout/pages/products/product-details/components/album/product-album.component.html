@@ -1,0 +1,20 @@
+<keleman-swiper
+  [showTitle]="false"
+  [showMoreButton]="false"
+  [spaceBetween]="10"
+  [navigation]="false"
+  [shimmerHeight]="'100px'"
+  [shimmerWidth]="'100px'"
+  [isLoading]="isLoading"
+  class="mb-md-3"
+>
+  <appSwiperContent *ngFor="let slide of slides">
+    <ng-template appSwiperTemplate>
+      <div class="card card-rounded-4 my-1 product-galary-item">
+        <div class="symbol symbol-100px">
+          <img src="../../../../../../../assets/media/temp/1.jpg" />
+        </div>
+      </div>
+    </ng-template>
+  </appSwiperContent>
+</keleman-swiper>

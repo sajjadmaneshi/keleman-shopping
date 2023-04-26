@@ -1,0 +1,21 @@
+<div class="card card-rounded-4 faq-item mb-0">
+  <div
+    class="card-header d-flex justify-content-between border-bottom border-klm-primary"
+  >
+    <h6 class="fw-bolder commenter-name">{{ faq.questioner! }}</h6>
+    <h6>
+      {{ persianDateTime.fromGregorianString(faq.date, "DD jMMMM YYYY") }}
+    </h6>
+  </div>
+  <div class="card-body d-flex flex-column align-items-start">
+    <p class="faq-question mb-3">
+      {{ faq.question! }}
+    </p>
+    <ng-template [ngIf]="faq.answer">
+      <p class="text-muted mb-3 me-3 d-flex align-items-center">
+        <mat-icon class="material-icons-round">person</mat-icon>
+        {{ faq.answer?.text }}
+      </p>
+    </ng-template>
+  </div>
+</div>

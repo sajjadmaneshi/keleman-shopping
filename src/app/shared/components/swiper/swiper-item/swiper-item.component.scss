@@ -1,0 +1,39 @@
+@import "../../../../../styles/base/variables/colors";
+
+.k-swiper-item {
+  height: 250px !important;
+  max-width: 200px !important;
+  position: relative;
+  height: 100%;
+  &:hover {
+    border: 1px solid map-get($theme-colors, "klm-secondary") !important;
+    .overlay {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+::ng-deep {
+  .overlay {
+    height: 70%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.2s linear;
+    margin-bottom: 0 !important;
+    span {
+      overflow: auto;
+    }
+  }
+  .product-price-bottom {
+    position: absolute;
+    bottom: 0;
+    height: 5px;
+    border-radius: 15px 15px 0 0;
+    background-color: map-get($theme-colors, "klm-primary");
+    width: 90%;
+  }
+}

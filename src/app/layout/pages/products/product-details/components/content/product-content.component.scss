@@ -1,0 +1,75 @@
+@import "components/swiper";
+@import "base/variables/colors";
+
+@include swiper-button();
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  > * {
+    margin-bottom: 1.8rem;
+  }
+}
+
+.rate {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 15px;
+}
+
+.delivery {
+  & > div {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1rem;
+  }
+}
+
+.delivery-image {
+  height: 100%;
+  width: 60%;
+  object-fit: cover;
+}
+
+.product-main-image-swiper {
+  .swiper-pagination {
+    text-align: left;
+    .swiper-pagination-bullet:last-child:not(.swiper-pagination-bullet-active) {
+      transform: scale(0.7);
+    }
+    .swiper-pagination-bullet:first-child:not(
+        .swiper-pagination-bullet-active
+      ) {
+      transform: scale(0.7);
+    }
+    .swiper-pagination-bullet-active {
+      background-color: map-get($theme-colors, "gray-400");
+      transform: scale(1.2);
+    }
+  }
+}
+
+.add-to-basket-mobile {
+  width: 100%;
+  height: 100%;
+  color: white !important;
+  background-color: map-get($theme-colors, "klm-secondary") !important;
+}
+.cdk-overlay-container {
+  z-index: 1021 !important;
+}
+@media (max-width: 768px) {
+  .card {
+    background-color: transparent;
+  }
+}

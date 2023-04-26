@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ProductFilterService } from '../product-filter.service';
-import { SelectedFilterModel } from './data/selected-filter.model';
 import { PriceRange } from './components/product-price-filter/product-price-filter.component';
 
 @Component({

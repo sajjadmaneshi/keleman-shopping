@@ -1,7 +1,6 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { BottomSheetComponent } from '../../../../../../shared/components/bottom-sheet/bottom-sheet.component';
 
 @Component({
   selector: 'keleman-products-sort',

@@ -1,10 +1,8 @@
 $klm-primary: #001d8d;
 $klm-secondary: #fcb527;
 $klm-accent: #e6e6e6;
-
-$white: #ffffff !default;
-
-$black: #000000 !default;
+$white: #fff !default;
+$black: #000 !default;
 $gray-100: #f5f8fa !default;
 $gray-200: #eff2f5 !default;
 $gray-300: #e4e6ef !default;
@@ -70,6 +68,7 @@ $theme-text-colors: (
 $theme-colors: (
   "white": $white,
   "klm-primary": $klm-primary,
+  "success-light": $success-light,
   "primary": #0d6efdff,
   "aqua-primary": #19bfd5,
   "secondary": #6c757dff,

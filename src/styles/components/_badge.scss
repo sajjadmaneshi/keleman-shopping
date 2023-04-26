@@ -1,11 +1,6 @@
-//
-// Badge
-//
-// Badges
 $badge-font-size: 0.85rem !default;
 $badge-font-size-sm: 0.85rem !default;
 $badge-font-size-lg: 1rem !default;
-
 $badge-padding-y: 0.5em !default;
 $badge-padding-x: 0.85em !default;
 $badge-border-radius: 0.475rem !default;
@@ -16,6 +11,7 @@ $badge-size-lg: 2rem !default; // Custom variable
 @function theme-light-color($key: "primary") {
   @return get($theme-light-colors, $key);
 }
+
 .badge {
   // Circle
   &.badge-circle {

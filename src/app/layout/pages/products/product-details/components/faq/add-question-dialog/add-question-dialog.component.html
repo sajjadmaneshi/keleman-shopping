@@ -1,0 +1,17 @@
+<div mat-dialog-content>
+  <h5 class="text-center mb-3">پرسش خود را ثبت نمایید</h5>
+
+  <keleman-card [cardTitle]="'پرسش'">
+    <div class="form-group">
+      <textarea
+        class="form-control keleman-text-field"
+        placeholder="متن پرسش"
+        [formControl]="question"
+      ></textarea>
+    </div>
+  </keleman-card>
+  <div class="w-100 text-center">
+    <button class="btn btn-success text-white mx-3">ذخیره</button>
+    <button class="btn btn-danger">انصراف</button>
+  </div>
+</div>

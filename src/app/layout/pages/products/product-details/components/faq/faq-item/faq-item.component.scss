@@ -1,0 +1,14 @@
+@import "base/variables/colors";
+
+.faq-item {
+  height: 10rem;
+  width: 17rem;
+  border: 2px solid map-get($theme-colors, "accent") !important;
+
+  .faq-question {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

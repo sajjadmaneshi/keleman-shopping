@@ -1,17 +1,7 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-} from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { ProductFilterService } from '../../../../product-filter.service';
-import { ProductsModule } from '../../../../../../products.module';
-import { MatComponentsModule } from '../../../../../../../../../mat-components.module';
-import { SellerFilterItemsComponent } from '../../../shared/seller-filter-items/seller-filter-items.component';
 
 @Component({
   selector: 'keleman-sellers-dialog',

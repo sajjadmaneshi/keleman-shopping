@@ -1,10 +1,7 @@
-import { Component, Inject, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductFilterService } from '../../../../product-filter.service';
-import { ProductsModule } from '../../../../../../products.module';
-import { MatComponentsModule } from '../../../../../../../../../mat-components.module';
-import { CategoryFilterItemsComponent } from '../../../shared/category-filter-items/category-filter-items.component';
 
 @Component({
   selector: 'keleman-category-dialog',

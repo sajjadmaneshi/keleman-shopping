@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProductFilterService } from '../../../product-filter.service';
-import { CommonModule } from '@angular/common';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'keleman-seller-filter-items',

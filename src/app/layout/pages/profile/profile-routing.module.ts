@@ -5,7 +5,6 @@ import { MainProfileComponent } from './main-profile/main-profile.component';
 import { Routing } from '../../../routing';
 import { WalletComponent } from './wallet/wallet.component';
 import { IncreaseWalletComponent } from './wallet/components/increase-wallet/increase-wallet.component';
-import { DecreaseWalletComponent } from './wallet/components/decrease-wallet/decrease-wallet.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ReturnedRequestComponent } from './returned-request/returned-request.component';
 import { AddressesComponent } from './address/addresses.component';
@@ -31,7 +30,6 @@ export const routes: Routes = [
             path: 'increase',
             component: IncreaseWalletComponent,
           },
-          { path: 'decrease', component: DecreaseWalletComponent },
         ],
       },
       {

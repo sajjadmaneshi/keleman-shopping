@@ -1,0 +1,24 @@
+@import "base/variables/colors";
+.nav-link {
+  color: black;
+  display: flex;
+  align-items: center;
+  span {
+    margin: 0 1rem;
+  }
+}
+@media (max-width: 767.98px) {
+  .nav-link {
+    flex-direction: column;
+  }
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: map-get($theme-colors, "gray-300");
+  color: black !important;
+}
+
+.mobile-nav {
+  top: 18.5rem;
+}

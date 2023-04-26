@@ -103,18 +103,16 @@ export class NumberToPersianPipe implements PipeTransform {
     return out.join(this.splitter);
   }
 
-  PrepareNumber(num: any) {
-    if (typeof num === 'number') {
-      num = num.toString();
+  prepareNumber(num: number): string[] {
+    const numString = String(num);
+    const numLength = numString.length;
+    const paddingLength = 3 - (numLength % 3);
+    const paddedNum = '0'.repeat(paddingLength) + numString;
+    const result = [];
+    for (let i = 0; i < numLength; i += 3) {
+      result.push(paddedNum.slice(i, i + 3));
     }
-    const NumberLength = num.length % 3;
-    if (NumberLength === 1) {
-      num = '00' + num;
-    } else if (NumberLength === 2) {
-      num = '0' + num;
-    }
-    // Explode to array
-    return num.replace(/\d{3}(?=\d)/g, '$&*').split('*');
+    return result;
   }
 
   transform(value: any, symbol: 'T' | 'R' = 'T'): any {
@@ -126,7 +124,7 @@ export class NumberToPersianPipe implements PipeTransform {
       return 'خارج از محدوده';
     }
 
-    const splittedNumber = this.PrepareNumber(value);
+    const splittedNumber = this.prepareNumber(value);
 
     const convertedResult: any = [];
     const SplitLength = splittedNumber.length;

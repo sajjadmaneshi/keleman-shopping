@@ -1,0 +1,35 @@
+<div class="card card-rounded-4 shadow mb-3 border-0 box-shadow-none">
+  <div class="card-body">
+    <span class="d-flex align-items-center justify-content-between mb-3">
+      <h6 class="fw-bold text-klm-primary">
+        پرسش های شما
+        <a class="cursor-pointer" (click)="openAllQuestionsDialog()"
+          >(مشاهده همه)</a
+        >
+      </h6>
+      <button
+        class="btn btn-lilac text-white"
+        (click)="openAddQuestionDialog()"
+      >
+        افزودن پرسش
+      </button>
+    </span>
+
+    <div class="position-relative mb-3">
+      <keleman-swiper
+        [showTitle]="false"
+        [showMoreButton]="false"
+        [spaceBetween]="5"
+        [navigation]="true"
+        [isLoading]="isLoading"
+        [navigationButtonClassPrefix]="'faq-'"
+      >
+        <appSwiperContent *ngFor="let slide of slides">
+          <ng-template appSwiperTemplate>
+            <keleman-faq-item [faq]="slide"> </keleman-faq-item>
+          </ng-template>
+        </appSwiperContent>
+      </keleman-swiper>
+    </div>
+  </div>
+</div>

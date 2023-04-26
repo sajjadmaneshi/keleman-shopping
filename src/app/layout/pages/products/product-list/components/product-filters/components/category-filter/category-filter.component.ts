@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatComponentsModule } from '../../../../../../../../mat-components.module';
-import { CategoryFilterItemsComponent } from '../../shared/category-filter-items/category-filter-items.component';
 import { ProductFilterService } from '../../../product-filter.service';
 
 @Component({

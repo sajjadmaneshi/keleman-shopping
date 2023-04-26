@@ -12,7 +12,6 @@ import { KelemanProductCategoryComponent } from './pages/main/components/product
 import { ProductCategoryItemComponent } from './pages/main/components/product-category/product-category-item/product-category-item.component';
 import { ImageResponsiveDirective } from '../shared/directives/image-responsive.directive';
 import { TopSliderComponent } from './pages/main/components/top-slider/top-slider.component';
-import { NgOtpInputModule } from 'ng-otp-input';
 
 import {
   SwiperContentDirective,
@@ -20,7 +19,7 @@ import {
 } from '../shared/directives/swiper-template.directive';
 import { PriceComponent } from '../shared/components/price/price.component';
 import { ContentComponent } from './_partials/content/content.component';
-import { SwiperItemComponent } from './views/shared/swiper-item/swiper-item.component';
+import { SwiperItemComponent } from '../shared/components/swiper/swiper-item/swiper-item.component';
 import { InputGroupComponent } from '../shared/components/input-group/input-group.component';
 import { HeaderComponent } from './_partials/header/header.component';
 import { HeaderMenuComponent } from './_partials/header/header-menu/header-menu.component';
@@ -100,5 +99,6 @@ import { AdvertisingBannersComponent } from './pages/main/components/advertising
     SwiperModule,
     NgxSkeletonLoaderModule,
   ],
+  exports: [KelemanProductCategoryComponent],
 })
 export class LayoutModule {}

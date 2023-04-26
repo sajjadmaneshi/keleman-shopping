@@ -1,7 +1,9 @@
-<div class="card card-rounded-3 border-1 mb-3 position-relative">
-  <div class="d-flex align-items-center">
-    <span class="text-warning card-title">{{ cardTitle }}</span>
-    <div class="border-end border-gray-300 rounded mx-1 p-3 flex-grow-1">
+<div class="card card-rounded-3 border-1 mb-3 position-relative bg-white">
+  <div class="row mx-0">
+    <span class="col-1 text-warning position-relative">
+      <h6 class="card-title">{{ cardTitle }}</h6>
+    </span>
+    <div class="col-11 border-end rounded p-3">
       <ng-content></ng-content>
     </div>
   </div>

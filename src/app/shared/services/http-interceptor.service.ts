@@ -6,7 +6,14 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable, catchError, throwError, retry } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  throwError,
+  retry,
+  from,
+  switchMap,
+} from 'rxjs';
 import { HttpRequestOptions } from '../models/http/http-request-options';
 import { AppErrors } from '../common/app-errors';
 import { BadInputError } from '../common/errors/bad-input-error';
@@ -16,16 +23,30 @@ import { NotFoundError } from '../common/errors/not-found-error';
 export class HttpInterceptorService implements HttpInterceptor {
   constructor(@Inject('accessToken') private accessToken?: string) {}
 
+  // intercept(
+  //   req: HttpRequest<any>,
+  //   next: HttpHandler
+  // ): Observable<HttpEvent<any>> {
+  //   this._setHeaders(req as HttpRequestOptions).then((result: HttpHeaders) => {
+  //     req = req.clone({
+  //       headers: result,
+  //     });
+  //   });
+  //   return next.handle(req).pipe(retry(3), catchError(this._handleError));
+  // }
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this._setHeaders(req as HttpRequestOptions).then((result) => {
-      req = req.clone({
-        headers: result,
-      });
-    });
-    return next.handle(req).pipe(retry(3), catchError(this._handleError));
+    return from(this._setHeaders(req as HttpRequestOptions)).pipe(
+      switchMap((result: HttpHeaders) => {
+        const modifiedReq = req.clone();
+        return next
+          .handle(modifiedReq)
+          .pipe(retry(3), catchError(this._handleError));
+      })
+    );
   }
 
   private _setHeaders(
@@ -41,7 +62,7 @@ export class HttpInterceptorService implements HttpInterceptor {
         let httpHeaders = new HttpHeaders();
         httpHeaders = httpHeaders.set('Accept', 'application/json');
         if (!httpRequestOptions.isBodyFormData) {
-          httpHeaders = httpHeaders = httpHeaders.append(
+          httpHeaders = httpHeaders.append(
             'Content-Type',
             'application/json; charset=utf-8'
           );

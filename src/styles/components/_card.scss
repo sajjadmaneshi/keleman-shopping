@@ -2,12 +2,15 @@
 
 .card {
   border-radius: 0 !important;
+
   .card-header {
     border: none;
   }
+
   .card-body {
     padding: map-get($k-spacers, 3);
   }
+
   @each $breakpoint in map-keys($grid-breakpoints) {
     @include media-breakpoint-up($breakpoint) {
       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
@@ -15,9 +18,11 @@
       @each $name, $value in $keleman-font-sizes {
         &.card-rounded#{$infix}-#{$name} {
           border-radius: $value !important;
+
           .card-header {
             border-radius: $value $value 0 0 !important;
           }
+
           .card-body {
             border-radius: 0 0 $value $value !important;
           }

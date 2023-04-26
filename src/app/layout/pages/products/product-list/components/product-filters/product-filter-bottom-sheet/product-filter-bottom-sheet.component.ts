@@ -1,21 +1,9 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
-import {
-  MatBottomSheet,
-  MatBottomSheetRef,
-} from '@angular/material/bottom-sheet';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
-import { ComponentType } from '@angular/cdk/overlay';
 import { CategoryDialogComponent } from './dialogs/category-dialog/category-dialog.component';
 import { BrandsDialogComponent } from './dialogs/brands-dialog/brands-dialog.component';
 import { SellersDialogComponent } from './dialogs/sellers-dialog/sellers-dialog.component';
-import { SelectedFilterModel } from '../data/selected-filter.model';
 import { filter } from 'rxjs';
 import { PriceRange } from '../components/product-price-filter/product-price-filter.component';
 import { ProductFilterService } from '../../product-filter.service';

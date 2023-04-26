@@ -11,7 +11,7 @@ $container-max-widths: (
   .container,
     // 100% wide container at all breakpoints
   .container-fluid {
-    @include make-container();
+    @include make-container;
   }
 
   // Responsive containers that are 100% wide until a breakpoint
@@ -29,13 +29,13 @@ $container-max-widths: (
       $extend-breakpoint: true;
 
       @each $name, $width in $grid-breakpoints {
-        @if ($extend-breakpoint) {
+        @if $extend-breakpoint {
           .container#{breakpoint-infix($name, $grid-breakpoints)} {
             @extend %responsive-container-#{$breakpoint};
           }
 
           // Once the current breakpoint is reached, stop extending
-          @if ($breakpoint == $name) {
+          @if $breakpoint == $name {
             $extend-breakpoint: false;
           }
         }
