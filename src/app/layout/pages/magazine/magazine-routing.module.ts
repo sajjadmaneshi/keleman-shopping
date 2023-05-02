@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MagazineComponent } from './magazine.component';
-import { ListComponent } from './components/list/list.component';
+import { ArticleListComponent } from './components/list/article-list.component';
 import { ArticleComponent } from './components/article/article.component';
 
 export const routes: Routes = [
@@ -9,7 +9,7 @@ export const routes: Routes = [
     path: '',
     component: MagazineComponent,
     children: [
-      { path: '', component: ListComponent },
+      { path: '', component: ArticleListComponent },
       { path: ':id', component: ArticleComponent },
     ],
   },

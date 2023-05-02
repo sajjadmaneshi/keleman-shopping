@@ -1,0 +1,26 @@
+<div class="product-box border border-gray-300 rounded p-3">
+  <span class="d-flex align-items-center flex-grow-1">
+    <div class="symbol">
+      <img [src]="productDetails.thumbNail" />
+    </div>
+    <span class="mx-3">
+      <h5>{{ productDetails.title }}</h5>
+      <keleman-price
+        [value]="productDetails.price"
+        [color]="'success'"
+        [size]="'h6'"
+      ></keleman-price>
+    </span>
+  </span>
+
+  <div
+    class="symbol"
+    ngbTooltip="افزودن به باکس من"
+    container="body"
+    (click)="onMoveChange()"
+  >
+    <div class="symbol-label fs-2 fw-semibold text-success border-gray-300">
+      <mat-icon>add</mat-icon>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,7 @@
   <div class="questions-list">
     <div *ngFor="let question of data">
       <div
-        class="card card-rounded-3 border-gray-500 mb-3 bg-white question-item"
+        class="card card-rounded-3 border border-gray-500 mb-3 bg-white question-item"
       >
         <div
           class="card-header bg-success-light d-flex justify-content-between p-3 border-bottom border-klm-primary"
@@ -26,7 +26,7 @@
       <ng-template [ngIf]="question.answer">
         <div class="answer-section position-relative">
           <div
-            class="card card-rounded-3 border-gray-500 mb-3 bg-white me-5 answer-card"
+            class="card card-rounded-3 border border-gray-500 mb-3 bg-white me-5 answer-card"
           >
             <div
               class="card-header d-flex justify-content-between p-3 border-bottom border-klm-primary"

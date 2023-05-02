@@ -4,9 +4,13 @@
 </keleman-input-group>
 
 <div class="credits-history">
-  <div class="card card-rounded-3 shadow-sm border-gray-300">
+  <div class="card card-rounded-3 shadow-sm border border-gray-300">
     <div class="card-body">
-      <h6 class="fw-bold">تاریخچه درخواست ها</h6>
+      <span class="d-flex align-items-center">
+        <mat-icon class="d-lg-none" routerLink="../">arrow_right_alt</mat-icon>
+
+        <h6 class="fw-bold p-3">تاریخچه درخواست ها</h6>
+      </span>
       <ng-container *ngIf="true; then full"></ng-container>
       <ng-template #full>
         <keleman-returned-request-history></keleman-returned-request-history>

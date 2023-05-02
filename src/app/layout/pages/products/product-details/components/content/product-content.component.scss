@@ -1,7 +1,14 @@
 @import "components/swiper";
 @import "base/variables/colors";
-
+@import "base/variables/spacers";
 @include swiper-button();
+
+.product-image {
+  position: relative;
+  margin-bottom: 1rem;
+  box-shadow: none;
+  height: 100%;
+}
 
 .action-buttons {
   display: flex;
@@ -11,6 +18,21 @@
   top: 1rem;
   > * {
     margin-bottom: 1.8rem;
+  }
+}
+
+.seller,
+.waranty {
+  padding: $klm-spacer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  margin-bottom: 0;
+  background-color: $gray-100;
+  > * {
+    display: inline;
   }
 }
 

@@ -1,4 +1,5 @@
 @import "base/variables/colors";
+@import "base/variables/spacers";
 .nav-link {
   color: black;
   display: flex;
@@ -20,5 +21,5 @@
 }
 
 .mobile-nav {
-  top: 18.5rem;
+  top: map-get($klm-spacers, 66);
 }

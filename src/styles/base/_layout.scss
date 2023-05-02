@@ -12,7 +12,8 @@ body {
 }
 
 body {
-  background: url("../../assets/media/static-resources/keleman-logo-background.svg")
+  background: fixed
+    url("../../assets/media/static-resources/keleman-logo-background.svg")
     no-repeat 10% -15rem;
 }
 
@@ -22,7 +23,7 @@ a {
 
 .keleman-container {
   section {
-    margin-bottom: 2.5rem;
+    margin-bottom: get($klm-spacers, 10);
   }
 }
 

@@ -6,10 +6,16 @@
       <h6 class="text-danger mx-1">1</h6>
     </span>
     <ng-template #full [ngIf]="true">
-      <keleman-favorite-item></keleman-favorite-item>
-      <keleman-favorite-item></keleman-favorite-item>
-      <keleman-favorite-item></keleman-favorite-item>
-      <keleman-favorite-item></keleman-favorite-item>
+      <div class="row mx-0">
+        <div
+          class="col-12 col-md-6 col-lg-4"
+          *ngFor="let product of favoriteItems"
+        >
+          <keleman-favorite-item
+            [productDetails]="product"
+          ></keleman-favorite-item>
+        </div>
+      </div>
     </ng-template>
     <ng-template #empty>
       <keleman-empty-content></keleman-empty-content>

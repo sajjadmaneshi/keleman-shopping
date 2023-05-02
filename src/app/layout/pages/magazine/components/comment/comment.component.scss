@@ -1,10 +1,10 @@
 @import "base/variables/spacers";
 
-#comment-text{
+#comment-text {
   height: 245px;
   max-height: 245px;
   resize: none;
 }
-.comment-head{
-  margin-bottom: map-get($k-spacers,6);
+.comment-head {
+  margin-bottom: map-get($klm-spacers, 6);
 }

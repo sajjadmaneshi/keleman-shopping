@@ -1,0 +1,19 @@
+<div class="product-box border border-gray-300 rounded p-3 mb-3">
+  <span class="d-flex align-items-center flex-grow-1">
+    <div class="symbol">
+      <img [src]="productDetails.thumbNail" />
+    </div>
+    <span class="mx-3 flex-grow-1">
+      <h5>{{ productDetails.title }}</h5>
+      <h6 class="text-success">
+        {{ productDetails.price | number : ".0" }} تومان
+      </h6>
+    </span>
+    <keleman-value-changer [initialValue]="1"></keleman-value-changer>
+    <div class="symbol cursor-pointer mx-3" (click)="removeChange()">
+      <div class="symbol-label fs-2 fw-semibold text-danger border-gray-300">
+        <mat-icon>delete</mat-icon>
+      </div>
+    </div>
+  </span>
+</div>

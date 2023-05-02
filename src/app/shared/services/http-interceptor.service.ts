@@ -40,7 +40,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return from(this._setHeaders(req as HttpRequestOptions)).pipe(
-      switchMap((result: HttpHeaders) => {
+      switchMap(() => {
         const modifiedReq = req.clone();
         return next
           .handle(modifiedReq)

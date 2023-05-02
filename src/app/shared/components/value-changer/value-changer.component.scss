@@ -3,6 +3,6 @@
 
 .value-changer {
   border: 2px solid $klm-primary;
-  border-radius: map-get($k-spacers, 1);
-  padding: map-get($k-spacers, 1);
+  border-radius: map-get($klm-spacers, 1);
+  padding: map-get($klm-spacers, 1);
 }

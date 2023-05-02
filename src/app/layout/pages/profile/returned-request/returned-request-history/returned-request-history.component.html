@@ -5,25 +5,35 @@
     <a class="text-danger mx-3">رد شده</a>
   </span>
   <div class="transactions w-100">
+    <div class="alert alert-info row  text-center">
+      <span class="col-1">#</span>
+      <h6 class="col-3">شماره درخواست</h6>
+      <h6 class="col-3">شماره سفارش</h6>
+      <h6 class="col-2">تاریخ</h6>
+      <h6 class="col-3">وضعیت</h6>
+    </div>
     <div
       *ngFor="let request of requests"
-      class="alert d-flex align-items-center justify-content-between"
+      class="alert row text-center "
       [ngClass]="{
         'alert-danger': request.status === statusEnum.rejected,
         'alert-success': request.status === statusEnum.approved,
         'alert-warning': request.status === statusEnum.inProgress
       }"
     >
-      <mat-icon>{{
-        request.status === statusEnum.inProgress
-          ? "cached"
-          : request.status === statusEnum.approved
-          ? "done"
-          : "remove"
-      }}</mat-icon>
-      <h6>{{ request.returnedNum }}</h6>
-      <h6>{{ request.orderNum }}</h6>
-      <h6 class="mb-0">
+      <span class="d-none d-md-block col-1">
+          <mat-icon >{{
+            request.status === statusEnum.inProgress
+              ? "cached"
+              : request.status === statusEnum.approved
+                ? "done"
+                : "remove"
+            }}</mat-icon>
+      </span>
+
+      <h6 class="col-3">{{ request.returnedNum }}</h6>
+      <h6 class="col-3">{{ request.orderNum }}</h6>
+      <h6 class="mb-0 col-2">
         {{
           persianDateTimeService.fromGregorianString(
             request.date,
@@ -31,7 +41,7 @@
           )
         }}
       </h6>
-      <h6>
+      <h6 class="col-3">
         {{
           request.status === statusEnum.inProgress
             ? "در حال بررسی"

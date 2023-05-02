@@ -1,10 +1,10 @@
 <div class="border-bottom mb-3">
-  <div class="d-flex align-items-center mb-3">
-    <div class="symbol symbol-50px symbol-md-75px symbol-circle">
+  <div class="mb-3 d-flex align-items-center">
+    <div class="symbol symbol-md-20 symbol-circle">
       <img src="../../../../../assets/media/blank.png" />
     </div>
-    <span class="d-flex flex-column flex-grow-1 align-items-start mx-4">
-      <h5 class="text-klm-primary">سجاد منشی</h5>
+    <span class="d-inline-flex flex-column flex-grow-1 align-items-start mx-4">
+      <h5>سجاد منشی</h5>
       <a routerLink="personal-info" routerLinkActive="active" class="text-muted"
         >تکمیل اطلاعات کاربری</a
       >
@@ -15,7 +15,7 @@
   </div>
   <ul class="user-wallet-menu p-0">
     <li
-      class="d-flex align-items-center justify-content-between mb-3 menu-item"
+      class="d-flex align-items-center justify-content-between mb-3 menu-item cursor-pointer"
       [routerLink]="'wallet/increase'"
       routerLinkActive="active"
     >
@@ -84,6 +84,13 @@
     <a class="menu-link">
       <mat-icon class="mx-2">chat</mat-icon>
       دیدگاه ها
+    </a>
+    <mat-icon> chevron_left</mat-icon>
+  </li>
+  <li class="menu-item" [routerLink]="'my-box'" routerLinkActive="active">
+    <a class="menu-link">
+      <mat-icon class="mx-2">inventory_2</mat-icon>
+      باکس های من
     </a>
     <mat-icon> chevron_left</mat-icon>
   </li>

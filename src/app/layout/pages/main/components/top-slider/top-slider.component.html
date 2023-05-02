@@ -3,19 +3,15 @@
 <ng-template #loading>
   <ngx-skeleton-loader
     count="1"
-    [theme]="{ height: '30rem' }"
+    [theme]="{ height: '25rem' }"
   ></ngx-skeleton-loader>
 </ng-template>
 <ng-template #renderedView>
   <div class="position-relative">
     <swiper
       [spaceBetween]="15"
-      [navigation]="{
-        prevEl: '.top-slider-swiper-button-next',
-        nextEl: '.top-slider-swiper-button-prev'
-      }"
       [pagination]="{ el: '.swiper-pagination' }"
-      [autoplay]="{ delay: 2500 }"
+      [loop]="true"
     >
       <ng-container
         *ngFor="let _ of sharedVariableService.counter(3); let i = index"
@@ -28,55 +24,23 @@
               applicationStateService.isTablet
             "
           >
-            <ng-template [ngIf]="i === 0" [ngIfElse]="NextOne">
-              <figure class="img-container">
-                <img
-                  alt="keleman"
-                  class="main-slider-image"
-                  [src]="'assets/media/slider/menu-slide' + (i + 1) + '.jpg'"
-                />
-              </figure>
-            </ng-template>
-            <ng-template #NextOne>
-              <div class="grid-slide">
-                <div class="right-side">
-                  <div
-                    [ngStyle]="{
-                      'background-image':
-                        'url(assets/media/slider/menu-slide' + (i + 1) + '.jpg)'
-                    }"
-                  ></div>
-                  <div
-                    [ngStyle]="{
-                      'background-image':
-                        'url(assets/media/slider/menu-slide' + (i + 1) + '.jpg)'
-                    }"
-                  ></div>
-                </div>
-                <div>
-                  <figure class="img-container">
-                    <img
-                      alt="keleman"
-                      class="main-slider-image"
-                      [src]="
-                        'assets/media/slider/menu-slide' + (i + 1) + '.jpg'
-                      "
-                    />
-                  </figure>
-                </div>
-              </div>
-            </ng-template>
+            <picture class="img-container h-100 w-100">
+              <img
+                alt="keleman"
+                class="main-slider-image"
+                [src]="'assets/media/slider/menu-slide' + (i + 1) + '.jpg'"
+              />
+            </picture>
           </div>
         </ng-template>
       </ng-container>
     </swiper>
 
-    <div class="top-slider-swiper-button-next">
-      <mat-icon fontIcon="chevron_right"></mat-icon>
+    <div class="swiper-pagination">
+      <span
+        class="swiper-pagination-bullet"
+        *ngFor="let _ of sharedVariableService.counter(3)"
+      ></span>
     </div>
-    <div class="top-slider-swiper-button-prev">
-      <mat-icon fontIcon="chevron_left"></mat-icon>
-    </div>
-    <div class="swiper-pagination"></div>
   </div>
 </ng-template>

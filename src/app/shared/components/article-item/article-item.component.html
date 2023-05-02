@@ -1,0 +1,28 @@
+<div
+  class="card card-rounded-2 shadow magazine-item ribbon ribbon-end ribbon-clip"
+>
+  <div class="ribbon-label">
+    {{
+      persianDateTime.fromGregorianString(articleDetails.date, "DD jMMMM YYYY")
+    }}
+    <span class="ribbon-inner bg-success"></span>
+  </div>
+
+  <img class="cover-image" loadingLazy [src]="articleDetails.image" />
+  <div class="card-body">
+    <div class="magazine-content">
+      <h6 class="magazine-title fw-bold mb-3">
+        <a>{{ articleDetails.title }}</a>
+      </h6>
+      <p class="magazine-description">
+        {{ articleDetails.description }}
+      </p>
+    </div>
+    <button
+      class="btn btn-outline btn-outline-klm-primary read-more float-start"
+    >
+      <span class="mx-3">بیشتر</span>
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+  </div>
+</div>

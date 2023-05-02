@@ -1,0 +1,25 @@
+<div class="card mb-3 card-rounded-3 shadow-sm">
+  <div class="card-body d-flex flex-column">
+    <span class="address-top-bar p-1 mb-3">
+      <mat-icon class="d-lg-none back" routerLink="../"
+        >arrow_right_alt</mat-icon
+      >
+      <h6 class="d-inline">باکس های من</h6>
+      <h6 class="text-danger mx-1 d-inline">1</h6>
+    </span>
+    <div>
+      <ng-template #full [ngIf]="true">
+        <div class="row mx-0 flex-wrap border-bottom border-gray-300">
+          <div class="col-12 col-md-6" *ngFor="let box of boxes">
+            <keleman-my-box-item [data]="box"></keleman-my-box-item>
+          </div>
+        </div>
+        <keleman-modify-box-form></keleman-modify-box-form>
+      </ng-template>
+
+      <ng-template #empty [ngIf]="false">
+        <keleman-empty-content></keleman-empty-content>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,8 @@
+@import "base/variables/spacers";
 .amazing-offer-item {
-  width: 200px;
+  width: map-get($klm-spacers, 50);
+  min-width: map-get($klm-spacers, 45);
+  max-width: map-get($klm-spacers, 50);
 
-  min-width: 182px;
-  max-width: 200px;
   border-radius: inherit !important;
 }

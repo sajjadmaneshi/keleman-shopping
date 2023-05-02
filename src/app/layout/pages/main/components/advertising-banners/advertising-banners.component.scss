@@ -1,3 +1,4 @@
+@import "base/variables/spacers";
 picture {
   display: block;
   position: relative;
@@ -9,4 +10,10 @@ picture {
     height: 100%;
     width: 100%;
   }
+}
+
+.banners {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: $klm-spacer;
 }

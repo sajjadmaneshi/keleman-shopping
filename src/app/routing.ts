@@ -14,4 +14,5 @@ export class Routing {
   static address = 'address';
   static personalInfo = 'personal-info';
   static comments = 'comments';
+  static myBox = 'my-box';
 }

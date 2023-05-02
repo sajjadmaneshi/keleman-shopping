@@ -1,13 +1,13 @@
 <ng-container *ngIf="isLoading; then loading; else content"></ng-container>
 
 <ng-template #loading>
-  <div class="row mx-0">
-    <div class="col-12 mb-3 mb-md-0 col-md-6">
+  <div class="banners">
+    <div class="mb-3 mb-md-0">
       <ngx-skeleton-loader
         [theme]="{ width: '100%', height: '300px ' }"
       ></ngx-skeleton-loader>
     </div>
-    <div class="col-12 mb-3 mb-md-0 col-md-6">
+    <div class="mb-3 mb-md-0">
       <ngx-skeleton-loader
         [theme]="{ width: '100%', height: '300px ' }"
       ></ngx-skeleton-loader>
@@ -16,13 +16,13 @@
 </ng-template>
 
 <ng-template #content>
-  <div class="row mx-0">
-    <div class="col-12 mb-3 mb-md-0 col-md-6">
+  <div class="banners">
+    <div class="mb-3 mb-md-0">
       <picture>
         <img src="assets/media/package/p1.jpg" class="rounded-3" />
       </picture>
     </div>
-    <div class="col-12 mb-3 mb-md-0 col-md-6">
+    <div class="mb-3 mb-md-0">
       <picture>
         <img src="assets/media/package/p1.jpg" class="rounded-3" />
       </picture>

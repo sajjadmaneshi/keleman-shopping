@@ -5,8 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ArticleComponent } from './layout/pages/magazine/components/article/article.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MagazineModule } from './layout/pages/magazine/magazine.module';
 import { SwiperComponent } from './shared/components/swiper/swiper.component';
@@ -19,7 +17,7 @@ import { FloatingButtonMenuComponent } from './shared/components/floating-button
 import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
-  declarations: [AppComponent, ArticleComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     NgbModule,
@@ -31,7 +29,6 @@ import { SwiperModule } from 'swiper/angular';
     SwiperModule,
     MagazineModule,
     SwiperComponent,
-
     LeafletModule,
     FloatingButtonMenuComponent,
   ],

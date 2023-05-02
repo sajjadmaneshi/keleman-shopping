@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
-import { RelatedArticleModel } from '../../../../shared/models/related-article.model';
+import { ArticleModel } from '../../../../shared/models/article.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
 
@@ -10,14 +10,14 @@ import { ProductViewModel } from '../data/models/view-models/product.view-model'
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent {
-  relatedArticles: RelatedArticleModel[] = [];
+  relatedArticles: ArticleModel[] = [];
   productDetails!: ProductViewModel;
   constructor(
     public applicationState: ApplicationStateService,
     private _activatedRoute: ActivatedRoute
   ) {
     this._initRelatedArticles();
-    this._getDataFromUrl().then((result) => {});
+    this._getDataFromUrl().then(() => {});
   }
 
   private _getDataFromUrl(): Promise<string> {
@@ -26,10 +26,6 @@ export class ProductDetailsComponent {
         resolve(params['name']);
       });
     });
-  }
-
-  private _getProductDetails() {
-    // const product$=this.pr
   }
 
   @HostListener('mousewheel', ['$event'])
@@ -50,42 +46,56 @@ export class ProductDetailsComponent {
         title: 'از کار افتادن آسانسور و مهم‌ترین دلایل آن\n',
         description:
           'تابلو فرمان و تابلو برق آسانسور دو قسمت اصلی موتورخانه آسانسور را تشکیل می‌دهند. کنترل آسانسور به وسیله میکروکنترلر موجود تابلو فرمان و تابلو برق آسانسور دو قسمت اصلی موتورخانه آسانسور را تشکیل می‌دهند. کنترل آسانسور به وسیله میکروکنترلر موجود',
+        date: '2022/01/12',
+        author: 'سجاد منشی',
       },
       {
         image: 'assets/media/temp/2.jpg',
         title: 'از کار افتادن آسانسور و مهم‌ترین دلایل آن\n',
         description:
           'تابلو فرمان و تابلو برق آسانسور دو قسمت اصلی موتورخانه آسانسور را تشکیل می‌دهند. کنترل آسانسور به وسیله میکروکنترلر موجود ...',
+        date: '2022/01/12',
+        author: 'سجاد منشی',
       },
       {
         image: 'assets/media/temp/2.jpg',
         title: 'از کار افتادن آسانسور و مهم‌ترین دلایل آن\n',
         description:
           'تابلو فرمان و تابلو برق آسانسور دو قسمت اصلی موتورخانه آسانسور را تشکیل می‌دهند. کنترل آسانسور به وسیله میکروکنترلر موجود ...',
+        date: '2022/01/12',
+        author: 'سجاد منشی',
       },
       {
         image: 'assets/media/temp/2.jpg',
         title: 'از کار افتادن آسانسور و مهم‌ترین دلایل آن\n',
         description:
           'تابلو فرمان و تابلو برق آسانسور دو قسمت اصلی موتورخانه آسانسور را تشکیل می‌دهند. کنترل آسانسور به وسیله میکروکنترلر موجود ...',
+        date: '2022/01/12',
+        author: 'سجاد منشی',
       },
       {
         image: 'assets/media/temp/2.jpg',
         title: 'از کار افتادن آسانسور و مهم‌ترین دلایل آن\n',
         description:
           'تابلو فرمان و تابلو برق آسانسور دو قسمت اصلی موتورخانه آسانسور را تشکیل می‌دهند. کنترل آسانسور به وسیله میکروکنترلر موجود ...',
+        date: '2022/01/12',
+        author: 'سجاد منشی',
       },
       {
         image: 'assets/media/temp/2.jpg',
         title: 'از کار افتادن آسانسور و مهم‌ترین دلایل آن\n',
         description:
           'تابلو فرمان و تابلو برق آسانسور دو قسمت اصلی موتورخانه آسانسور را تشکیل می‌دهند. کنترل آسانسور به وسیله میکروکنترلر موجود ...',
+        date: '2022/01/12',
+        author: 'سجاد منشی',
       },
       {
         image: 'assets/media/temp/2.jpg',
         title: 'از کار افتادن آسانسور و مهم‌ترین دلایل آن\n',
         description:
           'تابلو فرمان و تابلو برق آسانسور دو قسمت اصلی موتورخانه آسانسور را تشکیل می‌دهند. کنترل آسانسور به وسیله میکروکنترلر موجود ...',
+        date: '2022/01/12',
+        author: 'سجاد منشی',
       },
     ];
   }

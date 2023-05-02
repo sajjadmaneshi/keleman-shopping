@@ -1,0 +1,15 @@
+.my-box-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 1rem !important;
+  cursor: pointer;
+  &:hover {
+    scale: 1.02;
+    transition: all 0.15s ease-in;
+  }
+  h6 {
+    margin: 0 1rem;
+  }
+}

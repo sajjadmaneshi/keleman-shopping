@@ -1,0 +1,33 @@
+<div class="my-box-item border border-gray-300 rounded p-3">
+  <span class="d-flex align-items-center flex-grow-1">
+    <div class="symbol">
+      <div
+        class="symbol-label fs-2 fw-semibold"
+        [ngClass]="'bg-' + data.color"
+      ></div>
+    </div>
+    <h6>{{ data.text }}</h6>
+    <div class="symbol-group symbol-hover">
+      <div
+        class="symbol symbol-circle symbol-50px shadow"
+        [ngClass]="'border-' + data.color"
+        *ngFor="let product of data.products"
+      >
+        <img [src]="product.thumbNail" alt="" />
+      </div>
+    </div>
+  </span>
+
+  <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>delete</mat-icon>
+      <span>حذف</span>
+    </button>
+
+    <button mat-menu-item>
+      <mat-icon>edit</mat-icon>
+      <span>ویرایش</span>
+    </button>
+  </mat-menu>
+</div>

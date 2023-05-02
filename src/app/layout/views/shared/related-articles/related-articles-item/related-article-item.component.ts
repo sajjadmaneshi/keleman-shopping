@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { RelatedArticleModel } from '../../../../../shared/models/related-article.model';
+import { ArticleModel } from '../../../../../shared/models/article.model';
 
 @Component({
   selector: 'keleman-related-article-item',
@@ -8,5 +8,5 @@ import { RelatedArticleModel } from '../../../../../shared/models/related-articl
   standalone: true,
 })
 export class RelatedArticleItemComponent {
-  @Input() article!: RelatedArticleModel;
+  @Input() article!: ArticleModel;
 }

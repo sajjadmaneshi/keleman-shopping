@@ -1,0 +1,12 @@
+.product-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 1rem !important;
+  cursor: pointer;
+
+  h6 {
+    margin: 0 1rem;
+  }
+}

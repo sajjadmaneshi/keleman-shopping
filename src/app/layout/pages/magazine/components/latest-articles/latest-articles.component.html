@@ -1,0 +1,28 @@
+<div class="card card-rounded-3 border border-gray-300 shadow mb-3">
+  <h6 class="p-3">جدیدترین مقالات</h6>
+
+  <div class="card-body">
+    <ul class="p-0 latest-article-list">
+      <li *ngFor="let article of articles">
+        <div class="symbol symbol-25">
+          <img loadingLazy [src]="article.image" />
+        </div>
+        <div class="d-flex flex-column flex-grow-1 px-2">
+          <h6>{{ article.title }}</h6>
+          <p>
+            نویسنده:
+            <a
+              >{{ article.author }}
+              {{
+                persianDateTimeService.fromGregorianString(
+                  article.date,
+                  "DD jMMMM YYYY"
+                )
+              }}</a
+            >
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

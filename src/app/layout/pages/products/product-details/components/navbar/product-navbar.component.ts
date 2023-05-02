@@ -1,9 +1,7 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
-  OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -26,7 +24,7 @@ export class ProductNavbarComponent {
   @HostListener('document:wheel', ['$event'])
   onScroll() {
     const elementRect = this.nav?.nativeElement?.getBoundingClientRect();
-    if (elementRect?.top === 185) {
+    if (elementRect?.top === 165) {
       this._renderer2.addClass(this.nav.nativeElement, 'bg-white');
       this._renderer2.addClass(this.nav.nativeElement, 'shadow-sm');
       this._renderer2.addClass(this.nav.nativeElement, 'rounded');

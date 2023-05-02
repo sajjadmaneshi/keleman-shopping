@@ -1,6 +1,6 @@
-<div class="card card-rounded-3 shadow-sm border-gray-300 mb-3">
+<div class="card card-rounded-3 shadow-sm border border-gray-300 mb-3">
   <div class="card-body">
-    <h6 class="fw-bold mb-3">کیف پول</h6>
+    <h6 class="fw-bold p-3">کیف پول</h6>
 
     <div class="row mx-0">
       <div class="col-12 col-md-7 order-1 order-md-0">
@@ -8,35 +8,17 @@
           <label for="increase-amount" class="fw-normal text-muted"
             >افزایش موجودی کیف پول</label
           >
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <keleman-input-group
+          <span class="d-flex align-items-baseline mb-3">
+            <input
+              class="keleman-text-field"
               id="increase-amount"
-              [type]="'number'"
-              [placeHolder]="'مقدار را به تومان وارد کنید'"
-            >
-              <span class="text-muted">تومان</span>
-            </keleman-input-group>
+              placeholder="مقدار را به تومان وارد کنید"
+            />
+
             <button class="btn btn-warning text-white wallet-action-button">
               پرداخت
             </button>
-          </div>
-        </div>
-        <div class="separator my-3"></div>
-        <div class="form-group">
-          <label for="gift-card" class="fw-normal text-muted"
-            >برداشت از کیف پول</label
-          >
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <keleman-input-group
-              id="gift-card"
-              [type]="'number'"
-              [placeHolder]="'مقدار را به تومان وارد کنید'"
-            >
-            </keleman-input-group>
-            <button class="btn btn-warning text-white wallet-action-button">
-              بررسی
-            </button>
-          </div>
+          </span>
         </div>
       </div>
       <div class="col-12 col-md-5 order-0 order-md-1 mb-3">
@@ -47,9 +29,9 @@
 </div>
 
 <div class="credits-history">
-  <div class="card card-rounded-3 shadow-sm border-gray-300">
+  <div class="card card-rounded-3 shadow-sm border border-gray-300">
     <div class="card-body">
-      <h6 class="fw-bold">تاریخچه تراکنش ها</h6>
+      <h6 class="fw-bold p-3">تاریخچه تراکنش ها</h6>
       <ng-container *ngIf="true; then full"></ng-container>
       <ng-template #full>
         <keleman-wallet-transaction-history></keleman-wallet-transaction-history>

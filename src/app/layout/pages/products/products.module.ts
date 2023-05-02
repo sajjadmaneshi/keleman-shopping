@@ -6,7 +6,6 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { ProductCommentsComponent } from './product-details/components/comments/product-comments.component';
 import { CommentItemComponent } from './product-details/components/comments/comment-item/comment-item.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
-import { MagazineModule } from '../magazine/magazine.module';
 import { HighchartsChartModule } from 'highcharts-angular';
 import {
   SwiperContentDirective,
@@ -58,20 +57,20 @@ import { BottomSheetComponent } from '../../../shared/components/bottom-sheet/bo
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatComponentsModule } from '../../../mat-components.module';
 import { ProductFiltersModule } from './product-list/components/product-filters/product-filters.module';
-import { LayoutModule } from '../../layout.module';
+
 import { ProductCommentsDialogComponent } from './product-details/components/comments/product-comments-dialog/product-comments-dialog.component';
-import { ProfileModule } from '../profile/profile.module';
+
 import { FAQComponent } from './product-details/components/faq/faq.component';
 import { FaqItemComponent } from './product-details/components/faq/faq-item/faq-item.component';
 import { AddQuestionDialogComponent } from './product-details/components/faq/add-question-dialog/add-question-dialog.component';
 import { FaqListDialogComponent } from './product-details/components/faq/faq-list-dialog/faq-list-dialog.component';
+import { ProductCategoryComponent } from '../main/components/product-category/product-category.component';
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ProductSpecializedSpecificationsComponent,
     ProductCommentsComponent,
-    CommentItemComponent,
     ProductNavbarComponent,
     ProductAlbumComponent,
     ProductMetaComponent,
@@ -98,7 +97,6 @@ import { FaqListDialogComponent } from './product-details/components/faq/faq-lis
     ProductsRoutingModule,
     NgxImageZoomModule,
     InlineSVGModule,
-    MagazineModule,
     HighchartsChartModule,
     SwiperContentDirective,
     SwiperTemplateDirective,
@@ -128,8 +126,9 @@ import { FaqListDialogComponent } from './product-details/components/faq/faq-lis
     ProductFiltersModule,
     MatComponentsModule,
     BottomSheetComponent,
-    LayoutModule,
-    ProfileModule,
+    ProductCategoryComponent,
+    CommentItemComponent,
   ],
+  exports: [ProductItemComponent],
 })
 export class ProductsModule {}

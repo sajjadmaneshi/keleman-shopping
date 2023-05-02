@@ -2,13 +2,10 @@
 
 .card {
   border-radius: 0 !important;
-
-  .card-header {
-    border: none;
-  }
+  border: none;
 
   .card-body {
-    padding: map-get($k-spacers, 3);
+    padding: map-get($klm-spacers, 3);
   }
 
   @each $breakpoint in map-keys($grid-breakpoints) {
@@ -21,10 +18,6 @@
 
           .card-header {
             border-radius: $value $value 0 0 !important;
-          }
-
-          .card-body {
-            border-radius: 0 0 $value $value !important;
           }
         }
       }

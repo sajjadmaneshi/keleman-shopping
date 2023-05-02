@@ -1,0 +1,72 @@
+<form [formGroup]="myBoxForm">
+  <div class="keleman-gray-card d-flex flex-column mb-5">
+    <div class="form-group">
+      <label for="title">عنوان باکس</label>
+      <input id="title" class="keleman-text-field" formControlName="title" />
+    </div>
+    <div class="form-group">
+      <label> رنگ باکس</label>
+      <div class="d-flex box-colors">
+        <div
+          *ngFor="let color of colors"
+          class="symbol symbol-10 box-colors-item"
+          [class.active]="selectedColor === color"
+          (click)="selectColor(color)"
+        >
+          <div
+            class="symbol-label fs-2 fw-semibold"
+            [ngClass]="'bg-' + color"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-rounded-3 shadow">
+      <div class="card-body row mx-0">
+        <div class="col-12 col-md-6 mb-3">
+          <h6 class="mb-3">محصولات</h6>
+          <div class="product-list">
+            <ng-container
+              *ngIf="products.length === 0; then empty; else fullProducts"
+            >
+            </ng-container>
+            <ng-template #fullProducts>
+              <keleman-box-product-item
+                *ngFor="let product of products"
+                [productDetails]="product"
+                (onMove)="moveToSelectedList($event)"
+              ></keleman-box-product-item>
+            </ng-template>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <h6 class="mb-3">محصولات باکس من</h6>
+
+          <div class="product-list">
+            <ng-container
+              *ngIf="
+                selectedProducts.length === 0;
+                then empty;
+                else fullSelected
+              "
+            >
+            </ng-container>
+            <ng-template #fullSelected>
+              <keleman-selected-product-box
+                *ngFor="let selectedProduct of selectedProducts"
+                [productDetails]="selectedProduct"
+                (remove)="removeFromSelected($event)"
+              ></keleman-selected-product-box>
+            </ng-template>
+          </div>
+        </div>
+        <ng-template #empty>
+          <keleman-empty-content></keleman-empty-content>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 text-center">
+    <button class="btn btn-warning submit-button">ثبت</button>
+  </div>
+</form>

@@ -11,7 +11,7 @@
     </ng-template>
   </label>
   <ng-template [ngIf]="productFilterService.canRemoveAll">
-    <div class="card card-rounded-3 border-gray-300">
+    <div class="card card-rounded-3 border border-gray-300">
       <div class="card-body">
         <h6>انتخاب های شما</h6>
         <keleman-filter-chip-list></keleman-filter-chip-list>
@@ -19,7 +19,7 @@
     </div>
   </ng-template>
 
-  <div class="card card-rounded-3 border-gray-300" id="product-filters">
+  <div class="card card-rounded-3 border border-gray-300" id="product-filters">
     <div class="card-body">
       <ul class="filter-list">
         <li>
@@ -51,7 +51,10 @@
   <label for="product-price-filter" class="text-warning fw-bold"
     >محدوده قیمت:</label
   >
-  <div id="product-price-filter" class="card card-rounded-3 border-gray-300">
+  <div
+    id="product-price-filter"
+    class="card card-rounded-3 border border-gray-300"
+  >
     <div class="card-body">
       <keleman-product-price-filter
         (changePrice)="onChangePrice($event)"

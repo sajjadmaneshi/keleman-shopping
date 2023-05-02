@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
-import { RelatedArticleModel } from '../../../../shared/models/related-article.model';
+import { ArticleModel } from '../../../../shared/models/article.model';
 import { SwiperComponent } from '../../../../shared/components/swiper/swiper.component';
 import {
   SwiperContentDirective,
@@ -25,6 +25,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class RelatedArticlesComponent {
   isLoading = new BehaviorSubject(false);
-  @Input() articles: RelatedArticleModel[] = [];
+  @Input() articles: ArticleModel[] = [];
   constructor(public applicationState: ApplicationStateService) {}
 }

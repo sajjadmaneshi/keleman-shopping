@@ -6,16 +6,16 @@
 
 .basket-item {
   & > * {
-    margin-left: map-get($k-spacers, 5);
+    margin-left: map-get($klm-spacers, 5);
   }
 
   .basket-item__remove {
     height: auto;
     width: auto;
     border: 0;
-    padding: $k-spacer;
+    padding: $klm-spacer;
     color: #ffff;
-    border-radius: map-get($k-spacers, 3) 0 0 map-get($k-spacers, 3);
+    border-radius: map-get($klm-spacers, 3) 0 0 map-get($klm-spacers, 3);
   }
 
   .basket-item__details-meta {
@@ -28,6 +28,6 @@
   }
 
   span.svg-icon:not(.remove) {
-    padding: 0 map-get($k-spacers, 1);
+    padding: 0 map-get($klm-spacers, 1);
   }
 }
