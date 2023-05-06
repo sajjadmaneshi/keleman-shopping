@@ -9,7 +9,6 @@ import {
 import { CommonModule } from '@angular/common';
 
 import SwiperCore, { Navigation } from 'swiper';
-import { InlineSVGModule } from 'ng-inline-svg-2';
 import { SwiperContentDirective } from '../../directives/swiper-template.directive';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedVariablesService } from '../../services/shared-variables.service';
@@ -21,7 +20,7 @@ SwiperCore.use([Navigation]);
 @Component({
   selector: 'keleman-swiper',
   standalone: true,
-  imports: [CommonModule, InlineSVGModule, MatIconModule, SwiperModule],
+  imports: [CommonModule, MatIconModule, SwiperModule],
   templateUrl: './swiper.component.html',
   styleUrls: ['./swiper.component.scss'],
   encapsulation: ViewEncapsulation.None,

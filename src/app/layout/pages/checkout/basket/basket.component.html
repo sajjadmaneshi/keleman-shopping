@@ -10,9 +10,9 @@
     </ng-container>
   </ng-template>
   <ng-template #full>
-    <app-basket-item></app-basket-item>
-    <app-basket-item></app-basket-item>
-    <app-basket-item></app-basket-item>
-    <app-basket-item></app-basket-item>
+    <app-basket-item
+      *ngFor="let basketItem of basketItems"
+      [basketItem]="basketItem"
+    ></app-basket-item>
   </ng-template>
 </div>

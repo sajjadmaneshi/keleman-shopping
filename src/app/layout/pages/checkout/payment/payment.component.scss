@@ -5,11 +5,14 @@ mat-checkbox:not(:last-child) {
 }
 .payment-methods {
   display: grid;
-
-  grid-gap: 1rem;
-  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 0.5rem;
   .payment-item {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    border-radius: 1rem;
+    border: 1px solid $gray-300;
+    align-items: center;
     min-height: 125px !important;
     .symbol {
       margin-bottom: 1rem;
@@ -18,7 +21,23 @@ mat-checkbox:not(:last-child) {
       border: 2px solid $klm-primary;
     }
   }
+  @media (min-width: 768.98px) {
+    & {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    & {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (max-width: 768.8px) {
+    & {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
 }
+
 #description {
   resize: none !important;
   max-height: 5rem;

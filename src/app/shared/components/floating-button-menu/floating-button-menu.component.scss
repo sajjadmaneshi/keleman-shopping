@@ -27,7 +27,7 @@ body.menuOpened {
   vertical-align: middle;
   color: map-get($theme-colors, "klm-primary");
   font-size: 22px;
-  z-index: 1020;
+  z-index: 1000;
   cursor: pointer;
   .contact-us {
     vertical-align: middle;

@@ -5,7 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InlineSVGModule } from 'ng-inline-svg-2';
+
 import { MagazineModule } from './layout/pages/magazine/magazine.module';
 import { SwiperComponent } from './shared/components/swiper/swiper.component';
 import { ApplicationStateService } from './shared/services/application-state.service';
@@ -25,7 +25,6 @@ import { SwiperModule } from 'swiper/angular';
     HttpClientModule,
     BrowserAnimationsModule,
     MatComponentsModule,
-    InlineSVGModule,
     SwiperModule,
     MagazineModule,
     SwiperComponent,

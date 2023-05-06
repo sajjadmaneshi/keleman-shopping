@@ -1,3 +1,22 @@
 <div class="container py-3">
-  <router-outlet></router-outlet>
+  <div class="row mx-0 g-1">
+    <div class="col-12 col-lg-8 mb-3">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="col-12 col-lg-4">
+      <keleman-latest-articles></keleman-latest-articles>
+      <div class="card card-rounded-3 shadow border border-gray-300">
+        <div class="card-body">
+          <h6 class="p-3">جستجو</h6>
+          <div class="form-group">
+            <label for="search">عنوان مورد نظر خود را وارد نمایید</label>
+            <input id="search" class="keleman-text-field" placeholder="عنوان" />
+          </div>
+          <button class="btn btn-outline btn-outline-klm-primary float-start">
+            جستجو
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

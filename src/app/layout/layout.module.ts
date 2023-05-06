@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
-import { InlineSVGModule } from 'ng-inline-svg-2';
 import { ValueChangerComponent } from '../shared/components/value-changer/value-changer.component';
 import { MainComponent } from './pages/main/main.component';
 import { SwiperComponent } from '../shared/components/swiper/swiper.component';
@@ -74,7 +73,6 @@ import { ArticleItemComponent } from '../shared/components/article-item/article-
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    InlineSVGModule,
     ValueChangerComponent,
     NgOptimizedImage,
     SwiperComponent,

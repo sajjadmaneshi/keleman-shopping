@@ -5,7 +5,7 @@
   flex-direction: column;
   .cover-image {
     border-radius: inherit !important;
-    max-height: map-get($klm-spacers, 70);
+    max-height: map-get($klm-spacers, 45);
   }
 
   .read-more {

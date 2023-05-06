@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'keleman-value-changer',
   templateUrl: './value-changer.component.html',
   standalone: true,
-  imports: [InlineSVGModule, MatIconModule],
+  imports: [MatIconModule],
   styleUrls: ['./value-changer.component.scss'],
 })
 export class ValueChangerComponent {

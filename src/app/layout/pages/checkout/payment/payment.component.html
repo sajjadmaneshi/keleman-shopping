@@ -2,98 +2,63 @@
   <label class="text-klm-primary fw-bolder mb-3" for="paymentMethod"
     >روش پرداخت</label
   >
-  <div class="card card-rounded-3 mb-3" id="paymentMethod">
-    <div class="card-body payment-methods">
-      <div
-        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center selected"
-      >
-        <div class="symbol">
-          <img src="assets/media/pGateway/bank-melat.jpg" />
-        </div>
-        <h6>درگاه بانگ ملت</h6>
+  <div class="payment-methods">
+    <div class="payment-item" *ngFor="let gateway of paymentGateWays">
+      <div class="symbol">
+        <img loadingLazy emptyImage [src]="gateway.logo" />
       </div>
-      <div
-        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+      <h6>{{ gateway.name }}</h6>
+    </div>
+
+    <button class="payment-item" (click)="openAttachReceiptDialog()">
+      <span
+        class="text-center d-flex justify-content-between text-danger w-100 remaining-time"
       >
-        <div class="symbol">
-          <img src="assets/media/pGateway/bank-melat.jpg" />
-        </div>
-        <h6>درگاه بانگ ملت</h6>
+        <span>زمان باقی مانده</span>
+        <span>11:54:09</span>
+      </span>
+      <div class="symbol">
+        <img src="assets/media/pGateway/bill.png" />
       </div>
-      <div
-        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
+      <h6>الصاق فیش بانکی</h6>
+    </button>
+    <button class="payment-item" (click)="openAttachChequeDialog()">
+      <span
+        class="text-center d-flex justify-content-between text-danger w-100 remaining-time"
       >
-        <div class="symbol">
-          <img src="assets/media/pGateway/bank-melat.jpg" />
-        </div>
-        <h6>درگاه بانگ ملت</h6>
+        <span>زمان باقی مانده</span>
+        <span>11:54:09</span>
+      </span>
+      <div class="symbol">
+        <img src="assets/media/pGateway/cheque.png" />
       </div>
-      <div
-        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
-      >
-        <div class="symbol">
-          <img src="assets/media/pGateway/bank-melat.jpg" />
-        </div>
-        <h6>درگاه بانگ ملت</h6>
+      <h6>ثبت چک صیادی</h6>
+    </button>
+    <div class="payment-item">
+      <div class="symbol">
+        <img src="assets/media/pGateway/cash-payment.png" />
       </div>
-      <button
-        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
-        (click)="openAttachReceiptDialog()"
-      >
-        <span
-          class="text-center d-flex justify-content-between text-danger w-100 remaining-time"
-        >
-          <span>زمان باقی مانده</span>
-          <span>11:54:09</span>
-        </span>
-        <div class="symbol">
-          <img src="assets/media/pGateway/bill.png" />
-        </div>
-        <h6>الصاق فیش بانکی</h6>
-      </button>
-      <button
-        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
-        (click)="openAttachChequeDialog()"
-      >
-        <span
-          class="text-center d-flex justify-content-between text-danger w-100 remaining-time"
-        >
-          <span>زمان باقی مانده</span>
-          <span>11:54:09</span>
-        </span>
-        <div class="symbol">
-          <img src="assets/media/pGateway/cheque.png" />
-        </div>
-        <h6>ثبت چک صیادی</h6>
-      </button>
-      <div
-        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
-      >
-        <div class="symbol">
-          <img src="assets/media/pGateway/cash-payment.png" />
-        </div>
-        <h6>پرداخت در محل</h6>
+      <h6>پرداخت در محل</h6>
+    </div>
+    <div class="payment-item">
+      <div class="symbol">
+        <img src="assets/media/pGateway/wallet.png" />
       </div>
-      <div
-        class="payment-item card card-rounded-3 border-1 d-flex flex-column align-items-center"
-      >
-        <div class="symbol">
-          <img src="assets/media/pGateway/wallet.png" />
-        </div>
-        <h6>پرداخت از کیف پول</h6>
-      </div>
+      <h6>پرداخت از کیف پول</h6>
     </div>
   </div>
-  <span class="text-danger mb-3"
+
+  <span class="text-danger my-3"
     >*درصورت لزوم میتوانید چند روش پرداخت با <a> شرایط مشخص</a> به طور همزمان
     انتخاب کنید.</span
   >
+
   <label class="text-klm-primary fw-bolder mb-3" for="discountCode"
     >کدتخفیف</label
   >
   <input
     id="discountCode"
-    class="form-control mb-3"
+    class="keleman-text-field mb-3 bg-gray-300"
     placeholder="کد تخفیف را وارد کنید"
   />
 
@@ -102,7 +67,7 @@
   >
   <textarea
     id="description"
-    class="form-control"
+    class="keleman-text-field bg-gray-300"
     placeholder="توضیحات"
   ></textarea>
 </div>

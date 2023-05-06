@@ -17,13 +17,7 @@
         *ngFor="let _ of sharedVariableService.counter(3); let i = index"
       >
         <ng-template swiperSlide>
-          <div
-            class="card slide"
-            [class.is-phone]="
-              applicationStateService.isPhone ||
-              applicationStateService.isTablet
-            "
-          >
+          <div class="card slide">
             <picture class="img-container h-100 w-100">
               <img
                 alt="keleman"

@@ -8,12 +8,15 @@ import { ArticleListComponent } from './components/list/article-list.component';
 import { MagazineRoutingModule } from './magazine-routing.module';
 import { CommentComponent } from './components/comment/comment.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AppModule } from '../../../app.module';
+
 import { ArticleItemComponent } from '../../../shared/components/article-item/article-item.component';
 import { ArticleComponent } from './components/article/article.component';
-import { InlineSVGModule } from 'ng-inline-svg-2';
 import { LatestArticlesComponent } from './components/latest-articles/latest-articles.component';
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
+import { MatIconModule } from '@angular/material/icon';
+import { ArticleLinkListDirective } from './components/article/article-link-list.directive';
+import { ArticleItemThumbnailComponent } from '../../../shared/components/article-item-thumbnail/article-item-thumbnail.component';
+import { CommentsModule } from '../../../shared/components/comments/comments.module';
 
 export const routes: Routes = [{ path: '', component: MagazineComponent }];
 
@@ -25,15 +28,17 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
     CommentComponent,
     LatestArticlesComponent,
   ],
-  exports: [CommentComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     MagazineRoutingModule,
     ReactiveFormsModule,
     ArticleItemComponent,
-    InlineSVGModule,
     LazyLoadingDirective,
+    MatIconModule,
+    ArticleLinkListDirective,
+    ArticleItemThumbnailComponent,
+    CommentsModule,
   ],
 })
 export class MagazineModule {}

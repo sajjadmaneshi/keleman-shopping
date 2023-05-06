@@ -1,0 +1,26 @@
+@import "../../../../../styles/base/variables/colors";
+@import "../../../../../styles/base/variables/spacers";
+
+.comment-item {
+  height: map-get($klm-spacers, 40);
+  width: map-get($klm-spacers, 67);
+
+  border: 2px solid map-get($theme-colors, "accent") !important;
+
+  .comment-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  &.full-width {
+    height: unset;
+    width: 100% !important;
+  }
+}
+
+.status {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px 0 0 0;
+}

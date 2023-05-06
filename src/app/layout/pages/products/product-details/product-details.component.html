@@ -1,14 +1,47 @@
 <keleman-product-content></keleman-product-content>
 
-<keleman-product-navbar class="sticky-md-top"></keleman-product-navbar>
+<keleman-product-navbar></keleman-product-navbar>
 
-<ng-template [ngIf]="!applicationState.isPhone">
+<ng-container
+  *ngIf="
+    applicationState.isPhone || applicationState.isTablet;
+    then mobile;
+    else web
+  "
+></ng-container>
+<ng-template #mobile>
+  <div class="fixed-bottom mt-5">
+    <div class="card shadow-lg bg-white">
+      <div class="card-body row m-0">
+        <div class="col-6">
+          <button
+            class="actions__buttons text-klm-primary fs-5 fw-bolder w-100"
+          >
+            افزودن به سبد خرید
+          </button>
+        </div>
+        <div class="col-6">
+          <span class="d-flex flex-column kfs-3 text-start">
+            <h3>{{ 38249000 | number : ".0" }} تومان</h3>
+            <keleman-price
+              [value]="3000000"
+              [color]="'dark'"
+              [size]="'h3'"
+              [off]="true"
+              [discount]="25"
+            ></keleman-price>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #web>
   <keleman-product-specifications></keleman-product-specifications>
-
   <div id="checking-and-rate">
     <div class="row mx-0 mb-3">
       <div class="col-6 pe-0" id="comment">
-        <keleman-product-comments></keleman-product-comments>
+        <comments></comments>
       </div>
       <div class="col-6 ps-0">
         <keleman-faq></keleman-faq>

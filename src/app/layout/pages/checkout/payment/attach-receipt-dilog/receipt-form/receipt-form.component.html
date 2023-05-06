@@ -2,7 +2,7 @@
   <div class="card card-rounded-3 border-1 mb-3 position-relative">
     <ng-template [ngIf]="number > 0">
       <button
-        class="btn btn-icon btn-icon-sm btn-circle btn-danger remove"
+        class="btn btn-icon btn-circle btn-danger remove"
         (click)="remove()"
       >
         <mat-icon>clear</mat-icon>
@@ -10,7 +10,7 @@
     </ng-template>
 
     <div class="d-flex align-items-center">
-      <span class="text-warning payment-number">{{ number + 1 }} پرداخت </span>
+      <span class="text-warning payment-number"> پرداخت {{ number + 1 }}</span>
       <div
         class="d-flex flex-column border-end border-gray-300 rounded mx-1 p-3"
       >
@@ -69,13 +69,15 @@
           <span>{{ amount.value | numberToPersian }}</span>
         </ng-template>
 
-        <div class="card card-rounded-3 border-0">
+        <div class="card card-rounded-3">
           <keleman-dropzone
             (onFileSelect)="selectedFiles($event)"
             [showSelectButton]="true"
             [valid]="false"
           >
-            <p>برای بارگذاری فیش بانکی ، فایل را در اینجا رها کنید</p>
+            <p class="fs-5">
+              برای بارگذاری فیش بانکی ، فایل را در اینجا رها کنید
+            </p>
           </keleman-dropzone>
         </div>
       </div>

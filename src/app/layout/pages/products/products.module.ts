@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
-import { ProductCommentsComponent } from './product-details/components/comments/product-comments.component';
-import { CommentItemComponent } from './product-details/components/comments/comment-item/comment-item.component';
-import { InlineSVGModule } from 'ng-inline-svg-2';
 import { HighchartsChartModule } from 'highcharts-angular';
 import {
   SwiperContentDirective,
@@ -27,14 +24,12 @@ import { ProductSpecificationsComponent } from './product-details/components/spe
 import { ProductIntroductionComponent } from './product-details/components/specifications/introduction/product-introduction.component';
 import { ProductContentComponent } from './product-details/components/content/product-content.component';
 import { ProductRelatesComponent } from './product-details/components/relateds/product-relates.component';
-import { PurchaseMobileComponent } from '../../views/mobile/purchase-mobile/purchase-mobile.component';
 import { SwiperItemComponent } from '../../../shared/components/swiper/swiper-item/swiper-item.component';
 import {
   ReadMoreContentDirective,
   ReadMoreTemplateDirective,
 } from '../../../shared/directives/read-more-list-template.directive';
 import { ReadMoreComponent } from '../../../shared/components/read-more/read-more.component';
-import { RelatedArticlesComponent } from '../../views/shared/related-articles/related-articles.component';
 import { BarRatingComponent } from '../../../shared/components/bar-rating/bar-rating.component';
 import { ProductSpecializedSpecificationsComponent } from './product-details/components/specifications/special-specification/product-specialized-specifications.component';
 import { TextWithIconComponent } from '../../../shared/components/text-with-icon/text-with-icon.component';
@@ -51,26 +46,22 @@ import { ProductItemComponent } from './product-list/components/product-item/pro
 import { PriceComponent } from '../../../shared/components/price/price.component';
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
-import { AddCommentDialogComponent } from './product-details/components/comments/add-comment-dialog/add-comment-dialog.component';
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { BottomSheetComponent } from '../../../shared/components/bottom-sheet/bottom-sheet.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatComponentsModule } from '../../../mat-components.module';
 import { ProductFiltersModule } from './product-list/components/product-filters/product-filters.module';
-
-import { ProductCommentsDialogComponent } from './product-details/components/comments/product-comments-dialog/product-comments-dialog.component';
-
 import { FAQComponent } from './product-details/components/faq/faq.component';
 import { FaqItemComponent } from './product-details/components/faq/faq-item/faq-item.component';
 import { AddQuestionDialogComponent } from './product-details/components/faq/add-question-dialog/add-question-dialog.component';
 import { FaqListDialogComponent } from './product-details/components/faq/faq-list-dialog/faq-list-dialog.component';
 import { ProductCategoryComponent } from '../main/components/product-category/product-category.component';
+import { CommentsModule } from '../../../shared/components/comments/comments.module';
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ProductSpecializedSpecificationsComponent,
-    ProductCommentsComponent,
     ProductNavbarComponent,
     ProductAlbumComponent,
     ProductMetaComponent,
@@ -85,8 +76,6 @@ import { ProductCategoryComponent } from '../main/components/product-category/pr
     ProductSearchComponent,
     ProductsSortComponent,
     ProductItemComponent,
-    AddCommentDialogComponent,
-    ProductCommentsDialogComponent,
     FAQComponent,
     FaqItemComponent,
     AddQuestionDialogComponent,
@@ -96,7 +85,6 @@ import { ProductCategoryComponent } from '../main/components/product-category/pr
     CommonModule,
     ProductsRoutingModule,
     NgxImageZoomModule,
-    InlineSVGModule,
     HighchartsChartModule,
     SwiperContentDirective,
     SwiperTemplateDirective,
@@ -106,12 +94,10 @@ import { ProductCategoryComponent } from '../main/components/product-category/pr
     NgbNavLink,
     NgbNavContent,
     NgbNavOutlet,
-    PurchaseMobileComponent,
     SwiperItemComponent,
     ReadMoreContentDirective,
     ReadMoreTemplateDirective,
     ReadMoreComponent,
-    RelatedArticlesComponent,
     NgbRating,
     BarRatingComponent,
     TextWithIconComponent,
@@ -127,7 +113,7 @@ import { ProductCategoryComponent } from '../main/components/product-category/pr
     MatComponentsModule,
     BottomSheetComponent,
     ProductCategoryComponent,
-    CommentItemComponent,
+    CommentsModule,
   ],
   exports: [ProductItemComponent],
 })

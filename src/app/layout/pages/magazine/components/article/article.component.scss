@@ -1,14 +1,21 @@
-.article-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
+@import "base/variables/spacers";
+@import "base/variables/colors";
 .article-content__body {
   line-height: 2.5rem;
   clear: right;
   text-align: justify;
+  padding: 0 1rem;
+}
+
+.article-cover {
+  width: 100%;
+  height: map-get($klm-spacers, 112);
+  img {
+    height: inherit;
+    width: inherit;
+    border-radius: $klm-spacer;
+    object-fit: cover;
+  }
 }
 
 .article-container__banner {
@@ -23,5 +30,13 @@
   img,
   .svg-icon {
     margin: 0 0.5rem;
+  }
+}
+
+.related-articles-title {
+  width: 100%;
+  border-bottom: 1px solid $gray-500;
+  span {
+    border-bottom: 1px solid $klm-primary;
   }
 }

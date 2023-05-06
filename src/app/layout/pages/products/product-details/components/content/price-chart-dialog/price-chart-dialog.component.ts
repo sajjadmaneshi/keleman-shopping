@@ -4,7 +4,6 @@ import * as Highcharts from 'highcharts';
 @Component({
   selector: 'price-chart-dialog',
   templateUrl: './price-chart-dialog.component.html',
-  styleUrls: ['./price-chart-dialog.component.scss'],
 })
 export class PriceChartDialogComponent {
   @Input() items!: any[];

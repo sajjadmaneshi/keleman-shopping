@@ -1,4 +1,7 @@
 @import "base/variables/colors";
+:host {
+  width: 100%;
+}
 .nav-link {
   color: black !important;
   padding-right: 1rem !important;
@@ -8,6 +11,3 @@
   background-color: map-get($theme-colors, "klm-primary");
   color: white !important;
 }
-//.header-main-menu {
-//  margin-right: 10rem;
-//}

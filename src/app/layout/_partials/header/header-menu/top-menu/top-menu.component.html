@@ -8,9 +8,7 @@
   /></a>
 
   <keleman-search-bar class="flex-grow-1"></keleman-search-bar>
-  <div
-    class="d-none d-md-flex align-items-center bg-klm-primary rounded-1 p-1 login-register"
-  >
+  <div class="align-items-center bg-klm-primary rounded-1 p-1 login-register">
     <button class="btn text-warning w-50">ثبت نام</button>
     <button class="btn bg-white rounded-1 text-klm-primary w-50">ورود</button>
   </div>
@@ -31,7 +29,7 @@
   </ng-template>
 
   <a
-    class="d-none d-md-flex position-relative flex-column align-items-center basket"
+    class="d-flex position-relative flex-column align-items-center basket"
     [routerLink]="['checkout']"
   >
     <h3 class="basket-count text-warning">0</h3>
@@ -44,8 +42,3 @@
     <h6>سبد خرید</h6>
   </a>
 </div>
-<ng-template #content let-offcanvas>
-  <keleman-off-canvas-menu
-    (close)="offcanvas.close('cross click')"
-  ></keleman-off-canvas-menu>
-</ng-template>

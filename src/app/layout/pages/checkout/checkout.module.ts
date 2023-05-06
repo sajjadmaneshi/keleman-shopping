@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { BasketItemComponent } from './basket/basket-item/basket-item.component';
 import { CheckoutComponent } from './checkout.component';
-import { InlineSVGModule } from 'ng-inline-svg-2';
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PriceComponent } from '../../../shared/components/price/price.component';
-import { PurchaseComponent } from '../../views/shared/purchase/purchase.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CheckoutStepperComponent } from './checkout-stepper/checkout-stepper.component';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -14,7 +12,6 @@ import { BasketComponent } from './basket/basket.component';
 import { Routing } from '../../../routing';
 import { ShippingComponent } from './shipping/shipping.component';
 import { AddressItemComponent } from '../profile/address/address-item/address-item.component';
-import { ShippingTimeComponent } from './shipping/shipping-time/shipping-time.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentComponent } from './payment/payment.component';
@@ -32,6 +29,9 @@ import { NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DropzoneComponent } from '../../../shared/components/dropzone/dropzone.component';
+import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
+import { PurchaseModule } from './purchase/purchase.module';
+import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
 
 export const routes: Routes = [
   {
@@ -53,7 +53,6 @@ export const routes: Routes = [
     CheckoutStepperComponent,
     BasketComponent,
     ShippingComponent,
-    ShippingTimeComponent,
     PaymentComponent,
     OrderSummaryComponent,
     AttachReceiptDialogComponent,
@@ -62,11 +61,10 @@ export const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    InlineSVGModule,
     ValueChangerComponent,
     RouterModule.forChild(routes),
     PriceComponent,
-    PurchaseComponent,
+
     MatIconModule,
     MatStepperModule,
     AddressItemComponent,
@@ -82,6 +80,9 @@ export const routes: Routes = [
     DatePickerComponent,
     NgxDropzoneModule,
     DropzoneComponent,
+    LazyLoadingDirective,
+    PurchaseModule,
+    EmptyImageDirective,
   ],
   providers: [DecimalPipe, CheckoutService],
 })

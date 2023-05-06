@@ -9,12 +9,22 @@ export class DataService<T> {
     return `${ENVIRONMENT.baseUrl}${this._url}`;
   }
 
-  getAll(): Observable<T[]> {
-    return this._http.get(this._getUrl).pipe() as Observable<T[]>;
+  getAll(params?: ParamMap[]): Observable<T[]> {
+    let paramStringify = '';
+    if (params) {
+      const mappedArray = params.map((x) => {
+        return `${x.param}=${x.value}`;
+      });
+      paramStringify = `?${mappedArray.join('&')}`;
+    }
+    return this._http
+      .get(`${this._getUrl}${paramStringify}`)
+      .pipe() as Observable<T[]>;
   }
   getSingle(id: number | string): Observable<T> {
     return this._http.get(`${this._getUrl}/${id}`) as Observable<T>;
   }
+
   create(resource: T): Observable<any> {
     return this._http.post(
       this._getUrl,
@@ -30,4 +40,8 @@ export class DataService<T> {
   delete(id: string | number): Observable<any> {
     return this._http.delete(`${this._getUrl}/${id}`) as Observable<any>;
   }
+}
+export interface ParamMap {
+  param: string;
+  value: string;
 }

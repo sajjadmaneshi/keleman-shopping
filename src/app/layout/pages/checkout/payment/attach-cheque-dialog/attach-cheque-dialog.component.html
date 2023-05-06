@@ -14,90 +14,94 @@
   >
 
   <ng-template #chequeFormTemplate>
-    <form [formGroup]="chequeForm">
-      <label for="cheque-details">اطلاعات چک</label>
-      <div
-        id="cheque-details"
-        class="card card-rounded-3 border-1 cheque-details mb-3"
-      >
-        <div class="card-body" formGroupName="chequeDetails">
-          <div class="form-group">
-            <label for="bank-name">نام بانک</label>
-            <input
-              id="bank-name"
-              class="keleman-text-field"
-              placeholder="نام بانک را وارد نمایید"
-              formControlName="bankName"
-            />
-          </div>
-          <div class="form-group">
-            <label for="cheque-num">شناسه چک</label>
-            <input
-              id="cheque-num"
-              class="keleman-text-field"
-              placeholder="شناسه چک را وارد نمایید"
-              formControlName="chequeId"
-            />
-          </div>
-          <div class="form-group">
-            <label for="date">تاریخ</label>
-            <keleman-date-picker
-              id="date"
-              (onDatePickerClick)="selectDate($event)"
-            ></keleman-date-picker>
-          </div>
-          <div class="form-group"></div>
-          <div class="form-group">
-            <label for="amount">مبلغ</label>
-            <input
-              id="amount"
-              class="keleman-text-field"
-              placeholder="مبلغ چک را وارد نمایید"
-              formControlName="amount"
-              type="number"
-            />
-            <ng-template [ngIf]="amount.value">
-              <span class="d-flex">
-                <label class="fw-bold">معادل: </label>
+    <div class="cheque-form">
+      <form [formGroup]="chequeForm">
+        <label for="cheque-details">اطلاعات چک</label>
+        <div
+          id="cheque-details"
+          class="card card-rounded-3 border-1 cheque-details mb-3"
+        >
+          <div class="card-body" formGroupName="chequeDetails">
+            <div class="form-group">
+              <label for="bank-name">نام بانک</label>
+              <input
+                id="bank-name"
+                class="keleman-text-field"
+                placeholder="نام بانک را وارد نمایید"
+                formControlName="bankName"
+              />
+            </div>
+            <div class="form-group">
+              <label for="cheque-num">شناسه چک</label>
+              <input
+                id="cheque-num"
+                class="keleman-text-field"
+                placeholder="شناسه چک را وارد نمایید"
+                formControlName="chequeId"
+              />
+            </div>
+            <div class="form-group">
+              <label for="date">تاریخ</label>
+              <keleman-date-picker
+                id="date"
+                (onDatePickerClick)="selectDate($event)"
+              ></keleman-date-picker>
+            </div>
+            <div class="form-group"></div>
+            <div class="form-group">
+              <label for="amount">مبلغ</label>
+              <input
+                id="amount"
+                class="keleman-text-field"
+                placeholder="مبلغ چک را وارد نمایید"
+                formControlName="amount"
+                type="number"
+              />
+              <ng-template [ngIf]="amount.value">
+                <span class="d-flex">
+                  <label class="fw-bold">معادل: </label>
 
-                <span>{{ amount.value | numberToPersian }}</span>
-              </span>
-            </ng-template>
+                  <span>{{ amount.value | numberToPersian }}</span>
+                </span>
+              </ng-template>
+            </div>
           </div>
         </div>
-      </div>
-      <label for="receiver-details"> اطلاعات دریافت کننده </label>
-      <div
-        id="receiver-details"
-        class="card card-rounded-3 border-1 receiver-details mb-3"
-      >
-        <div class="card-body" formGroupName="receiverDetails">
-          <div class="form-group">
-            <label for="fullName">نام و نام خانوادگی</label>
-            <input
-              class="keleman-text-field"
-              id="fullName"
-              placeholder="نام و نام خانوادگی دریافت کننده را وارد نمایید"
-              formControlName="fullName"
-            />
-          </div>
-          <div class="form-group">
-            <label for="national-code"> کدملی / شناسه ملی </label>
-            <input
-              class="keleman-text-field"
-              id="national-code"
-              placeholder="کد ملی یا شناسه ملی دریافت کننده را وارد نمایید"
-              formControlName="nationalCode"
-            />
+        <label for="receiver-details"> اطلاعات دریافت کننده </label>
+        <div
+          id="receiver-details"
+          class="card card-rounded-3 border-1 receiver-details mb-3"
+        >
+          <div class="card-body" formGroupName="receiverDetails">
+            <div class="form-group">
+              <label for="fullName">نام و نام خانوادگی</label>
+              <input
+                class="keleman-text-field"
+                id="fullName"
+                placeholder="نام و نام خانوادگی دریافت کننده را وارد نمایید"
+                formControlName="fullName"
+              />
+            </div>
+            <div class="form-group">
+              <label for="national-code"> کدملی / شناسه ملی </label>
+              <input
+                class="keleman-text-field"
+                id="national-code"
+                placeholder="کد ملی یا شناسه ملی دریافت کننده را وارد نمایید"
+                formControlName="nationalCode"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card card-rounded-3 border-0">
-        <keleman-dropzone [showSelectButton]="true" [multiple]="true">
-          <p>برای بارگذاری عکس پشت و رو چک ، فایل را در اینجا رها کنید</p>
-        </keleman-dropzone>
-      </div>
-    </form>
+        <div class="card card-rounded-3 border-0">
+          <keleman-dropzone [showSelectButton]="true" [multiple]="true">
+            <p class="fs-5">
+              برای بارگذاری عکس پشت و رو چک ، فایل را در اینجا رها کنید
+            </p>
+          </keleman-dropzone>
+        </div>
+      </form>
+    </div>
   </ng-template>
 
   <span

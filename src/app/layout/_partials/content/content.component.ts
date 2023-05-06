@@ -3,7 +3,6 @@ import { AfterViewInit, Component } from '@angular/core';
 @Component({
   selector: 'keleman-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss'],
 })
 export class ContentComponent implements AfterViewInit {
   ngAfterViewInit(): void {

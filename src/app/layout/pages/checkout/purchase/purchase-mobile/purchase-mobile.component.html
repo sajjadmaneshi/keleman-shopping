@@ -1,0 +1,25 @@
+<div class="fixed-bottom mt-5 purchase-mobile">
+  <div class="card shadow-lg bg-white">
+    <div class="card-body">
+      <div class="card border border-gray-300 card-rounded-3 mb-3">
+        <div class="card-body">
+          <keleman-until-free-shipping></keleman-until-free-shipping>
+          <keleman-main-purchase></keleman-main-purchase>
+        </div>
+      </div>
+      <div class="actions d-grid">
+        <button
+          class="btn btn-warning text-klm-primary actions__buttons fs-5 fw-bolder"
+          (click)="checkoutService.nextStep()"
+        >
+          ادامه فرایند خرید
+        </button>
+        <button
+          class="btn btn-klm-primary text-white actions__buttons fs-5 fw-bolder"
+        >
+          دریافت پیش فاکتور
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

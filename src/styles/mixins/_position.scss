@@ -1,0 +1,14 @@
+$directions: (
+  top: top,
+  right: right,
+  left: left,
+  bottom: bottom,
+) !default;
+
+@each $direction in map-keys($directions) {
+  @each $name, $value in $klm-spacers {
+    .#{$direction}-#{$name} {
+      #{$direction}: $value;
+    }
+  }
+}

@@ -1,11 +1,7 @@
 <div
-  class="d-flex align-items-center justify-content-between value-changer fw-bold"
+  class="d-flex align-items-center justify-content-between value-changer fw-bold px-3"
 >
-  <button class="btn btn-icon text-success" (click)="increase()">
-    <mat-icon> add</mat-icon>
-  </button>
+  <mat-icon class="text-success" inline (click)="increase()"> add</mat-icon>
   <span class="fw-bolder">{{ value }}</span>
-  <button class="btn btn-icon text-danger" (click)="decrease()">
-    <mat-icon> remove </mat-icon>
-  </button>
+  <mat-icon class="text-danger" inline (click)="decrease()"> remove </mat-icon>
 </div>

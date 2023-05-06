@@ -19,7 +19,9 @@
   background-color: map-get($theme-colors, "gray-300");
   color: black !important;
 }
-
 .mobile-nav {
-  top: map-get($klm-spacers, 66);
+  top: 20rem;
+  li {
+    margin-bottom: 0 !important;
+  }
 }
