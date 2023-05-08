@@ -45,6 +45,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { AdvertisingBannersComponent } from './pages/main/components/advertising-banners/advertising-banners.component';
 import { ProductCategoryComponent } from './pages/main/components/product-category/product-category.component';
 import { ArticleItemComponent } from '../shared/components/article-item/article-item.component';
+import { AboutUsSummaryComponent } from './pages/main/components/about-us-summary/about-us-summary.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ArticleItemComponent } from '../shared/components/article-item/article-
     SearchResultMenuComponent,
     HeaderMobileComponent,
     AdvertisingBannersComponent,
+    AboutUsSummaryComponent,
   ],
   imports: [
     CommonModule,

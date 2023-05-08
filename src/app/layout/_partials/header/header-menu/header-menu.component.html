@@ -1,59 +1,64 @@
-<nav
-  class="navbar navbar-expand-lg w-100 d-flex justify-content-between"
-  id="keleman-header"
->
-  <ul class="navbar-nav mr-auto my-3 p-0">
-    <li class="nav-item dropdown">
-      <div
-        ngbDropdown
-        #myDrop="ngbDropdown"
-        class="d-inline-block"
-        container="body"
-      >
-        <a
-          type="button"
-          class="nav-link dropdown-toggle d-flex align-items-center"
-          id="navbarDropdown"
-          ngbDropdownToggle
-          (mouseover)="$event.stopPropagation(); myDrop.open()"
-        >
-          <span class="material-icons-outlined"> grid_view </span>
-          دسته بندی ها
-        </a>
-
+<span class="d-flex align-items-center justify-content-between">
+  <nav
+    class="navbar navbar-expand-lg d-flex justify-content-between"
+    id="keleman-header"
+  >
+    <ul class="navbar-nav mr-auto my-3 p-0">
+      <li class="nav-item dropdown">
         <div
-          ngbDropdownMenu
-          aria-labelledby="dropdownBasic1"
-          (mouseleave)="$event.stopPropagation(); myDrop.close()"
+          ngbDropdown
+          #myDrop="ngbDropdown"
+          class="d-inline-block"
+          container="body"
         >
-          <keleman-mega-menu></keleman-mega-menu>
-        </div>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a
-        class="nav-link"
-        [routerLink]="''"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        >صفحه نخست</a
-      >
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="'magazine'" routerLinkActive="active"
-        >مجله کلمان</a
-      >
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">خرید قطعات آسانسور</a>
-    </li>
+          <a
+            type="button"
+            class="nav-link dropdown-toggle d-flex align-items-center"
+            id="navbarDropdown"
+            ngbDropdownToggle
+            (mouseover)="$event.stopPropagation(); myDrop.open()"
+          >
+            <span class="material-icons-outlined"> grid_view </span>
+            دسته بندی ها
+          </a>
 
-    <li class="nav-item">
-      <a class="nav-link" href="#">باشگاه مشتریان کلمان</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">با کلمان</a>
-    </li>
-  </ul>
-  <h3 class="text-klm-primary">شماره تماس : 3808 - 071</h3>
-</nav>
+          <div
+            ngbDropdownMenu
+            aria-labelledby="dropdownBasic1"
+            (mouseleave)="$event.stopPropagation(); myDrop.close()"
+          >
+            <keleman-mega-menu></keleman-mega-menu>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="''"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >صفحه نخست</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="'magazine'" routerLinkActive="active"
+          >مجله کلمان</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">خرید قطعات آسانسور</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="#">باشگاه مشتریان کلمان</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">با کلمان</a>
+      </li>
+    </ul>
+  </nav>
+  <span class="text-klm-primary d-flex align-items-center fs-3">
+    3808 - 071
+    <mat-icon inline class="mx-1 animate__heartBeat">headset_mic</mat-icon>
+  </span>
+</span>
