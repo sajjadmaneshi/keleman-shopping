@@ -34,6 +34,11 @@
   > * {
     display: inline;
   }
+  @media (min-width: 1024px) and (max-width: 1440px) {
+    & {
+      flex-direction: column;
+    }
+  }
 }
 
 .rate {

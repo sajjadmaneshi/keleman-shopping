@@ -1,0 +1,51 @@
+@import "base/variables/colors";
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  direction: ltr;
+  margin: 1rem 0;
+}
+.pagination.pagination-circle .page-link {
+  border-radius: 50%;
+  border: none !important;
+  color: $klm-primary;
+}
+
+.page-item {
+  margin-right: 0.5rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  .page-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    font-weight: 500;
+    font-size: 1.075rem;
+  }
+}
+
+.page-item.active .page-link {
+  color: var(--bs-pagination-active-color);
+  background-color: $klm-primary;
+}
+
+.page-item.disabled .page-link {
+  color: var(--bs-pagination-disabled-color);
+}
+
+@media (max-width: 991.98px) {
+  .page-item {
+    margin-right: 0.25rem;
+  }
+  .page-item:last-child {
+    margin-right: 0;
+  }
+}

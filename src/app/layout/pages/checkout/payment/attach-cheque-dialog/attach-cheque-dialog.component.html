@@ -1,5 +1,7 @@
 <div mat-dialog-content>
-  <h5 class="dialog-title mb-3 text-center text-klm-primary">ثبت چک صیادی</h5>
+  <span class="dialog-title mb-3 text-center text-klm-primary fs-5"
+    >ثبت چک صیادی</span
+  >
   <ng-container
     *ngIf="showForm; then chequeFormTemplate; else addNewCheque"
   ></ng-container>
@@ -107,13 +109,11 @@
   <span
     class="text-center text-danger d-flex flex-column align-items-center my-3"
   >
-    <h6>
+    <span>
       مشتری گرامی قبل از افزودن چک با ویزیتور مربوطه و یا شماره 3808 هماهنگ
       فرمایید.
-    </h6>
-    <span class="d-flex align-items-center"
-      ><h6>زمان باقی مانده جهت پرداخت:</h6>
     </span>
+    <span class="d-flex align-items-center"> زمان باقی مانده جهت پرداخت: </span>
   </span>
   <div class="w-100 text-center">
     <button class="btn btn-success text-white mx-3">ذخیره</button>

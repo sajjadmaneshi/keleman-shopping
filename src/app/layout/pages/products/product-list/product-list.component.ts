@@ -3,6 +3,7 @@ import { ProductRepository } from '../data/repositories/product.repository';
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
 import { Subscription } from 'rxjs';
 import { ParamMap } from '../../../../shared/services/data.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'keleman-product-list',
@@ -20,12 +21,6 @@ export class ProductListComponent {
   throttle = 500;
   scrollDistance = 1;
 
-  onScrollDown() {
-    this.page = this.page + 1;
-
-    this.getAllProducts(this.page);
-  }
-
   getAllProducts(page: number) {
     const params: ParamMap[] = [
       { param: '_page', value: page.toString() },
@@ -34,5 +29,9 @@ export class ProductListComponent {
     this._repository.getAll(params).subscribe((value) => {
       this.products = [...this.products, ...value];
     });
+  }
+
+  pageChange($event: number) {
+    this.getAllProducts($event);
   }
 }

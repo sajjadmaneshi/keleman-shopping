@@ -1,6 +1,6 @@
 <span class="d-flex align-items-center justify-content-between">
   <nav
-    class="navbar navbar-expand-lg d-flex justify-content-between"
+    class="navbar navbar-expand-lg d-flex justify-content-between p-0"
     id="keleman-header"
   >
     <ul class="navbar-nav mr-auto my-3 p-0">
@@ -10,19 +10,21 @@
           #myDrop="ngbDropdown"
           class="d-inline-block"
           container="body"
+          autoClose="false"
         >
           <a
             type="button"
-            class="nav-link dropdown-toggle d-flex align-items-center"
+            class="nav-link dropdown-toggle d-flex"
             id="navbarDropdown"
             ngbDropdownToggle
-            (mouseover)="$event.stopPropagation(); myDrop.open()"
+            (mouseover)="onHover($event)"
           >
             <span class="material-icons-outlined"> grid_view </span>
             دسته بندی ها
           </a>
 
           <div
+            #dropDownMenu
             ngbDropdownMenu
             aria-labelledby="dropdownBasic1"
             (mouseleave)="$event.stopPropagation(); myDrop.close()"

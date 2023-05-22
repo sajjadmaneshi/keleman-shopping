@@ -1,12 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ArticleModel } from '../../../../../shared/models/article.model';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent {
+export class ArticleComponent implements OnInit {
+  pageUrl: string;
   @Input() article!: ArticleModel;
   articles: ArticleModel[] = [
     {
@@ -34,4 +36,22 @@ export class ArticleComponent {
       author: 'سجاد منشی',
     },
   ];
+
+  constructor(private _met: Meta) {
+    this.pageUrl = window.location.href;
+  }
+
+  ngOnInit() {
+    this._met.updateTag({
+      name: 'title',
+      content: 'آسانسور چیست؟ | بررسی قیمت، قطعات و تاریخچه آسانسور',
+    });
+  }
+
+  shareOnWhatsApp() {
+    let text = encodeURIComponent('Check out this page: ');
+    let url = encodeURIComponent(this.pageUrl);
+    let whatsappUrl = `whatsapp://send?text=${text}${url}`;
+    window.open(whatsappUrl, '_blank');
+  }
 }

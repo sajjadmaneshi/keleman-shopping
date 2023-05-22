@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ArticleLinkListDirective } from './components/article/article-link-list.directive';
 import { ArticleItemThumbnailComponent } from '../../../shared/components/article-item-thumbnail/article-item-thumbnail.component';
 import { CommentsModule } from '../../../shared/components/comments/comments.module';
+import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
 
 export const routes: Routes = [{ path: '', component: MagazineComponent }];
 
@@ -27,6 +28,7 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
     ArticleListComponent,
     CommentComponent,
     LatestArticlesComponent,
+    ShareButtonsComponent,
   ],
   imports: [
     CommonModule,

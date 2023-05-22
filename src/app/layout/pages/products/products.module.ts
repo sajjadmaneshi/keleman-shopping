@@ -57,6 +57,8 @@ import { AddQuestionDialogComponent } from './product-details/components/faq/add
 import { FaqListDialogComponent } from './product-details/components/faq/faq-list-dialog/faq-list-dialog.component';
 import { ProductCategoryComponent } from '../main/components/product-category/product-category.component';
 import { CommentsModule } from '../../../shared/components/comments/comments.module';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { CategoryAboutComponent } from './product-list/components/category-about/category-about.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,7 @@ import { CommentsModule } from '../../../shared/components/comments/comments.mod
     FaqItemComponent,
     AddQuestionDialogComponent,
     FaqListDialogComponent,
+    CategoryAboutComponent,
   ],
   imports: [
     CommonModule,
@@ -114,6 +117,8 @@ import { CommentsModule } from '../../../shared/components/comments/comments.mod
     BottomSheetComponent,
     ProductCategoryComponent,
     CommentsModule,
+    NgbNav,
+    PaginationComponent,
   ],
   exports: [ProductItemComponent],
 })

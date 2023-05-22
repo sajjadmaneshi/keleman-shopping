@@ -13,7 +13,10 @@
       <ul
         ngbNav
         #nav="ngbNav"
-        class="nav-pills justify-content-center mobile-nav sticky-top bg-white rounded shadow p-3"
+        [(activeId)]="selectedTab"
+        #stickyMenu
+        [destroyOnHide]="false"
+        class="nav-pills justify-content-center mobile-nav sticky-top rounded p-3"
       >
         <li ngbNavItem="details">
           <a ngbNavLink>
@@ -48,6 +51,7 @@
             <span class="material-icons"> message </span>
             پرسش ها</a
           >
+
           <ng-template ngbNavContent>
             <comments></comments>
           </ng-template>

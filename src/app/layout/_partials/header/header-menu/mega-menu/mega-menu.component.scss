@@ -1,11 +1,14 @@
-$side-bar-width: 13.75rem;
+@import "base/variables/spacers";
+@import "base/variables/colors";
 
-.mega-menu-side-bar__menu {
-  width: $side-bar-width;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  > li {
+@mixin flex-column {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.mega-menu-body {
+  li {
     text-align: right;
     padding: 1rem;
     cursor: pointer;
@@ -14,69 +17,63 @@ $side-bar-width: 13.75rem;
     span {
       margin: 0 0.5rem;
     }
-    &:not(:last-child) {
-      border-bottom: 1px solid #e4e6ef;
-    }
-    &:hover {
-      border-right: 3px solid #001d8d;
-
-      > .mega-menu-items-menu {
-        visibility: visible;
-        opacity: 1;
-      }
+  }
+  .mega-menu-side-bar__menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    > li:not(:last-child) {
+      border-bottom: 1px solid $gray-300;
     }
   }
-}
+  .active {
+    border-right: 3px solid $klm-primary;
+  }
+  .mega-menu-items-menu {
+    border-right: 1px solid $gray-300;
+    .mega-menu-items-menu__inner {
+      overflow-x: auto;
+      background-color: white;
+      color: #000;
+      min-height: map-get($klm-spacers, 100);
 
-.mega-menu-items-menu {
-  height: 100% !important;
-  right: $side-bar-width;
-  width: calc(100vw - 13.75rem);
-  max-width: 70rem;
-  overflow-x: auto;
-  position: absolute;
-  top: 0;
-  background-color: white;
-  color: #000;
-  min-height: 25rem;
-  visibility: hidden;
-  border: 1px solid #e4e6ef;
-  padding: 1.5rem;
-  opacity: 0;
-  .column {
-    flex-wrap: wrap;
-    display: flex;
-    flex-direction: column;
-    max-height: 500px;
-    ul {
-      padding: 0;
-      list-style: none;
-      li {
-        text-align: right;
-        padding: 0.5rem;
-        cursor: pointer;
-        &.head {
-          a {
-            padding: 0 0.5rem;
-            position: relative;
-            font-weight: bolder;
-            border-right: 3px solid #001d8d;
-            &::after {
-              position: absolute;
-              font-family: "Material Icons";
-              content: "\e5de";
-              left: -1rem;
-              top: 50%;
-              font-size: 1.5rem;
-              transform: translateY(-50%);
+      padding: 1.5rem;
+      .all-products {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+      }
+      .column {
+        height: 440px;
+        @include flex-column;
+
+        padding: 0;
+        list-style: none;
+        li {
+          padding: 0.25rem;
+          &.head {
+            a {
+              padding: 0 0.5rem;
+              position: relative;
+              font-weight: bolder;
+              border-right: 3px solid $klm-primary;
+              &::after {
+                position: absolute;
+                font-family: "Material Icons";
+                content: "\e5de";
+                left: -1rem;
+                top: 50%;
+                font-size: 1.5rem;
+                transform: translateY(-50%);
+              }
             }
           }
-        }
-        &:not(.head) {
-          margin-right: 1.5rem;
-          &:hover {
-            font-weight: bold !important;
-            transition: all 0.15s ease-in;
+          &:not(.head) {
+            margin-right: 1.5rem;
+            &:hover {
+              font-weight: bold !important;
+              transition: all 0.15s ease-in;
+            }
           }
         }
       }

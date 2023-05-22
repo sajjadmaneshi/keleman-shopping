@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'keleman-mega-menu',
@@ -6,9 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./mega-menu.component.scss'],
 })
 export class MegaMenuComponent {
-  activeItem!: string;
+  @ViewChild('megaMenu') megaMenu!: HTMLElement;
+  activeIndex = 1;
 
-  onHover(activeItemId: string) {
-    this.activeItem = activeItemId;
+  constructor(private _renderer2: Renderer2) {}
+
+  onHover(index: number) {
+    this.activeIndex = index;
   }
 }

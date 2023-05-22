@@ -1,5 +1,14 @@
 @import "base/variables/colors";
 
+.product-details-meta-list {
+  tr {
+    display: flex;
+    td:nth-child(1) {
+      flex-grow: 1;
+    }
+  }
+}
+
 .actions__buttons {
   background-color: $klm-secondary;
   border: none;

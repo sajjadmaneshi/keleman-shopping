@@ -11,28 +11,6 @@
   background-color: map-get($theme-colors, "klm-primary");
   color: white !important;
 }
-
-.animate__heartBeat {
-  animation: heartbeat 3s infinite;
-}
-
-@keyframes heartbeat {
-  0% {
-    transform: scale(0.75);
-  }
-  20% {
-    transform: scale(1);
-  }
-  40% {
-    transform: scale(0.75);
-  }
-  60% {
-    transform: scale(1);
-  }
-  80% {
-    transform: scale(0.75);
-  }
-  100% {
-    transform: scale(0.75);
-  }
+.nav-item:not(.dropdown):hover {
+  background-color: $gray-200;
 }

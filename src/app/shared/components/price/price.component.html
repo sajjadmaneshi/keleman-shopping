@@ -1,9 +1,9 @@
 <span class="d-flex align-items-center w-100 justify-content-end">
   <ng-container [ngSwitch]="size">
     <ng-template [ngSwitchCase]="'h1'">
-      <h1 class="text-danger ms-3" *ngIf="off">{{ discount }}%</h1>
-      <h1
-        class="fw-bold product-price"
+      <span class="text-danger ms-3 fs-1" *ngIf="off">{{ discount }}%</span>
+      <span
+        class="fw-bold product-price fs-1"
         [ngClass]="{
           'text-black': color === 'dark',
           'text-light': color === 'light',
@@ -15,12 +15,12 @@
         }"
       >
         {{ (value | number : ".0") + append }}
-      </h1>
+      </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h2'">
-      <h2 class="text-danger ms-3" *ngIf="off">{{ discount }}%</h2>
-      <h2
-        class="fw-bold product-price"
+      <span class="text-danger ms-3 fs-2" *ngIf="off">{{ discount }}%</span>
+      <span
+        class="fw-bold product-price fs-2"
         [ngClass]="{
           'text-black': color === 'dark',
           'text-light': color === 'light',
@@ -32,12 +32,12 @@
         }"
       >
         {{ (value | number : ".0") + append }}
-      </h2>
+      </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h3'">
-      <h3 class="text-danger ms-3" *ngIf="off">{{ discount }}%</h3>
-      <h3
-        class="fw-bold product-price"
+      <span class="text-danger ms-3 fs-3" *ngIf="off">{{ discount }}%</span>
+      <span
+        class="fw-bold product-price fs-3"
         [ngClass]="{
           'text-black': color === 'dark',
           'text-light': color === 'light',
@@ -49,12 +49,12 @@
         }"
       >
         {{ (value | number : ".0") + append }}
-      </h3>
+      </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h4'">
-      <h4 class="text-danger ms-3" *ngIf="off">{{ discount }}%</h4>
-      <h4
-        class="fw-bold product-price"
+      <span class="text-danger ms-3 fs-4" *ngIf="off">{{ discount }}%</span>
+      <span
+        class="fw-bold product-price fs-4"
         [ngClass]="{
           'text-black': color === 'dark',
           'text-light': color === 'light',
@@ -66,12 +66,12 @@
         }"
       >
         {{ (value | number : ".0") + append }}
-      </h4>
+      </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h5'">
-      <h5 class="text-danger ms-3" *ngIf="off">{{ discount }}%</h5>
-      <h5
-        class="fw-bold product-price"
+      <span class="text-danger ms-3 fs-5" *ngIf="off">{{ discount }}%</span>
+      <span
+        class="fw-bold product-price fs-5"
         [ngClass]="{
           'text-black': color === 'dark',
           'text-light': color === 'light',
@@ -83,12 +83,12 @@
         }"
       >
         {{ (value | number : ".0") + append }}
-      </h5>
+      </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h6'">
-      <h6 class="text-danger ms-3" *ngIf="off">{{ discount }}%</h6>
-      <h6
-        class="fw-bold product-price"
+      <span class="text-danger ms-3 fs-6" *ngIf="off">{{ discount }}%</span>
+      <span
+        class="fw-bold product-price fs-6"
         [ngClass]="{
           'text-black': color === 'dark',
           'text-light': color === 'light',
@@ -100,7 +100,7 @@
         }"
       >
         {{ (value | number : ".0") + append }}
-      </h6>
+      </span>
     </ng-template>
   </ng-container>
 </span>

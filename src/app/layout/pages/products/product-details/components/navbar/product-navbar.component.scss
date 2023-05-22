@@ -25,3 +25,10 @@
     margin-bottom: 0 !important;
   }
 }
+
+.sticky-top.sticky {
+  background-color: white !important;
+}
+.tab-content .tab-pane[show] {
+  display: block;
+}

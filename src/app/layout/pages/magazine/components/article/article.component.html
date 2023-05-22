@@ -7,10 +7,10 @@
         <mat-icon>article</mat-icon>
         لینوکس
       </a>
-      <h6 class="mx-3 text-muted">سجاد منشی - 13 اردیبهشت 1403</h6>
+      <span class="mx-3 text-muted">سجاد منشی - 13 اردیبهشت 1403</span>
     </div>
 
-    <h3 class="fw-bold mb-3">از کار افتادن آسانسور و مهمترین دلیل آن</h3>
+    <h1 class="fw-bold mb-3 fs-3">از کار افتادن آسانسور و مهمترین دلیل آن</h1>
 
     <div class="article-cover mb-3">
       <img src="assets/media/temp/article-cover.jpg" />
@@ -583,6 +583,15 @@
       </p>
       <!-- /wp:paragraph -->
     </article>
+    <div class="shares">
+      <keleman-share-buttons
+        [pageUrl]="'www.google.com'"
+        [title]="'test'"
+        [description]="'test'"
+        [include]="['whatsapp', 'twitter', 'telegram', 'email']"
+      ></keleman-share-buttons>
+    </div>
+
     <h6 class="related-articles-title">
       <span>مقالات مرتبط</span>
     </h6>

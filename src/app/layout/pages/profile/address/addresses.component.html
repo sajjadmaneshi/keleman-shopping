@@ -4,17 +4,17 @@
       <span class="d-flex align-items-center">
         <mat-icon class="d-lg-none" routerLink="../">arrow_right_alt</mat-icon>
 
-        <h6>آدرس ها</h6>
-        <h6 class="text-danger mx-1">1</h6>
+        <span>آدرس ها</span>
+        <span class="text-danger mx-1">1</span>
       </span>
 
-      <h6
+      <span
         class="d-flex align-items-center text-warning cursor-pointer"
         (click)="openDialog()"
       >
         <a> افزودن آدرس </a>
         <mat-icon>add_location_alt</mat-icon>
-      </h6>
+      </span>
     </span>
     <div>
       <ng-template #full [ngIf]="true">

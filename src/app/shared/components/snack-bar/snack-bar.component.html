@@ -1,0 +1,12 @@
+<span
+  class="d-flex align-items-center text-center justify-content-center"
+  matSnackBarLabel
+>
+  <ng-content select="prepend"></ng-content>
+
+  <span class="text-center">
+    {{ data }}
+  </span>
+</span>
+
+<ng-content select="action"></ng-content>

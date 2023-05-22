@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './product-specialized-specifications.component.html',
   styles: [
     `
+      .product-details-check {
+        width: 100%;
+      }
       .product-checking {
         min-height: 100%;
         overflow: auto;
@@ -47,4 +50,11 @@ export class ProductSpecializedSpecificationsComponent {
       value: 'الگو',
     },
   ];
+  leftColumnData = this.checkingList.slice(
+    0,
+    Math.ceil(this.checkingList.length / 2)
+  );
+  rightColumnData = this.checkingList.slice(
+    Math.ceil(this.checkingList.length / 2)
+  );
 }

@@ -1,732 +1,711 @@
-<ul class="mega-menu-side-bar__menu">
-  <li>
-    <span class="material-icons"> category </span>
-    <a> تمامی محصولات </a>
-  </li>
-  <li>
-    <span class="material-icons"> curtains </span>
-    <a> موتور آسانسور</a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> نوع موتور آسانسور </a>
-            </li>
-            <li>
-              <a>گیربکس</a>
-            </li>
-            <li>
-              <a>گیرلس</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a>برند های موتور آسانسور </a>
-            </li>
-            <li>
-              <a>موتور آسانسور sky</a>
-            </li>
-            <li>
-              <a>ABB موتور آسانسور</a>
-            </li>
-            <li>
-              <a>موتور آسانسورالکو</a>
-            </li>
-            <li>
-              <a>موتور آسانسور سیکور</a>
-            </li>
-            <li>
-              <a>موتور آسانسور فیا</a>
-            </li>
-            <li>
-              <a>موتور آسانسور ساسی</a>
-            </li>
-            <li>
-              <a>موتور آسانسور ایتال</a>
-            </li>
-            <li>
-              <a>موتور آسانسور کوپل</a>
-            </li>
-            <li>
-              <a>موتور آسانسور بهران</a>
-            </li>
-            <li>
-              <a>موتور آسانسور زیلابگ</a>
-            </li>
-            <li>
-              <a>موتور آسانسور وبر weber</a>
-            </li>
-            <li>
-              <a>موتور آسانسور پریمو</a>
-            </li>
-            <li>
-              <a>موتور آسانسور آرکل</a>
-            </li>
-            <li>
-              <a>موتور آسانسور هوبر</a>
-            </li>
-            <li>
-              <a>مونتاناری</a>
-            </li>
-            <li>
-              <a>ایمن موتور</a>
-            </li>
-            <li>
-              <a>مترو پلاست</a>
-            </li>
-            <li>
-              <a>فوردر</a>
-            </li>
-            <li>
-              <a>ماتودرایو</a>
-            </li>
-            <li>
-              <a>موتودرایو</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+<div class="d-flex h-100 mega-menu-body" id="mega-menu" #megamenu>
+  <ul class="mega-menu-side-bar__menu">
+    <li (mouseenter)="onHover(1)" class="active" appHoverClass>
+      <span class="material-icons"> curtains </span>
+      <a> موتور آسانسور</a>
+    </li>
+    <li (mouseenter)="onHover(2)" appHoverClass>
+      <span class="material-icons"> horizontal_distribute </span>
+      <a> ریل راهنما آسانسور </a>
+    </li>
+    <li (mouseenter)="onHover(3)" appHoverClass>
+      <span class="material-icons"> door_sliding </span>
+      <a> درب آسانسور </a>
+    </li>
+    <li (mouseenter)="onHover(4)" appHoverClass>
+      <span class="material-icons"> cable </span>
+      <a> سیم بکسل و تراول کابل </a>
+    </li>
+    <li (mouseenter)="onHover(5)" appHoverClass>
+      <span class="material-icons"> dashboard_customize </span>
+      <a>تابلو فرمان</a>
+    </li>
+    <li (mouseenter)="onHover(6)" appHoverClass>
+      <span class="material-icons"> room_preferences </span>
+      <a> متعلقات درب و ریل</a>
+    </li>
+    <li (mouseenter)="onHover(7)" appHoverClass>
+      <span class="material-icons"> handyman </span>
+      <a>متعلقات راه اندازی</a>
+    </li>
+    <li (mouseenter)="onHover(8)" appHoverClass>
+      <span class="material-icons"> handyman </span>
+      <a> تجهیزات </a>
+    </li>
+    <li (mouseenter)="onHover(9)" appHoverClass>
+      <span class="material-icons"> bolt </span>
+      <a> لوازم برقی </a>
+    </li>
+    <li (mouseenter)="onHover(10)" appHoverClass>
+      <span class="material-icons"> inventory </span>
+      <a>پکیج های آسانسور</a>
+    </li>
+    <li (mouseenter)="onHover(11)" appHoverClass>
+      <span class="material-icons"> memory </span>
+      <a>لوازم یدکی</a>
+    </li>
+  </ul>
+  <div class="mega-menu-items-menu flex-grow-1">
+    <div
+      [ngClass]="activeIndex === 1 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> نوع موتور آسانسور </a>
+        </li>
+        <li>
+          <a>گیربکس</a>
+        </li>
+        <li>
+          <a>گیرلس</a>
+        </li>
+        <li class="head">
+          <a>برند های موتور آسانسور </a>
+        </li>
+        <li>
+          <a>موتور آسانسور sky</a>
+        </li>
+        <li>
+          <a>ABB موتور آسانسور</a>
+        </li>
+        <li>
+          <a>موتور آسانسورالکو</a>
+        </li>
+        <li>
+          <a>موتور آسانسور سیکور</a>
+        </li>
+        <li>
+          <a>موتور آسانسور فیا</a>
+        </li>
+        <li>
+          <a>موتور آسانسور ساسی</a>
+        </li>
+        <li>
+          <a>موتور آسانسور ایتال</a>
+        </li>
+        <li>
+          <a>موتور آسانسور کوپل</a>
+        </li>
+        <li>
+          <a>موتور آسانسور بهران</a>
+        </li>
+        <li>
+          <a>موتور آسانسور زیلابگ</a>
+        </li>
+        <li>
+          <a>موتور آسانسور وبر weber</a>
+        </li>
+        <li>
+          <a>موتور آسانسور پریمو</a>
+        </li>
+        <li>
+          <a>موتور آسانسور آرکل</a>
+        </li>
+        <li>
+          <a>موتور آسانسور هوبر</a>
+        </li>
+        <li>
+          <a>مونتاناری</a>
+        </li>
+        <li>
+          <a>ایمن موتور</a>
+        </li>
+        <li>
+          <a>مترو پلاست</a>
+        </li>
+        <li>
+          <a>فوردر</a>
+        </li>
+        <li>
+          <a>ماتودرایو</a>
+        </li>
+        <li>
+          <a>موتودرایو</a>
+        </li>
+      </ul>
     </div>
-  </li>
-  <li>
-    <span class="material-icons"> horizontal_distribute </span>
-    <a> ریل راهنما آسانسور </a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> ریل آسانسور ایرانی </a>
-            </li>
-            <li>
-              <a>ریل جفتی آسانسور T9 ایرانی و T5 ایرانی</a>
-            </li>
-            <li>
-              <a>ریل آسانسور T9 ایرانی</a>
-            </li>
-            <li>
-              <a>ریل آسانسور T5 ایرانی</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> ریل آسانسور ترک </a>
-            </li>
-            <li>
-              <a>ریل آسانسور T5 چیلیک ترکیه</a>
-            </li>
-            <li>
-              <a>ریل آسانسور T9 چیلیک ترکیه</a>
-            </li>
-            <li>
-              <a>ریل آسانسور جفتی T9-T5 چیلیک ترکیه</a>
-            </li>
-            <li>
-              <a>ریل آسانسور T5 ترک</a>
-            </li>
-            <li>
-              <a>ریل آسانسور T9 ترک</a>
-            </li>
-            <li>
-              <a>ریل آسانسور T16 ترک</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> ریل آسانسور چین </a>
-            </li>
-            <li>
-              <a>ریل آسانسور MOF T5 چین سرد</a>
-            </li>
-            <li>
-              <a>ریل آسانسور MOF T9 چین سرد</a>
-            </li>
-            <li>
-              <a>ریل آسانسور جفتی T9-T5 MOF چین سرد</a>
-            </li>
-            <li>
-              <a>ریل آسانسور T5 MF چین</a>
-            </li>
-            <li>
-              <a>ریل آسانسور T9 MF چین</a>
-            </li>
-            <li>
-              <a>ریل آسانسور جفتی T9-T5 چین سرد</a>
-            </li>
-            <li>
-              <a>ریل آسانسور T16 چین</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> ریل آسانسور سوپر ساورا اسپانیا </a>
-            </li>
-            <li>
-              <a>ریل آسانسور سوپرساورا اسپانیا T5</a>
-            </li>
-            <li>
-              <a>ریل آسانسور سوپرساورا اسپانیا T125</a>
-            </li>
-            <li>
-              <a>ریل آسانسور سوپرساورا اسپانیا T16</a>
-            </li>
-            <li>
-              <a>ریل آسانسور سوپرساورا اسپانیا T9</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div
+      [ngClass]="activeIndex === 2 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> ریل آسانسور ایرانی </a>
+        </li>
+        <li>
+          <a>ریل جفتی آسانسور T9 ایرانی و T5 ایرانی</a>
+        </li>
+        <li>
+          <a>ریل آسانسور T9 ایرانی</a>
+        </li>
+        <li>
+          <a>ریل آسانسور T5 ایرانی</a>
+        </li>
+        <li class="head">
+          <a> ریل آسانسور ترک </a>
+        </li>
+        <li>
+          <a>ریل آسانسور T5 چیلیک ترکیه</a>
+        </li>
+        <li>
+          <a>ریل آسانسور T9 چیلیک ترکیه</a>
+        </li>
+        <li>
+          <a>ریل آسانسور جفتی T9-T5 چیلیک ترکیه</a>
+        </li>
+        <li>
+          <a>ریل آسانسور T5 ترک</a>
+        </li>
+        <li>
+          <a>ریل آسانسور T9 ترک</a>
+        </li>
+        <li>
+          <a>ریل آسانسور T16 ترک</a>
+        </li>
+        <li class="head">
+          <a> ریل آسانسور چین </a>
+        </li>
+        <li>
+          <a>ریل آسانسور MOF T5 چین سرد</a>
+        </li>
+        <li>
+          <a>ریل آسانسور MOF T9 چین سرد</a>
+        </li>
+        <li>
+          <a>ریل آسانسور جفتی T9-T5 MOF چین سرد</a>
+        </li>
+        <li>
+          <a>ریل آسانسور T5 MF چین</a>
+        </li>
+        <li>
+          <a>ریل آسانسور T9 MF چین</a>
+        </li>
+        <li>
+          <a>ریل آسانسور جفتی T9-T5 چین سرد</a>
+        </li>
+        <li>
+          <a>ریل آسانسور T16 چین</a>
+        </li>
+        <li class="head">
+          <a> ریل آسانسور سوپر ساورا اسپانیا </a>
+        </li>
+        <li>
+          <a>ریل آسانسور سوپرساورا اسپانیا T5</a>
+        </li>
+        <li>
+          <a>ریل آسانسور سوپرساورا اسپانیا T125</a>
+        </li>
+        <li>
+          <a>ریل آسانسور سوپرساورا اسپانیا T16</a>
+        </li>
+        <li>
+          <a>ریل آسانسور سوپرساورا اسپانیا T9</a>
+        </li>
+      </ul>
     </div>
-  </li>
-  <li>
-    <span class="material-icons"> door_sliding </span>
-    <a> درب آسانسور </a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> درب طبقه </a>
-            </li>
-            <li>
-              <a>درب طبقه لولایی</a>
-            </li>
-            <li>
-              <a>درب طبقه تمام اتوماتیک</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> درب کابین </a>
-            </li>
-            <li>
-              <a>درب کابین نیمه اتوماتیک</a>
-            </li>
-            <li>
-              <a>درب کابین تمام اتوماتیک</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> برند های درب آسانسور </a>
-            </li>
-            <li>
-              <a>درب آسانسورکلمان</a>
-            </li>
-            <li>
-              <a>درب آسانسور یاران</a>
-            </li>
-            <li>
-              <a>درب آسانسور سپاهان</a>
-            </li>
-            <li>
-              <a>درب آسانسور بیابانی</a>
-            </li>
-            <li>
-              <a>درب آسانسور آریان سیستم رو</a>
-            </li>
-            <li>
-              <a>درب آسانسور توس</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li>
-    <span class="material-icons"> cable </span>
-    <a> سیم بکسل و تراول کابل </a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> سیم بکسل </a>
-            </li>
-            <li>
-              <a>سیم بکسل گوستاولف</a>
-            </li>
-            <li>
-              <a>سیم بکسل چین</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> تراول کابل </a>
-            </li>
-            <li>
-              <a>تراول کابل نیمه مس</a>
-            </li>
-            <li>
-              <a>تراول کابل تمام مس</a>
-            </li>
-            <li>
-              <a>تراول کابل روکش مس</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li>
-    <span class="material-icons"> dashboard_customize </span>
-    <a>تابلو فرمان</a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> تابلو فرمان آریان </a>
-            </li>
-            <li class="head">
-              <a> تابلو فرمان داتیس </a>
-            </li>
-            <li class="head">
-              <a> تابلو فرمان عصرنوین </a>
-            </li>
-            <li class="head">
-              <a> تابلو فرمان فرازپیمان </a>
-            </li>
-            <li class="head">
-              <a> تابلو فرمان آرکیوب </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li>
-    <span class="material-icons"> room_preferences </span>
-    <a> متعلقات درب و ریل</a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> براکت ریل </a>
-            </li>
-            <li>
-              <a> براکت ریل T5 آسانسور </a>
-            </li>
-            <li>
-              <a> براکت ریل T9 آساسنسور </a>
-            </li>
-            <li>
-              <a> براکت ریل T16 آساسنسور </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> پیچ و مهره </a>
-            </li>
-            <li>
-              <a> پیچ و مهره آسانسور نمره 8 </a>
-            </li>
-            <li>
-              <a>پیچ و مهره آسانسور نمره 10 </a>
-            </li>
-            <li>
-              <a> پیچ و مهره آسانسور نمره 12 </a>
-            </li>
-            <li>
-              <a> پیچ و مهره موتور نمره 16 </a>
-            </li>
-            <li>
-              <a> پیچ و مهره موتور نمره 18 </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> لقمه پیچ </a>
-            </li>
-            <li>
-              <a> لقمه پیچ معمولی T5 آسانسور </a>
-            </li>
-            <li>
-              <a>لقمه پیچ معمولی T9 آسانسور </a>
-            </li>
-            <li>
-              <a>لقمه پیچ معمولی T16 آسانسور </a>
-            </li>
-            <li>
-              <a> لقمه پیچ سرخور T5 آسانسور </a>
-            </li>
-            <li>
-              <a> لقمه پیچ سرخور T9 آسانسور </a>
-            </li>
-            <li>
-              <a> لقمه پیچ سرخور T16 آسانسور </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li>
-    <span class="material-icons"> handyman </span>
-    <a>متعلقات راه اندازی</a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> قلاب بکسل </a>
-            </li>
-            <li>
-              <a> قلاب بکسل پرشیا</a>
-            </li>
-            <li>
-              <a> قلاب بکسل مبین </a>
-            </li>
-            <li>
-              <a> قلاب بکسل ایستا </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> کرپی سیم بکسل </a>
-            </li>
-            <li>
-              <a> کرپی سیم بکسل 6 </a>
-            </li>
-            <li>
-              <a>کرپی سیم بکسل 8 </a>
-            </li>
-            <li>
-              <a> کرپی سیم بکسل 10</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> فلکه هرزگرد </a>
-            </li>
-            <li>
-              <a> فلکه هرزگرد الوند </a>
-            </li>
-            <li>
-              <a> فلکه هرزگرد پرشیا </a>
-            </li>
-            <li>
-              <a> فلکه هرزگرد مبین </a>
-            </li>
-            <li>
-              <a> فلکه هرزگرد ایستا </a>
-            </li>
-            <li class="head">
-              <a> لاستیک زیر موتور </a>
-            </li>
-            <li class="head">
-              <a> وزنه تعادل </a>
-            </li>
-            <li>
-              <a> وزنه تعادل فلزی </a>
-            </li>
-            <li>
-              <a>وزنه تعادل چدنی </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li>
-    <span class="material-icons"> handyman </span>
-    <a> تجهیزات </a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> کفشک </a>
-            </li>
-            <li>
-              <a>بهرو</a>
-            </li>
-            <li class="head">
-              <a> انکودر </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> توربوسل </a>
-            </li>
-            <li>
-              <a> فتوسل دوکانال توربوسل</a>
-            </li>
-            <li>
-              <a> اورلود دیجیتال سیم بکسلی توربوسل</a>
-            </li>
-            <li>
-              <a> اورلود دیجیتال زیرکابینی لودسلی</a>
-            </li>
-            <li>
-              <a> فتوسل تک کانال توربوسل</a>
-            </li>
-            <li>
-              <a> اورلود دیجیتال زیر کابینی مغناطیسی توربوسل</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> پاراشوت </a>
-            </li>
-            <li class="head">
-              <a> مگنت برقی </a>
-            </li>
-            <li>
-              <a> مگنت برقی جان لیفت </a>
-            </li>
-            <li>
-              <a> مگنت برقی جان لیفت پرترافیک</a>
-            </li>
+    <div
+      [ngClass]="activeIndex === 3 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> درب طبقه </a>
+        </li>
+        <li>
+          <a>درب طبقه لولایی</a>
+        </li>
+        <li>
+          <a>درب طبقه تمام اتوماتیک</a>
+        </li>
 
-            <li class="head">
-              <a> فتوسل یا چشمی </a>
-            </li>
-            <li>
-              <a> فتوسل تک نقطه آسانسور </a>
-            </li>
-            <li>
-              <a> فتوسل دو نقطه آسانسور </a>
-            </li>
-            <li>
-              <a> فتوسل پرده ای آسانسور </a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> پک قاب و شیشه </a>
-            </li>
-            <li>
-              <a>پک قاب و شیشه 3 تایی درب ورساچ</a>
-            </li>
-            <li class="head">
-              <a>کارت انکودر(کلوز) </a>
-            </li>
-            <li class="head">
-              <a>باتری و یوپی اس</a>
-            </li>
-            <li class="head">
-              <a>روغن بکسل آسانسور</a>
-            </li>
-            <li>
-              <a>فاخر</a>
-            </li>
-            <li>
-              <a>نیک اویل</a>
-            </li>
-            <li>
-              <a>کاسپین</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li>
-    <span class="material-icons"> bolt </span>
-    <a> لوازم برقی </a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> بست کمربندی </a>
-            </li>
-            <li>
-              <a>بست کمربندی 20 سانتی</a>
-            </li>
-            <li>
-              <a>بست کمربندی 30 سانتی</a>
-            </li>
-            <li class="head">
-              <a> داکت </a>
-            </li>
-            <li>
-              <a>داکت فلزی</a>
-            </li>
-            <li>
-              <a>داکت 3</a>
-            </li>
-            <li>
-              <a>داکت 9</a>
-            </li>
-            <li>
-              <a>داکت 10 فلزی</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> فن </a>
-            </li>
-            <li>
-              <a>فن 10*10</a>
-            </li>
-            <li class="head">
-              <a>روشنایی و لامپ</a>
-            </li>
-            <li>
-              <a> چراغ تونلی آسانسور</a>
-            </li>
-            <li class="head">
-              <a>میکروسوئیچ اورلود غلطکی</a>
-            </li>
-            <li class="head">
-              <a>استپ قارچی</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> بست تراول کابل آسانسور </a>
-            </li>
-            <li class="head">
-              <a> سیم و کابل </a>
-            </li>
-            <li>
-              <a> کابل برق</a>
-            </li>
-            <li>
-              <a> سیم برق</a>
-            </li>
-            <li>
-              <a> سیم شش زوج ساده</a>
-            </li>
+        <li class="head">
+          <a> درب کابین </a>
+        </li>
+        <li>
+          <a>درب کابین نیمه اتوماتیک</a>
+        </li>
+        <li>
+          <a>درب کابین تمام اتوماتیک</a>
+        </li>
 
-            <li class="head">
-              <a> کلید و پریز </a>
-            </li>
-            <li>
-              <a> کلید صنعتی تک پل رو کار </a>
-            </li>
-            <li>
-              <a> پریز صنعتی روکار </a>
-            </li>
-            <li class="head">
-              <a> میکرو سوییچ اورلود ملخی </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+        <li class="head">
+          <a> برند های درب آسانسور </a>
+        </li>
+        <li>
+          <a>درب آسانسورکلمان</a>
+        </li>
+        <li>
+          <a>درب آسانسور یاران</a>
+        </li>
+        <li>
+          <a>درب آسانسور سپاهان</a>
+        </li>
+        <li>
+          <a>درب آسانسور بیابانی</a>
+        </li>
+        <li>
+          <a>درب آسانسور آریان سیستم رو</a>
+        </li>
+        <li>
+          <a>درب آسانسور توس</a>
+        </li>
+      </ul>
     </div>
-  </li>
-  <li>
-    <span class="material-icons"> inventory </span>
-    <a>پکیج های آسانسور</a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> پکیج درب و ریل </a>
-            </li>
-            <li class="head">
-              <a> پکیج مکانیکی </a>
-            </li>
-            <li class="head">
-              <a> پکیج راه اندازی </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div
+      [ngClass]="activeIndex === 4 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> سیم بکسل </a>
+        </li>
+        <li>
+          <a>سیم بکسل گوستاولف</a>
+        </li>
+        <li>
+          <a>سیم بکسل چین</a>
+        </li>
+
+        <li class="head">
+          <a> تراول کابل </a>
+        </li>
+        <li>
+          <a>تراول کابل نیمه مس</a>
+        </li>
+        <li>
+          <a>تراول کابل تمام مس</a>
+        </li>
+        <li>
+          <a>تراول کابل روکش مس</a>
+        </li>
+      </ul>
     </div>
-  </li>
-  <li>
-    <span class="material-icons"> memory </span>
-    <a>لوازم یدکی</a>
-    <div class="container-fluid mega-menu-items-menu">
-      <div class="column">
-        <div class="col-4">
-          <ul>
-            <li class="head">
-              <a> لوازم یدکی یاران</a>
-            </li>
-            <li>
-              <a> برد دو سرعته یاران </a>
-            </li>
-            <li>
-              <a> برد انکودر یاران </a>
-            </li>
-            <li>
-              <a> موتور درب کرماس </a>
-            </li>
-            <li>
-              <a>قرقره ریل و بکسل کامل </a>
-            </li>
-            <li>
-              <a>قرقره ریل قدیمی کامل </a>
-            </li>
-            <li>
-              <a>قرقره لنگی کامل </a>
-            </li>
-            <li>
-              <a>کنتاکت سلکوم</a>
-            </li>
-            <li>
-              <a>دوشاخ</a>
-            </li>
-            <li>
-              <a>کفشک پروانه ای</a>
-            </li>
-            <li>
-              <a>قفل درب تمام اتوماتیک</a>
-            </li>
-            <li>
-              <a>تسمه پروانه</a>
-            </li>
-            <li>
-              <a>تسمه درب (70-80-90) سوئیچی</a>
-            </li>
-            <li>
-              <a>تسمه درب (100-110-120) سوئیچی</a>
-            </li>
-            <li>
-              <a>تسمه درب (70-80-90) انکودر</a>
-            </li>
-            <li>
-              <a>تسمه درب (100-110-120) انکودر</a>
-            </li>
-            <li>
-              <a>سنسور دورانداز (جفتی)</a>
-            </li>
-            <li>
-              <a>فنر درب طبقه</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div
+      [ngClass]="activeIndex === 5 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> تابلو فرمان آریان </a>
+        </li>
+        <li class="head">
+          <a> تابلو فرمان داتیس </a>
+        </li>
+        <li class="head">
+          <a> تابلو فرمان عصرنوین </a>
+        </li>
+        <li class="head">
+          <a> تابلو فرمان فرازپیمان </a>
+        </li>
+        <li class="head">
+          <a> تابلو فرمان آرکیوب </a>
+        </li>
+      </ul>
     </div>
-  </li>
-</ul>
+    <div
+      [ngClass]="activeIndex === 6 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> براکت ریل </a>
+        </li>
+        <li>
+          <a> براکت ریل T5 آسانسور </a>
+        </li>
+        <li>
+          <a> براکت ریل T9 آساسنسور </a>
+        </li>
+        <li>
+          <a> براکت ریل T16 آساسنسور </a>
+        </li>
+
+        <li class="head">
+          <a> پیچ و مهره </a>
+        </li>
+        <li>
+          <a> پیچ و مهره آسانسور نمره 8 </a>
+        </li>
+        <li>
+          <a>پیچ و مهره آسانسور نمره 10 </a>
+        </li>
+        <li>
+          <a> پیچ و مهره آسانسور نمره 12 </a>
+        </li>
+        <li>
+          <a> پیچ و مهره موتور نمره 16 </a>
+        </li>
+        <li>
+          <a> پیچ و مهره موتور نمره 18 </a>
+        </li>
+
+        <li class="head">
+          <a> لقمه پیچ </a>
+        </li>
+        <li>
+          <a> لقمه پیچ معمولی T5 آسانسور </a>
+        </li>
+        <li>
+          <a>لقمه پیچ معمولی T9 آسانسور </a>
+        </li>
+        <li>
+          <a>لقمه پیچ معمولی T16 آسانسور </a>
+        </li>
+        <li>
+          <a> لقمه پیچ سرخور T5 آسانسور </a>
+        </li>
+        <li>
+          <a> لقمه پیچ سرخور T9 آسانسور </a>
+        </li>
+        <li>
+          <a> لقمه پیچ سرخور T16 آسانسور </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      [ngClass]="activeIndex === 7 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> قلاب بکسل </a>
+        </li>
+        <li>
+          <a> قلاب بکسل پرشیا</a>
+        </li>
+        <li>
+          <a> قلاب بکسل مبین </a>
+        </li>
+        <li>
+          <a> قلاب بکسل ایستا </a>
+        </li>
+        <li class="head">
+          <a> کرپی سیم بکسل </a>
+        </li>
+        <li>
+          <a> کرپی سیم بکسل 6 </a>
+        </li>
+        <li>
+          <a>کرپی سیم بکسل 8 </a>
+        </li>
+        <li>
+          <a> کرپی سیم بکسل 10</a>
+        </li>
+        <li class="head">
+          <a> فلکه هرزگرد </a>
+        </li>
+        <li>
+          <a> فلکه هرزگرد الوند </a>
+        </li>
+        <li>
+          <a> فلکه هرزگرد پرشیا </a>
+        </li>
+        <li>
+          <a> فلکه هرزگرد مبین </a>
+        </li>
+        <li>
+          <a> فلکه هرزگرد ایستا </a>
+        </li>
+        <li class="head">
+          <a> لاستیک زیر موتور </a>
+        </li>
+        <li class="head">
+          <a> وزنه تعادل </a>
+        </li>
+        <li>
+          <a> وزنه تعادل فلزی </a>
+        </li>
+        <li>
+          <a>وزنه تعادل چدنی </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      [ngClass]="activeIndex === 8 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> کفشک </a>
+        </li>
+        <li>
+          <a>بهرو</a>
+        </li>
+        <li class="head">
+          <a> انکودر </a>
+        </li>
+
+        <li class="head">
+          <a> توربوسل </a>
+        </li>
+        <li>
+          <a> فتوسل دوکانال توربوسل</a>
+        </li>
+        <li>
+          <a> اورلود دیجیتال سیم بکسلی توربوسل</a>
+        </li>
+        <li>
+          <a> اورلود دیجیتال زیرکابینی لودسلی</a>
+        </li>
+        <li>
+          <a> فتوسل تک کانال توربوسل</a>
+        </li>
+        <li>
+          <a> اورلود دیجیتال زیر کابینی مغناطیسی توربوسل</a>
+        </li>
+
+        <li class="head">
+          <a> پاراشوت </a>
+        </li>
+        <li class="head">
+          <a> مگنت برقی </a>
+        </li>
+        <li>
+          <a> مگنت برقی جان لیفت </a>
+        </li>
+        <li>
+          <a> مگنت برقی جان لیفت پرترافیک</a>
+        </li>
+
+        <li class="head">
+          <a> فتوسل یا چشمی </a>
+        </li>
+        <li>
+          <a> فتوسل تک نقطه آسانسور </a>
+        </li>
+        <li>
+          <a> فتوسل دو نقطه آسانسور </a>
+        </li>
+        <li>
+          <a> فتوسل پرده ای آسانسور </a>
+        </li>
+
+        <li class="head">
+          <a> پک قاب و شیشه </a>
+        </li>
+        <li>
+          <a>پک قاب و شیشه 3 تایی درب ورساچ</a>
+        </li>
+        <li class="head">
+          <a>کارت انکودر(کلوز) </a>
+        </li>
+        <li class="head">
+          <a>باتری و یوپی اس</a>
+        </li>
+        <li class="head">
+          <a>روغن بکسل آسانسور</a>
+        </li>
+        <li>
+          <a>فاخر</a>
+        </li>
+        <li>
+          <a>نیک اویل</a>
+        </li>
+        <li>
+          <a>کاسپین</a>
+        </li>
+      </ul>
+    </div>
+    <div
+      [ngClass]="activeIndex === 9 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> بست کمربندی </a>
+        </li>
+        <li>
+          <a>بست کمربندی 20 سانتی</a>
+        </li>
+        <li>
+          <a>بست کمربندی 30 سانتی</a>
+        </li>
+        <li class="head">
+          <a> داکت </a>
+        </li>
+        <li>
+          <a>داکت فلزی</a>
+        </li>
+        <li>
+          <a>داکت 3</a>
+        </li>
+        <li>
+          <a>داکت 9</a>
+        </li>
+        <li>
+          <a>داکت 10 فلزی</a>
+        </li>
+
+        <li class="head">
+          <a> فن </a>
+        </li>
+        <li>
+          <a>فن 10*10</a>
+        </li>
+        <li class="head">
+          <a>روشنایی و لامپ</a>
+        </li>
+        <li>
+          <a> چراغ تونلی آسانسور</a>
+        </li>
+        <li class="head">
+          <a>میکروسوئیچ اورلود غلطکی</a>
+        </li>
+        <li class="head">
+          <a>استپ قارچی</a>
+        </li>
+
+        <li class="head">
+          <a> بست تراول کابل آسانسور </a>
+        </li>
+        <li class="head">
+          <a> سیم و کابل </a>
+        </li>
+        <li>
+          <a> کابل برق</a>
+        </li>
+        <li>
+          <a> سیم برق</a>
+        </li>
+        <li>
+          <a> سیم شش زوج ساده</a>
+        </li>
+
+        <li class="head">
+          <a> کلید و پریز </a>
+        </li>
+        <li>
+          <a> کلید صنعتی تک پل رو کار </a>
+        </li>
+        <li>
+          <a> پریز صنعتی روکار </a>
+        </li>
+        <li class="head">
+          <a> میکرو سوییچ اورلود ملخی </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      [ngClass]="activeIndex === 10 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> پکیج درب و ریل </a>
+        </li>
+        <li class="head">
+          <a> پکیج مکانیکی </a>
+        </li>
+        <li class="head">
+          <a> پکیج راه اندازی </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      [ngClass]="activeIndex === 11 ? 'd-flex flex-column' : 'd-none'"
+      class="container-fluid mega-menu-items-menu__inner"
+    >
+      <a class="text-klm-primary all-products">
+        همه محصولات
+        <mat-icon>chevron_left</mat-icon>
+      </a>
+      <ul class="column">
+        <li class="head">
+          <a> لوازم یدکی یاران</a>
+        </li>
+        <li>
+          <a> برد دو سرعته یاران </a>
+        </li>
+        <li>
+          <a> برد انکودر یاران </a>
+        </li>
+        <li>
+          <a> موتور درب کرماس </a>
+        </li>
+        <li>
+          <a>قرقره ریل و بکسل کامل </a>
+        </li>
+        <li>
+          <a>قرقره ریل قدیمی کامل </a>
+        </li>
+        <li>
+          <a>قرقره لنگی کامل </a>
+        </li>
+        <li>
+          <a>کنتاکت سلکوم</a>
+        </li>
+        <li>
+          <a>دوشاخ</a>
+        </li>
+        <li>
+          <a>کفشک پروانه ای</a>
+        </li>
+        <li>
+          <a>قفل درب تمام اتوماتیک</a>
+        </li>
+        <li>
+          <a>تسمه پروانه</a>
+        </li>
+        <li>
+          <a>تسمه درب (70-80-90) سوئیچی</a>
+        </li>
+        <li>
+          <a>تسمه درب (100-110-120) سوئیچی</a>
+        </li>
+        <li>
+          <a>تسمه درب (70-80-90) انکودر</a>
+        </li>
+        <li>
+          <a>تسمه درب (100-110-120) انکودر</a>
+        </li>
+        <li>
+          <a>سنسور دورانداز (جفتی)</a>
+        </li>
+        <li>
+          <a>فنر درب طبقه</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

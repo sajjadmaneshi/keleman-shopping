@@ -1,0 +1,17 @@
+@import "base/variables/colors";
+.address-copy {
+  border-radius: 100px;
+  border: 1px solid $gray-300;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  color: $gray-300;
+
+  input {
+    border-radius: inherit;
+    outline: none;
+    color: inherit;
+    border: none;
+  }
+}

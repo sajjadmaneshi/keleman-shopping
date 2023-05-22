@@ -16,13 +16,7 @@
     <div class="col-12 col-lg-9">
       <div class="d-flex flex-column">
         <keleman-products-sort></keleman-products-sort>
-        <div
-          class="row mx-0 g-1"
-          infinite-scroll
-          [infiniteScrollDistance]="scrollDistance"
-          [infiniteScrollThrottle]="throttle"
-          (scrolled)="onScrollDown()"
-        >
+        <div class="row mx-0 g-1">
           <div
             class="col-12 col-md-6 col-lg-4 col-xl-3"
             *ngFor="let product of products"
@@ -30,7 +24,12 @@
             <keleman-product-item [product]="product"></keleman-product-item>
           </div>
         </div>
+        <keleman-pagination
+          [totalElements]="40"
+          (pageChange)="pageChange($event)"
+        ></keleman-pagination>
       </div>
     </div>
+    <keleman-category-about></keleman-category-about>
   </div>
 </ng-container>

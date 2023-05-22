@@ -46,6 +46,7 @@ import { AdvertisingBannersComponent } from './pages/main/components/advertising
 import { ProductCategoryComponent } from './pages/main/components/product-category/product-category.component';
 import { ArticleItemComponent } from '../shared/components/article-item/article-item.component';
 import { AboutUsSummaryComponent } from './pages/main/components/about-us-summary/about-us-summary.component';
+import { HoverClassDirective } from './_partials/header/header-menu/mega-menu/hover-class.directive';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { AboutUsSummaryComponent } from './pages/main/components/about-us-summar
     NgxSkeletonLoaderModule,
     ProductCategoryComponent,
     ArticleItemComponent,
+    HoverClassDirective,
   ],
 })
 export class LayoutModule {}

@@ -1,0 +1,26 @@
+<span class="d-flex justify-content-end align-items-center">
+  <a
+    *ngFor="let shares of include"
+    [href]="determineUrl(shares)"
+    class="btn btn-icon mx-1"
+  >
+    <div class="symbol symbol-7">
+      <img [src]="'assets/media/social-icons/' + shares + '.png'" />
+    </div>
+  </a>
+
+  <div class="address-copy">
+    <input
+      style="direction: ltr"
+      class="py-1 ps-5 pe-3"
+      type="text"
+      readonly
+      [value]="this.pageUrl"
+    />
+    <mat-icon
+      (click)="copyUrl()"
+      class="cursor-pointer position-absolute left-3"
+      >content_copy</mat-icon
+    >
+  </div>
+</span>

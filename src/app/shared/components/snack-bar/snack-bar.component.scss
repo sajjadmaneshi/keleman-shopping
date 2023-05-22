@@ -1,0 +1,26 @@
+@import "base/variables/colors";
+.mat-mdc-snack-bar-container {
+  &.danger-snackbar {
+    --mdc-snackbar-container-color: #ee2d41ff !important;
+    color: white;
+  }
+
+  &.success-snackbar {
+    --mdc-snackbar-container-color: #0bb7afff !important;
+  }
+
+  &.warning-snackbar {
+    --mdc-snackbar-container-color: #ee9d01ff !important;
+  }
+
+  .danger-snackbar,
+  .success-snackbar,
+  .warning-snackbar {
+    color: white;
+  }
+
+  &.light-snackbar {
+    --mdc-snackbar-container-color: #fff !important;
+    color: black;
+  }
+}

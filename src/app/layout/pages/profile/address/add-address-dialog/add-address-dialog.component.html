@@ -3,16 +3,16 @@
 >
   <span class="d-flex flex-column w-50">
     <ng-template [ngIf]="showMap" [ngIfElse]="addressDetailTitle">
-      <h6>آدرس جدید</h6>
+      <span>آدرس جدید</span>
       <span class="text-muted">موقعیت مکانی آدرس را انتخاب نمایید</span>
     </ng-template>
     <ng-template #addressDetailTitle>
-      <h6 class="d-flex align-items-center">
+      <span class="d-flex align-items-center">
         <mat-icon class="cursor-pointer" (click)="toggleShowMap()"
           >east</mat-icon
         >
         جزئیات آدرس
-      </h6>
+      </span>
     </ng-template>
   </span>
   <span

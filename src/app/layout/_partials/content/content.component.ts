@@ -9,11 +9,12 @@ export class ContentComponent implements AfterViewInit {
     this._initialLayout();
   }
   private _initialLayout(): void {
-    const header = document.querySelector('#keleman-header') as HTMLElement;
+    const header = document.querySelector('header') as HTMLElement;
     const mainContainer = document.querySelector(
       '#main-container'
     ) as HTMLElement;
     const headerHeight = header.getBoundingClientRect().height;
+    console.log(headerHeight);
     mainContainer.style.marginTop = `${headerHeight}px`;
   }
 }
