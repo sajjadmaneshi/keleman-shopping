@@ -9,8 +9,15 @@
 
   <keleman-search-bar class="flex-grow-1"></keleman-search-bar>
   <div class="align-items-center bg-klm-primary rounded-1 p-1 login-register">
-    <button class="btn text-warning w-50">ثبت نام</button>
-    <button class="btn bg-white rounded-1 text-klm-primary w-50">ورود</button>
+    <button class="btn text-warning w-50" [routerLink]="['register']">
+      ثبت نام
+    </button>
+    <button
+      class="btn bg-white rounded-1 text-klm-primary w-50"
+      [routerLink]="['register']"
+    >
+      ورود
+    </button>
   </div>
   <ng-template [ngIf]="isLoggedIn">
     <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">

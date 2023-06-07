@@ -3,7 +3,6 @@ import { ProductRepository } from '../data/repositories/product.repository';
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
 import { Subscription } from 'rxjs';
 import { ParamMap } from '../../../../shared/services/data.service';
-import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'keleman-product-list',

@@ -1,14 +1,26 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  MatAutocompleteModule,
+  MatAutocompleteSelectedEvent,
+} from '@angular/material/autocomplete';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject, map, Observable, startWith } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'keleman-auto-complete',
   templateUrl: './auto-complete.component.html',
   styleUrls: ['./auto-complete.component.scss'],
-  imports: [CommonModule, MatAutocompleteModule],
+  imports: [CommonModule, MatAutocompleteModule, MatProgressSpinnerModule],
   standalone: true,
   providers: [
     {
@@ -18,12 +30,19 @@ import { BehaviorSubject, map, Observable, startWith } from 'rxjs';
     },
   ],
 })
-export class AutoCompleteComponent implements ControlValueAccessor, OnInit {
+export class AutoCompleteComponent implements ControlValueAccessor, OnChanges {
   @Input() options: any[] = [];
+  @Input() isInavlid: boolean = false;
 
   @Input() label!: string;
 
   @Input() placeHolder!: string;
+  @Input() disabled: boolean = false;
+
+  @Input() isLoading: boolean = false;
+
+  @Output() onSelectionChange = new EventEmitter<any>();
+
   filteredOptions$!: Observable<any[]>;
   value!: string;
 
@@ -35,11 +54,20 @@ export class AutoCompleteComponent implements ControlValueAccessor, OnInit {
   valueChange(value: string) {
     this._searchSubject.next(value);
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['options'] && changes['options'].currentValue.length > 0) {
+      this.filteredOptions$ = this._searchSubject.pipe(
+        startWith(''),
+        map((item) => (item ? this._filterStates(item) : this.options.slice()))
+      );
+    }
+  }
   private _filterStates(value: string): any[] {
     const filterValue = value.toLowerCase();
 
     return this.options.filter((item: any) =>
-      item['name'].toLowerCase().includes(filterValue)
+      item['title'].toLowerCase().includes(filterValue)
     );
   }
 
@@ -55,10 +83,13 @@ export class AutoCompleteComponent implements ControlValueAccessor, OnInit {
     this.value = value;
   }
 
-  ngOnInit(): void {
-    this.filteredOptions$ = this._searchSubject.pipe(
-      startWith(''),
-      map((item) => (item ? this._filterStates(item) : this.options.slice()))
-    );
+  displayFn(option: any): string {
+    return option && option.title ? option.title : '';
+  }
+
+  selected($event: MatAutocompleteSelectedEvent) {
+    this.value = $event.option.value.title; // Update the value property with the selected option's title
+    this._onChange(this.value);
+    this.onSelectionChange.emit($event.option.value.id);
   }
 }

@@ -1,23 +1,35 @@
 <div class="dropdown">
-  <div class="form-group">
-    <label *ngIf="label">{{ label }}</label>
+  <label *ngIf="label" class="form-label" [for]="'mat-input' + label">{{
+    label
+  }}</label>
+  <div class="form-group mat-auto-form-control">
     <input
       [placeholder]="placeHolder ? placeHolder : ''"
       type="text"
       class="form-control keleman-text-field"
       #autoCompleteInput
       [value]="value"
+      [id]="'mat-input' + label"
       (input)="valueChange(autoCompleteInput.value)"
       [matAutocomplete]="autoGroup1"
+      [readonly]="options.length === 0"
+      [class.is-invalid]="isInavlid"
     />
+    <span class="invalid-feedback" *ngIf="isInavlid">
+      لطفا {{ label }} را انتخاب نمایید
+    </span>
+    <ng-template [ngIf]="isLoading">
+      <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
+    </ng-template>
   </div>
 
-  <mat-autocomplete #autoGroup1="matAutocomplete">
-    <mat-option
-      *ngFor="let item of filteredOptions$ | async"
-      [value]="item?.name"
-    >
-      {{ item?.name }}
+  <mat-autocomplete
+    #autoGroup1="matAutocomplete"
+    (optionSelected)="selected($event)"
+    [displayWith]="displayFn"
+  >
+    <mat-option *ngFor="let item of filteredOptions$ | async" [value]="item">
+      {{ item?.title }}
     </mat-option>
   </mat-autocomplete>
 </div>

@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export class DataService<T> {
-  constructor(private _url: string, private _http: HttpClient) {}
+  constructor(private _url: string, protected _http: HttpClient) {}
 
-  private get _getUrl() {
+  protected get _getUrl() {
     return `${ENVIRONMENT.baseUrl}${this._url}`;
   }
 

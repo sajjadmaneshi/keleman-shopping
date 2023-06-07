@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SnackBarComponent } from '../../../../../shared/components/snack-bar/snack-bar.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarService } from '../../../../../shared/components/snack-bar/snack-bar.service';
 
 @Component({

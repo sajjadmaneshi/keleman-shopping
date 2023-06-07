@@ -1,6 +1,10 @@
 <div class="menu_overlay" (click)="removeClass()"></div>
 
-<div class="cornerMenu animate__heartBeat" (click)="toggleClass()">
+<div
+  class="cornerMenu"
+  [ngClass]="{ animate__heartBeat: !menuOpened }"
+  (click)="toggleClass()"
+>
   <ng-container *ngIf="menuOpened; then close; else headset"></ng-container>
   <ng-template #headset>
     <mat-icon class="menu-icon contact-us" [inline]="true"

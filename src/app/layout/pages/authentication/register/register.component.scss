@@ -26,6 +26,9 @@
   height: auto;
   border-radius: 10px;
   & > .card-body > *:not(button) {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1rem !important;
   }
+}
+.mobile-number-text-field::placeholder {
+  text-align: center !important;
 }

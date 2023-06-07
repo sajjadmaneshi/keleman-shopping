@@ -4,9 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpClientResult } from '../../models/http/http-client.result';
 import { LoginDto } from './data/login.dto';
+import { CompleteInfoDto } from './data/complete-info.dto';
 
 @Injectable({ providedIn: 'root' })
-export class AuthRepository extends DataService<any> {
+export class AccountRepository extends DataService<any> {
   constructor(_http: HttpClient) {
     super('account', _http);
   }
@@ -32,5 +33,12 @@ export class AuthRepository extends DataService<any> {
     return this._http.get(
       `${this._getUrl}/hasCompleteProfile/${mobileNumber}`
     ) as Observable<HttpClientResult<boolean>>;
+  }
+
+  completeInfo(dto: CompleteInfoDto): Observable<HttpClientResult<any>> {
+    return this._http.post(
+      `${this._getUrl}/completeInfo`,
+      dto
+    ) as Observable<any>;
   }
 }

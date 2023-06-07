@@ -1,18 +1,18 @@
 import {
-  AfterViewInit,
   ChangeDetectorRef,
   Directive,
   ElementRef,
   Input,
-  OnInit,
+  OnChanges,
   Renderer2,
+  SimpleChanges,
 } from '@angular/core';
 
 @Directive({
   selector: '[kelemanLoadingProgress]',
   standalone: true,
 })
-export class LoadingProgressDirective implements OnInit, AfterViewInit {
+export class LoadingProgressDirective implements OnChanges {
   @Input() loading = false;
 
   constructor(
@@ -20,18 +20,27 @@ export class LoadingProgressDirective implements OnInit, AfterViewInit {
     private _renderer: Renderer2,
     private _cd: ChangeDetectorRef
   ) {}
-  ngOnInit() {}
 
-  ngAfterViewInit(): void {
-    if (this.loading) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes['loading'].firstChange) {
       const element = this._el?.nativeElement;
-      const loadingElement = document.createElement('div');
-      this._renderer.addClass(loadingElement, 'spinner-border');
-      this._renderer.addClass(element, 'd-flex');
-      this._renderer.addClass(element, 'align-items-center');
-      this._renderer.addClass(element, 'justify-content-between');
-      this._renderer.appendChild(element, loadingElement);
-      this._renderer.setAttribute(element, 'disabled', 'true');
+
+      if (this.loading) {
+        const loadingElement = document.createElement('div');
+        this._renderer.addClass(loadingElement, 'spinner-border');
+        this._renderer.addClass(element, 'd-flex');
+        this._renderer.addClass(element, 'align-items-center');
+        this._renderer.addClass(element, 'justify-content-between');
+        this._renderer.appendChild(element, loadingElement);
+        this._renderer.setAttribute(element, 'disabled', 'true');
+      } else if (this.loading === false) {
+        const loadingElement = document.querySelector('.spinner-border');
+        this._renderer.removeChild(element, loadingElement);
+        this._renderer.removeClass(element, 'd-flex');
+        this._renderer.removeClass(element, 'align-items-center');
+        this._renderer.removeClass(element, 'justify-content-between');
+        this._renderer.removeAttribute(element, 'disabled');
+      }
       this._cd.detectChanges();
     }
   }

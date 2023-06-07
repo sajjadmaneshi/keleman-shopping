@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './layout/pages/not-found/not-found.component';
 import { Routing } from './routing';
 import { RegisterComponent } from './layout/pages/authentication/register/register.component';
+import { TokenResolver } from './shared/resolvers/token.resolver';
 
 const routes: Routes = [
   {
@@ -10,7 +11,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./layout/layout.module').then((m) => m.LayoutModule),
   },
-  { path: Routing.register, component: RegisterComponent },
+  {
+    path: Routing.register,
+    component: RegisterComponent,
+    resolve: { token: () => inject(TokenResolver).resolve() },
+  },
   { path: '**', component: NotFoundComponent },
 ];
 
@@ -20,9 +25,10 @@ const routes: Routes = [
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
       scrollOffset: [0, 100],
-      useHash: true,
+      // useHash: true,
     }),
   ],
+  providers: [TokenResolver],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

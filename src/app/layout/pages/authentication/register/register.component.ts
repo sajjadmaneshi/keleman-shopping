@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { map, Observable, startWith } from 'rxjs';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Subscription, tap } from 'rxjs';
 import {
   FormControl,
   FormGroup,
@@ -10,11 +10,21 @@ import { AutoCompleteComponent } from '../../../../shared/components/auto-comple
 import { NgOtpInputModule } from 'ng-otp-input';
 import { CommonModule } from '@angular/common';
 import { InputGroupComponent } from '../../../../shared/components/input-group/input-group.component';
-import { CountdownComponent } from 'ngx-countdown';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
 import { LoadingProgressDirective } from '../../../../shared/directives/loading-progress.directive';
-import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../../shared/services/auth/auth.service';
+import { ErrorFeedbackDirective } from '../../../../shared/directives/error-feedback.directive';
+import { NumberOnlyDirective } from '../../../../shared/directives/number-only.directive';
+import { LoginDto } from '../../../../shared/services/auth/data/login.dto';
+import { mobileNumberFormatValidator } from '../../../../shared/validators/mobile-number.validator';
+import { MatComponentsModule } from '../../../../mat-components.module';
+import { StatesViewModel } from '../../../../shared/models/view-models/states.view-model';
+import { CityViewModel } from '../../../../shared/models/view-models/city.view-model';
+import { GeoLocationRepository } from '../../../../shared/repositories/geo-location.repository';
+import { HttpClientResult } from '../../../../shared/models/http/http-client.result';
+import { AccountRepository } from '../../../../shared/services/auth/account.repository';
+import { CompleteInfoDto } from '../../../../shared/services/auth/data/complete-info.dto';
 
 @Component({
   selector: 'app-register',
@@ -28,28 +38,42 @@ import { RouterLink } from '@angular/router';
     ReactiveFormsModule,
     InputGroupComponent,
     CountdownComponent,
-    MatProgressSpinnerModule,
     LoadingProgressDirective,
-    MatIconModule,
     RouterLink,
+    ErrorFeedbackDirective,
+    NumberOnlyDirective,
+    MatComponentsModule,
   ],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
+  @ViewChild('cd') private countDown!: CountdownComponent;
+
+  selectedCity!: number;
+  verificationCodeSent: boolean = false;
   isVisible = false;
   registerForm!: FormGroup;
-  filteredStates: Observable<any[]>;
-  provinces: any[] = [
-    { id: 1, name: 'شیراز' },
-    { id: 2, name: 'تهران' },
-    { id: 3, name: 'اصفهان' },
-    { id: 4, name: 'گیلان' },
-    { id: 5, name: 'یزد' },
-    { id: 6, name: 'کرمان' },
-    { id: 7, name: 'خراسان رضوی' },
-    { id: 8, name: 'هرمزگان' },
-    { id: 9, name: 'کرمانشاه' },
-    { id: 10, name: 'همدان' },
-  ];
+
+  isFormSubmitted = false;
+
+  submitLoading = false;
+  stateLoading = false;
+  cityLoading = false;
+  isSendAgainActive = false;
+  subscriptions = new Subscription();
+  hasCompleteInfo!: boolean;
+
+  verificationCodeValid = true;
+  provinces: StatesViewModel[] = [];
+
+  cities: CityViewModel[] = [];
+
+  public get name(): FormControl {
+    return this.registerForm.get('name') as FormControl;
+  }
+
+  public get family(): FormControl {
+    return this.registerForm.get('family') as FormControl;
+  }
 
   public get province(): FormControl {
     return this.registerForm.get('province') as FormControl;
@@ -57,35 +81,150 @@ export class RegisterComponent {
   public get city(): FormControl {
     return this.registerForm.get('city') as FormControl;
   }
-  constructor() {
+
+  mobileFormControl = new FormControl('', [
+    Validators.required,
+    mobileNumberFormatValidator(),
+  ]);
+  otpVerificationCode = new FormControl<string>('', [
+    Validators.required,
+    Validators.maxLength(5),
+  ]);
+
+  constructor(
+    private _authservice: AuthService,
+    private _router: Router,
+    private _geoLocationRepository: GeoLocationRepository,
+    private _accountRepository: AccountRepository
+  ) {
     this._initForm();
-    this.filteredStates = this.province.valueChanges.pipe(
-      startWith(''),
-      map((state) =>
-        state ? this._filterStates(state) : this.provinces.slice()
-      )
-    );
-  }
-  private _filterStates(value: string): any[] {
-    const filterValue = value.toLowerCase();
-
-    return this.provinces.filter((state) =>
-      state.name.toLowerCase().includes(filterValue)
-    );
   }
 
-  changePasswordVisibility() {
-    this.isVisible = !this.isVisible;
+  private _getAllStates() {
+    this.stateLoading = true;
+    this.province.disable();
+    const getAllStates$ = this._geoLocationRepository
+      .getAllStates()
+      .pipe(tap(() => (this.stateLoading = false)))
+      .subscribe((result: HttpClientResult<StatesViewModel[]>) => {
+        this.provinces = result.result as StatesViewModel[];
+        this.province.enable();
+      });
+    this.subscriptions.add(getAllStates$);
+  }
+
+  private _getCitiesOfState(provienceID: number) {
+    this.cityLoading = true;
+    this.city.disable();
+    const getAllCities$ = this._geoLocationRepository
+      .getCitiesOfState(provienceID)
+      .pipe(tap(() => (this.cityLoading = false)))
+      .subscribe((result: HttpClientResult<CityViewModel[]>) => {
+        this.cities = result.result as CityViewModel[];
+
+        this.city.enable();
+      });
+    this.subscriptions.add(getAllCities$);
   }
 
   private _initForm() {
     this.registerForm = new FormGroup<any>({
+      name: new FormControl('', Validators.required),
+      family: new FormControl('', Validators.required),
       province: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
     });
   }
 
-  test($event: Event) {
-    console.log($event);
+  sendVerificationCode() {
+    this.isFormSubmitted = true;
+    if (this.mobileFormControl.valid) {
+      this.submitLoading = true;
+      this._authservice
+        .sendVerificationCode(this.mobileFormControl.value!)
+        .then(() => {
+          this.verificationCodeSent = true;
+          this.isSendAgainActive = false;
+          this.isFormSubmitted = false;
+          this._hasCompleteProfile();
+          this.countDown.restart();
+        })
+        .finally(() => (this.submitLoading = false));
+    }
+  }
+
+  private _login() {
+    if (this.otpVerificationCode.valid) {
+      this.submitLoading = true;
+      const loginDto: LoginDto = {
+        mobile: this.mobileFormControl.value!,
+        token: this.otpVerificationCode.value!,
+      };
+      this._authservice
+        .login(loginDto)
+        .then(() => {
+          this._router.navigate(['/']);
+          this._authservice.decodeJson();
+        })
+        .finally(() => (this.submitLoading = false));
+    }
+  }
+
+  CheckOtpValid($event: string) {
+    if ($event.length === 5 && this.hasCompleteInfo) this._login();
+  }
+
+  private _hasCompleteProfile(): void {
+    this.submitLoading = true;
+    this._authservice
+      .hasCompleteProfile(this.mobileFormControl.value!)
+      .then((result: boolean) => {
+        this.hasCompleteInfo = result;
+        if (!result) this._getAllStates();
+      })
+      .finally(() => (this.submitLoading = false));
+  }
+
+  notify($event: CountdownEvent) {
+    if ($event.action === 'done') this.isSendAgainActive = true;
+  }
+
+  completeInfo() {
+    this.isFormSubmitted = true;
+
+    this.verificationCodeValid = this.otpVerificationCode.value?.length! === 5;
+
+    if (this.registerForm.valid && this.verificationCodeValid) {
+      this.submitLoading = true;
+      const dto = {
+        mobile: this.mobileFormControl.value,
+        firstName: this.name.value,
+        lastName: this.family.value,
+        token: Number(this.otpVerificationCode.value),
+        locationId: this.selectedCity,
+      } as CompleteInfoDto;
+      const completeInfo$ = this._accountRepository
+        .completeInfo(dto)
+        .pipe(tap(() => (this.submitLoading = false)))
+        .subscribe((result) => {
+          this._authservice.setAuthorizedInfoToLocalStorage({
+            token: result.result.token,
+            mobile: dto.mobile,
+          });
+          this._router.navigate(['/']);
+        });
+      this.subscriptions.add(completeInfo$);
+    }
+  }
+
+  selectProvience($event: number) {
+    if ($event) this._getCitiesOfState($event);
+  }
+  selectCity($event: any) {
+    this.selectedCity = $event;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

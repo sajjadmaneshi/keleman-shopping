@@ -48,7 +48,6 @@ import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.di
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { BottomSheetComponent } from '../../../shared/components/bottom-sheet/bottom-sheet.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatComponentsModule } from '../../../mat-components.module';
 import { ProductFiltersModule } from './product-list/components/product-filters/product-filters.module';
 import { FAQComponent } from './product-details/components/faq/faq.component';
@@ -111,7 +110,6 @@ import { CategoryAboutComponent } from './product-list/components/category-about
     EmptyImageDirective,
     ReactiveFormsModule,
     CardComponent,
-    InfiniteScrollModule,
     ProductFiltersModule,
     MatComponentsModule,
     BottomSheetComponent,

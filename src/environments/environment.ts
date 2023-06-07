@@ -4,5 +4,5 @@
 
 export const ENVIRONMENT = {
   production: false,
-  baseUrl: 'http://localhost:3000/',
+  baseUrl: 'https://api-stg.keleman.org/',
 };

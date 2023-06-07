@@ -5,8 +5,6 @@ import { BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentDialogComponent } from './add-comment-dialog/add-comment-dialog.component';
 import { CommentsDialogComponent } from './comments-dialog/comments-dialog.component';
-import { SwiperComponent } from '../swiper/swiper.component';
-import { CommentItemComponent } from './comment-item/comment-item.component';
 import { CommentRepository } from './data/repositories/comment.repository';
 
 SwiperCore.use([Navigation]);

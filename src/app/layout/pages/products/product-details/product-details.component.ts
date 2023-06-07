@@ -1,6 +1,5 @@
 import { Component, HostListener } from '@angular/core';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
-import { ArticleModel } from '../../../../shared/models/article.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
 

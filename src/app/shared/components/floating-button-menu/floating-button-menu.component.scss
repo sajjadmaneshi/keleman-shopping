@@ -2,7 +2,6 @@
 .menu_overlay {
   display: none;
   position: fixed;
-
   top: 0;
   left: 0;
   width: 100%;
@@ -61,7 +60,6 @@ body.menuOpened {
     display: block;
   }
   .menuOpened .cornerMenu {
-    scale: 1.1;
     transition: 0.5s;
   }
   .menuOpened .menu {

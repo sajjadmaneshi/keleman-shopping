@@ -15,6 +15,11 @@ import { AppErrorHandler } from './shared/common/app-error-handler';
 import { MatComponentsModule } from './mat-components.module';
 import { FloatingButtonMenuComponent } from './shared/components/floating-button-menu/floating-button-menu.component';
 import { SwiperModule } from 'swiper/angular';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter(): any {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +35,13 @@ import { SwiperModule } from 'swiper/angular';
     SwiperComponent,
     LeafletModule,
     FloatingButtonMenuComponent,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        },
+      },
+    }),
   ],
   providers: [
     ApplicationStateService,
@@ -38,7 +50,6 @@ import { SwiperModule } from 'swiper/angular';
       useClass: HttpInterceptorService,
       multi: true,
     },
-    { provide: 'accessToken', useValue: 'test' },
     { provide: ErrorHandler, useClass: AppErrorHandler },
   ],
   bootstrap: [AppComponent],

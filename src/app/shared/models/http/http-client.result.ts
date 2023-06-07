@@ -1,7 +1,7 @@
 export interface HttpClientResult<T> {
-  isSuccess: boolean;
-  data?: T;
-  errorKey?: string;
-  errorStatusCode?: number;
-  errorMessage?: string;
+  statusCode: 200 | 201 | 204 | 400 | 401 | 403 | 404 | 405 | 500 | 502;
+  message: string;
+  isError: boolean;
+  result?: T;
+  responseException?: string;
 }

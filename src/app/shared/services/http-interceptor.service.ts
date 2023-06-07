@@ -1,5 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpHeaders,
@@ -18,10 +19,11 @@ import { HttpRequestOptions } from '../models/http/http-request-options';
 import { AppErrors } from '../common/app-errors';
 import { BadInputError } from '../common/errors/bad-input-error';
 import { NotFoundError } from '../common/errors/not-found-error';
+import { SnackBarService } from '../components/snack-bar/snack-bar.service';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor() {}
+  constructor(public _snackBar: SnackBarService) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -30,9 +32,12 @@ export class HttpInterceptorService implements HttpInterceptor {
     return from(this._setHeaders(req as HttpRequestOptions)).pipe(
       switchMap(() => {
         const modifiedReq = req.clone();
-        return next
-          .handle(modifiedReq)
-          .pipe(retry(3), catchError(this._handleError));
+        return next.handle(modifiedReq).pipe(
+          retry(3),
+          catchError((error: HttpErrorResponse) => {
+            return this._handleError(error);
+          })
+        );
       })
     );
   }
@@ -64,14 +69,17 @@ export class HttpInterceptorService implements HttpInterceptor {
     });
   }
 
-  private _handleError(error: Response) {
+  private _handleError(error: HttpErrorResponse) {
+    this._snackBar.showDangerSnackBar(error.error.responseException);
     switch (error.status) {
       case 400:
-        return throwError(() => new BadInputError(error.json()));
+        return throwError(() => new BadInputError(error));
       case 404:
+        this._snackBar.showDangerSnackBar('آدرسی با این مشخصات یافت نشد');
         return throwError(() => new NotFoundError());
       default:
-        return throwError(() => new AppErrors(error));
+        this._snackBar.showDangerSnackBar('خطای سرور');
+        return throwError(() => new AppErrors(error.message));
     }
   }
 }
