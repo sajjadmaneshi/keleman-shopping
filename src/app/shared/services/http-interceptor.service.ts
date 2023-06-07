@@ -21,19 +21,7 @@ import { NotFoundError } from '../common/errors/not-found-error';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor(@Inject('accessToken') private accessToken?: string) {}
-
-  // intercept(
-  //   req: HttpRequest<any>,
-  //   next: HttpHandler
-  // ): Observable<HttpEvent<any>> {
-  //   this._setHeaders(req as HttpRequestOptions).then((result: HttpHeaders) => {
-  //     req = req.clone({
-  //       headers: result,
-  //     });
-  //   });
-  //   return next.handle(req).pipe(retry(3), catchError(this._handleError));
-  // }
+  constructor() {}
 
   intercept(
     req: HttpRequest<any>,
@@ -54,7 +42,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   ): Promise<HttpHeaders> {
     return new Promise((resolve) => {
       let headers: HttpHeaders;
-
+      const token = localStorage.getItem('KELEMAN_TOKEN');
       if (httpRequestOptions.headers) {
         headers = httpRequestOptions.headers as HttpHeaders;
         resolve(headers);
@@ -67,11 +55,8 @@ export class HttpInterceptorService implements HttpInterceptor {
             'application/json; charset=utf-8'
           );
         }
-        if (this.accessToken) {
-          httpHeaders = httpHeaders.append(
-            'Authorization',
-            `Bearer ${this.accessToken}`
-          );
+        if (token) {
+          httpHeaders = httpHeaders.append('Authorization', `Bearer ${token}`);
         }
 
         resolve(httpHeaders);
