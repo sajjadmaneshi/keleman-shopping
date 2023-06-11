@@ -25,6 +25,7 @@ import { GeoLocationRepository } from '../../../../shared/repositories/geo-locat
 import { HttpClientResult } from '../../../../shared/models/http/http-client.result';
 import { AccountRepository } from '../../../../shared/services/auth/account.repository';
 import { CompleteInfoDto } from '../../../../shared/services/auth/data/complete-info.dto';
+import { RegisterStatusEnum } from './register-status.enum';
 
 @Component({
   selector: 'app-register',
@@ -47,7 +48,8 @@ import { CompleteInfoDto } from '../../../../shared/services/auth/data/complete-
 })
 export class RegisterComponent implements OnDestroy {
   @ViewChild('cd') private countDown!: CountdownComponent;
-
+  registerStatusEnum = RegisterStatusEnum;
+  lastOtpLength = 0;
   selectedCity!: number;
   verificationCodeSent: boolean = false;
   isVisible = false;
@@ -171,7 +173,10 @@ export class RegisterComponent implements OnDestroy {
   }
 
   CheckOtpValid($event: string) {
-    if ($event.length === 5 && this.hasCompleteInfo) this._login();
+    if ($event.length !== this.lastOtpLength) {
+      this.lastOtpLength = $event.length;
+      if ($event.length === 5 && this.hasCompleteInfo) this._login();
+    }
   }
 
   private _hasCompleteProfile(): void {
@@ -226,5 +231,14 @@ export class RegisterComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  getRegisterStatus(): RegisterStatusEnum {
+    if (!this.verificationCodeSent) return RegisterStatusEnum.otpNotSent;
+    if (this.verificationCodeSent && this.hasCompleteInfo === true)
+      return RegisterStatusEnum.otpSent;
+    if (this.verificationCodeSent && this.hasCompleteInfo === false)
+      return RegisterStatusEnum.completeInfo;
+    else return RegisterStatusEnum.otpNotSent;
   }
 }

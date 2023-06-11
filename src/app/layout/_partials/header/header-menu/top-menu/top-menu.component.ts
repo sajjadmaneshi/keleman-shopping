@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../../../shared/services/auth/auth.service';
+import { UserService } from '../../../../../shared/services/user.service';
 
 @Component({
   selector: 'keleman-top-menu',
   templateUrl: './top-menu.component.html',
   styleUrls: ['./top-menu.component.scss'],
 })
-export class TopMenuComponent {
+export class TopMenuComponent implements OnInit {
   isLoggedIn = false;
+
+  constructor(
+    private _authService: AuthService,
+    public userService: UserService
+  ) {}
+
+  ngOnInit(): void {
+    this._authService.isAuthenticated.subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+    });
+  }
 }

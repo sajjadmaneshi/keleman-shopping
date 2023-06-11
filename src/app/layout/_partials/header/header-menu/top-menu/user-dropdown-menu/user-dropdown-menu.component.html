@@ -1,17 +1,33 @@
 <ul class="user-menu">
-  <li class="d-flex justify-content-between align-items-center p-3">
-    <span class="d-flex align-items-center">
-      <div class="symbol symbol-circle mx-1">
+  <li class="d-flex flex-column p-3 position-relative user-base-info">
+    <span class="vertical-line"></span>
+
+    <span class="d-flex align-items-center mb-3">
+      <div class="symbol symbol-circle mx-3 border border-1 border-success">
         <img src="assets/media/blank.png" />
       </div>
       <div class="d-flex flex-column">
-        <h5 class="text-klm-primary text-end">سجاد منشی</h5>
+        <p class="text-klm-primary text-end h5 mb-3">
+          {{ userInfo.firstName! }} {{ userInfo.lastName! }}
+        </p>
         <a class="d-flex align-items-center text-muted" routerLink="profile">
           مشاهده پروفایل
-          <mat-icon>keyboard_backspace</mat-icon>
         </a>
       </div>
     </span>
+    <ul class="user-base-info-menu">
+      <li class="position-relative">
+        <span class="prefix1"></span>
+        کیف پول
+
+        <span class="text-success">{{ 200000 | number : ".0" }} تومان</span>
+      </li>
+      <li class="position-relative">
+        <span class="prefix2"></span>
+        اعتبار
+        <span class="text-success">{{ 200000 | number : ".0" }} تومان </span>
+      </li>
+    </ul>
   </li>
   <li ngbDropdownItem>
     <span class="d-flex align-items-center">
@@ -31,7 +47,7 @@
       <span>آدرس ها</span>
     </span>
   </li>
-  <li ngbDropdownItem>
+  <li ngbDropdownItem class="cursor-pointer" (click)="authService.logout()">
     <span class="d-flex align-items-center">
       <span class="material-icons-outlined"> logout </span>
       <span>خروج</span>

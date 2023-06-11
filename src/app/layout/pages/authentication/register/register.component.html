@@ -16,18 +16,8 @@
     <div
       class="card-body d-flex flex-column align-items-center justify-content-center"
     >
-      <ng-container
-        [ngSwitch]="
-          !verificationCodeSent
-            ? 0
-            : verificationCodeSent && hasCompleteInfo
-            ? 1
-            : verificationCodeSent && !hasCompleteInfo
-            ? 2
-            : 0
-        "
-      >
-        <ng-container *ngSwitchCase="0">
+      <ng-container [ngSwitch]="getRegisterStatus()">
+        <ng-container *ngSwitchCase="registerStatusEnum.otpNotSent">
           <h5 class="fw-bolder">ورود یا ثبت نام</h5>
 
           <input
@@ -57,10 +47,10 @@
             فروشگاه اینترنتی کِلِمان است.
           </p>
         </ng-container>
-        <ng-container *ngSwitchCase="1">
+        <ng-container *ngSwitchCase="registerStatusEnum.otpSent">
           <ng-container *ngTemplateOutlet="verificationCode"> </ng-container>
         </ng-container>
-        <ng-container *ngSwitchCase="2">
+        <ng-container *ngSwitchCase="registerStatusEnum.completeInfo">
           <ng-container *ngTemplateOutlet="verificationCode"></ng-container>
 
           <h5 class="fw-bolder">تکمیل ثبت نام</h5>
@@ -143,7 +133,7 @@
   <h6 class="fw-bolder">کد تایید را وارد کنید</h6>
   <span class="w-100 d-flex justify-content-between align-items-center">
     <p class="text-muted">
-      کد تایید برای شماره {{ mobileFormControl.value }}. پیامک شد
+      کد تایید برای شماره {{ mobileFormControl.value }} پیامک شد
     </p>
     <a class="fw-bolder cursor-pointer" (click)="verificationCodeSent = false"
       ><u>تغییر شماره</u></a

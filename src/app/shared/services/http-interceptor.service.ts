@@ -29,44 +29,33 @@ export class HttpInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return from(this._setHeaders(req as HttpRequestOptions)).pipe(
-      switchMap(() => {
-        const modifiedReq = req.clone();
-        return next.handle(modifiedReq).pipe(
-          retry(3),
-          catchError((error: HttpErrorResponse) => {
-            return this._handleError(error);
-          })
-        );
+    const authReq = req.clone({
+      headers: this._setHeaders(req as HttpRequestOptions),
+    });
+    return next.handle(authReq).pipe(
+      retry(1),
+      catchError((error: HttpErrorResponse) => {
+        return this._handleError(error);
       })
     );
   }
 
-  private _setHeaders(
-    httpRequestOptions: HttpRequestOptions
-  ): Promise<HttpHeaders> {
-    return new Promise((resolve) => {
-      let headers: HttpHeaders;
-      const token = localStorage.getItem('KELEMAN_TOKEN');
-      if (httpRequestOptions.headers) {
-        headers = httpRequestOptions.headers as HttpHeaders;
-        resolve(headers);
-      } else {
-        let httpHeaders = new HttpHeaders();
-        httpHeaders = httpHeaders.set('Accept', 'application/json');
-        if (!httpRequestOptions.isBodyFormData) {
-          httpHeaders = httpHeaders.append(
-            'Content-Type',
-            'application/json; charset=utf-8'
-          );
-        }
-        if (token) {
-          httpHeaders = httpHeaders.append('Authorization', `Bearer ${token}`);
-        }
+  private _setHeaders(req: HttpRequestOptions) {
+    const token = localStorage.getItem('KELEMAN_TOKEN');
 
-        resolve(httpHeaders);
-      }
-    });
+    let httpHeaders = new HttpHeaders();
+    httpHeaders = httpHeaders.set('Accept', 'application/json');
+    if (!req.isBodyFormData) {
+      httpHeaders = httpHeaders.append(
+        'Content-Type',
+        'application/json; charset=utf-8'
+      );
+    }
+    if (token) {
+      httpHeaders = httpHeaders.append('Authorization', `Bearer ${token}`);
+    }
+
+    return httpHeaders;
   }
 
   private _handleError(error: HttpErrorResponse) {

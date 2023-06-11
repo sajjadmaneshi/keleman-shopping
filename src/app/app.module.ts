@@ -1,4 +1,4 @@
-import { ErrorHandler, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -16,9 +16,14 @@ import { MatComponentsModule } from './mat-components.module';
 import { FloatingButtonMenuComponent } from './shared/components/floating-button-menu/floating-button-menu.component';
 import { SwiperModule } from 'swiper/angular';
 import { JwtModule } from '@auth0/angular-jwt';
+import { UserService } from './shared/services/user.service';
 
 export function tokenGetter(): any {
   return localStorage.getItem('access_token');
+}
+
+export function initializeApp(userService: UserService): () => void {
+  return () => userService.getUserSimpleInfo();
 }
 
 @NgModule({
@@ -45,9 +50,16 @@ export function tokenGetter(): any {
   ],
   providers: [
     ApplicationStateService,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
+      multi: true,
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [UserService],
       multi: true,
     },
     { provide: ErrorHandler, useClass: AppErrorHandler },

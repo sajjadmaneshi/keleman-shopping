@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 export class SnackBarService {
   constructor(private _snackBar: MatSnackBar) {}
   showDangerSnackBar(message: string, config?: MatSnackBarConfig) {
-    debugger;
     this.openSnackBar({
       ...config,
       data: message,

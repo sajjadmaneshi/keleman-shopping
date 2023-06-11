@@ -3,19 +3,24 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AccountRepository } from './account.repository';
 import { LoginDto } from './data/login.dto';
 import { HttpClientResult } from '../../models/http/http-client.result';
+import { UserService } from '../user.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  isLoggedIn = new BehaviorSubject<boolean>(false);
   constructor(
     private jwtHelper: JwtHelperService,
-    private _authRepository: AccountRepository
+    private _authRepository: AccountRepository,
+    private _userService: UserService
   ) {}
 
-  public isAuthenticated(): boolean {
+  public get isAuthenticated(): Observable<boolean> {
     const token = localStorage.getItem('KELEMAN_TOKEN');
-    return !this.jwtHelper.isTokenExpired(token);
+    this.isLoggedIn.next(!this.jwtHelper.isTokenExpired(token));
+    return this.isLoggedIn.asObservable();
   }
 
   public sendVerificationCode(mobile: string): Promise<void> {
@@ -62,6 +67,13 @@ export class AuthService {
     mobile: string;
   }) {
     localStorage.setItem('KELEMAN_TOKEN', data.token);
+    this._userService.getUserSimpleInfo();
+    this.isLoggedIn.next(true);
     localStorage.setItem('MOBILE', data.mobile);
+  }
+  public logout() {
+    localStorage.removeItem('KELEMAN_TOKEN');
+    localStorage.removeItem('MOBILE');
+    this.isLoggedIn.next(false);
   }
 }
