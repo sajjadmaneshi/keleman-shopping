@@ -32,7 +32,7 @@ export class AttachReceiptDialogComponent {
     this.receiptForms.forEach((forms: BaseFormModel, index: number) => {
       forms.isSubmitted = true;
       if (forms.form.valid) {
-        console.log(`form${index} is valid`);
+
       }
     });
   }

@@ -3,11 +3,10 @@
     min-height: 20rem;
   }
 }
-@media (max-width: 767px) {
-  .rate {
-    position: absolute;
-    top: 15%;
-    left: 10%;
-    transform: translate(-50%, -50%);
-  }
+
+.rate {
+  position: absolute;
+  top: 1.5rem;
+  left: 10%;
+  transform: translate(-50%, -50%);
 }

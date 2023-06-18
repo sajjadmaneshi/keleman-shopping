@@ -26,6 +26,7 @@ import { HttpClientResult } from '../../../../shared/models/http/http-client.res
 import { AccountRepository } from '../../../../shared/services/auth/account.repository';
 import { CompleteInfoDto } from '../../../../shared/services/auth/data/complete-info.dto';
 import { RegisterStatusEnum } from './register-status.enum';
+import { PersianNumberService } from 'ngx-persian';
 
 @Component({
   selector: 'app-register',
@@ -87,6 +88,8 @@ export class RegisterComponent implements OnDestroy {
   mobileFormControl = new FormControl('', [
     Validators.required,
     mobileNumberFormatValidator(),
+    Validators.maxLength(11),
+    Validators.minLength(11),
   ]);
   otpVerificationCode = new FormControl<string>('', [
     Validators.required,
@@ -97,7 +100,8 @@ export class RegisterComponent implements OnDestroy {
     private _authservice: AuthService,
     private _router: Router,
     private _geoLocationRepository: GeoLocationRepository,
-    private _accountRepository: AccountRepository
+    private _accountRepository: AccountRepository,
+    private _persianNumberSerive: PersianNumberService
   ) {
     this._initForm();
   }
@@ -141,9 +145,12 @@ export class RegisterComponent implements OnDestroy {
   sendVerificationCode() {
     this.isFormSubmitted = true;
     if (this.mobileFormControl.valid) {
+      let mobileNumber = this._persianNumberSerive.toEnglish(
+        this.mobileFormControl.value!
+      );
       this.submitLoading = true;
       this._authservice
-        .sendVerificationCode(this.mobileFormControl.value!)
+        .sendVerificationCode(mobileNumber!)
         .then(() => {
           this.verificationCodeSent = true;
           this.isSendAgainActive = false;
@@ -240,5 +247,14 @@ export class RegisterComponent implements OnDestroy {
     if (this.verificationCodeSent && this.hasCompleteInfo === false)
       return RegisterStatusEnum.completeInfo;
     else return RegisterStatusEnum.otpNotSent;
+  }
+
+  changeNumber() {
+    this.verificationCodeSent = false;
+    this.verificationCodeValid = true;
+    this.otpVerificationCode.reset();
+    this.registerForm.reset();
+    this.otpVerificationCode.updateValueAndValidity();
+    this.registerForm.updateValueAndValidity();
   }
 }

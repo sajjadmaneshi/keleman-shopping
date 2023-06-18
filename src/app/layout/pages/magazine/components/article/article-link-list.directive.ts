@@ -10,8 +10,6 @@ export class ArticleLinkListDirective implements OnInit {
 
   ngOnInit(): void {
     this.headTags = this._el.nativeElement.querySelectorAll('h2');
-
-    console.log(this.headTags);
     this.makeLinkTags();
   }
 

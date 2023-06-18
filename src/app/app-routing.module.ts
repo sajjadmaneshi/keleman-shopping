@@ -25,7 +25,6 @@ const routes: Routes = [
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
       scrollOffset: [0, 100],
-      // useHash: true,
     }),
   ],
   providers: [TokenResolver],

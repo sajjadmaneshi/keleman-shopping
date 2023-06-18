@@ -16,8 +16,8 @@
 }
 
 .keleman-logo {
-  height: 75px;
-  margin-bottom: 3.125rem;
+  height: 4.5rem;
+  margin-bottom: 1rem;
 }
 
 .keleman-register-body {
@@ -25,9 +25,6 @@
   max-width: 500px;
   height: auto;
   border-radius: 10px;
-  & > .card-body > *:not(button) {
-    margin-bottom: 1rem !important;
-  }
 }
 .mobile-number-text-field::placeholder {
   text-align: center !important;

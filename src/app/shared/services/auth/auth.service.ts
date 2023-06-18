@@ -3,8 +3,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AccountRepository } from './account.repository';
 import { LoginDto } from './data/login.dto';
 import { HttpClientResult } from '../../models/http/http-client.result';
-import { UserService } from '../user.service';
+
 import { BehaviorSubject, Observable } from 'rxjs';
+import { UserSimpleInfoViewModel } from '../../models/view-models/user-simple-info.view-model';
+import { UserRepository } from '../../repositories/user/user.repository';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +16,12 @@ export class AuthService {
   constructor(
     private jwtHelper: JwtHelperService,
     private _authRepository: AccountRepository,
-    private _userService: UserService
+    private _userRepository: UserRepository
   ) {}
 
   public get isAuthenticated(): Observable<boolean> {
     const token = localStorage.getItem('KELEMAN_TOKEN');
+    console.log(this.jwtHelper.isTokenExpired(token));
     this.isLoggedIn.next(!this.jwtHelper.isTokenExpired(token));
     return this.isLoggedIn.asObservable();
   }
@@ -67,7 +70,7 @@ export class AuthService {
     mobile: string;
   }) {
     localStorage.setItem('KELEMAN_TOKEN', data.token);
-    this._userService.getUserSimpleInfo();
+    this.getUserSimpleInfo();
     this.isLoggedIn.next(true);
     localStorage.setItem('MOBILE', data.mobile);
   }
@@ -75,5 +78,22 @@ export class AuthService {
     localStorage.removeItem('KELEMAN_TOKEN');
     localStorage.removeItem('MOBILE');
     this.isLoggedIn.next(false);
+  }
+
+  public getUserSimpleInfo(): Promise<UserSimpleInfoViewModel | undefined> {
+    return new Promise<UserSimpleInfoViewModel | undefined>(
+      (resolve, reject) => {
+        if (localStorage.getItem('KELEMAN_TOKEN')) {
+          this._userRepository.getSimpleInfo().subscribe(
+            (response: HttpClientResult<UserSimpleInfoViewModel>) => {
+              resolve(response.result!);
+            },
+            () => reject()
+          );
+        } else {
+          resolve(undefined);
+        }
+      }
+    );
   }
 }

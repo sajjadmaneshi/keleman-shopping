@@ -58,6 +58,7 @@ import { ProductCategoryComponent } from '../main/components/product-category/pr
 import { CommentsModule } from '../../../shared/components/comments/comments.module';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { CategoryAboutComponent } from './product-list/components/category-about/category-about.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { CategoryAboutComponent } from './product-list/components/category-about
     CommentsModule,
     NgbNav,
     PaginationComponent,
+    NgxSkeletonLoaderModule,
   ],
   exports: [ProductItemComponent],
 })

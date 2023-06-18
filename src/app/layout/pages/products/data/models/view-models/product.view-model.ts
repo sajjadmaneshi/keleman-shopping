@@ -1,16 +1,14 @@
 export interface ProductViewModel {
   id: number;
   name: string;
+  thumbnailImage: string;
   price: number;
-  rate: RateViewModel;
+  rate: number;
+  priceAfterOff: number;
   description: string;
-  Introduction: string;
-
-  deliveryDesc: string;
-  defaultPic: string;
-}
-
-export interface RateViewModel {
-  count: number;
-  average: number;
+  discount: number;
+  category: {
+    id: number;
+    name: string;
+  };
 }

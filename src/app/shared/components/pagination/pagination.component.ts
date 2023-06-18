@@ -106,7 +106,7 @@ export class PaginationComponent implements AfterViewInit {
     if (pageNumber <= this.pageCount) {
       this.currentPage = pageNumber;
     }
-
+    window.scroll(0, 0);
     this.pageChange.emit(this.currentPage);
   }
 
@@ -133,7 +133,7 @@ export class PaginationComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.pageCount = Math.ceil(this.totalElements / this.limit);
-
+    console.log(this.totalElements);
     this.hastCustomPrev =
       !!this._el.nativeElement.querySelector("[slot='previous']");
     this.hasCustomNext =

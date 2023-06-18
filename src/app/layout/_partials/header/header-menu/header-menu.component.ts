@@ -10,6 +10,8 @@ import {
 
 import { DOCUMENT } from '@angular/common';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { Routing } from '../../../../routing';
 
 @Component({
   selector: 'keleman-header-menu',
@@ -23,6 +25,7 @@ export class HeaderMenuComponent implements AfterViewInit {
   screenWidth!: number;
   constructor(
     private _renderer2: Renderer2,
+    private _router: Router,
     @Inject(DOCUMENT) document: Document
   ) {
     this.screenWidth = window.innerWidth;
@@ -58,5 +61,12 @@ export class HeaderMenuComponent implements AfterViewInit {
     const megaMenu = document.getElementById('mega-menu');
     const width = this.screenWidth - this.screenWidth * 0.1;
     this._renderer2.setStyle(megaMenu, 'width', `${width}px`);
+  }
+
+  onNavigate($event: { c1?: string; c2?: string; c3?: string }) {
+    this._router.navigateByUrl(
+      `${Routing.products}/${$event.c1}/${$event.c2 ?? ''}/${$event.c3 ?? ''}`
+    );
+    this.myDrop.close();
   }
 }

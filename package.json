@@ -40,6 +40,7 @@
     "ngx-countdown": "^15.0.0",
     "ngx-dropzone": "^3.1.0",
     "ngx-image-zoom": "^2.0.0",
+    "ngx-persian": "^2.0.1",
     "ngx-skeleton-loader": "^7.0.0",
     "rxjs": "~7.8.0",
     "swiper": "^8.4.5",

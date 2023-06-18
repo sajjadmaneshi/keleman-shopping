@@ -64,6 +64,9 @@ export class AutoCompleteComponent implements ControlValueAccessor, OnChanges {
     }
   }
   private _filterStates(value: string): any[] {
+    if (value.includes('ی')) {
+      value = value.replace('ی', 'ي');
+    }
     const filterValue = value.toLowerCase();
 
     return this.options.filter((item: any) =>

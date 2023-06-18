@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../../shared/services/auth/auth.service';
-import { UserService } from '../../../../../shared/services/user.service';
+import {InitialAppService} from "../../../../../shared/services/initial-app.service";
 
 @Component({
   selector: 'keleman-top-menu',
@@ -12,7 +12,7 @@ export class TopMenuComponent implements OnInit {
 
   constructor(
     private _authService: AuthService,
-    public userService: UserService
+    public userService: InitialAppService
   ) {}
 
   ngOnInit(): void {

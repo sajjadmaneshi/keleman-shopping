@@ -1,5 +1,8 @@
 <ul class="pagination pagination-circle">
-  <li class="page-item previous" [class.disabled]="currentPage === 1">
+  <li
+    class="page-item previous cursor-pointer"
+    [class.disabled]="currentPage === 1"
+  >
     <a href="#" class="page-link" (click)="onPrevious()">
       <ng-content select="[slot='previous']"></ng-content>
       <ng-template [ngIf]="!hastCustomPrev"></ng-template>
@@ -7,7 +10,7 @@
     </a>
   </li>
   <ng-template [ngIf]="currentPage > pageToShow">
-    <li class="page-item">
+    <li class="page-item cursor-pointer">
       <a class="page-link" (click)="onPageChange(1)">1</a>
     </li>
     <li class="page-item" [class.disabled]="true">
@@ -16,7 +19,7 @@
   </ng-template>
 
   <li
-    class="page-item"
+    class="page-item cursor-pointer"
     *ngFor="let pageNumber of pageNumbers(currentPage)"
     [class.active]="currentPage === pageNumber"
   >
@@ -25,18 +28,21 @@
 
   <ng-template [ngIf]="currentPage < this.pageCount - 1">
     <li
-      class="page-item"
+      class="page-item catUrl1"
       *ngIf="pageToShow + 1 < pageCount - 1"
       [class.disabled]="true"
     >
       <a class="page-link">...</a>
     </li>
-    <li class="page-item" [class.active]="currentPage === pageCount">
+    <li class="page-item catUrl1" [class.active]="currentPage === pageCount">
       <a class="page-link" (click)="onPageChange(pageCount)">{{ pageCount }}</a>
     </li>
   </ng-template>
 
-  <li class="page-item next" [class.disabled]="currentPage === pageCount">
+  <li
+    class="page-item next catUrl1"
+    [class.disabled]="currentPage === pageCount"
+  >
     <a class="page-link" (click)="onNext()">
       <ng-content select="[slot='next']"></ng-content>
       <ng-template [ngIf]="!hastCustomPrev"></ng-template>

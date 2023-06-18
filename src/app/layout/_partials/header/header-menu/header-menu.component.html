@@ -29,7 +29,9 @@
             aria-labelledby="dropdownBasic1"
             (mouseleave)="$event.stopPropagation(); myDrop.close()"
           >
-            <keleman-mega-menu></keleman-mega-menu>
+            <keleman-mega-menu
+              (clickItem)="onNavigate($event)"
+            ></keleman-mega-menu>
           </div>
         </div>
       </li>

@@ -46,6 +46,6 @@ export class PersianDateTimeService {
   }
 
   fromGregorianString(dateTime: string, format?: string): string {
-    return moment(dateTime).locale('fa').format(format);
+    return moment(dateTime,format).locale('fa').format(format);
   }
 }

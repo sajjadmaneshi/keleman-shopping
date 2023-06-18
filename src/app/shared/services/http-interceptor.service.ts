@@ -59,7 +59,14 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   private _handleError(error: HttpErrorResponse) {
-    this._snackBar.showDangerSnackBar(error.error.responseException);
+    if (typeof error.error.responseException === 'object') {
+      this._snackBar.showDangerSnackBar(
+        error.error.responseException.exceptionMessage
+      );
+    } else {
+      this._snackBar.showDangerSnackBar(error.error.responseException);
+    }
+
     switch (error.status) {
       case 400:
         return throwError(() => new BadInputError(error));

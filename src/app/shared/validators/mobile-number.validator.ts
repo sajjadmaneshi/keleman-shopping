@@ -1,10 +1,13 @@
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
+import { PersianNumberService } from 'ngx-persian';
 
+const persianNumberService = new PersianNumberService();
 export function mobileNumberFormatValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    const mobileNumber = control.value;
+    const mobileNumber = persianNumberService.toEnglish(control.value);
 
-    const pattern = /^0[0-9]\d{9}$/;
+    const pattern =
+      /^(0)?([ ]|-|[()]){0,2}9[0-9]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}$/;
 
     if (
       !Validators.required(control) &&

@@ -4,8 +4,13 @@
 }
 .menu {
   list-style: none;
+  header {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    font-weight: bold;
+  }
   li {
-    padding: 1rem;
+    margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
     color: map-get($theme-colors, "gray-700");
@@ -19,4 +24,10 @@
 }
 .after-border {
   border-bottom: 2px solid map-get($theme-colors, "gray-500");
+}
+.social > a {
+  padding: 0 0.5rem;
+}
+.about {
+  line-height: 2.5rem;
 }

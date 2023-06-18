@@ -17,16 +17,34 @@
       <div class="d-flex flex-column">
         <keleman-products-sort></keleman-products-sort>
         <div class="row mx-0 g-1">
-          <div
-            class="col-12 col-md-6 col-lg-4 col-xl-3"
-            *ngFor="let product of products"
-          >
-            <keleman-product-item [product]="product"></keleman-product-item>
-          </div>
+          <ng-container
+            *ngIf="products.length === 0; then loading; else productList"
+          ></ng-container>
+          <ng-template #loading>
+            <div
+              class="col-12 col-md-6 col-lg-4 col-xl-3"
+              *ngFor="let _ of sharedVaribaleServie.counter(10)"
+            >
+              <ngx-skeleton-loader
+                [theme]="{ width: '100%', height: '300px ' }"
+              ></ngx-skeleton-loader>
+            </div>
+          </ng-template>
+          <ng-template #productList>
+            <div
+              class="col-12 col-md-6 col-lg-4 col-xl-3"
+              *ngFor="let product of products"
+            >
+              <keleman-product-item [product]="product"></keleman-product-item>
+            </div>
+          </ng-template>
         </div>
         <keleman-pagination
-          [totalElements]="40"
+          *ngIf="products.length > 0"
+          [totalElements]="totalElements"
           (pageChange)="pageChange($event)"
+          [limit]="10"
+          [currentPage]="page"
         ></keleman-pagination>
       </div>
     </div>
