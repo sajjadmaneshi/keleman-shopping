@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApplicationStateService } from './shared/services/application-state.service';
 import { Title } from '@angular/platform-browser';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent {
 
   constructor(
     private _applicationState: ApplicationStateService,
-    private _title: Title
+    private _title: Title,
+    private _jwtHelper: JwtHelperService
   ) {
     _title.setTitle(this.title);
     this._applicationState.init();

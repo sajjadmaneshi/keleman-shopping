@@ -21,7 +21,7 @@
         [alt]="product.name!"
       />
     </div>
-    <h2 class="fs-6 align-self-start align-self-md-center flex-grow-1">
+    <h2 class="fs-6 align-self-md-center flex-grow-1">
       {{ product.name! }}
     </h2>
     <div class="d-flex flex-column">
@@ -33,11 +33,11 @@
           [value]="product.priceAfterOff!"
           [off]="false"
           [size]="'h5'"
-          class="mb-3"
+          class="mb-md-3"
         ></keleman-price>
       </ng-template>
       <ng-template #call>
-        <h5 class="mb-3 text-klm-primary fw-bold">تماس بگیرید</h5>
+        <h5 class="mb-md-3 text-klm-primary fw-bold">تماس بگیرید</h5>
       </ng-template>
 
       <ng-template [ngIf]="product.discount > 0">

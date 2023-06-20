@@ -9,104 +9,49 @@
             <h5>نمایش سبد خرید</h5>
           </span>
         </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img
-              [src]="'assets/media/off-canvas-menu-items/all-products.svg'"
-            />
 
-            <h5 class="px-3">تمامی محصولات</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img
-              [src]="'assets/media/off-canvas-menu-items/engine-motor.svg'"
-            />
-
-            <h5 class="px-3">موتورآسانسور</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img
-              [src]="'assets/media/off-canvas-menu-items/reyl-rahnama.svg'"
-            />
-
-            <h5 class="px-3">ریل راهنما آسانسور</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img
-              [src]="'assets/media/off-canvas-menu-items/darb-asansor.svg'"
-            />
-
-            <h5 class="px-3">درب آسانسور</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img [src]="'assets/media/off-canvas-menu-items/simboxel.svg'" />
-
-            <h5 class="px-3">سیم بکسل و تراول کابل</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img [src]="'assets/media/off-canvas-menu-items/board.svg'" />
-
-            <h5 class="px-3">تابلو فرمان</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img [src]="'assets/media/off-canvas-menu-items/gear.svg'" />
-
-            <h5 class="px-3">متعلقات درب و ریل</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img
-              [src]="
-                'assets/media/off-canvas-menu-items/motaleqatrahandazi.svg'
-              "
-            />
-
-            <h5 class="px-3">متعلقات راه اندازی</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img
-              [src]="'assets/media/off-canvas-menu-items/tie-accessory.svg'"
-            />
-
-            <h5 class="px-3">تجهیزات</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img [src]="'assets/media/off-canvas-menu-items/power.svg'" />
-
-            <h5 class="px-3">لوازم برقی</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img [src]="'assets/media/off-canvas-menu-items/package.svg'" />
-
-            <h5 class="px-3">پکیج های آسانسور</h5>
-          </span>
-        </li>
-        <li class="menu-item">
-          <span class="d-flex align-items-center">
-            <img [src]="'assets/media/off-canvas-menu-items/open.svg'" />
-
-            <h5 class="px-3">لوازم یدکی</h5>
-          </span>
-        </li>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let rootCategory of productCategories">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <img
+                  class="mx-1"
+                  [src]="'assets/media/off-canvas-menu-items/all-products.svg'"
+                />
+                <span (click)="onNavigate({ c1: rootCategory.url })">
+                  {{ rootCategory.titleFa }}
+                </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="column">
+              <ng-template
+                ngFor
+                let-child
+                [ngForOf]="rootCategory.children"
+                let-i="index"
+              >
+                <li
+                  class="head"
+                  (click)="onNavigate({ c1: rootCategory.url, c2: child.url })"
+                >
+                  <a>{{ child.titleFa }} </a>
+                </li>
+                <li
+                  *ngFor="let childChild of child.children"
+                  (click)="
+                    onNavigate({
+                      c1: rootCategory.url,
+                      c2: child.url,
+                      c3: childChild.url
+                    })
+                  "
+                >
+                  <a>{{ childChild.titleFa }}</a>
+                </li>
+              </ng-template>
+            </ul>
+          </mat-expansion-panel>
+        </mat-accordion>
       </ul>
     </div>
   </div>

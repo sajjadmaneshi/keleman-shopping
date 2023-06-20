@@ -6,7 +6,9 @@
 
 <div class="main-content container">
   <section id="product-category" class="d-none d-lg-block">
-    <keleman-product-category></keleman-product-category>
+    <keleman-product-category
+      (onItemClick)="navigateToPage($event)"
+    ></keleman-product-category>
   </section>
 
   <section id="amazing-offer">

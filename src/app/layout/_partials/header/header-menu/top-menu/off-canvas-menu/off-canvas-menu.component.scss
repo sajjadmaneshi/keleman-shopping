@@ -1,7 +1,11 @@
 @import "base/variables/colors";
+
 .off-canvas-menu {
-  padding: 0;
+  padding: 1.5rem;
   list-style: none;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden;
   .menu-item {
     padding: 1rem;
     border-bottom: 1px solid map-get($theme-colors, "gray-300");
@@ -18,5 +22,50 @@
       font-size: 1.5rem;
       transform: translateY(-50%);
     }
+  }
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column {
+  @include flex-column;
+  padding: 0;
+  list-style: none;
+  li {
+    padding: 0.25rem;
+    &.head {
+      a {
+        padding: 0 0.5rem;
+        position: relative;
+        font-weight: bolder;
+        border-right: 3px solid $klm-primary;
+        &::after {
+          position: absolute;
+          font-family: "Material Icons";
+          content: "\e5de";
+          left: -1rem;
+          top: 50%;
+          font-size: 1.5rem;
+          transform: translateY(-50%);
+        }
+      }
+    }
+    &:not(.head) {
+      margin-right: 1.5rem;
+      &:hover {
+        font-weight: bold !important;
+        transition: all 0.15s ease-in;
+      }
+    }
+  }
+}
+.mat-expansion-panel {
+  margin-bottom: 1rem;
+  box-shadow: none;
+  &:not(:last-child) {
+    border-bottom: 1px solid $gray-300;
   }
 }

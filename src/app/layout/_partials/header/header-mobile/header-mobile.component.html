@@ -15,14 +15,25 @@
         src="assets/media/logo/keleman-logo.png"
         loading="lazy"
     /></a>
-    <a routerLink="/register">
-      <span class="d-flex align-items-center text-klm-primary">
-        <mat-icon class="mx-1">login</mat-icon>
-        ورود
-      </span>
-    </a>
 
-    <ng-template [ngIf]="isLoggedIn">
+    <ng-container
+      *ngIf="
+        isLoggedIn && userService.userSimpleInfo;
+        then userInfo;
+        else register
+      "
+    ></ng-container>
+
+    <ng-template #register>
+      <a routerLink="/register">
+        <span class="d-flex align-items-center text-klm-primary">
+          <mat-icon class="mx-1">login</mat-icon>
+          ورود
+        </span>
+      </a>
+    </ng-template>
+
+    <ng-template #userInfo>
       <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
         <div
           class="symbol symbol-50px symbol-circle cursor-pointer"
@@ -36,14 +47,18 @@
           aria-labelledby="dropdownBasic1"
           class="rounded-3 shadow-lg border-0"
         >
-          <keleman-user-dropdown-menu></keleman-user-dropdown-menu>
+          <keleman-user-dropdown-menu
+            [userInfo]="userService.userSimpleInfo"
+          ></keleman-user-dropdown-menu>
         </div>
       </div>
     </ng-template>
   </div>
   <keleman-search-bar class="flex-grow-1 w-100"></keleman-search-bar>
   <div class="py-3">
-    <keleman-product-category></keleman-product-category>
+    <keleman-product-category
+      (onItemClick)="navigateToPage($event)"
+    ></keleman-product-category>
   </div>
 </div>
 

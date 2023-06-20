@@ -1,58 +1,44 @@
 import { Injectable } from '@angular/core';
-import { CategoryModel } from '../../../../../shared/models/category.model';
+import { ProductRepository } from '../../../products/data/repositories/product.repository';
+import { ProductCategoryViewModel } from '../../../../../shared/models/view-models/product-category.view-model';
+import { HttpClientResult } from '../../../../../shared/models/http/http-client.result';
+import { BehaviorSubject, tap } from 'rxjs';
+import { Routing } from '../../../../../routing';
+import { Router } from '@angular/router';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProductCategoryService {
+  constructor(
+    private _productRepository: ProductRepository,
+    private _router: Router
+  ) {}
   assetsBaseUrl =
     'assets/media/static-resources/categories-without-background/';
-  categories: CategoryModel[] = [
-    {
-      image: `${this.assetsBaseUrl}motor.svg`,
-      title: ' موتور آسانسور',
-    },
-    {
-      image: `${this.assetsBaseUrl}rail.svg`,
-      title: ' ریل راهنما آسانسور ',
-    },
-    {
-      image: `${this.assetsBaseUrl}door.svg`,
-      title: ' درب آسانسور  ',
-    },
-    {
-      image: `${this.assetsBaseUrl}tow-wire.svg`,
-      title: ' سیم بکسل و تراول کابل',
-    },
-    {
-      image: `${this.assetsBaseUrl}dashboard.svg`,
-      title: ' تابلو فرمان ',
-    },
-    {
-      image: `${this.assetsBaseUrl}door-accessories.svg`,
-      title: ' متعلقات درب و ریل',
-    },
-    {
-      image: `${this.assetsBaseUrl}packages.svg`,
-      title: ' پکیج های آسانسور ',
-    },
-    {
-      image: `${this.assetsBaseUrl}mechanical-accessories.svg`,
-      title: ' متعلقات مکانیکی ',
-    },
-    {
-      image: `${this.assetsBaseUrl}tools.svg`,
-      title: ' لوازم یدکی ',
-    },
-    {
-      image: `${this.assetsBaseUrl}appliances.svg`,
-      title: ' لوازم برقی ',
-    },
-    {
-      image: `${this.assetsBaseUrl}equipment.svg`,
-      title: ' تجهیزات ',
-    },
-    {
-      image: `${this.assetsBaseUrl}startup-accessories.svg`,
-      title: ' متعلقات راه اندازی ',
-    },
-  ];
+  isLoading = new BehaviorSubject(false);
+
+  public getCategories(parentId: number): Promise<ProductCategoryViewModel[]> {
+    this.isLoading.next(true);
+    return new Promise((resolve, reject) => {
+      this._productRepository
+        .getAllProductCategoriesWithChildrens(parentId)
+        .pipe(tap(() => this.isLoading.next(false)))
+        .subscribe(
+          (result: HttpClientResult<ProductCategoryViewModel[]>) => {
+            resolve(result.result!);
+          },
+          (err) => reject(err)
+        );
+    });
+  }
+
+  onNavigate({ c1, c2, c3 }: { c1?: string; c2?: string; c3?: string }) {
+    const params = `${c1 ?? ''}/${c2 ?? ''}/${c3 ?? ''}`.replace(
+      /\/{2,}/g,
+      '/'
+    ); // Remove consecutive slashes if any
+
+    const queryParams = { p: '0' };
+
+    this._router.navigate([`${Routing.products}/${params}`], { queryParams });
+  }
 }

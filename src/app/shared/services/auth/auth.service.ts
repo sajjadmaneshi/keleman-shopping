@@ -19,10 +19,17 @@ export class AuthService {
     private _userRepository: UserRepository
   ) {}
 
+  private tokenExpired(token: string) {
+    const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+    return Math.floor(new Date().getTime() / 1000) >= expiry;
+  }
+
   public get isAuthenticated(): Observable<boolean> {
     const token = localStorage.getItem('KELEMAN_TOKEN');
-    console.log(this.jwtHelper.isTokenExpired(token));
-    this.isLoggedIn.next(!this.jwtHelper.isTokenExpired(token));
+    if (token) {
+      this.isLoggedIn.next(!this.tokenExpired(token!));
+      if (this.tokenExpired(token!)) this.logout();
+    }
     return this.isLoggedIn.asObservable();
   }
 
@@ -69,10 +76,10 @@ export class AuthService {
     token: string;
     mobile: string;
   }) {
+    debugger;
     localStorage.setItem('KELEMAN_TOKEN', data.token);
     this.getUserSimpleInfo();
     this.isLoggedIn.next(true);
-    localStorage.setItem('MOBILE', data.mobile);
   }
   public logout() {
     localStorage.removeItem('KELEMAN_TOKEN');

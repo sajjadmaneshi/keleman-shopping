@@ -9,11 +9,12 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedVariablesService } from '../../services/shared-variables.service';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'keleman-pagination',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, NgbPagination],
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
@@ -21,7 +22,7 @@ export class PaginationComponent implements AfterViewInit {
   private _currentPage: number = 1;
   private _limit = 10;
   private _totalElements!: number;
-  private _pageToShow = 3;
+  private _pageToShow = 0;
   private _pageCount = 0;
   private _hastCustomPrev = false;
   private _hasCustomNext = false;
@@ -55,6 +56,11 @@ export class PaginationComponent implements AfterViewInit {
   }
 
   get pageToShow(): number {
+    if (this.totalElements > 3 * this.limit) {
+      this.pageToShow = 3;
+    } else {
+      this.pageToShow;
+    }
     return this._validatePageToShow()
       ? this._pageToShow
       : this.pageCount > 0
@@ -112,28 +118,48 @@ export class PaginationComponent implements AfterViewInit {
 
   pageNumbers(num: number) {
     let array: number[] = [];
-    if (num < this.pageToShow) {
-      for (let i = 1; i <= this.pageToShow; i++) {
-        array.push(i);
+    if (this.totalElements > this.limit) {
+      if (this.totalElements >= this.limit * 3) {
+        this.pageToShow = 3;
+      } else {
+        this.pageToShow = 2;
       }
+    } else this.pageToShow = 1;
+    for (let i = 1; i <= this.pageToShow; i++) {
+      array.push(i);
     }
-    if (num === this.pageToShow) {
-      for (let i = 1; i <= num + 1; i++) {
-        array.push(i);
-      }
-    }
-    if (num > this.pageToShow && num < this.pageCount) {
-      array = [num - 1, num, num + 1];
-    }
-    if (num === this.pageCount) {
-      array = [num - 1, num];
-    }
+
+    // if (
+    //   num < this.pageToShow &&
+    //   this.totalElements >= this.pageToShow * this.limit
+    // ) {
+    //   for (let i = 1; i <= this.pageToShow; i++) {
+    //     array.push(i);
+    //   }
+    // }
+    // debugger;
+    // const pageCounts = this.totalElements / this.limit + 1;
+    // for (let i = array[-1]; i <= pageCounts; i++) {
+    //   array.push(i);
+    // }
+    //
+    // // if (num === this.pageToShow) {
+    // //   for (let i = 1; i <= num + 1; i++) {
+    // //     array.push(i);
+    // //   }
+    // // }
+    // // if (num > this.pageToShow && num < this.pageCount) {
+    // //   array = [num - 1, num, num + 1];
+    // // }
+    // // if (num === this.pageCount) {
+    // //   array = [num - 1, num];
+    // // }
     return array;
   }
 
   ngAfterViewInit(): void {
-    this.pageCount = Math.ceil(this.totalElements / this.limit);
     console.log(this.totalElements);
+    this.pageCount = Math.ceil(this.totalElements / this.limit);
     this.hastCustomPrev =
       !!this._el.nativeElement.querySelector("[slot='previous']");
     this.hasCustomNext =

@@ -1,4 +1,12 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ProductCategoryService } from './product-category.service';
 import { CommonModule } from '@angular/common';
@@ -8,6 +16,7 @@ import {
   SwiperTemplateDirective,
 } from '../../../../../shared/directives/swiper-template.directive';
 import { SwiperComponent } from '../../../../../shared/components/swiper/swiper.component';
+import { ProductCategoryViewModel } from '../../../../../shared/models/view-models/product-category.view-model';
 
 @Component({
   selector: 'keleman-product-category',
@@ -24,7 +33,30 @@ import { SwiperComponent } from '../../../../../shared/components/swiper/swiper.
   providers: [ProductCategoryService],
   standalone: true,
 })
-export class ProductCategoryComponent {
-  isLoading = new BehaviorSubject(false);
+export class ProductCategoryComponent implements OnChanges, OnInit {
+  @Input() parentId: number = 0;
+
+  @Output() onItemClick = new EventEmitter<ProductCategoryViewModel>();
+
+  categories: ProductCategoryViewModel[] = [];
+
   constructor(public productCategoryService: ProductCategoryService) {}
+
+  getCategoryProducts(category: ProductCategoryViewModel) {
+    this.onItemClick.emit(category);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this._getCategories();
+  }
+
+  private _getCategories() {
+    this.productCategoryService
+      .getCategories(this.parentId)
+      .then((result) => (this.categories = [...result]));
+  }
+
+  ngOnInit(): void {
+    this._getCategories();
+  }
 }

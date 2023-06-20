@@ -10,8 +10,8 @@ import {
 
 import { DOCUMENT } from '@angular/common';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
-import { Routing } from '../../../../routing';
+
+import { ProductCategoryService } from '../../../pages/main/components/product-category/product-category.service';
 
 @Component({
   selector: 'keleman-header-menu',
@@ -25,7 +25,7 @@ export class HeaderMenuComponent implements AfterViewInit {
   screenWidth!: number;
   constructor(
     private _renderer2: Renderer2,
-    private _router: Router,
+    private _categoryService: ProductCategoryService,
     @Inject(DOCUMENT) document: Document
   ) {
     this.screenWidth = window.innerWidth;
@@ -34,9 +34,10 @@ export class HeaderMenuComponent implements AfterViewInit {
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.screenWidth = window.innerWidth;
+    this._calculateMenuHeight();
   }
 
-  ngAfterViewInit(): void {
+  private _calculateMenuHeight() {
     const clientHeight = document.documentElement.clientHeight;
     const headerHeight = document
       .getElementById('keleman-header')
@@ -55,6 +56,10 @@ export class HeaderMenuComponent implements AfterViewInit {
     );
   }
 
+  ngAfterViewInit(): void {
+    this._calculateMenuHeight();
+  }
+
   onHover($event: any) {
     $event.stopPropagation();
     this.myDrop.open();
@@ -64,9 +69,7 @@ export class HeaderMenuComponent implements AfterViewInit {
   }
 
   onNavigate($event: { c1?: string; c2?: string; c3?: string }) {
-    this._router.navigateByUrl(
-      `${Routing.products}/${$event.c1}/${$event.c2 ?? ''}/${$event.c3 ?? ''}`
-    );
+    this._categoryService.onNavigate($event);
     this.myDrop.close();
   }
 }

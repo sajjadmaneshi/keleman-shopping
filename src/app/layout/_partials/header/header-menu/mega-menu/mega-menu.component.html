@@ -36,7 +36,13 @@
           </li>
           <li
             *ngFor="let childChild of child.children"
-            (click)="onClick({ c1: rootCategory.url, c2: childChild.url })"
+            (click)="
+              onClick({
+                c1: rootCategory.url,
+                c2: child.url,
+                c3: childChild.url
+              })
+            "
           >
             <a>{{ childChild.titleFa }}</a>
           </li>

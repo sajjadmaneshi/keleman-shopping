@@ -3,13 +3,15 @@
   [showMoreButton]="false"
   [navigation]="true"
   [titleBorder]="false"
-  [isLoading]="isLoading"
+  [isLoading]="productCategoryService.isLoading"
 >
-  <appSwiperContent *ngFor="let slide of productCategoryService.categories">
+  <appSwiperContent *ngFor="let category of categories">
     <ng-template appSwiperTemplate>
       <app-product-category-item
-        [category]="slide"
-        [isLoading]="false"
+        class="cursor-pointer"
+        [category]="category"
+        [isLoading]="(productCategoryService.isLoading | async)!"
+        (click)="getCategoryProducts(category)"
       ></app-product-category-item>
     </ng-template>
   </appSwiperContent>

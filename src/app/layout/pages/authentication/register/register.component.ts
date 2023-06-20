@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { Subscription, tap } from 'rxjs';
+import { Subject, Subscription, takeUntil, tap } from 'rxjs';
 import {
   FormControl,
   FormGroup,
@@ -27,6 +27,7 @@ import { AccountRepository } from '../../../../shared/services/auth/account.repo
 import { CompleteInfoDto } from '../../../../shared/services/auth/data/complete-info.dto';
 import { RegisterStatusEnum } from './register-status.enum';
 import { PersianNumberService } from 'ngx-persian';
+import { TextOnlyDirective } from '../../../../shared/directives/text-only.directive';
 
 @Component({
   selector: 'app-register',
@@ -45,10 +46,12 @@ import { PersianNumberService } from 'ngx-persian';
     ErrorFeedbackDirective,
     NumberOnlyDirective,
     MatComponentsModule,
+    TextOnlyDirective,
   ],
 })
 export class RegisterComponent implements OnDestroy {
   @ViewChild('cd') private countDown!: CountdownComponent;
+  private destroy$ = new Subject<void>();
   registerStatusEnum = RegisterStatusEnum;
   lastOtpLength = 0;
   selectedCity!: number;
@@ -111,7 +114,10 @@ export class RegisterComponent implements OnDestroy {
     this.province.disable();
     const getAllStates$ = this._geoLocationRepository
       .getAllStates()
-      .pipe(tap(() => (this.stateLoading = false)))
+      .pipe(
+        tap(() => (this.stateLoading = false)),
+        takeUntil(this.destroy$)
+      )
       .subscribe((result: HttpClientResult<StatesViewModel[]>) => {
         this.provinces = result.result as StatesViewModel[];
         this.province.enable();
@@ -124,7 +130,10 @@ export class RegisterComponent implements OnDestroy {
     this.city.disable();
     const getAllCities$ = this._geoLocationRepository
       .getCitiesOfState(provienceID)
-      .pipe(tap(() => (this.cityLoading = false)))
+      .pipe(
+        tap(() => (this.cityLoading = false)),
+        takeUntil(this.destroy$)
+      )
       .subscribe((result: HttpClientResult<CityViewModel[]>) => {
         this.cities = result.result as CityViewModel[];
 
@@ -217,7 +226,10 @@ export class RegisterComponent implements OnDestroy {
       } as CompleteInfoDto;
       const completeInfo$ = this._accountRepository
         .completeInfo(dto)
-        .pipe(tap(() => (this.submitLoading = false)))
+        .pipe(
+          tap(() => (this.submitLoading = false)),
+          takeUntil(this.destroy$)
+        )
         .subscribe((result) => {
           this._authservice.setAuthorizedInfoToLocalStorage({
             token: result.result.token,
@@ -236,10 +248,6 @@ export class RegisterComponent implements OnDestroy {
     this.selectedCity = $event;
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   getRegisterStatus(): RegisterStatusEnum {
     if (!this.verificationCodeSent) return RegisterStatusEnum.otpNotSent;
     if (this.verificationCodeSent && this.hasCompleteInfo === true)
@@ -256,5 +264,10 @@ export class RegisterComponent implements OnDestroy {
     this.registerForm.reset();
     this.otpVerificationCode.updateValueAndValidity();
     this.registerForm.updateValueAndValidity();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

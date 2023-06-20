@@ -7,14 +7,7 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import {
-  Observable,
-  catchError,
-  throwError,
-  retry,
-  from,
-  switchMap,
-} from 'rxjs';
+import { Observable, catchError, throwError, retry } from 'rxjs';
 import { HttpRequestOptions } from '../models/http/http-request-options';
 import { AppErrors } from '../common/app-errors';
 import { BadInputError } from '../common/errors/bad-input-error';
@@ -59,13 +52,9 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   private _handleError(error: HttpErrorResponse) {
-    if (typeof error.error.responseException === 'object') {
-      this._snackBar.showDangerSnackBar(
-        error.error.responseException.exceptionMessage
-      );
-    } else {
-      this._snackBar.showDangerSnackBar(error.error.responseException);
-    }
+    this._snackBar.showDangerSnackBar(
+      error.error.responseException.exceptionMessage
+    );
 
     switch (error.status) {
       case 400:

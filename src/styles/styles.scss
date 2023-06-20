@@ -89,3 +89,12 @@ input::-webkit-inner-spin-button {
     transform: scale(0.75);
   }
 }
+ngx-skeleton-loader {
+  .skeleton-loader {
+    margin-bottom: 0 !important;
+
+    &.progress:before {
+      animation-direction: reverse !important;
+    }
+  }
+}

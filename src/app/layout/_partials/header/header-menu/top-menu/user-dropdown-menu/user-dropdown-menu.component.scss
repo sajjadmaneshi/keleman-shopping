@@ -13,7 +13,7 @@
     background-color: $gray-300;
     height: 70%;
     position: absolute;
-    right: 23%;
+    right: 3.5rem;
     top: 25px;
     z-index: -1;
   }
@@ -44,5 +44,11 @@
   li {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-base-info-menu {
+    padding-right: 4.25rem;
   }
 }

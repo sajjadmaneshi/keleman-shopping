@@ -71,6 +71,7 @@
                 <input
                   class="form-control keleman-text-field"
                   [class.is-invalid]="name.invalid && isFormSubmitted"
+                  textOnly
                   formControlName="name"
                   id="name"
                 />
@@ -86,6 +87,7 @@
                 <input
                   class="form-control keleman-text-field"
                   [class.is-invalid]="family.invalid && isFormSubmitted"
+                  textOnly
                   formControlName="family"
                   id="family"
                 />
@@ -97,7 +99,7 @@
                 </span>
               </div>
 
-              <div class="col-6 form-group">
+              <div class="col-6">
                 <keleman-auto-complete
                   [options]="provinces"
                   [formControl]="province"
