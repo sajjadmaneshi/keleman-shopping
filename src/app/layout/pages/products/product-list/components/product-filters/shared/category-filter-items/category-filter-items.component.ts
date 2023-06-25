@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { ProductFilterService } from '../../../product-filter.service';
 
 @Component({
   selector: 'keleman-category-filter-items',
   templateUrl: './category-filter-items.component.html',
   styleUrls: ['../filter-items.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryFilterItemsComponent {
   @Input() selectedArray: any[] = [];

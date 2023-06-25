@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CommonModule } from '@angular/common';
 import { ProductCategoryViewModel } from '../../../../../../shared/models/view-models/product-category.view-model';
@@ -10,6 +10,7 @@ import { ENVIRONMENT } from '../../../../../../../environments/environment';
   selector: 'app-product-category-item',
   templateUrl: './product-category-item.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     NgxSkeletonLoaderModule,

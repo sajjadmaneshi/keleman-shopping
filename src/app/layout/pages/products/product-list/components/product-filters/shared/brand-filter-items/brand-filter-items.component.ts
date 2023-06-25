@@ -1,10 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ProductFilterService } from '../../../product-filter.service';
 
 @Component({
   selector: 'keleman-brand-filter-items',
   templateUrl: './brand-filter-items.component.html',
   styleUrls: ['../filter-items.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrandFilterItemsComponent implements OnInit {
   @Input() selectedArray: any[] = [];

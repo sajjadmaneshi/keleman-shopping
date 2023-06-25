@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
-import { combineLatest, Subject, takeUntil } from 'rxjs';
+import { combineLatest, Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductRepository } from '../data/repositories/product.repository';
 import { HttpClientResult } from '../../../../shared/models/http/http-client.result';
@@ -12,8 +12,16 @@ import { CategorySimpleInfoViewModel } from '../data/models/view-models/category
 @Component({
   selector: 'keleman-product-list',
   templateUrl: './product-list.component.html',
+  styles: [
+    `
+      .empty-product-list img {
+        width: 10rem;
+      }
+    `,
+  ],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
+  isLoading = false;
   totalElements = 0;
   page = 1;
   categoryId!: number;
@@ -54,9 +62,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   getAllProducts(page: number) {
+    this.isLoading = true;
     this._productsRepository
       .search(this.categoryUrl, page, 10)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        tap(() => setTimeout(() => (this.isLoading = false), 1500)),
+        takeUntil(this.destroy$)
+      )
       .subscribe(
         (
           result: HttpClientResult<{
@@ -67,7 +79,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         ) => {
           this.products = [...result.result?.products!];
           this.totalElements = result.result?.totalElements!;
-          this.categoryId = result.result?.category.id!;
+          this.categoryId = result.result?.category?.id!;
         }
       );
   }
@@ -75,7 +87,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
   pageChange($event: number) {
     this.page = $event;
     this._updateQueryParams();
-    this.getAllProducts($event);
   }
 
   private _updateQueryParams() {

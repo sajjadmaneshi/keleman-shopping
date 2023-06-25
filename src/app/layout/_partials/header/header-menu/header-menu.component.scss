@@ -14,3 +14,6 @@
 .nav-item:not(.dropdown):hover {
   background-color: $gray-200;
 }
+.dropdown-toggle:after {
+  display: none !important;
+}

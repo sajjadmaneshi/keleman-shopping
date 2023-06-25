@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import {
   FormControl,
   FormGroup,
@@ -54,23 +54,17 @@ export class RegisterComponent implements OnDestroy {
   private destroy$ = new Subject<void>();
   registerStatusEnum = RegisterStatusEnum;
   lastOtpLength = 0;
-  selectedCity!: number;
   verificationCodeSent: boolean = false;
-  isVisible = false;
+  selectedCity!: number;
   registerForm!: FormGroup;
-
   isFormSubmitted = false;
-
   submitLoading = false;
   stateLoading = false;
   cityLoading = false;
   isSendAgainActive = false;
-  subscriptions = new Subscription();
   hasCompleteInfo!: boolean;
-
   verificationCodeValid = true;
   provinces: StatesViewModel[] = [];
-
   cities: CityViewModel[] = [];
 
   public get name(): FormControl {
@@ -112,7 +106,7 @@ export class RegisterComponent implements OnDestroy {
   private _getAllStates() {
     this.stateLoading = true;
     this.province.disable();
-    const getAllStates$ = this._geoLocationRepository
+    this._geoLocationRepository
       .getAllStates()
       .pipe(
         tap(() => (this.stateLoading = false)),
@@ -122,13 +116,12 @@ export class RegisterComponent implements OnDestroy {
         this.provinces = result.result as StatesViewModel[];
         this.province.enable();
       });
-    this.subscriptions.add(getAllStates$);
   }
 
   private _getCitiesOfState(provienceID: number) {
     this.cityLoading = true;
     this.city.disable();
-    const getAllCities$ = this._geoLocationRepository
+    this._geoLocationRepository
       .getCitiesOfState(provienceID)
       .pipe(
         tap(() => (this.cityLoading = false)),
@@ -139,7 +132,6 @@ export class RegisterComponent implements OnDestroy {
 
         this.city.enable();
       });
-    this.subscriptions.add(getAllCities$);
   }
 
   private _initForm() {
@@ -212,9 +204,7 @@ export class RegisterComponent implements OnDestroy {
 
   completeInfo() {
     this.isFormSubmitted = true;
-
     this.verificationCodeValid = this.otpVerificationCode.value?.length! === 5;
-
     if (this.registerForm.valid && this.verificationCodeValid) {
       this.submitLoading = true;
       const dto = {
@@ -224,7 +214,7 @@ export class RegisterComponent implements OnDestroy {
         token: Number(this.otpVerificationCode.value),
         locationId: this.selectedCity,
       } as CompleteInfoDto;
-      const completeInfo$ = this._accountRepository
+      this._accountRepository
         .completeInfo(dto)
         .pipe(
           tap(() => (this.submitLoading = false)),
@@ -237,7 +227,6 @@ export class RegisterComponent implements OnDestroy {
           });
           this._router.navigate(['/']);
         });
-      this.subscriptions.add(completeInfo$);
     }
   }
 

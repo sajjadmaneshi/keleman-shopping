@@ -6,7 +6,7 @@
   li:not(:last-child) {
     border-bottom: 2px solid $gray-300;
     margin-bottom: 1rem;
-    mat-expansion-panel {
+    ::ng-deep mat-expansion-panel {
       box-shadow: none !important;
       mat-expansion-panel-header {
         padding: 0 !important;

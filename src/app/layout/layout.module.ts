@@ -47,6 +47,8 @@ import { ProductCategoryComponent } from './pages/main/components/product-catego
 import { ArticleItemComponent } from '../shared/components/article-item/article-item.component';
 import { AboutUsSummaryComponent } from './pages/main/components/about-us-summary/about-us-summary.component';
 import { HoverClassDirective } from './_partials/header/header-menu/mega-menu/hover-class.directive';
+import { LazyLoadingDirective } from '../shared/directives/lazy-loading.directive';
+import { EmptyImageDirective } from '../shared/directives/empty-image.directive';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,8 @@ import { HoverClassDirective } from './_partials/header/header-menu/mega-menu/ho
     ProductCategoryComponent,
     ArticleItemComponent,
     HoverClassDirective,
+    LazyLoadingDirective,
+    EmptyImageDirective,
   ],
 })
 export class LayoutModule {}

@@ -24,7 +24,7 @@
           *ngIf="isLoading | async; then loading; else content"
         ></ng-container>
         <ng-template #loading>
-          <appSwiperContent *ngFor="let _ of sahredVariableService.counter(6)">
+          <appSwiperContent *ngFor="let _ of sahredVariableService.counter(10)">
             <ng-template appSwiperTemplate>
               <ngx-skeleton-loader
                 class="mx-1"

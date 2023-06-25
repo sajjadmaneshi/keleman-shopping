@@ -14,19 +14,25 @@
         >
           <a
             type="button"
-            class="nav-link dropdown-toggle d-flex"
+            class="nav-link dropdown-toggle d-flex align-items-center"
             id="navbarDropdown"
             ngbDropdownToggle
             (mouseover)="onHover($event)"
           >
             <span class="material-icons-outlined"> grid_view </span>
             دسته بندی ها
+            <ng-template [ngIf]="categoryService.isLoading | async">
+              <div class="spinner-grow spinner-grow-sm mx-1" role="status">
+                <span class="sr-only"></span>
+              </div>
+            </ng-template>
           </a>
 
           <div
             #dropDownMenu
             ngbDropdownMenu
             aria-labelledby="dropdownBasic1"
+            class="animate__animated animate__fadeIn"
             (mouseleave)="$event.stopPropagation(); myDrop.close()"
           >
             <keleman-mega-menu

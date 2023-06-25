@@ -25,7 +25,7 @@ export class HeaderMenuComponent implements AfterViewInit {
   screenWidth!: number;
   constructor(
     private _renderer2: Renderer2,
-    private _categoryService: ProductCategoryService,
+    public categoryService: ProductCategoryService,
     @Inject(DOCUMENT) document: Document
   ) {
     this.screenWidth = window.innerWidth;
@@ -61,15 +61,17 @@ export class HeaderMenuComponent implements AfterViewInit {
   }
 
   onHover($event: any) {
-    $event.stopPropagation();
-    this.myDrop.open();
-    const megaMenu = document.getElementById('mega-menu');
-    const width = this.screenWidth - this.screenWidth * 0.1;
-    this._renderer2.setStyle(megaMenu, 'width', `${width}px`);
+    if (!this.categoryService.isLoading.value) {
+      $event.stopPropagation();
+      this.myDrop.open();
+      const megaMenu = document.getElementById('mega-menu');
+      const width = this.screenWidth - this.screenWidth * 0.1;
+      this._renderer2.setStyle(megaMenu, 'width', `${width}px`);
+    }
   }
 
   onNavigate($event: { c1?: string; c2?: string; c3?: string }) {
-    this._categoryService.onNavigate($event);
+    this.categoryService.onNavigate($event);
     this.myDrop.close();
   }
 }

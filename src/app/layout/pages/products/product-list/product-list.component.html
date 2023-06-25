@@ -22,7 +22,7 @@
         <keleman-products-sort></keleman-products-sort>
         <div class="row mx-0 g-1">
           <ng-container
-            *ngIf="products.length === 0; then loading; else productList"
+            *ngIf="isLoading; then loading; else productList"
           ></ng-container>
           <ng-template #loading>
             <div
@@ -35,12 +35,27 @@
             </div>
           </ng-template>
           <ng-template #productList>
-            <div
-              class="col-12 col-md-6 col-lg-4 col-xl-3"
-              *ngFor="let product of products"
-            >
-              <keleman-product-item [product]="product"></keleman-product-item>
-            </div>
+            <ng-container
+              *ngIf="products.length > 0; then fullProduct; else empty"
+            ></ng-container>
+            <ng-template #fullProduct>
+              <div
+                class="col-12 col-md-6 col-lg-4 col-xl-3"
+                *ngFor="let product of products"
+              >
+                <keleman-product-item
+                  [product]="product"
+                ></keleman-product-item>
+              </div>
+            </ng-template>
+            <ng-template #empty>
+              <div
+                class="empty-product-list d-flex flex-column align-items-center"
+              >
+                <img src="assets/media/static-resources/notFound.png" />
+                <p>کالایی در این دسته یا با این مشخصات موجود نمی باشد</p>
+              </div>
+            </ng-template>
           </ng-template>
         </div>
         <keleman-pagination

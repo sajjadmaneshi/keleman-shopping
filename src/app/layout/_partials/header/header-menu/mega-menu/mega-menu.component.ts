@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Output,
@@ -12,6 +13,7 @@ import { ProductCategoryViewModel } from '../../../../../shared/models/view-mode
   selector: 'keleman-mega-menu',
   templateUrl: './mega-menu.component.html',
   styleUrls: ['./mega-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MegaMenuComponent {
   iconNames = [

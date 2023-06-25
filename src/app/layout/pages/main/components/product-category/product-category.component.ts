@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -7,7 +8,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { ProductCategoryService } from './product-category.service';
 import { CommonModule } from '@angular/common';
 import { ProductCategoryItemComponent } from './product-category-item/product-category-item.component';
@@ -40,7 +40,10 @@ export class ProductCategoryComponent implements OnChanges, OnInit {
 
   categories: ProductCategoryViewModel[] = [];
 
-  constructor(public productCategoryService: ProductCategoryService) {}
+  constructor(
+    public productCategoryService: ProductCategoryService,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   getCategoryProducts(category: ProductCategoryViewModel) {
     this.onItemClick.emit(category);

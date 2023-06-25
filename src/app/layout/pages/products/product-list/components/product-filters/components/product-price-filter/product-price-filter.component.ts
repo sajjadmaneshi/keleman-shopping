@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -13,12 +14,16 @@ import {
   selector: 'keleman-product-price-filter',
   templateUrl: './product-price-filter.component.html',
   styleUrls: ['./product-price-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductPriceFilterComponent implements OnInit, OnChanges {
   @ViewChild('minInput')
   minInput!: HTMLInputElement;
   @ViewChild('maxInput')
   maxInput!: HTMLInputElement;
+
+  formattedMinValue!: string;
+  formattedMaxValue!: string;
 
   @Input() min: number = 0;
   @Input() max: number = 100000000;
@@ -32,16 +37,14 @@ export class ProductPriceFilterComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.minValue = this.min;
-
     this.maxValue = this.max;
+    this.formatInputValues();
   }
   formatLabel(value: number): string {
-    if (value >= 1000 && value < 1000000) {
+    if (value >= 1000 && value < 1000000)
       return Math.round(value / 1000) + 'هزار';
-    }
-    if (value >= 1000000) {
-      return Math.round(value / 1000000) + 'میلیون';
-    }
+
+    if (value >= 1000000) return Math.round(value / 1000000) + 'میلیون';
 
     return `${value}`;
   }
@@ -62,6 +65,10 @@ export class ProductPriceFilterComponent implements OnInit, OnChanges {
       this.maxValue = 100000000;
       this.afterReset.emit();
     }
+  }
+  formatInputValues() {
+    this.formattedMinValue = this.minValue.toLocaleString('en-US');
+    this.formattedMaxValue = this.maxValue.toLocaleString('en-US');
   }
 }
 

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
@@ -39,7 +40,6 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductSearchComponent } from './product-list/components/product-search/product-search.component';
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsSortComponent } from './product-list/components/products-sort/products-sort.component';
 import { ProductItemComponent } from './product-list/components/product-item/product-item.component';
@@ -92,12 +92,12 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     SwiperContentDirective,
     SwiperTemplateDirective,
     SwiperComponent,
+    SwiperItemComponent,
     NgbNav,
     NgbNavItem,
     NgbNavLink,
     NgbNavContent,
     NgbNavOutlet,
-    SwiperItemComponent,
     ReadMoreContentDirective,
     ReadMoreTemplateDirective,
     ReadMoreComponent,
@@ -116,7 +116,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     BottomSheetComponent,
     ProductCategoryComponent,
     CommentsModule,
-    NgbNav,
     PaginationComponent,
     NgxSkeletonLoaderModule,
   ],

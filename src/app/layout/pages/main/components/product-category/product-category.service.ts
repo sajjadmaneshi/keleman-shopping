@@ -21,7 +21,7 @@ export class ProductCategoryService {
     return new Promise((resolve, reject) => {
       this._productRepository
         .getAllProductCategoriesWithChildrens(parentId)
-        .pipe(tap(() => this.isLoading.next(false)))
+        .pipe(tap(() => setTimeout(() => this.isLoading.next(false), 1500)))
         .subscribe(
           (result: HttpClientResult<ProductCategoryViewModel[]>) => {
             resolve(result.result!);

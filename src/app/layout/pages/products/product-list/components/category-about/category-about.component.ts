@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnChanges,
@@ -14,6 +15,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
   selector: 'keleman-category-about',
   templateUrl: './category-about.component.html',
   styleUrls: ['./category-about.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryAboutComponent implements OnInit, OnChanges, OnDestroy {
   @Input() categoryId!: number;

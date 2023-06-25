@@ -12,20 +12,21 @@
       [spaceBetween]="15"
       [pagination]="{ el: '.swiper-pagination' }"
       [loop]="true"
+      [autoplay]="{ delay: 3500 }"
     >
-      <ng-container
-        *ngFor="let _ of sharedVariableService.counter(3); let i = index"
-      >
+      <ng-container *ngFor="let slide of slides; let i = index">
         <ng-template swiperSlide>
-          <div class="card slide">
+          <a class="card slide" [href]="slide.url">
             <picture class="img-container h-100 w-100">
               <img
                 alt="keleman"
                 class="main-slider-image"
-                [src]="'assets/media/slider/menu-slide' + (i + 1) + '.jpg'"
+                loadingLazy
+                emptyImage
+                [src]="downloadUrl + slide.imageAddress"
               />
             </picture>
-          </div>
+          </a>
         </ng-template>
       </ng-container>
     </swiper>

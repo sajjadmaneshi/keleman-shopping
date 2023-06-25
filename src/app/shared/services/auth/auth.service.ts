@@ -3,7 +3,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AccountRepository } from './account.repository';
 import { LoginDto } from './data/login.dto';
 import { HttpClientResult } from '../../models/http/http-client.result';
-
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserSimpleInfoViewModel } from '../../models/view-models/user-simple-info.view-model';
 import { UserRepository } from '../../repositories/user/user.repository';
@@ -19,7 +18,7 @@ export class AuthService {
     private _userRepository: UserRepository
   ) {}
 
-  private tokenExpired(token: string) {
+  private _isTokenExpired(token: string) {
     const expiry = JSON.parse(atob(token.split('.')[1])).exp;
     return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
@@ -27,56 +26,48 @@ export class AuthService {
   public get isAuthenticated(): Observable<boolean> {
     const token = localStorage.getItem('KELEMAN_TOKEN');
     if (token) {
-      this.isLoggedIn.next(!this.tokenExpired(token!));
-      if (this.tokenExpired(token!)) this.logout();
+      this.isLoggedIn.next(!this._isTokenExpired(token!));
+      if (this._isTokenExpired(token!)) this.logout();
     }
     return this.isLoggedIn.asObservable();
   }
 
-  public sendVerificationCode(mobile: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this._authRepository.sendVerificationCode(mobile).subscribe(
-        () => resolve(),
-        () => reject()
-      );
-    });
+  public sendVerificationCode(
+    mobile: string
+  ): Promise<HttpClientResult<void> | undefined> {
+    return this._authRepository.sendVerificationCode(mobile).toPromise();
   }
 
   public decodeJson() {
     const accessToken = localStorage.getItem('KELEMAN_TOKEN');
     if (accessToken) {
-      console.log(this.jwtHelper.decodeToken(accessToken));
     }
   }
 
-  public login(dto: LoginDto): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this._authRepository.login(dto).subscribe(
-        (result) => {
-          this.setAuthorizedInfoToLocalStorage(result.result);
-          resolve();
-        },
-        () => reject()
-      );
-    });
+  public async login(dto: LoginDto): Promise<void> {
+    try {
+      const result = await this._authRepository.login(dto).toPromise();
+      this.setAuthorizedInfoToLocalStorage(result?.result);
+    } catch (error) {
+      throw error;
+    }
   }
 
-  public hasCompleteProfile(mobileNumber: string): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      this._authRepository.hasCompleteProfile(mobileNumber).subscribe(
-        (result: HttpClientResult<boolean>) => {
-          resolve(result.result as boolean);
-        },
-        () => reject()
-      );
-    });
+  public async hasCompleteProfile(mobileNumber: string): Promise<boolean> {
+    try {
+      const result = await this._authRepository
+        .hasCompleteProfile(mobileNumber)
+        .toPromise();
+      return result?.result as boolean;
+    } catch (error) {
+      throw error;
+    }
   }
 
   public setAuthorizedInfoToLocalStorage(data: {
     token: string;
     mobile: string;
   }) {
-    debugger;
     localStorage.setItem('KELEMAN_TOKEN', data.token);
     this.getUserSimpleInfo();
     this.isLoggedIn.next(true);
@@ -87,20 +78,16 @@ export class AuthService {
     this.isLoggedIn.next(false);
   }
 
-  public getUserSimpleInfo(): Promise<UserSimpleInfoViewModel | undefined> {
-    return new Promise<UserSimpleInfoViewModel | undefined>(
-      (resolve, reject) => {
-        if (localStorage.getItem('KELEMAN_TOKEN')) {
-          this._userRepository.getSimpleInfo().subscribe(
-            (response: HttpClientResult<UserSimpleInfoViewModel>) => {
-              resolve(response.result!);
-            },
-            () => reject()
-          );
-        } else {
-          resolve(undefined);
-        }
+  public async getUserSimpleInfo(): Promise<
+    UserSimpleInfoViewModel | undefined
+  > {
+    if (localStorage.getItem('KELEMAN_TOKEN')) {
+      try {
+        const response = await this._userRepository.getSimpleInfo().toPromise();
+        return response?.result as UserSimpleInfoViewModel;
+      } catch (error) {
+        throw error;
       }
-    );
+    } else return undefined;
   }
 }

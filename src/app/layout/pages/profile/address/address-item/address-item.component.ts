@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { AddressWithSelected } from '../addresses.component';
 import { LatLngExpression } from 'leaflet';
@@ -12,6 +12,7 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./address-item.component.scss'],
   standalone: true,
   imports: [MatIconModule, KelemanMapComponent, NgbTooltip],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddressItemComponent {
   @Input() address!: AddressWithSelected;

@@ -7,15 +7,23 @@
     [displayWith]="formatLabel"
     (change)="changePrice()"
   >
-    <input [(ngModel)]="minValue" matSliderStartThumb />
-    <input [(ngModel)]="maxValue" matSliderEndThumb />
+    <input
+      [(ngModel)]="minValue"
+      matSliderStartThumb
+      (ngModelChange)="formatInputValues()"
+    />
+    <input
+      [(ngModel)]="maxValue"
+      matSliderEndThumb
+      (ngModelChange)="formatInputValues()"
+    />
   </mat-slider>
   <div class="price-values">
     <span class="price-values__item">
       از
       <input
         class="keleman-text-field text-center my-3"
-        [(ngModel)]="minValue"
+        [(ngModel)]="formattedMinValue"
       />
       تومان
     </span>
@@ -24,7 +32,7 @@
       تا
       <input
         class="keleman-text-field text-center my-3"
-        [(ngModel)]="maxValue"
+        [(ngModel)]="formattedMaxValue"
       />
       تومان
     </span>

@@ -16,13 +16,16 @@ import { MatComponentsModule } from './mat-components.module';
 import { FloatingButtonMenuComponent } from './shared/components/floating-button-menu/floating-button-menu.component';
 import { SwiperModule } from 'swiper/angular';
 import { JwtModule } from '@auth0/angular-jwt';
-import {InitialAppService} from './shared/services/initial-app.service';
+import { InitialAppService } from './shared/services/initial-app.service';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 export function tokenGetter(): any {
   return localStorage.getItem('access_token');
 }
 
-export function initializeApp(initialAppService: InitialAppService): () => void {
+export function initializeApp(
+  initialAppService: InitialAppService
+): () => void {
   return () => initialAppService.init();
 }
 
@@ -47,6 +50,7 @@ export function initializeApp(initialAppService: InitialAppService): () => void 
         },
       },
     }),
+    LoadingComponent,
   ],
   providers: [
     ApplicationStateService,
