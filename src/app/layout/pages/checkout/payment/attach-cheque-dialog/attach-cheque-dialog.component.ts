@@ -57,8 +57,4 @@ export class AttachChequeDialogComponent {
       }),
     });
   }
-
-  selectDate($event: string) {
-    console.log($event);
-  }
 }

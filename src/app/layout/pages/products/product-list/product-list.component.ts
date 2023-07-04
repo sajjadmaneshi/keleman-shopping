@@ -1,11 +1,11 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
 import { combineLatest, Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductRepository } from '../data/repositories/product.repository';
-import { HttpClientResult } from '../../../../shared/models/http/http-client.result';
+import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
 import { SharedVariablesService } from '../../../../shared/services/shared-variables.service';
-import { ProductCategoryViewModel } from 'src/app/shared/models/view-models/product-category.view-model';
+import { ProductCategoryViewModel } from 'src/app/shared/data/models/view-models/product-category.view-model';
 import { Routing } from '../../../../routing';
 import { CategorySimpleInfoViewModel } from '../data/models/view-models/category-simple-info.view-model';
 
@@ -35,7 +35,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private _activeRoute: ActivatedRoute,
     private _router: Router,
     private _productsRepository: ProductRepository,
-    public sharedVaribaleServie: SharedVariablesService
+    public sharedVaribaleService: SharedVariablesService
   ) {}
 
   private _getParamsFromUrl() {
@@ -49,9 +49,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
         });
 
         const page = Number(queryParams['p']);
+        const search = queryParams['q'];
         if (!isNaN(page)) {
           this.page = page + 1;
-          this.getAllProducts(page);
+          this.getAllProducts('', page);
+        }
+        if (search) {
+          this.getAllProducts(search, page);
         }
       });
   }
@@ -61,10 +65,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this._getParamsFromUrl();
   }
 
-  getAllProducts(page: number) {
+  getAllProducts(search: string, page: number) {
     this.isLoading = true;
     this._productsRepository
-      .search(this.categoryUrl, page, 10)
+      .search(this.categoryUrl, page, 10, search)
       .pipe(
         tap(() => setTimeout(() => (this.isLoading = false), 1500)),
         takeUntil(this.destroy$)

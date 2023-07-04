@@ -1,5 +1,38 @@
 <div class="row mx-0 g-3">
-  <div class="col-12 col-md-4" *ngFor="let article of articles">
-    <keleman-article-item [articleDetails]="article"></keleman-article-item>
-  </div>
+  <ng-container
+    *ngIf="isLoading; then loading; else articleList"
+  ></ng-container>
+  <ng-template #loading>
+    <div
+      class="col-12 col-md-6 col-lg-4"
+      *ngFor="let _ of sharedVariableService.counter(10)"
+    >
+      <ngx-skeleton-loader
+        [theme]="{ width: '100%', height: '300px ' }"
+      ></ngx-skeleton-loader>
+    </div>
+  </ng-template>
+  <ng-template #articleList>
+    <ng-container
+      *ngIf="articles.length > 0; then fullArticles; else empty"
+    ></ng-container>
+    <ng-template #fullArticles>
+      <div class="col-12 col-md-4" *ngFor="let article of articles">
+        <keleman-article-item [articleDetails]="article"></keleman-article-item>
+      </div>
+    </ng-template>
+    <ng-template #empty>
+      <div class="empty-article-list d-flex flex-column align-items-center">
+        <img src="assets/media/static-resources/notFound.png" />
+        <p>مقاله ای با این مشخصات یافت نشد</p>
+      </div>
+    </ng-template>
+  </ng-template>
+  <keleman-pagination
+    *ngIf="articles.length > 0"
+    [totalElements]="totalElements"
+    (pageChange)="pageChange($event)"
+    [limit]="10"
+    [currentPage]="page"
+  ></keleman-pagination>
 </div>

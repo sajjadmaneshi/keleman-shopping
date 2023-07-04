@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { InitialAppService } from '../../../../../shared/services/initial-app.service';
-import { ProductCategoryViewModel } from '../../../../../shared/models/view-models/product-category.view-model';
+import { ProductCategoryViewModel } from '../../../../../shared/data/models/view-models/product-category.view-model';
 
 @Component({
   selector: 'keleman-mega-menu',

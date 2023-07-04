@@ -1,9 +1,9 @@
-import { UserSimpleInfoViewModel } from '../models/view-models/user-simple-info.view-model';
-import { UserRepository } from '../repositories/user/user.repository';
-import { HttpClientResult } from '../models/http/http-client.result';
+import { UserSimpleInfoViewModel } from '../data/models/view-models/user-simple-info.view-model';
+import { UserRepository } from '../data/repositories/user/user.repository';
+import { HttpClientResult } from '../data/models/http/http-client.result';
 import { tap } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ProductCategoryViewModel } from '../models/view-models/product-category.view-model';
+import { ProductCategoryViewModel } from '../data/models/view-models/product-category.view-model';
 import { ProductRepository } from '../../layout/pages/products/data/repositories/product.repository';
 import { AuthService } from './auth/auth.service';
 

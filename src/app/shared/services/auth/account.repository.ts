@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HttpClientResult } from '../../models/http/http-client.result';
+import { HttpClientResult } from '../../data/models/http/http-client.result';
 import { LoginDto } from './data/login.dto';
 import { CompleteInfoDto } from './data/complete-info.dto';
 

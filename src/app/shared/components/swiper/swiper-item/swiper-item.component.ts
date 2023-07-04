@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ProductItemModel } from '../../../models/product-item.model';
+
 import { ApplicationStateService } from '../../../services/application-state.service';
 import { CommonModule } from '@angular/common';
 import { PriceComponent } from '../../price/price.component';
+import { ProductViewModel } from '../../../../layout/pages/products/data/models/view-models/product.view-model';
 
 @Component({
   selector: 'swiper-item',
@@ -12,6 +13,6 @@ import { PriceComponent } from '../../price/price.component';
   standalone: true,
 })
 export class SwiperItemComponent {
-  @Input() product!: ProductItemModel;
+  @Input() product!: ProductViewModel;
   constructor(public applicationStateService: ApplicationStateService) {}
 }

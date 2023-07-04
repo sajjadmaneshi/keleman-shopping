@@ -1,7 +1,22 @@
 <div class="d-flex search-bar align-items-center">
   <div class="search-input-group w-100 position-relative">
     <span class="search-icon material-icons-outlined mx-2">search</span>
-    <input class="form-control search-input h-100" placeholder="جستجو" />
-    <keleman-search-result-menu></keleman-search-result-menu>
+    <input
+      class="form-control search-input h-100"
+      placeholder="جستجو"
+      (keyup)="keyChange($event)"
+      (click)="showMenu = searchText ? true : false"
+    />
+
+    <ng-template [ngIf]="isLoading">
+      <mat-spinner [diameter]="25"></mat-spinner>
+    </ng-template>
+
+    <ng-template [ngIf]="this.showMenu">
+      <keleman-search-result-menu
+        [searchResult]="searchResult!"
+        [searchText]="searchText!"
+      ></keleman-search-result-menu>
+    </ng-template>
   </div>
 </div>

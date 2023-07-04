@@ -18,6 +18,8 @@ import { ArticleLinkListDirective } from './components/article/article-link-list
 import { ArticleItemThumbnailComponent } from '../../../shared/components/article-item-thumbnail/article-item-thumbnail.component';
 import { CommentsModule } from '../../../shared/components/comments/comments.module';
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 export const routes: Routes = [{ path: '', component: MagazineComponent }];
 
@@ -41,6 +43,8 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
     ArticleLinkListDirective,
     ArticleItemThumbnailComponent,
     CommentsModule,
+    NgxSkeletonLoaderModule,
+    PaginationComponent,
   ],
 })
 export class MagazineModule {}

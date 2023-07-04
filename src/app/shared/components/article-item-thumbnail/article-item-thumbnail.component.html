@@ -1,13 +1,17 @@
 <div class="article-item-thumbanil">
   <div class="symbol symbol-24">
-    <img loadingLazy [src]="article.image" />
+    <img
+      loadingLazy
+      emptyImage
+      [src]="article.imageAddress ? downloadUrl + article.imageAddress : ''"
+    />
   </div>
   <div class="d-flex flex-column flex-grow-1 px-2">
     <h6>{{ article.title }}</h6>
     <span>
       نویسنده:
       <a
-        >{{ article.author }}
+        >{{ article.authorFullName }}
         {{
           persianDateTimeService.fromGregorianString(
             article.date,

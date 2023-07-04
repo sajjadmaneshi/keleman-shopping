@@ -1,5 +1,5 @@
 import { DataService } from '../../../../services/data.service';
-import { CommentModel } from '../../../../models/comment.model';
+import { CommentModel } from '../../../../data/models/comment.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 @Injectable()

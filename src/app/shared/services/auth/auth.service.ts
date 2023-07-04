@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AccountRepository } from './account.repository';
 import { LoginDto } from './data/login.dto';
-import { HttpClientResult } from '../../models/http/http-client.result';
+import { HttpClientResult } from '../../data/models/http/http-client.result';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserSimpleInfoViewModel } from '../../models/view-models/user-simple-info.view-model';
-import { UserRepository } from '../../repositories/user/user.repository';
+import { UserSimpleInfoViewModel } from '../../data/models/view-models/user-simple-info.view-model';
+import { UserRepository } from '../../data/repositories/user/user.repository';
 
 @Injectable({
   providedIn: 'root',

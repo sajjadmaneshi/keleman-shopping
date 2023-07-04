@@ -1,8 +1,17 @@
 @import "base/variables/spacers";
+:host {
+  height: 100%;
+}
 .amazing-offer-item {
   width: map-get($klm-spacers, 50);
   min-width: map-get($klm-spacers, 45);
   max-width: map-get($klm-spacers, 50);
-
   border-radius: inherit !important;
+  height: 20rem;
+}
+.rate {
+  position: absolute;
+  top: 1.5rem;
+  left: 10%;
+  transform: translate(-50%, -50%);
 }

@@ -11,14 +11,24 @@
     position: relative;
     height: 100%;
     width: 100%;
+    padding: 0 0.5rem;
+    border-radius: 0.5rem;
+    background-color: map-get($theme-colors, "gray-300") !important;
     .search-input {
       padding-right: 4.5rem;
       border: none !important;
-      background-color: map-get($theme-colors, "gray-300") !important;
+      background-color: transparent !important;
+      outline: none !important;
     }
     .search-icon {
       position: absolute;
       right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    mat-spinner {
+      position: absolute;
+      left: 1rem;
       top: 50%;
       transform: translateY(-50%);
     }

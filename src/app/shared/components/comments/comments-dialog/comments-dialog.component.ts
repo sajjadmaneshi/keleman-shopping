@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommentModel } from '../../../models/comment.model';
+import { CommentModel } from '../../../data/models/comment.model';
 import { PersianDateTimeService } from '../../../services/date-time/persian-datetime.service';
 
 @Component({

@@ -4,9 +4,10 @@ export interface ProductViewModel {
   thumbnailImage: string;
   price: number;
   rate: number;
-  priceAfterOff: number;
+  priceAfterDiscount: number;
   description: string;
   discount: number;
+  brand: string;
   category: {
     id: number;
     name: string;

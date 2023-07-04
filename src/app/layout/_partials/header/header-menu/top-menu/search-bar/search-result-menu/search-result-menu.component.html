@@ -1,22 +1,39 @@
-<ul class="search-result-menu shadow-sm d-none">
-  <li class="search-result-menu-item">
-    <mat-icon>search</mat-icon>
-    <a>سیم بکسل در دسته سیم بکسل</a>
-  </li>
-  <li class="search-result-menu-item">
-    <mat-icon>search</mat-icon>
-    <a>سیم بکسل در دسته سیم بکسل</a>
-  </li>
-  <li class="search-result-menu-item">
-    <mat-icon>search</mat-icon>
-    <a>سیم بکسل در دسته سیم بکسل</a>
-  </li>
-  <li class="search-result-menu-item">
-    <mat-icon>search</mat-icon>
-    <a>سیم بکسل در دسته سیم بکسل</a>
-  </li>
-  <li class="search-result-menu-item">
-    <mat-icon>search</mat-icon>
-    <a>سیم بکسل در دسته سیم بکسل</a>
-  </li>
-</ul>
+<div class="search-result-menu shadow">
+  <ng-container
+    *ngIf="
+      searchResult.articles.length > 0 || searchResult.products.length > 0;
+      then full;
+      else empty
+    "
+  ></ng-container>
+  <ng-template #full>
+    <ul [class.border-bottom]="searchResult.articles.length > 0">
+      <li
+        class="search-result-menu-item"
+        *ngFor="let item of searchResult.products"
+      >
+        <a class="d-flex" [routerLink]="['products']">
+          <mat-icon class="text-warning">search</mat-icon>
+          {{ item.title }}
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li
+        class="search-result-menu-item"
+        *ngFor="let item of searchResult.articles"
+      >
+        <a class="d-flex">
+          <mat-icon class="text-warning">search</mat-icon>
+          <a>{{ item.title }}</a>
+        </a>
+      </li>
+    </ul>
+  </ng-template>
+
+  <ng-template #empty>
+    <p class="p-3">
+      نتیجه ای برای <span class="text-danger"> {{ searchText }} </span>یافت نشد.
+    </p>
+  </ng-template>
+</div>

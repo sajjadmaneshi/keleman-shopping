@@ -8,7 +8,16 @@
     <span class="ribbon-inner bg-success"></span>
   </div>
 
-  <img class="cover-image" loadingLazy [src]="articleDetails.image" />
+  <img
+    class="cover-image"
+    loadingLazy
+    emptyImage
+    [src]="
+      articleDetails.imageAddress
+        ? dwonloadUrl + articleDetails.imageAddress
+        : ''
+    "
+  />
   <div class="card-body">
     <div class="magazine-content">
       <h6 class="magazine-title fw-bold mb-3">
@@ -18,7 +27,9 @@
         {{ articleDetails.description }}
       </p>
 
-      <span class="text-muted">نویسنده: {{ articleDetails.author }}</span>
+      <span class="text-muted"
+        >نویسنده: {{ articleDetails.authorFullName }}</span
+      >
     </div>
     <button
       [routerLink]="['/magazine/1']"

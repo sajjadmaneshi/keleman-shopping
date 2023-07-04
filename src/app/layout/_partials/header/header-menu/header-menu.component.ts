@@ -12,6 +12,9 @@ import { DOCUMENT } from '@angular/common';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProductCategoryService } from '../../../pages/main/components/product-category/product-category.service';
+import { Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Routing } from '../../../../routing';
 
 @Component({
   selector: 'keleman-header-menu',
@@ -22,9 +25,15 @@ export class HeaderMenuComponent implements AfterViewInit {
   @ViewChild('dropDownMenu') dropDownMenu!: ElementRef;
   @ViewChild('myDrop') myDrop!: NgbDropdown;
 
+  destroy$ = new Subject<void>();
   screenWidth!: number;
+  currentRoute = '/';
+
+  page = 0;
   constructor(
     private _renderer2: Renderer2,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
     public categoryService: ProductCategoryService,
     @Inject(DOCUMENT) document: Document
   ) {
@@ -58,6 +67,7 @@ export class HeaderMenuComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this._calculateMenuHeight();
+    this._getQueryParamsFromUrl();
   }
 
   onHover($event: any) {
@@ -70,8 +80,30 @@ export class HeaderMenuComponent implements AfterViewInit {
     }
   }
 
+  private _getQueryParamsFromUrl() {
+    this._router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.checkResetPage(event.url);
+      }
+    });
+    this._activatedRoute.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((queryParams) => {
+        const page = Number(queryParams['p']);
+        if (!isNaN(page)) this.page = page;
+      });
+  }
+
   onNavigate($event: { c1?: string; c2?: string; c3?: string }) {
     this.categoryService.onNavigate($event);
     this.myDrop.close();
+  }
+
+  checkResetPage(route: string) {
+    const routeSplit = route.split('?')[0];
+    if (this.currentRoute === `/${Routing.magazine}`) {
+      if (this.currentRoute !== routeSplit) this.page = 0;
+    }
+    this.currentRoute = routeSplit;
   }
 }

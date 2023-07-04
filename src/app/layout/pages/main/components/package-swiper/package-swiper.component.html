@@ -28,56 +28,21 @@
         }
       }"
     >
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p1.jpg" />
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p2.jpg" />
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p3.jpg" />
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p4.jpg" />
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p6.jpg" />
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p1.jpg" />
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p2.jpg" />
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p3.jpg" />
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p4.jpg" />
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="swiper-slide">
-          <img src="assets/media/package/p5.jpg" />
-        </div>
-      </ng-template>
+      <ng-container *ngFor="let slide of slides">
+        <ng-template swiperSlide>
+          <div class="swiper-slide">
+            <img
+              loadingLazy
+              emptyImage
+              [src]="slide.thumbnailImage"
+              [alt]="slide.name"
+            />
+            <div class="package-info">
+              <h4>{{ slide.name }}</h4>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
     </swiper>
   </div>
 </div>

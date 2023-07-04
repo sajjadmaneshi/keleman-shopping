@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CommonModule } from '@angular/common';
-import { ProductCategoryViewModel } from '../../../../../../shared/models/view-models/product-category.view-model';
+import { ProductCategoryViewModel } from '../../../../../../shared/data/models/view-models/product-category.view-model';
 import { LazyLoadingDirective } from '../../../../../../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../../../../../../shared/directives/empty-image.directive';
 import { ENVIRONMENT } from '../../../../../../../environments/environment';

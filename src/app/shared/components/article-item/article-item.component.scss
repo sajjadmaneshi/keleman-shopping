@@ -6,6 +6,7 @@
   .cover-image {
     border-radius: inherit !important;
     max-height: map-get($klm-spacers, 45);
+    min-height: map-get($klm-spacers, 44);
   }
 
   .read-more {
@@ -24,15 +25,8 @@
       -webkit-box-orient: vertical;
       text-align: justify;
     }
-    .magazine-title {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-    }
   }
 }
 .ribbon-label {
-  top: 5% !important;
+  top: 10% !important;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { DateTimeResult } from '../../models/date-time-result.model';
+import { DateTimeResult } from '../../data/models/date-time-result.model';
 
 import * as moment from 'jalali-moment';
 
@@ -46,6 +46,7 @@ export class PersianDateTimeService {
   }
 
   fromGregorianString(dateTime: string, format?: string): string {
-    return moment(dateTime,format).locale('fa').format(format);
+    moment.locale('fa', { useGregorianParser: true });
+    return moment(dateTime).format(format);
   }
 }

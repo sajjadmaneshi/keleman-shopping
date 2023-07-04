@@ -13,6 +13,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   exports: [
@@ -31,6 +32,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatExpansionModule,
     MatSnackBarModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class MatComponentsModule {}

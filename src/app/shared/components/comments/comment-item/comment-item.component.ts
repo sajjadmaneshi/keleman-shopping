@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { CommentModel, CommentStatus } from '../../../models/comment.model';
+import {
+  CommentModel,
+  CommentStatus,
+} from '../../../data/models/comment.model';
 import { PersianDateTimeService } from '../../../services/date-time/persian-datetime.service';
 
 @Component({

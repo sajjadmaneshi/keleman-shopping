@@ -1,16 +1,11 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { SharedVariablesService } from '../../../../../shared/services/shared-variables.service';
 import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import { HomeRepository } from '../../data/repositories/home.repository';
 import { SliderViewModel } from '../../data/repositories/view-models/slider.view-model';
-import { HttpClientResult } from '../../../../../shared/models/http/http-client.result';
+import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { ENVIRONMENT } from '../../../../../../environments/environment';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import SwiperCore, { Navigation } from 'swiper';
-import { CommentModel } from '../../models/comment.model';
+import { CommentModel } from '../../data/models/comment.model';
 import { BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentDialogComponent } from './add-comment-dialog/add-comment-dialog.component';

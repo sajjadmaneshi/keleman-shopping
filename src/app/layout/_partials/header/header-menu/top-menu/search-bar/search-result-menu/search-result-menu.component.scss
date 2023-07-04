@@ -6,12 +6,19 @@
   width: 100%;
   border-radius: 0 0 1rem 1rem;
   background-color: white;
+  right: 0;
+  ul {
+    padding-top: 1rem;
+  }
   .search-result-menu-item {
     display: flex;
     align-items: center;
     padding: 0.5rem 1rem;
     mat-icon {
       margin: 0 0.5rem;
+    }
+    a {
+      color: black;
     }
   }
 }

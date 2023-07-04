@@ -16,7 +16,7 @@ import {
   SwiperTemplateDirective,
 } from '../../../../../shared/directives/swiper-template.directive';
 import { SwiperComponent } from '../../../../../shared/components/swiper/swiper.component';
-import { ProductCategoryViewModel } from '../../../../../shared/models/view-models/product-category.view-model';
+import { ProductCategoryViewModel } from '../../../../../shared/data/models/view-models/product-category.view-model';
 
 @Component({
   selector: 'keleman-product-category',

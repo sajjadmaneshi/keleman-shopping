@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductRepository } from '../../../products/data/repositories/product.repository';
-import { ProductCategoryViewModel } from '../../../../../shared/models/view-models/product-category.view-model';
-import { HttpClientResult } from '../../../../../shared/models/http/http-client.result';
+import { ProductCategoryViewModel } from '../../../../../shared/data/models/view-models/product-category.view-model';
+import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { BehaviorSubject, tap } from 'rxjs';
 import { Routing } from '../../../../../routing';
 import { Router } from '@angular/router';

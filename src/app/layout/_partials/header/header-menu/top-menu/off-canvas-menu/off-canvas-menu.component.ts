@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { InitialAppService } from '../../../../../../shared/services/initial-app.service';
-import { ProductCategoryViewModel } from '../../../../../../shared/models/view-models/product-category.view-model';
+import { ProductCategoryViewModel } from '../../../../../../shared/data/models/view-models/product-category.view-model';
 import { ProductCategoryService } from '../../../../../pages/main/components/product-category/product-category.service';
 
 @Component({

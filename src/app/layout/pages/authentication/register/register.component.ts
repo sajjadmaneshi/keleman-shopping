@@ -19,15 +19,16 @@ import { NumberOnlyDirective } from '../../../../shared/directives/number-only.d
 import { LoginDto } from '../../../../shared/services/auth/data/login.dto';
 import { mobileNumberFormatValidator } from '../../../../shared/validators/mobile-number.validator';
 import { MatComponentsModule } from '../../../../mat-components.module';
-import { StatesViewModel } from '../../../../shared/models/view-models/states.view-model';
-import { CityViewModel } from '../../../../shared/models/view-models/city.view-model';
-import { GeoLocationRepository } from '../../../../shared/repositories/geo-location.repository';
-import { HttpClientResult } from '../../../../shared/models/http/http-client.result';
+import { StatesViewModel } from '../../../../shared/data/models/view-models/states.view-model';
+import { CityViewModel } from '../../../../shared/data/models/view-models/city.view-model';
+
+import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
 import { AccountRepository } from '../../../../shared/services/auth/account.repository';
 import { CompleteInfoDto } from '../../../../shared/services/auth/data/complete-info.dto';
 import { RegisterStatusEnum } from './register-status.enum';
 import { PersianNumberService } from 'ngx-persian';
 import { TextOnlyDirective } from '../../../../shared/directives/text-only.directive';
+import { GeneralRepository } from '../../../../shared/data/repositories/general.repository';
 
 @Component({
   selector: 'app-register',
@@ -96,7 +97,7 @@ export class RegisterComponent implements OnDestroy {
   constructor(
     private _authservice: AuthService,
     private _router: Router,
-    private _geoLocationRepository: GeoLocationRepository,
+    private _geoLocationRepository: GeneralRepository,
     private _accountRepository: AccountRepository,
     private _persianNumberSerive: PersianNumberService
   ) {

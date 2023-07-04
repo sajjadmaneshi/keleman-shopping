@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ProductCategoryViewModel } from '../../../shared/models/view-models/product-category.view-model';
+import { Component } from '@angular/core';
+import { ProductCategoryViewModel } from '../../../shared/data/models/view-models/product-category.view-model';
 import { ProductCategoryService } from './components/product-category/product-category.service';
 
 @Component({

@@ -49,6 +49,8 @@ import { AboutUsSummaryComponent } from './pages/main/components/about-us-summar
 import { HoverClassDirective } from './_partials/header/header-menu/mega-menu/hover-class.directive';
 import { LazyLoadingDirective } from '../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../shared/directives/empty-image.directive';
+import { TextWithIconComponent } from '../shared/components/text-with-icon/text-with-icon.component';
+import { QueryParamActiveDirective } from './_partials/header/header-menu/query-param-active.directive';
 
 @NgModule({
   declarations: [
@@ -101,6 +103,8 @@ import { EmptyImageDirective } from '../shared/directives/empty-image.directive'
     HoverClassDirective,
     LazyLoadingDirective,
     EmptyImageDirective,
+    TextWithIconComponent,
+    QueryParamActiveDirective,
   ],
 })
 export class LayoutModule {}

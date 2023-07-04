@@ -7,12 +7,23 @@
       <keleman-latest-articles></keleman-latest-articles>
       <div class="card card-rounded-3 shadow border border-gray-300">
         <div class="card-body">
-          <span class="p-3">جستجو</span>
+          <span class="fw-bold text-klm-primary p-3 d-flex align-items-center">
+            <mat-icon class="material-icons-outlined">search</mat-icon>
+            جستجو
+          </span>
           <div class="form-group">
-            <label for="search">عنوان مورد نظر خود را وارد نمایید</label>
-            <input id="search" class="keleman-text-field" placeholder="عنوان" />
+            <input
+              id="search"
+              class="keleman-text-field px-3"
+              placeholder="عنوان مورد نظر خود را وارد نمایید"
+              [formControl]="searchControl"
+              (keydown.enter)="updateQueryParams()"
+            />
           </div>
-          <button class="btn btn-outline btn-outline-klm-primary float-start">
+          <button
+            class="btn btn-outline btn-outline-klm-primary float-start"
+            (click)="updateQueryParams()"
+          >
             جستجو
           </button>
         </div>
