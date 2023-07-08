@@ -3,6 +3,8 @@
   <keleman-input-group
     id="product-search"
     [placeHolder]="'محصول مورد نظر را جستجو کنید'"
+    [formControl]="searchText"
+    (keydown.enter)="navigateToProduct()"
   >
     <mat-icon class="material-icons append text-gray-300"> search </mat-icon>
   </keleman-input-group>

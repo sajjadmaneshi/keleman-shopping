@@ -38,7 +38,7 @@ export class ProductNavbarComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.renderer.listen('document', 'mousewheel', (event) => {
+    this.renderer.listen('document', 'mousewheel', () => {
       this.makeSticky();
     });
   }
