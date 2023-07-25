@@ -1,7 +1,7 @@
 import { UserSimpleInfoViewModel } from '../data/models/view-models/user-simple-info.view-model';
 import { UserRepository } from '../data/repositories/user/user.repository';
 import { HttpClientResult } from '../data/models/http/http-client.result';
-import { tap } from 'rxjs';
+import { Subject, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ProductCategoryViewModel } from '../data/models/view-models/product-category.view-model';
 import { ProductRepository } from '../../layout/pages/products/data/repositories/product.repository';
@@ -11,7 +11,7 @@ import { AuthService } from './auth/auth.service';
 export class InitialAppService {
   isLoading = false;
   userSimpleInfo!: UserSimpleInfoViewModel;
-  productCategories!: ProductCategoryViewModel[];
+  productCategories = new Subject<ProductCategoryViewModel[]>();
 
   constructor(
     private _userRepository: UserRepository,
@@ -36,7 +36,7 @@ export class InitialAppService {
       .getAllProductCategoriesWithChildrens()
       .pipe(tap(() => (this.isLoading = false)))
       .subscribe((response: HttpClientResult<ProductCategoryViewModel[]>) => {
-        this.productCategories = response.result!;
+        this.productCategories.next(response.result!);
       });
   }
 }

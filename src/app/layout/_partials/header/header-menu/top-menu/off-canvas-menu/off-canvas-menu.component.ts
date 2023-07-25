@@ -16,7 +16,9 @@ export class OffCanvasMenuComponent {
     private _initialAppService: InitialAppService,
     private _categoryService: ProductCategoryService
   ) {
-    this.productCategories = _initialAppService.productCategories!;
+    this._initialAppService.productCategories.subscribe((result) => {
+      this.productCategories = result;
+    });
   }
 
   onClose() {

@@ -5,13 +5,16 @@ import { Observable } from 'rxjs';
 import { DataService } from 'src/app/shared/services/data.service';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { ArticleViewModel } from '../view-models/article.view-model';
-import { QueryParamGeneratorService } from '../../../../../shared/services/query-params-generator.service';
+import {
+  ArticleSearchResult,
+  SeaechService,
+} from '../../../../../shared/services/search.service';
 
 @Injectable({ providedIn: 'root' })
 export class ArticleRepository extends DataService<any> {
   constructor(
     _http: HttpClient,
-    private _queryParamService: QueryParamGeneratorService
+    private _searchService: SeaechService<ArticleViewModel>
   ) {
     super('article', _http);
   }
@@ -21,29 +24,17 @@ export class ArticleRepository extends DataService<any> {
     offset?: number,
     limit?: number,
     search?: string
-  ): Observable<
-    HttpClientResult<{
-      articles: ArticleViewModel[];
-      totalElements: number;
-      category: { id: number; title: string };
-    }>
-  > {
+  ): Observable<HttpClientResult<ArticleSearchResult>> {
     const params = {
       catUrl: categoryuRL,
       offset,
       limit,
-      q: search,
     };
-    const httpParams = this._queryParamService.generateParams(params);
-    return this._http.get(`${this._getUrl}`, {
-      params: httpParams,
-    }) as Observable<
-      HttpClientResult<{
-        articles: ArticleViewModel[];
-        totalElements: number;
-        category: { id: number; title: string };
-      }>
-    >;
+    return this._searchService.search(
+      this._getUrl,
+      params,
+      search
+    ) as Observable<HttpClientResult<ArticleSearchResult>>;
   }
 
   getLatestArticles(

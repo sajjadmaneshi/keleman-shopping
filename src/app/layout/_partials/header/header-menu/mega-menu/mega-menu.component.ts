@@ -45,7 +45,9 @@ export class MegaMenuComponent {
     private _renderer2: Renderer2,
     private _initialAppService: InitialAppService
   ) {
-    this.productCategories = _initialAppService.productCategories!;
+    this._initialAppService.productCategories.subscribe((result) => {
+      this.productCategories = result;
+    });
   }
 
   onHover(index: number) {

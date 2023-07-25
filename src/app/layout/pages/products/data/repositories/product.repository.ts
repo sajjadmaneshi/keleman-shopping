@@ -5,10 +5,13 @@ import { Observable } from 'rxjs';
 import { DataService } from '../../../../../shared/services/data.service';
 import { ProductCategoryViewModel } from '../../../../../shared/data/models/view-models/product-category.view-model';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
-import { QueryParamGeneratorService } from '../../../../../shared/services/query-params-generator.service';
 
 import { ProductViewModel } from '../models/view-models/product.view-model';
 import { CategorySimpleInfoViewModel } from '../models/view-models/category-simple-info.view-model';
+import {
+  ProductSearchResult,
+  SeaechService,
+} from '../../../../../shared/services/search.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductRepository extends DataService<
@@ -16,7 +19,7 @@ export class ProductRepository extends DataService<
 > {
   constructor(
     _http: HttpClient,
-    private _queryParamService: QueryParamGeneratorService
+    private _searchService: SeaechService<ProductViewModel>
   ) {
     super('product', _http);
   }
@@ -38,29 +41,17 @@ export class ProductRepository extends DataService<
     offset?: number,
     limit?: number,
     search?: string
-  ): Observable<
-    HttpClientResult<{
-      products: ProductViewModel[];
-      totalElements: number;
-      category: { id: number; title: string };
-    }>
-  > {
+  ): Observable<HttpClientResult<ProductSearchResult>> {
     const params = {
       catUrl: categoryuRL,
       offset,
       limit,
-      q: search,
     };
-    const httpParams = this._queryParamService.generateParams(params);
-    return this._http.get(`${this._getUrl}`, {
-      params: httpParams,
-    }) as Observable<
-      HttpClientResult<{
-        products: ProductViewModel[];
-        totalElements: number;
-        category: { id: number; title: string };
-      }>
-    >;
+    return this._searchService.search(
+      this._getUrl,
+      params,
+      search
+    ) as Observable<HttpClientResult<ProductSearchResult>>;
   }
 
   override getSingle(
