@@ -44,7 +44,7 @@ export class SearchBarComponent implements OnInit {
         if (search) {
           this.searchText = search;
           this._search();
-        } else this._resetSearchResult();
+        } else this.resetSearchResult();
       });
   }
 
@@ -62,7 +62,7 @@ export class SearchBarComponent implements OnInit {
       });
   }
 
-  private _resetSearchResult() {
+  resetSearchResult() {
     [this.showMenu, this.isLoading, this.searchText] = [false, false, ''];
     this.searchResult = { products: [], articles: [] };
   }
