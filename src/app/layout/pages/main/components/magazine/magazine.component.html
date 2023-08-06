@@ -10,7 +10,7 @@
       >
     </div>
   </div>
-  <div class="row g-3">
+  <div class="row">
     <div class="col-6 col-md-4 col-lg-3" *ngFor="let article of articles">
       <ng-container
         *ngIf="isLoading; then loading; else content"

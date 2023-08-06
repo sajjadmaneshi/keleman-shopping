@@ -4,17 +4,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DataService } from 'src/app/shared/services/data.service';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
-import { ArticleViewModel } from '../view-models/article.view-model';
+import { ArticleSimpleDataViewModel } from '../view-models/article-simple-data-view.model';
 import {
   ArticleSearchResult,
   SeaechService,
 } from '../../../../../shared/services/search.service';
+import { ArticleViewModel } from '../view-models/article.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ArticleRepository extends DataService<any> {
   constructor(
     _http: HttpClient,
-    private _searchService: SeaechService<ArticleViewModel>
+    private _searchService: SeaechService<ArticleSimpleDataViewModel>
   ) {
     super('article', _http);
   }
@@ -39,9 +40,17 @@ export class ArticleRepository extends DataService<any> {
 
   getLatestArticles(
     count?: number
-  ): Observable<HttpClientResult<ArticleViewModel[]>> {
+  ): Observable<HttpClientResult<ArticleSimpleDataViewModel[]>> {
     return this._http.get(`${this._getUrl}/last/${count}??''`) as Observable<
-      HttpClientResult<ArticleViewModel[]>
+      HttpClientResult<ArticleSimpleDataViewModel[]>
+    >;
+  }
+
+  getSingleArticle(
+    url: string
+  ): Observable<HttpClientResult<ArticleViewModel>> {
+    return this._http.get(`${this._getUrl}/${url}`) as Observable<
+      HttpClientResult<ArticleViewModel>
     >;
   }
 }

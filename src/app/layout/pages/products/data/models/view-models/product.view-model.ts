@@ -8,6 +8,7 @@ export interface ProductViewModel {
   description: string;
   discount: number;
   brand: string;
+  customUrl: string;
   category: {
     id: number;
     name: string;

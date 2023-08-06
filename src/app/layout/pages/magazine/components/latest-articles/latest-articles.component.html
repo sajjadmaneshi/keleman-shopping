@@ -1,4 +1,4 @@
-<div class="card card-rounded-3 border border-gray-300 shadow mb-3">
+<div class="card card-rounded-3 shadow mb-3">
   <h6 class="p-3">جدیدترین مقالات</h6>
 
   <div class="card-body">
@@ -14,7 +14,10 @@
         </li>
       </ng-template>
       <ng-template #contant>
-        <li class="col-12 col-md-6 col-lg-12" *ngFor="let article of articles">
+        <li
+          class="col-12 col-md-6 col-lg-12 content"
+          *ngFor="let article of articles"
+        >
           <keleman-article-item-thumbnail
             [article]="article"
           ></keleman-article-item-thumbnail>

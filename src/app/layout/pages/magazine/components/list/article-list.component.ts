@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleViewModel } from '../../data/view-models/article.view-model';
-import { combineLatest, Subject, takeUntil, tap } from 'rxjs';
+import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simple-data-view.model';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { ArticleRepository } from '../../data/repositories/article.repository';
@@ -12,7 +12,7 @@ import { SharedVariablesService } from '../../../../../shared/services/shared-va
   styleUrls: ['./article-list.component.scss'],
 })
 export class ArticleListComponent implements OnInit {
-  articles: ArticleViewModel[] = [];
+  articles: ArticleSimpleDataViewModel[] = [];
   isLoading = false;
   totalElements = 0;
   page = 1;
@@ -35,12 +35,14 @@ export class ArticleListComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((queryParams) => {
         this.articles = [];
-
         const page = Number(queryParams['p']);
         const search = queryParams['q'];
         if (!isNaN(page)) {
           this.page = page + 1;
           this.getAllArticles('', page);
+        } else {
+          this._updateQueryParams();
+          this.getAllArticles('', 1);
         }
         if (search) {
           this.getAllArticles(search, page);
@@ -59,7 +61,7 @@ export class ArticleListComponent implements OnInit {
       .subscribe(
         (
           result: HttpClientResult<{
-            articles: ArticleViewModel[];
+            articles: ArticleSimpleDataViewModel[];
             totalElements: number;
             category: { id: number; title: string };
           }>

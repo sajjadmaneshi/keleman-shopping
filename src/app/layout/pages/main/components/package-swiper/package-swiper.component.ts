@@ -31,7 +31,6 @@ export class PackageSwiperComponent implements AfterViewInit, OnDestroy {
       )
       .subscribe((result: HttpClientResult<ProductViewModel[]>) => {
         this.slides = [...result.result!];
-        console.log(this.slides);
       });
   }
 

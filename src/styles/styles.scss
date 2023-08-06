@@ -1,4 +1,5 @@
 @use "@angular/material" as mat;
+@use "sass:math";
 @import "base/variables/colors";
 @import "bootstrap/scss/bootstrap";
 @import "base/init";
@@ -17,6 +18,8 @@
 @import "theme";
 @import "animate.css";
 
+$global-gap: 1rem;
+
 .grid-divider > * {
   position: relative;
   margin-bottom: 15px;
@@ -24,6 +27,7 @@
 .grid-divider > [class*="col-"]:nth-child(2n) {
   border-right: 2px solid map-get($theme-colors, "gray-500");
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -48,6 +52,7 @@ input::-webkit-inner-spin-button {
     white
   );
 }
+
 .section-header {
   padding-bottom: get($klm-spacers, 10);
 }
@@ -90,6 +95,7 @@ input::-webkit-inner-spin-button {
     transform: scale(0.75);
   }
 }
+
 ngx-skeleton-loader {
   .skeleton-loader {
     margin-bottom: 0 !important;
@@ -97,5 +103,15 @@ ngx-skeleton-loader {
     &.progress:before {
       animation-direction: reverse !important;
     }
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: math.div(-$global-gap, 2);
+
+  > * {
+    padding: math.div($global-gap, 2);
   }
 }

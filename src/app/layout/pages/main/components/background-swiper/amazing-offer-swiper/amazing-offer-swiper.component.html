@@ -27,7 +27,6 @@
           <appSwiperContent *ngFor="let _ of sahredVariableService.counter(10)">
             <ng-template appSwiperTemplate>
               <ngx-skeleton-loader
-                class="mx-1"
                 [theme]="{ height: '18.75rem', width: '12.5rem' }"
               ></ngx-skeleton-loader>
             </ng-template>
@@ -39,7 +38,7 @@
             <ng-template appSwiperTemplate>
               <keleman-background-swiper-item
                 class="cursor-pointer"
-                [routerLink]="'/products'"
+                [routerLink]="['/products/detail/' + slide.customUrl]"
                 [product]="slide"
               ></keleman-background-swiper-item>
             </ng-template>

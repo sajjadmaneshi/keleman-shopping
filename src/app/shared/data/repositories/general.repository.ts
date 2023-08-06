@@ -7,6 +7,7 @@ import { HttpClientResult } from '../models/http/http-client.result';
 import { StatesViewModel } from '../models/view-models/states.view-model';
 import { CityViewModel } from '../models/view-models/city.view-model';
 import { SearchViewModel } from '../models/search.view-model';
+import { FooterViewModel } from '../models/view-models/footer.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class GeneralRepository extends DataService<any> {
@@ -31,6 +32,18 @@ export class GeneralRepository extends DataService<any> {
   ): Observable<HttpClientResult<CityViewModel[]>> {
     return this._http.get(`${this._getUrl}/cities/${stateId}`) as Observable<
       HttpClientResult<CityViewModel[]>
+    >;
+  }
+
+  getAboutUs(): Observable<HttpClientResult<{ aboutUs: string }>> {
+    return this._http.get(`${this._getUrl}/aboutUs`) as Observable<
+      HttpClientResult<{ aboutUs: string }>
+    >;
+  }
+
+  getFooter(): Observable<HttpClientResult<FooterViewModel>> {
+    return this._http.get(`${this._getUrl}/footer`) as Observable<
+      HttpClientResult<FooterViewModel>
     >;
   }
 }

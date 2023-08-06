@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 
 import { ArticleRepository } from '../../../magazine/data/repositories/article.repository';
-import { ArticleViewModel } from '../../../magazine/data/view-models/article.view-model';
+import { ArticleSimpleDataViewModel } from '../../../magazine/data/view-models/article-simple-data-view.model';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { Routing } from '../../../../../routing';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class MagazineComponent implements OnDestroy {
   isLoading = false;
 
-  articles!: ArticleViewModel[];
+  articles!: ArticleSimpleDataViewModel[];
   destroy$ = new Subject<void>();
 
   constructor(
@@ -35,7 +35,7 @@ export class MagazineComponent implements OnDestroy {
           takeUntil(this.destroy$)
         )
       )
-      .subscribe((result: HttpClientResult<ArticleViewModel[]>) => {
+      .subscribe((result: HttpClientResult<ArticleSimpleDataViewModel[]>) => {
         this.articles = [...result.result!];
       });
   }

@@ -8,7 +8,7 @@
   width: calc(100% - 10rem);
   ::ng-deep .swiper-slide {
     border-radius: $klm-spacer !important;
-    margin: map-get($klm-spacers, 1);
+    margin: map-get($klm-spacers, 2);
 
     keleman-background-swiper-item {
       border-radius: inherit !important;

@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PersianDateTimeService } from '../../services/date-time/persian-datetime.service';
 import { LazyLoadingDirective } from '../../directives/lazy-loading.directive';
 import { RouterModule } from '@angular/router';
-import { ArticleViewModel } from '../../../layout/pages/magazine/data/view-models/article.view-model';
+import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/view-models/article-simple-data-view.model';
 import { EmptyImageDirective } from '../../directives/empty-image.directive';
 import { ENVIRONMENT } from '../../../../environments/environment';
 
@@ -23,7 +23,7 @@ import { ENVIRONMENT } from '../../../../environments/environment';
   ],
 })
 export class ArticleItemComponent {
-  @Input() articleDetails!: ArticleViewModel;
+  @Input() articleDetails!: ArticleSimpleDataViewModel;
 
   dwonloadUrl: string = ENVIRONMENT.downloadUrl;
   constructor(public persianDateTime: PersianDateTimeService) {}

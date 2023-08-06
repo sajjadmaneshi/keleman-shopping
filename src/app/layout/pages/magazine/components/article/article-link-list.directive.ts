@@ -27,11 +27,12 @@ export class ArticleLinkListDirective implements OnInit {
       label.innerText = 'فهرست مطالب';
       this._renderer.setStyle(label, 'padding', '1rem');
       let linkListContent = this._renderer.createElement('div');
-      this._renderer.setAttribute(linkListContent, 'id', 'contentList');
+      this._renderer.setAttribute(linkListContent, 'id', 'content-list');
       this._renderer.setStyle(linkListContent, 'background-color', '#f1f1f1');
       this._renderer.setStyle(linkListContent, 'width', 'fit-content');
       this._renderer.setStyle(linkListContent, 'padding', '15px 25px');
       this._renderer.setStyle(linkListContent, 'border-radius', ' 20px');
+      this._renderer.setStyle(linkListContent, 'margin-bottom', ' 20px');
       let linkList = this._renderer.createElement('ul');
       this._renderer.setAttribute(linkList, 'id', 'ulBulletList');
       linkList.prepend(...ulNodes);

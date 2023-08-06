@@ -9,8 +9,8 @@ export const routes: Routes = [
     path: '',
     component: MagazineComponent,
     children: [
+      { path: ':url', component: ArticleComponent },
       { path: '', component: ArticleListComponent },
-      { path: ':id', component: ArticleComponent },
     ],
   },
 ];

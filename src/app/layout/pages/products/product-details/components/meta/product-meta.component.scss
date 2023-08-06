@@ -5,6 +5,7 @@
     display: flex;
     td:nth-child(1) {
       flex-grow: 1;
+      line-height: 2;
     }
   }
 }
@@ -13,9 +14,9 @@
   background-color: $klm-secondary;
   border: none;
   border-radius: 0.5rem;
-  line-height: 3;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
   transform: scale(1);
+  line-height: 2.5;
   &:hover {
     animation: pulse-orange 1s;
   }

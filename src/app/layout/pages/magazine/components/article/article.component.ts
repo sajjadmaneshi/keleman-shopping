@@ -1,7 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Meta } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { ArticleRepository } from '../../data/repositories/article.repository';
 import { ArticleViewModel } from '../../data/view-models/article.view-model';
+import { PersianDateTimeService } from '../../../../../shared/services/date-time/persian-datetime.service';
+import { ENVIRONMENT } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-article',
@@ -9,19 +14,51 @@ import { ArticleViewModel } from '../../data/view-models/article.view-model';
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent implements OnInit {
-  pageUrl: string;
-  @Input() article!: ArticleViewModel;
-  articles: ArticleViewModel[] = [];
+  pageUrl!: string;
+  isLoading = true;
 
-  constructor(private _met: Meta) {
-    this.pageUrl = window.location.href;
+  currentLocationUrl: string;
+  articleDetails!: ArticleViewModel;
+
+  downloadUrl = ENVIRONMENT.downloadUrl;
+  private destroy$ = new Subject<void>();
+  constructor(
+    private _met: Meta,
+    private _activatedRoute: ActivatedRoute,
+
+    private _location: Location,
+    private _articleRepository: ArticleRepository,
+    public persianDateTimeService: PersianDateTimeService
+  ) {
+    this._getUrlFromRoute();
+    this.currentLocationUrl = this._location.path();
   }
 
-  ngOnInit() {
-    this._met.updateTag({
-      name: 'title',
-      content: 'آسانسور چیست؟ | بررسی قیمت، قطعات و تاریخچه آسانسور',
-    });
+  private _getUrlFromRoute() {
+    this._activatedRoute.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        this.pageUrl = params['url'];
+        this._getArticleData();
+      });
+  }
+
+  ngOnInit() {}
+
+  private _getArticleData() {
+    this._articleRepository
+      .getSingleArticle(this.pageUrl)
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => (this.isLoading = false))
+      )
+      .subscribe((result) => {
+        this.articleDetails = result.result!;
+        this._met.updateTag({
+          name: 'title',
+          content: this.articleDetails.title,
+        });
+      });
   }
 
   shareOnWhatsApp() {

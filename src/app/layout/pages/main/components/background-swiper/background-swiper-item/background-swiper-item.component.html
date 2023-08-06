@@ -18,11 +18,9 @@
         [alt]="product.name!"
       />
     </div>
-    <span class="d-flex align-items-center justify-content-between w-100 mb-3">
-      <h6 class="text-center fw-light">
-        {{ product.name }}
-      </h6>
-    </span>
+    <h6 class="text-center fw-light w-100 mb-3">
+      {{ product.name }}
+    </h6>
 
     <ng-container
       *ngIf="product.price > 0; then price; else call"

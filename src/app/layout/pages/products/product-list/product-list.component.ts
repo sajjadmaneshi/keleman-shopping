@@ -30,6 +30,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   categoryDetail!: CategorySimpleInfoViewModel;
   products: ProductViewModel[] = [];
 
+  searchText = '';
+
   private destroy$ = new Subject<void>();
   constructor(
     private _activeRoute: ActivatedRoute,
@@ -49,13 +51,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
         });
 
         const page = Number(queryParams['p']);
-        const search = queryParams['q'];
+        this.searchText = queryParams['q'];
         if (!isNaN(page)) {
           this.page = page + 1;
-          this.getAllProducts('', page);
-        }
-        if (search) {
-          this.getAllProducts(search, page);
+          this.getAllProducts(this.searchText, page);
         }
       });
   }
