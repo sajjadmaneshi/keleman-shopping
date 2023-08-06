@@ -1,5 +1,5 @@
 import { ProductViewModel } from 'src/app/layout/pages/products/data/models/view-models/product.view-model';
-import { ArticleViewModel } from '../../layout/pages/magazine/data/view-models/article.view-model';
+import { ArticleSimpleDataViewModel } from '../../layout/pages/magazine/data/view-models/article-simple-data-view.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClientResult } from '../data/models/http/http-client.result';
@@ -13,7 +13,7 @@ export interface ProductSearchResult {
 }
 
 export interface ArticleSearchResult {
-  articles: ArticleViewModel[];
+  articles: ArticleSimpleDataViewModel[];
   totalElements: number;
   category: { id: number; title: string };
 }
@@ -37,6 +37,7 @@ export class SeaechService<T> {
       .generateObjectToQueryParam(params)
       .generateSearchQueryParam(search)
       .getQueryParams();
+    this._queryParamService.resetQueryParams();
     return this._http.get(
       `${url}${queryParams ? `?${queryParams}` : ''}`
     ) as Observable<

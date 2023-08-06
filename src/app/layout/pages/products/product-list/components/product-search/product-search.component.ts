@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Routing } from '../../../../../../routing';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -10,8 +10,10 @@ import { FormControl } from '@angular/forms';
   templateUrl: './product-search.component.html',
   styleUrls: ['./product-search.component.scss'],
 })
-export class ProductSearchComponent {
+export class ProductSearchComponent implements OnChanges {
   destroy$ = new Subject<void>();
+
+  @Input() initialSearchText = '';
 
   searchText = new FormControl('');
 
@@ -21,5 +23,9 @@ export class ProductSearchComponent {
     this._router.navigate([Routing.products], {
       queryParams: { q: this.searchText.value, p: '0' },
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.searchText.patchValue(this.initialSearchText);
   }
 }

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { SliderViewModel } from './view-models/slider.view-model';
 import { ProductViewModel } from '../../../products/data/models/view-models/product.view-model';
+import { AdsBannerViewModel } from './view-models/ads-banner.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class HomeRepository extends DataService<any> {
@@ -26,6 +27,12 @@ export class HomeRepository extends DataService<any> {
   getPackages(): Observable<HttpClientResult<ProductViewModel[]>> {
     return this._http.get(`${this._getUrl}/packages`) as Observable<
       HttpClientResult<ProductViewModel[]>
+    >;
+  }
+
+  getAdsBanner(): Observable<HttpClientResult<AdsBannerViewModel[]>> {
+    return this._http.get(`${this._getUrl}/ads`) as Observable<
+      HttpClientResult<AdsBannerViewModel[]>
     >;
   }
 }

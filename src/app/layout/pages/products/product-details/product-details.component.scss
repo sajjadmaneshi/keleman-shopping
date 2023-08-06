@@ -1,6 +1,6 @@
 @import "base/variables/spacers";
 @import "base/variables/colors";
-::ng-deep ul {
+::host ::ng-deep ul {
   margin: 0;
   padding: 0;
 

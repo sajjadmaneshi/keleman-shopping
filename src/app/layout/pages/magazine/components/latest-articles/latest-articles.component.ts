@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { PersianDateTimeService } from '../../../../../shared/services/date-time/persian-datetime.service';
-import { ArticleViewModel } from '../../data/view-models/article.view-model';
+import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simple-data-view.model';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { ArticleRepository } from '../../data/repositories/article.repository';
@@ -14,7 +14,7 @@ import { SharedVariablesService } from '../../../../../shared/services/shared-va
 })
 export class LatestArticlesComponent {
   isLoading = false;
-  articles: ArticleViewModel[] = [];
+  articles: ArticleSimpleDataViewModel[] = [];
   destroy$ = new Subject<void>();
   constructor(
     public persianDateTimeService: PersianDateTimeService,
@@ -34,7 +34,7 @@ export class LatestArticlesComponent {
           takeUntil(this.destroy$)
         )
       )
-      .subscribe((result: HttpClientResult<ArticleViewModel[]>) => {
+      .subscribe((result: HttpClientResult<ArticleSimpleDataViewModel[]>) => {
         this.articles = [...result.result!];
       });
   }

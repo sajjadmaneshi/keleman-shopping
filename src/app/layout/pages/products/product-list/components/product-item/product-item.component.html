@@ -22,7 +22,9 @@
       />
     </div>
     <h2 class="fs-6 align-self-md-center flex-grow-1">
-      {{ product.name! }}
+      <a [routerLink]="['../detail/' + product.customUrl]">
+        {{ product.name! }}
+      </a>
     </h2>
     <div class="d-flex flex-column">
       <ng-container

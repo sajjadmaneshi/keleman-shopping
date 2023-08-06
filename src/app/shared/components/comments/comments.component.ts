@@ -41,8 +41,8 @@ export class CommentsComponent {
   }
 
   private _getAllComment() {
-    const getAllComment$ = this._repository
-      .getAll()
-      .subscribe((comments) => (this.comments = comments));
+    // const getAllComment$ = this._repository
+    //   .getAll()
+    //   .subscribe((comments) => (this.comments = comments));
   }
 }

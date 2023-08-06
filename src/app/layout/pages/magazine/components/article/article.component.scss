@@ -1,15 +1,19 @@
 @import "base/variables/spacers";
 @import "base/variables/colors";
-.article-content__body {
-  line-height: 2.5rem;
-  clear: right;
-  text-align: justify;
-  padding: 0 1rem;
+::ng-deep article {
+  figure,
+  p,
+  span {
+    margin-bottom: 1rem !important;
+  }
+  img {
+    width: 100%;
+  }
 }
 
 .article-cover {
   width: 100%;
-  height: map-get($klm-spacers, 112);
+
   img {
     height: inherit;
     width: inherit;

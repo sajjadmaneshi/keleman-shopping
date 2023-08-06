@@ -4,6 +4,8 @@ import {
   ElementRef,
   HostListener,
   Inject,
+  Input,
+  OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -15,13 +17,15 @@ import { ProductCategoryService } from '../../../pages/main/components/product-c
 import { Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Routing } from '../../../../routing';
+import { InitialAppService } from '../../../../shared/services/initial-app.service';
+import { ProductCategoryViewModel } from '../../../../shared/data/models/view-models/product-category.view-model';
 
 @Component({
   selector: 'keleman-header-menu',
   templateUrl: './header-menu.component.html',
   styleUrls: ['./header-menu.component.scss'],
 })
-export class HeaderMenuComponent implements AfterViewInit {
+export class HeaderMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('dropDownMenu') dropDownMenu!: ElementRef;
   @ViewChild('myDrop') myDrop!: NgbDropdown;
 
@@ -29,11 +33,14 @@ export class HeaderMenuComponent implements AfterViewInit {
   screenWidth!: number;
   currentRoute = '/';
 
+  productCategories!: ProductCategoryViewModel[];
+
   page = 0;
   constructor(
     private _renderer2: Renderer2,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
+    private _initialAppService: InitialAppService,
     public categoryService: ProductCategoryService,
     @Inject(DOCUMENT) document: Document
   ) {
@@ -105,5 +112,11 @@ export class HeaderMenuComponent implements AfterViewInit {
       if (this.currentRoute !== routeSplit) this.page = 0;
     }
     this.currentRoute = routeSplit;
+  }
+
+  ngOnInit(): void {
+    this._initialAppService.productCategories.subscribe((data) => {
+      this.productCategories = data!;
+    });
   }
 }

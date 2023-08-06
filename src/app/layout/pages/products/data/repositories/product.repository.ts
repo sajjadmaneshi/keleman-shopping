@@ -12,6 +12,7 @@ import {
   ProductSearchResult,
   SeaechService,
 } from '../../../../../shared/services/search.service';
+import { ProductDetailViewModel } from '../models/view-models/product-detail.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductRepository extends DataService<
@@ -52,6 +53,14 @@ export class ProductRepository extends DataService<
       params,
       search
     ) as Observable<HttpClientResult<ProductSearchResult>>;
+  }
+
+  getProductDetails(
+    url: string
+  ): Observable<HttpClientResult<ProductDetailViewModel>> {
+    return this._http.get(`${this._getUrl}/${url}`) as Observable<
+      HttpClientResult<ProductDetailViewModel>
+    >;
   }
 
   override getSingle(

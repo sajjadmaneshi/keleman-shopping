@@ -1,19 +1,19 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
+  OnInit,
   Output,
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { InitialAppService } from '../../../../../shared/services/initial-app.service';
+
 import { ProductCategoryViewModel } from '../../../../../shared/data/models/view-models/product-category.view-model';
 
 @Component({
   selector: 'keleman-mega-menu',
   templateUrl: './mega-menu.component.html',
   styleUrls: ['./mega-menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MegaMenuComponent {
   iconNames = [
@@ -34,21 +34,14 @@ export class MegaMenuComponent {
   @ViewChild('megaMenu') megaMenu!: HTMLElement;
   activeIndex = 1;
 
-  productCategories!: ProductCategoryViewModel[];
+  @Input() productCategories!: ProductCategoryViewModel[];
   @Output() clickItem = new EventEmitter<{
     c1?: string;
     c2?: string;
     c3?: string;
   }>();
 
-  constructor(
-    private _renderer2: Renderer2,
-    private _initialAppService: InitialAppService
-  ) {
-    this._initialAppService.productCategories.subscribe((result) => {
-      this.productCategories = result;
-    });
-  }
+  constructor(private _renderer2: Renderer2) {}
 
   onHover(index: number) {
     this.activeIndex = index;

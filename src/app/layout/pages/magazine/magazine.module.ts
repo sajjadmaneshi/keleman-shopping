@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-
 import { MagazineComponent } from './magazine.component';
-
 import { ArticleListComponent } from './components/list/article-list.component';
 import { MagazineRoutingModule } from './magazine-routing.module';
 import { CommentComponent } from './components/comment/comment.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { ArticleItemComponent } from '../../../shared/components/article-item/article-item.component';
 import { ArticleComponent } from './components/article/article.component';
 import { LatestArticlesComponent } from './components/latest-articles/latest-articles.component';

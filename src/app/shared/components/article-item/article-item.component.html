@@ -1,5 +1,5 @@
 <div
-  class="card card-rounded-2 shadow magazine-item ribbon ribbon-end ribbon-clip"
+  class="card card-rounded-2 shadow magazine-item ribbon ribbon-end ribbon-clip h-100"
 >
   <div class="ribbon-label">
     {{
@@ -21,7 +21,9 @@
   <div class="card-body">
     <div class="magazine-content">
       <h6 class="magazine-title fw-bold mb-3">
-        <a>{{ articleDetails.title }}</a>
+        <a [routerLink]="['/magazine/' + articleDetails.url]">{{
+          articleDetails.title
+        }}</a>
       </h6>
       <p class="magazine-description mb-3">
         {{ articleDetails.description }}
@@ -32,7 +34,7 @@
       >
     </div>
     <button
-      [routerLink]="['/magazine/1']"
+      [routerLink]="['/magazine/' + articleDetails.url]"
       class="btn btn-outline btn-outline-klm-primary read-more float-start"
     >
       <span class="mx-3">بیشتر</span>
