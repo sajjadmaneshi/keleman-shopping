@@ -1,6 +1,7 @@
 .partner-brand-swiper {
   ::ng-deep swiper {
     position: relative;
+
     &:after,
     &:before {
       content: "";
@@ -11,31 +12,37 @@
       height: 100%;
       pointer-events: none;
     }
+
     &:after {
       z-index: 1;
       left: 0;
       background-image: linear-gradient(
-        to left,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 1) 90%
+          to left,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 1) 90%
       );
     }
+
     &:before {
       z-index: 2;
       right: 0;
       background-image: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 1) 90%
+          to right,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 1) 90%
       );
     }
+
     .swiper-wrapper {
       display: flex;
       align-items: center;
+
       .swiper-slide {
         width: auto !important;
+
         .brand-logo {
           width: 150px;
+
           img {
             width: 100%;
           }

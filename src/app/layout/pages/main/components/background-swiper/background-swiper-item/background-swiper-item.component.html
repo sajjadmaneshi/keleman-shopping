@@ -9,7 +9,7 @@
       [iconName]="'star'"
       [iconClass]="'text-warning'"
     ></keleman-text-with-icon>
-    <div class="symbol symbol-25 symbol-lg-39 mb-3">
+    <div class="symbol symbol-25 symbol-lg-30 mb-3">
       <img
         loadingLazy
         emptyImage
@@ -18,9 +18,11 @@
         [alt]="product.name!"
       />
     </div>
-    <h6 class="text-center fw-light w-100 mb-3">
-      {{ product.name }}
-    </h6>
+    <h2 class="fs-6 align-self-md-center flex-grow-1 text-center">
+      <a [routerLink]="['/products/detail/' + product.customUrl]">
+        {{ product.name! }}
+      </a>
+    </h2>
 
     <ng-container
       *ngIf="product.price > 0; then price; else call"
@@ -29,7 +31,7 @@
       <keleman-price
         [value]="product.priceAfterDiscount!"
         [off]="false"
-        [size]="'h5'"
+        [size]="'h6'"
         class="mb-md-3"
       ></keleman-price>
     </ng-template>

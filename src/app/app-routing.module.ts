@@ -1,5 +1,5 @@
 import { inject, NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './layout/pages/not-found/not-found.component';
 import { Routing } from './routing';
 import { RegisterComponent } from './layout/pages/authentication/register/register.component';
@@ -13,7 +13,11 @@ const routes: Routes = [
   },
   {
     path: Routing.register,
-    component: RegisterComponent,
+    loadComponent: () =>
+      import('./layout/pages/authentication/register/register.component').then(
+        (c) => c.RegisterComponent
+      ),
+
     resolve: { token: () => inject(TokenResolver).resolve() },
   },
   { path: '**', component: NotFoundComponent },

@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { LazyLoadingDirective } from '../../../../shared/directives/lazy-loading.directive';
 import { MatMenuModule } from '@angular/material/menu';
 import { ReturnRequestDialogComponent } from './components/order-item/return-request-dialog/return-request-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export const routes: Routes = [{ path: '', component: OrdersComponent }];
 
@@ -32,6 +33,7 @@ export const routes: Routes = [{ path: '', component: OrdersComponent }];
     MatIconModule,
     LazyLoadingDirective,
     MatMenuModule,
+    MatDialogModule,
   ],
 })
 export class OrdersModule {}

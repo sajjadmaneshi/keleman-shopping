@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import SwiperCore, { Navigation } from 'swiper';
-import { CommentModel } from '../../data/models/comment.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentDialogComponent } from './add-comment-dialog/add-comment-dialog.component';
 import { CommentsDialogComponent } from './comments-dialog/comments-dialog.component';
 import { CommentRepository } from './data/repositories/comment.repository';
+import { ProductRepository } from '../../../layout/pages/products/data/repositories/product.repository';
+import { ProductCommentViewModel } from '../../../layout/pages/products/data/models/view-models/product-comment.view-model';
+import { ActivatedRoute, Params } from '@angular/router';
+import { ProductService } from '../../../layout/pages/products/product.service';
+import { SharedVariablesService } from '../../services/shared-variables.service';
 
 SwiperCore.use([Navigation]);
 @Component({
@@ -16,11 +20,15 @@ SwiperCore.use([Navigation]);
 })
 export class CommentsComponent {
   isLoading = new BehaviorSubject(false);
-  comments: CommentModel[] = [];
+  comments: ProductCommentViewModel[] = [];
+
+  subscription!: Subscription;
 
   constructor(
     private _dialog: MatDialog,
-    private _repository: CommentRepository
+    private _productService: ProductService,
+    private _productRepository: ProductRepository,
+    public sharedVariablesService: SharedVariablesService
   ) {
     this._getAllComment();
   }
@@ -41,8 +49,12 @@ export class CommentsComponent {
   }
 
   private _getAllComment() {
-    // const getAllComment$ = this._repository
-    //   .getAll()
-    //   .subscribe((comments) => (this.comments = comments));
+    this.isLoading.next(true);
+    this.subscription = this._productRepository
+      .getProductComments(this._productService.productUrl)
+      .pipe(tap(() => this.isLoading.next(false)))
+      .subscribe((result) => {
+        return (this.comments = [...result.result!]);
+      });
   }
 }

@@ -59,6 +59,8 @@ import { CommentsModule } from '../../../shared/components/comments/comments.mod
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { CategoryAboutComponent } from './product-list/components/category-about/category-about.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ProductService } from './product.service';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -118,7 +120,9 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     CommentsModule,
     PaginationComponent,
     NgxSkeletonLoaderModule,
+    SwiperModule,
   ],
+
   exports: [ProductItemComponent],
 })
 export class ProductsModule {}

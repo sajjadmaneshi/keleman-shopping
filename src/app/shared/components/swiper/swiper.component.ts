@@ -2,7 +2,6 @@ import {
   Component,
   ContentChildren,
   Input,
-  OnInit,
   QueryList,
   ViewEncapsulation,
 } from '@angular/core';
@@ -25,13 +24,12 @@ SwiperCore.use([Navigation]);
   styleUrls: ['./swiper.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SwiperComponent implements OnInit {
+export class SwiperComponent {
   @ContentChildren(SwiperContentDirective, {
     descendants: true,
   })
   contents!: QueryList<SwiperContentDirective>;
 
-  @Input('isLoading') isLoading$ = new BehaviorSubject(true);
   @Input() shimmerHeight = '300px';
   @Input() shimmerWidth = '250px';
 
@@ -50,10 +48,4 @@ export class SwiperComponent implements OnInit {
     public sharedVariablesService: SharedVariablesService,
     public applicationState: ApplicationStateService
   ) {}
-
-  ngOnInit(): void {
-    document.querySelectorAll('.swiper-slide').forEach((test) => {
-      (test as HTMLElement).style.width = '250px';
-    });
-  }
 }

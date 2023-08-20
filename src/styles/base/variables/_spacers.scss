@@ -1,7 +1,7 @@
 $klm-spacer: 1rem !default;
 $klm-spacers: () !default;
 
-@for $i from 0 through 1000 {
+@for $i from 0 through 300 {
   $multiple: calc($i/4);
   @if $i == 13 {
     $klm-spacers: map-merge(
@@ -20,9 +20,7 @@ $klm-spacers: () !default;
   }
 }
 
-$content-spacing: (
-  desktop: 1.8rem,
-  // Padding for desktop mode
-  tablet-and-mobile: 1rem
-    // Padding for tablet and mobile modes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-) !default;
+.nil-space {
+  padding: 0 !important;
+  margin: 0 !important;
+}

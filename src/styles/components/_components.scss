@@ -1,10 +1,23 @@
-@import "svg-icon";
+@import "swiper";
+
 @import "symbol";
-@import "separator";
 @import "card";
 @import "forms";
 @import "text-field";
 @import "ribbon";
-@import "badge";
-@import "buttons/buttons";
 @import "keleman-gray-card";
+@import "buttons/buttons";
+@import "loading-overlay";
+@import "accordion";
+
+//===========================pages=============================//
+@import "pages/footer";
+@import "pages/header/header";
+@import "pages/header/header-menu";
+@import "pages/header/header-mobile";
+@import "pages/header/top-menu/top-menu";
+@import "pages/header/top-menu/user-drop-down";
+@import "pages/header/top-menu/search-bar";
+@import "pages/header/top-menu/off-canvas";
+@import "pages/header/mega-menu";
+@import "pages/main";

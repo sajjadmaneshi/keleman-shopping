@@ -1,5 +1,5 @@
 <div class="d-flex flex-column">
-  <div class="d-flex align-items-center section-header">
+  <div class="d-flex align-items-center pb-3">
     <h4 class="fw-bold text-klm-primary px-3">پکیج ها</h4>
     <div class="gradient-border flex-grow-1"></div>
   </div>
@@ -15,14 +15,12 @@
         prev: {
           scale: 0.75,
           shadow: true,
-
           translate: ['-50%', 0, 0],
           rotate: [0, 15, 0]
         },
         next: {
           scale: 0.75,
           shadow: true,
-
           translate: ['50%', 0, 0],
           rotate: [0, -15, 0]
         }
@@ -38,7 +36,7 @@
               [alt]="slide.name"
             />
             <div class="package-info">
-              <h4>{{ slide.name }}</h4>
+              <h6>{{ slide.name }}</h6>
             </div>
           </div>
         </ng-template>

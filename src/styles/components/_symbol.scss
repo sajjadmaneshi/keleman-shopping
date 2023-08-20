@@ -19,14 +19,6 @@
   }
 
   // Badge
-  .symbol-badge {
-    position: absolute;
-    border: 2px solid $body-bg;
-    border-radius: 100%;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%) !important;
-  }
 
   // Image
   > img {
@@ -34,15 +26,6 @@
     flex-shrink: 0;
     display: inline-block;
     @include border-radius($border-radius);
-  }
-
-  // Square
-  &.symbol-square {
-    &,
-    > img,
-    .symbol-label {
-      border-radius: 0 !important;
-    }
   }
 
   // Circle

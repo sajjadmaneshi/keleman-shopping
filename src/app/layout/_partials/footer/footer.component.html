@@ -1,53 +1,67 @@
 <div class="d-flex flex-column container">
   <div class="d-flex align-items-center mb-3">
-    <div class="keleman-logo px-3">
+    <div class="keleman-logo px-1">
       <img
+        class="position-relative"
         alt="بازرگارنی آسانسور کلمان"
-        loading="lazy"
-        src="assets/media/logo/keleman-logo.png"
+        ngSrc="assets/media/logo/keleman-logo.png"
+        width="980"
+        height="387"
+        priority
       />
     </div>
     <div class="gradient-border flex-grow-1"></div>
     <span class="social">
       <a
-        class="symbol symbol-7"
         target="_blank"
+        aria-label="whatsapp"
         href="https://web.whatsapp.com/send?phone=+987138080000"
       >
-        <img src="assets/media/social-icons/whatsapp.png" />
+        <i class="fa-brands fa-square-whatsapp fa-2xl"></i>
       </a>
       <a
         class="symbol symbol-7"
         target="_blank"
+        aria-label="aparat"
         href="https://www.aparat.com/kelemanasansor"
       >
-        <img src="assets/media/social-icons/youtube.png" />
+        <i class="fa-brands fa-square-youtube fa-2xl"></i>
       </a>
       <a
         class="symbol symbol-7"
         target="_blank"
+        aria-label="instagram"
         href="https://www.instagram.com/keleman.official/"
       >
-        <img src="assets/media/social-icons/instagram.png" />
+        <i class="fa-brands fa-square-instagram fa-2xl"></i>
       </a>
       <a
         class="symbol symbol-7"
         target="_blank"
         href="https://twitter.com/KelemanTrade?s=08"
+        aria-label="twitter"
       >
-        <img src="assets/media/social-icons/twitter.png" />
+        <i class="fa-brands fa-square-twitter fa-2xl"></i>
       </a>
     </span>
   </div>
   <ng-template [ngIf]="footerData">
     <div class="row mx-0">
       <div class="col-12 col-lg-4">
-        <p class="about" [innerHTML]="footerData.aboutUsSummary!"></p>
+        <p class="about lh-lg" [innerHTML]="footerData.aboutUsSummary!"></p>
       </div>
-      <ul class="menu col-6 col-lg-2" *ngFor="let col of footerData.links">
-        <header>{{ col.title }}</header>
-        <li *ngFor="let item of col.links; let i = index">
-          <mat-icon>{{ iconNames[i] }}</mat-icon>
+      <ul
+        class="footer-menu col-6"
+        *ngFor="let col of footerData.links; let colIndex = index"
+        [ngClass]="colIndex === 2 ? 'col-lg-3' : 'col-lg-2'"
+      >
+        <li class="head fw-bold mb-3">
+          <a class="px-1">{{ col.title }} </a>
+        </li>
+        <li *ngFor="let item of col.links; let i = index" class="mb-2">
+          <mat-icon>{{
+            colIndex === 0 ? iconNamesCol1[i] : iconNamesCol2[i]
+          }}</mat-icon>
           <a [href]="item.url">{{ item.title }}</a>
         </li>
       </ul>
@@ -56,7 +70,6 @@
 
   <div class="d-flex align-items-center mb-3">
     <h6 class="text-gray-500 px-3">تمامی حقوق این وبسایت محفوظ است</h6>
-
     <div class="after-border flex-grow-1"></div>
   </div>
 </div>

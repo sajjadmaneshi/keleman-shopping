@@ -15,6 +15,7 @@ import {
   SwiperTemplateDirective,
 } from '../../directives/swiper-template.directive';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatSliderModule,
     MatDialogModule,
+    NgxSkeletonLoaderModule,
   ],
   exports: [CommentsComponent, CommentItemComponent],
 })

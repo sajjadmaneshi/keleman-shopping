@@ -14,9 +14,11 @@
         >
           <a
             type="button"
-            class="nav-link dropdown-toggle d-flex align-items-center text-body1"
+            class="nav-link text-black px-3 dropdown-toggle d-flex align-items-center"
             id="navbarDropdown"
             ngbDropdownToggle
+            [routerLink]="['products']"
+            [queryParams]="{ p: 0 }"
             (mouseover)="onHover($event)"
           >
             <span class="material-icons-outlined"> grid_view </span>
@@ -38,7 +40,7 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link text-body1"
+          class="nav-link text-black px-3"
           [routerLink]="''"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
@@ -47,7 +49,7 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link text-body1"
+          class="nav-link text-black px-3"
           [routerLink]="'/magazine'"
           [queryParams]="{ p: page.toString(), q: '' }"
           queryParamsHandling="merge"
@@ -56,19 +58,21 @@
         >
       </li>
       <li class="nav-item">
-        <a class="nav-link text-body1" href="#">خرید قطعات آسانسور</a>
+        <a class="nav-link px-3 text-black" href="#">خرید قطعات آسانسور</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link text-body1" href="#">باشگاه مشتریان کلمان</a>
+        <a class="nav-link px-3 text-black" href="#">باشگاه مشتریان کلمان</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-body1" href="#">با کلمان</a>
+        <a class="nav-link px-3 text-black" href="#">با کلمان</a>
       </li>
     </ul>
   </nav>
-  <span class="text-klm-primary d-flex align-items-center fs-3">
-    3808 - 071
+  <a
+    class="text-klm-primary d-flex align-items-center fs-3"
+    href="tel: 071-3808"
+    >3808 - 071
     <mat-icon inline class="mx-1 animate__heartBeat">headset_mic</mat-icon>
-  </span>
+  </a>
 </span>

@@ -1,5 +1,6 @@
 <div
-  class="card card-rounded-2 shadow magazine-item ribbon ribbon-end ribbon-clip h-100"
+  class="card card-rounded-2 shadow magazine-item ribbon ribbon-end ribbon-clip h-100 cursor-pointer"
+  [routerLink]="['/magazine/' + articleDetails.url]"
 >
   <div class="ribbon-label">
     {{
@@ -10,13 +11,14 @@
 
   <img
     class="cover-image"
+    [alt]="articleDetails.title"
     loadingLazy
-    emptyImage
-    [src]="
+    [ngSrc]="
       articleDetails.imageAddress
         ? dwonloadUrl + articleDetails.imageAddress
         : ''
     "
+    fill
   />
   <div class="card-body">
     <div class="magazine-content">
@@ -29,7 +31,7 @@
         {{ articleDetails.description }}
       </p>
 
-      <span class="text-muted"
+      <span class="text-klm-primary"
         >نویسنده: {{ articleDetails.authorFullName }}</span
       >
     </div>

@@ -1,6 +1,6 @@
 @import "base/variables/spacers";
 @import "base/variables/colors";
-::host ::ng-deep ul {
+:host ::ng-deep ul {
   margin: 0;
   padding: 0;
 
@@ -22,7 +22,11 @@ keleman-product-navbar {
   line-height: 3;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
   transform: scale(1);
-  &:hover {
+
+  &:hover:not(:disabled) {
     animation: pulse-orange 1s;
+  }
+  &:disabled {
+    opacity: 0.5;
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Routing } from '../../../../../../routing';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';

@@ -26,7 +26,7 @@ import { HttpClientResult } from '../../../../shared/data/models/http/http-clien
 import { AccountRepository } from '../../../../shared/services/auth/account.repository';
 import { CompleteInfoDto } from '../../../../shared/services/auth/data/complete-info.dto';
 import { RegisterStatusEnum } from './register-status.enum';
-import { PersianNumberService } from 'ngx-persian';
+import { CustomPersianNumberService } from '../../../../shared/services/persian-number.service';
 import { TextOnlyDirective } from '../../../../shared/directives/text-only.directive';
 import { GeneralRepository } from '../../../../shared/data/repositories/general.repository';
 
@@ -99,7 +99,7 @@ export class RegisterComponent implements OnDestroy {
     private _router: Router,
     private _geoLocationRepository: GeneralRepository,
     private _accountRepository: AccountRepository,
-    private _persianNumberSerive: PersianNumberService
+    private _persianNumberSerive: CustomPersianNumberService
   ) {
     this._initForm();
   }

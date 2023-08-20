@@ -4,7 +4,9 @@
   display: flex;
   flex-direction: column;
   .cover-image {
+    position: relative !important;
     border-radius: inherit !important;
+    max-width: 100%;
     max-height: map-get($klm-spacers, 45);
     min-height: map-get($klm-spacers, 44);
   }

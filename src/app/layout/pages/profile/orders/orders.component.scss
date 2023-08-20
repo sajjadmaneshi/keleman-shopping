@@ -1,18 +1,22 @@
 @import "base/variables/colors";
+
 .order-menu {
   a {
     justify-content: center;
   }
 }
+
 .order-tab-bar {
   .mat-mdc-tab-body-wrapper {
     margin-top: 1rem;
   }
+
   .mat-mdc-tab {
     flex-grow: unset !important;
-    font-family: IRANYekanXFaNum !important;
+    font-family: IRANYekanXFaNum, serif !important;
     letter-spacing: 0 !important;
   }
+
   .mat-mdc-tab-labels {
     border-bottom: 1px solid map-get($theme-colors, "gray-300");
   }
@@ -21,6 +25,7 @@
 .seeAll {
   display: flex;
   align-items: center;
+
   mat-icon {
     margin: 0 0.5rem;
   }
@@ -30,15 +35,19 @@
   cursor: pointer;
   color: black;
   margin-bottom: 1rem;
+
   .processing {
     color: #889cf0;
   }
+
   .delivered {
     color: #57b894;
   }
+
   .returned {
     color: #f98a62;
   }
+
   .cancelled {
     color: #6a6867;
   }

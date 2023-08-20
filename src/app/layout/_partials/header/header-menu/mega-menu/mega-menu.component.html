@@ -1,5 +1,5 @@
 <div class="d-flex h-100 mega-menu-body" id="mega-menu" #megamenu>
-  <ul class="mega-menu-side-bar__menu">
+  <ul class="mega-menu-side-bar__menu nil-space">
     <li
       *ngFor="let rootCategory of productCategories; let i = index"
       (mouseenter)="onHover(i + 1)"
@@ -15,12 +15,16 @@
     <div
       *ngFor="let rootCategory of productCategories; let i = index"
       [ngClass]="activeIndex === i + 1 ? 'd-flex flex-column' : 'd-none'"
-      class="container-fluid mega-menu-items-menu__inner"
+      class="container-fluid mega-menu-items-menu__inner p-3"
     >
-      <a class="text-klm-primary all-products">
+      <a
+        class="text-klm-primary all-products cursor-pointer"
+        (click)="onClick({ c1: rootCategory.url })"
+      >
         همه محصولات
         <mat-icon>chevron_left</mat-icon>
       </a>
+
       <ul class="column">
         <ng-template
           ngFor
@@ -29,12 +33,13 @@
           let-i="index"
         >
           <li
-            class="head"
+            class="head p-3"
             (click)="onClick({ c1: rootCategory.url, c2: child.url })"
           >
-            <a>{{ child.titleFa }} </a>
+            <a class="px-1">{{ child.titleFa }} </a>
           </li>
           <li
+            class="p-1"
             *ngFor="let childChild of child.children"
             (click)="
               onClick({

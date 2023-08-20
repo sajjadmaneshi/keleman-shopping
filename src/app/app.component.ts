@@ -9,7 +9,7 @@ import { LoadingService } from './shared/services/loading.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  providers: [ApplicationStateService],
+  providers: [LoadingService],
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy {

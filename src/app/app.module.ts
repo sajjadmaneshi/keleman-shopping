@@ -1,11 +1,15 @@
-import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  ErrorHandler,
+  NgModule,
+  isDevMode,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { MagazineModule } from './layout/pages/magazine/magazine.module';
 import { SwiperComponent } from './shared/components/swiper/swiper.component';
 import { ApplicationStateService } from './shared/services/application-state.service';
@@ -18,6 +22,8 @@ import { SwiperModule } from 'swiper/angular';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InitialAppService } from './shared/services/initial-app.service';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 export function tokenGetter(): any {
   return localStorage.getItem('access_token');
@@ -37,11 +43,7 @@ export function initializeApp(
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatComponentsModule,
-    SwiperModule,
-    MagazineModule,
-    SwiperComponent,
-    LeafletModule,
+    MatSnackBarModule,
     FloatingButtonMenuComponent,
     JwtModule.forRoot({
       config: {
@@ -51,6 +53,10 @@ export function initializeApp(
       },
     }),
     LoadingComponent,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [
     ApplicationStateService,

@@ -1,3 +1,4 @@
+@use "sass:math";
 @mixin symbol-size($size) {
   > img {
     width: $size;
@@ -7,32 +8,5 @@
   .symbol-label {
     width: $size;
     height: $size;
-  }
-
-  &.symbol-fixed {
-    .symbol-label {
-      width: $size;
-      height: $size;
-    }
-
-    > img {
-      width: $size;
-      height: $size;
-      max-width: $size;
-    }
-  }
-
-  // Ratios
-  &.symbol-2by3 {
-    .symbol-label {
-      height: $size;
-      width: $size * divide(3, 2);
-    }
-
-    > img {
-      height: $size;
-      width: $size * divide(3, 2);
-      max-width: $size * divide(3, 2);
-    }
   }
 }

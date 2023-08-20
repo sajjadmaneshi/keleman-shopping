@@ -15,7 +15,6 @@
       @each $name, $value in $keleman-font-sizes {
         &.card-rounded#{$infix}-#{$name} {
           border-radius: $value !important;
-
           .card-header {
             border-radius: $value $value 0 0 !important;
           }

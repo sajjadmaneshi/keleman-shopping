@@ -3,7 +3,7 @@
   [showMoreButton]="false"
   [navigation]="true"
   [titleBorder]="false"
-  [isLoading]="productCategoryService.isLoading"
+  [navigationButtonClassPrefix]="'product-category'"
 >
   <appSwiperContent *ngFor="let category of categories">
     <ng-template appSwiperTemplate>

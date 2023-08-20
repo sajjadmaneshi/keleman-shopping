@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { combineLatestWith } from 'rxjs';
-@Injectable()
+import { Injectable } from '@angular/core';
+
+@Injectable({ providedIn: 'root' })
 export class ApplicationStateService {
-  get isWeb(): boolean {
-    return this._isWeb;
-  }
   get isTablet(): boolean {
     return this._isTablet;
   }

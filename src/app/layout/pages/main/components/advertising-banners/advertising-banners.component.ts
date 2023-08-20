@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { GeneralRepository } from '../../../../../shared/data/repositories/general.repository';
 import { HomeRepository } from '../../data/repositories/home.repository';
 import { AdsBannerViewModel } from '../../data/repositories/view-models/ads-banner.view-model';
 import { Subscription, tap } from 'rxjs';
@@ -9,7 +8,6 @@ import { SharedVariablesService } from '../../../../../shared/services/shared-va
 @Component({
   selector: 'keleman-advertising-banners',
   templateUrl: './advertising-banners.component.html',
-  styleUrls: ['./advertising-banners.component.scss'],
 })
 export class AdvertisingBannersComponent {
   isLoading = false;

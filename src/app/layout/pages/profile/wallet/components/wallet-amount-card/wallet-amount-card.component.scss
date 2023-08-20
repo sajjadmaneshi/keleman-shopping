@@ -1,11 +1,17 @@
 .amount-card {
   height: 100%;
   background: linear-gradient(255.17deg, #013083 9.7%, #00173f 100%);
+
   .amount-card-value {
     color: white;
     background-color: rgba(255, 255, 255, 0.13);
+
+    & img {
+      mix-blend-mode: soft-light
+    }
   }
 }
+
 .texture-background {
   max-width: 50%;
   height: 275px;

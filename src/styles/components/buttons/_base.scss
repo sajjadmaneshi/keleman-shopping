@@ -10,13 +10,6 @@
     line-height: 0;
   }
 
-  // Svg icon
-  .svg-icon {
-    flex-shrink: 0;
-    line-height: 0;
-    margin-right: 0.5rem;
-  }
-
   // Icon only button
   &.btn-icon {
     display: inline-flex;
@@ -26,84 +19,8 @@
     height: $input-height;
     width: $input-height;
 
-    // Remove border
-    &:not(
-        .btn-outline,
-        .btn-dashed,
-        .border-hover,
-        .border-active,
-        .btn-flush
-      ) {
-      border: 0;
-    }
-
-    // Sizes
-    &.btn-sm {
-      height: $input-height-sm;
-      width: $input-height-sm;
-    }
-
-    &.btn-lg {
-      height: $input-height-lg;
-      width: $input-height-lg;
-    }
-
     &.btn-circle {
       border-radius: 50%;
     }
-
-    i,
-    .svg-icon {
-      padding: 0;
-      margin: 0;
-      line-height: 1;
-    }
-  }
-
-  // Reset focus shadow
-  &:not(.btn-shadow, .shadow, .shadow-sm, .shadow-lg) {
-    box-shadow: none !important;
-  }
-
-  // Remove border
-  &:not(
-      .btn-outline,
-      .btn-dashed,
-      .border-hover,
-      .border-active,
-      .btn-flush,
-      .btn-icon
-    ) {
-    border: 0;
-    padding: calc(#{$btn-padding-y} + #{$btn-border-width})
-      calc(#{$btn-padding-x} + #{$btn-border-width});
-
-    &.btn-lg {
-      padding: calc(#{$btn-padding-y-lg} + #{$btn-border-width})
-        calc(#{$btn-padding-x-lg} + #{$btn-border-width});
-    }
-
-    &.btn-sm {
-      padding: calc(#{$btn-padding-y-sm} + #{$btn-border-width})
-        calc(#{$btn-padding-x-sm} + #{$btn-border-width});
-    }
-  }
-
-  // Outline dashed
-  &.btn-outline-dashed {
-    border: 1px dashed $border-dashed-color;
-  }
-
-  // Outline default
-  &.btn-outline-default {
-    border: 1px solid $input-border-color;
-  }
-
-  // Flex
-  &.btn-flex {
-    display: inline-flex;
-    align-items: center;
   }
 }
-
-// Icons

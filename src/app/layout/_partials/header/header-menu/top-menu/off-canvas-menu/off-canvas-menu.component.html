@@ -1,57 +1,126 @@
 <div class="offcanvas-body">
   <div class="card">
-    <div class="card-body d-flex flex-column justify-content-start">
+    <div class="card-body nil-space d-flex flex-column justify-content-start">
       <span class="material-icons-outlined" (click)="onClose()"> close </span>
-      <h2 class="fw-bold mb-3">سجاد منشی</h2>
-      <ul class="off-canvas-menu">
-        <li class="menu-item">
+
+      <ng-container
+        *ngIf="
+          isLoggedIn && initialAppService.userSimpleInfo;
+          then userInfo;
+          else register
+        "
+      ></ng-container>
+
+      <ng-template #register>
+        <a
+          [routerLink]="['register']"
+          (click)="onClose()"
+          class="register-login-button"
+        >
+          <h2 class="fw-bold py-3 mb-3 border-bottom border-gray-300">
+            ورود/ثبت نام
+          </h2>
+        </a>
+      </ng-template>
+
+      <ng-template #userInfo>
+        <h2 class="fw-bold py-3 mb-3 border-bottom border-gray-300">
+          {{ initialAppService.userSimpleInfo.firstName }}
+          {{ initialAppService.userSimpleInfo.lastName }}
+        </h2>
+      </ng-template>
+
+      <ul class="off-canvas-menu px-3">
+        <li class="menu-item py-3">
+          <a
+            class="nav-link text-black"
+            [routerLink]="''"
+            (click)="onClose()"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span class="d-flex align-items-center">
+              <h5>صفحه نخست</h5>
+            </span>
+          </a>
+        </li>
+        <li class="menu-item py-3">
+          <a
+            class="nav-link text-black"
+            [routerLink]="'/magazine'"
+            [queryParams]="{ p: 0, q: '' }"
+            (click)="onClose()"
+            queryParamsHandling="merge"
+            routerLinkActive="active"
+          >
+            <span class="d-flex align-items-center">
+              <h5>مجله کلمان</h5>
+            </span>
+          </a>
+        </li>
+        <li class="menu-item py-3">
           <span class="d-flex align-items-center">
-            <h5>نمایش سبد خرید</h5>
+            <h5>خرید قطعات آسانسور</h5>
+          </span>
+        </li>
+        <li class="menu-item py-3">
+          <span class="d-flex align-items-center">
+            <h5>باشگاه مشتریان کلمان</h5>
+          </span>
+        </li>
+        <li class="menu-item py-3 border-bottom border-gray-300">
+          <span class="d-flex align-items-center">
+            <h5>باکلمان</h5>
           </span>
         </li>
 
-        <mat-accordion>
-          <mat-expansion-panel *ngFor="let rootCategory of productCategories">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <img
-                  class="mx-1"
-                  [src]="'assets/media/off-canvas-menu-items/all-products.svg'"
-                />
-                <span (click)="onNavigate({ c1: rootCategory.url })">
-                  {{ rootCategory.titleFa }}
-                </span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <ul class="column">
-              <ng-template
-                ngFor
-                let-child
-                [ngForOf]="rootCategory.children"
-                let-i="index"
-              >
-                <li
-                  class="head"
-                  (click)="onNavigate({ c1: rootCategory.url, c2: child.url })"
-                >
-                  <a>{{ child.titleFa }} </a>
-                </li>
-                <li
-                  *ngFor="let childChild of child.children"
-                  (click)="
-                    onNavigate({
-                      c1: rootCategory.url,
-                      c2: child.url,
-                      c3: childChild.url
-                    })
-                  "
-                >
-                  <a>{{ childChild.titleFa }}</a>
-                </li>
-              </ng-template>
-            </ul>
-          </mat-expansion-panel>
-        </mat-accordion>
+        <h4 class="py-3 fw-bold">دسته بندی کالا ها</h4>
+
+        <div ngbAccordion [closeOthers]="true">
+          <div
+            ngbAccordionItem=""
+            *ngFor="let rootCategory of productCategories"
+          >
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>{{ rootCategory.titleFa }}</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <ul class="column pe-3">
+                    <ng-template
+                      ngFor
+                      let-child
+                      [ngForOf]="rootCategory.children"
+                      let-i="index"
+                    >
+                      <li
+                        class="head"
+                        (click)="
+                          onNavigate({ c1: rootCategory.url, c2: child.url })
+                        "
+                      >
+                        <a>{{ child.titleFa }} </a>
+                      </li>
+                      <li
+                        *ngFor="let childChild of child.children"
+                        (click)="
+                          onNavigate({
+                            c1: rootCategory.url,
+                            c2: child.url,
+                            c3: childChild.url
+                          })
+                        "
+                      >
+                        <a>{{ childChild.titleFa }}</a>
+                      </li>
+                    </ng-template>
+                  </ul>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
       </ul>
     </div>
   </div>

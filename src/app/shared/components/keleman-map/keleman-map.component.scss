@@ -10,11 +10,13 @@
   text-align: center !important;
   direction: ltr !important;
 }
+
 ::ng-deep .leaflet-control-geosearch form input {
   padding-right: 1rem !important;
 }
+
 ::ng-deep .leaflet-container {
-  font-family: IRANYekanXFaNum !important;
+  font-family: IRANYekanXFaNum, serif !important;
 }
 
 keleman-geo-search {

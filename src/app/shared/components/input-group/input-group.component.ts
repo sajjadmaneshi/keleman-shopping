@@ -40,6 +40,7 @@ export class InputGroupComponent implements ControlValueAccessor {
     this.onChange(val);
     this.onTouch(val);
   }
+
   get value() {
     // this value is updated by programmatic changes if( val !== undefined && this.val !== val){
     return this._value;

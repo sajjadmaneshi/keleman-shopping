@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'keleman-top-menu',
   templateUrl: './top-menu.component.html',
-  styleUrls: ['./top-menu.component.scss'],
 })
 export class TopMenuComponent implements OnInit, OnDestroy {
   isLoggedIn = false;

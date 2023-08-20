@@ -9,7 +9,6 @@ import { ProductCategoryViewModel } from '../../../../shared/data/models/view-mo
 @Component({
   selector: 'keleman-header-mobile',
   templateUrl: './header-mobile.component.html',
-  styleUrls: ['./header-mobile.component.scss'],
 })
 export class HeaderMobileComponent implements OnInit, OnDestroy {
   isLoggedIn = false;

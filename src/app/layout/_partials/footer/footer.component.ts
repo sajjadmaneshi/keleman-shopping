@@ -6,7 +6,6 @@ import { Subscription, tap } from 'rxjs';
 @Component({
   selector: 'keleman-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnDestroy {
   footerData!: FooterViewModel;
@@ -14,21 +13,8 @@ export class FooterComponent implements OnDestroy {
 
   subscription!: Subscription;
 
-  iconNames = [
-    'curtains',
-    'horizontal_distribute',
-    'door_sliding ',
-    'cable ',
-    'dashboard_customize',
-    'room_preferences',
-    'handyman',
-    'handyman',
-    'bolt ',
-    'inventory',
-    'memory',
-    'dashboard_customize',
-    'dashboard_customize',
-  ];
+  iconNamesCol1 = ['contact_support', 'policy', 'call'];
+  iconNamesCol2 = ['credit_card', 'shopping_cart', 'undo', 'policy', 'article'];
 
   constructor(private _generalRepository: GeneralRepository) {
     this._init();

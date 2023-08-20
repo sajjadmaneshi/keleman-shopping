@@ -15,12 +15,17 @@ import {
   SwiperTemplateDirective,
 } from '../shared/directives/swiper-template.directive';
 import { PriceComponent } from '../shared/components/price/price.component';
-import { ContentComponent } from './_partials/content/content.component';
 import { SwiperItemComponent } from '../shared/components/swiper/swiper-item/swiper-item.component';
 import { InputGroupComponent } from '../shared/components/input-group/input-group.component';
 import { HeaderComponent } from './_partials/header/header.component';
 import { HeaderMenuComponent } from './_partials/header/header-menu/header-menu.component';
 import {
+  NgbAccordionBody,
+  NgbAccordionButton,
+  NgbAccordionCollapse,
+  NgbAccordionDirective,
+  NgbAccordionHeader,
+  NgbAccordionItem,
   NgbDropdown,
   NgbDropdownItem,
   NgbDropdownMenu,
@@ -33,7 +38,7 @@ import { UserDropdownMenuComponent } from './_partials/header/header-menu/top-me
 import { ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteComponent } from '../shared/components/auto-complete/auto-complete.component';
 import { MatComponentsModule } from '../mat-components.module';
-import { MagazineComponent } from './pages/main/components/magazine/magazine.component';
+import { MainPageLatestArticlesComponent } from './pages/main/components/main-page-latest-articles/main-page-latest-articles.component';
 import { PackageSwiperComponent } from './pages/main/components/package-swiper/package-swiper.component';
 import { PartnerBrandsComponent } from './pages/main/components/partner-brands/partner-brands.component';
 import { FooterComponent } from './_partials/footer/footer.component';
@@ -59,15 +64,13 @@ import { QueryParamActiveDirective } from './_partials/header/header-menu/query-
     AmazingOfferSwiperComponent,
     BackgroundSwiperItemComponent,
     TopSliderComponent,
-
-    ContentComponent,
     HeaderComponent,
     HeaderMenuComponent,
     MegaMenuComponent,
     TopMenuComponent,
     OffCanvasMenuComponent,
     UserDropdownMenuComponent,
-    MagazineComponent,
+    MainPageLatestArticlesComponent,
     PackageSwiperComponent,
     PartnerBrandsComponent,
     FooterComponent,
@@ -105,6 +108,12 @@ import { QueryParamActiveDirective } from './_partials/header/header-menu/query-
     EmptyImageDirective,
     TextWithIconComponent,
     QueryParamActiveDirective,
+    NgbAccordionDirective,
+    NgbAccordionItem,
+    NgbAccordionHeader,
+    NgbAccordionButton,
+    NgbAccordionCollapse,
+    NgbAccordionBody,
   ],
 })
 export class LayoutModule {}

@@ -19,11 +19,11 @@
           <a class="card slide" [href]="slide.url">
             <picture class="img-container h-100 w-100">
               <img
-                alt="keleman"
+                [alt]="slide.alt"
                 class="main-slider-image"
-                loadingLazy
-                emptyImage
-                [src]="downloadUrl + slide.imageAddress"
+                [ngSrc]="downloadUrl + slide.imageAddress"
+                fill
+                priority
               />
             </picture>
           </a>
@@ -34,7 +34,7 @@
     <div class="swiper-pagination">
       <span
         class="swiper-pagination-bullet"
-        *ngFor="let _ of sharedVariableService.counter(3)"
+        *ngFor="let _ of sharedVariableService.counter(slides.length)"
       ></span>
     </div>
   </div>

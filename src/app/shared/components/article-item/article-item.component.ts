@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 import { PersianDateTimeService } from '../../services/date-time/persian-datetime.service';
@@ -20,6 +20,7 @@ import { ENVIRONMENT } from '../../../../environments/environment';
     LazyLoadingDirective,
     RouterModule,
     EmptyImageDirective,
+    NgOptimizedImage,
   ],
 })
 export class ArticleItemComponent {

@@ -16,7 +16,7 @@ import { SnackBarService } from '../components/snack-bar/snack-bar.service';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor(public _snackBar: SnackBarService) {}
+  constructor(private _snackBarService: SnackBarService) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -52,7 +52,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   private _handleError(error: HttpErrorResponse) {
-    this._snackBar.showDangerSnackBar(
+    this._snackBarService.showDangerSnackBar(
       error.error.responseException.exceptionMessage
     );
 
@@ -60,10 +60,12 @@ export class HttpInterceptorService implements HttpInterceptor {
       case 400:
         return throwError(() => new BadInputError(error));
       case 404:
-        this._snackBar.showDangerSnackBar('آدرسی با این مشخصات یافت نشد');
+        this._snackBarService.showDangerSnackBar(
+          'آدرسی با این مشخصات یافت نشد'
+        );
         return throwError(() => new NotFoundError());
       default:
-        this._snackBar.showDangerSnackBar('خطای سرور');
+        this._snackBarService.showDangerSnackBar('خطای سرور');
         return throwError(() => new AppErrors(error.message));
     }
   }

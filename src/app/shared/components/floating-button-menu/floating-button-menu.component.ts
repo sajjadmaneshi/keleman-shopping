@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,15 +8,18 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
   standalone: true,
   imports: [CommonModule, MatIconModule, NgbTooltip],
   templateUrl: './floating-button-menu.component.html',
-  styleUrls: ['./floating-button-menu.component.scss'],
 })
 export class FloatingButtonMenuComponent {
   menuOpened = false;
+
+  constructor(@Inject(DOCUMENT) private document: Document) {}
+
   removeClass() {
-    document.body.classList.remove('menuOpened');
+    this.document.body.classList.remove('menuOpened');
   }
+
   toggleClass() {
-    const body = document.body;
+    const body = this.document.body;
     if (body.classList.contains('menuOpened')) {
       this.removeClass();
       this.menuOpened = false;

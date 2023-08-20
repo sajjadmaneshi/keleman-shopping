@@ -4,31 +4,27 @@
 >
   <div class="card-header row mx-0 p-0 border-bottom border-success">
     <h6 class="col-6 align-self-center p-2 fw-bolder commenter-name">
-      {{ comment.commenter! }}
+      {{ comment.user.firstName ?? "کاربر"! }}
+      {{ comment.user.lastName ?? "مهمان"! }}
     </h6>
-    <span class="col-6 d-flex align-items-center p-0">
+
+    <span class="col-6 d-flex align-items-center justify-content-end p-0">
       <keleman-text-with-icon
         [text]="'2.5'"
         [iconName]="'star'"
         [iconClass]="'text-warning'"
       ></keleman-text-with-icon>
-      <span
-        class="status d-flex align-items-center justify-content-center"
-        [ngClass]="
-          'bg-' +
-          (comment.status === commentStatusEnum.good
-            ? 'success-light'
-            : comment.status === commentStatusEnum.middle
-            ? 'warning-light'
-            : 'danger-light')
-        "
-        >{{
-          persianDatetime.fromGregorianString(comment.date, "DD jMMMM YYYY")
-        }}</span
-      >
     </span>
   </div>
-  <p class="comment-text mb-3 p-3">
-    {{ comment.comment! }}
-  </p>
+  <div class="comment-body px-3 py-1">
+    <p class="comment-text mb-3">
+      {{ comment.comment! }}
+    </p>
+    <span
+      class="status d-flex align-items-center justify-content-end text-muted"
+      >{{
+        persianDatetime.fromGregorianString(comment.dateTime, "DD jMMMM YYYY")
+      }}</span
+    >
+  </div>
 </div>

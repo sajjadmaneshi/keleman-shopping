@@ -5,16 +5,16 @@
   [navigation]="false"
   [shimmerHeight]="'100px'"
   [shimmerWidth]="'100px'"
-  [isLoading]="isLoading"
   class="mb-md-3"
 >
-  <appSwiperContent *ngFor="let slide of slides">
+  <appSwiperContent *ngFor="let imageDetail of gallery">
     <ng-template appSwiperTemplate>
       <div
-        class="card card-rounded-2 my-1 border border-2 border-gray-300 product-galary-item"
+        class="card card-rounded-2 my-1 border border-2 border-gray-300 product-galary-item cursor-pointer"
+        (click)="onImageClick(imageDetail)"
       >
         <div class="symbol symbol-18">
-          <img src="../../../../../../../assets/media/temp/1.jpg" />
+          <img [src]="downloadUrl + imageDetail.image" />
         </div>
       </div>
     </ng-template>

@@ -37,7 +37,7 @@ export class TopSliderComponent implements OnDestroy {
       .pipe(
         tap(() => {
           takeUntil(this.destroy$);
-          setTimeout(() => this.isLoading$.next(false), 1500);
+          this.isLoading$.next(false);
         })
       )
       .subscribe((result: HttpClientResult<SliderViewModel[]>) => {
