@@ -5,18 +5,15 @@
     class="btn btn-icon mx-1"
   >
     <div class="symbol symbol-7">
-      <img [src]="'assets/media/social-icons/' + shares + '.png'" />
+      <i
+        [class]="shares === 'message' ? 'fa-solid' : 'fa-brands'"
+        [ngClass]="'fa-' + shares"
+      ></i>
     </div>
   </a>
 
   <div class="address-copy">
-    <input
-      style="direction: ltr"
-      class="py-1 ps-5 pe-3"
-      type="text"
-      readonly
-      [value]="this.pageUrl"
-    />
+    <input class="py-1 ps-5 pe-3" type="text" readonly [value]="this.pageUrl" />
     <mat-icon
       (click)="copyUrl()"
       class="cursor-pointer position-absolute left-3"

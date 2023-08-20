@@ -38,8 +38,10 @@ export class ProductNavbarComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.renderer.listen('document', 'mousewheel', () => {
-      this.makeSticky();
-    });
+    if (this.applicationState.isTablet || this.applicationState.isPhone) {
+      this.renderer.listen('document', 'mousewheel', () => {
+        this.makeSticky();
+      });
+    }
   }
 }

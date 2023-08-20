@@ -1,0 +1,17 @@
+.navbar-nav {
+  .active {
+    background-color: map-get($theme-colors, "klm-primary");
+    color: white !important;
+  }
+
+  .nav-item:not(.dropdown):hover {
+    background-color: $gray-200;
+  }
+
+  .dropdown-toggle:after {
+    display: none !important;
+  }
+  #navbarDropdown:focus-visible {
+    outline: none !important;
+  }
+}

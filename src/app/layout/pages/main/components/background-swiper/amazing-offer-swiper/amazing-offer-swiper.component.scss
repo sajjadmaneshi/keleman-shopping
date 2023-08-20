@@ -8,8 +8,7 @@
   width: calc(100% - 10rem);
   ::ng-deep .swiper-slide {
     border-radius: $klm-spacer !important;
-    margin: map-get($klm-spacers, 2);
-
+    margin: 0.25rem;
     keleman-background-swiper-item {
       border-radius: inherit !important;
     }
@@ -21,13 +20,10 @@
   }
 }
 
-.related-products-title {
-  border-bottom: 2px solid black;
-}
 .swiper-start {
   .swiper-start-text {
     font-family: Aviny, serif !important;
-    word-wrap: break-word;
+    display: inline-block;
   }
 }
 

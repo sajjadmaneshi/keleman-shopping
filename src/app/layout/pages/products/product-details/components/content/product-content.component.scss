@@ -1,6 +1,7 @@
 @import "components/swiper";
 @import "base/variables/colors";
 @import "base/variables/spacers";
+
 @include swiper-button();
 
 .product-image {
@@ -16,6 +17,8 @@
   position: absolute;
   right: 1rem;
   top: 1rem;
+  z-index: 1;
+
   > * {
     margin-bottom: 1.8rem;
   }
@@ -31,9 +34,11 @@
   text-align: center;
   margin-bottom: 0;
   background-color: $gray-100;
+
   > * {
     display: inline;
   }
+
   @media (min-width: 1024px) and (max-width: 1440px) {
     & {
       flex-direction: column;
@@ -55,26 +60,8 @@
 
 .delivery {
   .card-body {
-    background: url("/../assets/media/delivery.png") no-repeat 0 50%;
+    background: url("~src/assets/media/delivery.png") no-repeat 0 50%;
     background-size: contain;
-  }
-}
-
-.product-main-image-swiper {
-  .swiper-pagination {
-    text-align: left;
-    .swiper-pagination-bullet:last-child:not(.swiper-pagination-bullet-active) {
-      transform: scale(0.7);
-    }
-    .swiper-pagination-bullet:first-child:not(
-        .swiper-pagination-bullet-active
-      ) {
-      transform: scale(0.7);
-    }
-    .swiper-pagination-bullet-active {
-      background-color: map-get($theme-colors, "gray-400");
-      transform: scale(1.2);
-    }
   }
 }
 
@@ -84,11 +71,26 @@
   color: white !important;
   background-color: map-get($theme-colors, "klm-secondary") !important;
 }
+
 .cdk-overlay-container {
   z-index: 1021 !important;
 }
+
 @media (max-width: 768px) {
   .card {
     background-color: transparent;
+  }
+}
+
+:host ::ng-deep .ngxImageZoomContainer {
+  & > img {
+    max-height: 18.75rem !important;
+    max-width: 18.75rem !important;
+  }
+}
+
+::ng-deep .product-image-swipper {
+  .swiper-slide {
+    text-align: center !important;
   }
 }

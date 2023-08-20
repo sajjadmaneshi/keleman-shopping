@@ -13,6 +13,9 @@ import {
   SeaechService,
 } from '../../../../../shared/services/search.service';
 import { ProductDetailViewModel } from '../models/view-models/product-detail.view-model';
+import { ProductGalleryViewModel } from '../models/view-models/product-gallery.view-model';
+import { ProductCommentViewModel } from '../models/view-models/product-comment.view-model';
+import { ProductSpecificViewModel } from '../models/view-models/product-specific.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductRepository extends DataService<
@@ -60,6 +63,30 @@ export class ProductRepository extends DataService<
   ): Observable<HttpClientResult<ProductDetailViewModel>> {
     return this._http.get(`${this._getUrl}/${url}`) as Observable<
       HttpClientResult<ProductDetailViewModel>
+    >;
+  }
+
+  getProductGallary(
+    url: string
+  ): Observable<HttpClientResult<ProductGalleryViewModel[]>> {
+    return this._http.get(`${this._getUrl}/${url}/gallery`) as Observable<
+      HttpClientResult<ProductGalleryViewModel[]>
+    >;
+  }
+
+  getProductComments(
+    url: string
+  ): Observable<HttpClientResult<ProductCommentViewModel[]>> {
+    return this._http.get(`${this._getUrl}/${url}/comments`) as Observable<
+      HttpClientResult<ProductCommentViewModel[]>
+    >;
+  }
+
+  getProductSpecifics(
+    url: string
+  ): Observable<HttpClientResult<ProductSpecificViewModel[]>> {
+    return this._http.get(`${this._getUrl}/${url}/specifics`) as Observable<
+      HttpClientResult<ProductSpecificViewModel[]>
     >;
   }
 

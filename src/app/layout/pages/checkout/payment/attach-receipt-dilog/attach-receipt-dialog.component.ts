@@ -29,10 +29,9 @@ export class AttachReceiptDialogComponent {
   }
 
   validate() {
-    this.receiptForms.forEach((forms: BaseFormModel, index: number) => {
+    this.receiptForms.forEach((forms: BaseFormModel) => {
       forms.isSubmitted = true;
       if (forms.form.valid) {
-
       }
     });
   }

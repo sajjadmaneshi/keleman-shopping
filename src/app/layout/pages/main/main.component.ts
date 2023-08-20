@@ -5,7 +5,6 @@ import { ProductCategoryService } from './components/product-category/product-ca
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent {
   constructor(private _categoryService: ProductCategoryService) {}

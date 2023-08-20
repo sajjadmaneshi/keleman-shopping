@@ -1,9 +1,3 @@
-//
-// Buttons Theme
-//
-//
-// Button Mixins
-//
 $btn-extended-variants: true !default; // Custom variable
 // Custom variant
 @mixin button-custom-variant(
@@ -23,10 +17,6 @@ $btn-extended-variants: true !default; // Custom variable
   @if ($icon-color != null) {
     i {
       color: $icon-color;
-    }
-
-    .svg-icon {
-      @include svg-icon-color($icon-color);
     }
 
     &.dropdown-toggle:after {
@@ -57,10 +47,6 @@ $btn-extended-variants: true !default; // Custom variable
     @if ($icon-color-active != null) {
       i {
         color: $icon-color-active;
-      }
-
-      .svg-icon {
-        @include svg-icon-color($icon-color-active);
       }
 
       &.dropdown-toggle:after {

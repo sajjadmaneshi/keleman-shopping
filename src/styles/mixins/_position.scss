@@ -5,8 +5,30 @@ $directions: (
   bottom: bottom,
 ) !default;
 
+$klm-spacer: 1rem !default;
+$direction-spacers: () !default;
+
+@for $i from 0 through 20 {
+  $multiple: calc($i/4);
+  @if $i == 13 {
+    $direction-spacers: map-merge(
+      $direction-spacers,
+      (
+        default: $klm-spacer * $multiple,
+      )
+    );
+  } @else {
+    $direction-spacers: map-merge(
+      $direction-spacers,
+      (
+        $i: $klm-spacer * $multiple,
+      )
+    );
+  }
+}
+
 @each $direction in map-keys($directions) {
-  @each $name, $value in $klm-spacers {
+  @each $name, $value in $direction-spacers {
     .#{$direction}-#{$name} {
       #{$direction}: $value;
     }

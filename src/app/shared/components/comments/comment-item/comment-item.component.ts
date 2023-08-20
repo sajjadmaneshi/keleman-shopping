@@ -4,6 +4,7 @@ import {
   CommentStatus,
 } from '../../../data/models/comment.model';
 import { PersianDateTimeService } from '../../../services/date-time/persian-datetime.service';
+import { ProductCommentViewModel } from '../../../../layout/pages/products/data/models/view-models/product-comment.view-model';
 
 @Component({
   selector: 'app-comment-item',
@@ -12,7 +13,7 @@ import { PersianDateTimeService } from '../../../services/date-time/persian-date
 })
 export class CommentItemComponent {
   constructor(public persianDatetime: PersianDateTimeService) {}
-  @Input() comment!: CommentModel;
+  @Input() comment!: ProductCommentViewModel;
   @Input() fullWidth: boolean = false;
 
   commentStatusEnum = CommentStatus;

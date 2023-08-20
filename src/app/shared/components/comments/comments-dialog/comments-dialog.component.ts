@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommentModel } from '../../../data/models/comment.model';
 import { PersianDateTimeService } from '../../../services/date-time/persian-datetime.service';
+import { ProductCommentViewModel } from '../../../../layout/pages/products/data/models/view-models/product-comment.view-model';
 
 @Component({
   selector: 'keleman-comments-dialog',
@@ -10,7 +11,7 @@ import { PersianDateTimeService } from '../../../services/date-time/persian-date
 })
 export class CommentsDialogComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CommentModel[],
+    @Inject(MAT_DIALOG_DATA) public data: ProductCommentViewModel[],
     public persianDateTime: PersianDateTimeService
   ) {}
 }

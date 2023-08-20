@@ -1,7 +1,7 @@
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
-import { PersianNumberService } from 'ngx-persian';
+import { CustomPersianNumberService } from '../../shared/services/persian-number.service';
 
-const persianNumberService = new PersianNumberService();
+const persianNumberService = new CustomPersianNumberService();
 export function mobileNumberFormatValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
     const mobileNumber = persianNumberService.toEnglish(control.value);

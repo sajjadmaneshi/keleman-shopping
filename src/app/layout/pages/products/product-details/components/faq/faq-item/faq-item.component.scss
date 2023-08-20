@@ -2,7 +2,7 @@
 @import "base/variables/spacers";
 
 .faq-item {
-  height: map-get($klm-spacers, 40);
+  height: map-get($klm-spacers, 44);
   width: map-get($klm-spacers, 67);
   border: 2px solid map-get($theme-colors, "accent") !important;
 

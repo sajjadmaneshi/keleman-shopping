@@ -26,7 +26,7 @@ export class AmazingOfferSwiperComponent implements OnDestroy {
     this._homeRepository
       .getAmazingOffers()
       .pipe(
-        tap(() => setTimeout(() => this.isLoading.next(false), 1500)),
+        tap(() => this.isLoading.next(false)),
         takeUntil(this.destroy$)
       )
       .subscribe((result: HttpClientResult<ProductViewModel[]>) => {

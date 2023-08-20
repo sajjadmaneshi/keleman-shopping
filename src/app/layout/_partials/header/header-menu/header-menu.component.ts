@@ -4,7 +4,6 @@ import {
   ElementRef,
   HostListener,
   Inject,
-  Input,
   OnInit,
   Renderer2,
   ViewChild,
@@ -23,7 +22,6 @@ import { ProductCategoryViewModel } from '../../../../shared/data/models/view-mo
 @Component({
   selector: 'keleman-header-menu',
   templateUrl: './header-menu.component.html',
-  styleUrls: ['./header-menu.component.scss'],
 })
 export class HeaderMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('dropDownMenu') dropDownMenu!: ElementRef;
@@ -78,13 +76,15 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   }
 
   onHover($event: any) {
-    if (!this.categoryService.isLoading.value) {
-      $event.stopPropagation();
-      this.myDrop.open();
-      const megaMenu = document.getElementById('mega-menu');
-      const width = this.screenWidth - this.screenWidth * 0.1;
-      this._renderer2.setStyle(megaMenu, 'width', `${width}px`);
-    }
+    $event.stopPropagation();
+    this.myDrop.open();
+    const megaMenu = document.getElementById('mega-menu');
+    const width = this.screenWidth - this.screenWidth * 0.1;
+    document.documentElement.style.setProperty(
+      '--mega-menu-width',
+      `${width}px`
+    );
+    megaMenu?.classList.add('calculate-mega-width');
   }
 
   private _getQueryParamsFromUrl() {

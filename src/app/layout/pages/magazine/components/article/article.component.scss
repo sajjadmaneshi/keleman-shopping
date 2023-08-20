@@ -13,7 +13,6 @@
 
 .article-cover {
   width: 100%;
-
   img {
     height: inherit;
     width: inherit;
@@ -22,25 +21,18 @@
   }
 }
 
-.article-container__banner {
-  height: auto;
-  img {
-    height: 100%;
-    border-radius: inherit;
-    object-fit: cover;
-  }
-}
-.article-container__meta {
-  img,
-  .svg-icon {
-    margin: 0 0.5rem;
-  }
-}
-
 .related-articles-title {
   width: 100%;
   border-bottom: 1px solid $gray-500;
   span {
     border-bottom: 1px solid $klm-primary;
+  }
+}
+
+:host ::ng-deep table {
+  border: 1px solid !important;
+  td {
+    border-width: 1px !important;
+    padding: 0 0.5rem !important;
   }
 }

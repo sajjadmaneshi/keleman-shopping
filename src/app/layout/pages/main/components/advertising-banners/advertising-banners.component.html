@@ -1,7 +1,7 @@
 <ng-container *ngIf="isLoading; then loading; else content"></ng-container>
 
 <ng-template #loading>
-  <div class="banners row">
+  <div class="banners row g-3">
     <div
       class="col-12 col-md-6 col-lg-3"
       *ngFor="let _ of sharedVariablesService.counter(8)"
@@ -14,12 +14,15 @@
 </ng-template>
 
 <ng-template #content>
-  <div class="banners row">
+  <div class="banners row g-3">
     <div class="col-12 col-md-6 col-lg-3" *ngFor="let ad of banners">
-      <img
-        [src]="ad.fileAddress ? downloadUrl + ad.fileAddress : ''"
-        class="rounded-3 w-100 h-auto"
-      />
+      <a [href]="ad.linkAddress">
+        <img
+          [src]="ad.fileAddress ? downloadUrl + ad.fileAddress : ''"
+          [alt]="ad.alt"
+          class="rounded-3 w-100 h-auto"
+        />
+      </a>
     </div>
   </div>
 </ng-template>

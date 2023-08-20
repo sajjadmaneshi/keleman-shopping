@@ -30,7 +30,6 @@ import { ProductCategoryViewModel } from '../../../../../shared/data/models/view
     SwiperContentDirective,
     SwiperTemplateDirective,
   ],
-  providers: [ProductCategoryService],
   standalone: true,
 })
 export class ProductCategoryComponent implements OnChanges, OnInit {

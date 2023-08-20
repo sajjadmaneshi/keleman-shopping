@@ -1,4 +1,4 @@
-@import "../../../../../../styles/base/variables/spacers";
+@import "base/variables/spacers";
 
 :host {
   width: 100%;
@@ -7,15 +7,6 @@
 .basket-item {
   & > * {
     margin-left: map-get($klm-spacers, 5);
-  }
-
-  .basket-item__remove {
-    height: auto;
-    width: auto;
-    border: 0;
-    padding: $klm-spacer;
-    color: #ffff;
-    border-radius: map-get($klm-spacers, 3) 0 0 map-get($klm-spacers, 3);
   }
 
   h6 {

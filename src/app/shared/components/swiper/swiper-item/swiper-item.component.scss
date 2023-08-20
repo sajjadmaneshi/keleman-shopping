@@ -4,7 +4,7 @@
   height: 250px !important;
   max-width: 200px !important;
   position: relative;
-  height: 100%;
+
   &:hover {
     border: 1px solid map-get($theme-colors, "klm-secondary") !important;
     .overlay {

@@ -4,4 +4,5 @@ export interface AdsBannerViewModel {
   type: number;
   linkAddress: string;
   fileAddress: string;
+  alt: string;
 }

@@ -7,7 +7,6 @@ import { LoadingService } from '../../services/loading.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.scss'],
 })
 export class LoadingComponent {
   loading$ = this.loadingService.loading$;

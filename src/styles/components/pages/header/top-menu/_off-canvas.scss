@@ -1,0 +1,65 @@
+.off-canvas-menu {
+  list-style: none;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column {
+  @include flex-column;
+  list-style: none;
+
+  li {
+    padding: 0.25rem;
+
+    &.head {
+      a {
+        padding: 0 0.5rem;
+        position: relative;
+        font-weight: bolder;
+
+        &::after {
+          position: absolute;
+          font-family: "Material Icons", serif;
+          content: "\e5de";
+          left: -1rem;
+          top: 50%;
+          font-size: 1.5rem;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    &:not(.head) {
+      margin-right: 1.5rem;
+
+      &:hover {
+        font-weight: bold !important;
+        transition: all 0.15s ease-in;
+      }
+    }
+  }
+}
+
+.mat-expansion-panel-header {
+  padding: 0.5rem !important;
+  height: 3.5rem !important;
+}
+.register-login-button {
+  border: none !important;
+  &:focus-visible {
+    outline: none !important;
+  }
+}

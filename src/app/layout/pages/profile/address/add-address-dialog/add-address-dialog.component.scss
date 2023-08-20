@@ -1,4 +1,5 @@
 @import "base/variables/colors";
+
 .map-container {
   height: 420px !important;
 }
@@ -7,6 +8,7 @@
   .mat-mdc-dialog-container .mdc-dialog__surface {
     border-radius: 12px !important;
   }
+
   @media (max-width: 768px) {
     & {
       max-width: 95vw !important;
@@ -36,8 +38,9 @@
 .num-and-unit {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-column-gap: 1rem;
+  column-gap: 1rem;
 }
+
 .keleman-text-field {
   background-color: $gray-300;
 }

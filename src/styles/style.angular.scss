@@ -1,0 +1,104 @@
+@import "base/init";
+@import "third-party-lib";
+
+$global-gap: 1rem;
+
+.grid-divider > * {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.grid-divider > [class*="col-"]:nth-child(2n) {
+  border-right: 2px solid map-get($theme-colors, "gray-500");
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.gradient-border {
+  border-bottom: 5px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+    to left,
+    map-get($theme-colors, "klm-primary"),
+    white
+  );
+}
+
+.dropdown-toggle::after {
+  margin-right: 0.25rem !important;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.fixed-top {
+  z-index: 995;
+}
+@media (max-width: 768px) {
+  .box-shadow-none {
+    box-shadow: none !important;
+  }
+}
+.animate__heartBeat {
+  animation: heartbeat 3s infinite;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(0.75);
+  }
+  20% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.75);
+  }
+  60% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(0.75);
+  }
+  100% {
+    transform: scale(0.75);
+  }
+}
+
+ngx-skeleton-loader {
+  .skeleton-loader {
+    margin-bottom: 0 !important;
+
+    &.progress:before {
+      animation-direction: reverse !important;
+    }
+  }
+}
+
+a {
+  color: unset !important;
+}
+
+/* Target the entire scrollbar */
+::-webkit-scrollbar {
+  width: 10px; /* width of the scrollbar */
+}
+
+/* Track, where the scrollbar moves */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* color of the track */
+}
+
+/* Handle, the draggable part of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background: #888; /* color of the handle */
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* color of the handle on hover */
+}

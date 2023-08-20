@@ -1,5 +1,5 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { BehaviorSubject, Subscription, tap } from 'rxjs';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 import SwiperCore, { Pagination } from 'swiper';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,15 +7,17 @@ import { PriceChartDialogComponent } from './price-chart-dialog/price-chart-dial
 import { ProductDetailViewModel } from '../../../data/models/view-models/product-detail.view-model';
 import { ENVIRONMENT } from '../../../../../../../environments/environment';
 import { SharedVariablesService } from '../../../../../../shared/services/shared-variables.service';
+import { ProductGalleryViewModel } from '../../../data/models/view-models/product-gallery.view-model';
+import { ProductRepository } from '../../../data/repositories/product.repository';
+import { ProductService } from '../../../product.service';
 
 SwiperCore.use([Pagination]);
 @Component({
   selector: 'keleman-product-content',
   templateUrl: './product-content.component.html',
   styleUrls: ['./product-content.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
-export class ProductContentComponent {
+export class ProductContentComponent implements OnChanges {
   @Input() productDetails!: ProductDetailViewModel;
 
   @Input() isLoading = false;
@@ -24,9 +26,22 @@ export class ProductContentComponent {
 
   isFavorite$ = new BehaviorSubject(false);
 
+  productMeta!: { price: number; currentStock: number };
+
+  subscription!: Subscription;
+
+  productCurrentImage!: ProductGalleryViewModel;
+
+  gallary!: ProductGalleryViewModel[];
+
+  gallaryLoading = new BehaviorSubject<boolean>(true);
+
   constructor(
     public applicationState: ApplicationStateService,
     public sharedVariableService: SharedVariablesService,
+
+    private _productRepository: ProductRepository,
+    private _productService: ProductService,
     public dialog: MatDialog
   ) {}
   addToFavorite() {
@@ -42,4 +57,39 @@ export class ProductContentComponent {
       autoFocus: false,
     });
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.productDetails) {
+      this._getGallary();
+      this.LoadNewImage(this.productDetails);
+      this.productMeta = {
+        price: this.productDetails.currentPrice,
+        currentStock: this.productDetails.currentStock,
+      };
+    }
+  }
+
+  private _getGallary() {
+    this.subscription = this._productRepository
+      .getProductGallary(this._productService.productUrl)
+      .pipe(tap(() => this.gallaryLoading.next(false)))
+      .subscribe((result) => {
+        this.gallary = [...result.result!];
+      });
+  }
+
+  LoadNewImage($event: ProductGalleryViewModel) {
+    this.productCurrentImage = createProductImageMapper(
+      $event as ProductDetailViewModel
+    );
+  }
+}
+
+function createProductImageMapper(productDetails: ProductDetailViewModel): any {
+  return {
+    image: productDetails.image,
+    imageAlt: productDetails.imageAlt,
+    thumbnailImage: productDetails.thumbnailImage,
+    id: 0,
+  };
 }

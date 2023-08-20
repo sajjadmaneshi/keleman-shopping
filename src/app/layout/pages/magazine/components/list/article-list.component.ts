@@ -7,7 +7,7 @@ import { ArticleRepository } from '../../data/repositories/article.repository';
 import { SharedVariablesService } from '../../../../../shared/services/shared-variables.service';
 
 @Component({
-  selector: 'app-magazine-list',
+  selector: 'app-main-page-latest-articles-list',
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss'],
 })
