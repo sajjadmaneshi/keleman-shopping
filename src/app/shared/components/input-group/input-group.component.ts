@@ -25,7 +25,6 @@ import {
       multi: true,
     },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputGroupComponent implements ControlValueAccessor {
   @Input() placeHolder?: string;

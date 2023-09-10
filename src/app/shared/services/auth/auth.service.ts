@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AccountRepository } from './account.repository';
 import { LoginDto } from './data/login.dto';
@@ -6,6 +6,7 @@ import { HttpClientResult } from '../../data/models/http/http-client.result';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserSimpleInfoViewModel } from '../../data/models/view-models/user-simple-info.view-model';
 import { UserRepository } from '../../data/repositories/user/user.repository';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,8 @@ export class AuthService {
   constructor(
     private jwtHelper: JwtHelperService,
     private _authRepository: AccountRepository,
-    private _userRepository: UserRepository
+    private _userRepository: UserRepository,
+    @Inject(PLATFORM_ID) private platformId: any
   ) {}
 
   private _isTokenExpired(token: string) {
@@ -24,10 +26,12 @@ export class AuthService {
   }
 
   public get isAuthenticated(): Observable<boolean> {
-    const token = localStorage.getItem('KELEMAN_TOKEN');
-    if (token) {
-      this.isLoggedIn.next(!this._isTokenExpired(token!));
-      if (this._isTokenExpired(token!)) this.logout();
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('KELEMAN_TOKEN');
+      if (token) {
+        this.isLoggedIn.next(!this._isTokenExpired(token!));
+        if (this._isTokenExpired(token!)) this.logout();
+      }
     }
     return this.isLoggedIn.asObservable();
   }
@@ -68,26 +72,34 @@ export class AuthService {
     token: string;
     mobile: string;
   }) {
-    localStorage.setItem('KELEMAN_TOKEN', data.token);
-    this.getUserSimpleInfo();
+    if (isPlatformBrowser(this.platformId))
+      localStorage.setItem('KELEMAN_TOKEN', data.token);
+
     this.isLoggedIn.next(true);
   }
   public logout() {
-    localStorage.removeItem('KELEMAN_TOKEN');
-    localStorage.removeItem('MOBILE');
-    this.isLoggedIn.next(false);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('KELEMAN_TOKEN');
+      localStorage.removeItem('MOBILE');
+      this.isLoggedIn.next(false);
+    }
   }
 
   public async getUserSimpleInfo(): Promise<
     UserSimpleInfoViewModel | undefined
   > {
-    if (localStorage.getItem('KELEMAN_TOKEN')) {
-      try {
-        const response = await this._userRepository.getSimpleInfo().toPromise();
-        return response?.result as UserSimpleInfoViewModel;
-      } catch (error) {
-        throw error;
-      }
-    } else return undefined;
+    if (isPlatformBrowser(this.platformId)) {
+      if (localStorage.getItem('KELEMAN_TOKEN')) {
+        try {
+          const response = await this._userRepository
+            .getSimpleInfo()
+            .toPromise();
+          return response?.result as UserSimpleInfoViewModel;
+        } catch (error) {
+          throw error;
+        }
+      } else return undefined;
+    }
+    return undefined;
   }
 }

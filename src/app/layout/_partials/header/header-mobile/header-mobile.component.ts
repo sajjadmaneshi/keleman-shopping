@@ -3,7 +3,7 @@ import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
 import { Subscription } from 'rxjs';
-import { ProductCategoryService } from '../../../pages/main/components/product-category/product-category.service';
+import { ProductCategoryService } from '../../../../home/components/product-category/product-category.service';
 import { ProductCategoryViewModel } from '../../../../shared/data/models/view-models/product-category.view-model';
 
 @Component({

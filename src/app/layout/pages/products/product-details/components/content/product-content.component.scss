@@ -60,7 +60,7 @@
 
 .delivery {
   .card-body {
-    background: url("~src/assets/media/delivery.png") no-repeat 0 50%;
+    background: url("~src/assets/media/delivery.webp") no-repeat 0 50%;
     background-size: contain;
   }
 }
@@ -82,15 +82,16 @@
   }
 }
 
-:host ::ng-deep .ngxImageZoomContainer {
-  & > img {
-    max-height: 18.75rem !important;
-    max-width: 18.75rem !important;
+:host ::ng-deep {
+  .ngxImageZoomContainer {
+    & > img {
+      max-height: 18.75rem !important;
+      max-width: 18.75rem !important;
+    }
   }
-}
-
-::ng-deep .product-image-swipper {
-  .swiper-slide {
-    text-align: center !important;
+  .product-image-swipper {
+    .swiper-slide {
+      text-align: center !important;
+    }
   }
 }

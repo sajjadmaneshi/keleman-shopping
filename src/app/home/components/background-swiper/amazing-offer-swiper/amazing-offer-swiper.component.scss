@@ -1,0 +1,39 @@
+@import "base/variables/colors";
+@import "base/variables/spacers";
+@import "components/swiper";
+@include swiper-button();
+
+.keleman-swiper {
+  margin-right: 1.5rem;
+  width: calc(100% - 10rem);
+  ::ng-deep .swiper-slide {
+    border-radius: $klm-spacer !important;
+    margin: 0.25rem;
+    keleman-background-swiper-item {
+      border-radius: inherit !important;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .keleman-swiper {
+    width: calc(100% - 9rem) !important;
+  }
+}
+
+.swiper-start {
+  .swiper-start-text {
+    font-family: Aviny, serif !important;
+    display: inline-block;
+  }
+}
+
+.amazing-offer-container {
+  background-color: map-get($theme-colors, "klm-secondary");
+}
+.swiper-start-image {
+  width: 7rem;
+  & img {
+    height: auto;
+    width: 100%;
+  }
+}

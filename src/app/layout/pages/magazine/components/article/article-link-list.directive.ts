@@ -1,4 +1,11 @@
-import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Inject,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: 'article[articleLink]',
@@ -6,7 +13,11 @@ import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
 })
 export class ArticleLinkListDirective implements OnInit {
   headTags: HTMLHeadingElement[] = [];
-  constructor(private _el: ElementRef, private _renderer: Renderer2) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private _el: ElementRef,
+    private _renderer: Renderer2
+  ) {}
 
   ngOnInit(): void {
     this.headTags = this._el.nativeElement.querySelectorAll('h2');
@@ -51,15 +62,12 @@ export class ArticleLinkListDirective implements OnInit {
     let aTag = this._renderer.createElement('a');
 
     aTag.onclick = () => {
-      const el = document.getElementById(hTag.id);
+      const el = this.document.getElementById(hTag.id);
       el?.scrollIntoView({ behavior: 'smooth' });
     };
     this._renderer.setStyle(aTag, 'color', '#0d6efd');
     this._renderer.setStyle(aTag, 'cursor', 'pointer');
     aTag.innerText = hTag.innerText;
     return aTag;
-  }
-  scroll(el: HTMLElement) {
-    el.scrollIntoView({ behavior: 'smooth' });
   }
 }

@@ -1,10 +1,10 @@
 <div
-  class="p-3 d-flex justify-content-between align-items-start border-bottom border-gray-300 mx-3"
+  class="p-3 d-flex justify-content-between align-items-center border-bottom border-gray-300 mx-3"
 >
-  <span class="d-flex flex-column w-50">
-    <h6 class="d-flex align-items-center mb-3">نمودار قیمت فروش</h6>
-    <span class="text-muted">موتور گیربکس</span>
-  </span>
+  <h6>
+    نمودار قیمت فروش
+    <span class="text-muted mx-1">({{ data.productTitle }})</span>
+  </h6>
   <span
     class="material-icons-outlined text-danger close cursor-pointer"
     (click)="close()"
@@ -14,6 +14,7 @@
 </div>
 <div mat-dialog-content>
   <highcharts-chart
+    class="d-flex justify-content-center"
     [Highcharts]="Highcharts"
     [options]="chartOptions"
   ></highcharts-chart>

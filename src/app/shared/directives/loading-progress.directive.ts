@@ -2,11 +2,13 @@ import {
   ChangeDetectorRef,
   Directive,
   ElementRef,
+  Inject,
   Input,
   OnChanges,
   Renderer2,
   SimpleChanges,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[kelemanLoadingProgress]',
@@ -18,7 +20,7 @@ export class LoadingProgressDirective implements OnChanges {
   constructor(
     private _el: ElementRef,
     private _renderer: Renderer2,
-    private _cd: ChangeDetectorRef
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -26,7 +28,7 @@ export class LoadingProgressDirective implements OnChanges {
       const element = this._el?.nativeElement;
 
       if (this.loading) {
-        const loadingElement = document.createElement('div');
+        const loadingElement = this.document.createElement('div');
         this._renderer.addClass(loadingElement, 'spinner-border');
         this._renderer.addClass(element, 'd-flex');
         this._renderer.addClass(element, 'align-items-center');
@@ -34,14 +36,13 @@ export class LoadingProgressDirective implements OnChanges {
         this._renderer.appendChild(element, loadingElement);
         this._renderer.setAttribute(element, 'disabled', 'true');
       } else if (this.loading === false) {
-        const loadingElement = document.querySelector('.spinner-border');
+        const loadingElement = this.document.querySelector('.spinner-border');
         this._renderer.removeChild(element, loadingElement);
         this._renderer.removeClass(element, 'd-flex');
         this._renderer.removeClass(element, 'align-items-center');
         this._renderer.removeClass(element, 'justify-content-between');
         this._renderer.removeAttribute(element, 'disabled');
       }
-      this._cd.detectChanges();
     }
   }
 }

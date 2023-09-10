@@ -3,12 +3,9 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { ValueChangerComponent } from '../shared/components/value-changer/value-changer.component';
-import { MainComponent } from './pages/main/main.component';
 import { SwiperComponent } from '../shared/components/swiper/swiper.component';
-import { AmazingOfferSwiperComponent } from './pages/main/components/background-swiper/amazing-offer-swiper/amazing-offer-swiper.component';
-import { BackgroundSwiperItemComponent } from './pages/main/components/background-swiper/background-swiper-item/background-swiper-item.component';
+import { BackgroundSwiperItemComponent } from '../home/components/background-swiper/background-swiper-item/background-swiper-item.component';
 import { ImageResponsiveDirective } from '../shared/directives/image-responsive.directive';
-import { TopSliderComponent } from './pages/main/components/top-slider/top-slider.component';
 
 import {
   SwiperContentDirective,
@@ -20,12 +17,7 @@ import { InputGroupComponent } from '../shared/components/input-group/input-grou
 import { HeaderComponent } from './_partials/header/header.component';
 import { HeaderMenuComponent } from './_partials/header/header-menu/header-menu.component';
 import {
-  NgbAccordionBody,
-  NgbAccordionButton,
-  NgbAccordionCollapse,
-  NgbAccordionDirective,
-  NgbAccordionHeader,
-  NgbAccordionItem,
+  NgbAccordionModule,
   NgbDropdown,
   NgbDropdownItem,
   NgbDropdownMenu,
@@ -38,47 +30,38 @@ import { UserDropdownMenuComponent } from './_partials/header/header-menu/top-me
 import { ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteComponent } from '../shared/components/auto-complete/auto-complete.component';
 import { MatComponentsModule } from '../mat-components.module';
-import { MainPageLatestArticlesComponent } from './pages/main/components/main-page-latest-articles/main-page-latest-articles.component';
-import { PackageSwiperComponent } from './pages/main/components/package-swiper/package-swiper.component';
-import { PartnerBrandsComponent } from './pages/main/components/partner-brands/partner-brands.component';
+import { MainPageLatestArticlesComponent } from '../home/components/main-page-latest-articles/main-page-latest-articles.component';
+import { PackageSwiperComponent } from '../home/components/package-swiper/package-swiper.component';
+import { PartnerBrandsComponent } from '../home/components/partner-brands/partner-brands.component';
 import { FooterComponent } from './_partials/footer/footer.component';
 import { SearchBarComponent } from './_partials/header/header-menu/top-menu/search-bar/search-bar.component';
 import { SearchResultMenuComponent } from './_partials/header/header-menu/top-menu/search-bar/search-result-menu/search-result-menu.component';
 import { SwiperModule } from 'swiper/angular';
 import { HeaderMobileComponent } from './_partials/header/header-mobile/header-mobile.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { AdvertisingBannersComponent } from './pages/main/components/advertising-banners/advertising-banners.component';
-import { ProductCategoryComponent } from './pages/main/components/product-category/product-category.component';
+import { AdvertisingBannersComponent } from '../home/components/advertising-banners/advertising-banners.component';
 import { ArticleItemComponent } from '../shared/components/article-item/article-item.component';
-import { AboutUsSummaryComponent } from './pages/main/components/about-us-summary/about-us-summary.component';
+import { AboutUsSummaryComponent } from '../home/components/about-us-summary/about-us-summary.component';
 import { HoverClassDirective } from './_partials/header/header-menu/mega-menu/hover-class.directive';
 import { LazyLoadingDirective } from '../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../shared/directives/empty-image.directive';
 import { TextWithIconComponent } from '../shared/components/text-with-icon/text-with-icon.component';
 import { QueryParamActiveDirective } from './_partials/header/header-menu/query-param-active.directive';
+import { ProductCategoryComponent } from '../home/components/product-category/product-category.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
-    MainComponent,
-    AmazingOfferSwiperComponent,
-    BackgroundSwiperItemComponent,
-    TopSliderComponent,
     HeaderComponent,
     HeaderMenuComponent,
     MegaMenuComponent,
     TopMenuComponent,
     OffCanvasMenuComponent,
     UserDropdownMenuComponent,
-    MainPageLatestArticlesComponent,
-    PackageSwiperComponent,
-    PartnerBrandsComponent,
     FooterComponent,
     SearchBarComponent,
     SearchResultMenuComponent,
     HeaderMobileComponent,
-    AdvertisingBannersComponent,
-    AboutUsSummaryComponent,
   ],
   imports: [
     CommonModule,
@@ -101,19 +84,13 @@ import { QueryParamActiveDirective } from './_partials/header/header-menu/query-
     MatComponentsModule,
     SwiperModule,
     NgxSkeletonLoaderModule,
-    ProductCategoryComponent,
-    ArticleItemComponent,
     HoverClassDirective,
     LazyLoadingDirective,
     EmptyImageDirective,
     TextWithIconComponent,
     QueryParamActiveDirective,
-    NgbAccordionDirective,
-    NgbAccordionItem,
-    NgbAccordionHeader,
-    NgbAccordionButton,
-    NgbAccordionCollapse,
-    NgbAccordionBody,
+    NgbAccordionModule,
+    ProductCategoryComponent,
   ],
 })
 export class LayoutModule {}

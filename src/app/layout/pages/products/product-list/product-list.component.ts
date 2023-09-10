@@ -17,6 +17,13 @@ import { CategorySimpleInfoViewModel } from '../data/models/view-models/category
       .empty-product-list img {
         width: 10rem;
       }
+      .top-categories {
+        background-image: radial-gradient(
+          circle farthest-corner at 10% 20%,
+          #f9e833ff 0%,
+          #fac43bff 100.2%
+        );
+      }
     `,
   ],
 })
@@ -26,12 +33,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
   page = 1;
   categoryId!: number;
   categoryUrl!: string;
-
   categoryDetail!: CategorySimpleInfoViewModel;
   products: ProductViewModel[] = [];
-
   searchText = '';
-
   private destroy$ = new Subject<void>();
   constructor(
     private _activeRoute: ActivatedRoute,
@@ -62,6 +66,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.products = [];
     this._getParamsFromUrl();
+  }
+
+  trackByFn(index: number, item: ProductViewModel) {
+    return item.id;
   }
 
   getAllProducts(search: string, page: number) {
@@ -101,23 +109,24 @@ export class ProductListComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   public updateCurrentRoute(selectedCategory: ProductCategoryViewModel) {
     this.categoryUrl = selectedCategory.url;
     const queryParams = { p: '0' };
-
-    this._activeRoute.params.subscribe((params) => {
-      this.categoryId = selectedCategory.id;
-      const params$ = `${params['catUrl1'] ?? ''}/${params['catUrl2'] ?? ''}/${
-        this.categoryUrl
-      }`.replace(/\/{2,}/g, '/');
-      this._router.navigate([`${Routing.products}/${params$}`], {
-        queryParams,
+    this._activeRoute.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        this.categoryId = selectedCategory.id;
+        const params$ = `${params['catUrl1'] ?? ''}/${
+          params['catUrl2'] ?? ''
+        }/${this.categoryUrl}`.replace(/\/{2,}/g, '/');
+        this._router.navigate([`${Routing.products}/${params$}`], {
+          queryParams,
+        });
       });
-    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

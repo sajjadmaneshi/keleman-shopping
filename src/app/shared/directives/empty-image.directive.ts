@@ -11,6 +11,6 @@ export class EmptyImageDirective implements OnInit {
   ngOnInit(): void {
     this.el.nativeElement.src = this.src
       ? this.src
-      : 'assets/media/no-image.jpg';
+      : 'assets/media/no-image.webp';
   }
 }

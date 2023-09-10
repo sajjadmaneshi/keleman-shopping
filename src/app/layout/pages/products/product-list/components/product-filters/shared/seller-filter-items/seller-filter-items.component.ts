@@ -11,7 +11,6 @@ import { ProductFilterService } from '../../../product-filter.service';
   selector: 'keleman-seller-filter-items',
   templateUrl: './seller-filter-items.component.html',
   styleUrls: ['../filter-items.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SellerFilterItemsComponent {
   @Input() selectedArray: any[] = [];

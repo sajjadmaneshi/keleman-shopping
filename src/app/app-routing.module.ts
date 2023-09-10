@@ -1,8 +1,7 @@
 import { inject, NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './layout/pages/not-found/not-found.component';
 import { Routing } from './routing';
-import { RegisterComponent } from './layout/pages/authentication/register/register.component';
 import { TokenResolver } from './shared/resolvers/token.resolver';
 
 const routes: Routes = [
@@ -14,13 +13,13 @@ const routes: Routes = [
   {
     path: Routing.register,
     loadComponent: () =>
-      import('./layout/pages/authentication/register/register.component').then(
+      import('./authentication/register/register.component').then(
         (c) => c.RegisterComponent
       ),
 
     resolve: { token: () => inject(TokenResolver).resolve() },
   },
-  { path: '**', component: NotFoundComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -29,6 +28,7 @@ const routes: Routes = [
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
       scrollOffset: [0, 100],
+      initialNavigation: 'enabledBlocking',
     }),
   ],
   providers: [TokenResolver],

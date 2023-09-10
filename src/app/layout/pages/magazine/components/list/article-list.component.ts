@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simple-data-view.model';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { ArticleRepository } from '../../data/repositories/article.repository';
 import { SharedVariablesService } from '../../../../../shared/services/shared-variables.service';
+import { ProductViewModel } from '../../../products/data/models/view-models/product.view-model';
 
 @Component({
   selector: 'app-main-page-latest-articles-list',
@@ -44,10 +45,12 @@ export class ArticleListComponent implements OnInit {
           this._updateQueryParams();
           this.getAllArticles('', 1);
         }
-        if (search) {
-          this.getAllArticles(search, page);
-        }
+        if (search) this.getAllArticles(search, page);
       });
+  }
+
+  trackByFn(index: number, item: ArticleSimpleDataViewModel) {
+    return item.id;
   }
 
   getAllArticles(search: string, page: number) {
@@ -79,10 +82,12 @@ export class ArticleListComponent implements OnInit {
 
   private _updateQueryParams() {
     const queryParams = { p: this.page - 1 };
-    this._router.navigate([], {
-      relativeTo: this._activeRoute,
-      queryParams,
-      queryParamsHandling: 'merge',
-    });
+    this._router
+      .navigate([], {
+        relativeTo: this._activeRoute,
+        queryParams,
+        queryParamsHandling: 'merge',
+      })
+      .finally();
   }
 }

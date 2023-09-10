@@ -60,11 +60,4 @@ export class ArticleComponent implements OnInit {
         });
       });
   }
-
-  shareOnWhatsApp() {
-    let text = encodeURIComponent('Check out this page: ');
-    let url = encodeURIComponent(this.pageUrl);
-    let whatsappUrl = `whatsapp://send?text=${text}${url}`;
-    window.open(whatsappUrl, '_blank');
-  }
 }

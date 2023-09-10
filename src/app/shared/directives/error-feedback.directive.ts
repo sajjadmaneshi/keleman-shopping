@@ -1,5 +1,13 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Inject,
+  Input,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[appErrorFeedback]',
@@ -11,11 +19,14 @@ export class ErrorFeedbackDirective implements OnInit {
   constructor(
     private _el: ElementRef,
     private _renderer: Renderer2,
-    private _control: NgControl
+    private _control: NgControl,
+    @Inject(DOCUMENT) private document: Document
   ) {}
   private _addErrorFeedBack() {
     const hasError = this._control.invalid;
-    const span = document.querySelector('.invalid-feedback') as HTMLSpanElement;
+    const span = this.document.querySelector(
+      '.invalid-feedback'
+    ) as HTMLSpanElement;
     const errorMessage = this._renderer.createText(this._buildErrorMessage);
     this._resetErrorMessages(span);
     if (hasError) {

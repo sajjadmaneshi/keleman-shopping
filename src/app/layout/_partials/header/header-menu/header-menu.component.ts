@@ -5,23 +5,26 @@ import {
   HostListener,
   Inject,
   OnInit,
+  PLATFORM_ID,
   Renderer2,
   ViewChild,
 } from '@angular/core';
 
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
-import { ProductCategoryService } from '../../../pages/main/components/product-category/product-category.service';
+import { ProductCategoryService } from '../../../../home/components/product-category/product-category.service';
 import { Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Routing } from '../../../../routing';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
 import { ProductCategoryViewModel } from '../../../../shared/data/models/view-models/product-category.view-model';
+import { SsrService } from '../../../../shared/services/ssr/ssr.service';
 
 @Component({
   selector: 'keleman-header-menu',
   templateUrl: './header-menu.component.html',
+  providers: [SsrService],
 })
 export class HeaderMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('dropDownMenu') dropDownMenu!: ElementRef;
@@ -35,27 +38,31 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
 
   page = 0;
   constructor(
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private _platformId: any,
     private _renderer2: Renderer2,
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _initialAppService: InitialAppService,
-    public categoryService: ProductCategoryService,
-    @Inject(DOCUMENT) document: Document
+    private _ssrService: SsrService,
+    public categoryService: ProductCategoryService
   ) {
-    this.screenWidth = window.innerWidth;
+    this.screenWidth = this._ssrService.getWidth;
   }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    this.screenWidth = window.innerWidth;
-    this._calculateMenuHeight();
+    this.screenWidth = this._ssrService.getWidth;
+    if (isPlatformBrowser(this._platformId)) this._calculateMenuHeight();
   }
 
   private _calculateMenuHeight() {
-    const clientHeight = document.documentElement.clientHeight;
-    const headerHeight = document
-      .getElementById('keleman-header')
-      ?.getBoundingClientRect().height;
+    const clientHeight = this._ssrService.getClientHeight;
+    const kelemanHeader = this.document.getElementById('keleman-header');
+    let headerHeight = 0;
+    if (kelemanHeader) {
+      headerHeight = kelemanHeader.getBoundingClientRect().height;
+    }
 
     const height = clientHeight - headerHeight!;
     this._renderer2.setStyle(
@@ -71,16 +78,17 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this._calculateMenuHeight();
+    if (isPlatformBrowser(this._platformId)) this._calculateMenuHeight();
     this._getQueryParamsFromUrl();
   }
 
   onHover($event: any) {
     $event.stopPropagation();
     this.myDrop.open();
-    const megaMenu = document.getElementById('mega-menu');
+    const megaMenu = this.document.getElementById('mega-menu');
     const width = this.screenWidth - this.screenWidth * 0.1;
-    document.documentElement.style.setProperty(
+
+    this.document.documentElement.style.setProperty(
       '--mega-menu-width',
       `${width}px`
     );

@@ -16,7 +16,6 @@ import { ApplicationStateService } from './shared/services/application-state.ser
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
 import { AppErrorHandler } from './shared/common/app-error-handler';
-import { MatComponentsModule } from './mat-components.module';
 import { FloatingButtonMenuComponent } from './shared/components/floating-button-menu/floating-button-menu.component';
 import { SwiperModule } from 'swiper/angular';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -24,10 +23,6 @@ import { InitialAppService } from './shared/services/initial-app.service';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-export function tokenGetter(): any {
-  return localStorage.getItem('access_token');
-}
 
 export function initializeApp(
   initialAppService: InitialAppService
@@ -38,7 +33,7 @@ export function initializeApp(
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     NgbModule,
     AppRoutingModule,
     HttpClientModule,

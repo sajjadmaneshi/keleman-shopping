@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedVariablesService } from '../../services/shared-variables.service';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { SsrService } from '../../services/ssr/ssr.service';
 
 @Component({
   selector: 'keleman-pagination',
@@ -16,6 +17,7 @@ import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
   imports: [CommonModule, MatIconModule, NgbPagination],
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
+  providers: [SsrService],
 })
 export class PaginationComponent {
   private _currentPage: number = 1;
@@ -47,6 +49,7 @@ export class PaginationComponent {
 
   constructor(
     private _el: ElementRef,
+    private _ssrService: SsrService,
     public sharedVariables: SharedVariablesService
   ) {}
 
@@ -59,7 +62,7 @@ export class PaginationComponent {
   onPageChange(pageNumber: number) {
     this.currentPage = pageNumber;
 
-    window.scroll(0, 0);
+    this._ssrService.getWindow?.scroll(0, 0);
     this.pageChange.emit(this.currentPage);
   }
 }

@@ -20,7 +20,6 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-
     span {
       margin: 0 0.5rem;
       line-height: unset !important;
@@ -29,9 +28,6 @@
 
   .mega-menu-side-bar__menu {
     list-style: none;
-    > li {
-      padding: 1rem;
-    }
   }
 
   .active {
@@ -55,7 +51,8 @@
 
         li {
           &.head {
-            a {
+            span {
+              padding: 0 0.5rem;
               position: relative;
               font-weight: bolder;
               border-right: 3px solid $klm-primary;

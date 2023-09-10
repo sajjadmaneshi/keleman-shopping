@@ -17,6 +17,7 @@ import { CategoryFilterComponent } from './components/category-filter/category-f
 import { BrandFilterComponent } from './components/brand-filter/brand-filter.component';
 import { BottomSheetComponent } from '../../../../../../shared/components/bottom-sheet/bottom-sheet.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatComponentsModule,
     BottomSheetComponent,
     BottomSheetComponent,
+    NgbAccordionModule,
   ],
   providers: [ProductFilterService],
 })

@@ -1,6 +1,7 @@
 <div class="article-item-thumbanil">
   <div class="symbol symbol-24">
     <img
+      [alt]="article.title"
       loadingLazy
       emptyImage
       [src]="article.imageAddress ? downloadUrl + article.imageAddress : ''"
