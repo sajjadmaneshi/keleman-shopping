@@ -1,9 +1,6 @@
 <ng-container class="product-list d-flex flex-column">
-  <div
-    class="top-categories card card-rounded-3 border border-gray-300 mb-3 d-none d-lg-block"
-  >
+  <div class="top-categories card card-rounded-3 mb-3 d-none d-lg-block">
     <div class="card-body">
-      <h5>دسته بندی ها</h5>
       <ng-template [ngIf]="categoryId">
         <keleman-product-category
           [parentId]="categoryId"
@@ -43,7 +40,7 @@
             <ng-template #fullProduct>
               <div
                 class="col-12 col-md-6 col-lg-4 col-xl-3"
-                *ngFor="let product of products"
+                *ngFor="let product of products; trackBy: trackByFn"
               >
                 <keleman-product-item
                   [product]="product"

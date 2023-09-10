@@ -16,6 +16,7 @@ import { ProductDetailViewModel } from '../models/view-models/product-detail.vie
 import { ProductGalleryViewModel } from '../models/view-models/product-gallery.view-model';
 import { ProductCommentViewModel } from '../models/view-models/product-comment.view-model';
 import { ProductSpecificViewModel } from '../models/view-models/product-specific.view-model';
+import { ProductPriceChartViewModel } from '../models/view-models/product-price-chart.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductRepository extends DataService<
@@ -87,6 +88,14 @@ export class ProductRepository extends DataService<
   ): Observable<HttpClientResult<ProductSpecificViewModel[]>> {
     return this._http.get(`${this._getUrl}/${url}/specifics`) as Observable<
       HttpClientResult<ProductSpecificViewModel[]>
+    >;
+  }
+
+  getProductPriceChart(
+    url: string
+  ): Observable<HttpClientResult<ProductPriceChartViewModel[]>> {
+    return this._http.get(`${this._getUrl}/${url}/priceChart`) as Observable<
+      HttpClientResult<ProductPriceChartViewModel[]>
     >;
   }
 

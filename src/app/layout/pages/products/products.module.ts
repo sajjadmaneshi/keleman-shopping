@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
@@ -14,12 +13,15 @@ import { ProductAlbumComponent } from './product-details/components/album/produc
 import { ProductMetaComponent } from './product-details/components/meta/product-meta.component';
 import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import {
+  NgbAccordionModule,
   NgbNav,
   NgbNavContent,
   NgbNavItem,
   NgbNavLink,
+  NgbNavModule,
   NgbNavOutlet,
   NgbRating,
+  NgbRatingModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { ProductSpecificationsComponent } from './product-details/components/specifications/product-specifications.component';
 import { ProductIntroductionComponent } from './product-details/components/specifications/introduction/product-introduction.component';
@@ -31,7 +33,6 @@ import {
   ReadMoreTemplateDirective,
 } from '../../../shared/directives/read-more-list-template.directive';
 import { ReadMoreComponent } from '../../../shared/components/read-more/read-more.component';
-import { BarRatingComponent } from '../../../shared/components/bar-rating/bar-rating.component';
 import { ProductSpecializedSpecificationsComponent } from './product-details/components/specifications/special-specification/product-specialized-specifications.component';
 import { TextWithIconComponent } from '../../../shared/components/text-with-icon/text-with-icon.component';
 import { PriceChartDialogComponent } from './product-details/components/content/price-chart-dialog/price-chart-dialog.component';
@@ -54,13 +55,15 @@ import { FAQComponent } from './product-details/components/faq/faq.component';
 import { FaqItemComponent } from './product-details/components/faq/faq-item/faq-item.component';
 import { AddQuestionDialogComponent } from './product-details/components/faq/add-question-dialog/add-question-dialog.component';
 import { FaqListDialogComponent } from './product-details/components/faq/faq-list-dialog/faq-list-dialog.component';
-import { ProductCategoryComponent } from '../main/components/product-category/product-category.component';
+import { ProductCategoryComponent } from '../../../home/components/product-category/product-category.component';
 import { CommentsModule } from '../../../shared/components/comments/comments.module';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { CategoryAboutComponent } from './product-list/components/category-about/category-about.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ProductService } from './product.service';
 import { SwiperModule } from 'swiper/angular';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -95,16 +98,11 @@ import { SwiperModule } from 'swiper/angular';
     SwiperTemplateDirective,
     SwiperComponent,
     SwiperItemComponent,
-    NgbNav,
-    NgbNavItem,
-    NgbNavLink,
-    NgbNavContent,
-    NgbNavOutlet,
+    NgbNavModule,
     ReadMoreContentDirective,
     ReadMoreTemplateDirective,
     ReadMoreComponent,
-    NgbRating,
-    BarRatingComponent,
+    NgbRatingModule,
     TextWithIconComponent,
     InputGroupComponent,
     FormsModule,
@@ -114,13 +112,15 @@ import { SwiperModule } from 'swiper/angular';
     ReactiveFormsModule,
     CardComponent,
     ProductFiltersModule,
-    MatComponentsModule,
     BottomSheetComponent,
     ProductCategoryComponent,
     CommentsModule,
     PaginationComponent,
     NgxSkeletonLoaderModule,
     SwiperModule,
+    NgbAccordionModule,
+    MatIconModule,
+    MatDialogModule,
   ],
 
   exports: [ProductItemComponent],

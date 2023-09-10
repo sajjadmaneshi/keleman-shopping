@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BehaviorSubject, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 import SwiperCore, { Pagination } from 'swiper';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { SharedVariablesService } from '../../../../../../shared/services/shared
 import { ProductGalleryViewModel } from '../../../data/models/view-models/product-gallery.view-model';
 import { ProductRepository } from '../../../data/repositories/product.repository';
 import { ProductService } from '../../../product.service';
+import { ProductPriceChartViewModel } from '../../../data/models/view-models/product-price-chart.view-model';
 
 SwiperCore.use([Pagination]);
 @Component({
@@ -36,6 +37,10 @@ export class ProductContentComponent implements OnChanges {
 
   gallaryLoading = new BehaviorSubject<boolean>(true);
 
+  destroy$ = new Subject<void>();
+
+  priceChartData: ProductPriceChartViewModel[] = [];
+
   constructor(
     public applicationState: ApplicationStateService,
     public sharedVariableService: SharedVariablesService,
@@ -43,7 +48,9 @@ export class ProductContentComponent implements OnChanges {
     private _productRepository: ProductRepository,
     private _productService: ProductService,
     public dialog: MatDialog
-  ) {}
+  ) {
+    this.loadPriceChart();
+  }
   addToFavorite() {
     this.isFavorite$.next(true);
   }
@@ -55,6 +62,10 @@ export class ProductContentComponent implements OnChanges {
     this.dialog.open(PriceChartDialogComponent, {
       width: '900px',
       autoFocus: false,
+      data: {
+        productTitle: this.productDetails.name,
+        price: this.priceChartData,
+      },
     });
   }
 
@@ -82,6 +93,15 @@ export class ProductContentComponent implements OnChanges {
     this.productCurrentImage = createProductImageMapper(
       $event as ProductDetailViewModel
     );
+  }
+
+  loadPriceChart() {
+    this._productRepository
+      .getProductPriceChart(this._productService.productUrl)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.priceChartData = [...result.result!];
+      });
   }
 }
 

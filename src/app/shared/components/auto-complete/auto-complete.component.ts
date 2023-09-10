@@ -30,7 +30,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       multi: true,
     },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoCompleteComponent implements ControlValueAccessor, OnChanges {
   @Input() options: any[] = [];
@@ -66,10 +65,11 @@ export class AutoCompleteComponent implements ControlValueAccessor, OnChanges {
     }
   }
   private _filterStates(value: string): any[] {
+    let newValue = value;
     if (value.includes('ی')) {
-      value = value.replace('ی', 'ي');
+      newValue = value.replace('ی', 'ي');
     }
-    const filterValue = value.toLowerCase();
+    const filterValue = newValue.toLowerCase();
 
     return this.options.filter((item: any) =>
       item['title'].toLowerCase().includes(filterValue)

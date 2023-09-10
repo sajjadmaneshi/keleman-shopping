@@ -3,15 +3,24 @@
 .filter-list {
   list-style: none;
   padding: 0;
+  ::ng-deep .accordion-body {
+    padding: 0 !important;
+  }
+  ::ng-deep .accordion-button {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    &:focus {
+      border: unset !important;
+      box-shadow: unset !important;
+    }
+    &:not(.collapsed) {
+      color: black !important;
+      background-color: transparent !important;
+    }
+  }
   li:not(:last-child) {
     border-bottom: 2px solid $gray-300;
     margin-bottom: 1rem;
-    ::ng-deep mat-expansion-panel {
-      box-shadow: none !important;
-      mat-expansion-panel-header {
-        padding: 0 !important;
-      }
-    }
   }
   .available {
     height: 50px;

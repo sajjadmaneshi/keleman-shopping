@@ -1,5 +1,5 @@
 export interface ArticleSimpleDataViewModel {
-  id: 0;
+  id: number;
   title: string;
   description: string;
   imageAddress: string;

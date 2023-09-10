@@ -20,10 +20,7 @@
           <div class="col-6">
             <button
               class="actions__buttons text-klm-primary fs-5 fw-bolder w-100"
-              [disabled]="
-                productDetails.currentPrice < 1 ||
-                productDetails.currentStock < 1
-              "
+              [disabled]="productStatus !== availableStatusEnum.AVAILABLE"
             >
               افزودن به سبد خرید
             </button>
@@ -31,19 +28,18 @@
           <div class="col-6 d-flex align-items-center justify-content-center">
             <ng-container
               *ngIf="
-                productDetails.currentStock > 0;
-                then available;
-                else unavailable
+                productStatus === availableStatusEnum.UNAVAILABLE;
+                then unavailable;
+                else available
               "
             ></ng-container>
             <ng-template #unavailable>
               <h3>نا موجود</h3>
             </ng-template>
             <ng-template #available>
-              <ng-container
-                *ngIf="productDetails.currentPrice > 0"
-              ></ng-container>
-              <ng-template [ngIf]="productDetails.currentPrice > 0">
+              <ng-template
+                [ngIf]="productStatus === availableStatusEnum.AVAILABLE"
+              >
                 <keleman-price
                   [value]="productDetails.currentPrice"
                   [color]="'dark'"
@@ -52,7 +48,9 @@
                   [discount]="25"
                 ></keleman-price>
               </ng-template>
-              <ng-template [ngIf]="productDetails.currentPrice < 1">
+              <ng-template
+                [ngIf]="productStatus === availableStatusEnum.NOPRICE"
+              >
                 <h3>تماس بگیرید</h3>
               </ng-template>
             </ng-template>

@@ -17,13 +17,16 @@
       *ngIf="articles.length > 0; then fullArticles; else empty"
     ></ng-container>
     <ng-template #fullArticles>
-      <div class="col-12 col-md-4" *ngFor="let article of articles">
+      <div
+        class="col-12 col-md-4"
+        *ngFor="let article of articles; trackBy: trackByFn"
+      >
         <keleman-article-item [articleDetails]="article"></keleman-article-item>
       </div>
     </ng-template>
     <ng-template #empty>
       <div class="empty-article-list d-flex flex-column align-items-center">
-        <img src="assets/media/static-resources/notFound.png" />
+        <img src="assets/media/static-resources/notFound.png" alt="not-found" />
         <p>مقاله ای با این مشخصات یافت نشد</p>
       </div>
     </ng-template>

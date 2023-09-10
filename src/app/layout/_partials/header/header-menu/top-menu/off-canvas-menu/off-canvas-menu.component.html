@@ -87,6 +87,13 @@
             <div ngbAccordionCollapse>
               <div ngbAccordionBody>
                 <ng-template>
+                  <span
+                    class="text-klm-primary all-products cursor-pointer"
+                    (click)="onNavigate({ c1: rootCategory.url })"
+                  >
+                    همه محصولات
+                    <mat-icon>chevron_left</mat-icon>
+                  </span>
                   <ul class="column pe-3">
                     <ng-template
                       ngFor

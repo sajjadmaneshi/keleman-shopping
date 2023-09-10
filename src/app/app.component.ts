@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ApplicationStateService } from './shared/services/application-state.service';
 import { Title } from '@angular/platform-browser';
 

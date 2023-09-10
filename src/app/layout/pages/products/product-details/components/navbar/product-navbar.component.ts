@@ -2,10 +2,13 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Inject,
+  PLATFORM_ID,
   Renderer2,
   ViewChild,
 } from '@angular/core';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'keleman-product-navbar',
@@ -18,7 +21,8 @@ export class ProductNavbarComponent implements AfterViewInit {
   selectedTab = 'details';
   constructor(
     public applicationState: ApplicationStateService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private _platformId: any
   ) {}
 
   makeSticky() {
@@ -38,10 +42,12 @@ export class ProductNavbarComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.applicationState.isTablet || this.applicationState.isPhone) {
-      this.renderer.listen('document', 'mousewheel', () => {
-        this.makeSticky();
-      });
+    if (isPlatformBrowser(this._platformId)) {
+      if (this.applicationState.isTablet || this.applicationState.isPhone) {
+        this.renderer.listen('document', 'mousewheel', () => {
+          this.makeSticky();
+        });
+      }
     }
   }
 }

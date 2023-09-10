@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CategoryDialogComponent } from './dialogs/category-dialog/category-dialog.component';
 import { BrandsDialogComponent } from './dialogs/brands-dialog/brands-dialog.component';
 import { SellersDialogComponent } from './dialogs/sellers-dialog/sellers-dialog.component';
-import { filter } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { PriceRange } from '../components/product-price-filter/product-price-filter.component';
 import { ProductFilterService } from '../../product-filter.service';
 
@@ -22,6 +22,8 @@ export class ProductFilterBottomSheetComponent {
     autoFocus: false,
   };
 
+  destroy$ = new Subject<void>();
+
   constructor(
     private _bottomSheet: MatBottomSheet,
     private _cr: ChangeDetectorRef,
@@ -36,7 +38,10 @@ export class ProductFilterBottomSheetComponent {
     });
     dialogRef
       .afterClosed()
-      .pipe(filter((result) => result))
+      .pipe(
+        filter((result) => result),
+        takeUntil(this.destroy$)
+      )
       .subscribe((result: [{ id: number; title: string }]) => {
         this.productFilterService.filterList.categories = [...result];
       });
@@ -49,7 +54,10 @@ export class ProductFilterBottomSheetComponent {
     });
     dialogRef
       .afterClosed()
-      .pipe(filter((result) => result))
+      .pipe(
+        filter((result) => result),
+        takeUntil(this.destroy$)
+      )
       .subscribe((result: [{ id: number; title: string }]) => {
         this.productFilterService.filterList.brands = [...result];
       });
@@ -62,7 +70,10 @@ export class ProductFilterBottomSheetComponent {
     });
     dialogRef
       .afterClosed()
-      .pipe(filter((result) => result))
+      .pipe(
+        filter((result) => result),
+        takeUntil(this.destroy$)
+      )
       .subscribe((result: [{ id: number; title: string }]) => {
         this.productFilterService.filterList.sellers = [...result];
       });
@@ -78,5 +89,9 @@ export class ProductFilterBottomSheetComponent {
 
   closeBottomSheet() {
     this._bottomSheet.dismiss();
+  }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

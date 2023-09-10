@@ -1,9 +1,8 @@
 <div class="d-flex align-items-center justify-content-between top-part w-100">
-  <a routerLink="">
+  <a class="keleman-logo" routerLink="">
     <img
       alt="بازرگانی آساسنسور و پله برقی کلمان"
-      class="keleman-logo"
-      src="assets/media/logo/keleman-logo.png"
+      src="assets/media/logo/keleman-logo.webp"
       loading="lazy"
   /></a>
 
@@ -34,7 +33,7 @@
     <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
       <div class="d-flex flex-column align-items-center">
         <div class="symbol symbol-circle cursor-pointer" ngbDropdownToggle>
-          <img src="assets/media/blank.png" />
+          <img src="assets/media/blank.webp" />
         </div>
         <p>
           {{ userService.userSimpleInfo.firstName }}
@@ -66,7 +65,5 @@
         class="basket-icon"
       />
     </div>
-
-    <p class="lh-sm">سبد خرید</p>
   </a>
 </div>

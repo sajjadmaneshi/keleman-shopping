@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SnackBarService } from '../../../../../shared/components/snack-bar/snack-bar.service';
+import { SsrService } from '../../../../../shared/services/ssr/ssr.service';
 
 @Component({
   selector: 'keleman-share-buttons',
   templateUrl: './share-buttons.component.html',
   styleUrls: ['./share-buttons.component.scss'],
+  providers: [SsrService],
 })
 export class ShareButtonsComponent implements OnInit {
   @Input() pageUrl!: string;
@@ -14,14 +16,17 @@ export class ShareButtonsComponent implements OnInit {
 
   shareUrls!: any[];
 
-  constructor(private _snackBar: SnackBarService) {}
+  constructor(
+    private _snackBar: SnackBarService,
+    private _ssrService: SsrService
+  ) {}
 
   determineUrl(include: string) {
     return this.shareUrls.find((x) => x.title === include)?.value;
   }
 
   copyUrl() {
-    const url = window.location.href;
+    const url = this._ssrService.getLocation.href;
     navigator.clipboard.writeText(url).then(
       () => {
         this._snackBar.showSuccessSnackBar('آدرس در کلیپ بورد کپی شد');

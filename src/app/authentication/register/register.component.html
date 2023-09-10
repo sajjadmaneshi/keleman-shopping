@@ -1,0 +1,173 @@
+<a
+  routerLink="/"
+  class="back-to-home d-flex align-items-center text-klm-primary cursor-pointer"
+>
+  <mat-icon class="mx-3">home</mat-icon> بازگشت به صفحه اصلی
+</a>
+
+<div class="container keleman-register-form">
+  <img
+    alt="keleman-logo"
+    class="keleman-logo"
+    src="../../../assets/media/logo/keleman-logo.webp"
+  />
+
+  <div class="keleman-register-body keleman-gray-card border-0">
+    <div
+      class="card-body d-flex flex-column align-items-center justify-content-center"
+    >
+      <ng-container [ngSwitch]="getRegisterStatus()">
+        <ng-container *ngSwitchCase="registerStatusEnum.otpNotSent">
+          <h5 class="fw-bolder mb-3">ورود یا ثبت نام</h5>
+
+          <input
+            class="form-control text-center keleman-text-field mobile-number-text-field mb-3"
+            type="text"
+            [formControl]="mobileFormControl"
+            [numberOnly]="11"
+            required
+            [appErrorFeedback]="'شماره همراه'"
+            maxlength="11"
+            minlength="11"
+            placeholder="شماره موبایل خود را وارد کنید"
+            (keydown.enter)="sendVerificationCode()"
+          />
+          <span class="fw-semibold text-muted mb-3"
+            >(لطفا شماره را با صفر وارد نمایید)</span
+          >
+          <button
+            class="btn btn-warning text-white w-25 text-klm-primary register-button mb-3"
+            kelemanLoadingProgress
+            [loading]="submitLoading"
+            [disabled]="mobileFormControl.invalid"
+            (click)="sendVerificationCode()"
+          >
+            ادامه
+          </button>
+          <p class="text-muted">
+            ادامه به معنای پذیرش <a class="text-klm-primary">شرایط</a> و
+            <a class="text-klm-primary">قوانین</a> حریم خصوصی<br />
+            فروشگاه اینترنتی کِلِمان است.
+          </p>
+        </ng-container>
+        <ng-container *ngSwitchCase="registerStatusEnum.otpSent">
+          <ng-container *ngTemplateOutlet="verificationCode"> </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="registerStatusEnum.completeInfo">
+          <ng-container *ngTemplateOutlet="verificationCode"></ng-container>
+
+          <h5 class="fw-bolder mb-3">تکمیل ثبت نام</h5>
+          <h6 class="fw-bolder text-klm-primary mb-3">
+            لطفا جهت عضویت اطلاعات خود را تکمیل کنید!
+          </h6>
+          <form
+            class="w-100 d-flex flex-column align-items-center"
+            [formGroup]="registerForm"
+            (ngSubmit)="completeInfo()"
+          >
+            <div class="row">
+              <div class="col-6 mb-3 form-group">
+                <label for="name">نام</label>
+                <input
+                  class="form-control keleman-text-field"
+                  [class.is-invalid]="name.invalid && isFormSubmitted"
+                  textOnly
+                  formControlName="name"
+                  id="name"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="name.invalid && isFormSubmitted"
+                >
+                  لطفا نام خود را وارد نمایید
+                </span>
+              </div>
+              <div class="col-6 mb-3 form-group">
+                <label for="family">نام خانوادگی</label>
+                <input
+                  class="form-control keleman-text-field"
+                  [class.is-invalid]="family.invalid && isFormSubmitted"
+                  textOnly
+                  formControlName="family"
+                  id="family"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="family.invalid && isFormSubmitted"
+                >
+                  لطفا نام خانوادگی خود را وارد نمایید
+                </span>
+              </div>
+
+              <div class="col-6">
+                <keleman-auto-complete
+                  [options]="provinces"
+                  [formControl]="province"
+                  [label]="'استان'"
+                  [isInavlid]="province.invalid && isFormSubmitted"
+                  [isLoading]="stateLoading"
+                  (onSelectionChange)="selectProvience($event)"
+                ></keleman-auto-complete>
+              </div>
+              <div class="col-6">
+                <keleman-auto-complete
+                  [options]="cities"
+                  [formControl]="city"
+                  [label]="'شهر'"
+                  [isLoading]="stateLoading"
+                  [isInavlid]="city.invalid && isFormSubmitted"
+                  (onSelectionChange)="selectCity($event)"
+                ></keleman-auto-complete>
+              </div>
+            </div>
+
+            <button
+              class="btn btn-warning text-klm-primary w-25 register-button"
+              type="submit"
+            >
+              تایید
+            </button>
+          </form>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #verificationCode>
+  <h6 class="fw-bolder mb-3">کد تایید را وارد کنید</h6>
+  <span class="w-100 d-flex justify-content-between align-items-center mb-3">
+    <p class="text-muted">
+      کد تایید برای شماره {{ mobileFormControl.value }} پیامک شد
+    </p>
+    <a class="fw-bolder cursor-pointer" (click)="changeNumber()"
+      ><u>تغییر شماره</u></a
+    >
+  </span>
+  <ng-otp-input
+    class="align-self-center mb-3"
+    dir="ltr"
+    [formCtrl]="otpVerificationCode"
+    [config]="{ length: 5, allowNumbersOnly: true }"
+    (onInputChange)="CheckOtpValid($event)"
+    [class.is-invalid]="!verificationCodeValid"
+  ></ng-otp-input>
+  <span class="invalid-feedback mb-3" *ngIf="!verificationCodeValid"
+    >لطفا کد تایید را وارد نمایید</span
+  >
+
+  <button
+    class="btn btn-warning text-white text-klm-primary register-button mb-3"
+    [disabled]="!isSendAgainActive"
+    (click)="sendVerificationCode()"
+  >
+    دریافت مجدد کد
+    <ng-template [ngIf]="!isSendAgainActive">
+      <countdown
+        [config]="{ leftTime: 300, format: 'mm:ss' }"
+        #cd
+        (event)="notify($event)"
+      ></countdown>
+    </ng-template>
+  </button>
+</ng-template>

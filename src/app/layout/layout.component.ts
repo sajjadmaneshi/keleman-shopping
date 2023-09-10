@@ -1,20 +1,32 @@
-import { AfterViewInit, Component } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements AfterViewInit {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private _platformId: any
+  ) {}
   ngAfterViewInit(): void {
-    this._initialLayout();
+    if (isPlatformBrowser(this._platformId)) this._initialLayout();
   }
+
   private _initialLayout(): void {
-    const header = document.querySelector('header') as HTMLElement;
-    const mainContainer = document.querySelector(
+    const header = this.document.querySelector('header') as HTMLElement;
+    const mainContainer = this.document.querySelector(
       '#main-container'
     ) as HTMLElement;
     const headerHeight = header.getBoundingClientRect().height;
-    document.documentElement.style.setProperty(
+    this.document.documentElement.style.setProperty(
       '--header-height',
       `${headerHeight}px`
     );

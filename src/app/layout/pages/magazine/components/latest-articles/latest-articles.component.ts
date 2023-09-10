@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 
 import { PersianDateTimeService } from '../../../../../shared/services/date-time/persian-datetime.service';
 import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simple-data-view.model';
@@ -12,7 +12,7 @@ import { SharedVariablesService } from '../../../../../shared/services/shared-va
   templateUrl: './latest-articles.component.html',
   styleUrls: ['./latest-articles.component.scss'],
 })
-export class LatestArticlesComponent {
+export class LatestArticlesComponent implements OnDestroy {
   isLoading = false;
   articles: ArticleSimpleDataViewModel[] = [];
   destroy$ = new Subject<void>();
@@ -28,14 +28,14 @@ export class LatestArticlesComponent {
     this.isLoading = true;
     this._articleRepository
       .getLatestArticles(count)
-      .pipe(
-        tap(
-          () => setTimeout(() => (this.isLoading = false), 1500),
-          takeUntil(this.destroy$)
-        )
-      )
+      .pipe(tap(() => (this.isLoading = false), takeUntil(this.destroy$)))
       .subscribe((result: HttpClientResult<ArticleSimpleDataViewModel[]>) => {
         this.articles = [...result.result!];
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

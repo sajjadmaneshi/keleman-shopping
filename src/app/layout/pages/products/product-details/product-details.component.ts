@@ -1,11 +1,12 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ProductViewModel } from '../data/models/view-models/product.view-model';
 import { ProductDetailViewModel } from '../data/models/view-models/product-detail.view-model';
 import { ProductRepository } from '../data/repositories/product.repository';
 import { tap } from 'rxjs';
 import { ProductService } from '../product.service';
+import { DOCUMENT } from '@angular/common';
+import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 
 @Component({
   selector: 'app-product-details',
@@ -16,11 +17,15 @@ export class ProductDetailsComponent implements OnInit {
   productDetails!: ProductDetailViewModel;
 
   isLoading = false;
+  productStatus: AvailableStatusEnum = AvailableStatusEnum.AVAILABLE;
+
+  availableStatusEnum = AvailableStatusEnum;
   constructor(
     public applicationState: ApplicationStateService,
     private _activatedRoute: ActivatedRoute,
     private _productRepository: ProductRepository,
-    private _productService: ProductService
+    private _productService: ProductService,
+    @Inject(DOCUMENT) private document: Document
   ) {
     this._getDataFromUrl();
   }
@@ -42,12 +47,15 @@ export class ProductDetailsComponent implements OnInit {
       .pipe(tap(() => (this.isLoading = false)))
       .subscribe((result) => {
         this.productDetails = result.result!;
+        this.productStatus = this._productService.getProductStatus(
+          this.productDetails
+        );
       });
   }
 
   @HostListener('mousewheel', ['$event'])
   onScroll() {
-    const productDetailsNavbar = document.querySelector(
+    const productDetailsNavbar = this.document.querySelector(
       '.product-details-navbar'
     )!;
 

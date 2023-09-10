@@ -14,7 +14,6 @@ import {
   selector: 'keleman-product-price-filter',
   templateUrl: './product-price-filter.component.html',
   styleUrls: ['./product-price-filter.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductPriceFilterComponent implements OnInit, OnChanges {
   @ViewChild('minInput')

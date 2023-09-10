@@ -2,7 +2,11 @@
   <ng-container *ngIf="false; then empty; else full"> </ng-container>
   <ng-template #empty>
     <ng-container>
-      <img class="empty-basket-img" src="assets/media/basket/empty.png" />
+      <img
+        alt="empty-basket"
+        class="empty-basket-img"
+        src="../../../../../assets/media/empty-basket.webp"
+      />
       <span class="fs-6">سبد خرید شما خالی است!</span>
       <a class="fw-bold text-klm-primary" [routerLink]="'/'"
         ><u>بازگشت به فروشگاه</u></a

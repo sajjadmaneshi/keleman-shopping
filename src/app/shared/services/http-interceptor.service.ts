@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -13,10 +13,14 @@ import { AppErrors } from '../common/app-errors';
 import { BadInputError } from '../common/errors/bad-input-error';
 import { NotFoundError } from '../common/errors/not-found-error';
 import { SnackBarService } from '../components/snack-bar/snack-bar.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor(private _snackBarService: SnackBarService) {}
+  constructor(
+    private _snackBarService: SnackBarService,
+    @Inject(PLATFORM_ID) private _platFormId: any
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -34,7 +38,10 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   private _setHeaders(req: HttpRequestOptions) {
-    const token = localStorage.getItem('KELEMAN_TOKEN');
+    let token: string | undefined | null = undefined;
+    if (isPlatformBrowser(this._platFormId)) {
+      token = localStorage.getItem('KELEMAN_TOKEN');
+    }
 
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Accept', 'application/json');
@@ -53,7 +60,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   private _handleError(error: HttpErrorResponse) {
     this._snackBarService.showDangerSnackBar(
-      error.error.responseException.exceptionMessage
+      error.error.responseException?.exceptionMessage
     );
 
     switch (error.status) {
