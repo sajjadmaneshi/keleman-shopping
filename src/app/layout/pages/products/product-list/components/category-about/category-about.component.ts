@@ -10,6 +10,7 @@ import {
 import { ProductRepository } from '../../../data/repositories/product.repository';
 import { CategorySimpleInfoViewModel } from '../../../data/models/view-models/category-simple-info.view-model';
 import { Subject, takeUntil, tap } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'keleman-category-about',
@@ -24,7 +25,7 @@ export class CategoryAboutComponent implements OnInit, OnChanges, OnDestroy {
   categoryDetails!: CategorySimpleInfoViewModel | null;
   destroy$ = new Subject<void>();
 
-  constructor(private _productRepository: ProductRepository) {}
+  constructor(private _productRepository: ProductRepository,public sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this._getCategoryDetails();

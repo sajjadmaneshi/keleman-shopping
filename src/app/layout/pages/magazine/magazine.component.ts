@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-main-page-latest-articles',
+  selector: 'app-magazine',
   templateUrl: './magazine.component.html',
 })
 export class MagazineComponent {

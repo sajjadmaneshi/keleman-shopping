@@ -10,7 +10,13 @@ export const routes: Routes = [
     component: MagazineComponent,
     children: [
       { path: ':url', component: ArticleComponent },
-      { path: '', component: ArticleListComponent },
+      {
+        path: '',
+        component: ArticleListComponent,
+        data: {
+          shouldDetach: true,
+        },
+      },
     ],
   },
 ];
