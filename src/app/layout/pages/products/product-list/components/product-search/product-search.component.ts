@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Routing } from '../../../../../../routing';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -17,11 +17,17 @@ export class ProductSearchComponent implements OnChanges {
 
   searchText = new FormControl('');
 
-  constructor(private _router: Router) {}
+  constructor(
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) {}
 
   navigateToProduct() {
-    this._router.navigate([Routing.products], {
-      queryParams: { q: this.searchText.value, p: '0' },
+    let queryParams = { q: this.searchText.value, p: '0' };
+    this._router.navigate([], {
+      relativeTo: this._activatedRoute,
+      queryParams,
+      queryParamsHandling: 'merge',
     });
   }
 

@@ -51,6 +51,7 @@ export class ProductRepository extends DataService<
       catUrl: categoryuRL,
       offset,
       limit,
+      param1: 'salam',
     };
     return this._searchService.search(
       this._getUrl,

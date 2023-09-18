@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QueryParamGeneratorService {
   private queryParams: string[] = [];
+  private _queryParamsOrder: string[] = [];
 
   constructor() {}
+
+  get queryParamsOrder(): string[] {
+    return this._queryParamsOrder;
+  }
+
+  set queryParamsOrder(value: string[]) {
+    this._queryParamsOrder = value;
+  }
 
   private addToQueryParams(param: string): void {
     this.queryParams.push(param);
@@ -22,6 +32,7 @@ export class QueryParamGeneratorService {
   }
 
   generateSearchQueryParam(value?: string): QueryParamGeneratorService {
+    const key = 'q';
     const param = `q=${encodeURIComponent(value ?? '')}`;
     this.addToQueryParams(param);
     return this;
@@ -64,6 +75,25 @@ export class QueryParamGeneratorService {
       return '';
     }
     return this.queryParams.join('&');
+  }
+
+  areQueryParamsInOrder(currentParams: string[]): boolean {
+    return (
+      currentParams.length === this.queryParamsOrder.length &&
+      currentParams.every(
+        (param, index) => param === this.queryParamsOrder[index]
+      )
+    );
+  }
+
+  public constructCorrectQueryParams(queryParams: Params): Params {
+    const correctedQueryParams: Params = {};
+    for (const param of this.queryParamsOrder) {
+      if (queryParams[param]) {
+        correctedQueryParams[param] = queryParams[param];
+      }
+    }
+    return correctedQueryParams;
   }
 
   resetQueryParams(): void {

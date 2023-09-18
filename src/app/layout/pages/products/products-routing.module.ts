@@ -12,10 +12,34 @@ export const routes: Routes = [
 
     children: [
       { path: 'detail/:url', component: ProductDetailsComponent },
-      { path: ':catUrl1/:catUrl2/:catUrl3', component: ProductListComponent },
-      { path: ':catUrl1/:catUrl2', component: ProductListComponent },
-      { path: ':catUrl1', component: ProductListComponent },
-      { path: '', component: ProductListComponent },
+      {
+        path: ':catUrl1/:catUrl2/:catUrl3',
+        component: ProductListComponent,
+        data: {
+          shouldDetach: true,
+        },
+      },
+      {
+        path: ':catUrl1/:catUrl2',
+        component: ProductListComponent,
+        data: {
+          shouldDetach: true,
+        },
+      },
+      {
+        path: ':catUrl1',
+        component: ProductListComponent,
+        data: {
+          shouldDetach: true,
+        },
+      },
+      {
+        path: '',
+        component: ProductListComponent,
+        data: {
+          shouldDetach: true,
+        },
+      },
     ],
   },
 ];

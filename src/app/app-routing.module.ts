@@ -1,8 +1,14 @@
 import { inject, NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {
+  BaseRouteReuseStrategy,
+  RouteReuseStrategy,
+  RouterModule,
+  Routes,
+} from '@angular/router';
 import { NotFoundComponent } from './layout/pages/not-found/not-found.component';
 import { Routing } from './routing';
 import { TokenResolver } from './shared/resolvers/token.resolver';
+import { CustomRouteReuseStrategy } from './shared/custom-route-reuse-strategy';
 
 const routes: Routes = [
   {
@@ -31,7 +37,10 @@ const routes: Routes = [
       initialNavigation: 'enabledBlocking',
     }),
   ],
-  providers: [TokenResolver],
+  providers: [
+    TokenResolver,
+    { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
