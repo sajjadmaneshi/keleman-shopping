@@ -64,6 +64,7 @@ import { ProductService } from './product.service';
 import { SwiperModule } from 'swiper/angular';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import {SymbolDirective} from "../../../shared/directives/symbol.directive";
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgbAccordionModule,
     MatIconModule,
     MatDialogModule,
+    SymbolDirective,
   ],
 
   exports: [ProductItemComponent],

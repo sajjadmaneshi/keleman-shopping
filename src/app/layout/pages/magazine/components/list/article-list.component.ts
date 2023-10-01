@@ -58,7 +58,7 @@ export class ArticleListComponent implements OnInit {
     this._articleRepository
       .search(undefined, page, 10, search)
       .pipe(
-        tap(() => setTimeout(() => (this.isLoading = false), 1500)),
+        tap(() => (this.isLoading = false)),
         takeUntil(this.destroy$)
       )
       .subscribe(

@@ -1,6 +1,6 @@
 <div class="form-group">
-  <span class="fw-bold d-flex align-items-center justify-content-between">
-    <p class="text-warning mb-3">فیلتر ها</p>
+  <span class="fw-bold d-flex align-items-center justify-content-between mb-3">
+    <p class="text-warning">فیلتر ها</p>
     <ng-template [ngIf]="productFilterService.canRemoveAll">
       <a class="cursor-pointer" (click)="productFilterService.removeAll()">
         حذف تمام فیلتر ها
@@ -8,9 +8,12 @@
     </ng-template>
   </span>
   <ng-template [ngIf]="productFilterService.canRemoveAll">
-    <div class="card card-rounded-3 border border-gray-300">
+    <div class="card card-rounded-3 border border-gray-300 mb-3">
       <div class="card-body">
-        <h6>انتخاب های شما</h6>
+        <span class="d-flex justify-content-between align-items-center">
+          <h6>انتخاب های شما</h6>
+        </span>
+
         <keleman-filter-chip-list></keleman-filter-chip-list>
       </div>
     </div>
@@ -18,34 +21,47 @@
 
   <div class="card card-rounded-3 border border-gray-300" id="product-filters">
     <div class="card-body">
-      <ul class="filter-list">
-        <li>
-          <keleman-category-filter></keleman-category-filter>
-        </li>
-        <li>
-          <keleman-brand-filter></keleman-brand-filter>
-        </li>
-        <li>
-          <keleman-seller-filter></keleman-seller-filter>
-        </li>
-        <li>
-          <span
-            class="d-flex align-items-center justify-content-between available"
+      <ng-container
+        *ngIf="
+          productFilterService.isLoading | async;
+          then loading;
+          else options
+        "
+      ></ng-container>
+      <ng-template #loading>
+        <ngx-skeleton-loader
+          [theme]="{ width: '100%', height: '300px' }"
+        ></ngx-skeleton-loader>
+      </ng-template>
+      <ng-template #options>
+        <ul class="filter-list">
+          <li
+            *ngFor="
+              let option of productFilterService.propertyOptions;
+              trackBy: tranckByFn
+            "
           >
-            عدم موجودی
-            <mat-slide-toggle
-              color="primary"
-              [checked]="productFilterService.filterList.outOfStock"
-              (change)="changeOutOfStock($event.checked)"
-            ></mat-slide-toggle>
-          </span>
-        </li>
-      </ul>
+            <keleman-filter-option [option]="option"></keleman-filter-option>
+          </li>
+          <li>
+            <span
+              class="d-flex align-items-center justify-content-between available"
+            >
+              عدم موجودی
+              <mat-slide-toggle
+                color="primary"
+                [checked]="productFilterService.filterList.outOfStock"
+                (change)="changeOutOfStock($event.checked)"
+              ></mat-slide-toggle>
+            </span>
+          </li>
+        </ul>
+      </ng-template>
     </div>
   </div>
 </div>
 <div class="form-group">
-  <p class="text-warning fw-bold">محدوده قیمت</p>
+  <p class="text-warning fw-bold mb-3">محدوده قیمت</p>
   <div
     id="product-price-filter"
     class="card card-rounded-3 border border-gray-300"

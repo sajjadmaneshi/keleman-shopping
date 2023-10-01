@@ -15,18 +15,17 @@
     <keleman-filter-chip-list></keleman-filter-chip-list>
   </span>
   <ul>
-    <li (click)="openCategoryDialog()">
-      <a>دسته بندی</a>
+    <li
+      *ngFor="
+        let option of productFilterService.propertyOptions;
+        trackBy: tranckByFn
+      "
+      (click)="openFilterDialog(option)"
+    >
+      <a>{{ option.title }}</a>
       <mat-icon>chevron_left</mat-icon>
     </li>
-    <li (click)="openBrandsDialog()">
-      <a>برند</a>
-      <mat-icon>chevron_left</mat-icon>
-    </li>
-    <li (click)="openSellerDialog()">
-      <a>فروشنده</a>
-      <mat-icon>chevron_left</mat-icon>
-    </li>
+
     <li class="d-flex flex-column align-items-center">
       <a>محدوده قیمت</a>
       <keleman-product-price-filter

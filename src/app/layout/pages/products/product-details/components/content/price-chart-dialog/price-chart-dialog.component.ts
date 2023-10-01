@@ -46,53 +46,37 @@ export class PriceChartDialogComponent {
     });
 
     this.chartOptions = {
-      responsive: {
-        rules: [
-          {
-            condition: {
-              maxWidth: 768,
-            },
-            chartOptions: {
-              legend: {
-                enabled: false,
-              },
-            },
-          },
-        ],
-      },
       credits: {
         enabled: false,
       },
       chart: {
-        width: 750,
         style: {
           fontFamily: 'IRANYekanXFaNum',
         },
       },
       title: {
-        text: 'نمودار تغییر قیمت کالا',
-        x: -20, //center
+        text: 'نمودار قیمت (تومان)',
       },
       xAxis: {
         categories: this.dateTimes,
       },
       yAxis: {
         title: {
-          text: 'مبلغ',
+          text: '',
         },
 
         labels: {
+          rotation: -45,
           useHTML: true,
           formatter: function () {
             const value = Number(this.value);
             if (value === 0) return `${value}`;
-            const unit = value > 1000 && value < 1000000 ? 'هزار' : 'میلیون';
+            const unit = value > 1000 && value < 1000000 ? 'K' : 'M';
             const convertedValue =
               value > 1000 && value < 1000000 ? value / 1000 : value / 1000000;
-
             return `
-    <span class="d-flex" style="direction: rtl">
-      <span class="px-1">${convertedValue}</span>${unit} تومان
+    <span class="d-flex">
+      <span class="px-1">${convertedValue}</span>${unit}
     </span>`;
           },
         },
@@ -111,7 +95,6 @@ export class PriceChartDialogComponent {
         {
           type: 'line',
           name: 'قیمت',
-
           data: this.prices,
         },
       ],

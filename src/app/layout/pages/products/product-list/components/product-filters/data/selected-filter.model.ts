@@ -1,22 +1,8 @@
+import { SelectablePropertyModel } from '../../../../data/models/view-models/category-property-option.view-model';
+
 export class SelectedFilterModel {
-  categories!: [
-    {
-      id: number;
-      title: string;
-    }
-  ];
-  brands!: [
-    {
-      id: number;
-      title: string;
-    }
-  ];
-  sellers!: [
-    {
-      id: number;
-      title: string;
-    }
-  ];
+  constructor(public filters: SelectablePropertyModel[] = []) {}
+
   price!:
     | {
         min: number;

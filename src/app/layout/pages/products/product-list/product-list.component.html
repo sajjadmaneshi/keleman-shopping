@@ -1,11 +1,11 @@
 <ng-container class="product-list d-flex flex-column">
   <div class="top-categories card card-rounded-3 mb-3 d-none d-lg-block">
-    <div class="card-body">
+    <div class="card-body p-0">
       <ng-template [ngIf]="categoryId">
-        <keleman-product-category
+        <keleman-product-categories
           [parentId]="categoryId"
           (onItemClick)="updateCurrentRoute($event)"
-        ></keleman-product-category>
+        ></keleman-product-categories>
       </ng-template>
     </div>
   </div>
@@ -14,7 +14,9 @@
       <keleman-product-search
         [initialSearchText]="searchText"
       ></keleman-product-search>
-      <keleman-product-filters></keleman-product-filters>
+      <keleman-product-filters
+        [categoryId]="categoryId"
+      ></keleman-product-filters>
     </div>
     <div class="col-12 col-lg-9">
       <div class="d-flex flex-column">

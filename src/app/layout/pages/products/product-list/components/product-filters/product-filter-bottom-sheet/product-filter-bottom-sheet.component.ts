@@ -1,12 +1,14 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoryDialogComponent } from './dialogs/category-dialog/category-dialog.component';
-import { BrandsDialogComponent } from './dialogs/brands-dialog/brands-dialog.component';
-import { SellersDialogComponent } from './dialogs/sellers-dialog/sellers-dialog.component';
+import { FiltersDialogComponent } from './dialogs/filters-dialog/filters-dialog.component';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { PriceRange } from '../components/product-price-filter/product-price-filter.component';
 import { ProductFilterService } from '../../product-filter.service';
+import {
+  SelectableOption,
+  SelectablePropertyModel,
+} from '../../../../data/models/view-models/category-property-option.view-model';
 
 @Component({
   selector: 'keleman-product-filter-bottom-sheet',
@@ -31,10 +33,10 @@ export class ProductFilterBottomSheetComponent {
     public productFilterService: ProductFilterService
   ) {}
 
-  openCategoryDialog() {
-    const dialogRef = this.dialog.open(CategoryDialogComponent, {
+  openFilterDialog(option: SelectableOption) {
+    const dialogRef = this.dialog.open(FiltersDialogComponent, {
       ...this.dialogConfigs,
-      data: this.productFilterService.filterList.categories,
+      data: option,
     });
     dialogRef
       .afterClosed()
@@ -42,40 +44,8 @@ export class ProductFilterBottomSheetComponent {
         filter((result) => result),
         takeUntil(this.destroy$)
       )
-      .subscribe((result: [{ id: number; title: string }]) => {
-        this.productFilterService.filterList.categories = [...result];
-      });
-  }
-
-  openBrandsDialog() {
-    const dialogRef = this.dialog.open(BrandsDialogComponent, {
-      ...this.dialogConfigs,
-      data: this.productFilterService.filterList.brands,
-    });
-    dialogRef
-      .afterClosed()
-      .pipe(
-        filter((result) => result),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((result: [{ id: number; title: string }]) => {
-        this.productFilterService.filterList.brands = [...result];
-      });
-  }
-
-  openSellerDialog() {
-    const dialogRef = this.dialog.open(SellersDialogComponent, {
-      ...this.dialogConfigs,
-      data: this.productFilterService.filterList.sellers,
-    });
-    dialogRef
-      .afterClosed()
-      .pipe(
-        filter((result) => result),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((result: [{ id: number; title: string }]) => {
-        this.productFilterService.filterList.sellers = [...result];
+      .subscribe((result: SelectablePropertyModel[]) => {
+        this.productFilterService.filterList.filters = [...result];
       });
   }
 
@@ -90,6 +60,11 @@ export class ProductFilterBottomSheetComponent {
   closeBottomSheet() {
     this._bottomSheet.dismiss();
   }
+
+  tranckByFn(index: number, item: SelectableOption) {
+    return item.title;
+  }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

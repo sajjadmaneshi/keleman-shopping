@@ -2,7 +2,7 @@
   <div
     class="p-3 d-flex justify-content-between align-items-start border-bottom border-gray-300"
   >
-    <h3 class="d-flex align-item-center">فروشنده ها</h3>
+    <h3 class="d-flex align-item-center">{{ data.title }}</h3>
 
     <span
       class="material-icons-outlined text-danger close cursor-pointer"
@@ -12,10 +12,11 @@
     </span>
   </div>
 
-  <keleman-seller-filter-items
-    [selectedArray]="data"
-    (selectionChange)="selectionChange($event)"
-  ></keleman-seller-filter-items>
+  <keleman-filter-items
+    [initialProperties]="data.options"
+    [optionTitle]="data.title"
+    (selectionChange)="this.productFilterService.manageSelectedArray($event)"
+  ></keleman-filter-items>
 
   <div class="text-center">
     <button

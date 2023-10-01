@@ -7,6 +7,7 @@ import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/
 import { EmptyImageDirective } from '../../directives/empty-image.directive';
 import { ENVIRONMENT } from '../../../../environments/environment';
 import { RouterLink } from '@angular/router';
+import {SymbolDirective} from "../../directives/symbol.directive";
 
 @Component({
   selector: 'keleman-article-item-thumbnail',
@@ -16,6 +17,7 @@ import { RouterLink } from '@angular/router';
     LazyLoadingDirective,
     EmptyImageDirective,
     RouterLink,
+    SymbolDirective,
   ],
   templateUrl: './article-item-thumbnail.component.html',
   styleUrls: ['./article-item-thumbnail.component.scss'],

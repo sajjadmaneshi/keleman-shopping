@@ -1,18 +1,20 @@
-<keleman-swiper
-  [spaceBetween]="10"
-  [showMoreButton]="false"
-  [navigation]="true"
-  [titleBorder]="false"
-  [navigationButtonClassPrefix]="'product-category'"
->
-  <appSwiperContent *ngFor="let category of categories; trackBy: tranckByFn">
-    <ng-template appSwiperTemplate>
-      <app-product-category-item
-        class="cursor-pointer"
-        [category]="category"
-        [isLoading]="(productCategoryService.isLoading | async)!"
-        (click)="getCategoryProducts(category)"
-      ></app-product-category-item>
-    </ng-template>
-  </appSwiperContent>
-</keleman-swiper>
+<div class="p-3">
+  <keleman-swiper
+    [spaceBetween]="10"
+    [showMoreButton]="false"
+    [navigation]="true"
+    [titleBorder]="false"
+    [navigationButtonClassPrefix]="'product-category'"
+  >
+    <appSwiperContent *ngFor="let category of categories; trackBy: tranckByFn">
+      <ng-template appSwiperTemplate>
+        <app-product-category-item
+          class="cursor-pointer"
+          [category]="category"
+          [isLoading]="(productCategoryService.isLoading | async)!"
+          (click)="getCategoryProducts(category)"
+        ></app-product-category-item>
+      </ng-template>
+    </appSwiperContent>
+  </keleman-swiper>
+</div>

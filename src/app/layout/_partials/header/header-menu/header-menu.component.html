@@ -3,30 +3,28 @@
     <ul class="navbar-nav mr-auto my-3 p-0">
       <li
         class="nav-item dropdown"
-        ngbDropdown
-        #myDrop="ngbDropdown"
-        container="body"
-        autoClose="false"
+        #menuTrigger="matMenuTrigger"
+        [matMenuTriggerFor]="menu"
+        (mouseenter)="onHover($event)"
       >
         <a
           type="button"
           class="nav-link text-black px-3 dropdown-toggle d-flex align-items-center"
-          id="navbarDropdown"
-          ngbDropdownToggle
           [routerLink]="['products']"
           [queryParams]="{ p: 0 }"
-          (mouseover)="onHover($event)"
         >
           <span class="material-icons-outlined"> grid_view </span>
           دسته بندی ها
         </a>
-        <div #dropDownMenu ngbDropdownMenu aria-labelledby="categoryDropDown">
-          <keleman-mega-menu
-            (mouseleave)="$event.stopPropagation(); myDrop.close()"
-            (clickItem)="onNavigate($event)"
-            [productCategories]="productCategories"
-          ></keleman-mega-menu>
-        </div>
+        <mat-menu #menu="matMenu" [class]="'mat-menu-panel'">
+          <div #dropDownMenu aria-labelledby="categoryDropDown">
+            <keleman-mega-menu
+              (mouseleave)="$event.stopPropagation(); menuTrigger.closeMenu()"
+              (clickItem)="onNavigate($event)"
+              [productCategories]="productCategories"
+            ></keleman-mega-menu>
+          </div>
+        </mat-menu>
       </li>
       <li class="nav-item">
         <a

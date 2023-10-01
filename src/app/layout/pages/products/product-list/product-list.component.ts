@@ -37,7 +37,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
   categoryDetail!: CategorySimpleInfoViewModel;
   products: ProductViewModel[] = [];
   searchText = '';
-  staticQueryParamOrder = ['p', 'q', 'param1', 'param2', 'param3'];
 
   private destroy$ = new Subject<void>();
   constructor(
@@ -81,18 +80,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   fixQueryParamsOrderInUrl() {
-    const currentParams = this._activeRoute.snapshot.queryParamMap.keys;
-    this.queryParamService.queryParamsOrder = this.staticQueryParamOrder;
-    if (!this.queryParamService.areQueryParamsInOrder(currentParams)) {
-      const correctedQueryParams =
-        this.queryParamService.constructCorrectQueryParams(
-          this._activeRoute.snapshot.queryParams
-        );
-      this._router.navigate([], {
-        relativeTo: this._activeRoute,
-        queryParams: correctedQueryParams,
-      });
-    }
+    const queryParams = this._activeRoute.snapshot.queryParams;
+    this._router.navigate([], {
+      relativeTo: this._activeRoute,
+      queryParams: this.queryParamService.sortQuryParams(queryParams),
+    });
   }
 
   trackByFn(index: number, item: ProductViewModel) {
@@ -147,7 +139,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
     const currentParams = this._activeRoute.snapshot.params;
     const catUrl1 = currentParams['catUrl1'] || '';
     const catUrl2 = currentParams['catUrl2'] || '';
-
     const newCategoryUrlSegment =
       `${catUrl1}/${catUrl2}/${this.categoryUrl}`.replace(/\/{2,}/g, '/');
 

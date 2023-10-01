@@ -48,6 +48,17 @@ import { EmptyImageDirective } from '../shared/directives/empty-image.directive'
 import { TextWithIconComponent } from '../shared/components/text-with-icon/text-with-icon.component';
 import { QueryParamActiveDirective } from './_partials/header/header-menu/query-param-active.directive';
 import { ProductCategoryComponent } from '../home/components/product-category/product-category.component';
+import {
+  FaIconLibrary,
+  FontAwesomeModule,
+} from '@fortawesome/angular-fontawesome';
+import {
+  faSquareInstagram,
+  faSquareTwitter,
+  faSquareWhatsapp,
+  faSquareYoutube,
+} from '@fortawesome/free-brands-svg-icons';
+import { SymbolDirective } from '../shared/directives/symbol.directive';
 
 @NgModule({
   declarations: [
@@ -91,6 +102,17 @@ import { ProductCategoryComponent } from '../home/components/product-category/pr
     QueryParamActiveDirective,
     NgbAccordionModule,
     ProductCategoryComponent,
+    FontAwesomeModule,
+    SymbolDirective,
   ],
 })
-export class LayoutModule {}
+export class LayoutModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faSquareInstagram,
+      faSquareYoutube,
+      faSquareTwitter,
+      faSquareWhatsapp
+    );
+  }
+}

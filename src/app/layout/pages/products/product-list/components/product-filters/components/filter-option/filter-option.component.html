@@ -1,0 +1,18 @@
+<div ngbAccordion>
+  <div ngbAccordionItem="">
+    <h2 ngbAccordionHeader>
+      <button ngbAccordionButton>{{ option.title }}</button>
+    </h2>
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <keleman-filter-items
+          [initialProperties]="option.options"
+          [optionTitle]="option.title"
+          (selectionChange)="
+            this.productFilterService.manageSelectedArray($event)
+          "
+        ></keleman-filter-items>
+      </div>
+    </div>
+  </div>
+</div>

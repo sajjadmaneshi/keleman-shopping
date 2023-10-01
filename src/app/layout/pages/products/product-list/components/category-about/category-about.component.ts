@@ -11,6 +11,9 @@ import { ProductRepository } from '../../../data/repositories/product.repository
 import { CategorySimpleInfoViewModel } from '../../../data/models/view-models/category-simple-info.view-model';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ProductCategoryRepository } from '../../../data/repositories/product-category.repository';
+import { combineLatest } from 'rxjs';
+import { CategoryPropertyOptionViewModel } from '../../../data/models/view-models/category-property-option.view-model';
 
 @Component({
   selector: 'keleman-category-about',
@@ -23,9 +26,14 @@ export class CategoryAboutComponent implements OnInit, OnChanges, OnDestroy {
   isLoading = false;
 
   categoryDetails!: CategorySimpleInfoViewModel | null;
+  propertyOptions: CategoryPropertyOptionViewModel[] = [];
+
   destroy$ = new Subject<void>();
 
-  constructor(private _productRepository: ProductRepository,public sanitizer: DomSanitizer) {}
+  constructor(
+    private _productCategoryRepository: ProductCategoryRepository,
+    public sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
     this._getCategoryDetails();
@@ -37,17 +45,19 @@ export class CategoryAboutComponent implements OnInit, OnChanges, OnDestroy {
 
   private _getCategoryDetails() {
     if (this.categoryId) {
-      this._productRepository
+      this._productCategoryRepository
         .getSingle(this.categoryId)
         .pipe(
           tap(() => (this.isLoading = false)),
           takeUntil(this.destroy$)
         )
-        .subscribe((result) => {
-          this.categoryDetails = result.result!;
+        .subscribe((categoryDetails) => {
+          this.categoryDetails = categoryDetails.result!;
         });
     }
   }
+
+  private _getCategoryPropertOptions() {}
 
   ngOnDestroy(): void {
     this.destroy$.next();

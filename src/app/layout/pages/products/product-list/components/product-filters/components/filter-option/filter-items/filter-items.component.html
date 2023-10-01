@@ -1,0 +1,12 @@
+<ul>
+  <li *ngFor="let property of initialProperties">
+    <mat-checkbox
+      class="example-margin"
+      color="primary"
+      [(ngModel)]="property.selected"
+      (change)="changeSelection(property)"
+    >
+      {{ property.title }}
+    </mat-checkbox>
+  </li>
+</ul>

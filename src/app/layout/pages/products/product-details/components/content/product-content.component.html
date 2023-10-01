@@ -63,7 +63,7 @@
             >
               <ng-container *ngFor="let productImage of gallary">
                 <ng-template swiperSlide>
-                  <div class="symbol symbol-88">
+                  <div appSymbol [type]="'square'" [sizes]="[22]">
                     <img
                       [src]="downloadUrl + productImage.image!"
                       [alt]="productImage.imageAlt"

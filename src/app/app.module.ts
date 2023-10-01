@@ -30,6 +30,10 @@ export function initializeApp(
   return () => initialAppService.init();
 }
 
+export function tokenGetter() {
+  return localStorage.getItem('KELEMAN_TOKEN');
+}
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -42,9 +46,7 @@ export function initializeApp(
     FloatingButtonMenuComponent,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        },
+        tokenGetter: tokenGetter,
       },
     }),
     LoadingComponent,

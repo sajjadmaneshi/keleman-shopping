@@ -29,18 +29,6 @@ export class ProductRepository extends DataService<
     super('product', _http);
   }
 
-  getAllProductCategoriesWithChildrens(
-    parentId?: number
-  ): Observable<HttpClientResult<ProductCategoryViewModel[]>> {
-    const route = `${this._getUrl}/categories${
-      parentId != null ? `?parentId=${parentId}` : ''
-    }`;
-
-    return this._http.get(route) as Observable<
-      HttpClientResult<ProductCategoryViewModel[]>
-    >;
-  }
-
   search(
     categoryuRL?: string,
     offset?: number,
@@ -51,7 +39,6 @@ export class ProductRepository extends DataService<
       catUrl: categoryuRL,
       offset,
       limit,
-      param1: 'salam',
     };
     return this._searchService.search(
       this._getUrl,
@@ -97,14 +84,6 @@ export class ProductRepository extends DataService<
   ): Observable<HttpClientResult<ProductPriceChartViewModel[]>> {
     return this._http.get(`${this._getUrl}/${url}/priceChart`) as Observable<
       HttpClientResult<ProductPriceChartViewModel[]>
-    >;
-  }
-
-  override getSingle(
-    id: number | string
-  ): Observable<HttpClientResult<CategorySimpleInfoViewModel>> {
-    return this._http.get(`${this._getUrl}/categoryDetail/${id}`) as Observable<
-      HttpClientResult<CategorySimpleInfoViewModel>
     >;
   }
 }

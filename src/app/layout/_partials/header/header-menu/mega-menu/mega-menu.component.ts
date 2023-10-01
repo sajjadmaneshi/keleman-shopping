@@ -1,6 +1,8 @@
 import {
   Component,
   EventEmitter,
+  HostListener,
+  Inject,
   Input,
   Output,
   Renderer2,
@@ -8,6 +10,8 @@ import {
 } from '@angular/core';
 
 import { ProductCategoryViewModel } from '../../../../../shared/data/models/view-models/product-category.view-model';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { SsrService } from '../../../../../shared/services/ssr/ssr.service';
 
 @Component({
   selector: 'keleman-mega-menu',
@@ -39,7 +43,7 @@ export class MegaMenuComponent {
     c3?: string;
   }>();
 
-  constructor(private _renderer2: Renderer2) {}
+  constructor(private _renderer2: Renderer2, private _ssrService: SsrService) {}
 
   onHover(index: number) {
     this.activeIndex = index;

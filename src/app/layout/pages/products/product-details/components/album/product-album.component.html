@@ -13,7 +13,7 @@
         class="card card-rounded-2 my-1 border border-2 border-gray-300 product-galary-item cursor-pointer"
         (click)="onImageClick(imageDetail)"
       >
-        <div class="symbol symbol-18">
+        <div appSymbol [type]="'square'" [sizes]="[4.5]">
           <img [src]="downloadUrl + imageDetail.image" />
         </div>
       </div>

@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProductCategoryService } from '../../../../home/components/product-category/product-category.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -20,6 +19,7 @@ import { Routing } from '../../../../routing';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
 import { ProductCategoryViewModel } from '../../../../shared/data/models/view-models/product-category.view-model';
 import { SsrService } from '../../../../shared/services/ssr/ssr.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'keleman-header-menu',
@@ -28,7 +28,7 @@ import { SsrService } from '../../../../shared/services/ssr/ssr.service';
 })
 export class HeaderMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('dropDownMenu') dropDownMenu!: ElementRef;
-  @ViewChild('myDrop') myDrop!: NgbDropdown;
+  @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
 
   destroy$ = new Subject<void>();
   screenWidth!: number;
@@ -37,6 +37,7 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   productCategories!: ProductCategoryViewModel[];
 
   page = 0;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private _platformId: any,
@@ -84,15 +85,14 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
 
   onHover($event: any) {
     $event.stopPropagation();
-    this.myDrop.open();
-    const megaMenu = this.document.getElementById('mega-menu');
-    const width = this.screenWidth - this.screenWidth * 0.1;
+
+    const width = this.screenWidth - this.screenWidth * 0.2;
 
     this.document.documentElement.style.setProperty(
       '--mega-menu-width',
       `${width}px`
     );
-    megaMenu?.classList.add('calculate-mega-width');
+    this.menuTrigger.openMenu();
   }
 
   private _getQueryParamsFromUrl() {
@@ -111,7 +111,7 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
 
   onNavigate($event: { c1?: string; c2?: string; c3?: string }) {
     this.categoryService.onNavigate($event);
-    this.myDrop.close();
+    this.menuTrigger.closeMenu();
   }
 
   checkResetPage(route: string) {

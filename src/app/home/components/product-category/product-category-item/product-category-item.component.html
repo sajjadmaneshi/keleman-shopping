@@ -9,7 +9,7 @@
 
 <ng-template #content>
   <div class="product-category-item d-flex flex-column align-items-center p-1">
-    <div class="symbol symbol-20 symbol-circle pb-3">
+    <div appSymbol [breakPoints]="['sm']" [sizes]="[5]" class="mb-3">
       <img
         loadingLazy
         emptyImage

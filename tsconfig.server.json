@@ -6,7 +6,8 @@
     "types": [
       "node",
       "@angular/localize"
-    ]
+    ],
+    "sourceMap": true
   },
   "files": [
     "src/main.server.ts",

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductFilterService } from '../../../product-filter.service';
+import { SelectablePropertyModel } from '../../../../../data/models/view-models/category-property-option.view-model';
 
 @Component({
   selector: 'keleman-filter-chip-list',
@@ -9,28 +10,9 @@ import { ProductFilterService } from '../../../product-filter.service';
 export class FilterChipListComponent {
   constructor(public productFilterService: ProductFilterService) {}
 
-  removeCategoryChip(value: any) {
-    const index = this.productFilterService.filterList.categories.findIndex(
-      (catergory) => catergory.id === value.id
-    );
-    if (index !== -1)
-      this.productFilterService.filterList.categories.splice(index, 1);
-  }
-
-  removeBrandChip(value: any) {
-    const index = this.productFilterService.filterList.brands.findIndex(
-      (brand) => brand.id === value.id
-    );
-    if (index !== -1)
-      this.productFilterService.filterList.brands.splice(index, 1);
-  }
-
-  removeSellerChip(value: any) {
-    const index = this.productFilterService.filterList.sellers.findIndex(
-      (seller) => seller.id === value.id
-    );
-    if (index !== -1)
-      this.productFilterService.filterList.sellers.splice(index, 1);
+  removeChip(value: SelectablePropertyModel) {
+    value.selected = false;
+    this.productFilterService.manageSelectedArray(value);
   }
 
   removeOutOfStockChip() {
@@ -39,5 +21,6 @@ export class FilterChipListComponent {
 
   removePriceRange() {
     this.productFilterService.filterList.price = undefined;
+    this.productFilterService.resetPrice();
   }
 }

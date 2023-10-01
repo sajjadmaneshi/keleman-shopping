@@ -21,3 +21,7 @@
 [aria-labelledby="categoryDropDown"] {
   padding: 0 !important;
 }
+.mat-menu-panel {
+  width: var(--mega-menu-width) !important;
+  max-width: unset !important;
+}

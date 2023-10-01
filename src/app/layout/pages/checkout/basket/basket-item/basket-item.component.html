@@ -6,7 +6,12 @@
 
     <div class="row border-end border-gray-400 w-100 p-3">
       <div class="col-3 d-flex flex-column align-items-center">
-        <div class="symbol symbol-22 symbol-lg-30 mb-3">
+        <div
+          appSymbol
+          [breakPoints]="['sm', 'lg']"
+          [sizes]="[5.5, 7.5]"
+          class="mb-3"
+        >
           <img emptyImage [src]="basketItem.product.image" loadingLazy />
         </div>
         <keleman-value-changer

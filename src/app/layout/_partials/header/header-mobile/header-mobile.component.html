@@ -35,10 +35,7 @@
 
     <ng-template #userInfo>
       <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
-        <div
-          class="symbol symbol-50px symbol-circle cursor-pointer"
-          ngbDropdownToggle
-        >
+        <div appSymbol [sizes]="[3.1]" class="cursor-pointer" ngbDropdownToggle>
           <img src="assets/media/blank.webp" />
         </div>
 
@@ -56,9 +53,9 @@
   </div>
   <keleman-search-bar class="flex-grow-1 w-100"></keleman-search-bar>
   <div class="py-3">
-    <keleman-product-category
+    <keleman-product-categories
       (onItemClick)="navigateToPage($event)"
-    ></keleman-product-category>
+    ></keleman-product-categories>
   </div>
 </div>
 
