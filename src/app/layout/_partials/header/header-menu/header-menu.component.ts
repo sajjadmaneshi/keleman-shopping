@@ -86,7 +86,7 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   onHover($event: any) {
     $event.stopPropagation();
 
-    const width = this.screenWidth - this.screenWidth * 0.2;
+    const width = this.screenWidth - this.screenWidth * 0.15;
 
     this.document.documentElement.style.setProperty(
       '--mega-menu-width',

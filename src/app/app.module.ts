@@ -20,7 +20,6 @@ import { FloatingButtonMenuComponent } from './shared/components/floating-button
 import { SwiperModule } from 'swiper/angular';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InitialAppService } from './shared/services/initial-app.service';
-import { LoadingComponent } from './shared/components/loading/loading.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -49,7 +48,6 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
       },
     }),
-    LoadingComponent,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',

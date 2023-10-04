@@ -1,9 +1,9 @@
 <ng-container class="product-list d-flex flex-column">
   <div class="top-categories card card-rounded-3 mb-3 d-none d-lg-block">
     <div class="card-body p-0">
-      <ng-template [ngIf]="categoryId">
+      <ng-template [ngIf]="categoryId!">
         <keleman-product-categories
-          [parentId]="categoryId"
+          [parentId]="categoryId!"
           (onItemClick)="updateCurrentRoute($event)"
         ></keleman-product-categories>
       </ng-template>

@@ -36,6 +36,7 @@ export class ProductFilterService implements OnDestroy {
   }
 
   public getCategoryFilterPropertyOptions(categoryId: number) {
+    this.isLoading.next(true);
     this._productCategoryRepository
       .getCategoryOptions(categoryId)
       .pipe(
@@ -64,27 +65,7 @@ export class ProductFilterService implements OnDestroy {
   }
 
   private updateQueryParam(selectedItem: SelectablePropertyModel): void {
-    if (!this.queryParams[selectedItem.option])
-      this.queryParams[selectedItem.option] = [];
-    this.queryParams[selectedItem.option].push(selectedItem.title);
-    this.navigateWithNewParams();
-  }
-
-  private removeQueryParam(selectedItem: SelectablePropertyModel): void {
-    // Check if the key exists and is an array
-    if (this.queryParams[selectedItem.option] instanceof Array) {
-      // Remove the selected item's title from the array
-      this.queryParams[selectedItem.option] = this.queryParams[
-        selectedItem.option
-      ].filter((value: string) => value !== selectedItem.title);
-
-      // Remove the key if the array becomes empty
-      if (this.queryParams[selectedItem.option].length === 0) {
-        delete this.queryParams[selectedItem.option];
-      }
-    } else {
-      delete this.queryParams[selectedItem.option];
-    }
+    this.queryParams[selectedItem.option] = selectedItem.title;
     this.navigateWithNewParams();
   }
 
@@ -92,7 +73,6 @@ export class ProductFilterService implements OnDestroy {
     this._router.navigate([], {
       relativeTo: this._activatedRoute,
       queryParams: this._queryParamsService.sortQuryParams(this.queryParams),
-      onSameUrlNavigation: 'reload',
     });
   }
 
@@ -103,22 +83,16 @@ export class ProductFilterService implements OnDestroy {
   ) {
     for (const key in queryParams) {
       if (key === 'p') continue;
-      const value = queryParams[key];
-      const paramValues = Array.isArray(value) ? value : [value];
-      paramValues.forEach((paramVal: any) => {
-        const index = this._indexOfProperty(paramVal, properties);
+      if (optionTitle === key) {
+        const value = queryParams[key];
+        const index = this._indexOfProperty(value, properties);
         if (index != -1) {
           const filterItem = properties[index];
           filterItem.selected = true;
-          if (!this._isInFilterList(filterItem.title))
-            this.filterList.filters.push(filterItem);
+          this.filterList.filters.push(filterItem);
         }
-      });
+      }
     }
-  }
-
-  private _isInFilterList(title: string) {
-    return this.filterList.filters.findIndex((x) => x.title === title) != -1;
   }
 
   private _indexOfProperty(
@@ -129,19 +103,13 @@ export class ProductFilterService implements OnDestroy {
   }
 
   manageSelectedArray(selectedItem: SelectablePropertyModel): void {
-    const index = this.filterList.filters.findIndex(
-      (selected) => selected.title === selectedItem.title
+    this.filterList.filters = this.filterList.filters.filter(
+      (x) => x.option != selectedItem.option
     );
+
     if (selectedItem.selected) {
-      if (index === -1) {
-        this.filterList.filters.push(selectedItem);
-      }
+      this.filterList.filters.push(selectedItem);
       this.updateQueryParam(selectedItem);
-    } else {
-      if (index !== -1) {
-        this.filterList.filters.splice(index, 1);
-      }
-      this.removeQueryParam(selectedItem);
     }
   }
   get canRemoveAll() {
@@ -160,9 +128,10 @@ export class ProductFilterService implements OnDestroy {
   removeAll() {
     this.filterList.filters.forEach((item: SelectablePropertyModel) => {
       item.selected = false;
-      this.removeQueryParam(item);
     });
     this.filterList = new SelectedFilterModel();
+    this.queryParams = { p: '0' };
+    this.navigateWithNewParams();
     this.resetPrice();
   }
 

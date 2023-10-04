@@ -26,13 +26,6 @@ export class AppComponent implements OnDestroy {
   ) {
     _title.setTitle(this.title);
     this._applicationState.init();
-    this._loadingSubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.loadingService.show();
-      } else if (event instanceof NavigationEnd) {
-        this.loadingService.hide();
-      }
-    });
   }
   ngOnDestroy() {
     this._loadingSubscription.unsubscribe();

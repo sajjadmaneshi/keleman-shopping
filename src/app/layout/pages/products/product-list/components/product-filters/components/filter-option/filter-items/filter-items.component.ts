@@ -44,6 +44,7 @@ export class FilterItemsComponent implements OnInit, OnDestroy {
   }
 
   changeSelection(property: SelectablePropertyModel) {
+    property.selected = true;
     this.selectionChange.emit(property);
   }
 

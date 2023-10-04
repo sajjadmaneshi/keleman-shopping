@@ -5,6 +5,7 @@ import {
   Input,
   OnChanges,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { ProductFilterService } from '../product-filter.service';
 import { PriceRange } from './components/product-price-filter/product-price-filter.component';
@@ -21,17 +22,15 @@ import { ActivatedRoute, Params } from '@angular/router';
   selector: 'keleman-product-filters',
   templateUrl: './product-filters.component.html',
   styleUrls: ['./product-filters.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductFiltersComponent implements OnChanges {
   @Input() categoryId!: number;
   isLoading = new BehaviorSubject(true);
 
   destroy$ = new Subject<void>();
-  constructor(
-    public productFilterService: ProductFilterService,
-    private _cdr: ChangeDetectorRef
-  ) {}
+  private previousValue: any;
+  inputHasChanged: boolean = false;
+  constructor(public productFilterService: ProductFilterService) {}
 
   changeOutOfStock(checked: boolean) {
     this.productFilterService.filterList.outOfStock = checked;
@@ -44,11 +43,16 @@ export class ProductFiltersComponent implements OnChanges {
     return item.title;
   }
 
-  ngOnChanges(): void {
-    if (this.categoryId) {
-      this.productFilterService.getCategoryFilterPropertyOptions(
-        this.categoryId
-      );
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['categoryId']) {
+      const currentValue = changes['categoryId'].currentValue;
+      if (currentValue !== this.previousValue) {
+        this.inputHasChanged = true;
+        this.productFilterService.getCategoryFilterPropertyOptions(
+          this.categoryId
+        );
+      }
+      this.previousValue = currentValue;
     }
   }
 }

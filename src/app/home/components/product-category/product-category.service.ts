@@ -21,7 +21,7 @@ export class ProductCategoryService {
   ): Observable<ProductCategoryViewModel[]> {
     this.isLoading.next(true);
     return this._productCategoryRepository.getAllWithChildrens(parentId).pipe(
-      tap(() => this.isLoading.next(false)),
+      tap(() => setTimeout(() => this.isLoading.next(false), 1500)),
       map((result) => {
         return result.result!;
       })

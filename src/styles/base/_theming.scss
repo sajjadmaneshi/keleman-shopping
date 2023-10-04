@@ -1,7 +1,5 @@
 @use "@angular/material" as mat;
 
-@include mat.core();
-
 $keleman-shopping-primary: mat.define-palette(mat.$indigo-palette);
 $keleman-shopping-accent: mat.define-palette(
   mat.$pink-palette,
@@ -21,7 +19,8 @@ $keleman-shopping-theme: mat.define-light-theme(
     ),
   )
 );
-
+@include mat.core();
 @include mat.menu-theme($keleman-shopping-theme);
 @include mat.bottom-sheet-theme($keleman-shopping-theme);
 @include mat.slider-theme($keleman-shopping-theme);
+@include mat.radio-theme($keleman-shopping-theme);

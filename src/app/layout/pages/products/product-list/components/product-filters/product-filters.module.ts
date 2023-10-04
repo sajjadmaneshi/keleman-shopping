@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ActivatedRoute } from '@angular/router';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ActivatedRoute } from '@angular/router';
     BottomSheetComponent,
     NgbAccordionModule,
     NgxSkeletonLoaderModule,
+    MatRadioModule,
   ],
   providers: [ProductFilterService],
 })

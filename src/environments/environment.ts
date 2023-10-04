@@ -5,5 +5,5 @@
 export const ENVIRONMENT = {
   production: false,
   baseUrl: 'https://api-stg.keleman.org/api/v1/',
-  downloadUrl: 'https://cdn-stg.keleman.org/',
+  downloadUrl: 'https://cdn-stg.keleman.org',
 };

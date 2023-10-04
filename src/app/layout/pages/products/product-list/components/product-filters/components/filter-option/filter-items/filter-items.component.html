@@ -1,12 +1,14 @@
-<ul>
-  <li *ngFor="let property of initialProperties">
-    <mat-checkbox
-      class="example-margin"
-      color="primary"
-      [(ngModel)]="property.selected"
-      (change)="changeSelection(property)"
-    >
-      {{ property.title }}
-    </mat-checkbox>
-  </li>
-</ul>
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="d-flex flex-column align-items-start"
+  [color]="'primary'"
+>
+  <mat-radio-button
+    *ngFor="let property of initialProperties"
+    [checked]="property.selected"
+    [value]="property.selected"
+    (change)="changeSelection(property)"
+  >
+    {{ property.title }}
+  </mat-radio-button>
+</mat-radio-group>

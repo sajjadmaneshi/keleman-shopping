@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductFilterService } from '../../../product-filter.service';
 import { SelectableOption } from '../../../../../data/models/view-models/category-property-option.view-model';
 

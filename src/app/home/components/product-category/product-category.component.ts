@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DoCheck,
   EventEmitter,
   Input,
   OnChanges,
@@ -23,7 +24,7 @@ import { ProductCategoryViewModel } from '../../../shared/data/models/view-model
   selector: 'keleman-product-categories',
   templateUrl: './product-category.component.html',
   styleUrls: ['./product-category.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
   imports: [
     CommonModule,
     ProductCategoryItemComponent,
@@ -34,22 +35,26 @@ import { ProductCategoryViewModel } from '../../../shared/data/models/view-model
   standalone: true,
 })
 export class ProductCategoryComponent implements OnChanges {
-  @Input() parentId: number | null = null;
+  @Input() parentId!: number | null;
 
   @Output() onItemClick = new EventEmitter<ProductCategoryViewModel>();
 
   categories: ProductCategoryViewModel[] = [];
 
-  constructor(
-    public productCategoryService: ProductCategoryService,
-    private _cdr: ChangeDetectorRef
-  ) {
-    this._getCategories();
-  }
+  constructor(public productCategoryService: ProductCategoryService) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['parentId'].previousValue != changes['parentId'].currentValue)
-      this._getCategories();
+  private previousValue: any;
+  inputHasChanged: boolean = false;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['parentId']) {
+      const currentValue = changes['parentId'].currentValue;
+      if (currentValue !== this.previousValue) {
+        this.inputHasChanged = true;
+        this._getCategories();
+      }
+      this.previousValue = currentValue;
+    }
   }
 
   tranckByFn(index: number, item: ProductCategoryViewModel) {
@@ -64,8 +69,7 @@ export class ProductCategoryComponent implements OnChanges {
     this.productCategoryService
       .getCategories(this.parentId!)
       .subscribe((result) => {
-        this.categories = [...result];
-        this._cdr.markForCheck();
+        this.categories = result;
       });
   }
 }
