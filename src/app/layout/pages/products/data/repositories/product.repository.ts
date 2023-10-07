@@ -29,22 +29,12 @@ export class ProductRepository extends DataService<
     super('product', _http);
   }
 
-  search(
-    categoryuRL?: string,
-    offset?: number,
-    limit?: number,
-    search?: string
-  ): Observable<HttpClientResult<ProductSearchResult>> {
-    const params = {
-      catUrl: categoryuRL,
-      offset,
-      limit,
-    };
-    return this._searchService.search(
-      this._getUrl,
-      params,
-      search
-    ) as Observable<HttpClientResult<ProductSearchResult>>;
+  search(params: {
+    [key: string]: any;
+  }): Observable<HttpClientResult<ProductSearchResult>> {
+    return this._searchService.search(this._getUrl, params) as Observable<
+      HttpClientResult<ProductSearchResult>
+    >;
   }
 
   getProductDetails(

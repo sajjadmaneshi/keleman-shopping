@@ -20,22 +20,12 @@ export class ArticleRepository extends DataService<any> {
     super('article', _http);
   }
 
-  search(
-    categoryuRL?: string,
-    offset?: number,
-    limit?: number,
-    search?: string
-  ): Observable<HttpClientResult<ArticleSearchResult>> {
-    const params = {
-      catUrl: categoryuRL,
-      offset,
-      limit,
-    };
-    return this._searchService.search(
-      this._getUrl,
-      params,
-      search
-    ) as Observable<HttpClientResult<ArticleSearchResult>>;
+  search(params: {
+    [key: string]: any;
+  }): Observable<HttpClientResult<ArticleSearchResult>> {
+    return this._searchService.search(this._getUrl, params) as Observable<
+      HttpClientResult<ArticleSearchResult>
+    >;
   }
 
   getLatestArticles(

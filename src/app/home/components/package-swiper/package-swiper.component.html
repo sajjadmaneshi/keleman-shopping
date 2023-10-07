@@ -33,9 +33,7 @@
               loadingLazy
               emptyImage
               [alt]="slide.name"
-              [src]="
-                slide.thumbnailImage ? downloadUrl + slide.thumbnailImage : ''
-              "
+              [src]="slide.thumbnailImage"
             />
             <div class="package-info">
               <h6>{{ slide.name }}</h6>

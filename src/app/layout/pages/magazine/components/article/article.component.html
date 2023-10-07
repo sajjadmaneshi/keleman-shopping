@@ -30,11 +30,7 @@
       loadingLazy
       emptyImage
       [alt]="articleDetails.title"
-      [src]="
-        articleDetails.imageAddress
-          ? downloadUrl + articleDetails.imageAddress
-          : ''
-      "
+      [src]="articleDetails.imageAddress"
     />
   </div>
 

@@ -8,7 +8,10 @@ import {
   Output,
 } from '@angular/core';
 import { ProductFilterService } from '../../../../product-filter.service';
-import { SelectablePropertyModel } from '../../../../../../data/models/view-models/category-property-option.view-model';
+import {
+  OptionViewModel,
+  SelectablePropertyModel,
+} from '../../../../../../data/models/view-models/category-property-option.view-model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SelectedFilterModel } from '../../../data/selected-filter.model';
 import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
@@ -18,8 +21,7 @@ import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
   templateUrl: './filter-items.component.html',
   styleUrls: ['../../filter-items.scss'],
 })
-export class FilterItemsComponent implements OnInit, OnDestroy {
-  @Input() optionTitle!: string;
+export class FilterItemsComponent implements OnDestroy {
   @Input() initialProperties: SelectablePropertyModel[] = [];
 
   @Output() selectionChange = new EventEmitter<any>();
@@ -30,18 +32,6 @@ export class FilterItemsComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     public productFilterService: ProductFilterService
   ) {}
-
-  ngOnInit(): void {
-    if (this.initialProperties) {
-      this._activatedRoute.queryParams.pipe(take(1)).subscribe((params) => {
-        this.productFilterService.determineSelectedArray(
-          params,
-          this.initialProperties,
-          this.optionTitle
-        );
-      });
-    }
-  }
 
   changeSelection(property: SelectablePropertyModel) {
     property.selected = true;

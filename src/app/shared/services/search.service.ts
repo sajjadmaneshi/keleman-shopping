@@ -26,16 +26,10 @@ export class SeaechService<T> {
 
   search(
     url: string,
-    params: {
-      catUrl?: string;
-      offset?: number;
-      limit?: number;
-    },
-    search?: string
+    params?: { [key: string]: any }
   ): Observable<HttpClientResult<ProductSearchResult | ArticleSearchResult>> {
     const queryParams = this._queryParamService
-      .generateObjectToQueryParam(params)
-      .generateSearchQueryParam(search)
+      .generateObjectToQueryParam(params!)
       .getQueryParams();
     this._queryParamService.resetQueryParams();
     return this._http.get(

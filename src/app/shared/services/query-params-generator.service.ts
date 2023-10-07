@@ -49,7 +49,7 @@ export class QueryParamGeneratorService {
   }
 
   generateObjectToQueryParam(obj: {
-    [key: string]: any;
+    [key: string]: string;
   }): QueryParamGeneratorService {
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {

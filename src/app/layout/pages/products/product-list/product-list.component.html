@@ -15,7 +15,7 @@
         [initialSearchText]="searchText"
       ></keleman-product-search>
       <keleman-product-filters
-        [categoryId]="categoryId"
+        [categoryId]="categoryId!"
       ></keleman-product-filters>
     </div>
     <div class="col-12 col-lg-9">
@@ -23,7 +23,7 @@
         <keleman-products-sort></keleman-products-sort>
         <div class="row mx-0 g-3">
           <ng-container
-            *ngIf="isLoading; then loading; else productList"
+            *ngIf="fetchDataService.isLoading; then loading; else productList"
           ></ng-container>
           <ng-template #loading>
             <div
@@ -60,7 +60,7 @@
           </ng-template>
         </div>
         <keleman-pagination
-          *ngIf="products.length > 0"
+          *ngIf="products.length! > 0"
           [totalElements]="totalElements"
           (pageChange)="pageChange($event)"
           [limit]="10"

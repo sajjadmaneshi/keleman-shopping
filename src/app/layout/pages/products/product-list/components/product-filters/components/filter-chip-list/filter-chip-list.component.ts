@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ProductFilterService } from '../../../product-filter.service';
 import { SelectablePropertyModel } from '../../../../../data/models/view-models/category-property-option.view-model';
 
@@ -7,7 +7,7 @@ import { SelectablePropertyModel } from '../../../../../data/models/view-models/
   templateUrl: './filter-chip-list.component.html',
   styleUrls: ['./filter-chip-list.component.scss'],
 })
-export class FilterChipListComponent {
+export class FilterChipListComponent implements OnDestroy {
   constructor(public productFilterService: ProductFilterService) {}
 
   removeChip(value: SelectablePropertyModel) {
@@ -22,5 +22,9 @@ export class FilterChipListComponent {
   removePriceRange() {
     this.productFilterService.filterList.price = undefined;
     this.productFilterService.resetPrice();
+  }
+
+  ngOnDestroy(): void {
+    console.log('destroy');
   }
 }

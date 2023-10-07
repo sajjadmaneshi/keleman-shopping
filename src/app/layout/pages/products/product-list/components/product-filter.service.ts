@@ -3,6 +3,7 @@ import { SelectedFilterModel } from './product-filters/data/selected-filter.mode
 import { ProductCategoryRepository } from '../../data/repositories/product-category.repository';
 import {
   CategoryPropertyOptionViewModel,
+  OptionViewModel,
   SelectableOption,
   SelectablePropertyModel,
 } from '../../data/models/view-models/category-property-option.view-model';
@@ -14,13 +15,9 @@ import { QueryParamGeneratorService } from '../../../../../shared/services/query
 export class ProductFilterService implements OnDestroy {
   isLoading = new BehaviorSubject(true);
   filterList = new SelectedFilterModel();
-
   priceSliderReset = false;
-
   destroy$ = new Subject<void>();
-
   propertyOptions: SelectableOption[] = [];
-
   queryParams!: Params;
 
   constructor(
@@ -36,6 +33,7 @@ export class ProductFilterService implements OnDestroy {
   }
 
   public getCategoryFilterPropertyOptions(categoryId: number) {
+    this.filterList = new SelectedFilterModel();
     this.isLoading.next(true);
     this._productCategoryRepository
       .getCategoryOptions(categoryId)
@@ -52,20 +50,29 @@ export class ProductFilterService implements OnDestroy {
   private _manipulatePropertyOptions(
     properties: CategoryPropertyOptionViewModel[]
   ) {
-    return properties.map(
-      (property: CategoryPropertyOptionViewModel) =>
-        new SelectableOption(
-          property.title,
-          property.options.map(
-            (option) =>
-              new SelectablePropertyModel(property.title, option.title)
-          )
+    return properties.map((property: CategoryPropertyOptionViewModel) => {
+      const { title, seoTitle, options } = property;
+      return new SelectableOption(
+        title,
+        seoTitle,
+        options.map(
+          (option) =>
+            new SelectablePropertyModel({ title, seoTitle }, option.title)
         )
-    );
+      );
+    });
   }
 
-  private updateQueryParam(selectedItem: SelectablePropertyModel): void {
-    this.queryParams[selectedItem.option] = selectedItem.title;
+  private _updateQueryParam(selectedItem: SelectablePropertyModel): void {
+    this.queryParams[
+      selectedItem.option.seoTitle ?? selectedItem.option.title
+    ] = selectedItem.title;
+    this.navigateWithNewParams();
+  }
+  private _removeQueryParam(selectedItem: SelectablePropertyModel) {
+    delete this.queryParams[
+      selectedItem.option.seoTitle ?? selectedItem.option.title
+    ];
     this.navigateWithNewParams();
   }
 
@@ -76,22 +83,14 @@ export class ProductFilterService implements OnDestroy {
     });
   }
 
-  determineSelectedArray(
-    queryParams: Params,
-    properties: SelectablePropertyModel[],
-    optionTitle: string
-  ) {
-    for (const key in queryParams) {
-      if (key === 'p') continue;
-      if (optionTitle === key) {
-        const value = queryParams[key];
-        const index = this._indexOfProperty(value, properties);
-        if (index != -1) {
-          const filterItem = properties[index];
-          filterItem.selected = true;
-          this.filterList.filters.push(filterItem);
-        }
-      }
+  determineSelectedArray(propertyOption: SelectableOption) {
+    const value =
+      this.queryParams[propertyOption.seoTitle ?? propertyOption.title];
+    const index = this._indexOfProperty(value, propertyOption.options);
+    if (index != -1) {
+      const filterItem = propertyOption.options[index];
+      filterItem.selected = true;
+      this.filterList.filters.push(filterItem);
     }
   }
 
@@ -109,7 +108,9 @@ export class ProductFilterService implements OnDestroy {
 
     if (selectedItem.selected) {
       this.filterList.filters.push(selectedItem);
-      this.updateQueryParam(selectedItem);
+      this._updateQueryParam(selectedItem);
+    } else {
+      this._removeQueryParam(selectedItem);
     }
   }
   get canRemoveAll() {

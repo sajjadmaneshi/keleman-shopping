@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, InjectionToken, OnDestroy, OnInit } from '@angular/core';
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
 import { combineLatest, Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -9,6 +9,11 @@ import { ProductCategoryViewModel } from 'src/app/shared/data/models/view-models
 import { Routing } from '../../../../routing';
 import { CategorySimpleInfoViewModel } from '../data/models/view-models/category-simple-info.view-model';
 import { QueryParamGeneratorService } from '../../../../shared/services/query-params-generator.service';
+import {
+  BaseDataFetcherService,
+  REPOSITORY_TOKEN,
+} from '../../../../shared/services/base-data-fetcher.service';
+import { ProductSearchResult } from '../../../../shared/services/search.service';
 
 @Component({
   selector: 'keleman-product-list',
@@ -27,56 +32,79 @@ import { QueryParamGeneratorService } from '../../../../shared/services/query-pa
       }
     `,
   ],
+  providers: [
+    {
+      provide: REPOSITORY_TOKEN,
+      useClass: ProductRepository,
+    },
+    BaseDataFetcherService,
+  ],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  isLoading = false;
-  totalElements = 0;
   page = 1;
-  categoryId!: number;
   categoryUrl!: string;
   categoryDetail!: CategorySimpleInfoViewModel;
-  products: ProductViewModel[] = [];
   searchText = '';
-
+  totalElements = 0;
+  categoryId!: number;
+  products: ProductViewModel[] = [];
   private destroy$ = new Subject<void>();
   constructor(
     private _activeRoute: ActivatedRoute,
     private _router: Router,
-    private _productsRepository: ProductRepository,
     private queryParamService: QueryParamGeneratorService,
-    public sharedVaribaleService: SharedVariablesService
+    public sharedVaribaleService: SharedVariablesService,
+    public fetchDataService: BaseDataFetcherService<ProductSearchResult>
   ) {}
+
+  ngOnInit(): void {
+    this.products = [];
+    this.fixQueryParamsOrderInUrl();
+    this._getParamsFromUrl();
+  }
 
   private _getParamsFromUrl() {
     combineLatest([this._activeRoute.params, this._activeRoute.queryParams])
       .pipe(takeUntil(this.destroy$))
       .subscribe(([params, queryParams]) => {
         this.products = [];
-        this.extractCategoryUrlFromParams(params);
+        this._extractCategoryUrlFromParams(params);
         this.extractPageAndSearchTextFromQueryParams(queryParams);
       });
   }
 
-  private extractCategoryUrlFromParams(params: Params) {
-    const urlParams = ['catUrl1', 'catUrl2', 'catUrl3'];
-    for (const key of urlParams) {
-      if (params[key]) this.categoryUrl = params[key];
-    }
+  private _extractCategoryUrlFromParams(params: Params) {
+    const keys = Object.keys(params);
+    this.categoryUrl = params[keys[keys.length - 1]].toString();
   }
 
-  private extractPageAndSearchTextFromQueryParams(queryParams: Params) {
-    const page = Number(queryParams['p']);
-    this.searchText = queryParams['q'];
-    if (!isNaN(page)) {
-      this.page = page + 1;
-      this.getAllProducts(this.searchText, page);
-    }
+  private _parseQueryParams(urlQueryParams: Params) {
+    const page = Number(urlQueryParams['p']) ?? 0;
+    const { p, ...restUrlQueryParams } = urlQueryParams;
+    const searchText = urlQueryParams['q'];
+    return { page, searchText, restUrlQueryParams };
   }
 
-  ngOnInit(): void {
-    this.products = [];
-    this.fixQueryParamsOrderInUrl();
-    this._getParamsFromUrl();
+  private extractPageAndSearchTextFromQueryParams(urlQueryParams: Params) {
+    const { page, searchText, restUrlQueryParams } =
+      this._parseQueryParams(urlQueryParams);
+    const queryParams = {
+      catUrl: this.categoryUrl,
+      offset: page,
+      limit: 10,
+      q: searchText,
+      ...restUrlQueryParams,
+    };
+    this._getAllProducts(queryParams);
+  }
+
+  private _updateQueryParams() {
+    const queryParams = { p: this.page - 1 };
+    this._router.navigate([], {
+      relativeTo: this._activeRoute,
+      queryParams,
+      queryParamsHandling: 'merge',
+    });
   }
 
   fixQueryParamsOrderInUrl() {
@@ -91,41 +119,19 @@ export class ProductListComponent implements OnInit, OnDestroy {
     return item.id;
   }
 
-  getAllProducts(search: string, page: number) {
-    this.isLoading = true;
-    this._productsRepository
-      .search(this.categoryUrl, page, 10, search)
-      .pipe(
-        tap(() => (this.isLoading = false)),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(
-        (
-          result: HttpClientResult<{
-            products: ProductViewModel[];
-            totalElements: number;
-            category: { id: number; title: string };
-          }>
-        ) => {
-          this.products = [...result.result?.products!];
-          this.totalElements = result.result?.totalElements!;
-          this.categoryId = result.result?.category?.id!;
-        }
-      );
-  }
-
   pageChange($event: number) {
     this.page = $event;
     this._updateQueryParams();
   }
 
-  private _updateQueryParams() {
-    const queryParams = { p: this.page - 1 };
-    this._router.navigate([], {
-      relativeTo: this._activeRoute,
-      queryParams,
-      queryParamsHandling: 'merge',
-    });
+  private _getAllProducts(params: { [key: string]: any }) {
+    this.fetchDataService
+      .fetchData(params)
+      .subscribe((result: ProductSearchResult | undefined) => {
+        this.products = [...result?.products!];
+        this.totalElements = result?.totalElements!;
+        this.categoryId = result?.category?.id!;
+      });
   }
 
   public updateCurrentRoute(selectedCategory: ProductCategoryViewModel) {
@@ -141,7 +147,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
     const catUrl2 = currentParams['catUrl2'] || '';
     const newCategoryUrlSegment =
       `${catUrl1}/${catUrl2}/${this.categoryUrl}`.replace(/\/{2,}/g, '/');
-
     return newCategoryUrlSegment;
   }
 

@@ -37,11 +37,13 @@
         <ul class="filter-list">
           <li
             *ngFor="
-              let option of productFilterService.propertyOptions;
+              let propertyOption of productFilterService.propertyOptions;
               trackBy: tranckByFn
             "
           >
-            <keleman-filter-option [option]="option"></keleman-filter-option>
+            <keleman-filter-option
+              [propertyOption]="propertyOption"
+            ></keleman-filter-option>
           </li>
           <li>
             <span
