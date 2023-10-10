@@ -6,6 +6,19 @@
     [formControl]="searchText"
     (keydown.enter)="navigateToProduct()"
   >
-    <mat-icon class="material-icons append text-gray-300"> search </mat-icon>
+    <mat-icon
+      class="material-icons append text-gray-300"
+      *ngIf="!searchText.value"
+    >
+      search
+    </mat-icon>
+
+    <mat-icon
+      class="material-icons append text-gray-300 cursor-pointer"
+      *ngIf="searchText.value"
+      (click)="searchText.reset(); navigateToProduct()"
+    >
+      close
+    </mat-icon>
   </keleman-input-group>
 </div>

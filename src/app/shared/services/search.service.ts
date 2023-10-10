@@ -9,6 +9,7 @@ import { QueryParamGeneratorService } from './query-params-generator.service';
 export interface ProductSearchResult {
   products: ProductViewModel[];
   totalElements: number;
+  maxPrice: number;
   category: { id: number; title: string };
 }
 

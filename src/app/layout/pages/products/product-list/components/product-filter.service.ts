@@ -10,6 +10,8 @@ import {
 import { BehaviorSubject, map, Subject, take, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { QueryParamGeneratorService } from '../../../../../shared/services/query-params-generator.service';
+import { RouteHandlerService } from '../../../../../shared/services/route-handler/route-handler.service';
+import { PriceRange } from './product-filters/components/product-price-filter/product-price-filter.component';
 
 @Injectable()
 export class ProductFilterService implements OnDestroy {
@@ -23,13 +25,10 @@ export class ProductFilterService implements OnDestroy {
   constructor(
     private _cr: ApplicationRef,
     private _productCategoryRepository: ProductCategoryRepository,
-    private _activatedRoute: ActivatedRoute,
-    private _router: Router,
+    private _routeHandlerService: RouteHandlerService,
     private _queryParamsService: QueryParamGeneratorService
   ) {
-    this._activatedRoute.queryParams.subscribe((res) => {
-      this.queryParams = { ...res };
-    });
+    this.queryParams = { ...this._routeHandlerService.getQueryParamsSnapShot };
   }
 
   public getCategoryFilterPropertyOptions(categoryId: number) {
@@ -73,14 +72,14 @@ export class ProductFilterService implements OnDestroy {
     delete this.queryParams[
       selectedItem.option.seoTitle ?? selectedItem.option.title
     ];
+
     this.navigateWithNewParams();
   }
 
   public navigateWithNewParams() {
-    this._router.navigate([], {
-      relativeTo: this._activatedRoute,
-      queryParams: this._queryParamsService.sortQuryParams(this.queryParams),
-    });
+    this._routeHandlerService.updateQueryParams(
+      this._queryParamsService.sortQuryParams(this.queryParams)
+    );
   }
 
   determineSelectedArray(propertyOption: SelectableOption) {
@@ -103,7 +102,11 @@ export class ProductFilterService implements OnDestroy {
 
   manageSelectedArray(selectedItem: SelectablePropertyModel): void {
     this.filterList.filters = this.filterList.filters.filter(
-      (x) => x.option != selectedItem.option
+      (x) =>
+        (x.option.seoTitle ? x.option.seoTitle : x.option.title) !=
+        (selectedItem.option.seoTitle
+          ? selectedItem.option.seoTitle
+          : selectedItem.option.title)
     );
 
     if (selectedItem.selected) {
@@ -112,6 +115,26 @@ export class ProductFilterService implements OnDestroy {
     } else {
       this._removeQueryParam(selectedItem);
     }
+  }
+
+  addPriceFilter(priceRange: PriceRange) {
+    this.filterList.price = priceRange;
+    const newQueryParams = {
+      ...this.queryParams,
+      priceFrom: priceRange.min,
+      priceTo: priceRange.max,
+    };
+    this.queryParams = this._queryParamsService.sortQuryParams(newQueryParams);
+    this.navigateWithNewParams();
+  }
+  removePriceFilter() {
+    console.log(this.queryParams);
+    this.filterList.price = undefined;
+    this.resetPrice();
+    delete this.queryParams['priceFrom'];
+    delete this.queryParams['priceTo'];
+
+    this.navigateWithNewParams();
   }
   get canRemoveAll() {
     return (
@@ -123,7 +146,6 @@ export class ProductFilterService implements OnDestroy {
 
   resetPrice() {
     this.priceSliderReset = true;
-    this._cr.tick();
   }
 
   removeAll() {

@@ -75,6 +75,7 @@ export class QueryParamGeneratorService {
     sortedKeys.forEach((key) => {
       sortedQueryParams[key] = queryParams[key];
     });
+
     return sortedQueryParams;
   }
 

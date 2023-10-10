@@ -64,7 +64,8 @@ import { ProductService } from './product.service';
 import { SwiperModule } from 'swiper/angular';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import {SymbolDirective} from "../../../shared/directives/symbol.directive";
+import { SymbolDirective } from '../../../shared/directives/symbol.directive';
+import { RouteHandlerService } from '../../../shared/services/route-handler/route-handler.service';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,7 @@ import {SymbolDirective} from "../../../shared/directives/symbol.directive";
     MatDialogModule,
     SymbolDirective,
   ],
-
+  providers: [RouteHandlerService],
   exports: [ProductItemComponent],
 })
 export class ProductsModule {}

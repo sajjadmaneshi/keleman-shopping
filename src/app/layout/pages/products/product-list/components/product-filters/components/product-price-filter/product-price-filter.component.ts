@@ -9,6 +9,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { ProductFilterService } from '../../../product-filter.service';
 
 @Component({
   selector: 'keleman-product-price-filter',
@@ -34,18 +35,34 @@ export class ProductPriceFilterComponent implements OnInit, OnChanges {
   minValue: number = 0;
   maxValue: number = 100000000;
 
+  constructor(public productFilterService: ProductFilterService) {}
+
   ngOnInit(): void {
-    this.minValue = this.min;
-    this.maxValue = this.max;
+    const queryParams = this.productFilterService.queryParams;
+    const priceFrom = queryParams['priceFrom'];
+    const priceTo = queryParams['priceTo'];
+
+    if (priceFrom && priceTo) {
+      this.minValue = priceFrom;
+      this.maxValue = priceTo;
+      this.productFilterService.addPriceFilter({
+        min: priceFrom,
+        max: priceTo,
+      });
+    } else {
+      this.minValue = this.min;
+      this.maxValue = this.max;
+    }
     this.formatInputValues();
   }
   formatLabel(value: number): string {
-    if (value >= 1000 && value < 1000000)
-      return Math.round(value / 1000) + 'هزار';
-
-    if (value >= 1000000) return Math.round(value / 1000000) + 'میلیون';
-
-    return `${value}`;
+    if (value >= 1000000) {
+      return Math.round(value / 1000000) + ' میلیون';
+    } else if (value >= 1000) {
+      return Math.round(value / 1000) + ' هزار';
+    } else {
+      return `${value}`;
+    }
   }
 
   changePrice() {
@@ -60,8 +77,7 @@ export class ProductPriceFilterComponent implements OnInit, OnChanges {
     if (this.reset) {
       this.min = 0;
       this.minValue = 0;
-      this.max = 100000000;
-      this.maxValue = 100000000;
+      this.maxValue = this.max;
       this.afterReset.emit();
     }
   }

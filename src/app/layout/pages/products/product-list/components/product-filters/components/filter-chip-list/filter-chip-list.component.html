@@ -23,10 +23,12 @@
   <ng-template [ngIf]="productFilterService.filterList.price">
     <mat-chip>
       <span class="d-flex align-items-center">
-        <mat-icon (click)="removePriceRange()">cancel</mat-icon>
+        <mat-icon (click)="productFilterService.removePriceFilter()"
+          >cancel</mat-icon
+        >
         از
-        {{ productFilterService.filterList.price.min }} تا
-        {{ productFilterService.filterList.price.max }} تومان
+        {{ productFilterService.filterList.price.min | number : ".0" }} تا
+        {{ productFilterService.filterList.price.max | number : ".0" }} تومان
       </span>
     </mat-chip>
   </ng-template>

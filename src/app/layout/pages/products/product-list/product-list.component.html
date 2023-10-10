@@ -16,11 +16,15 @@
       ></keleman-product-search>
       <keleman-product-filters
         [categoryId]="categoryId!"
+        [maxPrice]="maxPrice"
       ></keleman-product-filters>
     </div>
     <div class="col-12 col-lg-9">
       <div class="d-flex flex-column">
-        <keleman-products-sort></keleman-products-sort>
+        <keleman-products-sort
+          [initialSort]="sortBy"
+          (selectionChange)="onSelectSort($event)"
+        ></keleman-products-sort>
         <div class="row mx-0 g-3">
           <ng-container
             *ngIf="fetchDataService.isLoading; then loading; else productList"

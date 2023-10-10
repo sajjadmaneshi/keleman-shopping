@@ -12,7 +12,7 @@ import { LoadingService } from './shared/services/loading.service';
   providers: [LoadingService],
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
   title = 'بازرگانی آسانسور کلمان';
 
   private _loadingSubscription!: Subscription;
@@ -26,8 +26,5 @@ export class AppComponent implements OnDestroy {
   ) {
     _title.setTitle(this.title);
     this._applicationState.init();
-  }
-  ngOnDestroy() {
-    this._loadingSubscription.unsubscribe();
   }
 }

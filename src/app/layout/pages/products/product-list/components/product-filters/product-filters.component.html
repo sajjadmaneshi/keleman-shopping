@@ -70,7 +70,9 @@
   >
     <div class="card-body">
       <keleman-product-price-filter
-        (changePrice)="onChangePrice($event)"
+        *ngIf="maxPrice"
+        (changePrice)="productFilterService.addPriceFilter($event)"
+        [max]="maxPrice"
         (afterReset)="productFilterService.priceSliderReset = false"
         [reset]="productFilterService.priceSliderReset"
       ></keleman-product-price-filter>

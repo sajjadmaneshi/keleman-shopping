@@ -25,6 +25,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class ProductFiltersComponent implements OnChanges {
   @Input() categoryId!: number;
+  @Input() maxPrice!: number;
   isLoading = new BehaviorSubject(true);
 
   destroy$ = new Subject<void>();
@@ -34,9 +35,6 @@ export class ProductFiltersComponent implements OnChanges {
 
   changeOutOfStock(checked: boolean) {
     this.productFilterService.filterList.outOfStock = checked;
-  }
-  onChangePrice(priceRange: PriceRange) {
-    this.productFilterService.filterList.price = priceRange;
   }
 
   tranckByFn(index: number, item: SelectableOption) {

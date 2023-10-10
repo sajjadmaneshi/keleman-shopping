@@ -19,11 +19,6 @@ export class FilterChipListComponent implements OnDestroy {
     this.productFilterService.filterList.outOfStock = false;
   }
 
-  removePriceRange() {
-    this.productFilterService.filterList.price = undefined;
-    this.productFilterService.resetPrice();
-  }
-
   ngOnDestroy(): void {
     console.log('destroy');
   }
