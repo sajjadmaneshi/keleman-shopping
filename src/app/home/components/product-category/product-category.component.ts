@@ -1,6 +1,4 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   DoCheck,
   EventEmitter,
@@ -19,6 +17,7 @@ import {
 } from '../../../shared/directives/swiper-template.directive';
 import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import { ProductCategoryViewModel } from '../../../shared/data/models/view-models/product-category.view-model';
+import { ApplicationStateService } from '../../../shared/services/application-state.service';
 
 @Component({
   selector: 'keleman-product-categories',
@@ -41,8 +40,10 @@ export class ProductCategoryComponent implements OnChanges {
 
   categories: ProductCategoryViewModel[] = [];
 
-  constructor(public productCategoryService: ProductCategoryService) {}
-
+  constructor(
+    public productCategoryService: ProductCategoryService,
+    private _applicationState: ApplicationStateService
+  ) {}
   private previousValue: any;
   inputHasChanged: boolean = false;
 

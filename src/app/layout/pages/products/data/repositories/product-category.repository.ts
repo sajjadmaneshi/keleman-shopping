@@ -10,7 +10,7 @@ import { ProductViewModel } from '../models/view-models/product.view-model';
 import { CategorySimpleInfoViewModel } from '../models/view-models/category-simple-info.view-model';
 import {
   ProductSearchResult,
-  SeaechService,
+  SearchService,
 } from '../../../../../shared/services/search.service';
 import { ProductDetailViewModel } from '../models/view-models/product-detail.view-model';
 import { ProductGalleryViewModel } from '../models/view-models/product-gallery.view-model';

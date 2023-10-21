@@ -1,60 +1,13 @@
-<ng-container
-  *ngIf="
-    applicationState.isPhone || applicationState.isTablet;
-    then mobile;
-    else desktop
-  "
-></ng-container>
-<ng-template #mobile>
-  <span class="d-inline-flex mb-3">
-    <a
-      class="cursor-pointer d-flex align-items-center text-klm-primary fw-bold"
-      (click)="openBottomSheet(filterBottomSheet)"
-    >
-      <mat-icon class="mx-3">tune</mat-icon>
-      فیلتر
-    </a>
-    <a
-      class="d-flex align-items-center text-klm-primary fw-bold"
-      (click)="openBottomSheet(sortBottomSheet)"
-    >
-      <mat-icon class="mx-3">sort</mat-icon>
-      مرتب سازی براساس
-    </a>
-  </span>
-</ng-template>
-<ng-template #desktop>
-  <ul class="sort-products p-0">
-    <li class="label text-warning fw-bold">مرتب سازی بر اساس:</li>
-    <li
-      *ngFor="let sortItem of sortItems"
-      [ngClass]="{ selected: selectedSortValue === sortItem.value }"
-      (click)="onSelectSort(sortItem.value)"
-      class="cursor-pointer"
-    >
-      <a>{{ sortItem.title }}</a>
-    </li>
-  </ul>
-</ng-template>
-<ng-template #sortBottomSheet>
-  <keleman-bottom-sheet>
-    <span class="d-flex align-items-center">
-      <mat-icon class="mx-3" (click)="closeBottomSheet()">close</mat-icon>
-      <span class="fs-3">مرتب سازی براساس</span>
-    </span>
-    <ul class="sort-products-mobile">
-      <li
-        *ngFor="let sortItem of sortItems"
-        (click)="onSelectSort(sortItem.value)"
-      >
-        <a>{{ sortItem.title }}</a>
-        <ng-template #selected [ngIf]="selectedSortValue === sortItem.value">
-          <mat-icon class="text-warning">check</mat-icon>
-        </ng-template>
-      </li>
-    </ul>
-  </keleman-bottom-sheet>
-</ng-template>
-<ng-template #filterBottomSheet>
-  <keleman-product-filter-bottom-sheet></keleman-product-filter-bottom-sheet>
-</ng-template>
+<ul class="sort-products p-0">
+  <li class="label text-warning fw-bold d-none d-md-block">
+    مرتب سازی بر اساس:
+  </li>
+  <li
+    *ngFor="let sortItem of productFilterService.sortItems"
+    [ngClass]="{ selected: selectedSortValue === sortItem.value }"
+    (click)="selectSort(sortItem.value)"
+    class="cursor-pointer"
+  >
+    <a>{{ sortItem.title }}</a>
+  </li>
+</ul>

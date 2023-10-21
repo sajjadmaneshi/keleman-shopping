@@ -5,7 +5,7 @@
         class="nav-item dropdown"
         #menuTrigger="matMenuTrigger"
         [matMenuTriggerFor]="menu"
-        (mouseenter)="onHover($event)"
+        (mouseenter)="openMenu($event)"
       >
         <a
           type="button"
@@ -16,10 +16,17 @@
           <span class="material-icons-outlined"> grid_view </span>
           دسته بندی ها
         </a>
-        <mat-menu #menu="matMenu" [class]="'mat-menu-panel'">
-          <div #dropDownMenu aria-labelledby="categoryDropDown">
+        <mat-menu
+          #menu="matMenu"
+          [class]="'mat-menu-panel'"
+          overlapTrigger="false"
+        >
+          <div
+            #dropDownMenu
+            aria-labelledby="categoryDropDown"
+            (mouseleave)="hideMenu($event)"
+          >
             <keleman-mega-menu
-              (mouseleave)="$event.stopPropagation(); menuTrigger.closeMenu()"
               (clickItem)="onNavigate($event)"
               [productCategories]="productCategories"
             ></keleman-mega-menu>
@@ -39,8 +46,6 @@
         <a
           class="nav-link text-black px-3"
           [routerLink]="'/magazine'"
-          [queryParams]="{ p: page.toString(), q: '' }"
-          queryParamsHandling="merge"
           routerLinkActive="active"
           >مجله کلمان</a
         >

@@ -1,9 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
 import {
   FormControl,
@@ -103,8 +98,7 @@ export class RegisterComponent implements OnDestroy {
     private _router: Router,
     private _geoLocationRepository: GeneralRepository,
     private _accountRepository: AccountRepository,
-    private _persianNumberSerive: CustomPersianNumberService,
-    private _cdr: ChangeDetectorRef
+    private _persianNumberSerive: CustomPersianNumberService
   ) {
     this._initForm();
   }

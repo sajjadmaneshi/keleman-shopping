@@ -22,7 +22,7 @@
     align-items: center;
     span {
       margin: 0;
-      line-height: unset !important;
+      line-height: 1.5 !important;
     }
   }
 
@@ -33,6 +33,7 @@
   .active {
     border-right: 3px solid $klm-primary;
     background-color: rgba($klm-primary, 0.2);
+    color: $klm-primary !important;
   }
 
   .mega-menu-items-menu {
@@ -72,7 +73,6 @@
 
           &:not(.head) {
             margin-right: 1.5rem;
-
             &:hover {
               font-weight: bold !important;
               transition: all 0.15s ease-in;

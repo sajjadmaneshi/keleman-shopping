@@ -24,7 +24,6 @@ import { MatMenuTrigger } from '@angular/material/menu';
 @Component({
   selector: 'keleman-header-menu',
   templateUrl: './header-menu.component.html',
-  providers: [SsrService],
 })
 export class HeaderMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('dropDownMenu') dropDownMenu!: ElementRef;
@@ -33,9 +32,7 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   destroy$ = new Subject<void>();
   screenWidth!: number;
   currentRoute = '/';
-
   productCategories!: ProductCategoryViewModel[];
-
   page = 0;
 
   constructor(
@@ -79,20 +76,24 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (isPlatformBrowser(this._platformId)) this._calculateMenuHeight();
-    this._getQueryParamsFromUrl();
-  }
-
-  onHover($event: any) {
-    $event.stopPropagation();
-
-    const width = this.screenWidth - this.screenWidth * 0.15;
-
+    const width = this.screenWidth * 0.85;
     this.document.documentElement.style.setProperty(
       '--mega-menu-width',
       `${width}px`
     );
+    if (isPlatformBrowser(this._platformId)) this._calculateMenuHeight();
+    this._getQueryParamsFromUrl();
+  }
+
+  openMenu($event: any) {
+    $event.stopPropagation();
+
     this.menuTrigger.openMenu();
+  }
+
+  hideMenu($event: any) {
+    $event.stopPropagation();
+    this.menuTrigger.closeMenu();
   }
 
   private _getQueryParamsFromUrl() {

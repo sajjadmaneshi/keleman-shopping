@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { SharedVariablesService } from '../../../shared/services/shared-variables.service';
 import { ApplicationStateService } from '../../../shared/services/application-state.service';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
@@ -28,7 +23,6 @@ export class TopSliderComponent implements OnDestroy {
   downloadUrl = ENVIRONMENT.downloadUrl;
 
   constructor(
-    private _changeDetector: ChangeDetectorRef,
     public applicationStateService: ApplicationStateService,
     public sharedVariableService: SharedVariablesService,
     private _homeRepository: HomeRepository

@@ -1,6 +1,5 @@
+<h5 class="text-center mb-3" mat-dialog-title>دیدگاه خود را ثبت نمایید</h5>
 <div mat-dialog-content>
-  <h5 class="text-center mb-3">دیدگاه خود را ثبت نمایید</h5>
-
   <form [formGroup]="commentForm">
     <div class="form-group">
       <keleman-card [cardTitle]="'امتیاز'">
@@ -78,9 +77,15 @@
         </div>
       </div>
     </keleman-card>
-    <div class="w-100 text-center">
-      <button class="btn btn-success text-white mx-3">ذخیره</button>
-      <button class="btn btn-danger">انصراف</button>
-    </div>
   </form>
 </div>
+<mat-dialog-actions align="end">
+  <button class="btn btn-danger mx-1" mat-dialog-close>لغو</button>
+  <button
+    class="btn btn-success text-white"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+  >
+    ذخیره
+  </button>
+</mat-dialog-actions>

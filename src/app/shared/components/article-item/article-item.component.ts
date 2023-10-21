@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgIf, NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 

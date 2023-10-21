@@ -2,16 +2,29 @@
   <div ngbAccordionItem>
     <h2 ngbAccordionHeader>
       <button ngbAccordionButton>
-        {{ propertyOption.title }}
+        <span>
+          {{ propertyOption.title }}
+        </span>
+        <mat-chip *ngIf="selectedItem" class="mx-1">
+          <span class="d-flex align-items-center chip-text">
+            <mat-icon
+              class="cursor-pointer m-0"
+              (click)="
+                filterOptionService.removeFilter($event, selectedItem);
+                selectedItem = undefined
+              "
+              >cancel</mat-icon
+            >
+            {{ selectedItem.title }}
+          </span>
+        </mat-chip>
       </button>
     </h2>
     <div ngbAccordionCollapse>
       <div ngbAccordionBody>
         <keleman-filter-items
           [initialProperties]="propertyOption.options"
-          (selectionChange)="
-            this.productFilterService.manageSelectedArray($event)
-          "
+          (selectionChange)="changeSelection($event)"
         ></keleman-filter-items>
       </div>
     </div>

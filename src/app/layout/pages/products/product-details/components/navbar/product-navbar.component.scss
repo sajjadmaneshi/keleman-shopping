@@ -16,19 +16,18 @@
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  background-color: map-get($theme-colors, "gray-300");
+  background-color: transparent;
+  border-bottom: 2px solid $klm-primary;
   color: black !important;
 }
 .mobile-nav {
-  top: 20rem;
+  position: sticky;
+  z-index: 99;
   li {
     margin-bottom: 0 !important;
   }
 }
 
-.sticky-top.sticky {
-  background-color: white !important;
-}
 .tab-content .tab-pane[show] {
   display: block;
 }

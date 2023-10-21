@@ -8,7 +8,7 @@ import { CommentRepository } from './data/repositories/comment.repository';
 import { ProductRepository } from '../../../layout/pages/products/data/repositories/product.repository';
 import { ProductCommentViewModel } from '../../../layout/pages/products/data/models/view-models/product-comment.view-model';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ProductService } from '../../../layout/pages/products/product.service';
+import { ProductService } from '../../../layout/pages/products/services/product.service';
 import { SharedVariablesService } from '../../services/shared-variables.service';
 
 SwiperCore.use([Navigation]);

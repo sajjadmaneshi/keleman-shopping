@@ -1,9 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  InjectionToken,
-  OnInit,
-} from '@angular/core';
+import { Component, InjectionToken, OnInit } from '@angular/core';
 import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simple-data-view.model';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';

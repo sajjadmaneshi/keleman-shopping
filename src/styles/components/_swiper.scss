@@ -2,26 +2,33 @@
 @mixin swiper-button() {
   [class*="-swiper-button-prev"],
   [class*="-swiper-button-next"] {
-    z-index: 1;
     position: absolute;
-    top: 50%;
-    width: 30px;
-    height: 30px;
-    transform: translateY(-50%);
-    background-color: white !important;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid map-get($theme-colors, "gray-300");
+    top: 0;
+    width: 15%;
+    height: 100%;
+
+    pointer-events: none;
   }
   [class*="-swiper-button-prev"] {
-    left: 1.5rem;
+    z-index: 1;
+    left: 0;
+    background-image: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.85) 90%
+    );
   }
   [class*="-swiper-button-next"] {
-    right: 1.5rem;
+    z-index: 2;
+    right: 0;
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.85) 90%
+    );
   }
 }
+
 .swiper-button-disabled {
   display: none !important;
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ArticleRepository } from '../../../layout/pages/magazine/data/repositories/article.repository';
 import { ProductRepository } from '../../../layout/pages/products/data/repositories/product.repository';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RouteHandlerService {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -15,8 +15,6 @@ export class RouteHandlerService {
 
   // Get query parameters
   getQueryParams(): Observable<Params> {
-    this.route.url.subscribe((x) => console.log(x));
-
     return this.route.queryParams;
   }
   get getQueryParamsSnapShot(): Params {
@@ -33,10 +31,12 @@ export class RouteHandlerService {
 
   // Update query parameters
   updateQueryParams(params: any, url?: string): void {
-    this.router.navigate(url ? [url] : [], {
-      relativeTo: this.route,
-      queryParams: params,
-    });
+    this.router
+      .navigate(url ? [url] : [], {
+        relativeTo: url ? null : this.route,
+        queryParams: params,
+      })
+      .finally();
   }
 
   // Update route parameters

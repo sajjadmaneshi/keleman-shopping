@@ -65,6 +65,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.5",
+    "@angular-eslint/schematics": "^16.2.0",
     "@angular/cli": "~15.2.5",
     "@angular/compiler-cli": "^15.2.6",
     "@angular/localize": "^15.2.6",

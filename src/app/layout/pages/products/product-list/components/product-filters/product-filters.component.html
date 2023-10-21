@@ -1,81 +1,157 @@
-<div class="form-group">
-  <span class="fw-bold d-flex align-items-center justify-content-between mb-3">
-    <p class="text-warning">فیلتر ها</p>
-    <ng-template [ngIf]="productFilterService.canRemoveAll">
-      <a class="cursor-pointer" (click)="productFilterService.removeAll()">
+<ng-content
+  *ngIf="
+    applicationStateService.isPhone || applicationStateService.isTablet;
+    then mobileView;
+    else desktopView
+  "
+>
+</ng-content>
+<ng-template #desktopView>
+  <div class="form-group">
+    <span
+      class="fw-bold d-flex align-items-center justify-content-between mb-3"
+    >
+      <p class="text-warning">فیلتر ها</p>
+      <a
+        class="fw-semibold cursor-pointer"
+        (click)="productFilterService.removeAll()"
+      >
         حذف تمام فیلتر ها
       </a>
-    </ng-template>
-  </span>
-  <ng-template [ngIf]="productFilterService.canRemoveAll">
-    <div class="card card-rounded-3 border border-gray-300 mb-3">
-      <div class="card-body">
-        <span class="d-flex justify-content-between align-items-center">
-          <h6>انتخاب های شما</h6>
-        </span>
+    </span>
 
-        <keleman-filter-chip-list></keleman-filter-chip-list>
+    <div
+      class="card card-rounded-3 border border-gray-300"
+      id="product-filters"
+    >
+      <div class="card-body">
+        <ng-container
+          *ngIf="
+            productFilterService.isLoading | async;
+            then loading;
+            else options
+          "
+        ></ng-container>
+        <ng-template #loading>
+          <ngx-skeleton-loader
+            [theme]="{ width: '100%', height: '300px' }"
+          ></ngx-skeleton-loader>
+        </ng-template>
+        <ng-template #options>
+          <ul class="filter-list">
+            <li
+              *ngFor="
+                let propertyOption of productFilterService.propertyOptions;
+                trackBy: tranckByFn
+              "
+            >
+              <keleman-filter-option
+                [propertyOption]="propertyOption"
+              ></keleman-filter-option>
+            </li>
+            <li>
+              <div ngbAccordion>
+                <div ngbAccordionItem>
+                  <h2 ngbAccordionHeader>
+                    <button ngbAccordionButton>محدوده قیمت</button>
+                  </h2>
+                  <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                      <keleman-product-price-filter
+                        (changePrice)="
+                          productFilterService.addPriceFilter($event)
+                        "
+                        [max]="maxPrice"
+                        (afterReset)="
+                          productFilterService.priceSliderReset = false
+                        "
+                        [reset]="productFilterService.priceSliderReset"
+                      ></keleman-product-price-filter>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <span
+                class="d-flex align-items-center justify-content-between available"
+              >
+                <a>فقط موجود</a>
+                <mat-slide-toggle
+                  color="primary"
+                  [(ngModel)]="productFilterService.inStock"
+                  (change)="
+                    changeOutOfStock();
+                    productFilterService.navigateWithNewParams()
+                  "
+                ></mat-slide-toggle>
+              </span>
+            </li>
+          </ul>
+        </ng-template>
       </div>
     </div>
-  </ng-template>
+  </div>
+</ng-template>
+<ng-template #mobileView>
+  <span class="d-inline-flex mb-3">
+    <a
+      class="cursor-pointer d-flex align-items-center text-klm-primary fw-bold"
+      (click)="openBottomSheet(filterBottomSheet)"
+    >
+      <mat-icon class="mx-3">tune</mat-icon>
+      فیلتر
+    </a>
+  </span>
+  <ng-template #filterBottomSheet>
+    <div class="position-relative">
+      <keleman-bottom-sheet>
+        <span class="d-flex flex-column sticky-top bg-white shadow p-3 rounded">
+          <span class="d-flex align-items-center justify-content-between">
+            <h3>فیلتر بر اساس</h3>
 
-  <div class="card card-rounded-3 border border-gray-300" id="product-filters">
-    <div class="card-body">
-      <ng-container
-        *ngIf="
-          productFilterService.isLoading | async;
-          then loading;
-          else options
-        "
-      ></ng-container>
-      <ng-template #loading>
-        <ngx-skeleton-loader
-          [theme]="{ width: '100%', height: '300px' }"
-        ></ngx-skeleton-loader>
-      </ng-template>
-      <ng-template #options>
-        <ul class="filter-list">
-          <li
+            <a (click)="productFilterService.removeAll()">
+              <h6>حذف تمام فیلتر ها</h6>
+            </a>
+          </span>
+        </span>
+        <ul>
+          <keleman-filter-option-bottom-sheet
             *ngFor="
-              let propertyOption of productFilterService.propertyOptions;
+              let option of productFilterService.propertyOptions;
               trackBy: tranckByFn
             "
-          >
-            <keleman-filter-option
-              [propertyOption]="propertyOption"
-            ></keleman-filter-option>
+            [propertyOption]="option"
+          ></keleman-filter-option-bottom-sheet>
+
+          <li class="d-flex flex-column align-items-center">
+            <a>محدوده قیمت</a>
+            <keleman-product-price-filter
+              (changePrice)="productFilterService.addPriceFilter($event)"
+              [max]="maxPrice"
+              (afterReset)="productFilterService.priceSliderReset = false"
+              [reset]="productFilterService.priceSliderReset"
+            ></keleman-product-price-filter>
           </li>
           <li>
-            <span
-              class="d-flex align-items-center justify-content-between available"
-            >
-              عدم موجودی
-              <mat-slide-toggle
-                color="primary"
-                [checked]="productFilterService.filterList.outOfStock"
-                (change)="changeOutOfStock($event.checked)"
-              ></mat-slide-toggle>
-            </span>
+            <a>فقط موجود</a>
+            <mat-slide-toggle
+              class="float-start"
+              color="primary"
+              [(ngModel)]="productFilterService.inStock"
+              (change)="
+                changeOutOfStock(); productFilterService.navigateWithNewParams()
+              "
+            ></mat-slide-toggle>
           </li>
         </ul>
-      </ng-template>
+      </keleman-bottom-sheet>
+      <button
+        class="btn btn-warning rounded sticky-bottom w-100 apply-filter"
+        (click)="closeBottomSheet()"
+      >
+        اعمال فیلتر
+      </button>
     </div>
-  </div>
-</div>
-<div class="form-group">
-  <p class="text-warning fw-bold mb-3">محدوده قیمت</p>
-  <div
-    id="product-price-filter"
-    class="card card-rounded-3 border border-gray-300"
-  >
-    <div class="card-body">
-      <keleman-product-price-filter
-        *ngIf="maxPrice"
-        (changePrice)="productFilterService.addPriceFilter($event)"
-        [max]="maxPrice"
-        (afterReset)="productFilterService.priceSliderReset = false"
-        [reset]="productFilterService.priceSliderReset"
-      ></keleman-product-price-filter>
-    </div>
-  </div>
-</div>
+  </ng-template>
+</ng-template>

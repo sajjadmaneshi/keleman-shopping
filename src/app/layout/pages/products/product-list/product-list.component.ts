@@ -16,53 +16,47 @@ import {
 import { ProductSearchResult } from '../../../../shared/services/search.service';
 import { ProductSortTypeEnum } from '../data/enums/product-sort-type .enum';
 import { RouteHandlerService } from '../../../../shared/services/route-handler/route-handler.service';
+import { ProductFilterService } from '../services/product-filter.service';
+import { ApplicationStateService } from '../../../../shared/services/application-state.service';
+import { SelectedFilterModel } from './components/product-filters/data/selected-filter.model';
 
 @Component({
   selector: 'keleman-product-list',
   templateUrl: './product-list.component.html',
-  styles: [
-    `
-      .empty-product-list img {
-        width: 10rem;
-      }
-      .top-categories {
-        background-image: radial-gradient(
-          circle farthest-corner at 10% 20%,
-          #f9e833ff 0%,
-          #fac43bff 100.2%
-        );
-      }
-    `,
-  ],
+  styleUrls: ['product-list.component.scss'],
   providers: [
     {
       provide: REPOSITORY_TOKEN,
       useClass: ProductRepository,
     },
+    ProductFilterService,
     BaseDataFetcherService,
     RouteHandlerService,
   ],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   page = 1;
+  limit = 12;
   categoryUrl!: string;
   searchText = '';
-  totalElements = 0;
   maxPrice!: number;
+  totalElements = 0;
   categoryId!: number;
   products: ProductViewModel[] = [];
-  queryParams!: Params;
   sortBy: ProductSortTypeEnum = 0;
   private destroy$ = new Subject<void>();
   constructor(
-    private _queryParamService: QueryParamGeneratorService,
     private _routeHandlerService: RouteHandlerService,
+    private _router: Router,
+    private _productFilterService: ProductFilterService,
+    private _queryParamService: QueryParamGeneratorService,
+    public fetchDataService: BaseDataFetcherService<ProductSearchResult>,
     public sharedVaribaleService: SharedVariablesService,
-    public fetchDataService: BaseDataFetcherService<ProductSearchResult>
+    public applicationStateService: ApplicationStateService
   ) {}
 
   ngOnInit(): void {
-    this.fixQueryParamsOrderInUrl();
+    this._queryParamService.fixQueryParamsOrderInUrl();
     this._getParamsFromUrl();
   }
 
@@ -73,10 +67,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
     ])
       .pipe(takeUntil(this.destroy$))
       .subscribe(([params, queryParams]) => {
-        this.queryParams = queryParams;
         this.products = [];
         this._extractCategoryUrlFromParams(params);
-        this.extractPageAndSearchTextFromQueryParams(queryParams);
+        this._extractPageAndSearchTextFromQueryParams(queryParams);
       });
   }
 
@@ -86,31 +79,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   private _parseQueryParams(urlQueryParams: Params) {
-    const page = Number(urlQueryParams['p']) ?? 0;
+    if (urlQueryParams['p']) this.page = Number(urlQueryParams['p']) + 1;
     const { p, ...restUrlQueryParams } = urlQueryParams;
     this.searchText = urlQueryParams['q'];
     this.sortBy = urlQueryParams['sortBy'] ?? 0;
-    return { page, restUrlQueryParams };
+    return restUrlQueryParams;
   }
 
-  private extractPageAndSearchTextFromQueryParams(urlQueryParams: Params) {
-    const { page, restUrlQueryParams } = this._parseQueryParams(urlQueryParams);
+  private _extractPageAndSearchTextFromQueryParams(urlQueryParams: Params) {
     const queryParams = {
       catUrl: this.categoryUrl,
-      offset: page,
-      limit: 10,
-      q: this.searchText,
-      ...restUrlQueryParams,
+      offset: this.page,
+      limit: this.limit,
+      ...this._parseQueryParams(urlQueryParams),
     };
     this._getAllProducts(queryParams);
-  }
-
-  fixQueryParamsOrderInUrl() {
-    this._routeHandlerService.updateQueryParams(
-      this._queryParamService.sortQuryParams(
-        this._routeHandlerService.getQueryParamsSnapShot
-      )
-    );
   }
 
   trackByFn(index: number, item: ProductViewModel) {
@@ -119,29 +102,27 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   pageChange($event: number) {
     this.page = $event;
-    this._updateRoute({ p: this.page - 1 });
-  }
-
-  private _updateRoute(queryParams: Params) {
-    this._routeHandlerService.updateQueryParams({ p: this.page - 1 });
+    this._productFilterService.addToFilterList(
+      new SelectedFilterModel('p', '', (this.page - 1).toString())
+    );
+    this._productFilterService.navigateWithNewParams();
   }
 
   onSelectSort($event: ProductSortTypeEnum) {
-    this.queryParams = this._queryParamService.sortQuryParams({
-      ...this.queryParams,
-      sortBy: $event,
+    this._productFilterService.navigateWithNewParams({
+      sortBy: $event == 0 ? undefined : $event,
     });
-    this._routeHandlerService.updateQueryParams(this.queryParams);
   }
 
   private _getAllProducts(params: { [key: string]: any }) {
     this.fetchDataService
       .fetchData(params)
       .subscribe((result: ProductSearchResult | undefined) => {
-        this.products = [...result?.products!];
-        this.totalElements = result?.totalElements!;
-        this.maxPrice = result?.maxPrice!;
-        this.categoryId = result?.category?.id!;
+        const { products, totalElements, maxPrice, category } = result!;
+        this.products = [...products];
+        this.totalElements = totalElements;
+        this.maxPrice = maxPrice;
+        this.categoryId = category?.id;
       });
   }
 
@@ -149,7 +130,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.categoryUrl = selectedCategory.url;
     this.categoryId = selectedCategory.id;
     const newCategoryUrlSegment = this.buildNewCategoryUrlSegment();
-    this.navigateToUpdatedRoute(newCategoryUrlSegment);
+
+    this._routeHandlerService.updateQueryParams(
+      this._routeHandlerService.getQueryParamsSnapShot,
+      `${Routing.products}/${newCategoryUrlSegment}`
+    );
   }
 
   private buildNewCategoryUrlSegment(): string {
@@ -158,15 +143,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
     const catUrl2 = currentParams['catUrl2'] || '';
     const newCategoryUrlSegment =
       `${catUrl1}/${catUrl2}/${this.categoryUrl}`.replace(/\/{2,}/g, '/');
-    return newCategoryUrlSegment;
-  }
 
-  private navigateToUpdatedRoute(newCategoryUrlSegment: string) {
-    const queryParams = { p: '0' };
-    this._routeHandlerService.updateQueryParams(
-      queryParams,
-      `${Routing.products}/${newCategoryUrlSegment}`
-    );
+    return newCategoryUrlSegment;
   }
 
   ngOnDestroy(): void {

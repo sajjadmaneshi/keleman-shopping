@@ -1,0 +1,13 @@
+<nav class="text-muted my-3">
+  <ng-container *ngFor="let breadcrumb of breadCrumbItems; let last = last">
+    <ng-container *ngIf="!last">
+      <a [routerLink]="breadcrumb.url">{{ breadcrumb.title }}</a
+      >/
+    </ng-container>
+    <ng-container *ngIf="last">
+      <span class="text-klm-primary">
+        {{ breadcrumb.title }}
+      </span>
+    </ng-container>
+  </ng-container>
+</nav>

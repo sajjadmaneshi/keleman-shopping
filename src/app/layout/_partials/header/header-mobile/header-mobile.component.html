@@ -54,6 +54,7 @@
   <keleman-search-bar class="flex-grow-1 w-100"></keleman-search-bar>
   <div class="py-3">
     <keleman-product-categories
+      [parentId]="null"
       (onItemClick)="navigateToPage($event)"
     ></keleman-product-categories>
   </div>

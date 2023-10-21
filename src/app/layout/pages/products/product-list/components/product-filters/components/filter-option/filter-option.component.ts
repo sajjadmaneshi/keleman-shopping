@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProductFilterService } from '../../../product-filter.service';
-import { SelectableOption } from '../../../../../data/models/view-models/category-property-option.view-model';
+import { ProductFilterService } from '../../../../../services/product-filter.service';
+import {
+  SelectableOption,
+  SelectablePropertyModel,
+} from '../../../../../data/models/view-models/category-property-option.view-model';
 import { take } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { SelectedFilterModel } from '../../data/selected-filter.model';
+import { FilterOptionService } from '../../../../../services/filter-option.service';
 
 @Component({
   selector: 'keleman-filter-option',
@@ -12,26 +16,25 @@ import { ActivatedRoute } from '@angular/router';
 export class FilterOptionComponent implements OnInit {
   @Input() propertyOption!: SelectableOption;
 
+  selectedItem!: SelectablePropertyModel | undefined;
+
   constructor(
     public productFilterService: ProductFilterService,
-    private _activatedRoute: ActivatedRoute
+
+    public filterOptionService: FilterOptionService
   ) {}
 
-  public determineSelectableArray() {
-    if (this._isThisOptionInQueryList()) {
-      this.productFilterService.determineSelectedArray(this.propertyOption);
-    }
-  }
-
-  private _isThisOptionInQueryList() {
-    return (
-      Object.keys(this.productFilterService.queryParams).findIndex(
-        (x) => x === (this.propertyOption.seoTitle ?? this.propertyOption.title)
-      ) != -1
+  ngOnInit(): void {
+    this.productFilterService.resetFilter$.subscribe(
+      () => (this.selectedItem = undefined)
+    );
+    this.selectedItem = this.filterOptionService.determineSelectableArray(
+      this.propertyOption
     );
   }
 
-  ngOnInit(): void {
-    this.determineSelectableArray();
+  public changeSelection(item: SelectablePropertyModel) {
+    this.selectedItem = item;
+    this.productFilterService.manageSelectedArray(item);
   }
 }

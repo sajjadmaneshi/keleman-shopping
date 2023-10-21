@@ -17,7 +17,6 @@ import { SsrService } from '../../services/ssr/ssr.service';
   imports: [CommonModule, MatIconModule, NgbPagination],
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
-  providers: [SsrService],
 })
 export class PaginationComponent {
   private _currentPage: number = 1;
@@ -61,7 +60,6 @@ export class PaginationComponent {
 
   onPageChange(pageNumber: number) {
     this.currentPage = pageNumber;
-
     this._ssrService.getWindow?.scroll(0, 0);
     this.pageChange.emit(this.currentPage);
   }

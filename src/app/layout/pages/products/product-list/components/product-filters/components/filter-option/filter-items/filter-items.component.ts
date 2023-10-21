@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -7,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ProductFilterService } from '../../../../product-filter.service';
+import { ProductFilterService } from '../../../../../../services/product-filter.service';
 import {
   OptionViewModel,
   SelectablePropertyModel,
@@ -19,7 +18,6 @@ import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
 @Component({
   selector: 'keleman-filter-items',
   templateUrl: './filter-items.component.html',
-  styleUrls: ['../../filter-items.scss'],
 })
 export class FilterItemsComponent implements OnDestroy {
   @Input() initialProperties: SelectablePropertyModel[] = [];

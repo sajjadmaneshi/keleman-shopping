@@ -16,6 +16,7 @@ import {
 } from '../../directives/swiper-template.directive';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatSliderModule,
     MatDialogModule,
     NgxSkeletonLoaderModule,
+    MatButtonModule,
   ],
   exports: [CommentsComponent, CommentItemComponent],
 })

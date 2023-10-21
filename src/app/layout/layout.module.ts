@@ -42,11 +42,9 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { AdvertisingBannersComponent } from '../home/components/advertising-banners/advertising-banners.component';
 import { ArticleItemComponent } from '../shared/components/article-item/article-item.component';
 import { AboutUsSummaryComponent } from '../home/components/about-us-summary/about-us-summary.component';
-import { HoverClassDirective } from './_partials/header/header-menu/mega-menu/hover-class.directive';
 import { LazyLoadingDirective } from '../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../shared/directives/empty-image.directive';
 import { TextWithIconComponent } from '../shared/components/text-with-icon/text-with-icon.component';
-import { QueryParamActiveDirective } from './_partials/header/header-menu/query-param-active.directive';
 import { ProductCategoryComponent } from '../home/components/product-category/product-category.component';
 import {
   FaIconLibrary,
@@ -95,11 +93,9 @@ import { SymbolDirective } from '../shared/directives/symbol.directive';
     MatComponentsModule,
     SwiperModule,
     NgxSkeletonLoaderModule,
-    HoverClassDirective,
     LazyLoadingDirective,
     EmptyImageDirective,
     TextWithIconComponent,
-    QueryParamActiveDirective,
     NgbAccordionModule,
     ProductCategoryComponent,
     FontAwesomeModule,

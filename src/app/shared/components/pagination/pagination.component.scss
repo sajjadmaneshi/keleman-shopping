@@ -14,5 +14,15 @@
         border-color: $klm-primary;
       }
     }
+    &:first-child .page-link {
+      border-radius: 0.25rem;
+      border-top-right-radius: var(--keleman-pagination-border-radius);
+      border-bottom-right-radius: var(--keleman-pagination-border-radius);
+    }
+    &:last-child .page-link {
+      border-radius: 0.25rem;
+      border-top-left-radius: var(--keleman-pagination-border-radius);
+      border-bottom-left-radius: var(--keleman-pagination-border-radius);
+    }
   }
 }

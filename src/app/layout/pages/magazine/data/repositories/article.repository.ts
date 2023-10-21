@@ -7,7 +7,7 @@ import { HttpClientResult } from '../../../../../shared/data/models/http/http-cl
 import { ArticleSimpleDataViewModel } from '../view-models/article-simple-data-view.model';
 import {
   ArticleSearchResult,
-  SeaechService,
+  SearchService,
 } from '../../../../../shared/services/search.service';
 import { ArticleViewModel } from '../view-models/article.view-model';
 
@@ -15,7 +15,7 @@ import { ArticleViewModel } from '../view-models/article.view-model';
 export class ArticleRepository extends DataService<any> {
   constructor(
     _http: HttpClient,
-    private _searchService: SeaechService<ArticleSimpleDataViewModel>
+    private _searchService: SearchService<ArticleSimpleDataViewModel>
   ) {
     super('article', _http);
   }

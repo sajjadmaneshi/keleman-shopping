@@ -2,14 +2,12 @@
 
 <ng-template #loading>
   <ngx-skeleton-loader
+    count="1"
     [theme]="{ width: '57%', height: '50px' }"
     class="ms-1"
   ></ngx-skeleton-loader>
   <ngx-skeleton-loader
-    class="mx-1"
-    [theme]="{ width: '20%', height: '50px' }"
-  ></ngx-skeleton-loader>
-  <ngx-skeleton-loader
+    count="2"
     class="mx-1"
     [theme]="{ width: '20%', height: '50px' }"
   ></ngx-skeleton-loader>
@@ -23,7 +21,7 @@
   ></ngx-skeleton-loader>
 
   <ngx-skeleton-loader
-    *ngFor="let _ of sharedVariableService.counter(5)"
+    count="5"
     class="mx-1"
     [theme]="{ width: '10%', height: '50px' }"
   ></ngx-skeleton-loader>

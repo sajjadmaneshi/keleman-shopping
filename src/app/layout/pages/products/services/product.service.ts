@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
 import { Subject } from 'rxjs';
-import { AvailableStatusEnum } from './data/enums/available-status.enum';
-import { ProductDetailViewModel } from './data/models/view-models/product-detail.view-model';
+import { AvailableStatusEnum } from '../data/enums/available-status.enum';
+import { ProductDetailViewModel } from '../data/models/view-models/product-detail.view-model';
 
 @Injectable()
 export class ProductService implements OnDestroy {

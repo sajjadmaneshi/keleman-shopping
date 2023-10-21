@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
+import { RouteHandlerService } from './route-handler/route-handler.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ export class QueryParamGeneratorService {
   private queryParams: string[] = [];
   private _queryParamsOrder: string[] = [];
 
-  constructor() {}
+  constructor(private _routerHandlerService: RouteHandlerService) {}
 
   private addToQueryParams(param: string): void {
     this.queryParams.push(param);
@@ -77,6 +78,16 @@ export class QueryParamGeneratorService {
     });
 
     return sortedQueryParams;
+  }
+
+  public fixQueryParamsOrderInUrl() {
+    let params = this._routerHandlerService.getQueryParamsSnapShot;
+    if (!this._hasPageParam(params)) params = { ...params, p: 0 };
+    this._routerHandlerService.updateQueryParams(this.sortQuryParams(params));
+  }
+
+  private _hasPageParam(params: Params) {
+    return params['p'] != undefined;
   }
 
   resetQueryParams(): void {

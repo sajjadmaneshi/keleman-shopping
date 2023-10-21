@@ -1,8 +1,0 @@
-@import "base/variables/colors";
-mat-chip {
-  background-color: map-get($theme-light-colors, "success") !important;
-
-  mat-icon {
-    margin: 0 0.5rem;
-  }
-}

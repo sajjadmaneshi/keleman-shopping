@@ -19,7 +19,7 @@ export interface ArticleSearchResult {
   category: { id: number; title: string };
 }
 @Injectable({ providedIn: 'root' })
-export class SeaechService<T> {
+export class SearchService<T> {
   constructor(
     private _http: HttpClient,
     private _queryParamService: QueryParamGeneratorService

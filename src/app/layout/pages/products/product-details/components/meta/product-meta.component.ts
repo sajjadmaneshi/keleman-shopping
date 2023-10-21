@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProductService } from '../../../product.service';
+import { ProductService } from '../../../services/product.service';
 import { ProductRepository } from '../../../data/repositories/product.repository';
 import { Subscription, tap } from 'rxjs';
 import { ProductSpecificViewModel } from '../../../data/models/view-models/product-specific.view-model';
