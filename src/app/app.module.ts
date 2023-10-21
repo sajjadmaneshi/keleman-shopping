@@ -20,7 +20,6 @@ import { FloatingButtonMenuComponent } from './shared/components/floating-button
 import { SwiperModule } from 'swiper/angular';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InitialAppService } from './shared/services/initial-app.service';
-import { LoadingComponent } from './shared/components/loading/loading.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -28,6 +27,10 @@ export function initializeApp(
   initialAppService: InitialAppService
 ): () => void {
   return () => initialAppService.init();
+}
+
+export function tokenGetter() {
+  return localStorage.getItem('KELEMAN_TOKEN');
 }
 
 @NgModule({
@@ -42,12 +45,9 @@ export function initializeApp(
     FloatingButtonMenuComponent,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        },
+        tokenGetter: tokenGetter,
       },
     }),
-    LoadingComponent,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',

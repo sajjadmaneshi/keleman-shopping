@@ -3,6 +3,8 @@ import { Subject } from 'rxjs';
 import { Routing } from '../../../../../../routing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { ProductFilterService } from '../../../services/product-filter.service';
+import { SelectedFilterModel } from '../product-filters/data/selected-filter.model';
 
 @Component({
   selector: 'keleman-product-search',
@@ -19,16 +21,21 @@ export class ProductSearchComponent implements OnChanges {
 
   constructor(
     private _router: Router,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _productFIlterService: ProductFilterService
   ) {}
 
   navigateToProduct() {
-    let queryParams = { q: this.searchText.value, p: '0' };
-    this._router.navigate([], {
-      relativeTo: this._activatedRoute,
-      queryParams,
-      queryParamsHandling: 'merge',
-    });
+    this._productFIlterService.addToFilterList(
+      new SelectedFilterModel('q', '', this.searchText.value!)
+    );
+
+    this._productFIlterService.navigateWithNewParams();
+  }
+
+  resetSearch() {
+    this.searchText.reset();
+    this._productFIlterService.resetSearch();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -6,6 +6,8 @@ import { HttpClientResult } from '../../../shared/data/models/http/http-client.r
 import { SliderViewModel } from './view-models/slider.view-model';
 import { ProductViewModel } from '../../../layout/pages/products/data/models/view-models/product.view-model';
 import { AdsBannerViewModel } from './view-models/ads-banner.view-model';
+import { BreadCrumbViewModel } from './view-models/bread-crumb.view-model';
+import { BreadCrumbTypeEnum } from './bread-crumb-type.enum';
 
 @Injectable({ providedIn: 'root' })
 export class HomeRepository extends DataService<any> {
@@ -34,5 +36,14 @@ export class HomeRepository extends DataService<any> {
     return this._http.get(`${this._getUrl}/ads`) as Observable<
       HttpClientResult<AdsBannerViewModel[]>
     >;
+  }
+
+  getBreadcrumb(
+    type: BreadCrumbTypeEnum,
+    id: number
+  ): Observable<HttpClientResult<BreadCrumbViewModel[]>> {
+    return this._http.get(
+      `${this._getUrl}/breadcrump/${type}/${id}`
+    ) as Observable<HttpClientResult<BreadCrumbViewModel[]>>;
   }
 }

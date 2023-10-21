@@ -1,27 +1,44 @@
+<keleman-bread-crumb
+  *ngIf="categoryId"
+  [type]="1"
+  [id]="categoryId!"
+></keleman-bread-crumb>
+
 <ng-container class="product-list d-flex flex-column">
-  <div class="top-categories card card-rounded-3 mb-3 d-none d-lg-block">
-    <div class="card-body">
-      <ng-template [ngIf]="categoryId">
-        <keleman-product-category
-          [parentId]="categoryId"
-          (onItemClick)="updateCurrentRoute($event)"
-        ></keleman-product-category>
-      </ng-template>
+  <ng-template
+    [ngIf]="
+      !applicationStateService.isPhone && !applicationStateService.isTablet
+    "
+  >
+    <div class="top-categories card card-rounded-3 mb-3">
+      <div class="card-body p-0">
+        <ng-template [ngIf]="categoryId!">
+          <keleman-product-categories
+            [parentId]="categoryId!"
+            (onItemClick)="updateCurrentRoute($event)"
+          ></keleman-product-categories>
+        </ng-template>
+      </div>
     </div>
-  </div>
+  </ng-template>
+
   <div class="products row mx-0">
-    <div class="col-12 d-none d-lg-block col-lg-3">
+    <div class="col-12 col-lg-3">
       <keleman-product-search
         [initialSearchText]="searchText"
       ></keleman-product-search>
-      <keleman-product-filters></keleman-product-filters>
+      <keleman-product-filters
+        [categoryId]="categoryId!"
+        [maxPrice]="maxPrice"
+      ></keleman-product-filters>
     </div>
     <div class="col-12 col-lg-9">
       <div class="d-flex flex-column">
-        <keleman-products-sort></keleman-products-sort>
-        <div class="row mx-0 g-3">
+        <keleman-products-sort [initialSort]="sortBy"></keleman-products-sort>
+
+        <div class="row mx-0 gx-0 gy-3 gx-lg-3">
           <ng-container
-            *ngIf="isLoading; then loading; else productList"
+            *ngIf="fetchDataService.isLoading; then loading; else productList"
           ></ng-container>
           <ng-template #loading>
             <div
@@ -58,10 +75,10 @@
           </ng-template>
         </div>
         <keleman-pagination
-          *ngIf="products.length > 0"
+          *ngIf="products.length! > 0"
           [totalElements]="totalElements"
           (pageChange)="pageChange($event)"
-          [limit]="10"
+          [limit]="limit"
           [currentPage]="page"
         ></keleman-pagination>
       </div>

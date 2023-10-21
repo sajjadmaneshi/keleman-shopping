@@ -9,6 +9,7 @@ import { QueryParamGeneratorService } from './query-params-generator.service';
 export interface ProductSearchResult {
   products: ProductViewModel[];
   totalElements: number;
+  maxPrice: number;
   category: { id: number; title: string };
 }
 
@@ -18,7 +19,7 @@ export interface ArticleSearchResult {
   category: { id: number; title: string };
 }
 @Injectable({ providedIn: 'root' })
-export class SeaechService<T> {
+export class SearchService<T> {
   constructor(
     private _http: HttpClient,
     private _queryParamService: QueryParamGeneratorService
@@ -26,16 +27,10 @@ export class SeaechService<T> {
 
   search(
     url: string,
-    params: {
-      catUrl?: string;
-      offset?: number;
-      limit?: number;
-    },
-    search?: string
+    params?: { [key: string]: any }
   ): Observable<HttpClientResult<ProductSearchResult | ArticleSearchResult>> {
     const queryParams = this._queryParamService
-      .generateObjectToQueryParam(params)
-      .generateSearchQueryParam(search)
+      .generateObjectToQueryParam(params!)
       .getQueryParams();
     this._queryParamService.resetQueryParams();
     return this._http.get(

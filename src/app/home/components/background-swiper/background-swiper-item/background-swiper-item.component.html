@@ -9,7 +9,13 @@
       [iconName]="'star'"
       [iconClass]="'text-warning'"
     ></keleman-text-with-icon>
-    <div class="symbol symbol-25 symbol-lg-30 mb-3">
+    <div
+      appSymbol
+      [breakPoints]="['sm', 'lg']"
+      [sizes]="[6.25, 7.5]"
+      [type]="'square'"
+      class="mb-3"
+    >
       <img
         loadingLazy
         emptyImage

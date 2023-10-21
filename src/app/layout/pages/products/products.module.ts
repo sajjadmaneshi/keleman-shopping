@@ -60,10 +60,14 @@ import { CommentsModule } from '../../../shared/components/comments/comments.mod
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { CategoryAboutComponent } from './product-list/components/category-about/category-about.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { ProductService } from './product.service';
+import { ProductService } from './services/product.service';
 import { SwiperModule } from 'swiper/angular';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SymbolDirective } from '../../../shared/directives/symbol.directive';
+import { RouteHandlerService } from '../../../shared/services/route-handler/route-handler.service';
+import { ProductFilterService } from './services/product-filter.service';
+import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/bread-crumb.component';
 
 @NgModule({
   declarations: [
@@ -121,8 +125,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgbAccordionModule,
     MatIconModule,
     MatDialogModule,
+    SymbolDirective,
+    BreadCrumbComponent,
   ],
+  providers: [ProductFilterService, RouteHandlerService],
 
-  exports: [ProductItemComponent],
+  exports: [ProductItemComponent, ProductSearchComponent],
 })
 export class ProductsModule {}

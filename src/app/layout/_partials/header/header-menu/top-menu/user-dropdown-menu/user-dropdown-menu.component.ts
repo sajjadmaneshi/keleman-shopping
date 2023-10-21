@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserSimpleInfoViewModel } from '../../../../../../shared/data/models/view-models/user-simple-info.view-model';
 import { AuthService } from '../../../../../../shared/services/auth/auth.service';
 

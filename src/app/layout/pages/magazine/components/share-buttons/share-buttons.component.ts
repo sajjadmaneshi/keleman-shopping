@@ -6,7 +6,6 @@ import { SsrService } from '../../../../../shared/services/ssr/ssr.service';
   selector: 'keleman-share-buttons',
   templateUrl: './share-buttons.component.html',
   styleUrls: ['./share-buttons.component.scss'],
-  providers: [SsrService],
 })
 export class ShareButtonsComponent implements OnInit {
   @Input() pageUrl!: string;

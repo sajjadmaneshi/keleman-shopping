@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ProductDetailViewModel } from '../data/models/view-models/product-detail.view-model';
 import { ProductRepository } from '../data/repositories/product.repository';
 import { tap } from 'rxjs';
-import { ProductService } from '../product.service';
+import { ProductService } from '../services/product.service';
 import { DOCUMENT } from '@angular/common';
 import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 

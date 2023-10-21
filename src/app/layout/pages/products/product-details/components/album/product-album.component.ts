@@ -4,7 +4,7 @@ import { ProductRepository } from '../../../data/repositories/product.repository
 import { ProductGalleryViewModel } from '../../../data/models/view-models/product-gallery.view-model';
 import { ENVIRONMENT } from '../../../../../../../environments/environment';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ProductService } from '../../../product.service';
+import { ProductService } from '../../../services/product.service';
 
 @Component({
   selector: 'keleman-product-album',

@@ -84,7 +84,7 @@ a {
 
 /* Target the entire scrollbar */
 ::-webkit-scrollbar {
-  width: 10px; /* width of the scrollbar */
+  width: 5px; /* width of the scrollbar */
 }
 
 /* Track, where the scrollbar moves */
@@ -101,4 +101,5 @@ a {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* color of the handle on hover */
+  border-radius: 100px;
 }

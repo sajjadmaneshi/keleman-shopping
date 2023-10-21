@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProductViewModel } from '../../../data/models/view-models/product.view-model';
+import { ENVIRONMENT } from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'keleman-product-item',
@@ -8,4 +9,6 @@ import { ProductViewModel } from '../../../data/models/view-models/product.view-
 })
 export class ProductItemComponent {
   @Input() product!: ProductViewModel;
+
+  downloadUrl = ENVIRONMENT.downloadUrl;
 }

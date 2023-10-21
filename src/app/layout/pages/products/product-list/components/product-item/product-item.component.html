@@ -13,11 +13,17 @@
       [iconClass]="'text-warning'"
     ></keleman-text-with-icon>
 
-    <div class="symbol symbol-25 symbol-lg-30 mb-3">
+    <div
+      appSymbol
+      [type]="'square'"
+      [breakPoints]="['sm', 'lg']"
+      [sizes]="[6.25, 7.5]"
+      class="mb-3"
+    >
       <img
         loadingLazy
         emptyImage
-        [src]="product.thumbnailImage!"
+        [src]="product.thumbnailImage"
         [alt]="product.name!"
       />
     </div>

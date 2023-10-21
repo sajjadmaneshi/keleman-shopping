@@ -5,7 +5,6 @@ import { Subscription, tap } from 'rxjs';
 @Component({
   selector: 'keleman-about-us-summary',
   templateUrl: './about-us-summary.component.html',
-  styleUrls: ['./about-us-summary.component.scss'],
 })
 export class AboutUsSummaryComponent {
   aboutUsSummary!: string;

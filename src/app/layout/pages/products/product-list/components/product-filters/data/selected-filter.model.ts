@@ -1,27 +1,5 @@
+import { SelectablePropertyModel } from '../../../../data/models/view-models/category-property-option.view-model';
+
 export class SelectedFilterModel {
-  categories!: [
-    {
-      id: number;
-      title: string;
-    }
-  ];
-  brands!: [
-    {
-      id: number;
-      title: string;
-    }
-  ];
-  sellers!: [
-    {
-      id: number;
-      title: string;
-    }
-  ];
-  price!:
-    | {
-        min: number;
-        max: number;
-      }
-    | undefined;
-  outOfStock: boolean = false;
+  constructor(public key: string, public title: string, public value: string) {}
 }

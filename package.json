@@ -17,11 +17,11 @@
     "serve:ssr": "node dist/keleman-shopping/server/main.js",
     "serve:prerender": "http-server -c-1 dist/keleman-shopping/browser",
     "build:ssr": "ng build --aot=true && gzipper c -v ./dist && ng run keleman-shopping:server",
-    "prerender": "ng run keleman-shopping:prerender  && gzipper c -v ./dist"
+    "prerender": "ng run keleman-shopping:prerender  && gzipper c -v ./dist",
+    "unused-css": "ngx-unused-css"
   },
   "private": true,
   "dependencies": {
-    "@angular-eslint/schematics": "^16.1.2",
     "@angular/animations": "^15.2.6",
     "@angular/cdk": "^15.2.6",
     "@angular/common": "^15.2.6",
@@ -36,13 +36,15 @@
     "@angular/service-worker": "^15.2.6",
     "@asymmetrik/ngx-leaflet": "^15.0.1",
     "@auth0/angular-jwt": "^5.1.2",
+    "@fortawesome/angular-fontawesome": "^0.12.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@ng-bootstrap/ng-bootstrap": "^14.1.0",
     "@nguniversal/express-engine": "^15.2.1",
     "@popperjs/core": "^2.11.7",
     "@types/google.maps": "^3.52.5",
     "@types/leaflet": "^1.9.3",
     "bootstrap": "^5.2.3",
-    "del": "^7.0.0",
     "express": "^4.15.2",
     "highcharts": "^10.3.3",
     "highcharts-angular": "^3.1.2",
@@ -63,6 +65,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.5",
+    "@angular-eslint/schematics": "^16.2.0",
     "@angular/cli": "~15.2.5",
     "@angular/compiler-cli": "^15.2.6",
     "@angular/localize": "^15.2.6",
@@ -77,7 +80,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "lite-server": "^2.6.1",
+    "ngx-unused-css": "^4.0.0-1",
     "typescript": "^4.8.2",
     "webpack-cli": "^5.1.4"
   }

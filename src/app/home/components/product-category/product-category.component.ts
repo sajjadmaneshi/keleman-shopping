@@ -1,7 +1,6 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
+  DoCheck,
   EventEmitter,
   Input,
   OnChanges,
@@ -18,12 +17,13 @@ import {
 } from '../../../shared/directives/swiper-template.directive';
 import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import { ProductCategoryViewModel } from '../../../shared/data/models/view-models/product-category.view-model';
+import { ApplicationStateService } from '../../../shared/services/application-state.service';
 
 @Component({
-  selector: 'keleman-product-category',
+  selector: 'keleman-product-categories',
   templateUrl: './product-category.component.html',
   styleUrls: ['./product-category.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
   imports: [
     CommonModule,
     ProductCategoryItemComponent,
@@ -33,8 +33,8 @@ import { ProductCategoryViewModel } from '../../../shared/data/models/view-model
   ],
   standalone: true,
 })
-export class ProductCategoryComponent implements OnChanges, OnInit {
-  @Input() parentId: number = 0;
+export class ProductCategoryComponent implements OnChanges {
+  @Input() parentId!: number | null;
 
   @Output() onItemClick = new EventEmitter<ProductCategoryViewModel>();
 
@@ -42,15 +42,20 @@ export class ProductCategoryComponent implements OnChanges, OnInit {
 
   constructor(
     public productCategoryService: ProductCategoryService,
-    private _cdr: ChangeDetectorRef
+    private _applicationState: ApplicationStateService
   ) {}
+  private previousValue: any;
+  inputHasChanged: boolean = false;
 
-  ngOnInit(): void {
-    this._getCategories();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this._getCategories();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['parentId']) {
+      const currentValue = changes['parentId'].currentValue;
+      if (currentValue !== this.previousValue) {
+        this.inputHasChanged = true;
+        this._getCategories();
+      }
+      this.previousValue = currentValue;
+    }
   }
 
   tranckByFn(index: number, item: ProductCategoryViewModel) {
@@ -62,9 +67,10 @@ export class ProductCategoryComponent implements OnChanges, OnInit {
   }
 
   private _getCategories() {
-    this.productCategoryService.getCategories(this.parentId).then((result) => {
-      this.categories = [...result];
-      this._cdr.markForCheck();
-    });
+    this.productCategoryService
+      .getCategories(this.parentId!)
+      .subscribe((result) => {
+        this.categories = result;
+      });
   }
 }

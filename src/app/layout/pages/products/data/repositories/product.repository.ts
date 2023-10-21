@@ -10,7 +10,7 @@ import { ProductViewModel } from '../models/view-models/product.view-model';
 import { CategorySimpleInfoViewModel } from '../models/view-models/category-simple-info.view-model';
 import {
   ProductSearchResult,
-  SeaechService,
+  SearchService,
 } from '../../../../../shared/services/search.service';
 import { ProductDetailViewModel } from '../models/view-models/product-detail.view-model';
 import { ProductGalleryViewModel } from '../models/view-models/product-gallery.view-model';
@@ -24,40 +24,17 @@ export class ProductRepository extends DataService<
 > {
   constructor(
     _http: HttpClient,
-    private _searchService: SeaechService<ProductViewModel>
+    private _searchService: SearchService<ProductViewModel>
   ) {
     super('product', _http);
   }
 
-  getAllProductCategoriesWithChildrens(
-    parentId?: number
-  ): Observable<HttpClientResult<ProductCategoryViewModel[]>> {
-    const route = `${this._getUrl}/categories${
-      parentId != null ? `?parentId=${parentId}` : ''
-    }`;
-
-    return this._http.get(route) as Observable<
-      HttpClientResult<ProductCategoryViewModel[]>
+  search(params: {
+    [key: string]: any;
+  }): Observable<HttpClientResult<ProductSearchResult>> {
+    return this._searchService.search(this._getUrl, params) as Observable<
+      HttpClientResult<ProductSearchResult>
     >;
-  }
-
-  search(
-    categoryuRL?: string,
-    offset?: number,
-    limit?: number,
-    search?: string
-  ): Observable<HttpClientResult<ProductSearchResult>> {
-    const params = {
-      catUrl: categoryuRL,
-      offset,
-      limit,
-      param1: 'salam',
-    };
-    return this._searchService.search(
-      this._getUrl,
-      params,
-      search
-    ) as Observable<HttpClientResult<ProductSearchResult>>;
   }
 
   getProductDetails(
@@ -97,14 +74,6 @@ export class ProductRepository extends DataService<
   ): Observable<HttpClientResult<ProductPriceChartViewModel[]>> {
     return this._http.get(`${this._getUrl}/${url}/priceChart`) as Observable<
       HttpClientResult<ProductPriceChartViewModel[]>
-    >;
-  }
-
-  override getSingle(
-    id: number | string
-  ): Observable<HttpClientResult<CategorySimpleInfoViewModel>> {
-    return this._http.get(`${this._getUrl}/categoryDetail/${id}`) as Observable<
-      HttpClientResult<CategorySimpleInfoViewModel>
     >;
   }
 }

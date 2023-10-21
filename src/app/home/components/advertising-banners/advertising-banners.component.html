@@ -3,7 +3,7 @@
 <ng-template #loading>
   <div class="banners row g-3">
     <div
-      class="col-12 col-md-6 col-lg-3"
+      class="col-6 col-lg-3"
       *ngFor="let _ of sharedVariablesService.counter(8)"
     >
       <ngx-skeleton-loader
@@ -15,7 +15,7 @@
 
 <ng-template #content>
   <div class="banners row g-3">
-    <div class="col-12 col-md-6 col-lg-3" *ngFor="let ad of banners">
+    <div class="col-6 col-lg-3" *ngFor="let ad of banners">
       <a [href]="ad.linkAddress">
         <img
           [src]="ad.fileAddress ? downloadUrl + ad.fileAddress : ''"

@@ -1,0 +1,24 @@
+@import "base/variables/colors";
+.mat-expansion-panel {
+  box-shadow: none !important;
+}
+
+.isSelected:after {
+  position: absolute;
+  left: -50%;
+  top: 50%;
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 100px;
+  transform: translateY(-50%);
+  background-color: #00e7df;
+}
+
+mat-chip {
+  background-color: map-get($theme-light-colors, "success") !important;
+
+  mat-icon {
+    margin: 0 0.5rem;
+  }
+}

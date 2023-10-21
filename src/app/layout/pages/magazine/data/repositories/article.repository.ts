@@ -7,7 +7,7 @@ import { HttpClientResult } from '../../../../../shared/data/models/http/http-cl
 import { ArticleSimpleDataViewModel } from '../view-models/article-simple-data-view.model';
 import {
   ArticleSearchResult,
-  SeaechService,
+  SearchService,
 } from '../../../../../shared/services/search.service';
 import { ArticleViewModel } from '../view-models/article.view-model';
 
@@ -15,27 +15,17 @@ import { ArticleViewModel } from '../view-models/article.view-model';
 export class ArticleRepository extends DataService<any> {
   constructor(
     _http: HttpClient,
-    private _searchService: SeaechService<ArticleSimpleDataViewModel>
+    private _searchService: SearchService<ArticleSimpleDataViewModel>
   ) {
     super('article', _http);
   }
 
-  search(
-    categoryuRL?: string,
-    offset?: number,
-    limit?: number,
-    search?: string
-  ): Observable<HttpClientResult<ArticleSearchResult>> {
-    const params = {
-      catUrl: categoryuRL,
-      offset,
-      limit,
-    };
-    return this._searchService.search(
-      this._getUrl,
-      params,
-      search
-    ) as Observable<HttpClientResult<ArticleSearchResult>>;
+  search(params: {
+    [key: string]: any;
+  }): Observable<HttpClientResult<ArticleSearchResult>> {
+    return this._searchService.search(this._getUrl, params) as Observable<
+      HttpClientResult<ArticleSearchResult>
+    >;
   }
 
   getLatestArticles(

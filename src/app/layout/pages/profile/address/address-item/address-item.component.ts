@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { AddressWithSelected } from '../addresses.component';
 import { LatLngExpression } from 'leaflet';

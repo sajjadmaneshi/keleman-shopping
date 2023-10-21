@@ -9,7 +9,7 @@ import { ENVIRONMENT } from '../../../../../../../environments/environment';
 import { SharedVariablesService } from '../../../../../../shared/services/shared-variables.service';
 import { ProductGalleryViewModel } from '../../../data/models/view-models/product-gallery.view-model';
 import { ProductRepository } from '../../../data/repositories/product.repository';
-import { ProductService } from '../../../product.service';
+import { ProductService } from '../../../services/product.service';
 import { ProductPriceChartViewModel } from '../../../data/models/view-models/product-price-chart.view-model';
 
 SwiperCore.use([Pagination]);
@@ -33,7 +33,7 @@ export class ProductContentComponent implements OnChanges {
 
   productCurrentImage!: ProductGalleryViewModel;
 
-  gallary!: ProductGalleryViewModel[];
+  gallary: ProductGalleryViewModel[] = [];
 
   gallaryLoading = new BehaviorSubject<boolean>(true);
 

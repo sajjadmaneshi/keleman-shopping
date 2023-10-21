@@ -6,6 +6,7 @@ import SwiperCore from 'swiper';
 import { ProductViewModel } from '../../../layout/pages/products/data/models/view-models/product.view-model';
 import { HttpClientResult } from '../../../shared/data/models/http/http-client.result';
 import { HomeRepository } from '../../data/repositories/home.repository';
+import { ENVIRONMENT } from '../../../../environments/environment';
 
 SwiperCore.use([EffectCreative, Navigation]);
 @Component({
@@ -14,6 +15,7 @@ SwiperCore.use([EffectCreative, Navigation]);
   styleUrls: ['./package-swiper.component.scss'],
 })
 export class PackageSwiperComponent implements AfterViewInit, OnDestroy {
+  downloadUrl = ENVIRONMENT.downloadUrl;
   isLoading = new BehaviorSubject(false);
   slides: ProductViewModel[] = [];
   swiper: any;
@@ -26,7 +28,7 @@ export class PackageSwiperComponent implements AfterViewInit, OnDestroy {
     this._homeRepository
       .getPackages()
       .pipe(
-        tap(() => setTimeout(() => this.isLoading.next(false), 1500)),
+        tap(() => this.isLoading.next(false)),
         takeUntil(this.destroy$)
       )
       .subscribe((result: HttpClientResult<ProductViewModel[]>) => {

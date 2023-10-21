@@ -1,35 +1,40 @@
-import { Component, TemplateRef } from '@angular/core';
-import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  TemplateRef,
+} from '@angular/core';
+import { ProductSortTypeEnum } from '../../../data/enums/product-sort-type .enum';
+import { ProductFilterService } from '../../../services/product-filter.service';
 
 @Component({
   selector: 'keleman-products-sort',
   templateUrl: './products-sort.component.html',
   styleUrls: ['./products-sort.component.scss'],
 })
-export class ProductsSortComponent {
-  selectedSortValue = 1;
+export class ProductsSortComponent implements OnChanges {
+  @Input() initialSort!: ProductSortTypeEnum;
 
-  sortItems = [
-    { title: 'محبوب ترین', value: 1 },
-    { title: 'پرفروش ترین', value: 2 },
-    { title: 'تخفیف دار', value: 3 },
-    { title: 'ارزان ترین', value: 4 },
-    { title: 'گرانترین', value: 5 },
-  ];
+  selectedSortValue: ProductSortTypeEnum = 0;
 
-  constructor(
-    public applicationState: ApplicationStateService,
-    private _bottomSheet: MatBottomSheet
-  ) {}
+  sortEnum = ProductSortTypeEnum;
 
-  openBottomSheet(element: TemplateRef<any>) {
-    this._bottomSheet.open(element);
+  constructor(public productFilterService: ProductFilterService) {}
+
+  selectSort(sortItem: ProductSortTypeEnum) {
+    this.selectedSortValue = sortItem;
+    this.productFilterService.onSelectSort(sortItem);
   }
-  onSelectSort(value: number) {
-    this.selectedSortValue = value;
-  }
-  closeBottomSheet() {
-    this._bottomSheet.dismiss();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes['initialSort'].previousValue !=
+      changes['initialSort'].currentValue
+    )
+      this.selectedSortValue = this.initialSort;
   }
 }

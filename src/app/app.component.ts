@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ApplicationStateService } from './shared/services/application-state.service';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { Subscription } from 'rxjs';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { LoadingService } from './shared/services/loading.service';
+import { SsrService } from './shared/services/ssr/ssr.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import { LoadingService } from './shared/services/loading.service';
   providers: [LoadingService],
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
   title = 'بازرگانی آسانسور کلمان';
 
   private _loadingSubscription!: Subscription;
@@ -22,19 +23,25 @@ export class AppComponent implements OnDestroy {
     private _title: Title,
 
     private router: Router,
-    private loadingService: LoadingService
+    private ssrService: SsrService,
+    private meta: Meta
   ) {
     _title.setTitle(this.title);
+    this._setMetaTag();
     this._applicationState.init();
-    this._loadingSubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.loadingService.show();
-      } else if (event instanceof NavigationEnd) {
-        this.loadingService.hide();
-      }
-    });
   }
-  ngOnDestroy() {
-    this._loadingSubscription.unsubscribe();
+
+  private get _isIos() {
+    const userAgent = this.ssrService.getWindow?.navigator.userAgent!;
+    return /iPad|iPhone|iPod/.test(userAgent);
+  }
+
+  private _setMetaTag() {
+    const metaTagBase = 'width=device-width, initial-scale=1.0';
+    const metaTagContent = this._isIos
+      ? metaTagBase + ' maximum-scale=1, user-scalable=0'
+      : metaTagBase;
+
+    this.meta.addTags([{ name: 'viewport', content: metaTagContent }]);
   }
 }

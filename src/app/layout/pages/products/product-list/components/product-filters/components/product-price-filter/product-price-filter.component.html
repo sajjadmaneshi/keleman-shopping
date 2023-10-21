@@ -1,29 +1,25 @@
-<div class="d-flex flex-column">
+<div class="d-flex flex-column p-3">
   <mat-slider
-    [min]="min"
+    min="0"
     [max]="max"
-    [step]="500000"
+    [step]="max * 0.005"
     [discrete]="true"
     [displayWith]="formatLabel"
     (change)="changePrice()"
   >
-    <input
-      [(ngModel)]="minValue"
-      matSliderStartThumb
-      (ngModelChange)="formatInputValues()"
-    />
-    <input
-      [(ngModel)]="maxValue"
-      matSliderEndThumb
-      (ngModelChange)="formatInputValues()"
-    />
+    <input [(ngModel)]="minValue" matSliderStartThumb />
+    <input [(ngModel)]="maxValue" matSliderEndThumb />
   </mat-slider>
   <div class="price-values">
     <span class="price-values__item">
       از
       <input
         class="keleman-text-field text-center my-3"
-        [(ngModel)]="formattedMinValue"
+        type="text"
+        inputmode="numeric"
+        #minIn
+        [value]="minValue | number : '.0'"
+        (input)="onInputMin(minIn.value)"
       />
       تومان
     </span>
@@ -31,8 +27,10 @@
     <span class="price-values__item">
       تا
       <input
+        #maxIn
         class="keleman-text-field text-center my-3"
-        [(ngModel)]="formattedMaxValue"
+        [value]="maxValue | number : '.0'"
+        (input)="onInputMax(maxIn.value)"
       />
       تومان
     </span>

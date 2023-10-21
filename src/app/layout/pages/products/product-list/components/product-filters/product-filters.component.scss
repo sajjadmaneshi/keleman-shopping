@@ -7,8 +7,7 @@
     padding: 0 !important;
   }
   ::ng-deep .accordion-button {
-    padding-right: 0 !important;
-    padding-left: 0 !important;
+    padding: 0.5rem 0 !important;
     &:focus {
       border: unset !important;
       box-shadow: unset !important;
@@ -25,4 +24,13 @@
   .available {
     height: 50px;
   }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+}
+.apply-filter {
+  min-height: 3rem;
 }

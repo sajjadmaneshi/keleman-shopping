@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
+import { RouteHandlerService } from './route-handler/route-handler.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,15 +9,7 @@ export class QueryParamGeneratorService {
   private queryParams: string[] = [];
   private _queryParamsOrder: string[] = [];
 
-  constructor() {}
-
-  get queryParamsOrder(): string[] {
-    return this._queryParamsOrder;
-  }
-
-  set queryParamsOrder(value: string[]) {
-    this._queryParamsOrder = value;
-  }
+  constructor(private _routerHandlerService: RouteHandlerService) {}
 
   private addToQueryParams(param: string): void {
     this.queryParams.push(param);
@@ -57,7 +50,7 @@ export class QueryParamGeneratorService {
   }
 
   generateObjectToQueryParam(obj: {
-    [key: string]: any;
+    [key: string]: string;
   }): QueryParamGeneratorService {
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
@@ -77,23 +70,24 @@ export class QueryParamGeneratorService {
     return this.queryParams.join('&');
   }
 
-  areQueryParamsInOrder(currentParams: string[]): boolean {
-    return (
-      currentParams.length === this.queryParamsOrder.length &&
-      currentParams.every(
-        (param, index) => param === this.queryParamsOrder[index]
-      )
-    );
+  public sortQuryParams(queryParams: Params) {
+    const sortedKeys = Object.keys(queryParams).sort();
+    const sortedQueryParams = {} as Params;
+    sortedKeys.forEach((key) => {
+      sortedQueryParams[key] = queryParams[key];
+    });
+
+    return sortedQueryParams;
   }
 
-  public constructCorrectQueryParams(queryParams: Params): Params {
-    const correctedQueryParams: Params = {};
-    for (const param of this.queryParamsOrder) {
-      if (queryParams[param]) {
-        correctedQueryParams[param] = queryParams[param];
-      }
-    }
-    return correctedQueryParams;
+  public fixQueryParamsOrderInUrl() {
+    let params = this._routerHandlerService.getQueryParamsSnapShot;
+    if (!this._hasPageParam(params)) params = { ...params, p: 0 };
+    this._routerHandlerService.updateQueryParams(this.sortQuryParams(params));
+  }
+
+  private _hasPageParam(params: Params) {
+    return params['p'] != undefined;
   }
 
   resetQueryParams(): void {

@@ -3,9 +3,8 @@
     <li
       *ngFor="let rootCategory of productCategories; let i = index"
       (mouseenter)="onHover(i + 1)"
-      [class.active]="i === 0"
+      [class.active]="i === activeIndex - 1"
       (click)="onClick({ c1: rootCategory.url })"
-      appHoverClass
       class="p-2"
     >
       <span class="material-icons"> {{ iconNames[i] }} </span>
@@ -34,7 +33,7 @@
           let-i="index"
         >
           <li
-            class="head p-3"
+            class="head"
             (click)="onClick({ c1: rootCategory.url, c2: child.url })"
           >
             <span> {{ child.titleFa }}</span>

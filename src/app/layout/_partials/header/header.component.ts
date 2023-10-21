@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApplicationStateService } from '../../../shared/services/application-state.service';
 
 @Component({
@@ -6,5 +6,10 @@ import { ApplicationStateService } from '../../../shared/services/application-st
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
+  @ViewChild('header', { static: true }) header!: ElementRef;
   constructor(public applicationState: ApplicationStateService) {}
+
+  getHeader() {
+    return this.header.nativeElement;
+  }
 }

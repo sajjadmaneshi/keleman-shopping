@@ -1,7 +1,10 @@
-.navbar-nav {
+#keleman-header {
   li:first-child {
     border-left: 1px solid $gray-300;
   }
+}
+
+.navbar-nav {
   .active {
     background-color: map-get($theme-colors, "klm-primary");
     color: white !important;
@@ -20,4 +23,8 @@
 }
 [aria-labelledby="categoryDropDown"] {
   padding: 0 !important;
+}
+.mat-menu-panel {
+  width: var(--mega-menu-width) !important;
+  max-width: unset !important;
 }

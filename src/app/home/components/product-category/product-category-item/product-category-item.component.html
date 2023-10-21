@@ -2,19 +2,19 @@
 <ng-template #loading>
   <ngx-skeleton-loader
     appearance="circle"
-    [theme]="{ height: '6.25rem', width: '6.25rem', direction: 'rtl' }"
+    [theme]="{ height: '5rem', width: '5rem', direction: 'rtl' }"
   ></ngx-skeleton-loader>
   <ngx-skeleton-loader></ngx-skeleton-loader>
 </ng-template>
 
 <ng-template #content>
   <div class="product-category-item d-flex flex-column align-items-center p-1">
-    <div class="symbol symbol-20 symbol-circle pb-3">
+    <div appSymbol [breakPoints]="['sm']" [sizes]="[5]" class="mb-3">
       <img
         loadingLazy
         emptyImage
         [alt]="category.titleFa"
-        [src]="category.imageAddress ? downloadUrl + category.imageAddress : ''"
+        [src]="category.imageAddress"
       />
     </div>
     <h2 class="fs-6 fw-bold">{{ category.titleFa }}</h2>

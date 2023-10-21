@@ -18,6 +18,7 @@ import { ShareButtonsComponent } from './components/share-buttons/share-buttons.
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import {EmptyImageDirective} from "../../../shared/directives/empty-image.directive";
+import {SymbolDirective} from "../../../shared/directives/symbol.directive";
 
 export const routes: Routes = [{ path: '', component: MagazineComponent }];
 
@@ -44,6 +45,7 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
     NgxSkeletonLoaderModule,
     PaginationComponent,
     EmptyImageDirective,
+    SymbolDirective,
   ],
 })
 export class MagazineModule {}

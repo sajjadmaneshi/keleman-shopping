@@ -19,6 +19,7 @@ export class ProductNavbarComponent implements AfterViewInit {
   @ViewChild('stickyMenu') menuElement!: ElementRef;
 
   selectedTab = 'details';
+
   constructor(
     public applicationState: ApplicationStateService,
     private renderer: Renderer2,
@@ -31,22 +32,17 @@ export class ProductNavbarComponent implements AfterViewInit {
     const headerHeight = document
       .getElementById('keleman-header')
       ?.getBoundingClientRect().height;
-
-    if (menuPosition <= headerHeight! + 10) {
-      this.renderer.addClass(this.menuElement.nativeElement, 'sticky');
-      this.renderer.addClass(this.menuElement.nativeElement, 'shadow');
-    } else {
-      this.renderer.removeClass(this.menuElement.nativeElement, 'sticky');
-      this.renderer.removeClass(this.menuElement.nativeElement, 'shadow');
-    }
+    this.renderer.setStyle(
+      this.menuElement.nativeElement,
+      'top',
+      `${headerHeight}px`
+    );
   }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this._platformId)) {
       if (this.applicationState.isTablet || this.applicationState.isPhone) {
-        this.renderer.listen('document', 'mousewheel', () => {
-          this.makeSticky();
-        });
+        this.makeSticky();
       }
     }
   }

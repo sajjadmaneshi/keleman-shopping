@@ -33,12 +33,7 @@ export class MainPageLatestArticlesComponent implements OnDestroy {
     this.isLoading = true;
     this._articleRepository
       .getLatestArticles(count)
-      .pipe(
-        tap(
-          () => setTimeout(() => (this.isLoading = false), 1500),
-          takeUntil(this.destroy$)
-        )
-      )
+      .pipe(tap(() => (this.isLoading = false), takeUntil(this.destroy$)))
       .subscribe((result: HttpClientResult<ArticleSimpleDataViewModel[]>) => {
         this.articles = [...result.result!];
       });

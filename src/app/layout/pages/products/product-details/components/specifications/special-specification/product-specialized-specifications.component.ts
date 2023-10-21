@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ProductService } from '../../../../product.service';
+import { ProductService } from '../../../../services/product.service';
 import { ProductRepository } from '../../../../data/repositories/product.repository';
 import { ProductSpecificViewModel } from '../../../../data/models/view-models/product-specific.view-model';
 import { Subscription, tap } from 'rxjs';

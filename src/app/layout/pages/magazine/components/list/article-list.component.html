@@ -1,6 +1,6 @@
 <div class="row mx-0 g-3">
   <ng-container
-    *ngIf="isLoading; then loading; else articleList"
+    *ngIf="fetchDataService.isLoading; then loading; else articleList"
   ></ng-container>
   <ng-template #loading>
     <div
