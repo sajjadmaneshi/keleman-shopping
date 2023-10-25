@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-center flex-column align-items-center p-3">
+  <mat-icon class="text-warning">warning</mat-icon>
+  <h4>اخطار</h4>
+</div>
+<div mat-dialog-content>
+  <p>{{ data.message }}</p>
+</div>
+<div mat-dialog-actions class="justify-content-center">
+  <button class="btn btn-warning" (click)="data.callBackFunction(); onClose()">
+    {{ data.callBackButtonText }}
+  </button>
+  <button mat-button cdkFocusInitial (click)="onClose()">متوجه شدم</button>
+</div>

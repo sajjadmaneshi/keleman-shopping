@@ -13,13 +13,7 @@
       [iconClass]="'text-warning'"
     ></keleman-text-with-icon>
 
-    <div
-      appSymbol
-      [type]="'square'"
-      [breakPoints]="['sm', 'lg']"
-      [sizes]="[6.25, 7.5]"
-      class="mb-3"
-    >
+    <div class="symbol symbol-lg-30 mb-0 mb-lg-3">
       <img
         loadingLazy
         emptyImage
@@ -27,7 +21,7 @@
         [alt]="product.name!"
       />
     </div>
-    <h2 class="fs-6 align-self-md-center flex-grow-1 text-center">
+    <h2 class="fs-6 align-self-md-center flex-grow-1 text-center product-title">
       <a [routerLink]="['/products/detail/' + product.customUrl]">
         {{ product.name! }}
       </a>

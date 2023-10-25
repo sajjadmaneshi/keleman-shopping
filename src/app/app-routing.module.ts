@@ -19,9 +19,7 @@ const routes: Routes = [
   {
     path: Routing.register,
     loadComponent: () =>
-      import('./authentication/register/register.component').then(
-        (c) => c.RegisterComponent
-      ),
+      import('./auth/auth.component').then((c) => c.AuthComponent),
 
     resolve: { token: () => inject(TokenResolver).resolve() },
   },

@@ -10,6 +10,7 @@ import {
   SearchService,
 } from '../../../../../shared/services/search.service';
 import { ArticleViewModel } from '../view-models/article.view-model';
+import { ArticleCategoryViewModel } from '../view-models/article-category.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ArticleRepository extends DataService<any> {
@@ -41,6 +42,14 @@ export class ArticleRepository extends DataService<any> {
   ): Observable<HttpClientResult<ArticleViewModel>> {
     return this._http.get(`${this._getUrl}/${url}`) as Observable<
       HttpClientResult<ArticleViewModel>
+    >;
+  }
+
+  getArticleCategories(): Observable<
+    HttpClientResult<ArticleCategoryViewModel[]>
+  > {
+    return this._http.get(`${this._getUrl}/categories`) as Observable<
+      HttpClientResult<ArticleCategoryViewModel[]>
     >;
   }
 }

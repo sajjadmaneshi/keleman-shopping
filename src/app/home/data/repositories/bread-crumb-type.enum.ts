@@ -1,5 +1,5 @@
 export enum BreadCrumbTypeEnum {
-  Product = 1,
+  Product,
   ProductCategory,
   Article,
   ArticleCategory,

@@ -31,3 +31,5 @@ $keleman-shopping-theme: mat.define-light-theme(
 @include mat.slider-theme($keleman-shopping-theme);
 @include mat.slide-toggle-theme($keleman-shopping-theme);
 @include mat.radio-theme($keleman-shopping-theme);
+@include mat.progress-spinner-theme($keleman-shopping-theme);
+@include mat.snack-bar-theme($keleman-shopping-theme);

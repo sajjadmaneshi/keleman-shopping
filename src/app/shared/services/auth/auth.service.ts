@@ -12,7 +12,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class AuthService {
-  isLoggedIn = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = new BehaviorSubject<boolean>(false);
   constructor(
     private jwtHelper: JwtHelperService,
     private _authRepository: AccountRepository,
@@ -29,11 +29,11 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('KELEMAN_TOKEN');
       if (token) {
-        this.isLoggedIn.next(!this._isTokenExpired(token!));
+        this.isLoggedIn$.next(!this._isTokenExpired(token!));
         if (this._isTokenExpired(token!)) this.logout();
       }
     }
-    return this.isLoggedIn.asObservable();
+    return this.isLoggedIn$.asObservable();
   }
 
   public sendVerificationCode(
@@ -75,13 +75,13 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId))
       localStorage.setItem('KELEMAN_TOKEN', data.token);
 
-    this.isLoggedIn.next(true);
+    this.isLoggedIn$.next(true);
   }
   public logout() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('KELEMAN_TOKEN');
       localStorage.removeItem('MOBILE');
-      this.isLoggedIn.next(false);
+      this.isLoggedIn$.next(false);
     }
   }
 

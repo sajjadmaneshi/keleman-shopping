@@ -12,6 +12,7 @@ import { FilterOptionService } from '../../../../../services/filter-option.servi
   selector: 'keleman-filter-option',
   templateUrl: './filter-option.component.html',
   styleUrls: ['./filter-option.component.scss'],
+  providers: [FilterOptionService],
 })
 export class FilterOptionComponent implements OnInit {
   @Input() propertyOption!: SelectableOption;

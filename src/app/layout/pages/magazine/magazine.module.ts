@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MagazineComponent } from './magazine.component';
-import { ArticleListComponent } from './components/list/article-list.component';
+import { MagazineListComponent } from './components/list/magazine-list.component';
 import { MagazineRoutingModule } from './magazine-routing.module';
 import { CommentComponent } from './components/comment/comment.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,8 +17,8 @@ import { CommentsModule } from '../../../shared/components/comments/comments.mod
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
-import {EmptyImageDirective} from "../../../shared/directives/empty-image.directive";
-import {SymbolDirective} from "../../../shared/directives/symbol.directive";
+import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
+import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/bread-crumb.component';
 
 export const routes: Routes = [{ path: '', component: MagazineComponent }];
 
@@ -26,7 +26,7 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
   declarations: [
     MagazineComponent,
     ArticleComponent,
-    ArticleListComponent,
+    MagazineListComponent,
     CommentComponent,
     LatestArticlesComponent,
     ShareButtonsComponent,
@@ -45,7 +45,7 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
     NgxSkeletonLoaderModule,
     PaginationComponent,
     EmptyImageDirective,
-    SymbolDirective,
+    BreadCrumbComponent,
   ],
 })
 export class MagazineModule {}

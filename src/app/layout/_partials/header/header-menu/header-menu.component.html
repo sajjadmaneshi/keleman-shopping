@@ -1,38 +1,34 @@
 <span class="d-flex align-items-center justify-content-between">
   <nav class="navbar navbar-expand-lg p-0" id="keleman-header">
     <ul class="navbar-nav mr-auto my-3 p-0">
-      <li
-        class="nav-item dropdown"
-        #menuTrigger="matMenuTrigger"
-        [matMenuTriggerFor]="menu"
-        (mouseenter)="openMenu($event)"
-      >
-        <a
-          type="button"
-          class="nav-link text-black px-3 dropdown-toggle d-flex align-items-center"
-          [routerLink]="['products']"
-          [queryParams]="{ p: 0 }"
+      <div class="dropdown">
+        <li
+          class="nav-item dropbtn"
+          (mouseenter)="openMenu(productCategoryDropDownMenu)"
+          (mouseleave)="closeMenu(productCategoryDropDownMenu)"
         >
-          <span class="material-icons-outlined"> grid_view </span>
-          دسته بندی ها
-        </a>
-        <mat-menu
-          #menu="matMenu"
-          [class]="'mat-menu-panel'"
-          overlapTrigger="false"
-        >
+          <a
+            type="button"
+            class="nav-link text-black px-3 d-flex align-items-center"
+            [routerLink]="['products']"
+            [queryParams]="{ p: 0 }"
+          >
+            <span class="material-icons-outlined"> grid_view </span>
+            دسته بندی ها
+          </a>
+
           <div
-            #dropDownMenu
-            aria-labelledby="categoryDropDown"
-            (mouseleave)="hideMenu($event)"
+            #productCategoryDropDownMenu
+            class="dropdown-content mega-menu-body shadow rounded"
           >
             <keleman-mega-menu
-              (clickItem)="onNavigate($event)"
+              (clickItem)="onNavigate(productCategoryDropDownMenu, $event)"
               [productCategories]="productCategories"
             ></keleman-mega-menu>
           </div>
-        </mat-menu>
-      </li>
+        </li>
+      </div>
+
       <li class="nav-item">
         <a
           class="nav-link text-black px-3"
@@ -42,14 +38,39 @@
           >صفحه نخست</a
         >
       </li>
-      <li class="nav-item">
-        <a
-          class="nav-link text-black px-3"
-          [routerLink]="'/magazine'"
-          routerLinkActive="active"
-          >مجله کلمان</a
+
+      <div class="dropdown">
+        <li
+          class="nav-item dropbtn"
+          (mouseenter)="openMenu(articleCategoryDropDownMenu)"
+          (mouseleave)="closeMenu(articleCategoryDropDownMenu)"
         >
-      </li>
+          <a
+            type="button"
+            class="nav-link text-black px-3"
+            [routerLink]="['magazine']"
+            [queryParams]="{ p: 0 }"
+            routerLinkActive="active"
+            >مجله کلمان</a
+          >
+          <div
+            #articleCategoryDropDownMenu
+            class="dropdown-content shadow rounded"
+          >
+            <mat-list class="article-category-list">
+              <mat-list-item
+                (click)="closeMenu(articleCategoryDropDownMenu)"
+                class="cursor-pointer"
+                [routerLink]="['magazine', articleCategory.url]"
+                [queryParams]="{ p: 0 }"
+                *ngFor="let articleCategory of articleCategories"
+              >
+                {{ articleCategory.name }}
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </li>
+      </div>
       <li class="nav-item">
         <a class="nav-link px-3 text-black" href="#">خرید قطعات آسانسور</a>
       </li>

@@ -1,4 +1,4 @@
-export enum RegisterStatusEnum {
+export enum AuthStatusEnum {
   otpNotSent,
   otpSent,
   completeInfo,

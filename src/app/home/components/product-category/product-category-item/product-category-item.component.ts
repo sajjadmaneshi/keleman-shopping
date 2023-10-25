@@ -5,7 +5,6 @@ import { ProductCategoryViewModel } from '../../../../shared/data/models/view-mo
 import { LazyLoadingDirective } from '../../../../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../../../../shared/directives/empty-image.directive';
 import { ENVIRONMENT } from '../../../../../environments/environment';
-import { SymbolDirective } from '../../../../shared/directives/symbol.directive';
 
 @Component({
   selector: 'app-product-category-item',
@@ -16,7 +15,6 @@ import { SymbolDirective } from '../../../../shared/directives/symbol.directive'
     NgxSkeletonLoaderModule,
     LazyLoadingDirective,
     EmptyImageDirective,
-    SymbolDirective,
   ],
 })
 export class ProductCategoryItemComponent {

@@ -1,5 +1,6 @@
 $klm-spacer: 1rem !default;
 $klm-spacers: () !default;
+$symbol-sizes: () !default;
 
 @for $i from 0 through 300 {
   $multiple: calc($i/4);
@@ -23,4 +24,23 @@ $klm-spacers: () !default;
 .nil-space {
   padding: 0 !important;
   margin: 0 !important;
+}
+
+@for $i from 0 through 70 {
+  $multiple: calc($i/4);
+  @if $i == 25 {
+    $symbol-sizes: map-merge(
+      $symbol-sizes,
+      (
+        default: $klm-spacer * $multiple,
+      )
+    );
+  } @else {
+    $symbol-sizes: map-merge(
+      $symbol-sizes,
+      (
+        $i: $klm-spacer * $multiple,
+      )
+    );
+  }
 }

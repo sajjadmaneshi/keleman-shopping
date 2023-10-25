@@ -32,7 +32,10 @@
   <ng-template #userInfo>
     <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
       <div class="d-flex flex-column align-items-center">
-        <div appSymbol [sizes]="[3]" class="cursor-pointer" ngbDropdownToggle>
+        <div
+          class="cursor-pointer symbol symbol-12 symbol-circle"
+          ngbDropdownToggle
+        >
           <img src="assets/media/blank.webp" />
         </div>
         <p>
@@ -57,7 +60,7 @@
     class="d-flex position-relative flex-column align-items-center basket"
     [routerLink]="['checkout']"
   >
-    <div appSymbol [sizes]="[2.2]" [type]="'square'" class="cursor-pointer">
+    <div appSymbol class="cursor-pointer symbol-10">
       <h3 class="basket-count text-warning">0</h3>
       <img
         alt="سبد خرید"

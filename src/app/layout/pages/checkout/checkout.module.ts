@@ -32,7 +32,6 @@ import { DropzoneComponent } from '../../../shared/components/dropzone/dropzone.
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
 import { PurchaseModule } from './purchase/purchase.module';
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
-import { SymbolDirective } from '../../../shared/directives/symbol.directive';
 
 export const routes: Routes = [
   {
@@ -84,7 +83,6 @@ export const routes: Routes = [
     LazyLoadingDirective,
     PurchaseModule,
     EmptyImageDirective,
-    SymbolDirective,
   ],
   providers: [DecimalPipe, CheckoutService],
 })

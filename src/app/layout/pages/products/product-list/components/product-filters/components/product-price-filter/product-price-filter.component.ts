@@ -100,10 +100,14 @@ export class ProductPriceFilterComponent implements OnInit, OnChanges {
   }
 
   onInputMin($event: string) {
-    this.minValueSubject.next($event === '' ? 0 : this._fixPrice(+$event));
+    const number = +$event.replaceAll(',', '');
+    this.minValueSubject.next(
+      $event === '' ? 0 : number > this.max ? 0 : number
+    );
   }
   onInputMax($event: string) {
-    this.maxValueSubject.next($event === '' ? 0 : this._fixPrice(+$event));
+    const number = +$event.replaceAll(',', '');
+    this.maxValueSubject.next($event === '' ? 0 : this._fixPrice(number));
   }
 
   private _fixPrice(value: number): number {

@@ -53,7 +53,6 @@ import { SelectedProductBoxComponent } from './my-boxes/modify-box-form/selected
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
 import { CommentsModule } from '../../../shared/components/comments/comments.module';
-import { SymbolDirective } from '../../../shared/directives/symbol.directive';
 
 @NgModule({
   declarations: [
@@ -108,7 +107,6 @@ import { SymbolDirective } from '../../../shared/directives/symbol.directive';
     ValueChangerComponent,
     LazyLoadingDirective,
     CommentsModule,
-    SymbolDirective,
   ],
 })
 export class ProfileModule {}

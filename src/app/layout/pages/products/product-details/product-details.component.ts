@@ -15,10 +15,8 @@ import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 })
 export class ProductDetailsComponent implements OnInit {
   productDetails!: ProductDetailViewModel;
-
   isLoading = false;
   productStatus: AvailableStatusEnum = AvailableStatusEnum.AVAILABLE;
-
   availableStatusEnum = AvailableStatusEnum;
   constructor(
     public applicationState: ApplicationStateService,

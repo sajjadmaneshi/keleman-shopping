@@ -76,4 +76,17 @@ export class ProductRepository extends DataService<
       HttpClientResult<ProductPriceChartViewModel[]>
     >;
   }
+
+  favorite(productId: number): Observable<HttpClientResult<boolean>> {
+    return this._http.post(
+      `${this._getUrl}/${productId}/like`,
+      {}
+    ) as Observable<HttpClientResult<boolean>>;
+  }
+
+  isLiked(productId: number): Observable<HttpClientResult<boolean>> {
+    return this._http.get(`${this._getUrl}/${productId}/isLiked`) as Observable<
+      HttpClientResult<boolean>
+    >;
+  }
 }

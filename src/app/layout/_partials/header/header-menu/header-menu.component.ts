@@ -13,27 +13,29 @@ import {
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 import { ProductCategoryService } from '../../../../home/components/product-category/product-category.service';
-import { Subject, takeUntil } from 'rxjs';
+import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Routing } from '../../../../routing';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
 import { ProductCategoryViewModel } from '../../../../shared/data/models/view-models/product-category.view-model';
 import { SsrService } from '../../../../shared/services/ssr/ssr.service';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { ArticleCategoryViewModel } from '../../../pages/magazine/data/view-models/article-category.view-model';
 
 @Component({
   selector: 'keleman-header-menu',
   templateUrl: './header-menu.component.html',
 })
 export class HeaderMenuComponent implements OnInit, AfterViewInit {
-  @ViewChild('dropDownMenu') dropDownMenu!: ElementRef;
-  @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
+  @ViewChild('productCategoryDropDownMenu') dropDownMenu!: ElementRef;
 
   destroy$ = new Subject<void>();
   screenWidth!: number;
   currentRoute = '/';
   productCategories!: ProductCategoryViewModel[];
+  articleCategories!: ArticleCategoryViewModel[];
   page = 0;
+  timedOutCloser: any;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -85,17 +87,6 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
     this._getQueryParamsFromUrl();
   }
 
-  openMenu($event: any) {
-    $event.stopPropagation();
-
-    this.menuTrigger.openMenu();
-  }
-
-  hideMenu($event: any) {
-    $event.stopPropagation();
-    this.menuTrigger.closeMenu();
-  }
-
   private _getQueryParamsFromUrl() {
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -110,9 +101,12 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
       });
   }
 
-  onNavigate($event: { c1?: string; c2?: string; c3?: string }) {
+  onNavigate(
+    target: HTMLDivElement,
+    $event: { c1?: string; c2?: string; c3?: string }
+  ) {
     this.categoryService.onNavigate($event);
-    this.menuTrigger.closeMenu();
+    this.closeMenu(target);
   }
 
   checkResetPage(route: string) {
@@ -124,8 +118,19 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this._initialAppService.productCategories.subscribe((data) => {
-      this.productCategories = data!;
+    combineLatest(
+      this._initialAppService.productCategories,
+      this._initialAppService.articleCategories
+    ).subscribe(([productCategories, articleCategories]) => {
+      this.productCategories = productCategories!;
+      this.articleCategories = articleCategories!;
     });
+  }
+
+  closeMenu(target: HTMLDivElement) {
+    target.style.display = 'none';
+  }
+  openMenu(target: HTMLDivElement) {
+    target.style.display = 'block';
   }
 }

@@ -44,20 +44,44 @@
             </span>
           </a>
         </li>
-        <li class="menu-item py-3">
-          <a
-            class="nav-link text-black"
-            [routerLink]="'/magazine'"
-            [queryParams]="{ p: 0, q: '' }"
-            (click)="onClose()"
-            queryParamsHandling="merge"
-            routerLinkActive="active"
-          >
-            <span class="d-flex align-items-center">
-              <h5>مجله کلمان</h5>
-            </span>
-          </a>
-        </li>
+        <div ngbAccordion [closeOthers]="true">
+          <div ngbAccordionItem="">
+            <li class="menu-item py-3" ngbAccordionHeader>
+              <button ngbAccordionButton class="text-black p-0">
+                <span
+                  class="d-flex align-items-center"
+                  [routerLink]="['magazine']"
+                  [queryParams]="{ p: 0 }"
+                  (click)="onClose()"
+                >
+                  <h5>مجله کلمان</h5>
+                </span>
+              </button>
+            </li>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <ul class="column pe-3">
+                    <ng-template
+                      ngFor
+                      let-child
+                      [ngForOf]="articleCategories"
+                      let-i="index"
+                    >
+                      <li
+                        [routerLink]="['magazine', child.url]"
+                        (click)="onClose()"
+                      >
+                        {{ child.name }}
+                      </li>
+                    </ng-template>
+                  </ul>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <li class="menu-item py-3">
           <span class="d-flex align-items-center">
             <h5>خرید قطعات آسانسور</h5>

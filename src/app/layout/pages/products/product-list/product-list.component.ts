@@ -89,7 +89,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private _extractPageAndSearchTextFromQueryParams(urlQueryParams: Params) {
     const queryParams = {
       catUrl: this.categoryUrl,
-      offset: this.page,
+      offset: this.page - 1,
       limit: this.limit,
       ...this._parseQueryParams(urlQueryParams),
     };

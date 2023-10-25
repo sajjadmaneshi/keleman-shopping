@@ -3,7 +3,8 @@ import { InitialAppService } from '../../../../../../shared/services/initial-app
 import { ProductCategoryViewModel } from '../../../../../../shared/data/models/view-models/product-category.view-model';
 import { ProductCategoryService } from '../../../../../../home/components/product-category/product-category.service';
 import { AuthService } from '../../../../../../shared/services/auth/auth.service';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
+import { ArticleCategoryViewModel } from '../../../../../pages/magazine/data/view-models/article-category.view-model';
 
 @Component({
   selector: 'keleman-off-canvas-menu',
@@ -12,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class OffCanvasMenuComponent {
   @Output() close = new EventEmitter();
   productCategories!: ProductCategoryViewModel[];
+  articleCategories!: ArticleCategoryViewModel[];
 
   isLoggedIn = false;
   subscription!: Subscription;
@@ -21,8 +23,12 @@ export class OffCanvasMenuComponent {
     private _categoryService: ProductCategoryService,
     private _authService: AuthService
   ) {
-    this.initialAppService.productCategories.subscribe((result) => {
-      this.productCategories = result;
+    combineLatest(
+      this.initialAppService.productCategories,
+      this.initialAppService.articleCategories
+    ).subscribe(([productCategories, articleCategories]) => {
+      this.productCategories = productCategories!;
+      this.articleCategories = articleCategories!;
     });
   }
 

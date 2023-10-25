@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { LoadingService } from './shared/services/loading.service';
 import { SsrService } from './shared/services/ssr/ssr.service';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'app-root',
@@ -24,23 +25,20 @@ export class AppComponent {
 
     private router: Router,
     private ssrService: SsrService,
-    private meta: Meta
+    private meta: Meta,
+    private _platform: Platform
   ) {
     _title.setTitle(this.title);
     this._setMetaTag();
     this._applicationState.init();
   }
 
-  private get _isIos() {
-    const userAgent = this.ssrService.getWindow?.navigator.userAgent!;
-    return /iPad|iPhone|iPod/.test(userAgent);
-  }
-
   private _setMetaTag() {
     const metaTagBase = 'width=device-width, initial-scale=1.0';
-    const metaTagContent = this._isIos
-      ? metaTagBase + ' maximum-scale=1, user-scalable=0'
-      : metaTagBase;
+    const metaTagContent =
+      this._platform.IOS || this._platform.SAFARI
+        ? metaTagBase + ' maximum-scale=1, user-scalable=0'
+        : metaTagBase;
 
     this.meta.addTags([{ name: 'viewport', content: metaTagContent }]);
   }

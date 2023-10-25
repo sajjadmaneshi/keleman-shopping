@@ -6,33 +6,33 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AutoCompleteComponent } from '../../shared/components/auto-complete/auto-complete.component';
+import { AutoCompleteComponent } from '../shared/components/auto-complete/auto-complete.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { CommonModule } from '@angular/common';
-import { InputGroupComponent } from '../../shared/components/input-group/input-group.component';
+import { InputGroupComponent } from '../shared/components/input-group/input-group.component';
 import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
-import { LoadingProgressDirective } from '../../shared/directives/loading-progress.directive';
+import { LoadingProgressDirective } from '../shared/directives/loading-progress.directive';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../shared/services/auth/auth.service';
-import { ErrorFeedbackDirective } from '../../shared/directives/error-feedback.directive';
-import { NumberOnlyDirective } from '../../shared/directives/number-only.directive';
-import { LoginDto } from '../../shared/services/auth/data/login.dto';
-import { mobileNumberFormatValidator } from '../../shared/validators/mobile-number.validator';
-import { MatComponentsModule } from '../../mat-components.module';
-import { StatesViewModel } from '../../shared/data/models/view-models/states.view-model';
-import { CityViewModel } from '../../shared/data/models/view-models/city.view-model';
-import { HttpClientResult } from '../../shared/data/models/http/http-client.result';
-import { AccountRepository } from '../../shared/services/auth/account.repository';
-import { CompleteInfoDto } from '../../shared/services/auth/data/complete-info.dto';
-import { RegisterStatusEnum } from './register-status.enum';
-import { CustomPersianNumberService } from '../../shared/services/persian-number.service';
-import { TextOnlyDirective } from '../../shared/directives/text-only.directive';
-import { GeneralRepository } from '../../shared/data/repositories/general.repository';
+import { AuthService } from '../shared/services/auth/auth.service';
+import { ErrorFeedbackDirective } from '../shared/directives/error-feedback.directive';
+import { NumberOnlyDirective } from '../shared/directives/number-only.directive';
+import { LoginDto } from '../shared/services/auth/data/login.dto';
+import { mobileNumberFormatValidator } from '../shared/validators/mobile-number.validator';
+import { MatComponentsModule } from '../mat-components.module';
+import { StatesViewModel } from '../shared/data/models/view-models/states.view-model';
+import { CityViewModel } from '../shared/data/models/view-models/city.view-model';
+import { HttpClientResult } from '../shared/data/models/http/http-client.result';
+import { AccountRepository } from '../shared/services/auth/account.repository';
+import { CompleteInfoDto } from '../shared/services/auth/data/complete-info.dto';
+import { AuthStatusEnum } from './auth-status.enum';
+import { CustomPersianNumberService } from '../shared/services/persian-number.service';
+import { TextOnlyDirective } from '../shared/directives/text-only.directive';
+import { GeneralRepository } from '../shared/data/repositories/general.repository';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-authentication',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -49,10 +49,10 @@ import { GeneralRepository } from '../../shared/data/repositories/general.reposi
     TextOnlyDirective,
   ],
 })
-export class RegisterComponent implements OnDestroy {
+export class AuthComponent implements OnDestroy {
   @ViewChild('cd') private countDown!: CountdownComponent;
   private destroy$ = new Subject<void>();
-  registerStatusEnum = RegisterStatusEnum;
+  registerStatusEnum = AuthStatusEnum;
   lastOtpLength = 0;
   verificationCodeSent: boolean = false;
   selectedCity!: number;
@@ -242,17 +242,17 @@ export class RegisterComponent implements OnDestroy {
     this.selectedCity = $event;
   }
 
-  getRegisterStatus(): RegisterStatusEnum {
+  getRegisterStatus(): AuthStatusEnum {
     if (!this.verificationCodeSent) {
-      return RegisterStatusEnum.otpNotSent;
+      return AuthStatusEnum.otpNotSent;
     }
     if (this.verificationCodeSent && this.hasCompleteInfo) {
-      return RegisterStatusEnum.otpSent;
+      return AuthStatusEnum.otpSent;
     }
     if (this.verificationCodeSent && !this.hasCompleteInfo) {
-      return RegisterStatusEnum.completeInfo;
+      return AuthStatusEnum.completeInfo;
     } else {
-      return RegisterStatusEnum.otpNotSent;
+      return AuthStatusEnum.otpNotSent;
     }
   }
 

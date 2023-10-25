@@ -16,7 +16,7 @@ export interface ProductSearchResult {
 export interface ArticleSearchResult {
   articles: ArticleSimpleDataViewModel[];
   totalElements: number;
-  category: { id: number; title: string };
+  category?: { id: number; title: string };
 }
 @Injectable({ providedIn: 'root' })
 export class SearchService<T> {

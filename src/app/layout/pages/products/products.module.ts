@@ -64,10 +64,10 @@ import { ProductService } from './services/product.service';
 import { SwiperModule } from 'swiper/angular';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import { SymbolDirective } from '../../../shared/directives/symbol.directive';
 import { RouteHandlerService } from '../../../shared/services/route-handler/route-handler.service';
 import { ProductFilterService } from './services/product-filter.service';
 import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/bread-crumb.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -125,8 +125,8 @@ import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/brea
     NgbAccordionModule,
     MatIconModule,
     MatDialogModule,
-    SymbolDirective,
     BreadCrumbComponent,
+    MatProgressSpinnerModule,
   ],
   providers: [ProductFilterService, RouteHandlerService],
 

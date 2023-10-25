@@ -33,6 +33,10 @@
 </ng-template>
 
 <ng-template #content>
+  <keleman-bread-crumb
+    [type]="0"
+    [id]="productDetails.id"
+  ></keleman-bread-crumb>
   <div class="container">
     <div class="row mb-3">
       <div class="col-12">
@@ -61,9 +65,10 @@
             >
               <ng-container *ngFor="let productImage of gallary">
                 <ng-template swiperSlide>
-                  <div appSymbol [type]="'square'" [sizes]="[22]">
+                  <div class="symbol symbol-70">
                     <img
-                      [src]="downloadUrl + productImage.image!"
+                      emptyImage
+                      [src]="productImage.image!"
                       [alt]="productImage.imageAlt"
                     />
                   </div>
@@ -79,32 +84,32 @@
           </ng-template>
           <ng-template #webView>
             <lib-ngx-image-zoom
-              [thumbImage]="downloadUrl + productCurrentImage.image!"
-              [fullImage]="downloadUrl + productCurrentImage.image!"
+              [thumbImage]="
+                sharedVariableService.downloadUrl + productCurrentImage.image!
+              "
+              [fullImage]="
+                sharedVariableService.downloadUrl + productCurrentImage.image!
+              "
               [magnification]="2"
               [altText]="productCurrentImage.imageAlt!"
             ></lib-ngx-image-zoom>
           </ng-template>
         </div>
         <div class="action-buttons">
-          <ng-container
-            *ngIf="isFavorite$ | async; then favorite; else notFavorite"
-          ></ng-container>
+          <ng-content
+            *ngIf="favoriteLoading; then loading; else favorite"
+          ></ng-content>
           <ng-template #favorite>
             <span
-              class="material-icons favorite-button text-danger cursor-pointer"
-              (click)="removeFromFavorite()"
+              [class.text-danger]="isFavorite$ | async"
+              class="material-icons favorite-button cursor-pointer"
+              (click)="likeDislike()"
             >
-              favorite
+              {{ (isFavorite$ | async) ? "favorite" : "favorite_border" }}
             </span>
           </ng-template>
-          <ng-template #notFavorite>
-            <span
-              class="material-icons favorite-button cursor-pointer"
-              (click)="addToFavorite()"
-            >
-              favorite_border
-            </span>
+          <ng-template #loading>
+            <mat-spinner [diameter]="20"></mat-spinner>
           </ng-template>
           <mat-icon>share</mat-icon>
           <mat-icon> create_new_folder </mat-icon>

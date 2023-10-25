@@ -24,7 +24,6 @@ import { ArticleItemComponent } from '../shared/components/article-item/article-
 import { TextWithIconComponent } from '../shared/components/text-with-icon/text-with-icon.component';
 import { PriceComponent } from '../shared/components/price/price.component';
 import { HomeRoutingModule } from './home-routing.module';
-import {SymbolDirective} from "../shared/directives/symbol.directive";
 
 @NgModule({
   declarations: [
@@ -53,7 +52,6 @@ import {SymbolDirective} from "../shared/directives/symbol.directive";
     ArticleItemComponent,
     TextWithIconComponent,
     PriceComponent,
-    SymbolDirective,
   ],
 })
 export class HomeModule {}

@@ -22,6 +22,7 @@ import {
   NgbDropdownItem,
   NgbDropdownMenu,
   NgbDropdownToggle,
+  NgbPopover,
 } from '@ng-bootstrap/ng-bootstrap';
 import { MegaMenuComponent } from './_partials/header/header-menu/mega-menu/mega-menu.component';
 import { TopMenuComponent } from './_partials/header/header-menu/top-menu/top-menu.component';
@@ -56,7 +57,7 @@ import {
   faSquareWhatsapp,
   faSquareYoutube,
 } from '@fortawesome/free-brands-svg-icons';
-import { SymbolDirective } from '../shared/directives/symbol.directive';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { SymbolDirective } from '../shared/directives/symbol.directive';
     NgbAccordionModule,
     ProductCategoryComponent,
     FontAwesomeModule,
-    SymbolDirective,
+    NgbPopover,
+    MatListModule,
   ],
 })
 export class LayoutModule {
