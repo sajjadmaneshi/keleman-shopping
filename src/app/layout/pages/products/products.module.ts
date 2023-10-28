@@ -26,7 +26,7 @@ import {
 import { ProductSpecificationsComponent } from './product-details/components/specifications/product-specifications.component';
 import { ProductIntroductionComponent } from './product-details/components/specifications/introduction/product-introduction.component';
 import { ProductContentComponent } from './product-details/components/content/product-content.component';
-import { ProductRelatesComponent } from './product-details/components/relateds/product-relates.component';
+import { RelatedProductsComponent } from './product-details/components/relateds/related-products.component';
 import { SwiperItemComponent } from '../../../shared/components/swiper/swiper-item/swiper-item.component';
 import {
   ReadMoreContentDirective,
@@ -68,6 +68,7 @@ import { RouteHandlerService } from '../../../shared/services/route-handler/rout
 import { ProductFilterService } from './services/product-filter.service';
 import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/bread-crumb.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BackgroundSwiperItemComponent } from '../../../home/components/background-swiper/background-swiper-item/background-swiper-item.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ProductSpecificationsComponent,
     ProductIntroductionComponent,
     ProductContentComponent,
-    ProductRelatesComponent,
+    RelatedProductsComponent,
     PriceChartDialogComponent,
     ExpertCheckComponent,
     ProductDetailsComponent,
@@ -127,6 +128,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     BreadCrumbComponent,
     MatProgressSpinnerModule,
+    BackgroundSwiperItemComponent,
   ],
   providers: [ProductFilterService, RouteHandlerService],
 

@@ -1,0 +1,45 @@
+@include swiper-button();
+
+
+.keleman-swiper {
+  .swiper-slide{
+    border-radius: $klm-spacer !important;
+    margin: 0.25rem;
+    keleman-background-swiper-item {
+      border-radius: inherit !important;
+    }
+  }
+}
+
+
+
+.keleman-swiper {
+  margin-right: 1.5rem;
+  width: calc(100% - 10rem);
+  ::ng-deep .swiper-slide {
+  
+  }
+}
+@media (max-width: 768px) {
+  .keleman-swiper {
+    width: calc(100% - 9rem) !important;
+  }
+}
+
+.swiper-start {
+  .swiper-start-text {
+    font-family: Aviny, serif !important;
+    display: inline-block;
+  }
+}
+
+.related-products-container {
+  background-color: map-get($theme-colors, "klm-secondary");
+}
+.swiper-start-image {
+  width: 7rem;
+  & img {
+    height: auto;
+    width: 100%;
+  }
+}

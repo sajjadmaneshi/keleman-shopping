@@ -17,6 +17,7 @@ import { ProductGalleryViewModel } from '../models/view-models/product-gallery.v
 import { ProductCommentViewModel } from '../models/view-models/product-comment.view-model';
 import { ProductSpecificViewModel } from '../models/view-models/product-specific.view-model';
 import { ProductPriceChartViewModel } from '../models/view-models/product-price-chart.view-model';
+import { ProductDescriptionsViewModel } from '../models/view-models/product-descriptions.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductRepository extends DataService<
@@ -58,6 +59,20 @@ export class ProductRepository extends DataService<
   ): Observable<HttpClientResult<ProductCommentViewModel[]>> {
     return this._http.get(`${this._getUrl}/${url}/comments`) as Observable<
       HttpClientResult<ProductCommentViewModel[]>
+    >;
+  }
+
+  getProductDescription(
+    url: string
+  ): Observable<HttpClientResult<ProductDescriptionsViewModel>> {
+    return this._http.get(`${this._getUrl}/${url}/description`) as Observable<
+      HttpClientResult<ProductDescriptionsViewModel>
+    >;
+  }
+
+  getRelated(url: string): Observable<HttpClientResult<ProductViewModel[]>> {
+    return this._http.get(`${this._getUrl}/${url}/related`) as Observable<
+      HttpClientResult<ProductViewModel[]>
     >;
   }
 

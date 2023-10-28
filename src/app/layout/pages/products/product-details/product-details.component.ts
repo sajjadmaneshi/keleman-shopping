@@ -36,6 +36,7 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     this._getProductDetails();
+    this._productService.getRelatedProducts();
   }
 
   private _getProductDetails() {

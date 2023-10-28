@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ProductService } from '../../../../services/product.service';
 
 @Component({
   selector: 'keleman-product-introduction',
@@ -12,4 +13,12 @@ import { Component } from '@angular/core';
     `,
   ],
 })
-export class ProductIntroductionComponent {}
+export class ProductIntroductionComponent implements OnInit {
+  introduction: string = '';
+  constructor(private _productService: ProductService) {}
+  ngOnInit(): void {
+    this._productService.productDescriptions.subscribe(
+      (result) => (this.introduction = result.description)
+    );
+  }
+}

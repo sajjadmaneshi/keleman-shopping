@@ -30,7 +30,6 @@ import { HomeRoutingModule } from './home-routing.module';
     HomeComponent,
     TopSliderComponent,
     AmazingOfferSwiperComponent,
-    BackgroundSwiperItemComponent,
     AdvertisingBannersComponent,
     AboutUsSummaryComponent,
     PackageSwiperComponent,
@@ -52,6 +51,7 @@ import { HomeRoutingModule } from './home-routing.module';
     ArticleItemComponent,
     TextWithIconComponent,
     PriceComponent,
+    BackgroundSwiperItemComponent,
   ],
 })
 export class HomeModule {}

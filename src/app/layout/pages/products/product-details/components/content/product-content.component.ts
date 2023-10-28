@@ -105,7 +105,14 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
         this._snackBarService.showSuccessSnackBar(
           res
             ? 'با موفقیت به لیست علاقه مندی هاافزوده شد'
-            : 'با موفقیت از لیست علاقه مندی ها حذف شد'
+            : 'با موفقیت از لیست علاقه مندی ها حذف شد',
+          {
+            horizontalPosition: 'center',
+            verticalPosition:
+              this.applicationState.isTablet || this.applicationState.isPhone
+                ? 'top'
+                : 'bottom',
+          }
         );
       });
   }
