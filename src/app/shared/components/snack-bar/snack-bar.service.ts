@@ -25,6 +25,15 @@ export class SnackBarService {
       panelClass: [`warning-snackbar`],
     });
   }
+
+  showPrimarySnackBar(message: string, config?: MatSnackBarConfig) {
+    this.openSnackBar({
+      ...config,
+      data: message,
+      panelClass: [`primary-snackbar`],
+    });
+  }
+
   showDarkSnackBar(message: string, config?: MatSnackBarConfig) {
     this.openSnackBar({ ...config, data: message });
   }

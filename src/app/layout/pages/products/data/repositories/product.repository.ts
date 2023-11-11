@@ -54,14 +54,6 @@ export class ProductRepository extends DataService<
     >;
   }
 
-  getProductComments(
-    url: string
-  ): Observable<HttpClientResult<ProductCommentViewModel[]>> {
-    return this._http.get(`${this._getUrl}/${url}/comments`) as Observable<
-      HttpClientResult<ProductCommentViewModel[]>
-    >;
-  }
-
   getProductDescription(
     url: string
   ): Observable<HttpClientResult<ProductDescriptionsViewModel>> {

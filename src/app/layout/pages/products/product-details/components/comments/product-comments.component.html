@@ -9,7 +9,7 @@
           >
         </ng-template>
       </h6>
-      <button class="btn btn-lilac text-white" (click)="openAddCommentDialog()">
+      <button class="btn btn-lilac text-white" (click)="addComment()">
         افزودن دیدگاه
       </button>
     </span>
@@ -24,10 +24,7 @@
           class="d-flex flex-column justify-content-center align-items-center h-100"
         >
           <h6 class="text-muted pb-3">نظری برای این محصول ثبت نشده است!</h6>
-          <button
-            class="btn btn-lilac text-white"
-            (click)="openAddCommentDialog()"
-          >
+          <button class="btn btn-lilac text-white" (click)="addComment()">
             افزودن دیدگاه
           </button>
         </div>
@@ -55,9 +52,9 @@
             </appSwiperContent>
           </ng-template>
           <ng-template #content>
-            <appSwiperContent *ngFor="let slide of comments">
+            <appSwiperContent *ngFor="let comment of comments">
               <ng-template appSwiperTemplate>
-                <app-comment-item [comment]="slide"></app-comment-item>
+                <app-comment-item [comment]="comment"></app-comment-item>
               </ng-template>
             </appSwiperContent>
           </ng-template>

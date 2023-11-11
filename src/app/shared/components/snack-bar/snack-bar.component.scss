@@ -9,13 +9,18 @@
     --mdc-snackbar-container-color: #0bb7afff !important;
   }
 
+  &.primary-snackbar {
+    --mdc-snackbar-container-color: #001d8dff !important;
+  }
+
   &.warning-snackbar {
     --mdc-snackbar-container-color: #ee9d01ff !important;
   }
 
   .danger-snackbar,
   .success-snackbar,
-  .warning-snackbar {
+  .warning-snackbar,
+  .primary-snackbar {
     color: white;
   }
 

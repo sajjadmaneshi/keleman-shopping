@@ -56,7 +56,7 @@ import { FaqItemComponent } from './product-details/components/faq/faq-item/faq-
 import { AddQuestionDialogComponent } from './product-details/components/faq/add-question-dialog/add-question-dialog.component';
 import { FaqListDialogComponent } from './product-details/components/faq/faq-list-dialog/faq-list-dialog.component';
 import { ProductCategoryComponent } from '../../../home/components/product-category/product-category.component';
-import { CommentsModule } from '../../../shared/components/comments/comments.module';
+import { ProductCommentsModule } from './product-details/components/comments/product-comments.module';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { CategoryAboutComponent } from './product-list/components/category-about/category-about.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -119,7 +119,7 @@ import { BackgroundSwiperItemComponent } from '../../../home/components/backgrou
     ProductFiltersModule,
     BottomSheetComponent,
     ProductCategoryComponent,
-    CommentsModule,
+    ProductCommentsModule,
     PaginationComponent,
     NgxSkeletonLoaderModule,
     SwiperModule,

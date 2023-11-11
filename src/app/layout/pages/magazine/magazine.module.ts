@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MagazineComponent } from './magazine.component';
 import { MagazineListComponent } from './components/list/magazine-list.component';
 import { MagazineRoutingModule } from './magazine-routing.module';
-import { CommentComponent } from './components/comment/comment.component';
+import { ArticleCommentsComponent } from './components/comment/article-comments.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ArticleItemComponent } from '../../../shared/components/article-item/article-item.component';
 import { ArticleComponent } from './components/article/article.component';
@@ -13,12 +13,14 @@ import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.di
 import { MatIconModule } from '@angular/material/icon';
 import { ArticleLinkListDirective } from './components/article/article-link-list.directive';
 import { ArticleItemThumbnailComponent } from '../../../shared/components/article-item-thumbnail/article-item-thumbnail.component';
-import { CommentsModule } from '../../../shared/components/comments/comments.module';
+import { ProductCommentsModule } from '../products/product-details/components/comments/product-comments.module';
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
 import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/bread-crumb.component';
+import { MatListModule } from '@angular/material/list';
+import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
 
 export const routes: Routes = [{ path: '', component: MagazineComponent }];
 
@@ -27,7 +29,7 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
     MagazineComponent,
     ArticleComponent,
     MagazineListComponent,
-    CommentComponent,
+    ArticleCommentsComponent,
     LatestArticlesComponent,
     ShareButtonsComponent,
   ],
@@ -41,11 +43,13 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
     MatIconModule,
     ArticleLinkListDirective,
     ArticleItemThumbnailComponent,
-    CommentsModule,
+    ProductCommentsModule,
     NgxSkeletonLoaderModule,
     PaginationComponent,
     EmptyImageDirective,
     BreadCrumbComponent,
+    MatListModule,
+    LoadingProgressDirective,
   ],
 })
 export class MagazineModule {}

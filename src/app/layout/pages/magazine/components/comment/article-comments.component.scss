@@ -1,4 +1,5 @@
 @import "base/variables/spacers";
+@import "base/variables/colors";
 
 #comment-text {
   height: 245px;
@@ -7,4 +8,10 @@
 }
 .comment-head {
   margin-bottom: map-get($klm-spacers, 6);
+}
+
+mat-list-item {
+  &:not(:last-child) {
+    border-bottom: 1px solid $gray-300;
+  }
 }
