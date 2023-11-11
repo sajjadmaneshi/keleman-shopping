@@ -1,0 +1,19 @@
+@import "base/variables/colors";
+@import "base/variables/spacers";
+@import "components/swiper";
+@include swiper-button();
+
+.keleman-swiper {
+  width: 100%;
+  ::ng-deep .swiper-slide {
+    border-radius: $klm-spacer !important;
+    margin: 0.25rem;
+    keleman-background-swiper-item {
+      border-radius: inherit !important;
+    }
+  }
+}
+
+.related-products-container {
+  background-color: map-get($theme-colors, "klm-secondary");
+}

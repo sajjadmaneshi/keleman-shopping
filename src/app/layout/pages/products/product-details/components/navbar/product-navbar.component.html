@@ -1,4 +1,4 @@
-<div class="card card-rounded-md-4 shadow product-details-navbar mb-3 border-0">
+<div class="card card-rounded-4 shadow product-details-navbar mb-3 border-0">
   <div class="card-body">
     <ng-container
       *ngIf="
@@ -32,7 +32,7 @@
             بررسی تخصصی
           </a>
           <ng-template ngbNavContent>
-            <keleman-product-introduction></keleman-product-introduction>
+            <keleman-expert-check></keleman-expert-check>
           </ng-template>
         </li>
         <li ngbNavItem="rate">
@@ -41,7 +41,7 @@
             دیدگاه ها</a
           >
           <ng-template ngbNavContent>
-            <comments></comments>
+            <product-comments></product-comments>
           </ng-template>
         </li>
         <li ngbNavItem="comment">
@@ -51,7 +51,7 @@
           >
 
           <ng-template ngbNavContent>
-            <comments></comments>
+            <product-comments></product-comments>
           </ng-template>
         </li>
       </ul>

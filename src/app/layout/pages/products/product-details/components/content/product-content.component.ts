@@ -27,7 +27,7 @@ import { ProductService } from '../../../services/product.service';
 import { ProductPriceChartViewModel } from '../../../data/models/view-models/product-price-chart.view-model';
 import { AlertDialogComponent } from '../../../../../../shared/components/alert-dialog/alert-dialog.component';
 import { AlertDialogDataModel } from '../../../../../../shared/components/alert-dialog/alert-dialog-data.model';
-import { Router } from '@angular/router';
+import { Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../../../../../../shared/services/auth/auth.service';
 import { Routing } from '../../../../../../routing';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
@@ -85,7 +85,10 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
       data: {
         message: 'لطفا قبل از افزودن به علاقه مندی ها وارد سایت شوید',
         callBackButtonText: 'واردشوید',
-        callBackFunction: () => this._router.navigate([Routing.register]),
+        callBackFunction: () =>
+          this._router.navigate([Routing.register], {
+            queryParams: { redirectUrl: this._router.routerState.snapshot.url },
+          }),
       } as AlertDialogDataModel,
     });
   }
@@ -102,10 +105,17 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe((res) => {
         this.isFavorite$.next(res);
 
-        this._snackBarService.showSuccessSnackBar(
+        this._snackBarService.showPrimarySnackBar(
           res
             ? 'با موفقیت به لیست علاقه مندی هاافزوده شد'
-            : 'با موفقیت از لیست علاقه مندی ها حذف شد'
+            : 'با موفقیت از لیست علاقه مندی ها حذف شد',
+          {
+            horizontalPosition: 'center',
+            verticalPosition:
+              this.applicationState.isTablet || this.applicationState.isPhone
+                ? 'top'
+                : 'bottom',
+          }
         );
       });
   }

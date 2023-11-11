@@ -87,6 +87,33 @@
                 }
               ]
             },
+            "stage": {
+              "optimization": true,
+              "namedChunks": false,
+              "aot": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "3.5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stage.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,

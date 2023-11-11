@@ -30,19 +30,16 @@
   </ng-template>
 
   <ng-template #userInfo>
-    <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
-      <div class="d-flex flex-column align-items-center">
-        <div
-          class="cursor-pointer symbol symbol-12 symbol-circle"
-          ngbDropdownToggle
-        >
-          <img src="assets/media/blank.webp" />
-        </div>
-        <p>
+    <div ngbDropdown class="d-inline-block">
+      <span class="d-flex align-items-center cursor-pointer" ngbDropdownToggle>
+        <p class="mx-3">
           {{ userService.userSimpleInfo.firstName }}
           {{ userService.userSimpleInfo.lastName }}
         </p>
-      </div>
+        <div class="symbol symbol-10 symbol-circle">
+          <img src="assets/media/blank.webp" />
+        </div>
+      </span>
 
       <div
         ngbDropdownMenu
@@ -57,16 +54,14 @@
   </ng-template>
 
   <a
-    class="d-flex position-relative flex-column align-items-center basket"
+    class="d-flex position-relative flex-column align-items-center basket cursor-pointer"
     [routerLink]="['checkout']"
   >
-    <div appSymbol class="cursor-pointer symbol-10">
-      <h3 class="basket-count text-warning">0</h3>
-      <img
-        alt="سبد خرید"
-        src="assets/media/static-resources/basket-icon.svg"
-        class="basket-icon"
-      />
-    </div>
+    <h3 class="basket-count text-warning">0</h3>
+    <img
+      alt="سبد خرید"
+      src="assets/media/static-resources/basket-icon.svg"
+      class="basket-icon"
+    />
   </a>
 </div>

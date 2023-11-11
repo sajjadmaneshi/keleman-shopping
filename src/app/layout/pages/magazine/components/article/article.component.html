@@ -62,7 +62,9 @@
   <!--            ></keleman-article-item-thumbnail>-->
   <!--          </div>-->
   <!--  </div>-->
-  <!--  <comments></comments>-->
+  <ng-template [ngIf]="articleDetails.id">
+    <article-comments [articleId]="articleDetails.id"></article-comments>
+  </ng-template>
 </ng-template>
 <ng-template #loading>
   <ngx-skeleton-loader

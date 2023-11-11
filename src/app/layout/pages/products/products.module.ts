@@ -26,7 +26,7 @@ import {
 import { ProductSpecificationsComponent } from './product-details/components/specifications/product-specifications.component';
 import { ProductIntroductionComponent } from './product-details/components/specifications/introduction/product-introduction.component';
 import { ProductContentComponent } from './product-details/components/content/product-content.component';
-import { ProductRelatesComponent } from './product-details/components/relateds/product-relates.component';
+import { RelatedProductsComponent } from './product-details/components/relateds/related-products.component';
 import { SwiperItemComponent } from '../../../shared/components/swiper/swiper-item/swiper-item.component';
 import {
   ReadMoreContentDirective,
@@ -56,7 +56,7 @@ import { FaqItemComponent } from './product-details/components/faq/faq-item/faq-
 import { AddQuestionDialogComponent } from './product-details/components/faq/add-question-dialog/add-question-dialog.component';
 import { FaqListDialogComponent } from './product-details/components/faq/faq-list-dialog/faq-list-dialog.component';
 import { ProductCategoryComponent } from '../../../home/components/product-category/product-category.component';
-import { CommentsModule } from '../../../shared/components/comments/comments.module';
+import { ProductCommentsModule } from './product-details/components/comments/product-comments.module';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { CategoryAboutComponent } from './product-list/components/category-about/category-about.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -68,6 +68,7 @@ import { RouteHandlerService } from '../../../shared/services/route-handler/rout
 import { ProductFilterService } from './services/product-filter.service';
 import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/bread-crumb.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BackgroundSwiperItemComponent } from '../../../home/components/background-swiper/background-swiper-item/background-swiper-item.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ProductSpecificationsComponent,
     ProductIntroductionComponent,
     ProductContentComponent,
-    ProductRelatesComponent,
+    RelatedProductsComponent,
     PriceChartDialogComponent,
     ExpertCheckComponent,
     ProductDetailsComponent,
@@ -118,7 +119,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ProductFiltersModule,
     BottomSheetComponent,
     ProductCategoryComponent,
-    CommentsModule,
+    ProductCommentsModule,
     PaginationComponent,
     NgxSkeletonLoaderModule,
     SwiperModule,
@@ -127,6 +128,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     BreadCrumbComponent,
     MatProgressSpinnerModule,
+    BackgroundSwiperItemComponent,
   ],
   providers: [ProductFilterService, RouteHandlerService],
 

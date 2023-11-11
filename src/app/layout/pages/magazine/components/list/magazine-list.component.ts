@@ -39,17 +39,11 @@ export class MagazineListComponent implements OnInit {
   categoryUrl: string = '';
   categoryId!: number;
 
-  defaultBreadCrumb: BreadCrumbViewModel[] = [
-    { title: 'خانه', url: '/', level: 1 },
-    { title: 'خانه', url: '/magazine', level: 2 },
-  ];
-
   constructor(
-    public sharedVariableService: SharedVariablesService,
-    private _activeRoute: ActivatedRoute,
-    private _queryParamService: QueryParamGeneratorService,
-    private _routeHandlerService: RouteHandlerService,
-    public fetchDataService: BaseDataFetcherService<ArticleSearchResult>
+    private readonly _queryParamService: QueryParamGeneratorService,
+    private readonly _routeHandlerService: RouteHandlerService,
+    public readonly fetchDataService: BaseDataFetcherService<ArticleSearchResult>,
+    public readonly sharedVariableService: SharedVariablesService
   ) {}
 
   ngOnInit(): void {
@@ -103,13 +97,10 @@ export class MagazineListComponent implements OnInit {
 
   pageChange($event: number) {
     this.page = $event;
-    this._updateQueryParams();
-  }
-
-  private _updateQueryParams() {
     const queryParams = { p: this.page - 1 };
-    this._routeHandlerService.updateQueryParams(
-      this._routeHandlerService.getQueryParamsSnapShot
-    );
+    this._routeHandlerService.updateQueryParams({
+      ...this._routeHandlerService.getQueryParamsSnapShot,
+      ...queryParams,
+    });
   }
 }

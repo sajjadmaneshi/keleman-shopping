@@ -1,0 +1,65 @@
+<h5 class="text-center mb-3" mat-dialog-title>دیدگاه خود را ثبت نمایید</h5>
+<div mat-dialog-content>
+  <form [formGroup]="commentForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <keleman-card [cardTitle]="'امتیاز'">
+        <div class="card-body d-flex flex-column">
+          <h5
+            class="text-center"
+            [ngClass]="{
+              'text-danger': rate.value < 2,
+              'text-warning': rate.value >= 2 && rate.value < 4,
+              'text-success': rate.value >= 4
+            }"
+          >
+            {{ ratesText[rate.value].title }}
+          </h5>
+          <div class="slider-with-ticks position-relative">
+            <mat-slider
+              class="example-margin w-100 m-0"
+              [max]="5"
+              [min]="0"
+              [step]="1"
+              [showTickMarks]="true"
+            >
+              <input matSliderThumb formControlName="rate" />
+            </mat-slider>
+            <div class="mat-slider-ticks-container">
+              <div class="mat-slider-tick" style="left: 0">5</div>
+              <div class="mat-slider-tick" style="left: 20%">4</div>
+              <div class="mat-slider-tick" style="left: 40%">3</div>
+              <div class="mat-slider-tick" style="left: 60%">2</div>
+              <div class="mat-slider-tick" style="left: 80%">1</div>
+              <div class="mat-slider-tick" style="left: 100%">0</div>
+            </div>
+          </div>
+        </div>
+      </keleman-card>
+    </div>
+    <keleman-card [cardTitle]="'دیدگاه'">
+      <div class="form-group">
+        <textarea
+          class="form-control keleman-text-field"
+          placeholder="متن دیدگاه"
+          formControlName="comment"
+          [class.is-invalid]="comment.invalid && isFormSubmitted"
+          required
+        ></textarea>
+        <span
+          *ngIf="comment.invalid && isFormSubmitted"
+          class="invalid-feedback"
+        >
+          لطفا متن نظر را وارد نمایید.
+        </span>
+      </div>
+    </keleman-card>
+    <button
+      class="btn btn-warning text-white float-start"
+      kelemanLoadingProgress
+      [loading]="isLoading"
+      type="submit"
+    >
+      ارسال
+    </button>
+  </form>
+</div>

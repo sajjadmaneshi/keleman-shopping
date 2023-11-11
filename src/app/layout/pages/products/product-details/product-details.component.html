@@ -64,8 +64,8 @@
   <keleman-product-specifications></keleman-product-specifications>
   <div id="checking-and-rate">
     <div class="row mx-0 mb-3">
-      <div class="col-6 pe-0" id="comment">
-        <comments></comments>
+      <div class="col-6 pe-0" id="comment" *ngIf="productDetails">
+        <product-comments [productId]="productDetails.id"></product-comments>
       </div>
       <div class="col-6 ps-0">
         <keleman-faq></keleman-faq>
@@ -73,3 +73,4 @@
     </div>
   </div>
 </ng-template>
+<keleman-related-products></keleman-related-products>

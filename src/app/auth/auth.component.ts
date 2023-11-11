@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { InputGroupComponent } from '../shared/components/input-group/input-group.component';
 import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
 import { LoadingProgressDirective } from '../shared/directives/loading-progress.directive';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { ErrorFeedbackDirective } from '../shared/directives/error-feedback.directive';
 import { NumberOnlyDirective } from '../shared/directives/number-only.directive';
@@ -67,6 +67,8 @@ export class AuthComponent implements OnDestroy {
   provinces: StatesViewModel[] = [];
   cities: CityViewModel[] = [];
 
+  redirectUrl!: string;
+
   public get name(): FormControl {
     return this.registerForm.get('name') as FormControl;
   }
@@ -98,9 +100,13 @@ export class AuthComponent implements OnDestroy {
     private _router: Router,
     private _geoLocationRepository: GeneralRepository,
     private _accountRepository: AccountRepository,
-    private _persianNumberSerive: CustomPersianNumberService
+    private _persianNumberSerive: CustomPersianNumberService,
+    private _activatedRoute: ActivatedRoute
   ) {
     this._initForm();
+    this._activatedRoute.queryParams.subscribe((params) => {
+      this.redirectUrl = params['redirectUrl'];
+    });
   }
 
   private _getAllStates() {
@@ -174,7 +180,7 @@ export class AuthComponent implements OnDestroy {
       this._authservice
         .login(loginDto)
         .then(() => {
-          this._router.navigate(['/']);
+          this._router.navigate([this.redirectUrl ?? '/']);
           this._authservice.decodeJson();
         })
         .finally(() => {

@@ -52,7 +52,7 @@ import { BoxProductItemComponent } from './my-boxes/modify-box-form/product-item
 import { SelectedProductBoxComponent } from './my-boxes/modify-box-form/selected-product-box/selected-product-box.component';
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
-import { CommentsModule } from '../../../shared/components/comments/comments.module';
+import { ProductCommentsModule } from '../products/product-details/components/comments/product-comments.module';
 
 @NgModule({
   declarations: [
@@ -106,7 +106,7 @@ import { CommentsModule } from '../../../shared/components/comments/comments.mod
     PriceComponent,
     ValueChangerComponent,
     LazyLoadingDirective,
-    CommentsModule,
+    ProductCommentsModule,
   ],
 })
 export class ProfileModule {}

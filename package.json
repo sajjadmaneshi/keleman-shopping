@@ -17,6 +17,7 @@
     "serve:ssr": "node dist/keleman-shopping/server/main.js",
     "serve:prerender": "http-server -c-1 dist/keleman-shopping/browser",
     "build:ssr": "ng build --aot=true && gzipper c -v ./dist && ng run keleman-shopping:server",
+    "build:ssr-stg": "ng build --aot=true --configuration=stage && gzipper c -v ./dist && ng run keleman-shopping:server",
     "prerender": "ng run keleman-shopping:prerender  && gzipper c -v ./dist",
     "unused-css": "ngx-unused-css"
   },
