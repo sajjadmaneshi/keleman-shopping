@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FaqModel } from '../data/model/faq.model';
+import { FaqViewModel } from '../data/model/faq.view-model';
 import { PersianDateTimeService } from '../../../../../../../shared/services/date-time/persian-datetime.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { PersianDateTimeService } from '../../../../../../../shared/services/dat
   styleUrls: ['./faq-item.component.scss'],
 })
 export class FaqItemComponent {
-  @Input() faq!: FaqModel;
+  @Input() faq!: FaqViewModel;
 
   constructor(public persianDateTime: PersianDateTimeService) {}
 }

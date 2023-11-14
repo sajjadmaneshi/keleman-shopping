@@ -14,14 +14,17 @@
       </button>
     </span>
 
-    <div class="position-relative mb-3 h-100">
+    <div
+      [class.d-flex]="comments.length === 0"
+      class="justify-content-center h-100"
+    >
       <ng-container
         *ngIf="comments.length > 0; then hasComment; else empty"
       ></ng-container>
 
       <ng-template #empty>
         <div
-          class="d-flex flex-column justify-content-center align-items-center h-100"
+          class="d-flex flex-column justify-content-center align-items-center"
         >
           <h6 class="text-muted pb-3">نظری برای این محصول ثبت نشده است!</h6>
           <button class="btn btn-lilac text-white" (click)="addComment()">

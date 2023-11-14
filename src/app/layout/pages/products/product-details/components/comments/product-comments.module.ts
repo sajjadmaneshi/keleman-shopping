@@ -17,6 +17,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatButtonModule } from '@angular/material/button';
 import { LoadingProgressDirective } from '../../../../../../shared/directives/loading-progress.directive';
+import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { LoadingProgressDirective } from '../../../../../../shared/directives/lo
     NgxSkeletonLoaderModule,
     MatButtonModule,
     LoadingProgressDirective,
+    NgbRating,
+    MatIconModule,
   ],
   exports: [ProductCommentsComponent, ProductCommentItemComponent],
 })

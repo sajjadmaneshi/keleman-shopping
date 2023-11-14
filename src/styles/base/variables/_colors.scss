@@ -22,7 +22,7 @@ $dark-light: $gray-200 !default; // Custom variable
 $border-dashed-color: $gray-300 !default;
 $danger-active: #ee2d41 !default; // Custom variable
 $danger-inverse: $white !default; // Custom variable
-$warning-active: #ee9d01 !default; // Custom variable
+$warning-active: $klm-secondary !default; // Custom variable
 $warning-inverse: $white !default; // Custom variable
 $info-active: #7337ee !default; // Custom variable
 $info-inverse: $white !default; // Custom variable
@@ -48,7 +48,7 @@ $theme-text-colors: (
   "light": $gray-100,
   "success": #00e75c,
   "info": #8950fc,
-  "warning": #ffa800,
+  "warning": $klm-secondary,
   "danger": #b90000,
   "dark": $gray-200,
   "muted": $text-muted,
@@ -78,7 +78,7 @@ $theme-colors: (
   "light": $gray-100,
   "success": #00e75c,
   "info": #8950fc,
-  "warning": #ffa800,
+  "warning": $klm-secondary,
   "danger": #b90000,
   "dark": $gray-200,
   "muted": $text-muted,

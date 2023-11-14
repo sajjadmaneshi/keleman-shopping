@@ -52,4 +52,13 @@ export class ArticleRepository extends DataService<any> {
       HttpClientResult<ArticleCategoryViewModel[]>
     >;
   }
+
+  getRelatedArticles(
+    id: number,
+    count: number = 5
+  ): Observable<HttpClientResult<ArticleSimpleDataViewModel[]>> {
+    return this._http.get(
+      `${this._getUrl}/${id}/related?count=${count}`
+    ) as Observable<HttpClientResult<ArticleSimpleDataViewModel[]>>;
+  }
 }

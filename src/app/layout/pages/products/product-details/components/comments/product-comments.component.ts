@@ -39,6 +39,7 @@ export class ProductCommentsComponent implements OnInit, OnDestroy {
     private _commentRepository: CommentRepository,
     public sharedVariablesService: SharedVariablesService,
     private _router: Router,
+    private _activatedRoute: ActivatedRoute,
     private _authService: AuthService
   ) {}
 
@@ -47,6 +48,7 @@ export class ProductCommentsComponent implements OnInit, OnDestroy {
       width: '850px',
       panelClass: 'custom-mat-dialog',
       data: this.productId,
+      autoFocus: false,
     });
   }
 
@@ -80,7 +82,10 @@ export class ProductCommentsComponent implements OnInit, OnDestroy {
         callBackButtonText: 'واردشوید',
         callBackFunction: () =>
           this._router.navigate([Routing.register], {
-            queryParams: { redirectUrl: this._router.routerState.snapshot.url },
+            queryParams: {
+              redirectUrl: this._router.routerState.snapshot.url,
+              openAddCommentDialog: true,
+            },
           }),
       } as AlertDialogDataModel,
     });
@@ -90,6 +95,10 @@ export class ProductCommentsComponent implements OnInit, OnDestroy {
     if (this.productId) this._getAllComment();
     this._authService.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
+    });
+    this._activatedRoute.queryParams.subscribe((params) => {
+      console.log(params['openAddCommentDialog']);
+      if (params['openAddCommentDialog']) this._openAddCommentDialog();
     });
   }
 

@@ -3,7 +3,11 @@
   [productDetails]="productDetails"
 ></keleman-product-content>
 
-<keleman-product-navbar></keleman-product-navbar>
+<ng-template [ngIf]="productDetails">
+  <keleman-product-navbar
+    [productId]="productDetails.id"
+  ></keleman-product-navbar>
+</ng-template>
 
 <ng-container
   *ngIf="
@@ -63,12 +67,12 @@
 <ng-template #web>
   <keleman-product-specifications></keleman-product-specifications>
   <div id="checking-and-rate">
-    <div class="row mx-0 mb-3">
-      <div class="col-6 pe-0" id="comment" *ngIf="productDetails">
+    <div class="row mx-0 mb-3" *ngIf="productDetails">
+      <div class="col-6 pe-0" id="comment">
         <product-comments [productId]="productDetails.id"></product-comments>
       </div>
       <div class="col-6 ps-0">
-        <keleman-faq></keleman-faq>
+        <keleman-faq [productId]="productDetails.id"></keleman-faq>
       </div>
     </div>
   </div>

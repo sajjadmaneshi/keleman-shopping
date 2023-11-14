@@ -1,0 +1,9 @@
+@import "../../../../../../../styles/components/swiper";
+@include swiper-button();
+
+.centerize {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

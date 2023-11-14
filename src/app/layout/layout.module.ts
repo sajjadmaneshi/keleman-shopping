@@ -52,10 +52,12 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import {
+  faGoogle,
   faSquareInstagram,
   faSquareTwitter,
   faSquareWhatsapp,
   faSquareYoutube,
+  faTelegram,
 } from '@fortawesome/free-brands-svg-icons';
 import { MatListModule } from '@angular/material/list';
 
@@ -110,6 +112,8 @@ export class LayoutModule {
       faSquareInstagram,
       faSquareYoutube,
       faSquareTwitter,
+      faTelegram,
+      faGoogle,
       faSquareWhatsapp
     );
   }

@@ -68,6 +68,7 @@ export class AuthComponent implements OnDestroy {
   cities: CityViewModel[] = [];
 
   redirectUrl!: string;
+  openAddCommentDialogFlag = false;
 
   public get name(): FormControl {
     return this.registerForm.get('name') as FormControl;
@@ -106,6 +107,7 @@ export class AuthComponent implements OnDestroy {
     this._initForm();
     this._activatedRoute.queryParams.subscribe((params) => {
       this.redirectUrl = params['redirectUrl'];
+      this.openAddCommentDialogFlag = params['openAddCommentDialog'] ?? false;
     });
   }
 
@@ -180,7 +182,13 @@ export class AuthComponent implements OnDestroy {
       this._authservice
         .login(loginDto)
         .then(() => {
-          this._router.navigate([this.redirectUrl ?? '/']);
+          const redirectTo = this.redirectUrl || '/';
+          this._router.navigate([redirectTo], {
+            queryParams: {
+              openAddCommentDialog: this.openAddCommentDialogFlag,
+            },
+          });
+          this.openAddCommentDialogFlag = false;
           this._authservice.decodeJson();
         })
         .finally(() => {

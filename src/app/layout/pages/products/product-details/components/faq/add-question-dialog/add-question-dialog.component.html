@@ -7,11 +7,23 @@
         class="form-control keleman-text-field"
         placeholder="متن پرسش"
         [formControl]="question"
+        [class.is-invalid]="question.invalid && isFormSubmitted"
       ></textarea>
+      <span
+        *ngIf="question.invalid && isFormSubmitted"
+        class="invalid-feedback"
+      >
+        لطفا متن پرسش را وارد نمایید.
+      </span>
     </div>
   </keleman-card>
-  <div class="w-100 text-center">
-    <button class="btn btn-success text-white mx-3">ذخیره</button>
-    <button class="btn btn-danger">انصراف</button>
-  </div>
+  <button
+    class="btn btn-warning text-white float-start"
+    kelemanLoadingProgress
+    [loading]="isLoading"
+    type="submit"
+    (click)="submitQuetion()"
+  >
+    ارسال
+  </button>
 </div>

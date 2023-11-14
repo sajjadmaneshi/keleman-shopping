@@ -21,6 +21,7 @@ import { EmptyImageDirective } from '../../../shared/directives/empty-image.dire
 import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/bread-crumb.component';
 import { MatListModule } from '@angular/material/list';
 import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export const routes: Routes = [{ path: '', component: MagazineComponent }];
 
@@ -50,6 +51,8 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
     BreadCrumbComponent,
     MatListModule,
     LoadingProgressDirective,
+    FontAwesomeModule,
   ],
+  exports: [ShareButtonsComponent],
 })
 export class MagazineModule {}

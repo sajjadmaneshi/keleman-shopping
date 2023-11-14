@@ -36,13 +36,13 @@
       <div class="d-flex flex-column">
         <keleman-products-sort [initialSort]="sortBy"></keleman-products-sort>
 
-        <div class="row mx-0 gx-0 gy-3 gx-lg-3">
+        <div class="row mx-0 gx-3 gy-3 gx-lg-3">
           <ng-container
             *ngIf="fetchDataService.isLoading; then loading; else productList"
           ></ng-container>
           <ng-template #loading>
             <div
-              class="col-12 col-md-6 col-lg-4 col-xl-3"
+              class="col-12 col-md-4 col-xl-3"
               *ngFor="let _ of sharedVaribaleService.counter(10)"
             >
               <ngx-skeleton-loader
@@ -56,7 +56,7 @@
             ></ng-container>
             <ng-template #fullProduct>
               <div
-                class="col-12 col-md-6 col-lg-4 col-xl-3"
+                class="col-12 col-md-4 col-xl-3"
                 *ngFor="let product of products; trackBy: trackByFn"
               >
                 <keleman-product-item

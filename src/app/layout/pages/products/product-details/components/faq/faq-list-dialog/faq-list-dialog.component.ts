@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PersianDateTimeService } from '../../../../../../../shared/services/date-time/persian-datetime.service';
-import { FaqModel } from '../data/model/faq.model';
+import { FaqViewModel } from '../data/model/faq.view-model';
 
 @Component({
   selector: 'keleman-faq-list-dialog',
@@ -10,7 +10,7 @@ import { FaqModel } from '../data/model/faq.model';
 })
 export class FaqListDialogComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: FaqModel[],
+    @Inject(MAT_DIALOG_DATA) public data: FaqViewModel[],
     public persianDateTime: PersianDateTimeService
   ) {}
 }

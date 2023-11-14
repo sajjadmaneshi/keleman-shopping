@@ -31,6 +31,7 @@ import { Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../../../../../../shared/services/auth/auth.service';
 import { Routing } from '../../../../../../routing';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
+import { ShareDialogComponent } from './share-dialog/share-dialog.component';
 
 SwiperCore.use([Pagination]);
 @Component({
@@ -91,6 +92,10 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
           }),
       } as AlertDialogDataModel,
     });
+  }
+
+  openShareDialog() {
+    const dialogRef = this.dialog.open(ShareDialogComponent);
   }
 
   private _doFavorite() {

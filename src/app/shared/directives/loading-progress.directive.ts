@@ -29,8 +29,11 @@ export class LoadingProgressDirective implements OnChanges {
       if (this.loading) {
         const loadingElement = this.document.createElement('div');
         this._renderer.addClass(loadingElement, 'spinner-border');
+        this._renderer.setStyle(loadingElement, 'width', `15px`);
+        this._renderer.setStyle(loadingElement, 'height', `15px`);
+        this._renderer.addClass(loadingElement, 'mx-1');
         this._renderer.addClass(element, 'd-flex');
-        this._renderer.addClass(element, 'mx-3');
+
         this._renderer.addClass(element, 'align-items-center');
         this._renderer.addClass(element, 'justify-content-between');
         this._renderer.appendChild(element, loadingElement);

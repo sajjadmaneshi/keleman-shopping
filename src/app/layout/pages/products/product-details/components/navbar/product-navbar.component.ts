@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Inject,
+  Input,
   PLATFORM_ID,
   Renderer2,
   ViewChild,
@@ -17,6 +18,8 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class ProductNavbarComponent implements AfterViewInit {
   @ViewChild('stickyMenu') menuElement!: ElementRef;
+
+  @Input() productId!: number;
 
   selectedTab = 'details';
 

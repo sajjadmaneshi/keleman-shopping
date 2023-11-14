@@ -19,19 +19,16 @@ export class AddCommentDialogComponent {
   isLoading = false;
 
   subscription!: Subscription;
+  currentRate = 0;
 
   ratesText = [
-    { title: 'خیلی بد' },
-    { title: ' بد' },
+    { title: '' },
+    { title: 'بد' },
     { title: ' متوسط' },
     { title: ' خوب' },
     { title: 'خیلی خوب' },
     { title: 'عالی' },
   ];
-
-  public get rate(): FormControl {
-    return this.commentForm.get('rate') as FormControl;
-  }
 
   public get comment(): FormControl {
     return this.commentForm.get('comment') as FormControl;
@@ -53,8 +50,9 @@ export class AddCommentDialogComponent {
       const dto = {
         productId: this.productId,
         comment: this.comment?.value,
-        rate: this.rate.value,
+        rate: this.currentRate,
       } as AddProductCommentDto;
+
       this.subscription = this._commentRepository
         .addProductComment(dto)
         .pipe(tap(() => (this.isLoading = false)))
@@ -71,13 +69,14 @@ export class AddCommentDialogComponent {
     this._snackBar.showWarningSnackBar(
       'نظر شما با موفقیت ثبت گردید و پس از تایید در سایت نمایش داده خواهد شد.'
     );
+
     this.commentForm.reset();
+    this.isFormSubmitted = false;
     this.dialogRef.close();
   }
 
   private _initForm() {
     this.commentForm = new FormGroup<any>({
-      rate: new FormControl(0, Validators.required),
       comment: new FormControl('', Validators.required),
     });
   }

@@ -7,31 +7,24 @@
           <h5
             class="text-center"
             [ngClass]="{
-              'text-danger': rate.value < 2,
-              'text-warning': rate.value >= 2 && rate.value < 4,
-              'text-success': rate.value >= 4
+              'text-danger': currentRate === 1,
+              'text-warning': currentRate >= 2 && currentRate < 4,
+              'text-success': currentRate >= 4
             }"
           >
-            {{ ratesText[rate.value].title }}
+            {{ ratesText[currentRate].title }}
           </h5>
-          <div class="slider-with-ticks position-relative">
-            <mat-slider
-              class="example-margin w-100 m-0"
-              [max]="5"
-              [min]="0"
-              [step]="1"
-              [showTickMarks]="true"
-            >
-              <input matSliderThumb formControlName="rate" />
-            </mat-slider>
-            <div class="mat-slider-ticks-container">
-              <div class="mat-slider-tick" style="left: 0">5</div>
-              <div class="mat-slider-tick" style="left: 20%">4</div>
-              <div class="mat-slider-tick" style="left: 40%">3</div>
-              <div class="mat-slider-tick" style="left: 60%">2</div>
-              <div class="mat-slider-tick" style="left: 80%">1</div>
-              <div class="mat-slider-tick" style="left: 100%">0</div>
-            </div>
+          <div class="position-relative text-center">
+            <ngb-rating [(rate)]="currentRate" [max]="5" class="custom-rating">
+              <ng-template let-fill="fill" let-index="index">
+                <mat-icon
+                  inline
+                  class="material-icons-outlined star"
+                  [class.text-warning]="fill === 100"
+                  >{{ fill === 100 ? "star" : "grade" }}</mat-icon
+                >
+              </ng-template>
+            </ngb-rating>
           </div>
         </div>
       </keleman-card>

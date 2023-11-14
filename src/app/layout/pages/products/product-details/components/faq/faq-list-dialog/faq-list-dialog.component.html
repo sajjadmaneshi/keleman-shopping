@@ -8,11 +8,13 @@
         <div
           class="card-header bg-success-light d-flex justify-content-between p-3 border-bottom border-klm-primary"
         >
-          <h6 class="fw-bolder commenter-name">{{ question.questioner! }}</h6>
+          <h6 class="fw-bolder commenter-name">
+            {{ question.user.firstName! }} {{ question.user.lastName }}
+          </h6>
           <h6>
             {{
               persianDateTime.fromGregorianString(
-                question.date,
+                question.dateTime,
                 "DD jMMMM YYYY"
               )
             }}
@@ -20,10 +22,10 @@
         </div>
 
         <div class="card-body">
-          <p class="py-3">{{ question.question }}</p>
+          <p class="py-3">{{ question.text }}</p>
         </div>
       </div>
-      <ng-template [ngIf]="question.answer">
+      <ng-template [ngIf]="question.answer.text">
         <div class="answer-section position-relative">
           <div
             class="card card-rounded-3 border border-gray-500 mb-3 bg-white me-5 answer-card"
@@ -32,14 +34,6 @@
               class="card-header d-flex justify-content-between p-3 border-bottom border-klm-primary"
             >
               <h6 class="fw-bolder commenter-name">پاسخ مدیر</h6>
-              <h6>
-                {{
-                  persianDateTime.fromGregorianString(
-                    question.answer.date,
-                    "DD jMMMM YYYY"
-                  )
-                }}
-              </h6>
             </div>
             <div class="card-body">
               <p class="py-3">{{ question.answer.text }}</p>

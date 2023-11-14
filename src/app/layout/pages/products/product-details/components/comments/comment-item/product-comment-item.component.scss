@@ -2,7 +2,7 @@
 @import "../../../../../../../../styles/base/variables/spacers";
 
 .comment-item {
-  height: map-get($klm-spacers, 42);
+  height: map-get($klm-spacers, 36);
   width: map-get($klm-spacers, 67);
 
   border: 2px solid map-get($theme-colors, "accent") !important;

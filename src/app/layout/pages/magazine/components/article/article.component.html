@@ -45,23 +45,22 @@
   ></article>
   <div class="shares">
     <keleman-share-buttons
-      [pageUrl]="currentLocationUrl"
       [title]="'test'"
       [description]="'test'"
-      [include]="['whatsapp', 'twitter', 'telegram', 'message']"
+      [include]="['whatsapp', 'twitter', 'telegram', 'mail']"
     ></keleman-share-buttons>
   </div>
 
   <h6 class="related-articles-title">
     <span>مقالات مرتبط</span>
   </h6>
-  <!--  <div class="row mx-0 mb-3">-->
-  <!--          <div class="col-12 col-md-6" *ngFor="let article of articles">-->
-  <!--            <keleman-article-item-thumbnail-->
-  <!--              [article]="article"-->
-  <!--            ></keleman-article-item-thumbnail>-->
-  <!--          </div>-->
-  <!--  </div>-->
+  <div class="row mx-0 mb-3">
+    <div class="col-12 col-md-6" *ngFor="let article of relatedArticles">
+      <keleman-article-item-thumbnail
+        [article]="article"
+      ></keleman-article-item-thumbnail>
+    </div>
+  </div>
   <ng-template [ngIf]="articleDetails.id">
     <article-comments [articleId]="articleDetails.id"></article-comments>
   </ng-template>

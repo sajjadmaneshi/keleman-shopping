@@ -1,34 +1,53 @@
 <div class="card card-rounded-4 shadow mb-3 border-0 box-shadow-none h-100">
-  <div class="card-body">
+  <div class="card-body d-flex flex-column">
     <span class="d-flex align-items-center justify-content-between mb-3">
       <h6 class="fw-bold text-klm-primary">
         پرسش های شما
-        <a class="cursor-pointer" (click)="openAllQuestionsDialog()"
-          >(مشاهده همه)</a
-        >
+        <ng-template [ngIf]="questions.length > 0">
+          <a class="cursor-pointer" (click)="openAllQuestionsDialog()"
+            >(مشاهده همه)</a
+          >
+        </ng-template>
       </h6>
-      <button
-        class="btn btn-lilac text-white"
-        (click)="openAddQuestionDialog()"
-      >
+      <button class="btn btn-lilac text-white" (click)="addquestion()">
         افزودن پرسش
       </button>
     </span>
 
-    <div class="position-relative mb-3">
-      <keleman-swiper
-        [showTitle]="false"
-        [showMoreButton]="false"
-        [spaceBetween]="5"
-        [navigation]="true"
-        [navigationButtonClassPrefix]="'faq-'"
-      >
-        <appSwiperContent *ngFor="let slide of slides">
-          <ng-template appSwiperTemplate>
-            <keleman-faq-item [faq]="slide"> </keleman-faq-item>
-          </ng-template>
-        </appSwiperContent>
-      </keleman-swiper>
+    <div
+      [class.d-flex]="questions.length === 0"
+      class="justify-content-center h-100"
+    >
+      <ng-container
+        *ngIf="questions.length > 0; then hasQuestion; else empty"
+      ></ng-container>
+      <ng-template #empty>
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <h6 class="text-muted pb-3">پرسشی برای این محصول ثبت نشده است!</h6>
+          <button class="btn btn-lilac text-white" (click)="addquestion()">
+            افزودن پرسش
+          </button>
+        </div>
+      </ng-template>
+      <ng-template #hasQuestion>
+        <keleman-swiper
+          [showTitle]="false"
+          [showMoreButton]="false"
+          [spaceBetween]="5"
+          [navigation]="true"
+          [navigationButtonClassPrefix]="'faq-'"
+        >
+          <appSwiperContent
+            *ngFor="let question of questions; trackBy: tranckByFn"
+          >
+            <ng-template appSwiperTemplate>
+              <keleman-faq-item [faq]="question"> </keleman-faq-item>
+            </ng-template>
+          </appSwiperContent>
+        </keleman-swiper>
+      </ng-template>
     </div>
   </div>
 </div>

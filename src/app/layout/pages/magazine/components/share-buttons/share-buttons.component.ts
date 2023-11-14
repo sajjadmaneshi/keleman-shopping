@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SnackBarService } from '../../../../../shared/components/snack-bar/snack-bar.service';
 import { SsrService } from '../../../../../shared/services/ssr/ssr.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'keleman-share-buttons',
@@ -8,7 +9,7 @@ import { SsrService } from '../../../../../shared/services/ssr/ssr.service';
   styleUrls: ['./share-buttons.component.scss'],
 })
 export class ShareButtonsComponent implements OnInit {
-  @Input() pageUrl!: string;
+  pageUrl!: string;
   @Input() title!: string;
   @Input() description!: string;
   @Input() include!: string[];
@@ -17,8 +18,11 @@ export class ShareButtonsComponent implements OnInit {
 
   constructor(
     private _snackBar: SnackBarService,
+    private _location: Location,
     private _ssrService: SsrService
-  ) {}
+  ) {
+    this.pageUrl = this._location.path();
+  }
 
   determineUrl(include: string) {
     return this.shareUrls.find((x) => x.title === include)?.value;
@@ -47,7 +51,7 @@ export class ShareButtonsComponent implements OnInit {
         value: `https://telegram.me/share/url?url=${this.pageUrl}`,
       },
       {
-        title: 'email',
+        title: 'mail',
         value: `mailto:?subject=Example%20Subject&amp;body=Check%20out%20this%20page:%20$www.google.com`,
       },
       {

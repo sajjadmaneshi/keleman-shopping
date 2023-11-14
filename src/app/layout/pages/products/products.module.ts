@@ -69,6 +69,9 @@ import { ProductFilterService } from './services/product-filter.service';
 import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/bread-crumb.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BackgroundSwiperItemComponent } from '../../../home/components/background-swiper/background-swiper-item/background-swiper-item.component';
+import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
+import { ShareDialogComponent } from './product-details/components/content/share-dialog/share-dialog.component';
+import { MagazineModule } from '../magazine/magazine.module';
 
 @NgModule({
   declarations: [
@@ -93,6 +96,7 @@ import { BackgroundSwiperItemComponent } from '../../../home/components/backgrou
     AddQuestionDialogComponent,
     FaqListDialogComponent,
     CategoryAboutComponent,
+    ShareDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -129,6 +133,8 @@ import { BackgroundSwiperItemComponent } from '../../../home/components/backgrou
     BreadCrumbComponent,
     MatProgressSpinnerModule,
     BackgroundSwiperItemComponent,
+    LoadingProgressDirective,
+    MagazineModule,
   ],
   providers: [ProductFilterService, RouteHandlerService],
 

@@ -21,6 +21,11 @@
   background-color: $gray-500;
   z-index: 0;
 }
+@media (max-width: 768px) {
+  .answer-section:before {
+    right: 7px !important;
+  }
+}
 .answer-card:before {
   content: "";
   display: block;

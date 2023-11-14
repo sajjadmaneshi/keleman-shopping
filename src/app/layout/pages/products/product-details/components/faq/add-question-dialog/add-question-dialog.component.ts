@@ -1,11 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { FaqRepository } from '../data/faq.repository';
+import { Subscription, tap } from 'rxjs';
+import { SnackBarService } from '../../../../../../../shared/components/snack-bar/snack-bar.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FaqDto } from '../data/faq.dto';
 
 @Component({
   selector: 'keleman-add-question-dialog',
   templateUrl: './add-question-dialog.component.html',
   styleUrls: ['./add-question-dialog.component.scss'],
+  providers: [FaqRepository],
 })
 export class AddQuestionDialogComponent {
+  isFormSubmitted = false;
+  isLoading = false;
   question = new FormControl('', Validators.required);
+
+  subscription!: Subscription;
+
+  constructor(
+    private readonly _faqRepository: FaqRepository,
+    private readonly _snackBar: SnackBarService,
+    public dialogRef: MatDialogRef<AddQuestionDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public productId: number
+  ) {}
+
+  submitQuetion() {
+    this.isFormSubmitted = true;
+    if (this.question.valid) {
+      this.isLoading = true;
+      const dto = {
+        id: this.productId,
+        text: this.question.value,
+      } as FaqDto;
+      this.subscription = this._faqRepository
+        .addQuestion(dto)
+        .pipe(tap(() => (this.isLoading = false)))
+        .subscribe(
+          (result) => this._showSuccessMessage(),
+          (error) => {
+            this.isLoading = false;
+          }
+        );
+    }
+  }
+  private _showSuccessMessage() {
+    this._snackBar.showWarningSnackBar('پرسش شما با موفقیت ثبت گردید ');
+    this.isFormSubmitted = false;
+    this.question.reset();
+    this.dialogRef.close();
+  }
 }

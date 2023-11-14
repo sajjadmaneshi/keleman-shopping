@@ -41,7 +41,7 @@
             دیدگاه ها</a
           >
           <ng-template ngbNavContent>
-            <product-comments></product-comments>
+            <product-comments [productId]="productId!"></product-comments>
           </ng-template>
         </li>
         <li ngbNavItem="comment">
@@ -51,7 +51,7 @@
           >
 
           <ng-template ngbNavContent>
-            <product-comments></product-comments>
+            <keleman-faq [productId]="productId!"></keleman-faq>
           </ng-template>
         </li>
       </ul>
