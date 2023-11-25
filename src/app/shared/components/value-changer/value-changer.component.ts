@@ -11,16 +11,17 @@ import { MatIconModule } from '@angular/material/icon';
 export class ValueChangerComponent {
   @Input('initialValue') value: number = 1;
 
-  @Output('valueChange') change = new EventEmitter<number>();
+  @Output('increse') onIncrease = new EventEmitter<number>();
+  @Output('decrease') onDncrease = new EventEmitter<number>();
 
   increase(): void {
     this.value++;
-    this.change.emit(this.value);
+    this.onIncrease.emit(this.value);
   }
   decrease(): void {
     if (this.value > 1) {
       this.value--;
-      this.change.emit(this.value);
     }
+    this.onDncrease.emit(this.value);
   }
 }

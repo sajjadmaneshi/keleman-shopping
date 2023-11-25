@@ -1,0 +1,119 @@
+<div class="credits-history">
+  <div class="card card-rounded-3 shadow-sm border border-gray-300">
+    <div class="card-body">
+      <h6 class="fw-bold p-3">تاریخچه تراکنش ها</h6>
+      <span class="d-flex align-items-center mb-3 filters">
+        <a
+          class="text-black mx-3 cursor-pointer"
+          [class.active]="isPaid === undefined"
+          (click)="getTransactions()"
+          >همه</a
+        >
+        <a
+          class="text-success mx-3 cursor-pointer"
+          [class.active]="isPaid === true"
+          (click)="getTransactions(true)"
+          >پرداخت شده</a
+        >
+        <a
+          class="text-danger mx-3 cursor-pointer"
+          [class.active]="isPaid === false"
+          (click)="getTransactions(false)"
+          >پرداخت نشده</a
+        >
+      </span>
+      <div class="border rounded-3 shadow w-100 transaction-table">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          [trackBy]="trackByFn"
+        >
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>شماره فاکتور</th>
+            <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>توضیحات</th>
+            <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>تاریخ</th>
+            <td mat-cell *matCellDef="let row">
+              {{
+                persianDateTimeService.fromGregorianString(
+                  row.date,
+                  "YYYY/MM/DD"
+                )
+              }}
+            </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              مبلغ کسر شده
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.price | number : ".0" }} تومان
+            </td>
+          </ng-container>
+
+          <!-- Fruit Column -->
+          <ng-container matColumnDef="checkoutDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              تاریخ سررسید
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{
+                persianDateTimeService.fromGregorianString(
+                  row.checkoutDate,
+                  "YYYY/MM/DD"
+                )
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="payDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              تاریخ پرداخت
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{
+                row.payDate
+                  ? persianDateTimeService.fromGregorianString(
+                      row.payDate,
+                      "YYYY/MM/DD"
+                    )
+                  : "---"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>وضعیت</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.isPaid ? "پرداخت شده" : "پرداخت نشده" }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            [ngClass]="row.isPaid ? 'bg-success-light' : 'bg-warning-light'"
+          ></tr>
+        </table>
+      </div>
+      <keleman-pagination
+        [totalElements]="totalElement"
+        [limit]="limit"
+        [currentPage]="page"
+        (pageChange)="pageChange($event)"
+      ></keleman-pagination>
+    </div>
+  </div>
+</div>

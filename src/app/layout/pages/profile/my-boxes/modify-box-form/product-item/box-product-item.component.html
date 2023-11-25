@@ -1,7 +1,7 @@
 <div class="product-box border border-gray-300 rounded p-3">
   <span class="d-flex align-items-center flex-grow-1">
-    <div class="symbol">
-      <img alt="" [src]="productDetails.thumbNail" />
+    <div class="symbol symbol-20">
+      <img alt="" loadingLazy emptyImage [src]="productDetails.thumbNail" />
     </div>
     <span class="mx-3">
       <h5>{{ productDetails.title }}</h5>
@@ -14,7 +14,7 @@
   </span>
 
   <div
-    class="symbol"
+    class="symbol symbol-20"
     ngbTooltip="افزودن به باکس من"
     container="body"
     (click)="onMoveChange()"

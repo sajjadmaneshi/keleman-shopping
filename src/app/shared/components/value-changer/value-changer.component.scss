@@ -1,7 +1,2 @@
 @import "base/variables/colors";
 @import "base/variables/spacers";
-
-.value-changer {
-  border: 2px solid $klm-primary;
-  border-radius: map-get($klm-spacers, 1);
-}

@@ -55,10 +55,11 @@ export class ArticleCommentsComponent implements OnInit, OnDestroy {
   }
 
   private _setLoggedInUserInfo() {
-    if (this._initialAppService.userSimpleInfo)
-      this.commenter.patchValue(
-        `${this._initialAppService.userSimpleInfo.firstName} ${this._initialAppService.userSimpleInfo.lastName}`
-      );
+    this._initialAppService.userSimpleInfo.subscribe((res) => {
+      if (res) {
+        this.commenter.patchValue(`${res.firstName} ${res.lastName}`);
+      }
+    });
   }
 
   private _initForm() {

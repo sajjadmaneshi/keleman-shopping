@@ -11,6 +11,7 @@ import { AddressesComponent } from './address/addresses.component';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { UserCommentsComponent } from './comments/user-comments.component';
 import { MyBoxesComponent } from './my-boxes/my-boxes.component';
+import { CreditsComponent } from './credits/credits.component';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,7 @@ export const routes: Routes = [
       { path: Routing.personalInfo, component: PersonalInfoComponent },
       { path: Routing.comments, component: UserCommentsComponent },
       { path: Routing.myBox, component: MyBoxesComponent },
+      { path: Routing.credits, component: CreditsComponent },
     ],
   },
 ];

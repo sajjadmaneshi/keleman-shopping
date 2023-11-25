@@ -1,10 +1,9 @@
 <a
   routerLink="/"
-  class="back-to-home d-flex align-items-center text-klm-primary cursor-pointer"
+  class="d-flex align-items-center text-klm-primary cursor-pointer back-to-home"
 >
   <mat-icon class="mx-3">home</mat-icon> بازگشت به صفحه اصلی
 </a>
-
 <div class="container keleman-register-form">
   <img
     alt="keleman-logo"
@@ -149,7 +148,7 @@
     dir="ltr"
     [formCtrl]="otpVerificationCode"
     [config]="{ length: 5, allowNumbersOnly: true }"
-    (onInputChange)="CheckOtpValid($event)"
+    (onInputChange)="checkOtpValid($event)"
     [class.is-invalid]="!verificationCodeValid"
   ></ng-otp-input>
   <span class="invalid-feedback mb-3" *ngIf="!verificationCodeValid"

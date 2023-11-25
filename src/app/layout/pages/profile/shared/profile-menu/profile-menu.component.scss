@@ -1,8 +1,21 @@
 @import "base/variables/colors";
-
+.change-profile {
+  position: absolute;
+  bottom: 0;
+  left: -10px;
+}
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 .profile-menu {
   padding: 0;
   list-style: none;
+
   .menu-item {
     display: flex;
     align-items: center;
@@ -31,5 +44,16 @@
   .profile-menu {
     border: 1px solid $gray-300;
     border-radius: 1rem;
+  }
+}
+
+.active {
+  span:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: $klm-secondary;
+    border-radius: 100px;
+    margin: 0 0.1rem;
   }
 }

@@ -117,6 +117,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private _getAllProducts(params: { [key: string]: any }) {
     this.fetchDataService
       .fetchData(params)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result: ProductSearchResult | undefined) => {
         const { products, totalElements, maxPrice, category } = result!;
         this.products = [...products];

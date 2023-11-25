@@ -4,6 +4,7 @@ import {
   ElementRef,
   HostListener,
   Inject,
+  OnDestroy,
   OnInit,
   PLATFORM_ID,
   Renderer2,
@@ -26,7 +27,7 @@ import { ArticleCategoryViewModel } from '../../../pages/magazine/data/view-mode
   selector: 'keleman-header-menu',
   templateUrl: './header-menu.component.html',
 })
-export class HeaderMenuComponent implements OnInit, AfterViewInit {
+export class HeaderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('productCategoryDropDownMenu') dropDownMenu!: ElementRef;
 
   destroy$ = new Subject<void>();
@@ -35,7 +36,6 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   productCategories!: ProductCategoryViewModel[];
   articleCategories!: ArticleCategoryViewModel[];
   page = 0;
-  timedOutCloser: any;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -88,14 +88,12 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   }
 
   private _getQueryParamsFromUrl() {
-    this._router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.checkResetPage(event.url);
-      }
-    });
-    this._activatedRoute.queryParams
+    combineLatest(this._router.events, this._activatedRoute.queryParams)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((queryParams) => {
+      .subscribe(([events, queryParams]) => {
+        if (events instanceof NavigationEnd) {
+          this.checkResetPage(events.url);
+        }
         const page = Number(queryParams['p']);
         if (!isNaN(page)) this.page = page;
       });
@@ -132,5 +130,9 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit {
   }
   openMenu(target: HTMLDivElement) {
     target.style.display = 'block';
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

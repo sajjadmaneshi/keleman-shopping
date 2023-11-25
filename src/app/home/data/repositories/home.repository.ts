@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { DataService } from 'src/app/shared/services/data.service';
 import { Observable } from 'rxjs';
 import { HttpClientResult } from '../../../shared/data/models/http/http-client.result';
-import { SliderViewModel } from './view-models/slider.view-model';
+import { SliderViewModel } from '../view-models/slider.view-model';
 import { ProductViewModel } from '../../../layout/pages/products/data/models/view-models/product.view-model';
-import { AdsBannerViewModel } from './view-models/ads-banner.view-model';
-import { BreadCrumbViewModel } from './view-models/bread-crumb.view-model';
-import { BreadCrumbTypeEnum } from './bread-crumb-type.enum';
+import { AdsBannerViewModel } from '../view-models/ads-banner.view-model';
+import { BreadCrumbViewModel } from '../view-models/bread-crumb.view-model';
+import { BreadCrumbTypeEnum } from '../bread-crumb-type.enum';
 
 @Injectable({ providedIn: 'root' })
 export class HomeRepository extends DataService<any> {

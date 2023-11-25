@@ -4,40 +4,57 @@
 
     <span class="d-flex align-items-center mb-3">
       <div
-        class="symbol symbol-13 symbol-circle mx-3 border border-1 border-success"
+        class="symbol symbol-15 symbol-circle mx-3 border border-1 border-success"
       >
-        <img src="assets/media/blank.webp" />
+        <img
+          loadingLazy
+          emptyImage
+          [src]="userInfo.avatar!"
+          [isAvatar]="true"
+        />
       </div>
       <div class="d-flex flex-column">
-        <p class="text-klm-primary text-end h5 mb-3">
+        <p class="text-klm-primary text-end h6 mb-3">
           {{ userInfo.firstName! }} {{ userInfo.lastName! }}
         </p>
-        <a class="d-flex align-items-center text-muted" routerLink="profile">
+        <a
+          ngbDropdownItem
+          class="d-flex align-items-center text-muted p-0"
+          [routerLink]="['profile']"
+        >
           مشاهده پروفایل
         </a>
       </div>
     </span>
     <ul class="user-base-info-menu">
-      <li class="position-relative mb-3">
+      <li
+        class="position-relative mb-3 cursor-pointer p-0"
+        [routerLink]="['profile/wallet']"
+        ngbDropdownItem
+      >
         <span class="prefix1"></span>
         کیف پول
 
-        <span class="text-success">{{ 200000 | number : ".0" }} تومان</span>
+        <span class="text-success"
+          >{{ userCredit.walletValue | number : ".0" }} تومان</span
+        >
       </li>
-      <li class="position-relative">
+      <li class="position-relative p-0 cursor-pointer" ngbDropdownItem>
         <span class="prefix2"></span>
         اعتبار
-        <span class="text-success">{{ 200000 | number : ".0" }} تومان </span>
+        <span class="text-success"
+          >{{ userCredit.creditValue | number : ".0" }} تومان
+        </span>
       </li>
     </ul>
   </li>
-  <li ngbDropdownItem>
+  <li ngbDropdownItem [routerLink]="['profile/orders']" class="cursor-pointer">
     <span class="d-flex align-items-center">
       <span class="material-icons-outlined"> local_mall </span>
       <span>سفارشات</span>
     </span>
   </li>
-  <li ngbDropdownItem>
+  <li ngbDropdownItem class="cursor-pointer" [routerLink]="['profile/credits']">
     <span class="d-flex align-items-center">
       <span class="material-icons-outlined"> paid </span>
       <span>اعتبارات</span>

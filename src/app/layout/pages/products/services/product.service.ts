@@ -56,5 +56,8 @@ export class ProductService implements OnDestroy {
       );
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

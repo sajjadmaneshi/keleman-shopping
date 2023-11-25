@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -15,7 +15,7 @@ import { Routing } from '../../../../../../routing';
   selector: 'keleman-search-bar',
   templateUrl: './search-bar.component.html',
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
   isLoading = false;
   searchTextChanged = new Subject<string>();
   showMenu = false;
@@ -38,7 +38,11 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchTextChanged
-      .pipe(debounceTime(2000), distinctUntilChanged())
+      .pipe(
+        debounceTime(2000),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
       .subscribe((search) => {
         if (search) {
           this.searchText = search;
@@ -71,5 +75,10 @@ export class SearchBarComponent implements OnInit {
     this._router.navigate([Routing.products], {
       queryParams: { q: this.searchText, p: '0' },
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

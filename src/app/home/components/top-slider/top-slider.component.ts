@@ -4,7 +4,7 @@ import { ApplicationStateService } from '../../../shared/services/application-st
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import { HomeRepository } from '../../data/repositories/home.repository';
-import { SliderViewModel } from '../../data/repositories/view-models/slider.view-model';
+import { SliderViewModel } from '../../data/view-models/slider.view-model';
 import { HttpClientResult } from '../../../shared/data/models/http/http-client.result';
 import { ENVIRONMENT } from '../../../../environments/environment';
 

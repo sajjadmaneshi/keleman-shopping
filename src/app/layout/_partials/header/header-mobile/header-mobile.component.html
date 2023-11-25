@@ -17,11 +17,7 @@
     /></a>
 
     <ng-container
-      *ngIf="
-        isLoggedIn && userService.userSimpleInfo;
-        then userInfo;
-        else register
-      "
+      *ngIf="isLoggedIn && userProfileInfo; then userInfo; else register"
     ></ng-container>
 
     <ng-template #register>
@@ -48,11 +44,23 @@
           class="rounded-3 shadow-lg border-0"
         >
           <keleman-user-dropdown-menu
-            [userInfo]="userService.userSimpleInfo"
+            [userInfo]="userProfileInfo"
+            [userCredit]="userCreditInfo"
           ></keleman-user-dropdown-menu>
         </div>
       </div>
     </ng-template>
+    <a
+      class="d-flex position-relative flex-column align-items-center basket cursor-pointer"
+      [routerLink]="['checkout']"
+    >
+      <h3 class="basket-count text-warning">{{ basketCount }}</h3>
+      <img
+        alt="سبد خرید"
+        src="assets/media/static-resources/basket-icon.svg"
+        class="basket-icon"
+      />
+    </a>
   </div>
   <keleman-search-bar class="flex-grow-1 w-100"></keleman-search-bar>
   <div class="py-3">

@@ -17,11 +17,19 @@ import { ProductCategoryService } from '../../home/components/product-category/p
 import { ProductCategoryRepository } from '../../layout/pages/products/data/repositories/product-category.repository';
 import { ArticleRepository } from 'src/app/layout/pages/magazine/data/repositories/article.repository';
 import { ArticleCategoryViewModel } from '../../layout/pages/magazine/data/view-models/article-category.view-model';
+import { ProfileService } from '../../layout/pages/profile/shared/profile.service';
+import { ProfileViewModel } from '../../layout/pages/profile/data/view-models/profile.view-model';
+import { BasketService } from '../../layout/pages/checkout/basket.service';
 
 @Injectable({ providedIn: 'root' })
 export class InitialAppService implements OnDestroy {
   isLoading = false;
-  userSimpleInfo!: UserSimpleInfoViewModel;
+  userSimpleInfo = new BehaviorSubject<ProfileViewModel>({
+    firstName: '',
+    lastName: '',
+  });
+  userCredit = new BehaviorSubject({ walletValue: 0, creditValue: 0 });
+
   productCategories = new BehaviorSubject<ProductCategoryViewModel[]>([]);
   articleCategories = new BehaviorSubject<ArticleCategoryViewModel[]>([]);
 
@@ -30,11 +38,14 @@ export class InitialAppService implements OnDestroy {
     private _userRepository: UserRepository,
     private _productCategoryService: ProductCategoryService,
     private _articleRepository: ArticleRepository,
+    private _profileService: ProfileService,
+
     private _authService: AuthService
   ) {}
 
   init() {
     this.isLoading = true;
+
     combineLatest(
       this._authService.isAuthenticated,
       this._productCategoryService.getCategories(),
@@ -46,8 +57,11 @@ export class InitialAppService implements OnDestroy {
       )
       .subscribe(([isAuthenticated, productcategories, articleCategories]) => {
         if (isAuthenticated) {
-          this._authService.getUserSimpleInfo().then((res) => {
-            this.userSimpleInfo = res!;
+          this._profileService.getPersonalInfo().then((result) => {
+            this.userSimpleInfo.next(result!);
+          });
+          this._profileService.getUserAccount().then((result) => {
+            this.userCredit.next(result!);
           });
         }
 

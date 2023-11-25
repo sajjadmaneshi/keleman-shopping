@@ -22,9 +22,6 @@ export class AppComponent {
   constructor(
     private _applicationState: ApplicationStateService,
     private _title: Title,
-
-    private router: Router,
-    private ssrService: SsrService,
     private meta: Meta,
     private _platform: Platform
   ) {

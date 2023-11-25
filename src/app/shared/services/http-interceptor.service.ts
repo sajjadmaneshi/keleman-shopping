@@ -45,7 +45,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Accept', 'application/json');
-    if (!req.isBodyFormData) {
+    if (req.isBodyFormData === false) {
       httpHeaders = httpHeaders.append(
         'Content-Type',
         'application/json; charset=utf-8'

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CheckoutService } from '../../services/checkout.service';
 
 @Component({

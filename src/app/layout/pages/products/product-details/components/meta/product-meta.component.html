@@ -26,19 +26,45 @@
     <ng-template #price [ngIf]="details.price > 0">
       <keleman-price [size]="'h4'" [value]="details.price!"></keleman-price>
     </ng-template>
-
-    <button
-      class="text-klm-primary actions__buttons d-none d-lg-block fs-5 fw-bolder w-100"
-      [disabled]="details.price < 1 || details.currentStock < 1"
-    >
-      {{
-        details.currentStock > 1 && details.price > 1
-          ? "افزودن به سبد خرید"
-          : details.currentStock < 1
-          ? "ناموجود"
-          : "تماس بگیرید"
-      }}
-    </button>
+    <div class="row align-items-center d-none d-lg-flex">
+      <ng-content
+        *ngIf="
+          productCountInBasket == 0;
+          then addToBasketTemplate;
+          else valueChanger
+        "
+      ></ng-content>
+      <ng-template #addToBasketTemplate>
+        <div class="col-12">
+          <button
+            class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
+            [disabled]="details.price < 1 || details.currentStock < 1"
+            (click)="addToBasket()"
+          >
+            {{
+              details.currentStock > 1 && details.price > 1
+                ? "افزودن به سبد خرید"
+                : details.currentStock < 1
+                ? "ناموجود"
+                : "تماس بگیرید"
+            }}
+          </button>
+        </div>
+      </ng-template>
+      <ng-template #valueChanger>
+        <div class="col-6">
+          <keleman-value-changer
+            [initialValue]="productCountInBasket"
+            (increse)="addToBasket()"
+            (decrease)="removeFromBasket()"
+          ></keleman-value-changer>
+        </div>
+        <div class="col-6">
+          <span class="d-block">در سبد خرید شما</span>
+          <span>مشاهده سبد خرید</span>
+        </div>
+      </ng-template>
+    </div>
   </div>
 </div>
 <div class="gradient-border flex-grow-1 my-3 d-lg-none"></div>

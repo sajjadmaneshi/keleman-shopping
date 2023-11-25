@@ -2,22 +2,31 @@
   class="card card-rounded-3 shadow basket-item mb-3 box-shadow-none border border-gray-300"
 >
   <div class="card-body p-0 d-flex justify-content-start align-items-center">
-    <mat-icon class="text-danger mx-3 fs-3" inline="true">delete</mat-icon>
+    <mat-icon
+      class="text-danger mx-3 fs-3 cursor-pointer"
+      inline="true"
+      (click)="removeProduct()"
+      >delete</mat-icon
+    >
 
     <div class="row border-end border-gray-400 w-100 p-3">
       <div class="col-3 d-flex flex-column align-items-center">
         <div class="mb-3 symbol symbol-22 symbol-lg-30">
-          <img emptyImage [src]="basketItem.product.image" loadingLazy />
+          <img loadingLazy emptyImage [src]="basketItem.product.image" />
         </div>
         <keleman-value-changer
           class="w-100"
           [initialValue]="basketItem.count"
+          (increse)="addToBasket()"
+          (decrease)="removeFromBasket()"
         ></keleman-value-changer>
       </div>
       <div class="col-9">
-        <h6 class="fw-bold mb-3">
-          {{ basketItem.product.name }}
-        </h6>
+        <a [routerLink]="['/products/detail/' + basketItem.product.name]">
+          <h6 class="fw-bold mb-3">
+            {{ basketItem.product.name }}
+          </h6>
+        </a>
 
         <h6 class="d-flex align-items-center">
           <mat-icon class="mx-3" inline> verified_user</mat-icon>
@@ -26,7 +35,7 @@
 
         <h6 class="d-flex align-items-center">
           <mat-icon class="mx-3" inline>store</mat-icon>
-          {{ basketItem.product.seller }}
+          {{ basketItem.product.seller.name }}
         </h6>
         <span class="fs-6 d-flex align-items-center">
           <mat-icon class="mx-3" inline>local_shipping</mat-icon>
@@ -34,16 +43,16 @@
         </span>
         <div class="position-absolute left-4 bottom-4">
           <keleman-price
-            [value]="basketItem.product.price"
+            [value]="basketItem.product.currentPrice"
             [color]="'dark'"
             [size]="'h5'"
           ></keleman-price>
           <keleman-price
-            [value]="basketItem.product.priceAfterOff"
+            [value]="basketItem.product.currentPrice"
             [color]="'dark'"
             [size]="'h6'"
             [off]="true"
-            [discount]="basketItem.product.off"
+            [discount]="10"
           ></keleman-price>
         </div>
       </div>

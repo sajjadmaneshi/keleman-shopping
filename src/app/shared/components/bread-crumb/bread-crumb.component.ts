@@ -7,8 +7,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BreadCrumbTypeEnum } from '../../../home/data/repositories/bread-crumb-type.enum';
-import { BreadCrumbViewModel } from '../../../home/data/repositories/view-models/bread-crumb.view-model';
+import { BreadCrumbTypeEnum } from '../../../home/data/bread-crumb-type.enum';
+import { BreadCrumbViewModel } from '../../../home/data/view-models/bread-crumb.view-model';
 import { Subscription, tap } from 'rxjs';
 import { HomeRepository } from '../../../home/data/repositories/home.repository';
 import { RouterLink } from '@angular/router';
@@ -79,7 +79,7 @@ export class BreadCrumbComponent implements OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }
 export class TypeBreadCrumbs {

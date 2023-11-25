@@ -1,0 +1,54 @@
+<div>
+  <ng-content *ngIf="isLoading; then loading; else content"></ng-content>
+  <ng-template #loading>
+    <ngx-skeleton-loader
+      [theme]="{ width: '100%', height: '300px' }"
+      count="2"
+    ></ngx-skeleton-loader>
+  </ng-template>
+  <ng-template #content>
+    <ng-template [ngIf]="status === statusEnum.Current">
+      <span class="d-flex align-items-center mb-3 filters">
+        <a
+          class="text-black mx-3 cursor-pointer"
+          [class.active]="orderPaidStatus === null"
+          (click)="filterOrders(null)"
+          >همه</a
+        >
+        <a
+          class="text-success mx-3 cursor-pointer"
+          [class.active]="orderPaidStatus === true"
+          (click)="filterOrders(true)"
+          >پرداخت شده</a
+        >
+        <a
+          class="text-danger mx-3 cursor-pointer"
+          [class.active]="orderPaidStatus === false"
+          (click)="filterOrders(false)"
+          >پرداخت نشده</a
+        >
+      </span>
+    </ng-template>
+
+    <ng-content
+      *ngIf="filteredOrders.length > 0; then full; else empty"
+    ></ng-content>
+    <ng-template #full>
+      <keleman-order-item
+        *ngFor="let order of filteredOrders"
+        [orderDetail]="order"
+        [orderStatus]="status"
+      ></keleman-order-item>
+      <keleman-pagination
+        [currentPage]="page"
+        [limit]="limit"
+        [totalElements]="totalElements"
+        (pageChange)="pageChange($event)"
+      ></keleman-pagination>
+    </ng-template>
+
+    <ng-template #empty>
+      <keleman-empty-content></keleman-empty-content>
+    </ng-template>
+  </ng-template>
+</div>

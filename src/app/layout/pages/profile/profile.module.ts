@@ -53,6 +53,16 @@ import { SelectedProductBoxComponent } from './my-boxes/modify-box-form/selected
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
 import { ProductCommentsModule } from '../products/product-details/components/comments/product-comments.module';
+import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
+import { ProfileRepository } from './data/profile.repository';
+import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
+import { ProfileService } from './shared/profile.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { CreditsComponent } from './credits/credits.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +90,7 @@ import { ProductCommentsModule } from '../products/product-details/components/co
     ModifyBoxFormComponent,
     BoxProductItemComponent,
     SelectedProductBoxComponent,
+    CreditsComponent,
   ],
   imports: [
     CommonModule,
@@ -107,6 +118,14 @@ import { ProductCommentsModule } from '../products/product-details/components/co
     ValueChangerComponent,
     LazyLoadingDirective,
     ProductCommentsModule,
+    EmptyImageDirective,
+    LoadingProgressDirective,
+    NgxSkeletonLoaderModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    PaginationComponent,
   ],
+  providers: [ProfileRepository],
 })
 export class ProfileModule {}

@@ -4,11 +4,7 @@
       <span class="material-icons-outlined" (click)="onClose()"> close </span>
 
       <ng-container
-        *ngIf="
-          isLoggedIn && initialAppService.userSimpleInfo;
-          then userInfo;
-          else register
-        "
+        *ngIf="isLoggedIn && userProfileInfo; then userInfo; else register"
       ></ng-container>
 
       <ng-template #register>
@@ -25,8 +21,8 @@
 
       <ng-template #userInfo>
         <h2 class="fw-bold py-3 mb-3 border-bottom border-gray-300">
-          {{ initialAppService.userSimpleInfo.firstName }}
-          {{ initialAppService.userSimpleInfo.lastName }}
+          {{ userProfileInfo.firstName }}
+          {{ userProfileInfo.lastName }}
         </h2>
       </ng-template>
 

@@ -72,6 +72,7 @@ import { BackgroundSwiperItemComponent } from '../../../home/components/backgrou
 import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
 import { ShareDialogComponent } from './product-details/components/content/share-dialog/share-dialog.component';
 import { MagazineModule } from '../magazine/magazine.module';
+import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +136,7 @@ import { MagazineModule } from '../magazine/magazine.module';
     BackgroundSwiperItemComponent,
     LoadingProgressDirective,
     MagazineModule,
+    ValueChangerComponent,
   ],
   providers: [ProductFilterService, RouteHandlerService],
 

@@ -66,7 +66,6 @@ export class AuthComponent implements OnDestroy {
   verificationCodeValid = true;
   provinces: StatesViewModel[] = [];
   cities: CityViewModel[] = [];
-
   redirectUrl!: string;
   openAddCommentDialogFlag = false;
 
@@ -105,10 +104,12 @@ export class AuthComponent implements OnDestroy {
     private _activatedRoute: ActivatedRoute
   ) {
     this._initForm();
-    this._activatedRoute.queryParams.subscribe((params) => {
-      this.redirectUrl = params['redirectUrl'];
-      this.openAddCommentDialogFlag = params['openAddCommentDialog'] ?? false;
-    });
+    this._activatedRoute.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        this.redirectUrl = params['redirectUrl'];
+        this.openAddCommentDialogFlag = params['openAddCommentDialog'] ?? false;
+      });
   }
 
   private _getAllStates() {
@@ -153,10 +154,10 @@ export class AuthComponent implements OnDestroy {
   sendVerificationCode() {
     this.isFormSubmitted = true;
     if (this.mobileFormControl.valid) {
+      this.submitLoading = true;
       let mobileNumber = this._persianNumberSerive.toEnglish(
         this.mobileFormControl.value!
       );
-      this.submitLoading = true;
       this._authservice
         .sendVerificationCode(mobileNumber!)
         .then(() => {
@@ -181,23 +182,25 @@ export class AuthComponent implements OnDestroy {
       };
       this._authservice
         .login(loginDto)
-        .then(() => {
-          const redirectTo = this.redirectUrl || '/';
-          this._router.navigate([redirectTo], {
-            queryParams: {
-              openAddCommentDialog: this.openAddCommentDialogFlag,
-            },
-          });
-          this.openAddCommentDialogFlag = false;
-          this._authservice.decodeJson();
-        })
+        .then(() => this._handleSuccessLogin())
         .finally(() => {
           this.submitLoading = false;
         });
     }
   }
 
-  CheckOtpValid($event: string) {
+  private _handleSuccessLogin(): void {
+    const redirectTo = this.redirectUrl || '/';
+    this._router.navigate([redirectTo], {
+      queryParams: {
+        openAddCommentDialog: this.openAddCommentDialogFlag,
+      },
+    });
+    this.openAddCommentDialogFlag = false;
+    this._authservice.decodeJson();
+  }
+
+  public checkOtpValid($event: string) {
     if ($event.length !== this.lastOtpLength) {
       this.lastOtpLength = $event.length;
       if ($event.length === 5 && this.hasCompleteInfo) this._login();
@@ -217,7 +220,7 @@ export class AuthComponent implements OnDestroy {
       });
   }
 
-  notify($event: CountdownEvent) {
+  public notify($event: CountdownEvent) {
     if ($event.action === 'done') this.isSendAgainActive = true;
   }
 
@@ -249,28 +252,22 @@ export class AuthComponent implements OnDestroy {
     }
   }
 
-  selectProvience($event: number) {
+  public selectProvience($event: number) {
     if ($event) this._getCitiesOfState($event);
   }
-  selectCity($event: any) {
+  public selectCity($event: any) {
     this.selectedCity = $event;
   }
 
-  getRegisterStatus(): AuthStatusEnum {
-    if (!this.verificationCodeSent) {
-      return AuthStatusEnum.otpNotSent;
-    }
-    if (this.verificationCodeSent && this.hasCompleteInfo) {
-      return AuthStatusEnum.otpSent;
-    }
-    if (this.verificationCodeSent && !this.hasCompleteInfo) {
-      return AuthStatusEnum.completeInfo;
-    } else {
-      return AuthStatusEnum.otpNotSent;
-    }
+  public getRegisterStatus(): AuthStatusEnum {
+    return this.verificationCodeSent
+      ? this.hasCompleteInfo
+        ? AuthStatusEnum.otpSent
+        : AuthStatusEnum.completeInfo
+      : AuthStatusEnum.otpNotSent;
   }
 
-  changeNumber() {
+  public changeNumber() {
     this.verificationCodeSent = false;
     this.verificationCodeValid = true;
     this.otpVerificationCode.reset();

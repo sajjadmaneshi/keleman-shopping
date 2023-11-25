@@ -1,5 +1,6 @@
 <div class="basket-body d-flex flex-column align-items-center">
-  <ng-container *ngIf="false; then empty; else full"> </ng-container>
+  <ng-container *ngIf="basketItems.products.length > 0; then full; else empty">
+  </ng-container>
   <ng-template #empty>
     <ng-container>
       <img
@@ -15,7 +16,7 @@
   </ng-template>
   <ng-template #full>
     <app-basket-item
-      *ngFor="let basketItem of basketItems"
+      *ngFor="let basketItem of basketItems.products"
       [basketItem]="basketItem"
     ></app-basket-item>
   </ng-template>

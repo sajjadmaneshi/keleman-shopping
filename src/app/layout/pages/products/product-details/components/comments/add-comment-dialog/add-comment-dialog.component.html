@@ -1,6 +1,7 @@
 <h5 class="text-center mb-3" mat-dialog-title>دیدگاه خود را ثبت نمایید</h5>
-<div mat-dialog-content>
-  <form [formGroup]="commentForm" (ngSubmit)="submitForm()">
+
+<form [formGroup]="commentForm" (ngSubmit)="submitForm()">
+  <div mat-dialog-content>
     <div class="form-group">
       <keleman-card [cardTitle]="'امتیاز'">
         <div class="card-body d-flex flex-column">
@@ -19,7 +20,7 @@
               <ng-template let-fill="fill" let-index="index">
                 <mat-icon
                   inline
-                  class="material-icons-outlined star"
+                  class="material-icons-outlined star text-muted"
                   [class.text-warning]="fill === 100"
                   >{{ fill === 100 ? "star" : "grade" }}</mat-icon
                 >
@@ -46,13 +47,15 @@
         </span>
       </div>
     </keleman-card>
+  </div>
+  <div mat-dialog-actions class="shadow justify-content-center">
     <button
-      class="btn btn-warning text-white float-start"
+      class="btn btn-warning text-white"
       kelemanLoadingProgress
       [loading]="isLoading"
       type="submit"
     >
       ارسال
     </button>
-  </form>
-</div>
+  </div>
+</form>

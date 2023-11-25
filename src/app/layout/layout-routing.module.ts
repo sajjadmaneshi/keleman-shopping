@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Routing } from '../routing';
 import { LayoutComponent } from './layout.component';
+import { authGuard } from '../shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
         path: Routing.profile,
         loadChildren: () =>
           import('./pages/profile/profile.module').then((m) => m.ProfileModule),
+        canActivate: [authGuard],
       },
     ],
   },

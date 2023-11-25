@@ -13,6 +13,7 @@ $keleman-typography: mat.define-typography-config(
 );
 
 $keleman-shopping-warn: mat.define-palette(mat.$red-palette);
+$keleman-shopping-success: mat.define-palette(mat.$light-green-palette);
 
 $keleman-shopping-theme: mat.define-light-theme(
   (
@@ -20,16 +21,11 @@ $keleman-shopping-theme: mat.define-light-theme(
       primary: $keleman-shopping-primary,
       accent: $keleman-shopping-accent,
       warn: $keleman-shopping-warn,
+      success: $keleman-shopping-success,
     ),
     typography: $keleman-typography,
   )
 );
 @include mat.core();
-@include mat.menu-theme($keleman-shopping-theme);
-@include mat.dialog-theme($keleman-shopping-theme);
-@include mat.bottom-sheet-theme($keleman-shopping-theme);
-@include mat.slider-theme($keleman-shopping-theme);
-@include mat.slide-toggle-theme($keleman-shopping-theme);
-@include mat.radio-theme($keleman-shopping-theme);
-@include mat.progress-spinner-theme($keleman-shopping-theme);
-@include mat.snack-bar-theme($keleman-shopping-theme);
+
+@include mat.all-component-themes($keleman-shopping-theme);

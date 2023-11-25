@@ -10,12 +10,14 @@
           >
           <span class="d-flex align-items-baseline mb-3">
             <input
-              class="keleman-text-field"
+              class="keleman-text-field equal-height-elements"
               id="increase-amount"
               placeholder="مقدار را به تومان وارد کنید"
             />
 
-            <button class="btn btn-warning text-white wallet-action-button">
+            <button
+              class="btn btn-warning text-white wallet-action-button equal-height-elements"
+            >
               پرداخت
             </button>
           </span>
@@ -28,17 +30,12 @@
   </div>
 </div>
 
-<div class="credits-history">
+<div class="wallet-transactions-history">
   <div class="card card-rounded-3 shadow-sm border border-gray-300">
     <div class="card-body">
       <h6 class="fw-bold p-3">تاریخچه تراکنش ها</h6>
-      <ng-container *ngIf="true; then full"></ng-container>
-      <ng-template #full>
-        <keleman-wallet-transaction-history></keleman-wallet-transaction-history>
-      </ng-template>
-      <ng-template #empty>
-        <keleman-empty-content></keleman-empty-content>
-      </ng-template>
+
+      <keleman-wallet-transaction-history></keleman-wallet-transaction-history>
     </div>
   </div>
 </div>

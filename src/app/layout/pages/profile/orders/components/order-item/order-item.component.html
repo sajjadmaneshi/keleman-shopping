@@ -1,52 +1,109 @@
 <div class="card card-rounded-1 order-item mb-3">
-  <div class="card-body d-flex align-items-start position-relative">
-    <div class="symbol symbol-md-19 symbol-lg-40">
-      <!--      <img src="assets/media/product.jpg" />-->
-    </div>
-    <div class="flex-column align-items-start flex-grow-1">
-      <h6 class="mb-3 fw-bold">
-        موتور گیربکس الکو ، درب ریلی 125 رایکا، سیم کابلی 60 متری کلمان
-      </h6>
-      <span class="d-flex align-items-center mb-1">
-        <mat-icon class="text-success ms-3">schedule</mat-icon>
-        2022/01/02
-      </span>
-      <span class="d-flex align-items-center mb-1">
-        <mat-icon class="text-success ms-3">paid</mat-icon>
-        45000000 ریال
-      </span>
-      <span class="d-flex align-items-center mb-1">
-        <mat-icon class="text-success ms-3">place</mat-icon>
-        شیراز ؛ چهارراه ریشمک کلمان
-      </span>
-    </div>
-
-    <ng-container
-      *ngIf="
-        applicationState.isPhone || applicationState.isTablet;
-        then mobileMenu;
-        else desktopMenu
-      "
-    >
-    </ng-container>
-    <ng-template #desktopMenu>
-      <span class="d-flex align-items-center align-self-end">
-        <a class="text-warning mx-1">مشاهده فاکتور</a>
-        <a
-          class="text-danger mx-1 cursor-pointer"
-          (click)="openReturnRequestDialog()"
-          >درخواست مرجوعی</a
-        >
-      </span>
-    </ng-template>
-    <ng-template #mobileMenu>
-      <mat-icon class="show-more" [matMenuTriggerFor]="menu"
-        >more_vert</mat-icon
+  <div class="card-body">
+    <div class="row g-1">
+      <a
+        class="col-12 col-md-4"
+        *ngFor="let product of orderDetail.products"
+        [routerLink]="['/products/detail/' + product.url]"
       >
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>مشاهده فاکتور</button>
-        <button mat-menu-item>درخواست مرجوعی</button>
-      </mat-menu>
-    </ng-template>
+        <div
+          class="card card-rounded-1 border border-gray-300 mb-3 cursor-pointer"
+        >
+          <div class="card-body d-flex align-items-center">
+            <div class="symbol symbol-md-10 symbol-circle">
+              <img loadingLazy emptyImage [src]="product.thumbnailImage" />
+            </div>
+            <span class="fw-bold">
+              {{ product.name }}
+              <span class="text-success">({{ product.amount }})</span></span
+            >
+          </div>
+        </div>
+      </a>
+    </div>
+    <mat-divider class="mb-3"></mat-divider>
+    <div class="d-flex align-items-start position-relative order-details">
+      <div class="flex-column align-items-start flex-grow-1">
+        <span class="d-flex align-items-center mb-1">
+          <mat-icon class="text-success ms-3">tag</mat-icon>
+          <p><strong>شماره سفارش :</strong> {{ orderDetail.id }}</p>
+        </span>
+        <span class="d-flex align-items-center mb-1">
+          <mat-icon class="text-success ms-3">schedule</mat-icon>
+          <p>
+            <strong>تاریخ ثبت سفارش:</strong>
+            {{
+              persianDateTimeService.fromGregorianString(
+                orderDetail.date,
+                "DDjMMMM YYYY"
+              )
+            }}
+          </p>
+        </span>
+        <span class="d-flex align-items-center mb-1">
+          <mat-icon class="text-success ms-3">paid</mat-icon>
+          <p>
+            <strong>قیمت اصلی سفارش:</strong>
+            {{ orderDetail.price | number : ".0" }} تومان
+          </p>
+        </span>
+        <span class="d-flex align-items-center mb-1">
+          <mat-icon class="text-success ms-3">percent</mat-icon>
+          <p>
+            <strong>درصد تخفیف:</strong>
+            {{ orderDetail.discount }}
+          </p>
+        </span>
+        <span class="d-flex align-items-center mb-1">
+          <mat-icon class="text-success ms-3">paid</mat-icon>
+          <p>
+            <strong>قیمت نهایی سفارش:</strong>
+            {{ orderDetail.priceAfterDiscount | number : ".0" }} تومان
+          </p>
+        </span>
+        <span class="d-flex align-items-center mb-1">
+          <mat-icon class="text-success ms-3">place</mat-icon>
+          <p><strong>آدرس:</strong> {{ orderDetail.address }}</p>
+        </span>
+      </div>
+
+      <ng-container
+        *ngIf="
+          applicationState.isPhone || applicationState.isTablet;
+          then mobileMenu;
+          else desktopMenu
+        "
+      >
+      </ng-container>
+      <ng-template #desktopMenu>
+        <div class="d-flex flex-column justify-content-between h-100">
+          <mat-chip-option
+            class="align-self-end"
+            [selected]="orderDetail.isPaid"
+            [ngClass]="[orderDetail.isPaid ? 'paid-chip' : 'notPaid-chip']"
+          >
+            {{ orderDetail.isPaid ? "پرداخت شده" : "پرداخت نشده" }}
+          </mat-chip-option>
+          <span class="d-flex align-items-center align-self-end">
+            <a class="text-warning mx-1">مشاهده فاکتور</a>
+            <a
+              *ngIf="orderStatus == orderstatusEnum.Delivered"
+              class="text-danger mx-1 cursor-pointer"
+              (click)="openReturnRequestDialog()"
+              >درخواست مرجوعی</a
+            >
+          </span>
+        </div>
+      </ng-template>
+      <ng-template #mobileMenu>
+        <mat-icon class="show-more" [matMenuTriggerFor]="menu"
+          >more_vert</mat-icon
+        >
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>مشاهده فاکتور</button>
+          <button mat-menu-item>درخواست مرجوعی</button>
+        </mat-menu>
+      </ng-template>
+    </div>
   </div>
 </div>

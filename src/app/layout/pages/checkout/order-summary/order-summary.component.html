@@ -3,28 +3,19 @@
 >
 <div class="card card-rounded-3 mb-3" id="orderSummary">
   <div class="card-body d-flex flex-column">
-    <div
-      class="symbol-group symbol-hover justify-content-center justify-content-lg-start mb-3"
-    >
-      <div class="symbol symbol-circle symbol-50px shadow border-klm-primary">
-        <!--        <img src="assets/media/product.jpg" />-->
-      </div>
-      <div class="symbol symbol-circle symbol-50px shadow border-klm-primary">
-        <!--        <img src="assets/media/product.jpg" />-->
-      </div>
-      <div class="symbol symbol-circle symbol-50px shadow border-klm-primary">
-        <!--        <img src="assets/media/product.jpg" />-->
-      </div>
-    </div>
     <ol>
-      <li>
-        <h6>موتور گیربکس الکو ، درب ریلی 125 رایکا، سیم</h6>
-      </li>
-      <li>
-        <h6>موتور گیربکس الکو</h6>
-      </li>
-      <li>
-        <h6>موتور گیربکس الکو ، درب ریلی 125 رایکا</h6>
+      <li *ngFor="let item of summary" class="my-2">
+        <span class="d-flex align-items-center">
+          <div
+            class="symbol symbol-circle symbol-hover symbol-10 shadow border border-klm-primary mx-2"
+          >
+            <img loadingLazy emptyImage [src]="item.product.image" />
+          </div>
+          <h6>
+            {{ item.product.name }}
+          </h6>
+          <strong class="text-success px-3"> ({{ item.count }})</strong>
+        </span>
       </li>
     </ol>
 

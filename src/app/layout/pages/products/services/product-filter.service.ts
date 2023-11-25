@@ -44,9 +44,12 @@ export class ProductFilterService implements OnDestroy {
     private _queryParamsService: QueryParamGeneratorService
   ) {
     this.filterList = this._initNewFilterList();
-    this._routeHandlerService.getQueryParams().subscribe((params) => {
-      this.queryParams = params;
-    });
+    this._routeHandlerService
+      .getQueryParams()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        this.queryParams = params;
+      });
   }
 
   private _initNewFilterList() {

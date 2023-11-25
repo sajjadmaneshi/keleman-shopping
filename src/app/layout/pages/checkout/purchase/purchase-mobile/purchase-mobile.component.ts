@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CheckoutService } from '../../services/checkout.service';
 
 @Component({
@@ -7,5 +7,6 @@ import { CheckoutService } from '../../services/checkout.service';
   styleUrls: ['./purchase-mobile.component.scss'],
 })
 export class PurchaseMobileComponent {
+  @Input() totalPrice: number = 0;
   constructor(public checkoutService: CheckoutService) {}
 }

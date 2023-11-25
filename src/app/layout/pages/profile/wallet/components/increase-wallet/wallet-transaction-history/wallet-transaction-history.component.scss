@@ -6,3 +6,10 @@
 .print-button {
   min-width: 100px !important;
 }
+.description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}

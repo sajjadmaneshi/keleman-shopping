@@ -16,7 +16,7 @@
     border: 2px solid red !important;
   }
   &:focus {
-    border: 1px solid $klm-primary !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5) !important;
   }
 }
 

@@ -16,18 +16,36 @@
     else web
   "
 ></ng-container>
+
 <ng-template #mobile>
   <div class="fixed-bottom mt-5">
     <div class="card shadow-lg bg-white">
       <div class="card-body row m-0">
         <ng-template [ngIf]="productDetails">
           <div class="col-6">
-            <button
-              class="actions__buttons text-klm-primary fs-5 fw-bolder w-100"
-              [disabled]="productStatus !== availableStatusEnum.AVAILABLE"
-            >
-              افزودن به سبد خرید
-            </button>
+            <ng-content
+              *ngIf="
+                productCountInBasket == 0;
+                then addToBasketTemplate;
+                else valueChanger
+              "
+            ></ng-content>
+            <ng-template #addToBasketTemplate>
+              <button
+                class="actions__buttons text-klm-primary fs-5 fw-bolder w-100"
+                [disabled]="productStatus !== availableStatusEnum.AVAILABLE"
+                (click)="addToBasket()"
+              >
+                افزودن به سبد خرید
+              </button>
+            </ng-template>
+            <ng-template #valueChanger>
+              <keleman-value-changer
+                [initialValue]="productCountInBasket"
+                (increse)="addToBasket()"
+                (decrease)="removeFromBasket()"
+              ></keleman-value-changer>
+            </ng-template>
           </div>
           <div class="col-6 d-flex align-items-center justify-content-center">
             <ng-container

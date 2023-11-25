@@ -1,6 +1,7 @@
 @import "base/variables/colors";
 
 ::ng-deep .pagination {
+  padding: 0 !important;
   .page-item {
     margin: 0 0.25rem;
     a {

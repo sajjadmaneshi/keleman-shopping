@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /
+Disallow: https://demo.keleman.org
+Disallow: http://demo.keleman.org
+Disallow: demo.keleman.org
+Disallow: demo.keleman.org/
+Disallow: demo.keleman.org/*

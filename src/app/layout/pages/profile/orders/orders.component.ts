@@ -1,6 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ProfileRepository } from '../data/profile.repository';
+import { OrderCountViewModel } from '../data/view-models/order-count.view-model';
+import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
+import { OrdersStatusEnum } from '../data/enums/orders-status.enum';
 
 @Component({
   selector: 'keleman-orders',
@@ -8,24 +12,41 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   styleUrls: ['./orders.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnDestroy {
+  orderStatus = OrdersStatusEnum;
+
   selectedIndex$ = new BehaviorSubject<number | null>(null);
+
+  isLoading = true;
+
+  destroy$ = new Subject<void>();
+
+  orderCounts = new OrderCountViewModel();
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _profileRepository: ProfileRepository
   ) {
     this._getSelectedIndexFromRoute();
+    this._getOrderCount();
+  }
+
+  private _getOrderCount() {
+    this._profileRepository
+      .getOrdersCount()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result: HttpClientResult<OrderCountViewModel>) => {
+        this.orderCounts = { ...result.result! };
+      });
   }
 
   private _getSelectedIndexFromRoute() {
-    this._activatedRoute.queryParams.subscribe((params: Params) => {
-      if (params['selected']) {
-        this.selectedIndex$.next(params['selected']);
-      } else {
-        this.selectedIndex$.next(null);
-      }
-    });
+    this._activatedRoute.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: Params) =>
+        this.selectedIndex$.next(params['selected'] || null)
+      );
   }
 
   private _updateQueryParams(selectedIndex: number) {
@@ -41,5 +62,10 @@ export class OrdersComponent {
   changeTab(selectedTab: number) {
     this.selectedIndex$.next(selectedTab);
     this._updateQueryParams(selectedTab);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

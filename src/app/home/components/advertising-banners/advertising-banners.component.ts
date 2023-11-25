@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { HomeRepository } from '../../data/repositories/home.repository';
-import { AdsBannerViewModel } from '../../data/repositories/view-models/ads-banner.view-model';
+import { AdsBannerViewModel } from '../../data/view-models/ads-banner.view-model';
 import { Subscription, tap } from 'rxjs';
 import { ENVIRONMENT } from '../../../../environments/environment';
 import { SharedVariablesService } from '../../../shared/services/shared-variables.service';
@@ -9,7 +9,7 @@ import { SharedVariablesService } from '../../../shared/services/shared-variable
   selector: 'keleman-advertising-banners',
   templateUrl: './advertising-banners.component.html',
 })
-export class AdvertisingBannersComponent {
+export class AdvertisingBannersComponent implements OnDestroy {
   isLoading = false;
 
   banners!: AdsBannerViewModel[];
@@ -26,11 +26,15 @@ export class AdvertisingBannersComponent {
   }
 
   private _init() {
-    this._homeRepository
+    this.subscription = this._homeRepository
       .getAdsBanner()
       .pipe(tap(() => (this.isLoading = false)))
       .subscribe((result) => {
         this.banners = result.result!;
       });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }

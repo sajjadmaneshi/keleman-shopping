@@ -15,4 +15,5 @@ export class Routing {
   static personalInfo = 'personal-info';
   static comments = 'comments';
   static myBox = 'my-box';
+  static credits = 'credits';
 }

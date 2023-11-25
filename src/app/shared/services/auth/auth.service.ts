@@ -74,7 +74,8 @@ export class AuthService {
   }) {
     if (isPlatformBrowser(this.platformId))
       localStorage.setItem('KELEMAN_TOKEN', data.token);
-
+    const decodeToken = this.jwtHelper.decodeToken(data.token);
+    localStorage.setItem('USERID', decodeToken.sub);
     this.isLoggedIn$.next(true);
   }
   public logout() {

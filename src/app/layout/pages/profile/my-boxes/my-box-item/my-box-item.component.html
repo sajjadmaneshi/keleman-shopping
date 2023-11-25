@@ -9,11 +9,11 @@
     <h6>{{ data.text }}</h6>
     <div class="symbol-group symbol-hover">
       <div
-        class="symbol symbol-circle symbol-50px shadow"
+        class="symbol symbol-12 symbol-circle shadow"
         [ngClass]="'border-' + data.color"
         *ngFor="let product of data.products"
       >
-        <img [src]="product.thumbNail" alt="" />
+        <img loadingLazy emptyImage [src]="product.thumbNail" alt="" />
       </div>
     </div>
   </span>

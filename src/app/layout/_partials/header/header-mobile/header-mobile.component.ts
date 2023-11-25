@@ -1,10 +1,18 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subject, Subscription, takeUntil } from 'rxjs';
 import { ProductCategoryService } from '../../../../home/components/product-category/product-category.service';
 import { ProductCategoryViewModel } from '../../../../shared/data/models/view-models/product-category.view-model';
+import { ProfileViewModel } from '../../../pages/profile/data/view-models/profile.view-model';
+import { UserCreditViewModel } from '../../../pages/profile/data/view-models/user-credit.view-model';
 
 @Component({
   selector: 'keleman-header-mobile',
@@ -12,7 +20,12 @@ import { ProductCategoryViewModel } from '../../../../shared/data/models/view-mo
 })
 export class HeaderMobileComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
-  subscription!: Subscription;
+  userProfileInfo!: ProfileViewModel;
+  userCreditInfo!: UserCreditViewModel;
+  isLoading = true;
+  destroy$ = new Subject<void>();
+
+  @Input() basketCount = 0;
   constructor(
     private offcanvasService: NgbOffcanvas,
     private _authService: AuthService,
@@ -28,14 +41,22 @@ export class HeaderMobileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this._authService.isAuthenticated.subscribe(
-      (loggedIn) => {
-        this.isLoggedIn = loggedIn;
-      }
-    );
+    combineLatest(
+      this._authService.isAuthenticated,
+      this.userService.userSimpleInfo,
+      this.userService.userCredit
+    )
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(([isLoggedIn, userInfo, userCredit]) => {
+        this.isLoggedIn = isLoggedIn;
+        this.userProfileInfo = userInfo;
+        this.userCreditInfo = userCredit;
+        this.isLoading = false;
+      });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

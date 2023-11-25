@@ -8,13 +8,9 @@
 
   <keleman-search-bar class="flex-grow-1"></keleman-search-bar>
 
-  <ng-container
-    *ngIf="
-      isLoggedIn && userService.userSimpleInfo;
-      then userInfo;
-      else register
-    "
-  ></ng-container>
+  <ng-content
+    *ngIf="isLoggedIn && userProfileInfo; then userInfo; else register"
+  ></ng-content>
   <ng-template #register>
     <div class="align-items-center bg-klm-primary rounded-1 p-1 login-register">
       <button class="btn text-warning w-50" [routerLink]="['register']">
@@ -31,15 +27,38 @@
 
   <ng-template #userInfo>
     <div ngbDropdown class="d-inline-block">
-      <span class="d-flex align-items-center cursor-pointer" ngbDropdownToggle>
-        <p class="mx-3">
-          {{ userService.userSimpleInfo.firstName }}
-          {{ userService.userSimpleInfo.lastName }}
-        </p>
-        <div class="symbol symbol-10 symbol-circle">
-          <img src="assets/media/blank.webp" />
-        </div>
-      </span>
+      <ng-content *ngIf="isLoading; then loading; else content"></ng-content>
+      <ng-template #loading>
+        <span class="d-flex align-items-center">
+          <ngx-skeleton-loader
+            [theme]="{ width: '5rem', height: '1rem' }"
+          ></ngx-skeleton-loader>
+
+          <ngx-skeleton-loader
+            [theme]="{ width: '50px', height: '50px' }"
+            [appearance]="'circle'"
+          ></ngx-skeleton-loader>
+        </span>
+      </ng-template>
+      <ng-template #content>
+        <span
+          class="d-flex align-items-center cursor-pointer"
+          ngbDropdownToggle
+        >
+          <p class="mx-3">
+            {{ userProfileInfo.firstName }}
+            {{ userProfileInfo.lastName }}
+          </p>
+          <div class="symbol symbol-10 symbol-circle">
+            <img
+              loadingLazy
+              emptyImage
+              [src]="userProfileInfo.avatar!"
+              [isAvatar]="true"
+            />
+          </div>
+        </span>
+      </ng-template>
 
       <div
         ngbDropdownMenu
@@ -47,7 +66,8 @@
         class="rounded-3 shadow-lg border-0"
       >
         <keleman-user-dropdown-menu
-          [userInfo]="userService.userSimpleInfo"
+          [userInfo]="userProfileInfo"
+          [userCredit]="userCreditInfo"
         ></keleman-user-dropdown-menu>
       </div>
     </div>
@@ -57,7 +77,7 @@
     class="d-flex position-relative flex-column align-items-center basket cursor-pointer"
     [routerLink]="['checkout']"
   >
-    <h3 class="basket-count text-warning">0</h3>
+    <h3 class="basket-count text-warning">{{ basketCount }}</h3>
     <img
       alt="سبد خرید"
       src="assets/media/static-resources/basket-icon.svg"

@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 
 import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
 import { BasketItemViewModel } from '../../data/models/basket-item.view-model';
+import { GuestBasketModel } from '../../data/models/guest-basket.model';
+import { ProductDetailViewModel } from '../../../products/data/models/view-models/product-detail.view-model';
+import { BasketService } from '../../basket.service';
 
 @Component({
   selector: 'app-basket-item',
@@ -9,6 +12,21 @@ import { BasketItemViewModel } from '../../data/models/basket-item.view-model';
   styleUrls: ['./basket-item.component.scss'],
 })
 export class BasketItemComponent {
-  @Input() basketItem!: BasketItemViewModel;
-  constructor(public applicationStateService: ApplicationStateService) {}
+  @Input() basketItem!: { product: ProductDetailViewModel; count: number };
+  constructor(
+    public applicationStateService: ApplicationStateService,
+    private readonly _basketService: BasketService
+  ) {}
+
+  removeProduct() {
+    this._basketService.removeProduct(this.basketItem);
+  }
+
+  addToBasket() {
+    this._basketService.addToBasket(this.basketItem);
+  }
+
+  removeFromBasket() {
+    this._basketService.removeFromBasket(this.basketItem.product.id);
+  }
 }

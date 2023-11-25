@@ -1,15 +1,71 @@
 <div class="border-bottom mb-3">
   <div class="mb-3 d-flex align-items-center">
-    <div class="symbol symbol-md-20" appSymbol>
-      <img src="src/assets/media/blank.webp" />
-    </div>
-    <span class="d-inline-flex flex-column flex-grow-1 align-items-start mx-4">
-      <h5>سجاد منشی</h5>
-      <a routerLink="personal-info" routerLinkActive="active" class="text-muted"
-        >تکمیل اطلاعات کاربری</a
+    <ng-content *ngIf="isLoading; then loading; else content"></ng-content>
+    <ng-template #loading>
+      <ngx-skeleton-loader
+        appearance="circle"
+        [theme]="{ width: '5rem', height: '5rem' }"
+      ></ngx-skeleton-loader>
+      <span
+        class="d-inline-flex flex-column flex-grow-1 align-items-start mx-1"
       >
-    </span>
-    <mat-icon class="material-icons-outlined text-muted"
+        <ngx-skeleton-loader
+          [theme]="{ width: '10rem', height: '20px' }"
+        ></ngx-skeleton-loader>
+        <ngx-skeleton-loader
+          [theme]="{ width: '10rem', height: '20px' }"
+        ></ngx-skeleton-loader>
+      </span>
+    </ng-template>
+
+    <ng-template #content>
+      <div class="symbol symbol-md-20 symbol-circle position-relative">
+        <img
+          loadingLazy
+          emptyImage
+          [src]="personalInfo.avatar!"
+          [isAvatar]="true"
+        />
+        <mat-spinner
+          *ngIf="(fileUploading | async)!"
+          class="spinner"
+          [diameter]="20"
+        ></mat-spinner>
+        <button
+          mat-mini-fab
+          color="primary"
+          class="change-profile"
+          (click)="fileManagerService.openFileBrowser($event, fileInput)"
+        >
+          <mat-icon class="material-icons-outlined">edit</mat-icon>
+        </button>
+        <input
+          value=""
+          type="file"
+          name="profile_avatar"
+          id="imagePicker"
+          multiple
+          [disabled]="fileUploading | async"
+          #fileInput
+          (click)="fileInput.value = null!"
+          (change)="onChangeFileListener($event)"
+          [accept]="fileManagerService.generateAcceptedImageTypes()"
+          style="display: none"
+        />
+      </div>
+      <span
+        class="d-inline-flex flex-column flex-grow-1 align-items-start mx-4"
+      >
+        <h5>{{ personalInfo.firstName }} {{ personalInfo.lastName }}</h5>
+        <a routerLink="/profile" routerLinkActive="active" class="text-muted"
+          >تکمیل اطلاعات کاربری</a
+        >
+      </span>
+    </ng-template>
+
+    <mat-icon
+      routerLink="personal-info"
+      class="material-icons-outlined text-muted cursor-pointer"
       >drive_file_rename_outline</mat-icon
     >
   </div>
@@ -25,13 +81,13 @@
         <span>کیف پول</span>
       </span>
       <span class="flex-grow-1 text-start mx-3"
-        >{{ 450000000 | number : ".0" }} تومان</span
+        >{{ userCredit.walletValue | number : ".0" }} تومان</span
       >
       <mat-icon> more_vert</mat-icon>
     </li>
     <li
-      class="d-flex align-items-center justify-content-between mb-3 menu-item"
-      [routerLink]="'wallet/decrease'"
+      class="d-flex align-items-center justify-content-between mb-3 menu-item cursor-pointer"
+      [routerLink]="'credits'"
       routerLinkActive="active"
     >
       <span class="d-flex align-items-center">
@@ -40,23 +96,23 @@
       </span>
 
       <span class="flex-grow-1 text-start mx-3"
-        >{{ 450000000 | number : ".0" }} تومان</span
+        >{{ userCredit.creditValue | number : ".0" }} تومان</span
       >
       <mat-icon> more_vert</mat-icon>
     </li>
   </ul>
 </div>
-<ul class="profile-menu me-lg-3">
+<ul class="profile-menu m-0">
   <li class="menu-item" [routerLink]="'orders'" routerLinkActive="active">
     <a class="menu-link">
-      <mat-icon class="mx-2">shopping_basket</mat-icon>
+      <mat-icon class="ms-2">shopping_basket</mat-icon>
       سفارش ها
     </a>
     <mat-icon> chevron_left</mat-icon>
   </li>
   <li class="menu-item" [routerLink]="'favorites'" routerLinkActive="active">
     <a class="menu-link">
-      <mat-icon class="mx-2">favorite</mat-icon>
+      <mat-icon class="ms-2">favorite</mat-icon>
       علاقه مندی ها
     </a>
     <mat-icon> chevron_left</mat-icon>
@@ -67,14 +123,14 @@
     routerLinkActive="active"
   >
     <a class="menu-link">
-      <mat-icon class="mx-2">assignment_return</mat-icon>
+      <mat-icon class="ms-2">assignment_return</mat-icon>
       درخواست مرجوعی
     </a>
     <mat-icon> chevron_left</mat-icon>
   </li>
   <li class="menu-item" [routerLink]="'address'" routerLinkActive="active">
     <a class="menu-link">
-      <mat-icon class="mx-2">place</mat-icon>
+      <mat-icon class="ms-2">place</mat-icon>
       آدرس ها
     </a>
     <mat-icon> chevron_left</mat-icon>
@@ -82,21 +138,21 @@
 
   <li class="menu-item" [routerLink]="'comments'" routerLinkActive="active">
     <a class="menu-link">
-      <mat-icon class="mx-2">chat</mat-icon>
+      <mat-icon class="ms-2">chat</mat-icon>
       دیدگاه ها
     </a>
     <mat-icon> chevron_left</mat-icon>
   </li>
   <li class="menu-item" [routerLink]="'my-box'" routerLinkActive="active">
     <a class="menu-link">
-      <mat-icon class="mx-2">inventory_2</mat-icon>
+      <mat-icon class="ms-2">inventory_2</mat-icon>
       باکس های من
     </a>
     <mat-icon> chevron_left</mat-icon>
   </li>
   <li class="menu-item">
     <a class="menu-link text-danger">
-      <mat-icon class="mx-2">power_settings_new</mat-icon>
+      <mat-icon class="ms-2">power_settings_new</mat-icon>
       خروج
     </a>
   </li>

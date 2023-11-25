@@ -12,7 +12,7 @@ import {
 import { ArticleSearchResult } from '../../../../../shared/services/search.service';
 import { ProductRepository } from '../../../products/data/repositories/product.repository';
 import { RouteHandlerService } from '../../../../../shared/services/route-handler/route-handler.service';
-import { BreadCrumbViewModel } from '../../../../../home/data/repositories/view-models/bread-crumb.view-model';
+import { BreadCrumbViewModel } from '../../../../../home/data/view-models/bread-crumb.view-model';
 import { QueryParamGeneratorService } from '../../../../../shared/services/query-params-generator.service';
 import { Routing } from '../../../../../routing';
 

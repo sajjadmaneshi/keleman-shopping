@@ -8,6 +8,9 @@ export class DataService<T> {
   protected get _getUrl() {
     return `${ENVIRONMENT.baseUrl}${this._url}`;
   }
+  protected get _getProfileUrl() {
+    return `${ENVIRONMENT.baseUrlProfile}${this._url}`;
+  }
 
   getAll(params?: ParamMap[]): Observable<T[]> {
     let paramStringify = '';

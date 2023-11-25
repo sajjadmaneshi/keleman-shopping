@@ -7,7 +7,7 @@
       </span>
 
       <a
-        class="seeAll me-3"
+        class="seeAll me-3 cursor-pointer"
         (click)="changeTab(0)"
         *ngIf="!(selectedIndex$ | async)"
       >
@@ -15,6 +15,7 @@
         <mat-icon class="material-icons-outlined">chevron_left</mat-icon>
       </a>
     </span>
+
     <ng-template [ngIf]="!(selectedIndex$ | async)" [ngIfElse]="tabBar">
       <div class="row mx-0 order-menu my-5">
         <a
@@ -29,7 +30,7 @@
           <span
             class="d-flex flex-column align-items-center align-items-lg-start mx-3"
           >
-            <h6>0 سفارش</h6>
+            <h6>{{ orderCounts.currentCount }} سفارش</h6>
             <span class="processing">جاری</span>
           </span>
         </a>
@@ -45,7 +46,7 @@
           <span
             class="d-flex flex-column align-items-center align-items-lg-start mx-3"
           >
-            <h6>2 سفارش</h6>
+            <h6>{{ orderCounts.deliveredCount }} سفارش</h6>
             <span class="delivered">تحویل شده</span>
           </span>
         </a>
@@ -61,7 +62,7 @@
           <span
             class="d-flex flex-column align-items-center align-items-lg-start mx-3"
           >
-            <h6>2 سفارش</h6>
+            <h6>{{ orderCounts.returnedCount }} سفارش</h6>
             <span class="returned">مرجوع شده</span>
           </span>
         </a>
@@ -77,12 +78,13 @@
           <span
             class="d-flex flex-column align-items-center align-items-lg-start mx-3"
           >
-            <h6>2 سفارش</h6>
+            <h6>{{ orderCounts.cancelledCount }} سفارش</h6>
             <span class="cancelled">لغوشده</span>
           </span>
         </a>
       </div>
     </ng-template>
+
     <ng-template #tabBar>
       <mat-tab-group
         class="order-tab-bar"
@@ -93,51 +95,50 @@
         <mat-tab>
           <ng-template mat-tab-label>
             جاری
-            <span class="text-danger mx-1">1</span>
+            <span class="text-danger mx-1">{{ orderCounts.currentCount }}</span>
           </ng-template>
-          <ng-template [ngTemplateOutlet]="tabContent"> </ng-template>
+          <ng-template matTabContent>
+            <keleman-order-list [status]="orderStatus.Current">
+            </keleman-order-list>
+          </ng-template>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             تحویل شده
-            <span class="text-danger mx-1">1</span>
+            <span class="text-danger mx-1">{{
+              orderCounts.deliveredCount
+            }}</span>
           </ng-template>
-          <ng-template [ngTemplateOutlet]="tabContent"> </ng-template>
+          <ng-template matTabContent>
+            <keleman-order-list [status]="orderStatus.Delivered">
+            </keleman-order-list>
+          </ng-template>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             مرجوع شده
-            <span class="text-danger mx-1">1</span>
+            <span class="text-danger mx-1">{{
+              orderCounts.returnedCount
+            }}</span>
           </ng-template>
-          <ng-template [ngTemplateOutlet]="tabContent"> </ng-template
-        ></mat-tab>
+          <ng-template matTabContent>
+            <keleman-order-list [status]="orderStatus.Returned">
+            </keleman-order-list>
+          </ng-template>
+        </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             لغو شده
-            <span class="text-danger mx-1">1</span>
+            <span class="text-danger mx-1">{{
+              orderCounts.cancelledCount
+            }}</span>
           </ng-template>
-          <ng-template [ngTemplateOutlet]="tabContent"> </ng-template
-        ></mat-tab>
+          <ng-template matTabContent>
+            <keleman-order-list [status]="orderStatus.Cancelled">
+            </keleman-order-list>
+          </ng-template>
+        </mat-tab>
       </mat-tab-group>
-      <ng-template #tabContent>
-        <ng-container *ngIf="false; then empty; else full"></ng-container>
-        <ng-template #empty>
-          <div class="card card-rounded-1">
-            <div class="card-body">
-              <keleman-empty-content></keleman-empty-content>
-            </div>
-          </div>
-        </ng-template>
-        <ng-template #full>
-          <ng-container [ngSwitch]="selectedIndex$ | async">
-            <keleman-current-orders *ngSwitchCase="0"> </keleman-current-orders>
-            <keleman-delivered-orders *ngSwitchCase="1">
-            </keleman-delivered-orders>
-            <keleman-returned-orders *ngSwitchCase="2">
-            </keleman-returned-orders>
-          </ng-container>
-        </ng-template>
-      </ng-template>
     </ng-template>
   </div>
 </div>

@@ -1,22 +1,39 @@
-<div class="card card-rounded-1 border border-gray-300 favorite-item mb-3">
+<div
+  class="card card-rounded-1 border border-gray-300 favorite-item mb-3 cursor-pointer"
+  [routerLink]="['/products/detail/' + productDetails.url]"
+>
   <div class="card-body d-flex">
     <div class="d-flex flex-grow-1 align-items-center">
-      <div class="symbol symbol-22">
-        <img loadingLazy [src]="productDetails.thumbnailImage" />
+      <div class="symbol symbol-22 mx-3">
+        <img loadingLazy emptyImage [src]="productDetails.thumbnailImage" />
       </div>
       <span class="d-flex flex-column w-100">
         <h6 class="mb-3">{{ productDetails.name }}</h6>
 
-        <p class="favorite-item-description px-3 mb-3">
-          {{ productDetails.description }}
-        </p>
-        <h6 class="text-success text-start">
-          {{ productDetails.price | number : ".0" }}
-        </h6>
+        <keleman-price
+          [value]="productDetails.priceAfterDiscount!"
+          [off]="false"
+          [size]="'h6'"
+          class="mb-md-3"
+        ></keleman-price>
+        <ng-template [ngIf]="productDetails.discount > 0">
+          <keleman-price
+            [value]="productDetails.price"
+            [off]="true"
+            [discount]="productDetails.discount"
+            [color]="'dark'"
+            [size]="'h6'"
+          ></keleman-price>
+        </ng-template>
       </span>
     </div>
     <div class="d-flex flex-column justify-content-between">
-      <mat-icon class="text-danger">favorite</mat-icon>
+      <mat-icon
+        class="text-danger cursor-pointer"
+        (click)="getAcceptBeforeRemoveFromFavorite($event)"
+        >favorite</mat-icon
+      >
+      <mat-icon class="material-icons-outlined mx-1"> chevron_left </mat-icon>
     </div>
   </div>
 </div>

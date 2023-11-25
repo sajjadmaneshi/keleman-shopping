@@ -3,22 +3,44 @@
     <span class="d-flex align-items-center py-3">
       <mat-icon class="d-lg-none" routerLink="../">arrow_right_alt</mat-icon>
       <span>علاقه مندی ها</span>
-      <span class="text-danger mx-1">1</span>
+      <span class="text-danger mx-1"> ({{ favoriteItems.length }}) </span>
     </span>
-    <ng-template #full [ngIf]="true">
-      <div class="row mx-0">
+
+    <ng-content *ngIf="isLoading; then loading; else content"></ng-content>
+
+    <ng-template #loading>
+      <div class="row mx-0 gx-1">
         <div
-          class="col-12 col-md-6 col-lg-4"
-          *ngFor="let product of favoriteItems"
+          class="col-12 col-md-6 mb-3"
+          *ngFor="let _ of sharedReferences.counter(2)"
         >
-          <keleman-favorite-item
-            [productDetails]="product"
-          ></keleman-favorite-item>
+          <ngx-skeleton-loader
+            [theme]="{ height: '100px' }"
+          ></ngx-skeleton-loader>
         </div>
       </div>
     </ng-template>
-    <ng-template #empty>
-      <keleman-empty-content></keleman-empty-content>
+
+    <ng-template #content>
+      <ng-content
+        *ngIf="favoriteItems.length > 0; then full; else empty"
+      ></ng-content>
+      <ng-template #full>
+        <div class="row mx-0 gx-1">
+          <div
+            class="col-12 col-md-6 mb-3"
+            *ngFor="let product of favoriteItems"
+          >
+            <keleman-favorite-item
+              [productDetails]="product"
+              (disLike)="removeFromList($event)"
+            ></keleman-favorite-item>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #empty>
+        <keleman-empty-content></keleman-empty-content>
+      </ng-template>
     </ng-template>
   </div>
 </div>

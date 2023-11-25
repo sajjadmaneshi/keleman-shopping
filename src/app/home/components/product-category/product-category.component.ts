@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -18,6 +19,7 @@ import {
 import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import { ProductCategoryViewModel } from '../../../shared/data/models/view-models/product-category.view-model';
 import { ApplicationStateService } from '../../../shared/services/application-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'keleman-product-categories',
@@ -33,12 +35,14 @@ import { ApplicationStateService } from '../../../shared/services/application-st
   ],
   standalone: true,
 })
-export class ProductCategoryComponent implements OnChanges {
+export class ProductCategoryComponent implements OnChanges, OnDestroy {
   @Input() parentId!: number | null;
 
   @Output() onItemClick = new EventEmitter<ProductCategoryViewModel>();
 
   categories: ProductCategoryViewModel[] = [];
+
+  subscription!: Subscription;
 
   constructor(
     public productCategoryService: ProductCategoryService,
@@ -67,10 +71,13 @@ export class ProductCategoryComponent implements OnChanges {
   }
 
   private _getCategories() {
-    this.productCategoryService
+    this.subscription = this.productCategoryService
       .getCategories(this.parentId!)
       .subscribe((result) => {
         this.categories = result;
       });
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }
