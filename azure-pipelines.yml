@@ -1,0 +1,43 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  - develop
+
+pool:
+  name: Angular
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "20.x"
+    displayName: "Install Node.js"
+
+  - script: |
+      npm install --save @angular-devkit/build-angular --force
+    displayName: "Install Dependencies"
+
+  - script: |
+      npm run build:ssr-stg
+    workingDirectory: "$(System.DefaultWorkingDirectory)"
+    displayName: "build and deploy"
+
+  - powershell: |
+
+      $sourcePath = "$(System.DefaultWorkingDirectory)\dist\keleman-shopping\server"
+      $destinationPath = "C:\inetpub\wwwroot\ssrKeleman"
+      Get-ChildItem -Path $destinationPath -Exclude web.config | foreach {Remove-Item $_.FullName -Force -Recurse}
+
+      # Copy all files from sourcePath to destinationPath
+      Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+
+      # Create a 'dist' folder in C:\inetpub\wwwroot\ssrKeleman
+      $distFolder = Join-Path -Path $destinationPath -ChildPath "dist"
+      New-Item -ItemType Directory -Path $distFolder -Force
+
+      # Copy 'keleman-shopping' to the 'dist' folder
+      $kelemanShoppingPath = Join-Path -Path $destinationPath -ChildPath "keleman-shopping"
+      Copy-Item -Path $(System.DefaultWorkingDirectory)\dist\keleman-shopping -Destination C:\inetpub\wwwroot\ssrKeleman\dist -Recurse -Force
+    displayName: "Remove Files and Folders (except web.config)"
