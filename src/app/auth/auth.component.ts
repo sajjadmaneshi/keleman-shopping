@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import {
   FormControl,
   FormGroup,
@@ -24,10 +24,10 @@ import { CityViewModel } from '../shared/data/models/view-models/city.view-model
 import { HttpClientResult } from '../shared/data/models/http/http-client.result';
 import { AccountRepository } from '../shared/services/auth/account.repository';
 import { CompleteInfoDto } from '../shared/services/auth/data/complete-info.dto';
-import { AuthStatusEnum } from './auth-status.enum';
 import { CustomPersianNumberService } from '../shared/services/persian-number.service';
 import { TextOnlyDirective } from '../shared/directives/text-only.directive';
 import { GeneralRepository } from '../shared/data/repositories/general.repository';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-authentication',
@@ -47,14 +47,15 @@ import { GeneralRepository } from '../shared/data/repositories/general.repositor
     NumberOnlyDirective,
     MatComponentsModule,
     TextOnlyDirective,
+    MatStepperModule,
   ],
 })
 export class AuthComponent implements OnDestroy {
+  selectedIndex$ = new BehaviorSubject<number | null>(null);
   @ViewChild('cd') private countDown!: CountdownComponent;
   private destroy$ = new Subject<void>();
-  registerStatusEnum = AuthStatusEnum;
+
   lastOtpLength = 0;
-  verificationCodeSent: boolean = false;
   selectedCity!: number;
   registerForm!: FormGroup;
   isFormSubmitted = false;
@@ -161,7 +162,6 @@ export class AuthComponent implements OnDestroy {
       this._authservice
         .sendVerificationCode(mobileNumber!)
         .then(() => {
-          this.verificationCodeSent = true;
           this.isSendAgainActive = false;
           this.isFormSubmitted = false;
           this._hasCompleteProfile();
@@ -213,6 +213,7 @@ export class AuthComponent implements OnDestroy {
       .hasCompleteProfile(this.mobileFormControl.value!)
       .then((result: boolean) => {
         this.hasCompleteInfo = result;
+        this.changeTab(result ? 1 : 2);
         if (!result) this._getAllStates();
       })
       .finally(() => {
@@ -259,16 +260,13 @@ export class AuthComponent implements OnDestroy {
     this.selectedCity = $event;
   }
 
-  public getRegisterStatus(): AuthStatusEnum {
-    return this.verificationCodeSent
-      ? this.hasCompleteInfo
-        ? AuthStatusEnum.otpSent
-        : AuthStatusEnum.completeInfo
-      : AuthStatusEnum.otpNotSent;
+  changeTab(selectedTab: number) {
+    this.selectedIndex$.next(selectedTab);
   }
 
   public changeNumber() {
-    this.verificationCodeSent = false;
+    this.changeTab(0);
+
     this.verificationCodeValid = true;
     this.otpVerificationCode.reset();
     this.registerForm.reset();
