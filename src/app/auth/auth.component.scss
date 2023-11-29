@@ -29,3 +29,13 @@
 .mobile-number-text-field::placeholder {
   text-align: center !important;
 }
+:host ::ng-deep .mat-mdc-tab-label-container {
+  display: none;
+}
+:host ::ng-deep .mat-mdc-tab-body-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
