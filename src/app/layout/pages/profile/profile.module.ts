@@ -31,7 +31,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { ReturnedRequestComponent } from './returned-request/returned-request.component';
 import { AddressesComponent } from './address/addresses.component';
 import { KelemanMapComponent } from '../../../shared/components/keleman-map/keleman-map.component';
-import { AddAddressDialogComponent } from './address/add-address-dialog/add-address-dialog.component';
+import { ModifyAddressDialogComponent } from './address/add-address-dialog/modify-address-dialog.component';
 import { AutoCompleteComponent } from '../../../shared/components/auto-complete/auto-complete.component';
 import { MatComponentsModule } from '../../../mat-components.module';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
@@ -63,6 +63,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { NumberOnlyDirective } from '../../../shared/directives/number-only.directive';
+import { ErrorFeedbackDirective } from '../../../shared/directives/error-feedback.directive';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,7 @@ import { PaginationComponent } from '../../../shared/components/pagination/pagin
     FavoritesComponent,
     ReturnedRequestComponent,
     AddressesComponent,
-    AddAddressDialogComponent,
+    ModifyAddressDialogComponent,
     PersonalInfoComponent,
     UserCommentsComponent,
     WalletTransactionHistoryComponent,
@@ -125,6 +127,8 @@ import { PaginationComponent } from '../../../shared/components/pagination/pagin
     MatSortModule,
     MatPaginatorModule,
     PaginationComponent,
+    NumberOnlyDirective,
+    ErrorFeedbackDirective,
   ],
   providers: [ProfileRepository],
 })

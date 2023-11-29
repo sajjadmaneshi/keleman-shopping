@@ -1,55 +1,75 @@
 <div
   class="card card-rounded-1 address-item mb-3"
-  [class.selected]="address.selected"
+  [class.selected]="address.isDefault"
 >
   <div class="card-body align-items-center">
     <div class="d-flex justify-content-between align-items-center">
       <ul class="address-info">
         <li>
           <span class="mb-3 address-text">
-            {{ address.address }}
+            {{ address.addressText }}
           </span>
         </li>
         <li class="text-muted">
           <mat-icon class="material-icons-outlined">place</mat-icon>
-          شیراز
+          {{ address.city.title }}
         </li>
         <li class="text-muted">
           <mat-icon class="material-icons-outlined">email</mat-icon>
-          7134715136
+          {{ address.postalCode }}
         </li>
         <li class="text-muted">
           <mat-icon class="material-icons-outlined">call</mat-icon>
-          09394241607
+          {{ address.receiverPhone }}
         </li>
         <li class="text-muted">
-          <mat-icon class="material-icons-outlined" [class.text-success]="mine"
-            >person</mat-icon
-          >
-          سجاد منشی
+          <mat-icon class="material-icons-outlined">person</mat-icon>
+          {{ address.receiverName }}
         </li>
       </ul>
       <div class="d-flex align-items-center">
         <keleman-map
           [readOnly]="true"
-          [markerLatLng]="getMarkerLatLng(address.lat, address.lng)"
+          [markerLatLng]="getMarkerLatLng(address.latitude, address.longitude)"
           [zoom]="50"
         ></keleman-map>
         <span class="actions d-flex flex-column mx-3">
           <button
             class="btn btn-icon text-klm-primary"
             ngbTooltip="انتخاب به عنوان آدرس پیشفرض"
-            [disabled]="address.selected"
+            [disabled]="address.isDefault"
+            (click)="addToDefault(address.id)"
           >
-            <mat-icon>{{
-              address.selected ? "bookmark" : "bookmark_border"
-            }}</mat-icon>
+            <ng-content
+              *ngIf="isLoading; then loading; else content"
+            ></ng-content>
+            <ng-template #content>
+              <mat-icon>{{
+                address.isDefault ? "bookmark" : "bookmark_border"
+              }}</mat-icon>
+            </ng-template>
+            <ng-template #loading>
+              <mat-spinner [diameter]="20"></mat-spinner>
+            </ng-template>
           </button>
-          <button href="#" class="btn btn-icon text-warning">
+          <button (click)="openEditDialog()" class="btn btn-icon text-warning">
             <mat-icon>edit</mat-icon>
           </button>
-          <button href="#" class="btn btn-icon text-danger">
-            <mat-icon>delete</mat-icon>
+          <button
+            href="#"
+            class="btn btn-icon text-danger"
+            [disabled]="deleteLoading"
+            (click)="getAcceptBeforeRemove($event)"
+          >
+            <ng-content
+              *ngIf="deleteLoading; then loadingDelete; else deleteContent"
+            ></ng-content>
+            <ng-template #deleteContent>
+              <mat-icon>delete</mat-icon>
+            </ng-template>
+            <ng-template #loadingDelete>
+              <mat-spinner [diameter]="20"></mat-spinner>
+            </ng-template>
           </button>
         </span>
       </div>

@@ -14,6 +14,7 @@ import { BasketService } from '../../../../pages/checkout/basket.service';
 export class TopMenuComponent implements OnDestroy {
   isLoggedIn = false;
   isLoading = true;
+  profileInfoLoading = true;
   userProfileInfo!: ProfileViewModel;
   userCreditInfo!: UserCreditViewModel;
 
@@ -31,15 +32,21 @@ export class TopMenuComponent implements OnDestroy {
   private _getInitialDate() {
     combineLatest(
       this._authService.isAuthenticated,
-      this.userService.userSimpleInfo,
       this.userService.userCredit
     )
       .pipe(takeUntil(this.destroy$))
-      .subscribe(([isLoggedIn, userInfo, userCredit]) => {
+      .subscribe(([isLoggedIn, userCredit]) => {
         this.isLoggedIn = isLoggedIn;
-        this.userProfileInfo = userInfo;
         this.userCreditInfo = userCredit;
         this.isLoading = false;
+      });
+    this.userService.userSimpleInfo
+      .pipe(
+        tap(() => (this.profileInfoLoading = false)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((userInfo) => {
+        this.userProfileInfo = userInfo;
       });
   }
 

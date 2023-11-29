@@ -16,6 +16,8 @@ import { PaginationViewModel } from '../../../../shared/data/models/pagination.v
 import { WalletTransactionViewModel } from './view-models/wallet-transaction.view-model';
 import { WalletTransactionStatusEnum } from './enums/wallet-transaction-status.enum';
 import { CreditTransactionViewModel } from './view-models/credit-transaction.view-model';
+import { UserAddressViewModel } from './view-models/user-address.view-model';
+import { AddressDto } from './dto/address.dto';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileRepository extends DataService<any> {
@@ -117,5 +119,55 @@ export class ProfileRepository extends DataService<any> {
     ) as Observable<
       HttpClientResult<PaginationViewModel<CreditTransactionViewModel>>
     >;
+  }
+
+  getUserAddresses(): Observable<HttpClientResult<UserAddressViewModel[]>> {
+    return this._http.get(
+      `${this._getProfileUrl}/address?userId=${localStorage.getItem('USERID')}`
+    ) as Observable<HttpClientResult<UserAddressViewModel[]>>;
+  }
+  getUserAddress(
+    id: number
+  ): Observable<HttpClientResult<UserAddressViewModel>> {
+    return this._http.get(
+      `${this._getProfileUrl}/address/${id}?userId=${localStorage.getItem(
+        'USERID'
+      )}`
+    ) as Observable<HttpClientResult<UserAddressViewModel>>;
+  }
+  addNewAddress(dto: AddressDto): Observable<HttpClientResult<string>> {
+    return this._http.post(
+      `${this._getProfileUrl}/address?userId=${localStorage.getItem('USERID')}`,
+      dto
+    ) as Observable<HttpClientResult<string>>;
+  }
+
+  updateAddress(
+    id: number,
+    dto: AddressDto
+  ): Observable<HttpClientResult<string>> {
+    return this._http.patch(
+      `${this._getProfileUrl}/address/${id}/?userId=${localStorage.getItem(
+        'USERID'
+      )}`,
+      dto
+    ) as Observable<HttpClientResult<string>>;
+  }
+
+  deleteAddress(id: number): Observable<HttpClientResult<void>> {
+    return this._http.delete(
+      `${this._getProfileUrl}/address/${id}?userId=${localStorage.getItem(
+        'USERID'
+      )}`
+    ) as Observable<HttpClientResult<void>>;
+  }
+
+  addDefaultAddress(id: number): Observable<HttpClientResult<void>> {
+    return this._http.put(
+      `${
+        this._getProfileUrl
+      }/address/${id}/addToDefault?userId=${localStorage.getItem('USERID')}`,
+      {}
+    ) as Observable<HttpClientResult<void>>;
   }
 }

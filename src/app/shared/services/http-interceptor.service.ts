@@ -72,7 +72,9 @@ export class HttpInterceptorService implements HttpInterceptor {
         );
         return throwError(() => new NotFoundError());
       default:
-        this._snackBarService.showDangerSnackBar('خطای سرور');
+        this._snackBarService.showDangerSnackBar(
+          error.error.responseException?.exceptionMessage
+        );
         return throwError(() => new AppErrors(error.message));
     }
   }

@@ -21,13 +21,13 @@ import {
   tileLayer,
 } from 'leaflet';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { MapService } from '../../services/map.service';
-import { SearchResult } from 'leaflet-geosearch/lib/providers/provider';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { RawResult } from 'leaflet-geosearch/lib/providers/openStreetMapProvider';
 import { CommonModule } from '@angular/common';
+import { MapService } from '../../services/map.service';
+import { SearchResult } from 'leaflet-geosearch/lib/providers/provider';
+import { RawResult } from 'leaflet-geosearch/lib/providers/openStreetMapProvider';
 import { GeoSearchComponent } from './geo-search/geo-search.component';
 
 @Component({
@@ -63,13 +63,12 @@ export class KelemanMapComponent implements OnDestroy {
   @Output() mapClickWaiting: EventEmitter<boolean> = new EventEmitter();
 
   private _map!: Map;
-  private marker!: Marker;
+  private _marker!: Marker;
 
   constructor(private _mapService: MapService) {}
 
   onMapReady(map: Map) {
     this._map = map;
-
     if (this.markerLatLng) {
       this._addMarker(this.markerLatLng as LatLng);
     }
@@ -105,8 +104,15 @@ export class KelemanMapComponent implements OnDestroy {
         }),
       ],
       zoom: this.zoom ?? 1,
-      zoomControl: false,
+      zoomControl: !this.readOnly,
+      scrollWheelZoom: !this.readOnly,
+      boxZoom: !this.readOnly,
+      doubleClickZoom: !this.readOnly,
+      markerZoomAnimation: !this.readOnly,
+      touchZoom: !this.readOnly,
       attributionControl: false,
+      dragging: !this.readOnly,
+
       center: this.markerLatLng ?? this.defaultLatLng ?? latLng(0, 0),
     };
   }
@@ -141,14 +147,14 @@ export class KelemanMapComponent implements OnDestroy {
       .finally(() => {
         m.bindPopup(contentPopup).openPopup();
         m.addTo(this._map);
-        this.marker = m;
+        this._marker = m;
         this.mapClickWaiting.emit(false);
       });
   }
 
   private _removeMarker(): void {
-    if (this.marker) {
-      this._map.removeLayer(this.marker);
+    if (this._marker) {
+      this._map.removeLayer(this._marker);
     }
   }
 

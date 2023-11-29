@@ -1,5 +1,5 @@
 <div
-  class="p-3 d-flex justify-content-between align-items-start border-bottom border-gray-300 mx-3"
+  class="address-content p-3 d-flex justify-content-between align-items-start border-bottom border-gray-300 mx-3"
 >
   <span class="d-flex flex-column w-50">
     <ng-template [ngIf]="showMap" [ngIfElse]="addressDetailTitle">
@@ -8,7 +8,7 @@
     </ng-template>
     <ng-template #addressDetailTitle>
       <span class="d-flex align-items-center">
-        <mat-icon class="cursor-pointer" (click)="toggleShowMap()"
+        <mat-icon class="cursor-pointer mx-1" (click)="toggleShowMap()"
           >east</mat-icon
         >
         جزئیات آدرس
@@ -29,6 +29,7 @@
     <keleman-map
       [zoom]="50"
       [showSearch]="true"
+      [markerLatLng]="location || null"
       (mapClick)="onMapClick($event)"
     ></keleman-map>
   </ng-template>
@@ -43,11 +44,21 @@
             placeholder="آدرس"
             class="mb-3 keleman-text-field"
             formControlName="address"
+            [class.is-invalid]="address.invalid && isFormSubmitted"
           ></textarea>
+          <span
+            *ngIf="address.invalid && isFormSubmitted"
+            class="invalid-feedback"
+          >
+            لطفا آدرس خود را وارد نمایید.
+          </span>
           <span class="d-block text-muted mb-3"
             >آدرس بالا بر اساس موقعیت انتخابی شما وارد شده است.</span
           >
-          <a class="d-flex align-items-center mb-3" (click)="toggleShowMap()">
+          <a
+            class="d-flex align-items-center mb-3 cursor-pointer text-warning"
+            (click)="toggleShowMap()"
+          >
             اصلاح موقعیت از روی نقشه
             <mat-icon>chevron_left</mat-icon>
           </a>
@@ -55,84 +66,104 @@
 
         <div class="col-6">
           <keleman-auto-complete
-            [label]="'استان'"
             [options]="provinces"
             [formControl]="province"
+            [label]="'استان'"
+            [isLoading]="stateLoading"
+            (onSelectionChange)="selectProvience($event)"
           >
           </keleman-auto-complete>
         </div>
         <div class="col-6">
           <keleman-auto-complete
-            [label]="'شهر'"
-            [options]="provinces"
+            [options]="cities"
             [formControl]="city"
+            [label]="'شهر'"
+            [isLoading]="stateLoading"
+            [isInavlid]="city.invalid && isFormSubmitted"
+            (onSelectionChange)="onCitySelect($event)"
           >
           </keleman-auto-complete>
         </div>
-        <div class="col-6 d-grid num-and-unit">
-          <div class="form-group">
-            <label for="num">پلاک</label>
-            <input
-              id="num"
-              type="text"
-              class="keleman-text-field"
-              formControlName="name"
-            />
-          </div>
-          <div class="form-group">
-            <label for="unit">واحد</label>
-            <input
-              id="unit"
-              type="text"
-              class="keleman-text-field"
-              formControlName="name"
-            />
-          </div>
-        </div>
+
         <div class="form-group col-6">
-          <label for="postal-code">کدپستی </label>
+          <label for="postal-code"> کدپستی </label>
           <input
             id="postal-code"
             dir="ltr"
-            type="number"
+            type="text"
             placeholder="کدپستی"
             class="keleman-text-field"
+            [numberOnly]="10"
+            required
+            maxlength="10"
+            minlength="10"
+            [class.is-invalid]="postalCode.invalid && isFormSubmitted"
             formControlName="postalCode"
           />
+          <span
+            *ngIf="postalCode.invalid && isFormSubmitted"
+            class="invalid-feedback"
+          >
+            لطفا کدپستی را وارد نمایید.
+          </span>
         </div>
         <span class="border-bottom border-gray-300"> </span>
-        <mat-checkbox class="example-margin" [checked]="true">
+        <mat-checkbox
+          class="example-margin"
+          [color]="'primary'"
+          [checked]="true"
+        >
           گیرنده سفارش خودم هستم
         </mat-checkbox>
+
         <div class="form-group col-6">
-          <label for="name">نام گیرنده </label>
+          <label for="postal-code">اطلاعات گیرنده </label>
           <input
-            id="name"
-            dir="ltr"
-            type="number"
+            id="reciverName"
+            type="text"
             class="keleman-text-field"
-            formControlName="postalCode"
+            required
+            [class.is-invalid]="reciverName.invalid && isFormSubmitted"
+            formControlName="reciverName"
           />
-        </div>
-        <div class="form-group col-6">
-          <label for="postal-code">نام خانوادگی گیرنده </label>
-          <input
-            id="family"
-            dir="ltr"
-            type="number"
-            class="keleman-text-field"
-            formControlName="postalCode"
-          />
+          <span
+            *ngIf="reciverName.invalid && isFormSubmitted"
+            class="invalid-feedback"
+          >
+            لطفااطلاعات گیرنده را وارد نمایید.
+          </span>
         </div>
         <div class="form-group col-6">
           <label for="mobile-number">شماره موبایل </label>
           <input
             id="mobile-number"
             dir="ltr"
-            type="number"
+            type="text"
             class="keleman-text-field"
-            formControlName="postalCode"
+            [formControl]="reciverPhone"
+            [numberOnly]="11"
+            [class.is-invalid]="reciverPhone.invalid && isFormSubmitted"
+            required
+            maxlength="11"
+            minlength="11"
           />
+          <span
+            *ngIf="reciverPhone.hasError('required') && isFormSubmitted"
+            class="invalid-feedback"
+          >
+            لطفاشماره همراه گیرنده را وارد نمایید.
+          </span>
+          <span
+            *ngIf="
+              reciverPhone.hasError('mobileNumberFormat') &&
+              !reciverPhone.hasError('required') &&
+              isFormSubmitted
+            "
+            class="invalid-feedback"
+          >
+            فرمت شماره وارد شده صحیح نمی باشد
+          </span>
         </div>
       </div>
     </form>
@@ -157,10 +188,11 @@
   </ng-template>
   <ng-template #submitButton>
     <button
-      type="submit"
+      type="button"
       class="btn btn-warning submit-button text-white"
-      [disabled]="!address.value"
-      (click)="toggleShowMap()"
+      kelemanLoadingProgress
+      [loading]="submitLoading"
+      (click)="sumbitForm()"
     >
       ثبت آدرس
     </button>

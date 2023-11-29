@@ -5,7 +5,7 @@
         <mat-icon class="d-lg-none" routerLink="../">arrow_right_alt</mat-icon>
 
         <span>آدرس ها</span>
-        <span class="text-danger mx-1">1</span>
+        <span class="text-danger mx-1">( {{ myAddresses.length }} )</span>
       </span>
 
       <span
@@ -17,19 +17,30 @@
       </span>
     </span>
     <div>
-      <ng-template #full [ngIf]="true">
-        <keleman-address-item
-          [mine]="true"
-          [address]="myAddresses[1]"
-        ></keleman-address-item>
-        <keleman-address-item
-          *ngFor="let address of myAddresses"
-          [address]="address"
-        ></keleman-address-item>
+      <ng-content *ngIf="isLoading; then loading; else content"></ng-content>
+      <ng-template #loading>
+        <ngx-skeleton-loader
+          [theme]="{ width: '100%', height: '10rem' }"
+          [count]="2"
+        ></ngx-skeleton-loader>
       </ng-template>
+      <ng-template #content>
+        <ng-content
+          *ngIf="myAddresses.length > 0; then full; else empty"
+        ></ng-content>
+        <ng-template #full>
+          <keleman-address-item
+            *ngFor="let address of myAddresses; trackBy: trackByFn"
+            [address]="address"
+            (addToDefault)="updateDefaultAddress($event)"
+            (delete)="getAddresses()"
+            (update)="getAddresses()"
+          ></keleman-address-item>
+        </ng-template>
 
-      <ng-template #empty [ngIf]="false">
-        <keleman-empty-content></keleman-empty-content>
+        <ng-template #empty>
+          <keleman-empty-content></keleman-empty-content>
+        </ng-template>
       </ng-template>
     </div>
   </div>

@@ -8,9 +8,7 @@
 
   <keleman-search-bar class="flex-grow-1"></keleman-search-bar>
 
-  <ng-content
-    *ngIf="isLoggedIn && userProfileInfo; then userInfo; else register"
-  ></ng-content>
+  <ng-content *ngIf="isLoggedIn; then userInfo; else register"></ng-content>
   <ng-template #register>
     <div class="align-items-center bg-klm-primary rounded-1 p-1 login-register">
       <button class="btn text-warning w-50" [routerLink]="['register']">
@@ -27,7 +25,9 @@
 
   <ng-template #userInfo>
     <div ngbDropdown class="d-inline-block">
-      <ng-content *ngIf="isLoading; then loading; else content"></ng-content>
+      <ng-content
+        *ngIf="profileInfoLoading; then loading; else content"
+      ></ng-content>
       <ng-template #loading>
         <span class="d-flex align-items-center">
           <ngx-skeleton-loader
@@ -77,7 +77,7 @@
     class="d-flex position-relative flex-column align-items-center basket cursor-pointer"
     [routerLink]="['checkout']"
   >
-    <h3 class="basket-count text-warning">{{ basketCount }}</h3>
+    <h5 class="basket-count text-warning">{{ basketCount }}</h5>
     <img
       alt="سبد خرید"
       src="assets/media/static-resources/basket-icon.svg"

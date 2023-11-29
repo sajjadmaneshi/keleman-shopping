@@ -5,13 +5,19 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
   standalone: true,
 })
 export class NumberOnlyDirective {
+  isSelectAll = false;
   @Input() numberOnly: number = 11;
   constructor(private _el: ElementRef) {}
 
   @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
     const keyCode = event.keyCode || event.which;
     const input = this._el.nativeElement as HTMLInputElement;
+    if (this.isSelectAll) {
+      input.value = '';
+      this.isSelectAll = false;
+    }
     const currentValue: string = input.value;
+
     // Allow special keys such as backspace, delete, and arrow keys
     if (
       keyCode === 46 || // delete
@@ -30,7 +36,21 @@ export class NumberOnlyDirective {
         (keyCode < 96 || keyCode > 105)) ||
       currentValue.length >= this.numberOnly
     ) {
-      event.preventDefault();
+      if (!(event.ctrlKey && keyCode === 65)) {
+        event.preventDefault();
+      }
+    }
+  }
+  @HostListener('dblclick', ['$event']) onDoubleClick(event: MouseEvent) {
+    const input = this._el.nativeElement as HTMLInputElement;
+
+    // Check if the selection covers the entire input value
+    if (
+      input.selectionStart === 0 &&
+      input.selectionEnd === input.value.length
+    ) {
+      // Clear the input value before allowing the user to enter a new value
+      this.isSelectAll = true;
     }
   }
 }
