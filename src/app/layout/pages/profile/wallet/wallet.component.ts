@@ -9,11 +9,15 @@ import { WithdrawRequestDialogComponent } from './components/withdraw-request-di
   styleUrls: ['./wallet.component.scss'],
 })
 export class WalletComponent {
+  showRequest = false;
   constructor(private _matDialog: MatDialog) {}
 
   openWithdrawRequestDialog() {
     this._matDialog.open(WithdrawRequestDialogComponent, {
       width: '500px',
     });
+  }
+  showRequests() {
+    this.showRequest = true;
   }
 }

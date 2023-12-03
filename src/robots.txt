@@ -1,7 +1,22 @@
+
+
+
 User-agent: *
-Disallow: /
-Disallow: https://demo.keleman.org
-Disallow: http://demo.keleman.org
-Disallow: demo.keleman.org
-Disallow: demo.keleman.org/
-Disallow: demo.keleman.org/*
+Disallow: https://keleman.org/Product/Products/%D8%AE%D8%B1%DB%8C%D8%AF-%DA%A9%D9%84%DB%8C%D8%AF-%D9%88-%D9%BE%D8%B1%DB%8C%D8%B2-%D8%A2%D8%B3%D8%A7%D9%86%D8%B3%D9%88%D8%B1---%DA%A9%D9%84%D9%85%D8%A7%D9%86/%D8%AE%D8%B1%DB%8C%D8%AF-%DA%A9%D9%84%DB%8C%D8%AF-%D8%B5%D9%86%D8%B9%D8%AA%DB%8C-%D8%AA%DA%A9-%D9%BE%D9%84-%D8%B1%D9%88%DA%A9%D8%A7%D8%B1---%DA%A9%D9%84%D9%85%D8%A7%D9%86
+Disallow: https://keleman.org/blog/page/%D9%85%D8%B2%DB%8C%D8%AA-%D9%87%D8%A7%DB%8C-%D8%A8%D8%A7%D9%84%D8%A7%D8%A8%D8%B1-%D9%85%D8%AA%D8%AD%D8%B1%DA%A9-%D9%81%D8%B1%D9%88%D8%B4%DA%AF%D8%A7%D9%87%DB%8C
+Disallow: https://keleman.org/tag
+Disallow: https://keleman.org/product-brands
+Disallow: https://keleman.org/fa/
+Disallow: https://keleman.org/Home/
+Disallow: https://keleman.org/Ù‚Ø·Ø¹Ø§Øª-Ø§Ù„Ú©ØªØ±ÛŒÚ©Ø§Ù„/
+Disallow: https://keleman.org/poll/
+Disallow: https://keleman.org/weight-length/
+Disallow: https://keleman.org/page/
+Disallow: https://keleman.org/Product/Products/
+Disallow: https://keleman.org/shop/
+Disallow: https://keleman.org/portolio
+Disallow: https://keleman.org/compare-products
+Disallow: https://keleman.org/author
+Disallow: https://keleman.org/prodoct-tag
+Disallow: https://keleman.org/store/
+Sitemap: https://keleman.org/sitemap.xml
