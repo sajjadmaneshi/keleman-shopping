@@ -14,7 +14,8 @@
           'line-through': off
         }"
       >
-        {{ value | number : ".0" }} {{ append }}
+        {{ value | number : ".0" }}
+        <span class="mx-1">{{ append }}</span>
       </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h2'">
@@ -31,7 +32,8 @@
           'line-through': off
         }"
       >
-        {{ value | number : ".0" }}{{ append }}
+        {{ value | number : ".0" }}
+        <span class="mx-1">{{ append }}</span>
       </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h3'">
@@ -48,7 +50,8 @@
           'line-through': off
         }"
       >
-        {{ value | number : ".0" }}{{ append }}
+        {{ value | number : ".0" }}
+        <span class="mx-1">{{ append }}</span>
       </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h4'">
@@ -65,7 +68,8 @@
           'line-through': off
         }"
       >
-        {{ value | number : ".0" }}{{ append }}
+        {{ value | number : ".0" }}
+        <span class="mx-1">{{ append }}</span>
       </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h5'">
@@ -82,7 +86,8 @@
           'line-through': off
         }"
       >
-        {{ value | number : ".0" }}{{ append }}
+        {{ value | number : ".0" }}
+        <span class="mx-1">{{ append }}</span>
       </span>
     </ng-template>
     <ng-template [ngSwitchCase]="'h6'">
@@ -99,7 +104,8 @@
           'line-through': off
         }"
       >
-        {{ value | number : ".0" }}{{ append }}
+        {{ value | number : ".0" }}
+        <span class="mx-1">{{ append }}</span>
       </span>
     </ng-template>
   </ng-container>

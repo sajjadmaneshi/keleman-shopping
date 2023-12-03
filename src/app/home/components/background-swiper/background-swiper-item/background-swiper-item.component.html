@@ -18,11 +18,13 @@
         [alt]="product.name!"
       />
     </div>
-    <h2 class="fs-6 align-self-md-center flex-grow-1 text-center">
-      <a [routerLink]="['/products/detail/' + product.customUrl]">
-        {{ product.name! }}
-      </a>
-    </h2>
+
+    <a
+      class="fs-6 align-self-md-center flex-grow-1 text-center"
+      [routerLink]="['/products/detail/' + product.customUrl]"
+    >
+      {{ product.name! }}
+    </a>
 
     <ng-container
       *ngIf="product.price > 0; then price; else call"

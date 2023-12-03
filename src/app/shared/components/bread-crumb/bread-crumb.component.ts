@@ -19,7 +19,6 @@ import { Routing } from '../../../routing';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './bread-crumb.component.html',
-  styleUrls: ['./bread-crumb.component.scss'],
 })
 export class BreadCrumbComponent implements OnChanges, OnDestroy {
   isLoading = true;

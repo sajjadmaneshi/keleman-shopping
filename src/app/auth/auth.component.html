@@ -29,6 +29,7 @@
                 [numberOnly]="11"
                 required
                 [appErrorFeedback]="'شماره همراه'"
+                [isFormSubmitted]="isFormSubmitted"
                 maxlength="11"
                 minlength="11"
                 placeholder="شماره موبایل خود را وارد کنید"
@@ -41,7 +42,6 @@
                 class="btn btn-warning text-white w-25 text-klm-primary register-button mb-3"
                 kelemanLoadingProgress
                 [loading]="submitLoading"
-                [disabled]="mobileFormControl.invalid"
                 (click)="sendVerificationCode()"
               >
                 ادامه

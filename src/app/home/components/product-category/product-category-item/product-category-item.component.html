@@ -9,7 +9,7 @@
 
 <ng-template #content>
   <div class="product-category-item d-flex flex-column align-items-center p-1">
-    <div class="mb-3 symbol symbol-20 symbol-circle">
+    <div class="mb-3 symbol symbol-13 symbol-circle">
       <img
         loadingLazy
         emptyImage
@@ -17,6 +17,6 @@
         [src]="category.imageAddress"
       />
     </div>
-    <h2 class="fs-6 fw-bold">{{ category.titleFa }}</h2>
+    <a class="fs-6 fw-bold">{{ category.titleFa }}</a>
   </div>
 </ng-template>

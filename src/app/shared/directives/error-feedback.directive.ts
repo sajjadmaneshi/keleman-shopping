@@ -3,8 +3,10 @@ import {
   ElementRef,
   Inject,
   Input,
+  OnChanges,
   OnInit,
   Renderer2,
+  SimpleChanges,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
@@ -13,8 +15,9 @@ import { DOCUMENT } from '@angular/common';
   selector: '[appErrorFeedback]',
   standalone: true,
 })
-export class ErrorFeedbackDirective implements OnInit {
+export class ErrorFeedbackDirective implements OnChanges {
   @Input() appErrorFeedback!: string;
+  @Input() isFormSubmitted: boolean = false;
 
   constructor(
     private _el: ElementRef,
@@ -58,6 +61,8 @@ export class ErrorFeedbackDirective implements OnInit {
   private _addSpan() {
     const feedBackSpan = this._renderer.createElement('span');
     this._renderer.addClass(feedBackSpan, 'invalid-feedback');
+    this._renderer.addClass(feedBackSpan, 'text-center');
+    this._renderer.addClass(feedBackSpan, 'my-1');
 
     const parentElement = this._renderer.parentNode(this._el.nativeElement);
     const nextSibling = this._renderer.nextSibling(this._el.nativeElement);
@@ -67,8 +72,10 @@ export class ErrorFeedbackDirective implements OnInit {
       this._renderer.appendChild(parentElement, feedBackSpan);
     }
   }
-  ngOnInit(): void {
+  ngOnChange(): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {
     this._addSpan();
-    this._control.valueChanges?.subscribe(() => this._addErrorFeedBack());
+    if (this.isFormSubmitted) this._addErrorFeedBack();
   }
 }

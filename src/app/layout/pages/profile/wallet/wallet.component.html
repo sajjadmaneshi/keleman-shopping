@@ -1,1 +1,59 @@
-<router-outlet></router-outlet>
+<div class="card card-rounded-3 shadow-sm border border-gray-300 mb-3">
+  <div class="card-body">
+    <h6 class="fw-bold p-3">کیف پول</h6>
+
+    <div class="row mx-0">
+      <div class="col-12 col-md-7 order-1 order-md-0">
+        <div class="form-group increase-credit">
+          <label for="increase-amount" class="fw-normal text-muted"
+            >افزایش موجودی کیف پول</label
+          >
+          <span class="d-flex align-items-baseline mb-3">
+            <input
+              class="keleman-text-field equal-height-elements"
+              id="increase-amount"
+              placeholder="مقدار را به تومان وارد کنید"
+            />
+
+            <button
+              class="btn btn-warning text-white wallet-action-button equal-height-elements"
+            >
+              پرداخت
+            </button>
+          </span>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+          <button
+            class="btn btn-warning mx-1"
+            (click)="openWithdrawRequestDialog()"
+          >
+            درخواست برداشت از کیف پول
+          </button>
+          <button class="btn btn-outline-warning mx-1">
+            مشاهده لیست درخواست ها
+          </button>
+        </div>
+      </div>
+      <div class="col-12 col-md-5 order-0 order-md-1 mb-3">
+        <keleman-wallet-amount-card></keleman-wallet-amount-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="withdraw-request-history mb-3">
+  <div class="card card-rounded-3 shadow-sm border border-gray-300">
+    <div class="card-body">
+      <h6 class="fw-bold p-3">تاریخچه درخواست ها</h6>
+      <keleman-withdraw-request-history></keleman-withdraw-request-history>
+    </div>
+  </div>
+</div>
+<div class="wallet-transactions-history">
+  <div class="card card-rounded-3 shadow-sm border border-gray-300">
+    <div class="card-body">
+      <h6 class="fw-bold p-3">تاریخچه تراکنش ها</h6>
+      <keleman-wallet-transaction-history></keleman-wallet-transaction-history>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,6 @@ import {
 import { SwiperItemComponent } from '../../../shared/components/swiper/swiper-item/swiper-item.component';
 import { FavoriteItemComponent } from './shared/favorite-item/favorite-item.component';
 import { WalletComponent } from './wallet/wallet.component';
-import { IncreaseWalletComponent } from './wallet/components/increase-wallet/increase-wallet.component';
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
 import { WalletAmountCardComponent } from './wallet/components/wallet-amount-card/wallet-amount-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -40,7 +39,7 @@ import { UserCommentsComponent } from './comments/user-comments.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AddressItemComponent } from './address/address-item/address-item.component';
-import { WalletTransactionHistoryComponent } from './wallet/components/increase-wallet/wallet-transaction-history/wallet-transaction-history.component';
+import { WalletTransactionHistoryComponent } from './wallet/components/wallet-transaction-history/wallet-transaction-history.component';
 import { PriceComponent } from '../../../shared/components/price/price.component';
 import { ProfileMobileMenuComponent } from './profile-mobile-menu/profile-mobile-menu.component';
 import { ProfileMenuComponent } from './shared/profile-menu/profile-menu.component';
@@ -65,6 +64,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { NumberOnlyDirective } from '../../../shared/directives/number-only.directive';
 import { ErrorFeedbackDirective } from '../../../shared/directives/error-feedback.directive';
+import { WithdrawRequestDialogComponent } from './wallet/components/withdraw-request-dialog/withdraw-request-dialog.component';
+import { WithdrawRequestHistoryComponent } from './wallet/components/withdraw-request-history/withdraw-request-history.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,6 @@ import { ErrorFeedbackDirective } from '../../../shared/directives/error-feedbac
     LatestOrdersComponent,
     FavoriteItemComponent,
     WalletComponent,
-    IncreaseWalletComponent,
     WalletAmountCardComponent,
     FavoritesComponent,
     ReturnedRequestComponent,
@@ -93,6 +93,8 @@ import { ErrorFeedbackDirective } from '../../../shared/directives/error-feedbac
     BoxProductItemComponent,
     SelectedProductBoxComponent,
     CreditsComponent,
+    WithdrawRequestDialogComponent,
+    WithdrawRequestHistoryComponent,
   ],
   imports: [
     CommonModule,

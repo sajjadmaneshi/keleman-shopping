@@ -18,6 +18,8 @@ import { WalletTransactionStatusEnum } from './enums/wallet-transaction-status.e
 import { CreditTransactionViewModel } from './view-models/credit-transaction.view-model';
 import { UserAddressViewModel } from './view-models/user-address.view-model';
 import { AddressDto } from './dto/address.dto';
+import { WithdrawRequestDto } from './dto/withdraw-request.dto';
+import { WithdrawRequestViewModel } from './view-models/withdraw-request-view.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileRepository extends DataService<any> {
@@ -169,5 +171,28 @@ export class ProfileRepository extends DataService<any> {
       }/address/${id}/addToDefault?userId=${localStorage.getItem('USERID')}`,
       {}
     ) as Observable<HttpClientResult<void>>;
+  }
+
+  addWithdrawRequest(
+    dto: WithdrawRequestDto
+  ): Observable<HttpClientResult<void>> {
+    return this._http.post(
+      `${this._getProfileUrl}/withdraw?userId=${localStorage.getItem(
+        'USERID'
+      )}`,
+      dto
+    ) as Observable<HttpClientResult<void>>;
+  }
+
+  getWithdrawRequests(): Observable<
+    HttpClientResult<PaginationViewModel<WithdrawRequestViewModel>>
+  > {
+    return this._http.get(
+      `${this._getProfileUrl}/withdrawRequest?userId=${localStorage.getItem(
+        'USERID'
+      )}`
+    ) as Observable<
+      HttpClientResult<PaginationViewModel<WithdrawRequestViewModel>>
+    >;
   }
 }

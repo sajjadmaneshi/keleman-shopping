@@ -7,6 +7,7 @@
   resize: none;
 }
 .comment-head {
+  display: inline-block;
   margin-bottom: map-get($klm-spacers, 6);
 }
 
@@ -15,4 +16,7 @@ mat-list-item {
   &:not(:last-child) {
     border-bottom: 1px solid $gray-300;
   }
+}
+.keleman-text-field {
+  background-color: $gray-300;
 }

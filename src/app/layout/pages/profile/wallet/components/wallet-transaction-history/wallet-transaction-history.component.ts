@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { map, Subject, takeUntil, tap } from 'rxjs';
-import { WalletTransactionViewModel } from '../../../../data/view-models/wallet-transaction.view-model';
-import { ProfileRepository } from '../../../../data/profile.repository';
-import { WalletTransactionStatusEnum } from '../../../../data/enums/wallet-transaction-status.enum';
-import { PersianDateTimeService } from '../../../../../../../shared/services/date-time/persian-datetime.service';
+import { WalletTransactionViewModel } from '../../../data/view-models/wallet-transaction.view-model';
+import { ProfileRepository } from '../../../data/profile.repository';
+import { WalletTransactionStatusEnum } from '../../../data/enums/wallet-transaction-status.enum';
+import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 
 @Component({
   selector: 'keleman-wallet-transaction-history',

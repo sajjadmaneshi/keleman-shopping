@@ -2,28 +2,28 @@
   <a
     *ngFor="let shares of include"
     [href]="determineUrl(shares)"
-    class="btn btn-icon mx-1"
+    class="btn btn-icon sc-icon"
   >
     <div class="symbol symbol-7 cursor-pointer" appSymbol [ngSwitch]="shares">
       <fa-icon
         *ngSwitchCase="'mail'"
         [icon]="['fab', 'google']"
-        [size]="'2x'"
+        [size]="'1x'"
       ></fa-icon>
       <fa-icon
         *ngSwitchCase="'whatsapp'"
         [icon]="['fab', 'square-whatsapp']"
-        [size]="'2x'"
+        [size]="'1x'"
       ></fa-icon>
       <fa-icon
         *ngSwitchCase="'twitter'"
         [icon]="['fab', 'square-twitter']"
-        [size]="'2x'"
+        [size]="'1x'"
       ></fa-icon>
       <fa-icon
         *ngSwitchCase="'telegram'"
         [icon]="['fab', 'telegram']"
-        [size]="'2x'"
+        [size]="'1x'"
       ></fa-icon>
     </div>
   </a>

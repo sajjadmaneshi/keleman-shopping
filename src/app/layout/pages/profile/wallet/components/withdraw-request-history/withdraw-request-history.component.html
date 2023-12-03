@@ -1,0 +1,51 @@
+<div class="d-flex flex-column align-items-center mx-md-3 mx-lg-5">
+  <div class="transactions w-100">
+    <ng-content
+      *ngIf="isLoading; then loading; else requestsContent"
+    ></ng-content>
+    <ng-template #loading>
+      <ngx-skeleton-loader
+        [theme]="{ width: '100%', height: '50px' }"
+        count="3"
+      ></ngx-skeleton-loader>
+    </ng-template>
+    <ng-template #requestsContent>
+      <ng-content
+        *ngIf="withdrawRequests.length > 0; then full; else empty"
+      ></ng-content>
+      <ng-template #full>
+        <div
+          class="alert d-flex align-items-center justify-content-between alert-success"
+          *ngFor="let request of withdrawRequests; trackBy: trackByFn"
+        >
+          <span class="d-flex align-items-center">
+            <h6>{{ request.price }} تومان</h6>
+          </span>
+
+          <h6 class="mb-0">
+            {{
+              persianDateTimeService.fromGregorianString(
+                request.date,
+                "DD/jMMMM/YYYY"
+              )
+            }}
+          </h6>
+        </div>
+        <keleman-pagination
+          [totalElements]="totalElemnts"
+          [limit]="limit"
+          [currentPage]="page"
+          (pageChange)="pageChange($event)"
+        ></keleman-pagination>
+        <div class="w-100 text-center">
+          <button class="btn btn-warning print-button" [disabled]="isLoading">
+            چاپ
+          </button>
+        </div>
+      </ng-template>
+      <ng-template #empty>
+        <keleman-empty-content></keleman-empty-content>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

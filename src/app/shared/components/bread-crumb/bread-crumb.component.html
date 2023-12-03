@@ -1,20 +1,22 @@
 <nav class="alert alert-warning text-muted mb-3" *ngIf="levelTwoBreadCrumb">
-  <a routerLink="/">خانه</a>/
-  <a [routerLink]="levelTwoBreadCrumb.route" [queryParams]="{ p: 0 }"
-    >{{ levelTwoBreadCrumb.title }}
-    {{ breadCrumbItems.length > 0 ? "/" : "" }}</a
-  >
+  <a routerLink="/">خانه</a>
+  <ng-container *ngIf="levelTwoBreadCrumb.route">
+    /
+    <a [routerLink]="[levelTwoBreadCrumb.route]" [queryParams]="{ p: 0 }">
+      {{ levelTwoBreadCrumb.title }}
+    </a>
+  </ng-container>
+
   <ng-container *ngFor="let breadcrumb of breadCrumbItems; let last = last">
-    <ng-container *ngIf="!last">
+    /
+    <ng-container *ngIf="!last; else lastItem">
       <a [routerLink]="[levelTwoBreadCrumb.route + '/' + breadcrumb.url]">{{
         breadcrumb.title
-      }}</a
-      >/
+      }}</a>
     </ng-container>
-    <ng-container *ngIf="last">
-      <span class="text-klm-primary">
-        {{ breadcrumb.title }}
-      </span>
-    </ng-container>
+
+    <ng-template #lastItem>
+      <span class="text-klm-primary">{{ breadcrumb.title }}</span>
+    </ng-template>
   </ng-container>
 </nav>

@@ -22,18 +22,14 @@
   />
   <div class="card-body">
     <div class="magazine-content">
-      <h6 class="magazine-title fw-bold mb-3">
-        <a [routerLink]="['/magazine/detail/' + articleDetails.url]">{{
-          articleDetails.title
-        }}</a>
-      </h6>
+      <a
+        class="fs-6 d-inline-block magazine-title fw-bold mb-3"
+        [routerLink]="['/magazine/detail/' + articleDetails.url]"
+        >{{ articleDetails.title }}</a
+      >
       <p class="magazine-description mb-3">
         {{ articleDetails.description }}
       </p>
-
-      <span class="text-klm-primary"
-        >نویسنده: {{ articleDetails.authorFullName }}</span
-      >
     </div>
     <button
       [routerLink]="['/magazine/detail/' + articleDetails.url]"

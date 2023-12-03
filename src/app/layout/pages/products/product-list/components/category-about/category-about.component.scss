@@ -1,0 +1,7 @@
+:host ::ng-deep table {
+  border: 1px solid !important;
+  td {
+    border-width: 1px !important;
+    padding: 0 0.5rem !important;
+  }
+}
