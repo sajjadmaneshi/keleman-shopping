@@ -5,6 +5,7 @@
     height: 10rem;
   }
 }
+
 .paid-chip {
   background-color: map-get($theme-colors, "success") !important;
 }
@@ -16,4 +17,18 @@ mat-icon {
   font-size: $mat-icon-size !important;
   width: $mat-icon-size;
   height: $mat-icon-size;
+}
+
+.order-address {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.order-item-details {
+  position: absolute;
+  left: 0.75rem;
+  top: 1.5rem;
+  z-index: 2;
 }

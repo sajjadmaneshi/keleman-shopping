@@ -32,6 +32,8 @@ export class OrderListComponent implements OnDestroy, AfterViewInit {
   page = 1;
   limit = 5;
 
+  isPaid = false;
+
   destroy$ = new Subject<void>();
 
   constructor(private readonly _profileRepository: ProfileRepository) {}
@@ -47,7 +49,7 @@ export class OrderListComponent implements OnDestroy, AfterViewInit {
 
       .subscribe((result) => {
         this.orders = [...result.items];
-        this.filteredOrders = [...this.orders];
+        this.filterOrders(this.orderPaidStatus);
         this.totalElements = result.totalElements;
       });
   }

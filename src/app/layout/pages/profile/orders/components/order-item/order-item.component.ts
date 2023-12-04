@@ -5,6 +5,7 @@ import { ReturnRequestDialogComponent } from './return-request-dialog/return-req
 import { OrderViewModel } from '../../../data/view-models/order-view.model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 import { OrdersStatusEnum } from '../../../data/enums/orders-status.enum';
+import { OrderListDialogComponent } from '../order-list-dialog/order-list-dialog.component';
 
 @Component({
   selector: 'keleman-order-item',
@@ -26,6 +27,13 @@ export class OrderItemComponent {
     this._dialog.open(ReturnRequestDialogComponent, {
       width: '550px',
       panelClass: 'custom-mat-dialog',
+    });
+  }
+
+  openOrderProductsList() {
+    this._dialog.open(OrderListDialogComponent, {
+      width: '500px',
+      data: this.orderDetail.products,
     });
   }
 

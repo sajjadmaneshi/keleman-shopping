@@ -18,6 +18,7 @@ import { EmptyImageDirective } from '../../../../shared/directives/empty-image.d
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { OrdersComponent } from './orders.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { OrderListDialogComponent } from './components/order-list-dialog/order-list-dialog.component';
 
 export const routes: Routes = [{ path: '', component: OrdersComponent }];
 
@@ -27,6 +28,7 @@ export const routes: Routes = [{ path: '', component: OrdersComponent }];
     OrderListComponent,
     OrderItemComponent,
     ReturnRequestDialogComponent,
+    OrderListDialogComponent,
   ],
   imports: [
     CommonModule,
