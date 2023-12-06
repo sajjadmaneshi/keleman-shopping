@@ -231,7 +231,7 @@ export class ModifyAddressDialogComponent implements OnInit, OnDestroy {
 
   onMapClick($event: SearchResult<RawResult>) {
     this.location = { lat: $event.y, lng: $event.x };
-    this.address.patchValue($event.label);
+    if (!this.editMode) this.address.patchValue($event.label);
   }
 
   toggleShowMap() {
