@@ -9,15 +9,19 @@
   padding-left: 1rem;
   border: none !important;
   border-radius: math.div(1rem, 4);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) !important;
   &::placeholder {
     color: #b5b9ca !important;
   }
   &.is-invalid {
     border: 2px solid red !important;
   }
-  &:focus {
+  &:focus:not(:read-only) {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5) !important;
+  }
+  &:read-only {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) !important;
+    color: $gray-500;
   }
 }
 

@@ -4,7 +4,7 @@ import { ApplicationStateService } from '../../../../../shared/services/applicat
 import { BasketItemViewModel } from '../../data/models/basket-item.view-model';
 import { GuestBasketModel } from '../../data/models/guest-basket.model';
 import { ProductDetailViewModel } from '../../../products/data/models/view-models/product-detail.view-model';
-import { BasketService } from '../../basket.service';
+import { GuestBasketService } from '../../guest-basket.service';
 
 @Component({
   selector: 'app-basket-item',
@@ -15,7 +15,7 @@ export class BasketItemComponent {
   @Input() basketItem!: { product: ProductDetailViewModel; count: number };
   constructor(
     public applicationStateService: ApplicationStateService,
-    private readonly _basketService: BasketService
+    private readonly _basketService: GuestBasketService
   ) {}
 
   removeProduct() {

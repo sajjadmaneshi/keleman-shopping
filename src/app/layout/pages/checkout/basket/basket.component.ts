@@ -3,7 +3,7 @@ import { BasketRepository } from '../data/repositories/basket.repository';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { GuestBasketModel } from '../data/models/guest-basket.model';
-import { BasketService } from '../basket.service';
+import { GuestBasketService } from '../guest-basket.service';
 
 @Component({
   selector: 'keleman-basket',
@@ -16,7 +16,7 @@ export class BasketComponent implements OnDestroy {
   destroy$ = new Subject<void>();
   constructor(
     private _repository: BasketRepository,
-    private _basketService: BasketService
+    private _basketService: GuestBasketService
   ) {
     this._getBasketItems();
   }

@@ -4,7 +4,9 @@
 
 export const ENVIRONMENT = {
   production: false,
+  baseDomain: 'https://demo.keleman.org',
   baseUrl: 'https://api-stg.keleman.org/api/v1/',
-  baseUrlProfile: 'https://profile-api-stg.keleman.org/api/v1/',
+  baseProfileUrl: 'https://profile-api-stg.keleman.org/api/v1/',
+  baseCartUrl: 'https://cart-api-stg.keleman.org/api/v1/',
   downloadUrl: 'https://cdn-stg.keleman.org',
 };

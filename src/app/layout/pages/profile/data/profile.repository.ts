@@ -68,6 +68,7 @@ export class ProfileRepository extends DataService<any> {
   getOrders(
     page: number,
     limit: number,
+    isPaid?: boolean,
     status?: OrdersStatusEnum
   ): Observable<HttpClientResult<PaginationViewModel<OrderViewModel>>> {
     return this._http.get(
@@ -75,7 +76,7 @@ export class ProfileRepository extends DataService<any> {
         'USERID'
       )}&&offset=${page}&&limit=${limit}${
         status != undefined ? '&&status=' + status : ''
-      }`
+      }${isPaid != undefined ? '&&isPaid=' + isPaid : ''}`
     ) as Observable<HttpClientResult<PaginationViewModel<OrderViewModel>>>;
   }
 
@@ -184,13 +185,27 @@ export class ProfileRepository extends DataService<any> {
     ) as Observable<HttpClientResult<void>>;
   }
 
-  getWithdrawRequests(): Observable<
+  cancelWithdrawRequest(dto: {
+    id: number;
+  }): Observable<HttpClientResult<void>> {
+    return this._http.post(
+      `${this._getProfileUrl}/withdraw/cancel?userId=${localStorage.getItem(
+        'USERID'
+      )}`,
+      dto
+    ) as Observable<HttpClientResult<void>>;
+  }
+
+  getWithdrawRequests(
+    page: number,
+    limit: number
+  ): Observable<
     HttpClientResult<PaginationViewModel<WithdrawRequestViewModel>>
   > {
     return this._http.get(
       `${this._getProfileUrl}/withdrawRequest?userId=${localStorage.getItem(
         'USERID'
-      )}`
+      )}&&offset=${page}&&limit=${limit}`
     ) as Observable<
       HttpClientResult<PaginationViewModel<WithdrawRequestViewModel>>
     >;

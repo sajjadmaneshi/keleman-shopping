@@ -5,7 +5,7 @@ import { Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { ProfileViewModel } from '../../../../pages/profile/data/view-models/profile.view-model';
 import { UserCreditViewModel } from '../../../../pages/profile/data/view-models/user-credit.view-model';
 import { combineLatest } from 'rxjs';
-import { BasketService } from '../../../../pages/checkout/basket.service';
+import { GuestBasketService } from '../../../../pages/checkout/guest-basket.service';
 
 @Component({
   selector: 'keleman-top-menu',
@@ -24,7 +24,7 @@ export class TopMenuComponent implements OnDestroy {
   constructor(
     private _authService: AuthService,
     public userService: InitialAppService,
-    private _basketService: BasketService
+    private _basketService: GuestBasketService
   ) {
     this._getInitialDate();
   }

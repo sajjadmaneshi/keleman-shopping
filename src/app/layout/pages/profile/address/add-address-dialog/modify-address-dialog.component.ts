@@ -1,16 +1,25 @@
-import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { SearchResult } from 'leaflet-geosearch/lib/providers/provider';
 import { RawResult } from 'leaflet-geosearch/lib/providers/openStreetMapProvider';
 import { GeneralRepository } from '../../../../../shared/data/repositories/general.repository';
-import { Subject, takeUntil, tap } from 'rxjs';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { StatesViewModel } from '../../../../../shared/data/models/view-models/states.view-model';
 import { CityViewModel } from '../../../../../shared/data/models/view-models/city.view-model';
 import { mobileNumberFormatValidator } from '../../../../../shared/validators/mobile-number.validator';
 import { AddressDto } from '../../data/dto/address.dto';
 import { ProfileRepository } from '../../data/profile.repository';
+import { InitialAppService } from '../../../../../shared/services/initial-app.service';
+import { ProfileViewModel } from '../../data/view-models/profile.view-model';
 import { UserAddressViewModel } from '../../data/view-models/user-address.view-model';
 
 @Component({
@@ -18,7 +27,7 @@ import { UserAddressViewModel } from '../../data/view-models/user-address.view-m
   templateUrl: './modify-address-dialog.component.html',
   styleUrls: ['./modify-address-dialog.component.scss'],
 })
-export class ModifyAddressDialogComponent {
+export class ModifyAddressDialogComponent implements OnInit, OnDestroy {
   editMode = false;
   isFormSubmitted = false;
   showMap = true;
@@ -33,31 +42,65 @@ export class ModifyAddressDialogComponent {
 
   location!: { lat: number; lng: number };
   selectedCityId!: number;
+  iAmReciver = false;
+  userBaseInfo!: ProfileViewModel;
+
+  public get province(): FormControl {
+    return this.addressForm.get('province') as FormControl;
+  }
+  public get city(): FormControl {
+    return this.addressForm.get('city') as FormControl;
+  }
+
+  public get address(): FormControl {
+    return this.addressForm.get('address') as FormControl;
+  }
+
+  public get postalCode(): FormControl {
+    return this.addressForm.get('postalCode') as FormControl;
+  }
+
+  public get reciverName(): FormControl {
+    return this.addressForm.get('reciverName') as FormControl;
+  }
+  public get reciverPhone(): FormControl {
+    return this.addressForm.get('reciverPhone') as FormControl;
+  }
 
   constructor(
     private _dialogRef: MatDialogRef<ModifyAddressDialogComponent>,
     private _geoLocationRepository: GeneralRepository,
     private _profileRepository: ProfileRepository,
+
+    private _initialAppService: InitialAppService,
+
     @Inject(MAT_DIALOG_DATA) private data: UserAddressViewModel | undefined
-  ) {
+  ) {}
+
+  ngOnInit() {
+    this.editMode = !!this.data;
     this._initForm();
     this._getAllStates();
-    if (this.data) {
-      this.editMode = true;
-      this._setFormData();
-    }
+
+    if (this.editMode) this._setFormData();
+
+    this._initialAppService.userSimpleInfo.subscribe((baseInfo) => {
+      this.userBaseInfo = baseInfo;
+    });
   }
 
   private _setFormData() {
-    this.addressForm.patchValue({
+    const formData = {
       address: this.data?.addressText,
       postalCode: this.data?.postalCode,
       reciverName: this.data?.receiverName,
       reciverPhone: this.data?.receiverPhone,
       city: this.data?.city.title,
       province: this.data?.city.province.title,
-    });
+    };
+    this.addressForm.setValue(formData);
     this.selectedCityId = this.data?.city.id!;
+    this.iAmReciver = this.data?.iamReceiver!;
     this._getCitiesOfState(this.data?.city.province.id!);
     this.location = { lat: this.data?.latitude!, lng: this.data?.longitude! };
   }
@@ -95,28 +138,6 @@ export class ModifyAddressDialogComponent {
       });
   }
 
-  public get province(): FormControl {
-    return this.addressForm.get('province') as FormControl;
-  }
-  public get city(): FormControl {
-    return this.addressForm.get('city') as FormControl;
-  }
-
-  public get address(): FormControl {
-    return this.addressForm.get('address') as FormControl;
-  }
-
-  public get postalCode(): FormControl {
-    return this.addressForm.get('postalCode') as FormControl;
-  }
-
-  public get reciverName(): FormControl {
-    return this.addressForm.get('reciverName') as FormControl;
-  }
-  public get reciverPhone(): FormControl {
-    return this.addressForm.get('reciverPhone') as FormControl;
-  }
-
   private _initForm() {
     this.addressForm = new FormGroup({
       province: new FormControl(null, Validators.required),
@@ -151,6 +172,7 @@ export class ModifyAddressDialogComponent {
         latitude: this.location.lat,
         receiverName: this.reciverName.value,
         receiverPhone: this.reciverPhone.value,
+        iamReceiver: this.iAmReciver,
       } as AddressDto;
 
       this.editMode ? this._editSpecific(dto) : this._addNew(dto);
@@ -187,6 +209,21 @@ export class ModifyAddressDialogComponent {
       );
   }
 
+  changeCheckBox($event: MatCheckboxChange) {
+    this.iAmReciver = $event.checked;
+    if (this.iAmReciver) this.setReciverNameAndMobileForMe();
+    else {
+      this.reciverName.reset();
+      this.reciverPhone.reset();
+    }
+  }
+  setReciverNameAndMobileForMe() {
+    this.reciverName.patchValue(
+      `${this.userBaseInfo.firstName} ${this.userBaseInfo.lastName}`
+    );
+    this.reciverPhone.patchValue(this.userBaseInfo.phoneNumber);
+  }
+
   close() {
     this._dialogRef.close(true);
     this.isFormSubmitted = false;
@@ -199,5 +236,10 @@ export class ModifyAddressDialogComponent {
 
   toggleShowMap() {
     this.showMap = !this.showMap;
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

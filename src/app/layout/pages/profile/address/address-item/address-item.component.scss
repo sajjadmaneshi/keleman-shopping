@@ -1,5 +1,9 @@
 @import "base/variables/colors";
 
+.btn:disabled {
+  border-color: transparent !important;
+}
+
 .address-item ::ng-deep .map-container {
   width: 9rem !important;
   height: 9rem !important;

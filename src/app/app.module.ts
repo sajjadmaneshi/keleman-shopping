@@ -15,7 +15,7 @@ import { SwiperComponent } from './shared/components/swiper/swiper.component';
 import { ApplicationStateService } from './shared/services/application-state.service';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
-import { AppErrorHandler } from './shared/common/app-error-handler';
+import { AppErrorHandler } from '../common/errors/app-error-handler';
 import { FloatingButtonMenuComponent } from './shared/components/floating-button-menu/floating-button-menu.component';
 import { SwiperModule } from 'swiper/angular';
 import { JwtModule } from '@auth0/angular-jwt';

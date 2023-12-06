@@ -1,4 +1,3 @@
-import { AddToBasketDto } from '../dto/add-to-basket.dto';
 import { ProductViewModel } from '../../../products/data/models/view-models/product.view-model';
 import { ProductDetailViewModel } from '../../../products/data/models/view-models/product-detail.view-model';
 

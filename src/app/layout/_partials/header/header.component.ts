@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApplicationStateService } from '../../../shared/services/application-state.service';
-import { BasketService } from '../../pages/checkout/basket.service';
+import { GuestBasketService } from '../../pages/checkout/guest-basket.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ export class HeaderComponent {
   @ViewChild('header', { static: true }) header!: ElementRef;
   constructor(
     public applicationState: ApplicationStateService,
-    private readonly _basketService: BasketService
+    private readonly _basketService: GuestBasketService
   ) {
     this._basketService.basket$
       .pipe(takeUntil(this.destroy$))

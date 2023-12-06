@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
-import { BasketService } from '../basket.service';
+import { GuestBasketService } from '../guest-basket.service';
 
 @Component({
   selector: 'keleman-purchase',
@@ -13,7 +13,7 @@ export class PurchaseComponent implements OnInit {
   constructor(
     public applicationState: ApplicationStateService,
     private _renderer: Renderer2,
-    private _basketService: BasketService
+    private _basketService: GuestBasketService
   ) {}
 
   ngOnInit(): void {

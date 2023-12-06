@@ -23,7 +23,11 @@
           {{ address.receiverPhone }}
         </li>
         <li class="text-muted">
-          <mat-icon class="material-icons-outlined">person</mat-icon>
+          <mat-icon
+            class="material-icons-outlined"
+            [class.text-success]="address.iamReceiver"
+            >person</mat-icon
+          >
           {{ address.receiverName }}
         </li>
       </ul>

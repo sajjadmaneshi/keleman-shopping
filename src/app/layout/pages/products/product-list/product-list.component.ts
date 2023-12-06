@@ -13,12 +13,17 @@ import {
   BaseDataFetcherService,
   REPOSITORY_TOKEN,
 } from '../../../../shared/services/base-data-fetcher.service';
-import { ProductSearchResult } from '../../../../shared/services/search.service';
+import {
+  CategoryMinifyViewModel,
+  ProductSearchResult,
+} from '../../../../shared/services/search.service';
 import { ProductSortTypeEnum } from '../data/enums/product-sort-type .enum';
 import { RouteHandlerService } from '../../../../shared/services/route-handler/route-handler.service';
 import { ProductFilterService } from '../services/product-filter.service';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 import { SelectedFilterModel } from './components/product-filters/data/selected-filter.model';
+import { Meta, Title } from '@angular/platform-browser';
+import { ModifyMetaDataService } from '../../../../../common/services/modify-meta-data.service';
 
 @Component({
   selector: 'keleman-product-list',
@@ -32,6 +37,7 @@ import { SelectedFilterModel } from './components/product-filters/data/selected-
     ProductFilterService,
     BaseDataFetcherService,
     RouteHandlerService,
+    ModifyMetaDataService,
   ],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
@@ -52,7 +58,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private _queryParamService: QueryParamGeneratorService,
     public fetchDataService: BaseDataFetcherService<ProductSearchResult>,
     public sharedVaribaleService: SharedVariablesService,
-    public applicationStateService: ApplicationStateService
+    public applicationStateService: ApplicationStateService,
+    private _metDataService: ModifyMetaDataService
   ) {}
 
   ngOnInit(): void {
@@ -124,6 +131,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.totalElements = totalElements;
         this.maxPrice = maxPrice;
         this.categoryId = category?.id;
+        this._metDataService.setMetaData(
+          category.seoTitle,
+          category.seoDescription
+        );
       });
   }
 

@@ -16,6 +16,7 @@ export interface ProductDetailViewModel {
     persianName: string;
     englishName: string;
   };
+  seoTitle: string;
   seoDescription: string;
   deliveryDescription: 'string';
   imageAlt: 'string';
@@ -23,4 +24,11 @@ export interface ProductDetailViewModel {
   brand: 'string';
   haveSelectableProperty: true;
   currentStock: number;
+  stores: [
+    {
+      title: string;
+      id: number;
+      price: number;
+    }
+  ];
 }

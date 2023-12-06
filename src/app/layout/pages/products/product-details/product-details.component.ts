@@ -8,14 +8,15 @@ import { ProductService } from '../services/product.service';
 import { DOCUMENT } from '@angular/common';
 import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
-import { BasketService } from '../../checkout/basket.service';
+import { GuestBasketService } from '../../checkout/guest-basket.service';
 import { GuestBasketModel } from '../../checkout/data/models/guest-basket.model';
-import { AddToBasketDto } from '../../checkout/data/dto/add-to-basket.dto';
+import { ModifyMetaDataService } from '../../../../../common/services/modify-meta-data.service';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
+  providers: [ModifyMetaDataService],
 })
 export class ProductDetailsComponent implements OnInit {
   productDetails!: ProductDetailViewModel;
@@ -33,7 +34,9 @@ export class ProductDetailsComponent implements OnInit {
     private readonly _productRepository: ProductRepository,
     private readonly _productService: ProductService,
     private readonly _authService: AuthService,
-    private readonly _basketService: BasketService,
+    private readonly _basketService: GuestBasketService,
+
+    private readonly _metaDataService: ModifyMetaDataService,
     @Inject(DOCUMENT) private document: Document
   ) {
     _authService.isLoggedIn$
@@ -65,6 +68,10 @@ export class ProductDetailsComponent implements OnInit {
       )
       .subscribe((result) => {
         this.productDetails = result.result!;
+        this._metaDataService.setMetaData(
+          this.productDetails.seoTitle,
+          this.productDetails.seoDescription
+        );
         this.productStatus = this._productService.getProductStatus(
           this.productDetails
         );

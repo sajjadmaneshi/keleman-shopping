@@ -6,4 +6,5 @@ export interface AddressDto {
   receiverPhone: string;
   latitude: number;
   longitude: number;
+  iamReceiver: boolean;
 }

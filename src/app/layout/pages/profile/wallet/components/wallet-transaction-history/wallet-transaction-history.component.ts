@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { map, Subject, takeUntil, tap } from 'rxjs';
 import { WalletTransactionViewModel } from '../../../data/view-models/wallet-transaction.view-model';
 import { ProfileRepository } from '../../../data/profile.repository';
@@ -22,6 +22,8 @@ export class WalletTransactionHistoryComponent implements OnDestroy {
   limit = 10;
 
   isLoading = true;
+
+  @Output() print = new EventEmitter();
 
   constructor(
     private readonly _profileRepositoy: ProfileRepository,
@@ -52,6 +54,10 @@ export class WalletTransactionHistoryComponent implements OnDestroy {
 
   trackByFn(index: number, item: WalletTransactionViewModel) {
     return item.id;
+  }
+
+  onPrint() {
+    this.print.emit();
   }
 
   ngOnDestroy(): void {

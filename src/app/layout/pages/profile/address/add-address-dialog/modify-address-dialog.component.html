@@ -112,7 +112,8 @@
         <mat-checkbox
           class="example-margin"
           [color]="'primary'"
-          [checked]="true"
+          [checked]="iAmReciver"
+          (change)="changeCheckBox($event)"
         >
           گیرنده سفارش خودم هستم
         </mat-checkbox>
@@ -124,6 +125,7 @@
             type="text"
             class="keleman-text-field"
             required
+            [readonly]="iAmReciver"
             [class.is-invalid]="reciverName.invalid && isFormSubmitted"
             formControlName="reciverName"
           />
@@ -141,6 +143,7 @@
             dir="ltr"
             type="text"
             class="keleman-text-field"
+            [readonly]="iAmReciver"
             [formControl]="reciverPhone"
             [numberOnly]="11"
             [class.is-invalid]="reciverPhone.invalid && isFormSubmitted"

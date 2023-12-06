@@ -5,4 +5,5 @@ export interface WithdrawRequestViewModel {
   price: number;
   status: WithdrawRequestStatusEnum;
   date: string;
+  description: string;
 }

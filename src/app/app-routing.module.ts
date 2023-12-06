@@ -7,8 +7,9 @@ import {
 } from '@angular/router';
 import { NotFoundComponent } from './layout/pages/not-found/not-found.component';
 import { Routing } from './routing';
-import { TokenResolver } from './shared/resolvers/token.resolver';
+import { TokenResolver } from '../common/resolvers/token.resolver';
 import { CustomRouteReuseStrategy } from './shared/custom-route-reuse-strategy';
+import { CanonicalResolver } from 'src/common/resolvers/canonical.resolver';
 
 const routes: Routes = [
   {
@@ -21,7 +22,9 @@ const routes: Routes = [
     loadComponent: () =>
       import('./auth/auth.component').then((c) => c.AuthComponent),
 
-    resolve: { token: () => inject(TokenResolver).resolve() },
+    resolve: {
+      token: () => inject(TokenResolver).resolve(),
+    },
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
@@ -37,6 +40,7 @@ const routes: Routes = [
   ],
   providers: [
     TokenResolver,
+    CanonicalResolver,
     { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
   ],
   exports: [RouterModule],

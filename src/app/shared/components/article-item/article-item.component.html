@@ -2,11 +2,11 @@
   class="card card-rounded-2 shadow magazine-item ribbon ribbon-end ribbon-clip h-100 cursor-pointer"
   [routerLink]="['/magazine/detail/' + articleDetails.url]"
 >
-  <span class="ribbon-label">
+  <span class="ribbon-label shadow">
     {{
       persianDateTime.fromGregorianString(articleDetails.date, "DD/jMMMM/YYYY")
     }}
-    <span class="ribbon-inner bg-success"></span>
+    <span class="ribbon-inner bg-warning"></span>
   </span>
 
   <img

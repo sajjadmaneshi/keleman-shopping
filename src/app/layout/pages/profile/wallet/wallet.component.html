@@ -46,17 +46,21 @@
     <div class="card card-rounded-3 shadow-sm border border-gray-300">
       <div class="card-body">
         <h6 class="fw-bold p-3">تاریخچه درخواست ها</h6>
-        <keleman-withdraw-request-history></keleman-withdraw-request-history>
+        <keleman-withdraw-request-history
+          [update]="updateRequests"
+        ></keleman-withdraw-request-history>
       </div>
     </div>
   </div>
 </ng-template>
 
-<div class="wallet-transactions-history">
+<div class="wallet-transactions-history" #printableContent>
   <div class="card card-rounded-3 shadow-sm border border-gray-300">
     <div class="card-body">
       <h6 class="fw-bold p-3">تاریخچه تراکنش ها</h6>
-      <keleman-wallet-transaction-history></keleman-wallet-transaction-history>
+      <keleman-wallet-transaction-history
+        (print)="printDiv()"
+      ></keleman-wallet-transaction-history>
     </div>
   </div>
 </div>

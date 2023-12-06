@@ -18,7 +18,7 @@ import { OrdersComponent } from '../../orders.component';
   styleUrls: ['./order-list.component.scss'],
 })
 export class OrderListComponent implements OnDestroy, AfterViewInit {
-  orderPaidStatus: boolean | null = null;
+  orderPaidStatus: boolean | undefined;
 
   @Input() status: OrdersStatusEnum = OrdersStatusEnum.Current;
 
@@ -26,7 +26,6 @@ export class OrderListComponent implements OnDestroy, AfterViewInit {
 
   isLoading = true;
   orders: OrderViewModel[] = [];
-  filteredOrders: OrderViewModel[] = [];
   totalElements = 0;
 
   page = 1;
@@ -40,7 +39,7 @@ export class OrderListComponent implements OnDestroy, AfterViewInit {
 
   private _getOrders() {
     this._profileRepository
-      .getOrders(this.page - 1, this.limit, this.status)
+      .getOrders(this.page - 1, this.limit, this.orderPaidStatus, this.status)
       .pipe(
         tap(() => (this.isLoading = false)),
         takeUntil(this.destroy$),
@@ -49,17 +48,13 @@ export class OrderListComponent implements OnDestroy, AfterViewInit {
 
       .subscribe((result) => {
         this.orders = [...result.items];
-        this.filterOrders(this.orderPaidStatus);
         this.totalElements = result.totalElements;
       });
   }
 
-  filterOrders(isPaid: boolean | null): void {
+  filterOrders(isPaid?: boolean) {
     this.orderPaidStatus = isPaid;
-    this.filteredOrders =
-      isPaid === null
-        ? this.orders
-        : this.orders.filter((order) => order.isPaid === isPaid);
+    this._getOrders();
   }
 
   pageChange($event: number) {

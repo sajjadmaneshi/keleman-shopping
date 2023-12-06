@@ -1,4 +1,4 @@
 export enum WithdrawRequestStatusEnum {
-  Request,
+  Request = 1,
   cancel,
 }

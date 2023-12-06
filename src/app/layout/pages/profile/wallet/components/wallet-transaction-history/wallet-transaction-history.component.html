@@ -46,7 +46,7 @@
             }}</mat-icon>
             <h6>{{ transaction.price }} تومان</h6>
           </span>
-          <h6 class="description">{{ transaction.description }}</h6>
+          <h6 class="description px-3">{{ transaction.description }}</h6>
           <h6 class="mb-0">
             {{
               persianDateTimeService.fromGregorianString(
@@ -63,7 +63,11 @@
           (pageChange)="pageChange($event)"
         ></keleman-pagination>
         <div class="w-100 text-center">
-          <button class="btn btn-warning print-button" [disabled]="isLoading">
+          <button
+            class="btn btn-warning print-button"
+            [disabled]="isLoading"
+            (click)="onPrint()"
+          >
             چاپ
           </button>
         </div>

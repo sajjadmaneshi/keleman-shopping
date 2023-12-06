@@ -66,6 +66,7 @@ import { NumberOnlyDirective } from '../../../shared/directives/number-only.dire
 import { ErrorFeedbackDirective } from '../../../shared/directives/error-feedback.directive';
 import { WithdrawRequestDialogComponent } from './wallet/components/withdraw-request-dialog/withdraw-request-dialog.component';
 import { WithdrawRequestHistoryComponent } from './wallet/components/withdraw-request-history/withdraw-request-history.component';
+import { NumberToPersianPipe } from '../../../shared/pipes/num2persian.pipe';
 
 @NgModule({
   declarations: [
@@ -131,6 +132,7 @@ import { WithdrawRequestHistoryComponent } from './wallet/components/withdraw-re
     PaginationComponent,
     NumberOnlyDirective,
     ErrorFeedbackDirective,
+    NumberToPersianPipe,
   ],
   providers: [ProfileRepository],
 })

@@ -37,7 +37,7 @@ export class WithdrawRequestDialogComponent implements OnDestroy {
 
   private _initForm() {
     this.withdrawRequestForm = new FormGroup({
-      amount: new FormControl(0, [Validators.required, Validators.min(1)]),
+      amount: new FormControl(null, [Validators.required, Validators.min(1)]),
       description: new FormControl(''),
     });
   }
@@ -67,9 +67,12 @@ export class WithdrawRequestDialogComponent implements OnDestroy {
 
   private _showSuccessMessage() {
     this._snackBar.showWarningSnackBar('درخواست برداشت با موفقیت ثبت گردید');
-
     this.withdrawRequestForm.reset();
     this.isFormSubmitted = false;
+    this.dialogRef.close(true);
+  }
+
+  close() {
     this.dialogRef.close();
   }
 

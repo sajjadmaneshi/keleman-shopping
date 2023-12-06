@@ -39,7 +39,7 @@
           <button
             class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
             [disabled]="details.price < 1 || details.currentStock < 1"
-            (click)="addToBasket()"
+            (click)="isLoggedIn ? addToBasketAuthorized() : addToBasketGuest()"
           >
             {{
               details.currentStock > 1 && details.price > 1
@@ -55,7 +55,7 @@
         <div class="col-6">
           <keleman-value-changer
             [initialValue]="productCountInBasket"
-            (increse)="addToBasket()"
+            (increse)="addToBasketGuest()"
             (decrease)="removeFromBasket()"
           ></keleman-value-changer>
         </div>

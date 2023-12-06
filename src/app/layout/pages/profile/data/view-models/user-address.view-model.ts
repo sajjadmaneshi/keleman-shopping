@@ -15,4 +15,6 @@ export interface UserAddressViewModel {
       title: string;
     };
   };
+
+  iamReceiver: boolean;
 }

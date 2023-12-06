@@ -15,21 +15,44 @@
       ></ng-content>
       <ng-template #full>
         <div
-          class="alert d-flex align-items-center justify-content-between alert-success"
+          class="alert request-item"
+          [ngClass]="
+            request.status === withdrawRequestStatus.Request
+              ? 'alert-info'
+              : 'alert-dark'
+          "
           *ngFor="let request of withdrawRequests; trackBy: trackByFn"
         >
           <span class="d-flex align-items-center">
             <h6>{{ request.price }} تومان</h6>
           </span>
-
-          <h6 class="mb-0">
-            {{
-              persianDateTimeService.fromGregorianString(
-                request.date,
-                "DD/jMMMM/YYYY"
-              )
-            }}
+          <h6 class="mx-3">
+            ({{
+              request.status === withdrawRequestStatus.Request
+                ? "درانتظار تایید"
+                : "لغو شده"
+            }})
           </h6>
+          <span class="d-flex align-items-center">
+            <h6>{{ request.description }}</h6>
+          </span>
+          <span class="d-flex align-items-center">
+            <h6 class="mb-0 mx-3">
+              {{
+                persianDateTimeService.fromGregorianString(
+                  request.date,
+                  "DD/jMMMM/YYYY"
+                )
+              }}
+            </h6>
+          </span>
+          <button
+            class="btn btn-outline-danger"
+            [disabled]="request.status === withdrawRequestStatus.cancel"
+            (click)="getAcceptBeforeRemove($event, request.id)"
+          >
+            لغو درخواست
+          </button>
         </div>
         <keleman-pagination
           [totalElements]="totalElemnts"
@@ -37,11 +60,6 @@
           [currentPage]="page"
           (pageChange)="pageChange($event)"
         ></keleman-pagination>
-        <div class="w-100 text-center">
-          <button class="btn btn-warning print-button" [disabled]="isLoading">
-            چاپ
-          </button>
-        </div>
       </ng-template>
       <ng-template #empty>
         <keleman-empty-content></keleman-empty-content>

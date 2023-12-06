@@ -15,6 +15,7 @@ import { RouteHandlerService } from '../../../../../shared/services/route-handle
 import { BreadCrumbViewModel } from '../../../../../home/data/view-models/bread-crumb.view-model';
 import { QueryParamGeneratorService } from '../../../../../shared/services/query-params-generator.service';
 import { Routing } from '../../../../../routing';
+import { ModifyMetaDataService } from '../../../../../../common/services/modify-meta-data.service';
 
 @Component({
   selector: 'app-main-page-latest-articles-list',
@@ -27,6 +28,7 @@ import { Routing } from '../../../../../routing';
     },
     BaseDataFetcherService,
     RouteHandlerService,
+    ModifyMetaDataService,
   ],
 })
 export class MagazineListComponent implements OnInit {
@@ -42,6 +44,7 @@ export class MagazineListComponent implements OnInit {
   constructor(
     private readonly _queryParamService: QueryParamGeneratorService,
     private readonly _routeHandlerService: RouteHandlerService,
+    private readonly _metaDataService: ModifyMetaDataService,
     public readonly fetchDataService: BaseDataFetcherService<ArticleSearchResult>,
     public readonly sharedVariableService: SharedVariablesService
   ) {}
@@ -89,9 +92,14 @@ export class MagazineListComponent implements OnInit {
     this.fetchDataService
       .fetchData(params)
       .subscribe((result: ArticleSearchResult | undefined) => {
-        this.articles = [...result?.articles!];
-        this.totalElements = result?.totalElements!;
-        this.categoryId = result?.category?.id!;
+        const { articles, totalElements, category } = result!;
+        this.articles = [...articles!];
+        this.totalElements = totalElements!;
+        this.categoryId = category?.id!;
+        this._metaDataService.setMetaData(
+          category?.seoTitle,
+          category?.seoDescription
+        );
       });
   }
 

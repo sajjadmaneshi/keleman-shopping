@@ -19,7 +19,7 @@ import { ArticleRepository } from 'src/app/layout/pages/magazine/data/repositori
 import { ArticleCategoryViewModel } from '../../layout/pages/magazine/data/view-models/article-category.view-model';
 import { ProfileService } from '../../layout/pages/profile/shared/profile.service';
 import { ProfileViewModel } from '../../layout/pages/profile/data/view-models/profile.view-model';
-import { BasketService } from '../../layout/pages/checkout/basket.service';
+import { GuestBasketService } from '../../layout/pages/checkout/guest-basket.service';
 
 @Injectable({ providedIn: 'root' })
 export class InitialAppService implements OnDestroy {

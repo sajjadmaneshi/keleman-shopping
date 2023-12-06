@@ -73,6 +73,8 @@ import { LoadingProgressDirective } from '../../../shared/directives/loading-pro
 import { ShareDialogComponent } from './product-details/components/content/share-dialog/share-dialog.component';
 import { MagazineModule } from '../magazine/magazine.module';
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
+import { BasketRepository } from '../checkout/data/repositories/basket.repository';
+import { BasketService } from '../checkout/purchase/basket.service';
 
 @NgModule({
   declarations: [
@@ -138,7 +140,13 @@ import { ValueChangerComponent } from '../../../shared/components/value-changer/
     MagazineModule,
     ValueChangerComponent,
   ],
-  providers: [ProductFilterService, RouteHandlerService],
+
+  providers: [
+    ProductFilterService,
+    RouteHandlerService,
+    BasketRepository,
+    BasketService,
+  ],
 
   exports: [ProductItemComponent, ProductSearchComponent],
 })

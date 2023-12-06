@@ -11,8 +11,8 @@
       <span class="d-flex align-items-center mb-3 filters">
         <a
           class="text-black mx-3 cursor-pointer"
-          [class.active]="orderPaidStatus === null"
-          (click)="filterOrders(null)"
+          [class.active]="orderPaidStatus === undefined"
+          (click)="filterOrders()"
           >همه</a
         >
         <a
@@ -30,12 +30,10 @@
       </span>
     </ng-template>
 
-    <ng-content
-      *ngIf="filteredOrders.length > 0; then full; else empty"
-    ></ng-content>
+    <ng-content *ngIf="orders.length > 0; then full; else empty"></ng-content>
     <ng-template #full>
       <keleman-order-item
-        *ngFor="let order of filteredOrders"
+        *ngFor="let order of orders"
         [orderDetail]="order"
         [orderStatus]="status"
       ></keleman-order-item>

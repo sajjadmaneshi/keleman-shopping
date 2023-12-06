@@ -4,7 +4,10 @@
   <span class="d-flex flex-column w-50">
     <span class="d-flex align-items-center"> ثبت درخواست برداشت </span>
   </span>
-  <span class="material-icons-outlined text-danger close cursor-pointer">
+  <span
+    class="material-icons-outlined text-danger close cursor-pointer"
+    (click)="close()"
+  >
     close
   </span>
 </div>
@@ -32,6 +35,13 @@
       >
         لطفا مبلغ برداشت را وارد نمایید.
       </span>
+      <ng-template [ngIf]="amount.value">
+        <span class="d-flex">
+          <label class="fw-bold">معادل: </label>
+
+          <span>{{ amount.value | numberToPersian }}</span>
+        </span>
+      </ng-template>
       <span
         *ngIf="
           !amount.hasError('required') &&

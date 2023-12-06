@@ -4,10 +4,11 @@ import { ProductRepository } from '../../../data/repositories/product.repository
 import { Subscription, tap } from 'rxjs';
 import { ProductSpecificViewModel } from '../../../data/models/view-models/product-specific.view-model';
 import { SharedVariablesService } from '../../../../../../shared/services/shared-variables.service';
-import { AddToBasketDto } from '../../../../checkout/data/dto/add-to-basket.dto';
 import { GuestBasketModel } from '../../../../checkout/data/models/guest-basket.model';
 import { ProductDetailViewModel } from '../../../data/models/view-models/product-detail.view-model';
-import { BasketService } from '../../../../checkout/basket.service';
+import { GuestBasketService } from '../../../../checkout/guest-basket.service';
+import { BasketService } from '../../../../checkout/purchase/basket.service';
+import { AddToCartDto } from '../../../../checkout/data/dto/add-to-cart.dto';
 
 @Component({
   selector: 'keleman-product-meta',
@@ -28,7 +29,8 @@ export class ProductMetaComponent implements OnInit {
     private _productService: ProductService,
     private _productRepository: ProductRepository,
     public sharedVariableService: SharedVariablesService,
-    private _basketService: BasketService
+    private _guestBasketService: GuestBasketService,
+    private _basketServie: BasketService
   ) {
     this._getProductSpecification();
   }
@@ -42,34 +44,43 @@ export class ProductMetaComponent implements OnInit {
       });
   }
 
-  addToBasket() {
+  addToBasketGuest() {
     const productItem = {
       product: this.productDetail,
       count: 1,
     };
 
     if (!this.isLoggedIn) {
-      this._basketService.addToBasket(productItem);
+      this._guestBasketService.addToBasket(productItem);
       this.productCountInBasket++;
     }
   }
 
+  addToBasketAuthorized() {
+    const dto = {
+      productId: this.productDetail.id,
+      storeId: this.productDetail.stores[0].id,
+    } as AddToCartDto;
+    this._basketServie.addToBasket(dto);
+  }
+
   removeFromBasket() {
     if (!this.isLoggedIn) {
-      this._basketService.removeFromBasket(this.productDetail.id);
+      this._guestBasketService.removeFromBasket(this.productDetail.id);
       this.productCountInBasket--;
     }
   }
 
   ngOnInit(): void {
     if (this.productDetail) {
-      this.isInBasket = this._basketService.isProductInBasket(
+      this.isInBasket = this._guestBasketService.isProductInBasket(
         this.productDetail.id
       );
       if (this.isInBasket)
-        this.productCountInBasket = this._basketService.getProductCountInBasket(
-          this.productDetail.id
-        );
+        this.productCountInBasket =
+          this._guestBasketService.getProductCountInBasket(
+            this.productDetail.id
+          );
     }
   }
 }

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { GuestBasketModel } from './data/models/guest-basket.model';
-import { AddToBasketDto } from './data/dto/add-to-basket.dto';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductViewModel } from '../products/data/models/view-models/product.view-model';
 import { ProductDetailViewModel } from '../products/data/models/view-models/product-detail.view-model';
 
 @Injectable({ providedIn: 'root' })
-export class BasketService {
+export class GuestBasketService {
   private readonly storageKey = 'GUEST_BASKET';
   private basketSubject: BehaviorSubject<GuestBasketModel>;
   private totalPriceSubject: BehaviorSubject<number>;

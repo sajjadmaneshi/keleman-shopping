@@ -9,9 +9,9 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, throwError, retry } from 'rxjs';
 import { HttpRequestOptions } from '../data/models/http/http-request-options';
-import { AppErrors } from '../common/app-errors';
-import { BadInputError } from '../common/errors/bad-input-error';
-import { NotFoundError } from '../common/errors/not-found-error';
+import { AppErrors } from '../../../common/errors/app-errors';
+import { BadInputError } from '../../../common/errors/bad-input-error';
+import { NotFoundError } from '../../../common/errors/not-found-error';
 import { SnackBarService } from '../components/snack-bar/snack-bar.service';
 import { isPlatformBrowser } from '@angular/common';
 

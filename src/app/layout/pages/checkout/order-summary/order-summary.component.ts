@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { BasketService } from '../basket.service';
+import { GuestBasketService } from '../guest-basket.service';
 import { ProductDetailViewModel } from '../../products/data/models/view-models/product-detail.view-model';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -11,7 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class OrderSummaryComponent implements OnDestroy {
   destroy$ = new Subject<void>();
   summary: { product: ProductDetailViewModel; count: number }[] = [];
-  constructor(private _basketService: BasketService) {
+  constructor(private _basketService: GuestBasketService) {
     this._basketService.basket$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {

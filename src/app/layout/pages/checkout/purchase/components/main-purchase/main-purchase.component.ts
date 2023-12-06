@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { BasketService } from '../../../basket.service';
+import { GuestBasketService } from '../../../guest-basket.service';
 
 @Component({
   selector: 'keleman-main-purchase',
@@ -8,7 +8,7 @@ import { BasketService } from '../../../basket.service';
 })
 export class MainPurchaseComponent {
   totalPrice: number = 0;
-  constructor(private _basketServie: BasketService) {
+  constructor(private _basketServie: GuestBasketService) {
     this._basketServie.totalPrice$.subscribe((res) => {
       this.totalPrice = res;
     });

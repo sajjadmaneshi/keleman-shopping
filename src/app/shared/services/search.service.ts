@@ -5,18 +5,26 @@ import { Observable } from 'rxjs';
 import { HttpClientResult } from '../data/models/http/http-client.result';
 import { HttpClient } from '@angular/common/http';
 import { QueryParamGeneratorService } from './query-params-generator.service';
+import { ProductCategoryViewModel } from '../data/models/view-models/product-category.view-model';
 
 export interface ProductSearchResult {
   products: ProductViewModel[];
   totalElements: number;
   maxPrice: number;
-  category: { id: number; title: string };
+  category: CategoryMinifyViewModel;
+}
+
+export interface CategoryMinifyViewModel {
+  id: number;
+  name: string;
+  seoTitle: string;
+  seoDescription: string;
 }
 
 export interface ArticleSearchResult {
   articles: ArticleSimpleDataViewModel[];
   totalElements: number;
-  category?: { id: number; title: string };
+  category?: CategoryMinifyViewModel;
 }
 @Injectable({ providedIn: 'root' })
 export class SearchService<T> {
