@@ -6,6 +6,7 @@ import { OrderViewModel } from '../../../data/view-models/order-view.model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 import { OrdersStatusEnum } from '../../../data/enums/orders-status.enum';
 import { OrderListDialogComponent } from '../order-list-dialog/order-list-dialog.component';
+import { ProfileRepository } from '../../../data/profile.repository';
 
 @Component({
   selector: 'keleman-order-item',
@@ -20,6 +21,7 @@ export class OrderItemComponent {
   constructor(
     public applicationState: ApplicationStateService,
     public persianDateTimeService: PersianDateTimeService,
+    private readonly _profileRepository: ProfileRepository,
     private _dialog: MatDialog
   ) {}
 
@@ -39,5 +41,14 @@ export class OrderItemComponent {
 
   public determineProductsName() {
     return this.orderDetail.products.map((x) => x.name).join(',');
+  }
+
+  getOrderFactor() {
+    this._profileRepository
+      .getOrderFactor(this.orderDetail.id)
+      .subscribe((res) => {
+        const fileUrl = URL.createObjectURL(res);
+        window.open(fileUrl, '_blank');
+      });
   }
 }

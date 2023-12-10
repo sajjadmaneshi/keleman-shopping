@@ -1,6 +1,11 @@
 @import "base/variables/colors";
 @import "base/variables/spacers";
 .stepper-header {
+  &.active,
+  &:focus {
+    border-color: transparent !important;
+  }
+
   color: $gray-400;
   mat-icon {
     margin: 0 map-get($klm-spacers, 1);

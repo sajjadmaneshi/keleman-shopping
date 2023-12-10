@@ -21,7 +21,7 @@ export class ValueChangerComponent {
   decrease(): void {
     if (this.value > 1) {
       this.value--;
-    }
+    } else this.value = 0;
     this.onDncrease.emit(this.value);
   }
 }

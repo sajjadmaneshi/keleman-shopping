@@ -9,6 +9,8 @@ import { ProductDetailViewModel } from '../../../data/models/view-models/product
 import { GuestBasketService } from '../../../../checkout/guest-basket.service';
 import { BasketService } from '../../../../checkout/purchase/basket.service';
 import { AddToCartDto } from '../../../../checkout/data/dto/add-to-cart.dto';
+import { UpdateBasketDto } from '../../../../checkout/data/dto/update-basket.dto';
+import { LoadingService } from '../../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-product-meta',
@@ -30,9 +32,13 @@ export class ProductMetaComponent implements OnInit {
     private _productRepository: ProductRepository,
     public sharedVariableService: SharedVariablesService,
     private _guestBasketService: GuestBasketService,
-    private _basketServie: BasketService
+    private _basketServie: BasketService,
+    public readonly loadingService: LoadingService
   ) {
     this._getProductSpecification();
+    this._basketServie.productCountInBasket.subscribe((res) => {
+      this.productCountInBasket = res;
+    });
   }
 
   private _getProductSpecification() {
@@ -59,9 +65,18 @@ export class ProductMetaComponent implements OnInit {
   addToBasketAuthorized() {
     const dto = {
       productId: this.productDetail.id,
-      storeId: this.productDetail.stores[0].id,
+      // storeId: this.productDetail.stores[0].id,
     } as AddToCartDto;
     this._basketServie.addToBasket(dto);
+  }
+
+  updateBasketAuthorized(count: number) {
+    const dto = {
+      productId: this.productDetail.id,
+      // storeId: this.productDetail.stores[0].id,
+      count,
+    } as UpdateBasketDto;
+    this._basketServie.updateBasket(dto);
   }
 
   removeFromBasket() {

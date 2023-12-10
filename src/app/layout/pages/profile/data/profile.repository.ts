@@ -20,6 +20,7 @@ import { UserAddressViewModel } from './view-models/user-address.view-model';
 import { AddressDto } from './dto/address.dto';
 import { WithdrawRequestDto } from './dto/withdraw-request.dto';
 import { WithdrawRequestViewModel } from './view-models/withdraw-request-view.model';
+import { UserCommentViewModel } from './view-models/user-comment.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileRepository extends DataService<any> {
@@ -80,12 +81,39 @@ export class ProfileRepository extends DataService<any> {
     ) as Observable<HttpClientResult<PaginationViewModel<OrderViewModel>>>;
   }
 
+  getOrderFactor(orderId: number): Observable<Blob> {
+    return this._http.get(
+      `${
+        this._getProfileUrl
+      }/orderFactor/${orderId}?userId=${localStorage.getItem(
+        'USERID'
+      )}&format=pdf`,
+      { responseType: 'blob' }
+    ) as Observable<Blob>;
+  }
+
   getFavorites(): Observable<HttpClientResult<FavoriteProductViewModel[]>> {
     return this._http.get(
       `${this._getProfileUrl}/favorites?userId=${localStorage.getItem(
         'USERID'
       )}`
     ) as Observable<HttpClientResult<FavoriteProductViewModel[]>>;
+  }
+
+  getComments(
+    page: number,
+    limit: number,
+    allowToShow?: boolean
+  ): Observable<HttpClientResult<PaginationViewModel<UserCommentViewModel>>> {
+    return this._http.get(
+      `${this._getProfileUrl}/comments?userId=${localStorage.getItem(
+        'USERID'
+      )}&&offset=${page}&&limit=${limit}${
+        allowToShow != undefined ? '&&allowToShow=' + allowToShow : ''
+      }`
+    ) as Observable<
+      HttpClientResult<PaginationViewModel<UserCommentViewModel>>
+    >;
   }
 
   getWalletTransactions(

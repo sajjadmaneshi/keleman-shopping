@@ -141,12 +141,7 @@ import { BasketService } from '../checkout/purchase/basket.service';
     ValueChangerComponent,
   ],
 
-  providers: [
-    ProductFilterService,
-    RouteHandlerService,
-    BasketRepository,
-    BasketService,
-  ],
+  providers: [ProductFilterService, RouteHandlerService, BasketRepository],
 
   exports: [ProductItemComponent, ProductSearchComponent],
 })

@@ -7,6 +7,7 @@ import { FileManagementService } from '../../../../../shared/services/file-manag
 import { HttpClientResult } from 'src/app/shared/data/models/http/http-client.result';
 import { InitialAppService } from '../../../../../shared/services/initial-app.service';
 import { UserCreditViewModel } from '../../data/view-models/user-credit.view-model';
+import { AuthService } from '../../../../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'keleman-profile-menu',
@@ -25,7 +26,9 @@ export class ProfileMenuComponent implements OnDestroy {
   constructor(
     private readonly _initialAppService: InitialAppService,
     private readonly _profileRepository: ProfileRepository,
-    public readonly fileManagerService: FileManagementService
+
+    public readonly fileManagerService: FileManagementService,
+    public readonly authService: AuthService
   ) {
     combineLatest(
       this._initialAppService.userSimpleInfo,

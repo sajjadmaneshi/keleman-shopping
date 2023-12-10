@@ -36,7 +36,7 @@ export class ArticleLinkListDirective implements OnInit {
       });
       let label = this._renderer.createElement('p');
       label.innerText = 'فهرست مطالب';
-      this._renderer.setStyle(label, 'padding', '1rem');
+      // this._renderer.setStyle(label, 'padding', '0.5rem');
       let linkListContent = this._renderer.createElement('div');
       this._renderer.setAttribute(linkListContent, 'id', 'content-list');
       this._renderer.setStyle(linkListContent, 'background-color', '#f1f1f1');
@@ -45,6 +45,7 @@ export class ArticleLinkListDirective implements OnInit {
       this._renderer.setStyle(linkListContent, 'border-radius', ' 20px');
       this._renderer.setStyle(linkListContent, 'margin-bottom', ' 20px');
       let linkList = this._renderer.createElement('ul');
+
       this._renderer.setAttribute(linkList, 'id', 'ulBulletList');
       linkList.prepend(...ulNodes);
       linkListContent.append(label);

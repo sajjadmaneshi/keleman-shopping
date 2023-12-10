@@ -139,7 +139,7 @@
   <li class="menu-item" [routerLink]="'comments'" routerLinkActive="active">
     <a class="menu-link">
       <mat-icon class="ms-2">chat</mat-icon>
-      دیدگاه ها
+      دیدگاه و پرسش ها
     </a>
     <mat-icon> chevron_left</mat-icon>
   </li>
@@ -151,7 +151,10 @@
     <mat-icon> chevron_left</mat-icon>
   </li>
   <li class="menu-item">
-    <a class="menu-link text-danger">
+    <a
+      class="menu-link text-danger cursor-pointer"
+      (click)="authService.logout()"
+    >
       <mat-icon class="ms-2">power_settings_new</mat-icon>
       خروج
     </a>

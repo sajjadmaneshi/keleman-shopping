@@ -93,7 +93,11 @@
             {{ orderDetail.isPaid ? "پرداخت شده" : "پرداخت نشده" }}
           </mat-chip-option>
           <span class="d-flex align-items-center align-self-end">
-            <a class="text-warning mx-1">مشاهده فاکتور</a>
+            <a
+              class="text-warning mx-1 cursor-pointer"
+              (click)="getOrderFactor()"
+              >مشاهده فاکتور</a
+            >
             <a
               *ngIf="orderStatus == orderstatusEnum.Delivered"
               class="text-danger mx-1 cursor-pointer"
@@ -108,7 +112,9 @@
           >more_vert</mat-icon
         >
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>مشاهده فاکتور</button>
+          <button mat-menu-item (click)="getOrderFactor()">
+            مشاهده فاکتور
+          </button>
           <button mat-menu-item>درخواست مرجوعی</button>
         </mat-menu>
       </ng-template>

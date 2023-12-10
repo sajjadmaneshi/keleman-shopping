@@ -67,6 +67,8 @@ import { ErrorFeedbackDirective } from '../../../shared/directives/error-feedbac
 import { WithdrawRequestDialogComponent } from './wallet/components/withdraw-request-dialog/withdraw-request-dialog.component';
 import { WithdrawRequestHistoryComponent } from './wallet/components/withdraw-request-history/withdraw-request-history.component';
 import { NumberToPersianPipe } from '../../../shared/pipes/num2persian.pipe';
+import { UserCommentItemComponent } from './comments/user-comment-item/user-comment-item.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -96,6 +98,7 @@ import { NumberToPersianPipe } from '../../../shared/pipes/num2persian.pipe';
     CreditsComponent,
     WithdrawRequestDialogComponent,
     WithdrawRequestHistoryComponent,
+    UserCommentItemComponent,
   ],
   imports: [
     CommonModule,
@@ -133,6 +136,7 @@ import { NumberToPersianPipe } from '../../../shared/pipes/num2persian.pipe';
     NumberOnlyDirective,
     ErrorFeedbackDirective,
     NumberToPersianPipe,
+    MatListModule,
   ],
   providers: [ProfileRepository],
 })

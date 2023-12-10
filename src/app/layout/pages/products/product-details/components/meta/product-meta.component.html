@@ -38,6 +38,10 @@
         <div class="col-12">
           <button
             class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
+            kelemanLoadingProgress
+            [loading]="
+              (loadingService.getLoadingStateObservable('add') | async)!
+            "
             [disabled]="details.price < 1 || details.currentStock < 1"
             (click)="isLoggedIn ? addToBasketAuthorized() : addToBasketGuest()"
           >
@@ -55,8 +59,12 @@
         <div class="col-6">
           <keleman-value-changer
             [initialValue]="productCountInBasket"
-            (increse)="addToBasketGuest()"
-            (decrease)="removeFromBasket()"
+            (increse)="
+              isLoggedIn ? updateBasketAuthorized($event) : addToBasketGuest()
+            "
+            (decrease)="
+              isLoggedIn ? updateBasketAuthorized($event) : removeFromBasket()
+            "
           ></keleman-value-changer>
         </div>
         <div class="col-6">

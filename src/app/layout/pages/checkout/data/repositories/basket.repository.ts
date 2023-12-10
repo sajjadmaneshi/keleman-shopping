@@ -19,6 +19,12 @@ export class BasketRepository extends DataService<BasketItemViewModel> {
     ) as Observable<HttpClientResult<any>>;
   }
 
+  getCartCount(): Observable<HttpClientResult<number>> {
+    return this._http.get(
+      `${this._getCartUrl}/count?userId=${localStorage.getItem('USERID')}`
+    ) as Observable<HttpClientResult<number>>;
+  }
+
   addToCart(dto: AddToCartDto): Observable<HttpClientResult<number>> {
     return this._http.post(
       `${this._getCartUrl}?userId=${localStorage.getItem('USERID')}`,

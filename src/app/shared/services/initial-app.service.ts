@@ -20,6 +20,8 @@ import { ArticleCategoryViewModel } from '../../layout/pages/magazine/data/view-
 import { ProfileService } from '../../layout/pages/profile/shared/profile.service';
 import { ProfileViewModel } from '../../layout/pages/profile/data/view-models/profile.view-model';
 import { GuestBasketService } from '../../layout/pages/checkout/guest-basket.service';
+import { BasketRepository } from '../../layout/pages/checkout/data/repositories/basket.repository';
+import { BasketService } from '../../layout/pages/checkout/purchase/basket.service';
 
 @Injectable({ providedIn: 'root' })
 export class InitialAppService implements OnDestroy {
@@ -36,10 +38,11 @@ export class InitialAppService implements OnDestroy {
   destroy$ = new Subject<void>();
   constructor(
     private _userRepository: UserRepository,
+    private _basketRepository: BasketRepository,
     private _productCategoryService: ProductCategoryService,
     private _articleRepository: ArticleRepository,
     private _profileService: ProfileService,
-
+    private _basketService: BasketService,
     private _authService: AuthService
   ) {}
 
@@ -63,6 +66,7 @@ export class InitialAppService implements OnDestroy {
           this._profileService.getUserAccount().then((result) => {
             this.userCredit.next(result!);
           });
+          // this._basketService.getCartCount();
         }
 
         if (productcategories) this.productCategories.next(productcategories);

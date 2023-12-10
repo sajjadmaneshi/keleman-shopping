@@ -22,6 +22,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { InitialAppService } from './shared/services/initial-app.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BasketRepository } from './layout/pages/checkout/data/repositories/basket.repository';
 
 export function initializeApp(
   initialAppService: InitialAppService
@@ -54,6 +55,7 @@ export function tokenGetter() {
     }),
   ],
   providers: [
+    BasketRepository,
     ApplicationStateService,
     InitialAppService,
     {

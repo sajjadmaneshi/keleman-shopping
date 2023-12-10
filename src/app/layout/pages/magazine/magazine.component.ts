@@ -20,7 +20,7 @@ export class MagazineComponent {
 
   updateQueryParams() {
     const queryParams = { q: this.searchControl.value };
-    this._router.navigate([], {
+    this._router.navigate(['/magazine'], {
       relativeTo: this._activatedRoute,
       queryParams,
       queryParamsHandling: 'merge',

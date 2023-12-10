@@ -1,0 +1,51 @@
+<div class="card card-rounded-2 border mb-3">
+  <div class="card-body d-flex flex-column">
+    <div class="d-flex justify-content-between">
+      <span>
+        <div class="symbol symbol-10 symbol-circle">
+          <img
+            loadingLazy
+            emptyImage
+            [src]="commentData.product.thumbnailImage"
+            alt="Product Thumbnail"
+          />
+        </div>
+        <span
+          >{{ commentData.product.name }}
+          <span
+            class="d-inline d-md-none"
+            [ngClass]="
+              commentData.allowToShow ? 'text-success' : 'text-warning'
+            "
+            >(
+            {{
+              commentData.allowToShow ? "نمایش در سایت" : "در انتظار تایید"
+            }})</span
+          ></span
+        >
+
+        <p class="text-muted mx-3 comment-text">
+          نظر شما:<strong [innerHTML]="commentData.comment"></strong>
+        </p>
+      </span>
+
+      <div class="d-flex flex-column justify-content-between">
+        <span class="text-muted text-start">
+          {{
+            persianDateTimeService.fromGregorianString(
+              commentData.date,
+              "DD/jMMMM/YYYY"
+            )
+          }}
+        </span>
+        <mat-chip-option
+          class="align-self-end d-none d-md-block"
+          selected
+          [ngClass]="commentData.allowToShow ? 'isShownChip' : 'pendingChip'"
+        >
+          {{ commentData.allowToShow ? "نمایش در سایت" : "در انتظار تایید" }}
+        </mat-chip-option>
+      </div>
+    </div>
+  </div>
+</div>

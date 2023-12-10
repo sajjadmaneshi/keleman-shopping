@@ -1,7 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApplicationStateService } from '../../../shared/services/application-state.service';
 import { GuestBasketService } from '../../pages/checkout/guest-basket.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, combineLatest } from 'rxjs';
+
+import { InitialAppService } from '../../../shared/services/initial-app.service';
+import { BasketService } from '../../pages/checkout/purchase/basket.service';
 
 @Component({
   selector: 'keleman-header',
@@ -13,12 +16,17 @@ export class HeaderComponent {
   @ViewChild('header', { static: true }) header!: ElementRef;
   constructor(
     public applicationState: ApplicationStateService,
-    private readonly _basketService: GuestBasketService
+    private readonly _guestBasketService: GuestBasketService,
+    private readonly _basketService: BasketService
   ) {
-    this._basketService.basket$
+    combineLatest(
+      this._guestBasketService.basket$,
+      this._basketService.cartCount
+    )
       .pipe(takeUntil(this.destroy$))
-      .subscribe((result) => {
-        this.basketCount = result.totalCount;
+      .subscribe(([guestBasketCount, authorizedUserBasketCount]) => {
+        this.basketCount =
+          guestBasketCount.totalCount + authorizedUserBasketCount;
       });
   }
 
