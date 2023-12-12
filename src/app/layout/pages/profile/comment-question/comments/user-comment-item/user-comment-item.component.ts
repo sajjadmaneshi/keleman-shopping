@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { UserCommentViewModel } from '../../data/view-models/user-comment.view-model';
-import { PersianDateTimeService } from '../../../../../shared/services/date-time/persian-datetime.service';
+import { UserCommentViewModel } from '../../../data/view-models/user-comment.view-model';
+import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 
 @Component({
   selector: 'keleman-user-comment-item',

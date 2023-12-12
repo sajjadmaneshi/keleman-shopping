@@ -8,9 +8,10 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { ReturnedRequestComponent } from './returned-request/returned-request.component';
 import { AddressesComponent } from './address/addresses.component';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
-import { UserCommentsComponent } from './comments/user-comments.component';
+import { UserCommentsComponent } from './comment-question/comments/user-comments.component';
 import { MyBoxesComponent } from './my-boxes/my-boxes.component';
 import { CreditsComponent } from './credits/credits.component';
+import { CommentQuestionComponent } from './comment-question/comment-question.component';
 
 export const routes: Routes = [
   {
@@ -32,7 +33,7 @@ export const routes: Routes = [
       { path: Routing.returnedRequests, component: ReturnedRequestComponent },
       { path: Routing.address, component: AddressesComponent },
       { path: Routing.personalInfo, component: PersonalInfoComponent },
-      { path: Routing.comments, component: UserCommentsComponent },
+      { path: Routing.comments, component: CommentQuestionComponent },
       { path: Routing.myBox, component: MyBoxesComponent },
       { path: Routing.credits, component: CreditsComponent },
     ],

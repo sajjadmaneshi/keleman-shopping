@@ -66,7 +66,7 @@ export class InitialAppService implements OnDestroy {
           this._profileService.getUserAccount().then((result) => {
             this.userCredit.next(result!);
           });
-          // this._basketService.getCartCount();
+          this._basketService.getCartCount();
         }
 
         if (productcategories) this.productCategories.next(productcategories);

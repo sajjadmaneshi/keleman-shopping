@@ -1,6 +1,6 @@
 export interface UserCommentViewModel {
   id: number;
-  date: string;
+  dateTime: string;
   comment: string;
   allowToShow: boolean;
   product: {

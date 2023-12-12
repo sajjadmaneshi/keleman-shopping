@@ -5,6 +5,7 @@ import { SnackBarService } from '../../../../shared/components/snack-bar/snack-b
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 import { UpdateBasketDto } from '../data/dto/update-basket.dto';
+import { BasketViewModel } from '../data/models/basket.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class BasketService {
@@ -12,6 +13,8 @@ export class BasketService {
   productCountInBasket = new BehaviorSubject(0);
 
   cartCount = new BehaviorSubject(0);
+
+  basketItems = new BehaviorSubject<BasketViewModel | null>(null);
   constructor(
     private readonly _basketRepository: BasketRepository,
     private readonly _snackBar: SnackBarService,
@@ -68,7 +71,21 @@ export class BasketService {
       );
   }
 
-  public getBasket() {}
+  public getBasket() {
+    this._loadingService.startLoading('read');
+    this._basketRepository
+      .getBasket()
+      .pipe(
+        tap(() => this._loadingService.stopLoading('read')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(
+        (res) => {
+          this.basketItems.next(res.result!);
+        },
+        () => this._loadingService.stopLoading('read')
+      );
+  }
 
   private _showSuccessMessage() {
     this._snackBar.showSuccessSnackBar('محصول با موفقیت به سبد خرید افزوده شد');

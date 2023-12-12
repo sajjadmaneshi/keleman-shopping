@@ -1,0 +1,40 @@
+<div class="card card-rounded-2 border mb-3">
+  <div class="card-body d-flex flex-column">
+    <div class="d-flex justify-content-between">
+      <span>
+        <div class="symbol symbol-10 symbol-circle mx-1">
+          <img
+            loadingLazy
+            emptyImage
+            [src]="questionData.product.thumbnailImage"
+            alt="Product Thumbnail"
+          />
+        </div>
+        <span>{{ questionData.product.name }} </span>
+
+        <p class="text-muted mx-3 question-text">
+          پرسش شما:
+
+          <strong class="px-1" [innerHTML]="questionData.text"></strong>
+        </p>
+        <p class="text-muted mx-3 question-text" *ngIf="questionData.answer">
+          پاسخ:<strong
+            class="px-1"
+            [innerHTML]="questionData.answer.text"
+          ></strong>
+        </p>
+      </span>
+
+      <div class="d-flex flex-column justify-content-between">
+        <span class="text-muted text-start">
+          {{
+            persianDateTimeService.fromGregorianString(
+              questionData.dateTime,
+              "DD/jMMMM/YYYY"
+            )
+          }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

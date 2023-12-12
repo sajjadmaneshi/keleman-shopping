@@ -32,6 +32,7 @@ import { DropzoneComponent } from '../../../shared/components/dropzone/dropzone.
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
 import { PurchaseModule } from './purchase/purchase.module';
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 export const routes: Routes = [
   {
@@ -83,6 +84,7 @@ export const routes: Routes = [
     LazyLoadingDirective,
     PurchaseModule,
     EmptyImageDirective,
+    NgxSkeletonLoaderModule,
   ],
   providers: [DecimalPipe, CheckoutService],
 })

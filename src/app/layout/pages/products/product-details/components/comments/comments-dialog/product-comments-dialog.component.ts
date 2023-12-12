@@ -4,7 +4,7 @@ import { PersianDateTimeService } from '../../../../../../../shared/services/dat
 import { ProductCommentViewModel } from '../../../../data/models/view-models/product-comment.view-model';
 
 @Component({
-  selector: 'keleman-product-comments-dialog',
+  selector: 'keleman-product-comment-question-dialog',
   templateUrl: './product-comments-dialog.component.html',
   styleUrls: ['./product-comments-dialog.component.scss'],
 })

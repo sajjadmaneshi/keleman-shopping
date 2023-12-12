@@ -21,6 +21,7 @@ import { AddressDto } from './dto/address.dto';
 import { WithdrawRequestDto } from './dto/withdraw-request.dto';
 import { WithdrawRequestViewModel } from './view-models/withdraw-request-view.model';
 import { UserCommentViewModel } from './view-models/user-comment.view-model';
+import { UserQuestionViewModel } from './view-models/user-question.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileRepository extends DataService<any> {
@@ -113,6 +114,19 @@ export class ProfileRepository extends DataService<any> {
       }`
     ) as Observable<
       HttpClientResult<PaginationViewModel<UserCommentViewModel>>
+    >;
+  }
+
+  getQuestions(
+    page: number,
+    limit: number
+  ): Observable<HttpClientResult<PaginationViewModel<UserQuestionViewModel>>> {
+    return this._http.get(
+      `${this._getProfileUrl}/questions?userId=${localStorage.getItem(
+        'USERID'
+      )}&&offset=${page}&&limit=${limit}`
+    ) as Observable<
+      HttpClientResult<PaginationViewModel<UserQuestionViewModel>>
     >;
   }
 

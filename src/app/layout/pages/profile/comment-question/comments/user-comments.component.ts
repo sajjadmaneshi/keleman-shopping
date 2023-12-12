@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ProductCommentViewModel } from '../../../../shared/data/models/product-comment.view-model';
-import { ProfileRepository } from '../data/profile.repository';
+import { ProductCommentViewModel } from '../../../../../shared/data/models/product-comment.view-model';
+import { ProfileRepository } from '../../data/profile.repository';
 import { map, Subject, takeUntil, tap } from 'rxjs';
-import { UserCommentViewModel } from '../data/view-models/user-comment.view-model';
+import { UserCommentViewModel } from '../../data/view-models/user-comment.view-model';
 
 @Component({
-  selector: 'keleman-comments',
+  selector: 'keleman-user-comments',
   templateUrl: './user-comments.component.html',
   styleUrls: ['./user-comments.component.scss'],
 })

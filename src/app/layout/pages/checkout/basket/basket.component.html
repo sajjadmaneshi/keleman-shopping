@@ -1,23 +1,45 @@
-<div class="basket-body d-flex flex-column align-items-center">
-  <ng-container *ngIf="basketItems.products.length > 0; then full; else empty">
-  </ng-container>
-  <ng-template #empty>
-    <ng-container>
-      <img
-        alt="empty-basket"
-        class="empty-basket-img"
-        src="../../../../../assets/media/empty-basket.webp"
-      />
-      <span class="fs-6">سبد خرید شما خالی است!</span>
-      <a class="fw-bold text-klm-primary" [routerLink]="'/'"
-        ><u>بازگشت به فروشگاه</u></a
-      >
-    </ng-container>
-  </ng-template>
-  <ng-template #full>
-    <app-basket-item
-      *ngFor="let basketItem of basketItems.products"
-      [basketItem]="basketItem"
-    ></app-basket-item>
-  </ng-template>
-</div>
+<ng-content
+  *ngIf="
+    (loadingService.getLoadingStateObservable('read') | async)!;
+    then loading;
+    else content
+  "
+></ng-content>
+<ng-template #loading>
+  <ngx-skeleton-loader
+    [theme]="{ width: '100%', height: '150px' }"
+    count="2"
+  ></ngx-skeleton-loader>
+</ng-template>
+
+<ng-template #content>
+  <div class="basket-body d-flex flex-column align-items-center">
+    <ng-content
+      *ngIf="
+        basketItems.cart_items != null && basketItems.cart_items.length > 0;
+        then full;
+        else empty
+      "
+    >
+    </ng-content>
+    <ng-template #empty>
+      <ng-container>
+        <img
+          alt="empty-basket"
+          class="empty-basket-img"
+          src="../../../../../assets/media/empty-basket.webp"
+        />
+        <span class="fs-6">سبد خرید شما خالی است!</span>
+        <a class="fw-bold text-klm-primary" [routerLink]="'/'"
+          ><u>بازگشت به فروشگاه</u></a
+        >
+      </ng-container>
+    </ng-template>
+    <ng-template #full>
+      <app-basket-item
+        *ngFor="let basketItem of basketItems.cart_items"
+        [basketItem]="basketItem"
+      ></app-basket-item>
+    </ng-template>
+  </div>
+</ng-template>

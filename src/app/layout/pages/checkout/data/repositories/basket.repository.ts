@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { AddToCartDto } from '../dto/add-to-cart.dto';
 import { UpdateBasketDto } from '../dto/update-basket.dto';
+import { BasketViewModel } from '../models/basket.view-model';
 
 @Injectable()
 export class BasketRepository extends DataService<BasketItemViewModel> {
@@ -13,10 +14,10 @@ export class BasketRepository extends DataService<BasketItemViewModel> {
     super('cart', _http);
   }
 
-  getBasket(): Observable<HttpClientResult<any>> {
+  getBasket(): Observable<HttpClientResult<BasketViewModel>> {
     return this._http.get(
       `${this._getCartUrl}?userId=${localStorage.getItem('USERID')}`
-    ) as Observable<HttpClientResult<any>>;
+    ) as Observable<HttpClientResult<BasketViewModel>>;
   }
 
   getCartCount(): Observable<HttpClientResult<number>> {

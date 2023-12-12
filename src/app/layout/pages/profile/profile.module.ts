@@ -35,7 +35,7 @@ import { AutoCompleteComponent } from '../../../shared/components/auto-complete/
 import { MatComponentsModule } from '../../../mat-components.module';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { MatSelectModule } from '@angular/material/select';
-import { UserCommentsComponent } from './comments/user-comments.component';
+import { UserCommentsComponent } from './comment-question/comments/user-comments.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AddressItemComponent } from './address/address-item/address-item.component';
@@ -67,8 +67,11 @@ import { ErrorFeedbackDirective } from '../../../shared/directives/error-feedbac
 import { WithdrawRequestDialogComponent } from './wallet/components/withdraw-request-dialog/withdraw-request-dialog.component';
 import { WithdrawRequestHistoryComponent } from './wallet/components/withdraw-request-history/withdraw-request-history.component';
 import { NumberToPersianPipe } from '../../../shared/pipes/num2persian.pipe';
-import { UserCommentItemComponent } from './comments/user-comment-item/user-comment-item.component';
+import { UserCommentItemComponent } from './comment-question/comments/user-comment-item/user-comment-item.component';
 import { MatListModule } from '@angular/material/list';
+import { UserQuestionsComponent } from './comment-question/questions/user-questions.component';
+import { UserQuestionItemComponent } from './comment-question/questions/user-question-item/user-question-item.component';
+import { CommentQuestionComponent } from './comment-question/comment-question.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +102,9 @@ import { MatListModule } from '@angular/material/list';
     WithdrawRequestDialogComponent,
     WithdrawRequestHistoryComponent,
     UserCommentItemComponent,
+    UserQuestionsComponent,
+    UserQuestionItemComponent,
+    CommentQuestionComponent,
   ],
   imports: [
     CommonModule,

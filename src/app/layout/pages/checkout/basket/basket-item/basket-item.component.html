@@ -12,19 +12,19 @@
     <div class="row border-end border-gray-400 w-100 p-3">
       <div class="col-3 d-flex flex-column align-items-center">
         <div class="mb-3 symbol symbol-22 symbol-lg-30">
-          <img loadingLazy emptyImage [src]="basketItem.product.image" />
+          <img loadingLazy emptyImage [src]="basketItem.product.imageUrl" />
         </div>
         <keleman-value-changer
           class="w-100"
-          [initialValue]="basketItem.count"
+          [initialValue]="basketItem.quantity"
           (increse)="addToBasket()"
           (decrease)="removeFromBasket()"
         ></keleman-value-changer>
       </div>
       <div class="col-9">
-        <a [routerLink]="['/products/detail/' + basketItem.product.name]">
+        <a [routerLink]="['/products/detail/' + basketItem.product.title_fa]">
           <h6 class="fw-bold mb-3">
-            {{ basketItem.product.name }}
+            {{ basketItem.product.title_fa }}
           </h6>
         </a>
 
@@ -35,7 +35,7 @@
 
         <h6 class="d-flex align-items-center">
           <mat-icon class="mx-3" inline>store</mat-icon>
-          {{ basketItem.product.seller.name }}
+          {{ basketItem.storeName }}
         </h6>
         <span class="fs-6 d-flex align-items-center">
           <mat-icon class="mx-3" inline>local_shipping</mat-icon>
@@ -43,16 +43,16 @@
         </span>
         <div class="position-absolute left-4 bottom-4">
           <keleman-price
-            [value]="basketItem.product.currentPrice"
+            [value]="basketItem.price.price"
             [color]="'dark'"
             [size]="'h5'"
           ></keleman-price>
           <keleman-price
-            [value]="basketItem.product.currentPrice"
+            [value]="basketItem.price.sellingPrice"
             [color]="'dark'"
             [size]="'h6'"
             [off]="true"
-            [discount]="10"
+            [discount]="basketItem.price.discount"
           ></keleman-price>
         </div>
       </div>
