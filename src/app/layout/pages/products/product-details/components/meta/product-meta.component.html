@@ -27,51 +27,41 @@
       <keleman-price [size]="'h5'" [value]="details.price!"></keleman-price>
     </ng-template>
     <div class="row align-items-center d-none d-lg-flex">
-      <ng-content
-        *ngIf="
-          productCountInBasket == 0;
-          then addToBasketTemplate;
-          else valueChanger
-        "
-      ></ng-content>
-      <ng-template #addToBasketTemplate>
-        <div class="col-12">
-          <button
-            class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
-            kelemanLoadingProgress
-            [loading]="
-              (loadingService.getLoadingStateObservable('add') | async)!
-            "
-            [disabled]="details.price < 1 || details.currentStock < 1"
-            (click)="isLoggedIn ? addToBasketAuthorized() : addToBasketGuest()"
-          >
-            {{
-              details.currentStock > 1 && details.price > 1
-                ? "افزودن به سبد خرید"
-                : details.currentStock < 1
-                ? "ناموجود"
-                : "تماس بگیرید"
-            }}
-          </button>
-        </div>
-      </ng-template>
-      <ng-template #valueChanger>
-        <div class="col-6">
-          <keleman-value-changer
-            [initialValue]="productCountInBasket"
-            (increse)="
-              isLoggedIn ? updateBasketAuthorized($event) : addToBasketGuest()
-            "
-            (decrease)="
-              isLoggedIn ? updateBasketAuthorized($event) : removeFromBasket()
-            "
-          ></keleman-value-changer>
-        </div>
-        <div class="col-6">
-          <span class="d-block">در سبد خرید شما</span>
-          <span>مشاهده سبد خرید</span>
-        </div>
-      </ng-template>
+      @if (inBasketCount == 0){
+      <div class="col-12">
+        <button
+          class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
+          kelemanLoadingProgress
+          [loading]="(loadingService.getLoadingStateObservable('add') | async)!"
+          [disabled]="details.price < 1 || details.currentStock < 1"
+          (click)="isLoggedIn ? addToBasketAuthorized() : addToBasketGuest()"
+        >
+          {{
+            details.currentStock > 1 && details.price > 1
+              ? "افزودن به سبد خرید"
+              : details.currentStock < 1
+              ? "ناموجود"
+              : "تماس بگیرید"
+          }}
+        </button>
+      </div>
+      } @else {
+      <div class="col-6">
+        <keleman-value-changer
+          [initialValue]="inBasketCount"
+          (increse)="
+            isLoggedIn ? updateBasketAuthorized($event) : addToBasketGuest()
+          "
+          (decrease)="
+            isLoggedIn ? updateBasketAuthorized($event) : removeFromBasket()
+          "
+        ></keleman-value-changer>
+      </div>
+      <div class="col-6">
+        <span class="d-block">در سبد خرید شما</span>
+        <span>مشاهده سبد خرید</span>
+      </div>
+      }
     </div>
   </div>
 </div>

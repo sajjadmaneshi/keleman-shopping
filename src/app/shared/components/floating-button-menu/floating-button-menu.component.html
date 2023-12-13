@@ -5,15 +5,9 @@
   [ngClass]="{ animate__heartBeat: !menuOpened }"
   (click)="toggleClass()"
 >
-  <ng-container *ngIf="menuOpened; then close; else headset"></ng-container>
-  <ng-template #headset>
-    <mat-icon class="menu-icon contact-us" [inline]="true"
-      >headset_mic</mat-icon
-    >
-  </ng-template>
-  <ng-template #close>
-    <mat-icon class="menu-icon contact-us" [inline]="true">close</mat-icon>
-  </ng-template>
+  <mat-icon class="menu-icon contact-us" [inline]="true">
+    @if(menuOpened){ close } @else { headset_mic }
+  </mat-icon>
 
   <div class="menu menu1" ngbTooltip="درخواست تماس" container="body">
     <mat-icon class="menu-icon" [inline]="true">edit</mat-icon>

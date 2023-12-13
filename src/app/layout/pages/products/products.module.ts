@@ -74,7 +74,6 @@ import { ShareDialogComponent } from './product-details/components/content/share
 import { MagazineModule } from '../magazine/magazine.module';
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
 import { BasketRepository } from '../checkout/data/repositories/basket.repository';
-import { BasketService } from '../checkout/purchase/basket.service';
 
 @NgModule({
   declarations: [

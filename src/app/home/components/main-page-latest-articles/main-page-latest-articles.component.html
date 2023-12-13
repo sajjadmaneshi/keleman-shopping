@@ -12,21 +12,16 @@
     </div>
   </div>
   <div class="row g-4 g-md-3">
-    <div
-      class="col-6 col-md-4 col-lg-3"
-      *ngFor="let article of articles; trackBy: tranckByFn"
-    >
-      <ng-container
-        *ngIf="isLoading; then loading; else content"
-      ></ng-container>
-      <ng-template #loading>
-        <ngx-skeleton-loader
-          [theme]="{ width: '100%', height: '500px' }"
-        ></ngx-skeleton-loader>
-      </ng-template>
-      <ng-template #content>
-        <keleman-article-item [articleDetails]="article"></keleman-article-item>
-      </ng-template>
+    @for (article of articles;track article.id){
+    <div class="col-6 col-md-4 col-lg-3">
+      @if (isLoading){
+      <ngx-skeleton-loader
+        [theme]="{ width: '100%', height: '500px' }"
+      ></ngx-skeleton-loader>
+      } @else {
+      <keleman-article-item [articleDetails]="article"></keleman-article-item>
+      }
     </div>
+    }
   </div>
 </div>

@@ -10,19 +10,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MagazineModule } from './layout/pages/magazine/magazine.module';
-import { SwiperComponent } from './shared/components/swiper/swiper.component';
 import { ApplicationStateService } from './shared/services/application-state.service';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
 import { AppErrorHandler } from '../common/errors/app-error-handler';
 import { FloatingButtonMenuComponent } from './shared/components/floating-button-menu/floating-button-menu.component';
-import { SwiperModule } from 'swiper/angular';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InitialAppService } from './shared/services/initial-app.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BasketRepository } from './layout/pages/checkout/data/repositories/basket.repository';
+import { PaymentGatewayRepository } from './layout/pages/checkout/data/repositories/payment-gateway.repository';
 
 export function initializeApp(
   initialAppService: InitialAppService
@@ -56,6 +53,7 @@ export function tokenGetter() {
   ],
   providers: [
     BasketRepository,
+    PaymentGatewayRepository,
     ApplicationStateService,
     InitialAppService,
     {

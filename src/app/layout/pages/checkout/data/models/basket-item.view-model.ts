@@ -1,12 +1,14 @@
 export interface BasketItemViewModel {
   id: number;
   product: {
-    image: string;
+    id: number;
     name: string;
+    thumbnailImage: string;
     seller: string;
     price: number;
-    off: number;
-    priceAfterOff: number;
+    priceAfterDiscount: number;
+    discount: number;
   };
   count: number;
+  reciveTime: string;
 }

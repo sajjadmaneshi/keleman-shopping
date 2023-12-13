@@ -23,7 +23,7 @@ export class ProductMetaComponent implements OnInit {
   subscription!: Subscription;
 
   isInBasket = false;
-  productCountInBasket = 0;
+  inBasketCount = 0;
   @Input() isLoggedIn = false;
   @Input() productDetail!: ProductDetailViewModel;
   @Input() details!: { price: number; currentStock: number };
@@ -32,12 +32,12 @@ export class ProductMetaComponent implements OnInit {
     private _productRepository: ProductRepository,
     public sharedVariableService: SharedVariablesService,
     private _guestBasketService: GuestBasketService,
-    private _basketServie: BasketService,
+    private _basketService: BasketService,
     public readonly loadingService: LoadingService
   ) {
     this._getProductSpecification();
-    this._basketServie.productCountInBasket.subscribe((res) => {
-      this.productCountInBasket = res;
+    this._basketService.cartCount.subscribe((res) => {
+      this.inBasketCount = res;
     });
   }
 
@@ -58,7 +58,7 @@ export class ProductMetaComponent implements OnInit {
 
     if (!this.isLoggedIn) {
       this._guestBasketService.addToBasket(productItem);
-      this.productCountInBasket++;
+      this.inBasketCount++;
     }
   }
 
@@ -67,7 +67,7 @@ export class ProductMetaComponent implements OnInit {
       productId: this.productDetail.id,
       // storeId: this.productDetail.stores[0].id,
     } as AddToCartDto;
-    this._basketServie.addToBasket(dto);
+    this._basketService.addToBasket(dto);
   }
 
   updateBasketAuthorized(count: number) {
@@ -76,13 +76,13 @@ export class ProductMetaComponent implements OnInit {
       // storeId: this.productDetail.stores[0].id,
       count,
     } as UpdateBasketDto;
-    this._basketServie.updateBasket(dto);
+    this._basketService.updateBasket(dto);
   }
 
   removeFromBasket() {
     if (!this.isLoggedIn) {
       this._guestBasketService.removeFromBasket(this.productDetail.id);
-      this.productCountInBasket--;
+      this.inBasketCount--;
     }
   }
 
@@ -92,10 +92,12 @@ export class ProductMetaComponent implements OnInit {
         this.productDetail.id
       );
       if (this.isInBasket)
-        this.productCountInBasket =
-          this._guestBasketService.getProductCountInBasket(
-            this.productDetail.id
-          );
+        this.inBasketCount = this._guestBasketService.getProductCountInBasket(
+          this.productDetail.id
+        );
+      this._basketService
+        .inBasketCount(this.productDetail.id)
+        .subscribe((result) => (this.inBasketCount = result));
     }
   }
 }

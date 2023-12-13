@@ -2,64 +2,38 @@
   <div class="card-body">
     <span class="fs-5 d-block"> نظرات </span>
 
-    <ng-content
-      *ngIf="comments.length > 0; then hasComment; else noComment"
-    ></ng-content>
-    <ng-template #hasComment>
-      <mat-list>
-        <mat-list-item
-          *ngFor="let comment of comments; trackBy: tranckByFn"
-          class="px-0"
-        >
-          <div matListItemIcon class="symbol symbol-10 symbol-circle mx-3">
-            <img src="assets/media/blank.webp" />
-          </div>
-          <div matListItemTitle>
-            <span>
-              <strong>
-                {{ comment.commenter }}
-              </strong>
-              -
-              <span class="text-muted">
-                {{
-                  persianDateTimeService.fromGregorianString(
-                    comment.dateTime,
-                    "DDjMMMM YYYY"
-                  )
-                }}
-              </span>
+    @if (comments.length > 0){
+    <mat-list>
+      <mat-list-item
+        *ngFor="let comment of comments; trackBy: tranckByFn"
+        class="px-0"
+      >
+        <div matListItemIcon class="symbol symbol-10 symbol-circle mx-3">
+          <img src="assets/media/blank.webp" />
+        </div>
+        <div matListItemTitle>
+          <span>
+            <strong>
+              {{ comment.commenter }}
+            </strong>
+            -
+            <span class="text-muted">
+              {{
+                persianDateTimeService.fromGregorianString(
+                  comment.dateTime,
+                  "DDjMMMM YYYY"
+                )
+              }}
             </span>
-          </div>
-          <div matListItemLine [innerHTML]="comment.comment"></div>
-          <!--          <span class="d-flex align-items-center">-->
-          <!--            <div class="symbol symbol-10 symbol-circle ms-3">-->
-          <!--              <img src="assets/media/blank.webp" />-->
-          <!--            </div>-->
-          <!--            <div>-->
-          <!--              <span>-->
-          <!--                <strong>-->
-          <!--                  {{ comment.commenter }}-->
-          <!--                </strong>-->
-          <!--                - -->
-          <!--                <span class="text-muted">-->
-          <!--                  {{-->
-          <!--                    persianDateTimeService.fromGregorianString(-->
-          <!--                      comment.dateTime,-->
-          <!--                      "DDjMMMM YYYY"-->
-          <!--                    )-->
-          <!--                  }}-->
-          <!--                </span>-->
-          <!--              </span>-->
-          <!--              <p [innerHTML]="comment.comment"></p>-->
-          <!--            </div>-->
-          <!--          </span>-->
-        </mat-list-item>
-      </mat-list>
-      <mat-divider></mat-divider>
-    </ng-template>
-    <ng-template #noComment>
-      <span class="fs-6 text-muted">نظری برای این مقاله ثبت نگردیده است</span>
-    </ng-template>
+          </span>
+        </div>
+        <div matListItemLine [innerHTML]="comment.comment"></div>
+      </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    } @else {
+    <span class="fs-6 text-muted">نظری برای این مقاله ثبت نگردیده است</span>
+    }
   </div>
 </div>
 
@@ -76,9 +50,9 @@
           [class.is-invalid]="commenter.invalid && formIsSubmitted"
           required
         />
-        <ng-template [ngIf]="commenter.invalid && formIsSubmitted">
-          <span class="invalid-feedback">لطفا نام خود را وارد کنید</span>
-        </ng-template>
+        @if (commenter.invalid && formIsSubmitted){
+        <span class="invalid-feedback">لطفا نام خود را وارد کنید</span>
+        }
       </div>
       <div class="form-group">
         <label class="h6 fw-bolder mb-3" for="comment-text">متن دیدگاه </label>
@@ -89,9 +63,9 @@
           placeholder="متن دیدگاه"
           [class.is-invalid]="comment.invalid && formIsSubmitted"
         ></textarea>
-        <ng-template [ngIf]="comment.invalid && formIsSubmitted">
-          <span class="invalid-feedback">لطفا دیدگاه خود را وارد کنید</span>
-        </ng-template>
+        @if (comment.invalid && formIsSubmitted){
+        <span class="invalid-feedback">لطفا دیدگاه خود را وارد کنید</span>
+        }
       </div>
 
       <button

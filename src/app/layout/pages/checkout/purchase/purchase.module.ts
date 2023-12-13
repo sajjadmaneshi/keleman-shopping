@@ -6,7 +6,6 @@ import { UntilFreeShippingComponent } from './components/until-free-shipping/unt
 import { PurchaseComponent } from './purchase.component';
 import { PriceComponent } from '../../../../shared/components/price/price.component';
 import { MainPurchaseComponent } from './components/main-purchase/main-purchase.component';
-import { BasketService } from './basket.service';
 import { BasketRepository } from '../data/repositories/basket.repository';
 
 @NgModule({
@@ -18,7 +17,7 @@ import { BasketRepository } from '../data/repositories/basket.repository';
     MainPurchaseComponent,
   ],
   imports: [CommonModule, AsyncPipe, NgIf, DecimalPipe, PriceComponent],
-  providers: [BasketRepository, BasketService],
+  providers: [BasketRepository],
   exports: [PurchaseComponent],
 })
 export class PurchaseModule {}

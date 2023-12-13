@@ -9,5 +9,7 @@ import { BasketService } from './purchase/basket.service';
 export class CheckoutComponent {
   constructor(private _basketService: BasketService) {
     this._basketService.getBasket();
+    this._basketService.getBasketCheckout();
+    this._basketService.getPaymentGateways();
   }
 }

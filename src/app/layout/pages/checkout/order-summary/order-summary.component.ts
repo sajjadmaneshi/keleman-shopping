@@ -3,7 +3,7 @@ import { GuestBasketService } from '../guest-basket.service';
 import { ProductDetailViewModel } from '../../products/data/models/view-models/product-detail.view-model';
 import { Subject, takeUntil } from 'rxjs';
 import { BasketService } from '../purchase/basket.service';
-import { BasketViewModel } from '../data/models/basket.view-model';
+import { BasketItemViewModel } from '../data/models/basket-item.view-model';
 
 @Component({
   selector: 'keleman-order-summary',
@@ -13,7 +13,7 @@ import { BasketViewModel } from '../data/models/basket.view-model';
 export class OrderSummaryComponent implements OnDestroy {
   destroy$ = new Subject<void>();
   summary: { product: ProductDetailViewModel; count: number }[] = [];
-  basketItems!: BasketViewModel;
+  basketItems: BasketItemViewModel[] = [];
   constructor(
     private _guestBasketService: GuestBasketService,
     public basketService: BasketService

@@ -17,12 +17,14 @@
 
           <strong class="px-1" [innerHTML]="questionData.text"></strong>
         </p>
-        <p class="text-muted mx-3 question-text" *ngIf="questionData.answer">
+        @if(questionData.answer){
+        <p class="text-muted mx-3 question-text">
           پاسخ:<strong
             class="px-1"
             [innerHTML]="questionData.answer.text"
           ></strong>
         </p>
+        }
       </span>
 
       <div class="d-flex flex-column justify-content-between">

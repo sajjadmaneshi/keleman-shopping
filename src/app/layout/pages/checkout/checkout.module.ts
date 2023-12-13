@@ -33,6 +33,7 @@ import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.di
 import { PurchaseModule } from './purchase/purchase.module';
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { PaymentGatewayRepository } from './data/repositories/payment-gateway.repository';
 
 export const routes: Routes = [
   {

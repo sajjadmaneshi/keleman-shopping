@@ -5,7 +5,10 @@
   <div class="payment-methods">
     <div class="payment-item" *ngFor="let gateway of paymentGateWays">
       <div class="symbol">
-        <img loadingLazy emptyImage [src]="gateway.logo" />
+        <img
+          loadingLazy
+          [src]="'assets/media/pGateway/' + gateway.enName + '.png'"
+        />
       </div>
       <span class="fs-6">{{ gateway.name }}</span>
     </div>

@@ -3,96 +3,62 @@
   [productDetails]="productDetails"
 ></keleman-product-content>
 
-<ng-template [ngIf]="productDetails">
-  <keleman-product-navbar
-    [productId]="productDetails.id"
-  ></keleman-product-navbar>
-</ng-template>
-
-<ng-container
-  *ngIf="
-    applicationState.isPhone || applicationState.isTablet;
-    then mobile;
-    else web
-  "
-></ng-container>
-
-<ng-template #mobile>
-  <div class="fixed-bottom mt-5">
-    <div class="card shadow-lg bg-white">
-      <div class="card-body row m-0">
-        <ng-template [ngIf]="productDetails">
-          <div class="col-6">
-            <ng-content
-              *ngIf="
-                productCountInBasket == 0;
-                then addToBasketTemplate;
-                else valueChanger
-              "
-            ></ng-content>
-            <ng-template #addToBasketTemplate>
-              <button
-                class="actions__buttons text-klm-primary fs-5 fw-bolder w-100"
-                [disabled]="productStatus !== availableStatusEnum.AVAILABLE"
-                (click)="addToBasket()"
-              >
-                افزودن به سبد خرید
-              </button>
-            </ng-template>
-            <ng-template #valueChanger>
-              <keleman-value-changer
-                [initialValue]="productCountInBasket"
-                (increse)="addToBasket()"
-                (decrease)="removeFromBasket()"
-              ></keleman-value-changer>
-            </ng-template>
-          </div>
-          <div class="col-6 d-flex align-items-center justify-content-center">
-            <ng-container
-              *ngIf="
-                productStatus === availableStatusEnum.UNAVAILABLE;
-                then unavailable;
-                else available
-              "
-            ></ng-container>
-            <ng-template #unavailable>
-              <h3>نا موجود</h3>
-            </ng-template>
-            <ng-template #available>
-              <ng-template
-                [ngIf]="productStatus === availableStatusEnum.AVAILABLE"
-              >
-                <keleman-price
-                  [value]="productDetails.currentPrice"
-                  [color]="'dark'"
-                  [size]="'h3'"
-                  [off]="false"
-                  [discount]="25"
-                ></keleman-price>
-              </ng-template>
-              <ng-template
-                [ngIf]="productStatus === availableStatusEnum.NOPRICE"
-              >
-                <h3>تماس بگیرید</h3>
-              </ng-template>
-            </ng-template>
-          </div>
-        </ng-template>
+@if(productDetails){
+<keleman-product-navbar
+  [productId]="productDetails.id"
+></keleman-product-navbar>
+@if( (applicationState.isPhone || applicationState.isTablet)){
+<div class="fixed-bottom mt-5">
+  <div class="card shadow-lg bg-white">
+    <div class="card-body row m-0">
+      <div class="col-6">
+        @if ( inBasketCount == 0){
+        <button
+          class="actions__buttons text-klm-primary fs-5 fw-bolder w-100"
+          [disabled]="productStatus !== availableStatusEnum.AVAILABLE"
+          (click)="addToBasket()"
+        >
+          افزودن به سبد خرید
+        </button>
+        } @else {
+        <keleman-value-changer
+          [initialValue]="productCountInBasket"
+          (increse)="addToBasket()"
+          (decrease)="removeFromBasket()"
+        ></keleman-value-changer>
+        }
+      </div>
+      <div class="col-6 d-flex align-items-center justify-content-center">
+        @if (productStatus === availableStatusEnum.UNAVAILABLE){
+        <h3>نا موجود</h3>
+        } @else if (productStatus === availableStatusEnum.AVAILABLE) {
+        <keleman-price
+          [value]="productDetails.currentPrice"
+          [color]="'dark'"
+          [size]="'h3'"
+          [off]="false"
+          [discount]="25"
+        ></keleman-price>
+        } @else {
+        <h3>تماس بگیرید</h3>
+        }
       </div>
     </div>
   </div>
-</ng-template>
-<ng-template #web>
-  <keleman-product-specifications></keleman-product-specifications>
-  <div id="checking-and-rate">
-    <div class="row mx-0 mb-3" *ngIf="productDetails">
-      <div class="col-6 pe-0" id="comment">
-        <product-comments [productId]="productDetails.id"></product-comments>
-      </div>
-      <div class="col-6 ps-0">
-        <keleman-faq [productId]="productDetails.id"></keleman-faq>
-      </div>
+</div>
+} @else {
+<keleman-product-specifications></keleman-product-specifications>
+<div id="checking-and-rate">
+  <div class="row mx-0 mb-3">
+    <div class="col-6 pe-0" id="comment">
+      <product-comments [productId]="productDetails.id"></product-comments>
+    </div>
+    <div class="col-6 ps-0">
+      <keleman-faq [productId]="productDetails.id"></keleman-faq>
     </div>
   </div>
-</ng-template>
+</div>
+}
+
 <keleman-related-products></keleman-related-products>
+}

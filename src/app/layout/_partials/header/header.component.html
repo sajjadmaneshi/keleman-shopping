@@ -1,21 +1,13 @@
 <header class="bg-white shadow-sm pt-3 fixed-top" id="keleman-header" #header>
-  <ng-container
-    *ngIf="
-      applicationState.isPhone || applicationState.isTablet;
-      then mobileHeader;
-      else desktopHeader
-    "
-  ></ng-container>
-  <ng-template #mobileHeader>
-    <keleman-header-mobile [basketCount]="basketCount"></keleman-header-mobile>
-  </ng-template>
-  <ng-template #desktopHeader>
-    <div class="d-flex flex-column w-100 align-items-start header-container">
-      <keleman-top-menu
-        class="w-100"
-        [basketCount]="basketCount"
-      ></keleman-top-menu>
-      <keleman-header-menu class="w-100"></keleman-header-menu>
-    </div>
-  </ng-template>
+  @if ( applicationState.isPhone || applicationState.isTablet){
+  <keleman-header-mobile [basketCount]="basketCount"></keleman-header-mobile>
+  }@else{
+  <div class="d-flex flex-column w-100 align-items-start header-container">
+    <keleman-top-menu
+      class="w-100"
+      [basketCount]="basketCount"
+    ></keleman-top-menu>
+    <keleman-header-menu class="w-100"></keleman-header-menu>
+  </div>
+  }
 </header>

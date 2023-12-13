@@ -2,24 +2,33 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AttachReceiptDialogComponent } from './attach-receipt-dilog/attach-receipt-dialog.component';
 import { AttachChequeDialogComponent } from './attach-cheque-dialog/attach-cheque-dialog.component';
-import { PaymentGatewayRepository } from './data/repositories/payment-gateway.repository';
-import { PaymentGatewayViewModel } from './data/models/payment-gateway.view-model';
-import { Subscription } from 'rxjs';
+
+import { Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { BasketService } from '../purchase/basket.service';
+import { PaymentGatewayViewModel } from '../data/models/payment-gateway.view-model';
 
 @Component({
   selector: 'keleman-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
-  providers: [PaymentGatewayRepository],
 })
 export class PaymentComponent {
+  isLoading = false;
+  destroy$ = new Subject<void>();
   paymentGateWays: PaymentGatewayViewModel[] = [];
   sunbscriptions = new Subscription();
   constructor(
     private _dialog: MatDialog,
-    private _repository: PaymentGatewayRepository
+    private _basketService: BasketService
   ) {
-    this._getPaymentGateways();
+    this._basketService.paymentGateways
+      .pipe(
+        tap(() => (this.isLoading = false)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((result) => {
+        this.paymentGateWays = result;
+      });
   }
 
   openAttachReceiptDialog(): void {
@@ -39,10 +48,5 @@ export class PaymentComponent {
     });
   }
 
-  private _getPaymentGateways() {
-    const paymentGayeWays$ = this._repository.getAll().subscribe((result) => {
-      this.paymentGateWays = result;
-    });
-    this.sunbscriptions.add(paymentGayeWays$);
-  }
+  private _getPaymentGateways() {}
 }

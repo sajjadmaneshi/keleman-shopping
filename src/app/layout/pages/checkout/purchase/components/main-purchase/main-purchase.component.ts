@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { GuestBasketService } from '../../../guest-basket.service';
+import { BasketService } from '../../basket.service';
+import { CheckoutModule } from '../../../checkout.module';
+import { BasketCheckoutViewModel } from '../../../data/models/basket-checkout.view-model';
 
 @Component({
   selector: 'keleman-main-purchase',
@@ -8,9 +11,17 @@ import { GuestBasketService } from '../../../guest-basket.service';
 })
 export class MainPurchaseComponent {
   totalPrice: number = 0;
-  constructor(private _basketServie: GuestBasketService) {
-    this._basketServie.totalPrice$.subscribe((res) => {
+  checkoutDetails = new BasketCheckoutViewModel(0, 0, 0);
+
+  constructor(
+    private _guestBasketService: GuestBasketService,
+    private _basketService: BasketService
+  ) {
+    this._guestBasketService.totalPrice$.subscribe((res) => {
       this.totalPrice = res;
+    });
+    this._basketService.basketCheckout.subscribe((checkout) => {
+      this.checkoutDetails = checkout;
     });
   }
 }

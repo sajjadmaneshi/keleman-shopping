@@ -16,9 +16,7 @@
       <ng-template [ngTemplateOutlet]="slide.template">
         <ng-template
           [ngTemplateOutlet]="slide.template"
-          [ngTemplateOutletContext]="{
-            $implicit: slide.template
-          }"
+          [ngTemplateOutletContext]="returnContent(slide)"
         ></ng-template>
       </ng-template>
     </ng-template>

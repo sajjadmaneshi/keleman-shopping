@@ -28,30 +28,17 @@
         [class.is-invalid]="amount.invalid && isFormSubmitted"
         formControlName="amount"
       />
+      @if (amount.hasError('required') && isFormSubmitted){
+      <span class="invalid-feedback"> لطفا مبلغ برداشت را وارد نمایید. </span>
+      } @else if ( amount.hasError('min') && isFormSubmitted){
+      <span class="invalid-feedback"> مبلغ برداشت باید بیشتر از 0 باشد </span>
+      } @if (amount.value&&amount.value>0){
+      <span class="d-flex">
+        <label class="fw-bold">معادل: </label>
 
-      <span
-        *ngIf="amount.hasError('required') && isFormSubmitted"
-        class="invalid-feedback"
-      >
-        لطفا مبلغ برداشت را وارد نمایید.
+        <span>{{ amount.value | numberToPersian }}</span>
       </span>
-      <ng-template [ngIf]="amount.value">
-        <span class="d-flex">
-          <label class="fw-bold">معادل: </label>
-
-          <span>{{ amount.value | numberToPersian }}</span>
-        </span>
-      </ng-template>
-      <span
-        *ngIf="
-          !amount.hasError('required') &&
-          amount.hasError('min') &&
-          isFormSubmitted
-        "
-        class="invalid-feedback"
-      >
-        مبلغ برداشت باید بیشتر از 0 باشد
-      </span>
+      }
     </div>
 
     <div class="form-group">

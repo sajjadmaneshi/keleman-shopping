@@ -3,28 +3,22 @@
     <div class="card-body nil-space d-flex flex-column justify-content-start">
       <span class="material-icons-outlined" (click)="onClose()"> close </span>
 
-      <ng-container
-        *ngIf="isLoggedIn && userProfileInfo; then userInfo; else register"
-      ></ng-container>
-
-      <ng-template #register>
-        <a
-          [routerLink]="['register']"
-          (click)="onClose()"
-          class="register-login-button"
-        >
-          <h2 class="fw-bold py-3 mb-3 border-bottom border-gray-300">
-            ورود/ثبت نام
-          </h2>
-        </a>
-      </ng-template>
-
-      <ng-template #userInfo>
+      @if (isLoggedIn && userProfileInfo){
+      <h2 class="fw-bold py-3 mb-3 border-bottom border-gray-300">
+        {{ userProfileInfo.firstName }}
+        {{ userProfileInfo.lastName }}
+      </h2>
+      } @else {
+      <a
+        [routerLink]="['register']"
+        (click)="onClose()"
+        class="register-login-button"
+      >
         <h2 class="fw-bold py-3 mb-3 border-bottom border-gray-300">
-          {{ userProfileInfo.firstName }}
-          {{ userProfileInfo.lastName }}
+          ورود/ثبت نام
         </h2>
-      </ng-template>
+      </a>
+      }
 
       <ul class="off-canvas-menu px-3">
         <li class="menu-item py-3">
@@ -58,19 +52,14 @@
               <div ngbAccordionBody>
                 <ng-template>
                   <ul class="column pe-3">
-                    <ng-template
-                      ngFor
-                      let-child
-                      [ngForOf]="articleCategories"
-                      let-i="index"
+                    @for (child of articleCategories;track child.id){
+                    <li
+                      [routerLink]="['magazine', child.url]"
+                      (click)="onClose()"
                     >
-                      <li
-                        [routerLink]="['magazine', child.url]"
-                        (click)="onClose()"
-                      >
-                        {{ child.name }}
-                      </li>
-                    </ng-template>
+                      {{ child.name }}
+                    </li>
+                    }
                   </ul>
                 </ng-template>
               </div>
@@ -97,10 +86,8 @@
         <h4 class="py-3 fw-bold">دسته بندی کالا ها</h4>
 
         <div ngbAccordion [closeOthers]="true">
-          <div
-            ngbAccordionItem=""
-            *ngFor="let rootCategory of productCategories"
-          >
+          @for (rootCategory of productCategories;track rootCategory.id){
+          <div ngbAccordionItem="">
             <h2 ngbAccordionHeader>
               <button ngbAccordionButton>{{ rootCategory.titleFa }}</button>
             </h2>
@@ -115,38 +102,34 @@
                     <mat-icon>chevron_left</mat-icon>
                   </span>
                   <ul class="column pe-3">
-                    <ng-template
-                      ngFor
-                      let-child
-                      [ngForOf]="rootCategory.children"
-                      let-i="index"
+                    @for (child of rootCategory.children;track child.id){
+                    <li
+                      class="head"
+                      (click)="
+                        onNavigate({ c1: rootCategory.url, c2: child.url })
+                      "
                     >
-                      <li
-                        class="head"
-                        (click)="
-                          onNavigate({ c1: rootCategory.url, c2: child.url })
-                        "
-                      >
-                        <a>{{ child.titleFa }} </a>
-                      </li>
-                      <li
-                        *ngFor="let childChild of child.children"
-                        (click)="
-                          onNavigate({
-                            c1: rootCategory.url,
-                            c2: child.url,
-                            c3: childChild.url
-                          })
-                        "
-                      >
-                        <a>{{ childChild.titleFa }}</a>
-                      </li>
-                    </ng-template>
+                      <a>{{ child.titleFa }} </a>
+                    </li>
+                    @for (childChild of child.children;track childChild.id){
+                    <li
+                      (click)="
+                        onNavigate({
+                          c1: rootCategory.url,
+                          c2: child.url,
+                          c3: childChild.url
+                        })
+                      "
+                    >
+                      <a>{{ childChild.titleFa }}</a>
+                    </li>
+                    } }
                   </ul>
                 </ng-template>
               </div>
             </div>
           </div>
+          }
         </div>
       </ul>
     </div>

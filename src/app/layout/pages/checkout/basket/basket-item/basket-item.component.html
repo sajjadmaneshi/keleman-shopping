@@ -12,19 +12,23 @@
     <div class="row border-end border-gray-400 w-100 p-3">
       <div class="col-3 d-flex flex-column align-items-center">
         <div class="mb-3 symbol symbol-22 symbol-lg-30">
-          <img loadingLazy emptyImage [src]="basketItem.product.imageUrl" />
+          <img
+            loadingLazy
+            emptyImage
+            [src]="basketItem.product.thumbnailImage"
+          />
         </div>
         <keleman-value-changer
           class="w-100"
-          [initialValue]="basketItem.quantity"
-          (increse)="addToBasket()"
-          (decrease)="removeFromBasket()"
+          [initialValue]="basketItem.count"
+          (increse)="updateBasketAuthorized($event)"
+          (decrease)="updateBasketAuthorized($event)"
         ></keleman-value-changer>
       </div>
       <div class="col-9">
-        <a [routerLink]="['/products/detail/' + basketItem.product.title_fa]">
+        <a [routerLink]="['/products/detail/' + basketItem.product.name]">
           <h6 class="fw-bold mb-3">
-            {{ basketItem.product.title_fa }}
+            {{ basketItem.product.name }}
           </h6>
         </a>
 
@@ -35,7 +39,7 @@
 
         <h6 class="d-flex align-items-center">
           <mat-icon class="mx-3" inline>store</mat-icon>
-          {{ basketItem.storeName }}
+          {{ basketItem.product.seller }}
         </h6>
         <span class="fs-6 d-flex align-items-center">
           <mat-icon class="mx-3" inline>local_shipping</mat-icon>
@@ -43,17 +47,23 @@
         </span>
         <div class="position-absolute left-4 bottom-4">
           <keleman-price
-            [value]="basketItem.price.price"
+            [value]="
+              basketItem.product.discount > 0
+                ? basketItem.product.priceAfterDiscount
+                : basketItem.product.price
+            "
             [color]="'dark'"
             [size]="'h5'"
           ></keleman-price>
+          @if(basketItem.product.discount>0){
           <keleman-price
-            [value]="basketItem.price.sellingPrice"
+            [value]="basketItem.product.price"
             [color]="'dark'"
             [size]="'h6'"
             [off]="true"
-            [discount]="basketItem.price.discount"
+            [discount]="basketItem.product.discount"
           ></keleman-price>
+          }
         </div>
       </div>
     </div>

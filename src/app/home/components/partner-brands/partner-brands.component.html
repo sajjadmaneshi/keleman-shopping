@@ -12,27 +12,20 @@
       [loop]="true"
       [centeredSlides]="true"
     >
-      <ng-container
-        *ngIf="isLoading; then loading; else content"
-      ></ng-container>
-      <ng-template #loading>
-        <ng-template
-          swiperSlide
-          *ngFor="let _ of sharedVariableService.counter(10)"
-        >
-          <ngx-skeleton-loader
-            [theme]="{ width: '100px', height: '100px' }"
-            [appearance]="'circle'"
-          ></ngx-skeleton-loader>
-        </ng-template>
+      @if (isLoading){ @for (_ of sharedVariableService.counter(10);track _){
+      <ng-template swiperSlide>
+        <ngx-skeleton-loader
+          [theme]="{ width: '100px', height: '100px' }"
+          [appearance]="'circle'"
+        ></ngx-skeleton-loader>
       </ng-template>
-      <ng-template #content>
-        <ng-template swiperSlide *ngFor="let slide of slides; let i = index">
-          <div class="brand-logo">
-            <img [src]="slide" alt="کلمان" />
-          </div>
-        </ng-template>
+      } } @else { @for (slide of slides;track slide){
+      <ng-template swiperSlide>
+        <div class="brand-logo">
+          <img [src]="slide" alt="کلمان" />
+        </div>
       </ng-template>
+      } }
     </swiper>
   </div>
 </div>
