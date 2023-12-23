@@ -2,13 +2,15 @@
   <div
     class="card-body d-flex flex-column justify-content-between position-relative align-items-center"
   >
+    @if(product.rate > 0){
     <keleman-text-with-icon
-      *ngIf="product.rate > 0"
       class="rate align-self-end rate"
       [text]="product.rate.toString()!"
       [iconName]="'star'"
       [iconClass]="'text-warning'"
     ></keleman-text-with-icon>
+    }
+
     <div class="symbol symbol-25 symbol-lg-30 mb-3">
       <img
         loadingLazy
@@ -26,29 +28,23 @@
       {{ product.name! }}
     </a>
 
-    <ng-container
-      *ngIf="product.price > 0; then price; else call"
-    ></ng-container>
-    <ng-template #price>
-      <keleman-price
-        [value]="product.priceAfterDiscount!"
-        [off]="false"
-        [size]="'h6'"
-        class="mb-md-3"
-      ></keleman-price>
-    </ng-template>
-    <ng-template #call>
-      <h5 class="mb-md-3 text-klm-primary fw-bold">تماس بگیرید</h5>
-    </ng-template>
-
-    <ng-template [ngIf]="product.discount > 0">
-      <keleman-price
-        [value]="product.price"
-        [off]="true"
-        [discount]="product.discount"
-        [color]="'dark'"
-        [size]="'h6'"
-      ></keleman-price>
-    </ng-template>
+    @if(product.price > 0){
+    <keleman-price
+      [value]="product.priceAfterDiscount!"
+      [off]="false"
+      [size]="'h6'"
+      class="mb-md-3"
+    ></keleman-price>
+    } @else {
+    <h5 class="mb-md-3 text-klm-primary fw-bold">تماس بگیرید</h5>
+    } @if(product.discount > 0){
+    <keleman-price
+      [value]="product.price"
+      [off]="true"
+      [discount]="product.discount"
+      [color]="'dark'"
+      [size]="'h6'"
+    ></keleman-price>
+    }
   </div>
 </div>

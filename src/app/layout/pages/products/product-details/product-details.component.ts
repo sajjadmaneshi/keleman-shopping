@@ -9,8 +9,8 @@ import { DOCUMENT } from '@angular/common';
 import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { GuestBasketService } from '../../checkout/guest-basket.service';
-import { GuestBasketModel } from '../../checkout/data/models/guest-basket.model';
 import { ModifyMetaDataService } from '../../../../../common/services/modify-meta-data.service';
+import { BasketService } from '../../checkout/purchase/basket.service';
 
 @Component({
   selector: 'app-product-details',
@@ -24,8 +24,8 @@ export class ProductDetailsComponent implements OnInit {
   productStatus: AvailableStatusEnum = AvailableStatusEnum.AVAILABLE;
   availableStatusEnum = AvailableStatusEnum;
   isInBasket = false;
+  inBasketCount: number = 0;
   productCountInBasket = 0;
-
   isLoggedIn = false;
   private destroy$ = new Subject<void>();
   constructor(
@@ -34,12 +34,12 @@ export class ProductDetailsComponent implements OnInit {
     private readonly _productRepository: ProductRepository,
     private readonly _productService: ProductService,
     private readonly _authService: AuthService,
-    private readonly _basketService: GuestBasketService,
-
+    private readonly _guestBasketService: GuestBasketService,
+    private readonly _basketService: BasketService,
     private readonly _metaDataService: ModifyMetaDataService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    _authService.isLoggedIn$
+    this._authService.isLoggedIn$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => (this.isLoggedIn = res));
     this._getDataFromUrl();
@@ -81,14 +81,19 @@ export class ProductDetailsComponent implements OnInit {
 
   private checkBasketStatus() {
     if (this.productDetails) {
-      this.isInBasket = this._basketService.isProductInBasket(
+      this.isInBasket = this._guestBasketService.isProductInBasket(
         this.productDetails.id
       );
       if (this.isInBasket) {
-        this.productCountInBasket = this._basketService.getProductCountInBasket(
-          this.productDetails.id
-        );
+        this.productCountInBasket =
+          this._guestBasketService.getProductCountInBasket(
+            this.productDetails.id
+          );
       }
+
+      this._basketService
+        .inBasketCount(this.productDetails.id)
+        .subscribe((result) => (this.inBasketCount = result));
     }
   }
 
@@ -109,14 +114,14 @@ export class ProductDetailsComponent implements OnInit {
         product: this.productDetails,
         count: 1,
       };
-      this._basketService.addToBasket(productItem);
+      this._guestBasketService.addToBasket(productItem);
       this.productCountInBasket++;
     }
   }
 
   removeFromBasket() {
     if (!this.isLoggedIn) {
-      this._basketService.removeFromBasket(this.productDetails.id);
+      this._guestBasketService.removeFromBasket(this.productDetails.id);
       this.productCountInBasket--;
     }
   }

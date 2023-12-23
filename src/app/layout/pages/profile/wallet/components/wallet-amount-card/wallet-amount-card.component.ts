@@ -12,8 +12,8 @@ export class WalletAmountCardComponent implements OnDestroy {
 
   subscription!: Subscription;
 
-  constructor(private _initAppService: InitialAppService) {
-    _initAppService.userCredit.subscribe((res) => {
+  constructor(initAppService: InitialAppService) {
+    initAppService.userCredit.subscribe((res) => {
       this.walletAmount = res.walletValue;
     });
   }

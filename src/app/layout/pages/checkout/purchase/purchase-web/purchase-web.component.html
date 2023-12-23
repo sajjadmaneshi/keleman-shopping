@@ -6,15 +6,24 @@
     <div class="text-center d-flex flex-column">
       <button
         class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary mb-3"
+        (click)="getPreFactor()"
       >
         دریافت پیش فاکتور
       </button>
+
+      @if((checkoutService.selectedIndex|async)===2){
+
+      <button class="btn btn-success submit-button align-self-center w-100">
+        پرداخت
+      </button>
+      } @else {
       <button
         class="btn btn-warning submit-button align-self-center w-100"
         (click)="checkoutService.nextStep()"
       >
         ادامه خرید
       </button>
+      }
     </div>
   </div>
 </div>

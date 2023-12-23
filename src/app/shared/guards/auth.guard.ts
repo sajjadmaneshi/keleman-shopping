@@ -17,10 +17,7 @@ export class AuthGuard {
     private readonly _router: Router
   ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
+  canActivate(): boolean {
     let flag = false;
     this._authService.isLoggedIn$
       .pipe(takeUntil(this.destroy$))
@@ -39,9 +36,6 @@ export class AuthGuard {
     this.destroy$.complete();
   }
 }
-export const authGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-): boolean => {
-  return inject(AuthGuard).canActivate(route, state);
+export const authGuard: CanActivateFn = (): boolean => {
+  return inject(AuthGuard).canActivate();
 };

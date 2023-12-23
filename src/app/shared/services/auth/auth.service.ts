@@ -7,6 +7,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { UserSimpleInfoViewModel } from '../../data/models/view-models/user-simple-info.view-model';
 import { UserRepository } from '../../data/repositories/user/user.repository';
 import { isPlatformBrowser } from '@angular/common';
+import { BasketRepository } from '../../../layout/pages/checkout/data/repositories/basket.repository';
+import { BasketService } from '../../../layout/pages/checkout/purchase/basket.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +19,7 @@ export class AuthService {
     private jwtHelper: JwtHelperService,
     private _authRepository: AccountRepository,
     private _userRepository: UserRepository,
+    private _basketService: BasketService,
     @Inject(PLATFORM_ID) private platformId: any
   ) {}
 
@@ -82,6 +85,8 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('KELEMAN_TOKEN');
       localStorage.removeItem('MOBILE');
+      localStorage.removeItem('USERID');
+      this._basketService.basketItems.next([]);
       this.isLoggedIn$.next(false);
     }
   }

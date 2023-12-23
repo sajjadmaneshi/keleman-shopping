@@ -16,4 +16,5 @@ export class Routing {
   static comments = 'comments';
   static myBox = 'my-box';
   static credits = 'credits';
+  static callback = 'callback';
 }

@@ -17,7 +17,6 @@ import {
   SwiperContentDirective,
   SwiperTemplateDirective,
 } from '../shared/directives/swiper-template.directive';
-import { RouterModule } from '@angular/router';
 import { LazyLoadingDirective } from '../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../shared/directives/empty-image.directive';
 import { ArticleItemComponent } from '../shared/components/article-item/article-item.component';

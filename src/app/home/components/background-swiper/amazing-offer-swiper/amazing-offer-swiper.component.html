@@ -20,32 +20,25 @@
         [navigation]="true"
         [navigationButtonClassPrefix]="'amazing-offer'"
       >
-        <ng-container
-          *ngIf="isLoading | async; then loading; else content"
-        ></ng-container>
-        <ng-template #loading>
-          <appSwiperContent *ngFor="let _ of sahredVariableService.counter(10)">
-            <ng-template appSwiperTemplate>
-              <ngx-skeleton-loader
-                [theme]="{ height: '18.75rem', width: '12.5rem' }"
-              ></ngx-skeleton-loader>
-            </ng-template>
-          </appSwiperContent>
-        </ng-template>
-
-        <ng-template #content>
-          <appSwiperContent
-            *ngFor="let slide of slides; let i = index; trackBy: tranckByFn"
-          >
-            <ng-template appSwiperTemplate>
-              <keleman-background-swiper-item
-                class="cursor-pointer"
-                [routerLink]="['/products/detail/' + slide.customUrl]"
-                [product]="slide"
-              ></keleman-background-swiper-item>
-            </ng-template>
-          </appSwiperContent>
-        </ng-template>
+        @if(isLoading | async){
+        <appSwiperContent *ngFor="let _ of sahredVariableService.counter(10)">
+          <ng-template appSwiperTemplate>
+            <ngx-skeleton-loader
+              [theme]="{ height: '18.75rem', width: '12.5rem' }"
+            ></ngx-skeleton-loader>
+          </ng-template>
+        </appSwiperContent>
+        } @else { @for (slide of slides;track slide.id){
+        <appSwiperContent>
+          <ng-template appSwiperTemplate>
+            <keleman-background-swiper-item
+              class="cursor-pointer"
+              [routerLink]="['/products/detail/' + slide.customUrl]"
+              [product]="slide"
+            ></keleman-background-swiper-item>
+          </ng-template>
+        </appSwiperContent>
+        } }
       </keleman-swiper>
     </div>
   </div>

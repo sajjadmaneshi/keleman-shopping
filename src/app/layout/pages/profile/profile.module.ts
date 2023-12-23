@@ -17,7 +17,7 @@ import { FavoriteItemComponent } from './shared/favorite-item/favorite-item.comp
 import { WalletComponent } from './wallet/wallet.component';
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
 import { WalletAmountCardComponent } from './wallet/components/wallet-amount-card/wallet-amount-card.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NgbNav,
   NgbNavContent,
@@ -55,7 +55,6 @@ import { ProductCommentsModule } from '../products/product-details/components/co
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
 import { ProfileRepository } from './data/profile.repository';
 import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
-import { ProfileService } from './shared/profile.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CreditsComponent } from './credits/credits.component';
 import { MatTableModule } from '@angular/material/table';
@@ -143,6 +142,7 @@ import { CommentQuestionComponent } from './comment-question/comment-question.co
     ErrorFeedbackDirective,
     NumberToPersianPipe,
     MatListModule,
+    FormsModule,
   ],
   providers: [ProfileRepository],
 })

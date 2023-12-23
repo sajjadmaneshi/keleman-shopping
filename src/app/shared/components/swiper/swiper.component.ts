@@ -48,4 +48,8 @@ export class SwiperComponent {
     public sharedVariablesService: SharedVariablesService,
     public applicationState: ApplicationStateService
   ) {}
+
+  returnContent(slide: SwiperContentDirective): HTMLElement | null {
+    return slide.template.elementRef.nativeElement;
+  }
 }

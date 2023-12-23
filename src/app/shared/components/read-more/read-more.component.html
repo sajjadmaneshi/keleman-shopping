@@ -9,9 +9,9 @@
         <ng-template [ngTemplateOutlet]="listItem.template">
           <ng-template
             [ngTemplateOutlet]="listItem.template"
-            [ngTemplateOutletContext]="{
-              $implicit: listItem.template
-            }"
+            [ngTemplateOutletContext]="
+              listItem.template.elementRef.nativeElement
+            "
           ></ng-template>
         </ng-template>
       </li>

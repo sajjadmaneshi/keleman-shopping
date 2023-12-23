@@ -1,40 +1,37 @@
-<ng-container *ngIf="isLoading$ | async; then loading; else renderedView">
-</ng-container>
-<ng-template #loading>
-  <ngx-skeleton-loader
-    count="1"
-    [theme]="{ height: '25rem' }"
-  ></ngx-skeleton-loader>
-</ng-template>
-<ng-template #renderedView>
-  <div class="d-flex position-relative top-slider-container">
-    <swiper
-      [spaceBetween]="0"
-      [pagination]="{ el: '.swiper-pagination' }"
-      [autoplay]="{ delay: 1500 }"
-    >
-      <ng-container *ngFor="let slide of slides; let i = index">
-        <ng-template swiperSlide>
-          <a class="card slide" [href]="slide.url">
-            <picture class="img-container h-100 w-100">
-              <img
-                [alt]="slide.alt"
-                class="main-slider-image"
-                [ngSrc]="downloadUrl + slide.imageAddress"
-                fill
-                priority
-              />
-            </picture>
-          </a>
-        </ng-template>
-      </ng-container>
-    </swiper>
+@if (isLoading$|async){
+<ngx-skeleton-loader
+  count="1"
+  [theme]="{ height: '25rem' }"
+></ngx-skeleton-loader>
+} @else {
+<div class="d-flex position-relative top-slider-container">
+  <swiper
+    [spaceBetween]="0"
+    [pagination]="{ el: '.swiper-pagination' }"
+    [autoplay]="{ delay: 1500 }"
+  >
+    @for (slide of slides;track slide.id){
 
-    <div class="swiper-pagination">
-      <span
-        class="swiper-pagination-bullet"
-        *ngFor="let _ of sharedVariableService.counter(slides.length)"
-      ></span>
-    </div>
+    <ng-template swiperSlide>
+      <a class="card slide" [href]="slide.url">
+        <picture class="img-container h-100 w-100">
+          <img
+            [alt]="slide.alt"
+            class="main-slider-image"
+            [ngSrc]="downloadUrl + slide.imageAddress"
+            fill
+            priority
+          />
+        </picture>
+      </a>
+    </ng-template>
+    }
+  </swiper>
+
+  <div class="swiper-pagination">
+    @for (_ of sharedVariableService.counter(slides.length);track _){
+    <span class="swiper-pagination-bullet"></span>
+    }
   </div>
-</ng-template>
+</div>
+}

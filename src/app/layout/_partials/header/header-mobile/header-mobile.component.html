@@ -16,40 +16,35 @@
         loading="lazy"
     /></a>
 
-    <ng-container
-      *ngIf="isLoggedIn && userProfileInfo; then userInfo; else register"
-    ></ng-container>
-
-    <ng-template #register>
-      <a routerLink="/register">
-        <span class="d-flex align-items-center text-klm-primary">
-          <mat-icon class="mx-1">login</mat-icon>
-          ورود
-        </span>
-      </a>
-    </ng-template>
-
-    <ng-template #userInfo>
-      <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
-        <div
-          class="symbol symbol-13 cursor-pointer symbol-circle"
-          ngbDropdownToggle
-        >
-          <img src="assets/media/blank.webp" />
-        </div>
-
-        <div
-          ngbDropdownMenu
-          aria-labelledby="dropdownBasic1"
-          class="rounded-3 shadow-lg border-0"
-        >
-          <keleman-user-dropdown-menu
-            [userInfo]="userProfileInfo"
-            [userCredit]="userCreditInfo"
-          ></keleman-user-dropdown-menu>
-        </div>
+    @if (isLoggedIn && userProfileInfo;){
+    <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
+      <div
+        class="symbol symbol-13 cursor-pointer symbol-circle"
+        ngbDropdownToggle
+      >
+        <img src="assets/media/blank.webp" />
       </div>
-    </ng-template>
+
+      <div
+        ngbDropdownMenu
+        aria-labelledby="dropdownBasic1"
+        class="rounded-3 shadow-lg border-0"
+      >
+        <keleman-user-dropdown-menu
+          [userInfo]="userProfileInfo"
+          [userCredit]="userCreditInfo"
+        ></keleman-user-dropdown-menu>
+      </div>
+    </div>
+    } @else {
+    <a routerLink="/register">
+      <span class="d-flex align-items-center text-klm-primary">
+        <mat-icon class="mx-1">login</mat-icon>
+        ورود
+      </span>
+    </a>
+    }
+
     <a
       class="d-flex position-relative flex-column align-items-center basket cursor-pointer"
       [routerLink]="['checkout']"

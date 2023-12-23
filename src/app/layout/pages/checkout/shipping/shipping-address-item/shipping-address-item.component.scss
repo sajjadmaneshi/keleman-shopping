@@ -1,0 +1,17 @@
+.shipping ::ng-deep .map-container {
+  width: 9rem !important;
+  height: 9rem !important;
+  border-radius: 13px !important;
+}
+.address-info {
+  list-style: none;
+  padding: 0;
+  li {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0;
+    mat-icon {
+      margin: 0 0.5rem;
+    }
+  }
+}

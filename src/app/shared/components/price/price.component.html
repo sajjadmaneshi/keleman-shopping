@@ -1,112 +1,112 @@
 <span class="d-flex align-items-center w-100 justify-content-end">
-  <ng-container [ngSwitch]="size">
-    <ng-template [ngSwitchCase]="'h1'">
-      <span class="text-danger ms-3 fs-1" *ngIf="off">{{ discount }}%</span>
-      <span
-        class="fw-bold product-price fs-1"
-        [ngClass]="{
-          'text-black': color === 'dark',
-          'text-light': color === 'light',
-          'text-klm-primary': color === 'primary',
-          'text-secondary': color === 'secondary',
-          'text-danger': color === 'danger',
-          'text-success': color === 'success',
-          'line-through': off
-        }"
-      >
-        {{ value | number : ".0" }}
-        <span class="mx-1">{{ append }}</span>
-      </span>
-    </ng-template>
-    <ng-template [ngSwitchCase]="'h2'">
-      <span class="text-danger ms-3 fs-2" *ngIf="off">{{ discount }}%</span>
-      <span
-        class="fw-bold product-price fs-2"
-        [ngClass]="{
-          'text-black': color === 'dark',
-          'text-light': color === 'light',
-          'text-klm-primary': color === 'primary',
-          'text-secondary': color === 'secondary',
-          'text-danger': color === 'danger',
-          'text-success': color === 'success',
-          'line-through': off
-        }"
-      >
-        {{ value | number : ".0" }}
-        <span class="mx-1">{{ append }}</span>
-      </span>
-    </ng-template>
-    <ng-template [ngSwitchCase]="'h3'">
-      <span class="text-danger ms-3 fs-3" *ngIf="off">{{ discount }}%</span>
-      <span
-        class="fw-bold product-price fs-3"
-        [ngClass]="{
-          'text-black': color === 'dark',
-          'text-light': color === 'light',
-          'text-klm-primary': color === 'primary',
-          'text-secondary': color === 'secondary',
-          'text-danger': color === 'danger',
-          'text-success': color === 'success',
-          'line-through': off
-        }"
-      >
-        {{ value | number : ".0" }}
-        <span class="mx-1">{{ append }}</span>
-      </span>
-    </ng-template>
-    <ng-template [ngSwitchCase]="'h4'">
-      <span class="text-danger ms-3 fs-4" *ngIf="off">{{ discount }}%</span>
-      <span
-        class="fw-bold product-price fs-4"
-        [ngClass]="{
-          'text-black': color === 'dark',
-          'text-light': color === 'light',
-          'text-klm-primary': color === 'primary',
-          'text-secondary': color === 'secondary',
-          'text-danger': color === 'danger',
-          'text-success': color === 'success',
-          'line-through': off
-        }"
-      >
-        {{ value | number : ".0" }}
-        <span class="mx-1">{{ append }}</span>
-      </span>
-    </ng-template>
-    <ng-template [ngSwitchCase]="'h5'">
-      <span class="text-danger ms-3 fs-5" *ngIf="off">{{ discount }}%</span>
-      <span
-        class="fw-bold product-price fs-5"
-        [ngClass]="{
-          'text-black': color === 'dark',
-          'text-light': color === 'light',
-          'text-klm-primary': color === 'primary',
-          'text-secondary': color === 'secondary',
-          'text-danger': color === 'danger',
-          'text-success': color === 'success',
-          'line-through': off
-        }"
-      >
-        {{ value | number : ".0" }}
-        <span class="mx-1">{{ append }}</span>
-      </span>
-    </ng-template>
-    <ng-template [ngSwitchCase]="'h6'">
-      <span class="text-danger ms-3 fs-6" *ngIf="off">{{ discount }}%</span>
-      <span
-        class="fw-bold product-price fs-6"
-        [ngClass]="{
-          'text-black': color === 'dark',
-          'text-light': color === 'light',
-          'text-klm-primary': color === 'primary',
-          'text-secondary': color === 'secondary',
-          'text-danger': color === 'danger',
-          'text-success': color === 'success',
-          'line-through': off
-        }"
-      >
-        {{ value | number : ".0" }}
-        <span class="mx-1">{{ append }}</span>
-      </span>
-    </ng-template>
-  </ng-container>
+  @switch (size){ @case ('h1'){ @if (off){
+  <span class="text-danger ms-3 fs-1">{{ discount }}%</span>
+  }
+
+  <span
+    class="fw-bold product-price fs-1"
+    [ngClass]="{
+      'text-black': color === 'dark',
+      'text-light': color === 'light',
+      'text-klm-primary': color === 'primary',
+      'text-secondary': color === 'secondary',
+      'text-danger': color === 'danger',
+      'text-success': color === 'success',
+      'line-through': off
+    }"
+  >
+    {{ value | number : ".0" }}
+    <span class="mx-1">{{ append }}</span>
+  </span>
+  } @case ('h2'){ @if (off){
+  <span class="text-danger ms-3 fs-2">{{ discount }}%</span>
+  }
+  <span
+    class="fw-bold product-price fs-2"
+    [ngClass]="{
+      'text-black': color === 'dark',
+      'text-light': color === 'light',
+      'text-klm-primary': color === 'primary',
+      'text-secondary': color === 'secondary',
+      'text-danger': color === 'danger',
+      'text-success': color === 'success',
+      'line-through': off
+    }"
+  >
+    {{ value | number : ".0" }}
+    <span class="mx-1">{{ append }}</span>
+  </span>
+  } @case ('h3'){ @if (off){
+  <span class="text-danger ms-3 fs-3">{{ discount }}%</span>
+  }
+  <span
+    class="fw-bold product-price fs-3"
+    [ngClass]="{
+      'text-black': color === 'dark',
+      'text-light': color === 'light',
+      'text-klm-primary': color === 'primary',
+      'text-secondary': color === 'secondary',
+      'text-danger': color === 'danger',
+      'text-success': color === 'success',
+      'line-through': off
+    }"
+  >
+    {{ value | number : ".0" }}
+    <span class="mx-1">{{ append }}</span>
+  </span>
+  } @case ('h4'){ @if (off){
+  <span class="text-danger ms-3 fs-4">{{ discount }}%</span>
+  }
+  <span
+    class="fw-bold product-price fs-4"
+    [ngClass]="{
+      'text-black': color === 'dark',
+      'text-light': color === 'light',
+      'text-klm-primary': color === 'primary',
+      'text-secondary': color === 'secondary',
+      'text-danger': color === 'danger',
+      'text-success': color === 'success',
+      'line-through': off
+    }"
+  >
+    {{ value | number : ".0" }}
+    <span class="mx-1">{{ append }}</span>
+  </span>
+  } @case ('h5'){ @if (off){
+  <span class="text-danger ms-3 fs-5">{{ discount }}%</span>
+  }
+  <span
+    class="fw-bold product-price fs-5"
+    [ngClass]="{
+      'text-black': color === 'dark',
+      'text-light': color === 'light',
+      'text-klm-primary': color === 'primary',
+      'text-secondary': color === 'secondary',
+      'text-danger': color === 'danger',
+      'text-success': color === 'success',
+      'line-through': off
+    }"
+  >
+    {{ value | number : ".0" }}
+    <span class="mx-1">{{ append }}</span>
+  </span>
+  } @case ('h6'){ @if (off){
+  <span class="text-danger ms-3 fs-6">{{ discount }}%</span>
+  }
+  <span
+    class="fw-bold product-price fs-6"
+    [ngClass]="{
+      'text-black': color === 'dark',
+      'text-light': color === 'light',
+      'text-klm-primary': color === 'primary',
+      'text-secondary': color === 'secondary',
+      'text-danger': color === 'danger',
+      'text-success': color === 'success',
+      'line-through': off
+    }"
+  >
+    {{ value | number : ".0" }}
+    <span class="mx-1">{{ append }}</span>
+  </span>
+  } }
 </span>

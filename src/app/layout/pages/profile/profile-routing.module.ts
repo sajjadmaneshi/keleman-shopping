@@ -8,7 +8,6 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { ReturnedRequestComponent } from './returned-request/returned-request.component';
 import { AddressesComponent } from './address/addresses.component';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
-import { UserCommentsComponent } from './comment-question/comments/user-comments.component';
 import { MyBoxesComponent } from './my-boxes/my-boxes.component';
 import { CreditsComponent } from './credits/credits.component';
 import { CommentQuestionComponent } from './comment-question/comment-question.component';

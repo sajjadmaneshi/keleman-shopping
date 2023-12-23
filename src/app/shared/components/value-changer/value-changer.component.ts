@@ -10,11 +10,16 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class ValueChangerComponent {
   @Input('initialValue') value: number = 1;
+  @Input('title') title!: string;
+  @Input('removable') removable: boolean = true;
+  @Input('max') max!: number;
+  @Input('min') min!: number;
 
   @Output('increse') onIncrease = new EventEmitter<number>();
   @Output('decrease') onDncrease = new EventEmitter<number>();
 
   increase(): void {
+    if (this.max && this.max == this.value) return;
     this.value++;
     this.onIncrease.emit(this.value);
   }

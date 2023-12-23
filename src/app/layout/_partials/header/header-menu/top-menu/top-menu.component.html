@@ -8,70 +8,60 @@
 
   <keleman-search-bar class="flex-grow-1"></keleman-search-bar>
 
-  <ng-content *ngIf="isLoggedIn; then userInfo; else register"></ng-content>
-  <ng-template #register>
-    <div class="align-items-center bg-klm-primary rounded-1 p-1 login-register">
-      <button class="btn text-warning w-50" [routerLink]="['register']">
-        ثبت نام
-      </button>
-      <button
-        class="btn bg-white rounded-1 text-klm-primary w-50"
-        [routerLink]="['register']"
-      >
-        ورود
-      </button>
-    </div>
-  </ng-template>
+  @if (isLoggedIn){
+  <div ngbDropdown class="d-inline-block">
+    @if(profileInfoLoading){
+    <span class="d-flex align-items-center">
+      <ngx-skeleton-loader
+        [theme]="{ width: '5rem', height: '1rem' }"
+      ></ngx-skeleton-loader>
 
-  <ng-template #userInfo>
-    <div ngbDropdown class="d-inline-block">
-      <ng-content
-        *ngIf="profileInfoLoading; then loading; else content"
-      ></ng-content>
-      <ng-template #loading>
-        <span class="d-flex align-items-center">
-          <ngx-skeleton-loader
-            [theme]="{ width: '5rem', height: '1rem' }"
-          ></ngx-skeleton-loader>
-
-          <ngx-skeleton-loader
-            [theme]="{ width: '50px', height: '50px' }"
-            [appearance]="'circle'"
-          ></ngx-skeleton-loader>
-        </span>
-      </ng-template>
-      <ng-template #content>
-        <span
-          class="d-flex align-items-center cursor-pointer"
-          ngbDropdownToggle
-        >
-          <p class="mx-3">
-            {{ userProfileInfo.firstName }}
-            {{ userProfileInfo.lastName }}
-          </p>
-          <div class="symbol symbol-10 symbol-circle">
-            <img
-              loadingLazy
-              emptyImage
-              [src]="userProfileInfo.avatar!"
-              [isAvatar]="true"
-            />
-          </div>
-        </span>
-      </ng-template>
-
-      <div
-        ngbDropdownMenu
-        aria-labelledby="dropdownBasic1"
-        class="rounded-3 shadow-lg border-0"
-      >
-        <keleman-user-dropdown-menu
-          [userInfo]="userProfileInfo"
-          [userCredit]="userCreditInfo"
-        ></keleman-user-dropdown-menu>
+      <ngx-skeleton-loader
+        [theme]="{ width: '50px', height: '50px' }"
+        [appearance]="'circle'"
+      ></ngx-skeleton-loader>
+    </span>
+    } @else {
+    <span class="d-flex align-items-center cursor-pointer" ngbDropdownToggle>
+      <p class="mx-3">
+        {{ userProfileInfo.firstName }}
+        {{ userProfileInfo.lastName }}
+      </p>
+      <div class="symbol symbol-10 symbol-circle">
+        <img
+          loadingLazy
+          emptyImage
+          [src]="userProfileInfo.avatar!"
+          [isAvatar]="true"
+        />
       </div>
+    </span>
+    }
+
+    <div
+      ngbDropdownMenu
+      aria-labelledby="dropdownBasic1"
+      class="rounded-3 shadow-lg border-0"
+    >
+      <keleman-user-dropdown-menu
+        [userInfo]="userProfileInfo"
+        [userCredit]="userCreditInfo"
+      ></keleman-user-dropdown-menu>
     </div>
-  </ng-template>
+  </div>
+  } @else {
+  <div class="align-items-center bg-klm-primary rounded-1 p-1 login-register">
+    <button class="btn text-warning w-50" [routerLink]="['register']">
+      ثبت نام
+    </button>
+    <button
+      class="btn bg-white rounded-1 text-klm-primary w-50"
+      [routerLink]="['register']"
+    >
+      ورود
+    </button>
+  </div>
+  }
 
   <a
     class="d-flex position-relative flex-column align-items-center basket cursor-pointer"

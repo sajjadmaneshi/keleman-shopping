@@ -1,0 +1,99 @@
+<span mat-dialog-title>
+  <span>ثبت درخواست جدید</span>
+</span>
+<div mat-dialog-content>
+  <div class="card card-rounded-3 border">
+    <div class="card-body">
+      <p>
+        شماره سفارش: <strong>{{ data.id }}</strong>
+      </p>
+      <p>
+        تاریخ:
+        <strong>{{
+          persianDateTimeService.fromGregorianString(data.date, "DD/jMMMM/YYYY")
+        }}</strong>
+      </p>
+      <mat-divider class="my-3"></mat-divider>
+      <form [formGroup]="returnOrderForm">
+        <div class="form-group">
+          <label for="address">توضیحات </label>
+          <textarea
+            id="description"
+            type="text"
+            placeholder="توضیحات خود را در اینجا بنویسید"
+            class="mb-3 keleman-text-field description"
+            formControlName="description"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <keleman-auto-complete
+            [options]="returnReasons"
+            [formControl]="reason"
+            [label]="'دلیل مرجوعی'"
+            [placeHolder]="'دلیل مرجوعی'"
+            [isLoading]="isLoading"
+            [isInavlid]="reason.invalid && isFormSubmitted"
+            (onSelectionChange)="selectReason($event)"
+          >
+          </keleman-auto-complete>
+          @if (reason.invalid&&isFormSubmitted){
+          <span class="invalid-feedback">لطفا دلیل مرجوعی را انتخاب کنید</span>
+          }
+        </div>
+      </form>
+
+      <div class="row mx-0">
+        <div class="col-12 col-md-6 mb-3 orders">
+          <span class="mb-3">محصولات</span>
+          <div class="product-list">
+            @if(isLoading){
+            <ngx-skeleton-loader
+              [theme]="{ width: '100%', height: '100px' }"
+              count="3"
+            ></ngx-skeleton-loader>
+            } @else if (data.products.length>0){
+
+            <div class="order-list">
+              @for (product of data.products;track data.id){
+              <keleman-product-can-return
+                [product]="product"
+                (addTo)="addReturnProductList($event)"
+              ></keleman-product-can-return>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <span class="mb-3">مرجوعی ها</span>
+
+          <div class="return-order-list">
+            @if(returnProducts.length>0){ @for (product of returnProducts;track
+            data.id){
+            <keleman-return-product
+              [product]="product"
+              (remove)="removeFromReturnList($event)"
+            ></keleman-return-product>
+            } } @else {
+            <div class="alert alert-info my-3">
+              <p>از قسمت سمت راست یک سفارش اضافه کنید</p>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions class="justify-content-center shadow">
+  <button
+    class="btn btn-warning mx-1"
+    [disabled]="returnProducts.length === 0"
+    kelemanLoadingProgress
+    [loading]="submitLoading"
+    (click)="sumbitForm()"
+  >
+    ثبت درخواست
+  </button>
+</div>

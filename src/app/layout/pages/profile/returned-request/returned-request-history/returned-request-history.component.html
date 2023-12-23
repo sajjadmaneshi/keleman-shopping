@@ -1,55 +1,72 @@
 <div class="d-flex flex-column align-items-center mx-md-3 mx-lg-5">
   <span class="d-flex align-items-center mb-3 filters">
-    <a class="text-black mx-3">همه</a>
-    <a class="text-success mx-3">تایید شده</a>
-    <a class="text-danger mx-3">رد شده</a>
+    <keleman-auto-complete
+      [options]="statusMap"
+      [(ngModel)]="selectedStatus.title"
+      [placeHolder]="'وضعیت'"
+      (onSelectionChange)="onSelectStatus($event)"
+    >
+    </keleman-auto-complete>
   </span>
   <div class="transactions w-100">
-    <div class="alert alert-info row  text-center">
-      <span class="col-1">#</span>
-      <h6 class="col-3">شماره درخواست</h6>
-      <h6 class="col-3">شماره سفارش</h6>
+    <div class="alert alert-info row text-center">
+      <h6 class="col-2">شماره سفارش</h6>
       <h6 class="col-2">تاریخ</h6>
+      <h6 class="col-3">توضیحات</h6>
       <h6 class="col-3">وضعیت</h6>
+      <h6 class="col-2">عملیات</h6>
     </div>
-    <div
-      *ngFor="let request of requests"
-      class="alert row text-center "
-      [ngClass]="{
-        'alert-danger': request.status === statusEnum.rejected,
-        'alert-success': request.status === statusEnum.approved,
-        'alert-warning': request.status === statusEnum.inProgress
-      }"
-    >
-      <span class="d-none d-md-block col-1">
-          <mat-icon >{{
-            request.status === statusEnum.inProgress
-              ? "cached"
-              : request.status === statusEnum.approved
-                ? "done"
-                : "remove"
-            }}</mat-icon>
-      </span>
+    @if(isLoading){
+    <ngx-skeleton-loader
+      [theme]="{ width: '100%', height: '5rem' }"
+      count="3"
+    ></ngx-skeleton-loader>
+    } @else if (requests.length>0){ @for (request of requests;track request.id){
+    <div>
+      <div
+        class="alert row text-center align-items-center"
+        [ngClass]="{
+          'alert-danger': request.status === statusEnum.Rejected,
+          'alert-success': request.status === statusEnum.ApprovedByAdmin,
+          'alert-warning': request.status === statusEnum.SentByUser,
+          'alert-info': request.status === statusEnum.ReadByAdmin,
+          'alert-secondary': request.status === statusEnum.Cancelled
+        }"
+      >
+        <h6 class="col-2">{{ request.billId }}</h6>
+        <h6 class="col-2">
+          {{
+            persianDateTimeService.fromGregorianString(
+              request.dateTime,
+              "DD jMMMM YYYY"
+            )
+          }}
+        </h6>
+        <h6 class="col-3">
+          {{ request.description || "---" }}
+        </h6>
+        <h6 class="col-3">
+          {{ getStatusTitle(request.status) }}
+        </h6>
 
-      <h6 class="col-3">{{ request.returnedNum }}</h6>
-      <h6 class="col-3">{{ request.orderNum }}</h6>
-      <h6 class="mb-0 col-2">
-        {{
-          persianDateTimeService.fromGregorianString(
-            request.date,
-            "DD jMMMM YYYY"
-          )
-        }}
-      </h6>
-      <h6 class="col-3">
-        {{
-          request.status === statusEnum.inProgress
-            ? "در حال بررسی"
-            : request.status === statusEnum.approved
-            ? "تایید شده"
-            : "رد شده"
-        }}
-      </h6>
+        <button
+          class="btn btn-outline-danger col-2"
+          [disabled]="request.status > 2"
+          (click)="getAcceptBeforeCancell($event, request.id)"
+        >
+          لفو درخواست
+        </button>
+      </div>
+      <keleman-pagination
+        [currentPage]="page"
+        [limit]="limit"
+        [totalElements]="totalElements"
+        (pageChange)="pageChange($event)"
+      ></keleman-pagination>
     </div>
+
+    } } @else {
+    <keleman-empty-content></keleman-empty-content>
+    }
   </div>
 </div>

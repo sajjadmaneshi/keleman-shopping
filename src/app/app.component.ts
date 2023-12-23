@@ -1,17 +1,16 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApplicationStateService } from './shared/services/application-state.service';
 import { Meta, Title } from '@angular/platform-browser';
 
 import { Subscription } from 'rxjs';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { LoadingService } from './shared/services/loading.service';
-import { SsrService } from './shared/services/ssr/ssr.service';
+import { PageLoadingService } from './shared/services/pageLoadingService';
+
 import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  providers: [LoadingService],
+  providers: [PageLoadingService],
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {

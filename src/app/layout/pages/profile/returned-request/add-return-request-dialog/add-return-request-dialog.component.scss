@@ -1,0 +1,18 @@
+@import "base/variables/colors";
+
+.orders {
+  border-left: 1px solid $gray-300;
+}
+.order-list {
+  max-height: 35vh;
+  overflow-y: auto;
+}
+.return-order-list {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.description {
+  height: 100px !important;
+  min-height: 100px !important;
+  max-height: 100px !important;
+}

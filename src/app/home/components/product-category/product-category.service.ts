@@ -1,29 +1,37 @@
 import { Injectable } from '@angular/core';
-import { ProductRepository } from '../../../layout/pages/products/data/repositories/product.repository';
 import { ProductCategoryViewModel } from '../../../shared/data/models/view-models/product-category.view-model';
-import { HttpClientResult } from '../../../shared/data/models/http/http-client.result';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { Routing } from '../../../routing';
 import { Router } from '@angular/router';
 import { ProductCategoryRepository } from '../../../layout/pages/products/data/repositories/product-category.repository';
+import { LoadingService } from '../../../../common/services/loading.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductCategoryService {
   constructor(
     private _productCategoryRepository: ProductCategoryRepository,
-    private _router: Router
-  ) {}
-
-  isLoading = new BehaviorSubject(false);
+    private _router: Router,
+    public loadingService: LoadingService
+  ) {
+    this.loadingService.startLoading('read', 'productCategories');
+  }
 
   public getCategories(
     parentId?: number
   ): Observable<ProductCategoryViewModel[]> {
-    this.isLoading.next(true);
     return this._productCategoryRepository.getAllWithChildrens(parentId).pipe(
-      tap(() => setTimeout(() => this.isLoading.next(false), 1500)),
+      tap(() =>
+        setTimeout(
+          () => this.loadingService.stopLoading('read', 'productCategories'),
+          1500
+        )
+      ),
       map((result) => {
         return result.result!;
+      }),
+      catchError(() => {
+        this.loadingService.stopLoading('read', 'productCategories');
+        return of([]);
       })
     );
   }
@@ -32,7 +40,7 @@ export class ProductCategoryService {
     const params = `${c1 ?? ''}/${c2 ?? ''}/${c3 ?? ''}`.replace(
       /\/{2,}/g,
       '/'
-    ); // Remove consecutive slashes if any
+    );
     const queryParams = { p: '0' };
     this._router
       .navigate([`${Routing.products}/${params}`], { queryParams })

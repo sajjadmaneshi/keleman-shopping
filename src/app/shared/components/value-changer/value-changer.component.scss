@@ -1,2 +1,7 @@
 @import "base/variables/colors";
 @import "base/variables/spacers";
+
+.disabled {
+  cursor: text !important;
+  color: $gray-300 !important;
+}

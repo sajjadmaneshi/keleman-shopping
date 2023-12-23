@@ -1,14 +1,81 @@
 <div class="d-flex flex-column">
+  <label class="text-klm-primary fw-bolder mb-3" for="discountCode"
+    >کدتخفیف</label
+  >
+
+  <span class="add-discount mb-3">
+    <input
+      id="discountCode"
+      class="keleman-text-field bg-gray-300"
+      [formControl]="discountCode"
+      [class.is-invalid]="discountCode.invalid && isFormSubmitted"
+      placeholder="کد تخفیف را وارد کنید"
+    />
+    <button
+      class="btn btn-klm-primary"
+      kelemanLoadingProgress
+      [loading]="
+        (loadingService.getLoadingStateObservable('add', 'discount') | async)!
+      "
+      (click)="submitDiscount()"
+    >
+      ثبت کد تخفیف
+    </button>
+    @if (discountCode.invalid&&isFormSubmitted){
+    <span class="invalid-feedback">لطفا کد را وارد نمایید</span>
+    }
+  </span>
+
+  <label class="text-klm-primary fw-bolder mb-3" for="description"
+    >توضیحات</label
+  >
+  <textarea
+    id="description"
+    class="keleman-text-field bg-gray-300 mb-3"
+    placeholder="توضیحات"
+    [formControl]="description"
+  ></textarea>
   <label class="text-klm-primary fw-bolder mb-3" for="paymentMethod"
     >روش پرداخت</label
   >
   <div class="payment-methods">
-    <div class="payment-item" *ngFor="let gateway of paymentGateWays">
-      <div class="symbol">
-        <img loadingLazy emptyImage [src]="gateway.logo" />
+    <button
+      class="payment-item"
+      *ngFor="let gateway of paymentGateWays"
+      [disabled]="isInSelectedGateways(gateway.id)"
+      (click)="saveOrder(gateway.id)"
+      [class.selected]="isInSelectedGateways(gateway.id)"
+    >
+      @if
+      ((loadingService.getLoadingStateObservable('add','saveOrder')|async)!){
+      <div class="payment-item-loading-overlay">
+        <mat-spinner class="loading" [diameter]="20"></mat-spinner>
       </div>
-      <span class="fs-6">{{ gateway.name }}</span>
-    </div>
+      }
+
+      <div class="symbol">
+        <img
+          loadingLazy
+          [src]="'assets/media/pGateway/' + gateway.enName + '.png'"
+        />
+      </div>
+      <span class="fs-6 d-flex flex-column">
+        <p>{{ gateway.name }}</p>
+        @if (gateway.id>7){
+        <span class="text-success text-center"
+          >({{
+            gateway.id === 8
+              ? userCredit.creditValue > 0
+                ? (userCredit.creditValue | number : ".0") + "تومان"
+                : 0
+              : userCredit.walletValue > 0
+              ? (userCredit.walletValue | number : ".0") + "تومان"
+              : 0
+          }})</span
+        >
+        }
+      </span>
+    </button>
 
     <button class="payment-item" (click)="openAttachReceiptDialog()">
       <span
@@ -34,40 +101,10 @@
       </div>
       <span class="fs-6">ثبت چک صیادی</span>
     </button>
-    <div class="payment-item">
-      <div class="symbol">
-        <img src="assets/media/pGateway/cash-payment.png" />
-      </div>
-      <span class="fs-6">پرداخت در محل</span>
-    </div>
-    <div class="payment-item">
-      <div class="symbol">
-        <img src="assets/media/pGateway/wallet.png" />
-      </div>
-      <span class="fs-6">پرداخت از کیف پول</span>
-    </div>
   </div>
 
   <span class="text-danger my-3"
     >*درصورت لزوم میتوانید چند روش پرداخت با <a> شرایط مشخص</a> به طور همزمان
     انتخاب کنید.</span
   >
-
-  <label class="text-klm-primary fw-bolder mb-3" for="discountCode"
-    >کدتخفیف</label
-  >
-  <input
-    id="discountCode"
-    class="keleman-text-field mb-3 bg-gray-300"
-    placeholder="کد تخفیف را وارد کنید"
-  />
-
-  <label class="text-klm-primary fw-bolder mb-3" for="description"
-    >توضیحات</label
-  >
-  <textarea
-    id="description"
-    class="keleman-text-field bg-gray-300"
-    placeholder="توضیحات"
-  ></textarea>
 </div>

@@ -1,3 +1,21 @@
 ::ng-deep ngb-datepicker-navigation {
   direction: ltr !important;
 }
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: rgb(216, 173, 2);
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(216, 155, 2, 0.5);
+}

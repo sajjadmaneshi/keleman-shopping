@@ -1,28 +1,24 @@
-<ng-container *ngIf="isLoading; then loading; else content"></ng-container>
-
-<ng-template #loading>
-  <div class="banners row g-3">
-    <div
-      class="col-6 col-lg-3"
-      *ngFor="let _ of sharedVariablesService.counter(8)"
-    >
-      <ngx-skeleton-loader
-        [theme]="{ width: '100%', height: '300px ' }"
-      ></ngx-skeleton-loader>
-    </div>
+@if (isLoading){
+<div class="banners row g-3">
+  <div
+    class="col-6 col-lg-3"
+    *ngFor="let _ of sharedVariablesService.counter(8)"
+  >
+    <ngx-skeleton-loader
+      [theme]="{ width: '100%', height: '300px ' }"
+    ></ngx-skeleton-loader>
   </div>
-</ng-template>
-
-<ng-template #content>
-  <div class="banners row g-3">
-    <div class="col-6 col-lg-3" *ngFor="let ad of banners">
-      <a [href]="ad.linkAddress">
-        <img
-          [src]="ad.fileAddress ? downloadUrl + ad.fileAddress : ''"
-          [alt]="ad.alt"
-          class="rounded-3 w-100 h-auto"
-        />
-      </a>
-    </div>
+</div>
+} @else {
+<div class="banners row g-3">
+  <div class="col-6 col-lg-3" *ngFor="let ad of banners">
+    <a [href]="ad.linkAddress">
+      <img
+        [src]="ad.fileAddress ? downloadUrl + ad.fileAddress : ''"
+        [alt]="ad.alt"
+        class="rounded-3 w-100 h-auto"
+      />
+    </a>
   </div>
-</ng-template>
+</div>
+}

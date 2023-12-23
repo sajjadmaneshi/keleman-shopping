@@ -1,16 +1,9 @@
-<ng-container
-  *ngIf="
-    applicationState.isPhone || applicationState.isTablet;
-    then mobile;
-    else web
-  "
-></ng-container>
-<ng-template #web>
-  <div class="sticky-top purchase">
-    <keleman-until-free-shipping></keleman-until-free-shipping>
-    <keleman-purchase-web></keleman-purchase-web>
-  </div>
-</ng-template>
-<ng-template #mobile>
-  <keleman-purchase-mobile></keleman-purchase-mobile>
-</ng-template>
+@if (applicationState.isPhone || applicationState.isTablet){
+<keleman-purchase-mobile></keleman-purchase-mobile>
+
+} @else {
+<div class="sticky-top purchase">
+  <!--  <keleman-until-free-shipping></keleman-until-free-shipping>-->
+  <keleman-purchase-web></keleman-purchase-web>
+</div>
+}

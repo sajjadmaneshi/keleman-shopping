@@ -1,11 +1,9 @@
 import {
   Component,
-  DoCheck,
   EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -18,8 +16,8 @@ import {
 } from '../../../shared/directives/swiper-template.directive';
 import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import { ProductCategoryViewModel } from '../../../shared/data/models/view-models/product-category.view-model';
-import { ApplicationStateService } from '../../../shared/services/application-state.service';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { LoadingService } from '../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-product-categories',
@@ -42,11 +40,11 @@ export class ProductCategoryComponent implements OnChanges, OnDestroy {
 
   categories: ProductCategoryViewModel[] = [];
 
-  subscription!: Subscription;
+  destroy$ = new Subject<void>();
 
   constructor(
     public productCategoryService: ProductCategoryService,
-    private _applicationState: ApplicationStateService
+    public loadingService: LoadingService
   ) {}
   private previousValue: any;
   inputHasChanged: boolean = false;
@@ -62,22 +60,20 @@ export class ProductCategoryComponent implements OnChanges, OnDestroy {
     }
   }
 
-  tranckByFn(index: number, item: ProductCategoryViewModel) {
-    return item.id;
-  }
-
   getCategoryProducts(category: ProductCategoryViewModel) {
     this.onItemClick.emit(category);
   }
 
   private _getCategories() {
-    this.subscription = this.productCategoryService
+    this.productCategoryService
       .getCategories(this.parentId!)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         this.categories = result;
       });
   }
   ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

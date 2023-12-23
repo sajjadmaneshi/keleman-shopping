@@ -8,7 +8,10 @@
   <img
     alt="keleman-logo"
     class="keleman-logo"
-    src="../../assets/media/logo/keleman-logo.webp"
+    ngSrc="../../assets/media/logo/keleman-logo.webp"
+    height="50"
+    width="125"
+    priority
   />
 
   <div class="keleman-register-body keleman-gray-card border-0">
@@ -82,12 +85,11 @@
                       formControlName="name"
                       id="name"
                     />
-                    <span
-                      class="invalid-feedback"
-                      *ngIf="name.invalid && isFormSubmitted"
-                    >
+                    @if (name.invalid && isFormSubmitted){
+                    <span class="invalid-feedback">
                       لطفا نام خود را وارد نمایید
                     </span>
+                    }
                   </div>
                   <div class="col-6 mb-3 form-group">
                     <label for="family">نام خانوادگی</label>
@@ -98,12 +100,11 @@
                       formControlName="family"
                       id="family"
                     />
-                    <span
-                      class="invalid-feedback"
-                      *ngIf="family.invalid && isFormSubmitted"
-                    >
+                    @if (family.invalid && isFormSubmitted){
+                    <span class="invalid-feedback">
                       لطفا نام خانوادگی خود را وارد نمایید
                     </span>
+                    }
                   </div>
 
                   <div class="col-6">
@@ -161,9 +162,9 @@
     (onInputChange)="checkOtpValid($event)"
     [class.is-invalid]="!verificationCodeValid"
   ></ng-otp-input>
-  <span class="invalid-feedback mb-3" *ngIf="!verificationCodeValid"
-    >لطفا کد تایید را وارد نمایید</span
-  >
+  @if(!verificationCodeValid){
+  <span class="invalid-feedback mb-3">لطفا کد تایید را وارد نمایید</span>
+  }
 
   <button
     class="btn btn-warning text-white text-klm-primary register-button mb-3"

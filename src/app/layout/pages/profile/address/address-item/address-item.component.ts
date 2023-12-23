@@ -32,9 +32,14 @@ export class AddressItemComponent {
   deleteLoading = false;
   destroy$ = new Subject<void>();
   @Input() address!: UserAddressViewModel;
+  @Input() deletable = true;
+  @Input() editable = true;
+  @Input() canSetDefault = true;
+
   @Output('addToDefault') onAddToDefault = new EventEmitter<number>();
   @Output('delete') onDelete = new EventEmitter<void>();
   @Output('update') onUpdate = new EventEmitter<void>();
+
   dialogRef!: MatDialogRef<AlertDialogComponent>;
 
   constructor(

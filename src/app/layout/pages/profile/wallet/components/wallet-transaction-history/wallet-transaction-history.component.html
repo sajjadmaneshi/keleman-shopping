@@ -15,66 +15,51 @@
     >
   </span>
   <div class="transactions w-100">
-    <ng-content
-      *ngIf="isLoading; then loading; else transactionsContent"
-    ></ng-content>
-    <ng-template #loading>
-      <ngx-skeleton-loader
-        [theme]="{ width: '100%', height: '50px' }"
-        count="3"
-      ></ngx-skeleton-loader>
-    </ng-template>
-    <ng-template #transactionsContent>
-      <ng-content
-        *ngIf="transactions.length > 0; then full; else empty"
-      ></ng-content>
-      <ng-template #full>
-        <div
-          class="alert d-flex align-items-center justify-content-between"
-          [ngClass]="
-            transaction.status === walletTransactionStatus.Increasse
-              ? 'alert-success'
-              : 'alert-danger'
-          "
-          *ngFor="let transaction of transactions; trackBy: trackByFn"
-        >
-          <span class="d-flex align-items-center">
-            <mat-icon>{{
-              transaction.status === walletTransactionStatus.Increasse
-                ? "add"
-                : "remove"
-            }}</mat-icon>
-            <h6>{{ transaction.price }} تومان</h6>
-          </span>
-          <h6 class="description px-3">{{ transaction.description }}</h6>
-          <h6 class="mb-0">
-            {{
-              persianDateTimeService.fromGregorianString(
-                transaction.date,
-                "DD/jMMMM/YYYY"
-              )
-            }}
-          </h6>
-        </div>
-        <keleman-pagination
-          [totalElements]="totalElement"
-          [limit]="limit"
-          [currentPage]="page"
-          (pageChange)="pageChange($event)"
-        ></keleman-pagination>
-        <div class="w-100 text-center">
-          <button
-            class="btn btn-warning print-button"
-            [disabled]="isLoading"
-            (click)="onPrint()"
-          >
-            چاپ
-          </button>
-        </div>
-      </ng-template>
-      <ng-template #empty>
-        <keleman-empty-content></keleman-empty-content>
-      </ng-template>
-    </ng-template>
+    @if(
+    (this.loadingService.getLoadingStateObservable('read','walletTransactions')|async)!){
+    <ngx-skeleton-loader
+      [theme]="{ width: '100%', height: '50px' }"
+      count="3"
+    ></ngx-skeleton-loader>
+    } @else if (transactions.length > 0) { @for (transaction of transactions;
+    track transaction.id){
+    <div
+      class="alert d-flex align-items-center justify-content-between"
+      [ngClass]="
+        transaction.status === walletTransactionStatus.Increasse
+          ? 'alert-success'
+          : 'alert-danger'
+      "
+    >
+      <span class="d-flex align-items-center">
+        <mat-icon>{{
+          transaction.status === walletTransactionStatus.Increasse
+            ? "add"
+            : "remove"
+        }}</mat-icon>
+        <h6>{{ transaction.price }} تومان</h6>
+      </span>
+      <h6 class="description px-3">{{ transaction.description }}</h6>
+      <h6 class="mb-0">
+        {{
+          persianDateTimeService.fromGregorianString(
+            transaction.date,
+            "DD/jMMMM/YYYY"
+          )
+        }}
+      </h6>
+    </div>
+    }
+
+    <keleman-pagination
+      [totalElements]="totalElement"
+      [limit]="limit"
+      [currentPage]="page"
+      (pageChange)="pageChange($event)"
+    ></keleman-pagination>
+
+    } @else {
+    <keleman-empty-content></keleman-empty-content>
+    }
   </div>
 </div>

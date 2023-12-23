@@ -1,13 +1,28 @@
 <div class="card card-rounded-3 border">
-  <div
-    class="card-body d-flex align-items-center justify-content-between fw-bold fs-3"
-  >
-    <mat-icon class="text-success cursor-pointer" inline (click)="increase()">
-      add</mat-icon
-    >
-    <span class="fw-bolder">{{ value }}</span>
-    <mat-icon class="text-danger cursor-pointer" inline (click)="decrease()">
-      {{ value > 1 ? "remove" : "delete" }}
-    </mat-icon>
+  <div class="card-body">
+    @if (title){
+    <p class="mb-1 text-center">{{ title }}</p>
+    }
+
+    <div class="d-flex align-items-center justify-content-between fw-bold fs-3">
+      <mat-icon
+        class="text-success cursor-pointer"
+        [class.disabled]="max ? max === value : false"
+        inline
+        (click)="increase()"
+      >
+        add</mat-icon
+      >
+
+      <span class="fw-bolder">{{ value }}</span>
+      <mat-icon
+        class="text-danger cursor-pointer"
+        [class.disabled]="min ? min === value : value === 0"
+        inline
+        (click)="decrease()"
+      >
+        {{ removable ? (value > 1 ? "remove" : "delete") : "remove" }}
+      </mat-icon>
+    </div>
   </div>
 </div>

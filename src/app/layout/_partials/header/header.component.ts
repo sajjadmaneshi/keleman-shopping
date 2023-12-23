@@ -16,17 +16,13 @@ export class HeaderComponent {
   @ViewChild('header', { static: true }) header!: ElementRef;
   constructor(
     public applicationState: ApplicationStateService,
-    private readonly _guestBasketService: GuestBasketService,
     private readonly _basketService: BasketService
   ) {
-    combineLatest(
-      this._guestBasketService.basket$,
-      this._basketService.cartCount
-    )
+    this._basketService.cartCount
+
       .pipe(takeUntil(this.destroy$))
-      .subscribe(([guestBasketCount, authorizedUserBasketCount]) => {
-        this.basketCount =
-          guestBasketCount.totalCount + authorizedUserBasketCount;
+      .subscribe((result) => {
+        this.basketCount = result;
       });
   }
 

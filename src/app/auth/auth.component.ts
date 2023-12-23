@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { AutoCompleteComponent } from '../shared/components/auto-complete/auto-complete.component';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { InputGroupComponent } from '../shared/components/input-group/input-group.component';
 import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
 import { LoadingProgressDirective } from '../shared/directives/loading-progress.directive';
@@ -48,6 +48,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatComponentsModule,
     TextOnlyDirective,
     MatStepperModule,
+    NgOptimizedImage,
   ],
 })
 export class AuthComponent implements OnDestroy {

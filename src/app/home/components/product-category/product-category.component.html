@@ -1,4 +1,5 @@
-<div class="p-3" *ngIf="categories.length > 0">
+@if (categories.length > 0){
+<div class="p-3">
   <keleman-swiper
     [spaceBetween]="10"
     [showMoreButton]="false"
@@ -6,15 +7,25 @@
     [titleBorder]="false"
     [navigationButtonClassPrefix]="'product-category'"
   >
-    <appSwiperContent *ngFor="let category of categories; trackBy: tranckByFn">
+    @for ( category of categories;track category.id){
+
+    <appSwiperContent>
       <ng-template appSwiperTemplate>
         <app-product-category-item
           class="cursor-pointer"
           [category]="category"
-          [isLoading]="(productCategoryService.isLoading | async)!"
+          [isLoading]="
+            (loadingService.getLoadingStateObservable(
+              'read',
+              'productCategories'
+            ) | async)!
+          "
           (click)="getCategoryProducts(category)"
         ></app-product-category-item>
       </ng-template>
     </appSwiperContent>
+    }
   </keleman-swiper>
 </div>
+
+}

@@ -4,7 +4,6 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { ValueChangerComponent } from '../shared/components/value-changer/value-changer.component';
 import { SwiperComponent } from '../shared/components/swiper/swiper.component';
-import { BackgroundSwiperItemComponent } from '../home/components/background-swiper/background-swiper-item/background-swiper-item.component';
 import { ImageResponsiveDirective } from '../shared/directives/image-responsive.directive';
 
 import {
@@ -31,18 +30,12 @@ import { UserDropdownMenuComponent } from './_partials/header/header-menu/top-me
 import { ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteComponent } from '../shared/components/auto-complete/auto-complete.component';
 import { MatComponentsModule } from '../mat-components.module';
-import { MainPageLatestArticlesComponent } from '../home/components/main-page-latest-articles/main-page-latest-articles.component';
-import { PackageSwiperComponent } from '../home/components/package-swiper/package-swiper.component';
-import { PartnerBrandsComponent } from '../home/components/partner-brands/partner-brands.component';
 import { FooterComponent } from './_partials/footer/footer.component';
 import { SearchBarComponent } from './_partials/header/header-menu/top-menu/search-bar/search-bar.component';
 import { SearchResultMenuComponent } from './_partials/header/header-menu/top-menu/search-bar/search-result-menu/search-result-menu.component';
 import { SwiperModule } from 'swiper/angular';
 import { HeaderMobileComponent } from './_partials/header/header-mobile/header-mobile.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { AdvertisingBannersComponent } from '../home/components/advertising-banners/advertising-banners.component';
-import { ArticleItemComponent } from '../shared/components/article-item/article-item.component';
-import { AboutUsSummaryComponent } from '../home/components/about-us-summary/about-us-summary.component';
 import { LazyLoadingDirective } from '../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../shared/directives/empty-image.directive';
 import { TextWithIconComponent } from '../shared/components/text-with-icon/text-with-icon.component';
@@ -56,6 +49,7 @@ import {
   faSquareInstagram,
   faSquareTwitter,
   faSquareWhatsapp,
+  faWhatsapp,
   faSquareYoutube,
   faTelegram,
 } from '@fortawesome/free-brands-svg-icons';
@@ -114,6 +108,7 @@ export class LayoutModule {
       faSquareTwitter,
       faTelegram,
       faGoogle,
+      faWhatsapp,
       faSquareWhatsapp
     );
   }

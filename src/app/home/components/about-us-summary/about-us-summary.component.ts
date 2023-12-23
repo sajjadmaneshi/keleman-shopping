@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { GeneralRepository } from '../../../shared/data/repositories/general.repository';
-import { Subscription, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { LoadingService } from '../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-about-us-summary',
@@ -8,24 +9,33 @@ import { Subscription, tap } from 'rxjs';
 })
 export class AboutUsSummaryComponent implements OnDestroy {
   aboutUsSummary!: string;
-  isLoading = false;
+  destroy$ = new Subject<void>();
 
-  subscription!: Subscription;
-
-  constructor(private _generalRepositorty: GeneralRepository) {
+  constructor(
+    private _generalRepositorty: GeneralRepository,
+    public loadingService: LoadingService
+  ) {
+    this.loadingService.startLoading('read', 'aboutUs');
     this._getAboutUs();
   }
 
   private _getAboutUs() {
-    this.subscription = this._generalRepositorty
+    this._generalRepositorty
       .getAboutUs()
-      .pipe(tap(() => (this.isLoading = false)))
-      .subscribe((result) => {
-        this.aboutUsSummary = result.result?.aboutUs!;
+      .pipe(
+        tap(() => this.loadingService.stopLoading('read', 'aboutUs')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (result) => {
+          this.aboutUsSummary = result.result?.aboutUs!;
+        },
+        error: () => this.loadingService.stopLoading('read', 'aboutUs'),
       });
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

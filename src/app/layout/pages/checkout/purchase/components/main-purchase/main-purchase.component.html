@@ -1,12 +1,39 @@
+@if(shippingCost){
+<span class="d-flex justify-content-between pb-3">
+  <span class="fs-6 fw-bold">هزینه ارسال</span>
+  <span class="fs-6"
+    >{{
+      shippingCost.shippingCost === 0
+        ? "رایگان"
+        : (shippingCost.shippingCost | number : ".0") + "تومان"
+    }}
+  </span>
+</span>
+}
+
 <span class="d-flex justify-content-between pb-3">
   <span class="fs-6 fw-bold">مجموع قیمت کالا ها</span>
-  <span class="fs-6">{{ totalPrice | number : ".0" }} تومان</span>
+  <span class="fs-6"
+    >{{ checkoutDetails.totalPrice | number : ".0" }} تومان</span
+  >
 </span>
 <span class="d-flex justify-content-between pb-3">
   <span class="fs-6 fw-bold">مبلغ پرداختی</span>
-  <span class="fs-6">{{ totalPrice | number : ".0" }} تومان</span>
+  <span class="fs-6"
+    >{{
+      (shippingCost?.shippingCost
+        ? shippingCost?.payableWithShipping
+        : checkoutDetails.payablePrice
+      ) | number : ".0"
+    }}
+    تومان</span
+  >
 </span>
+@if(checkoutDetails.profit>0){
+
 <span class="d-flex justify-content-between pb-3 text-success">
   <span class="fs-6 fw-bold">سود شما ازین خرید</span>
-  <span class="fs-6">{{ 0 | number : ".0" }} تومان</span>
+  <span class="fs-6">{{ checkoutDetails.profit | number : ".0" }} تومان</span>
 </span>
+
+}

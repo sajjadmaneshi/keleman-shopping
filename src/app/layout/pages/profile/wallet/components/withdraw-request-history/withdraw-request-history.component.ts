@@ -1,12 +1,5 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { map, Subject, take, takeUntil, tap } from 'rxjs';
+import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import { map, Subject, takeUntil, tap } from 'rxjs';
 import { WithdrawRequestViewModel } from '../../../data/view-models/withdraw-request-view.model';
 import { ProfileRepository } from '../../../data/profile.repository';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
@@ -15,6 +8,7 @@ import { AlertDialogComponent } from '../../../../../../shared/components/alert-
 import { AlertDialogDataModel } from '../../../../../../shared/components/alert-dialog/alert-dialog-data.model';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
+import { LoadingService } from '../../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-withdraw-request-history',
@@ -25,20 +19,20 @@ export class WithdrawRequestHistoryComponent implements OnDestroy, OnChanges {
   @Input('update') update = false;
   withdrawRequests: WithdrawRequestViewModel[] = [];
   totalElemnts: number = 0;
-  isLoading = true;
-  detroy$ = new Subject<void>();
+  destroy$ = new Subject<void>();
   page = 1;
   limit = 10;
-  cancelLoading = false;
   updateRequests = false;
   withdrawRequestStatus = WithdrawRequestStatusEnum;
 
   constructor(
-    private _profileRepository: ProfileRepository,
+    private readonly _profileRepository: ProfileRepository,
     private readonly _dialog: MatDialog,
     private readonly _snackBar: SnackBarService,
-    public readonly persianDateTimeService: PersianDateTimeService
+    public readonly persianDateTimeService: PersianDateTimeService,
+    public readonly loadingService: LoadingService
   ) {
+    this.loadingService.startLoading('read', 'withdrawRequests');
     this._getRequests();
   }
 
@@ -47,20 +41,20 @@ export class WithdrawRequestHistoryComponent implements OnDestroy, OnChanges {
       .getWithdrawRequests(this.page - 1, this.limit)
       .pipe(
         tap(() => {
-          this.isLoading = false;
+          this.loadingService.stopLoading('read', 'withdrawRequests');
           this.updateRequests = false;
         }),
-        takeUntil(this.detroy$),
+        takeUntil(this.destroy$),
         map((result) => result.result!)
       )
-      .subscribe((request) => {
-        this.withdrawRequests = [...request.items!];
-        this.totalElemnts = request.totalElements;
+      .subscribe({
+        next: (request) => {
+          this.withdrawRequests = [...request.items!];
+          this.totalElemnts = request.totalElements;
+        },
+        error: () =>
+          this.loadingService.stopLoading('read', 'withdrawRequests'),
       });
-  }
-
-  trackByFn(index: number, item: WithdrawRequestViewModel) {
-    return item.id;
   }
 
   private _showSuccessMessage() {
@@ -73,12 +67,7 @@ export class WithdrawRequestHistoryComponent implements OnDestroy, OnChanges {
     this._getRequests();
   }
 
-  ngOnDestroy(): void {
-    this.detroy$.next();
-    this.detroy$.complete();
-  }
-
-  public getAcceptBeforeRemove($event: any, reuestId: number) {
+  public getAcceptBeforeCancell($event: any, reuestId: number) {
     $event.stopPropagation();
     this._dialog.open(AlertDialogComponent, {
       autoFocus: false,
@@ -92,18 +81,28 @@ export class WithdrawRequestHistoryComponent implements OnDestroy, OnChanges {
   }
 
   cancelRequest(id: number) {
-    this.cancelLoading = true;
+    this.loadingService.startLoading('add', 'cancelWaaletRequest');
     this._profileRepository
       .cancelWithdrawRequest({ id })
       .pipe(
-        tap(() => (this.cancelLoading = false)),
-        takeUntil(this.detroy$)
+        tap(() =>
+          this.loadingService.stopLoading('add', 'cancelWaaletRequest')
+        ),
+        takeUntil(this.destroy$)
       )
-      .subscribe(() => this._showSuccessMessage());
+      .subscribe({
+        next: () => this._showSuccessMessage(),
+        error: () =>
+          this.loadingService.stopLoading('add', 'cancelWaaletRequest'),
+      });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.updateRequests = this.update;
     if (this.updateRequests) this._getRequests();
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

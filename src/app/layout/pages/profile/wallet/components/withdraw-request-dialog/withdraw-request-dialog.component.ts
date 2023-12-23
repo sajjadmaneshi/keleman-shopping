@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfileRepository } from '../../../data/profile.repository';
-import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { WithdrawRequestDto } from '../../../data/dto/withdraw-request.dto';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -56,12 +56,10 @@ export class WithdrawRequestDialogComponent implements OnDestroy {
           tap(() => (this.submitLoading = false)),
           takeUntil(this.destroy$)
         )
-        .subscribe(
-          (result) => this._showSuccessMessage(),
-          (error) => {
-            this.submitLoading = false;
-          }
-        );
+        .subscribe({
+          next: () => this._showSuccessMessage(),
+          error: () => (this.submitLoading = false),
+        });
     }
   }
 
