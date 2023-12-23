@@ -1,7 +1,23 @@
 <label class="text-klm-primary fw-bolder mb-3" for="address"
   >آدرس تحویل سفارش</label
 >
-<!--<keleman-address-item-->
-<!--  id="address"-->
-<!--  [address]="selectedAddress"-->
-<!--&gt;</keleman-address-item>-->
+
+@if((loadingSerivce.getLoadingStateObservable('read','getShippingAddress')|async)!){
+<ngx-skeleton-loader
+  [theme]="{ width: '100%', height: '150px' }"
+></ngx-skeleton-loader>
+} @else if (address){
+<keleman-shipping-address-item
+  [address]="address"
+></keleman-shipping-address-item>
+} @else {
+<div
+  class="alert alert-warning d-flex justify-content-between align-items-center"
+>
+  آدرسی جهت دریافت سفارش ثبت نشده است
+  <a class="text-primary cursor-pointer" (click)="addAddress()"
+    >افزودن آدرس جدید</a
+  >
+</div>
+
+}

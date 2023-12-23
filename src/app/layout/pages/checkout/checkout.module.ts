@@ -33,7 +33,16 @@ import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.di
 import { PurchaseModule } from './purchase/purchase.module';
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { PaymentGatewayRepository } from './data/repositories/payment-gateway.repository';
+import { KelemanMapComponent } from '../../../shared/components/keleman-map/keleman-map.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ShippingAddressItemComponent } from './shipping/shipping-address-item/shipping-address-item.component';
+import { ShippingUserAddressDialogComponent } from './shipping/shipping-user-address-dialog/shipping-user-address-dialog.component';
+import { EmptyContentComponent } from '../profile/empty-content/empty-content.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
+import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
+import { basketPaymentGuard } from './guard/basket-payment.guard';
+import { BankCallbackComponent } from './bank-callback/bank-callback.component';
 
 export const routes: Routes = [
   {
@@ -43,7 +52,11 @@ export const routes: Routes = [
       { path: '', redirectTo: Routing.basket, pathMatch: 'full' },
       { path: Routing.basket, component: BasketComponent },
       { path: Routing.shipping, component: ShippingComponent },
-      { path: Routing.payment, component: PaymentComponent },
+      {
+        path: Routing.payment,
+        component: PaymentComponent,
+        canActivate: [basketPaymentGuard],
+      },
     ],
   },
 ];
@@ -60,6 +73,8 @@ export const routes: Routes = [
     AttachReceiptDialogComponent,
     ReceiptFormComponent,
     AttachChequeDialogComponent,
+    ShippingUserAddressDialogComponent,
+    ShippingAddressItemComponent,
   ],
   imports: [
     CommonModule,
@@ -86,6 +101,12 @@ export const routes: Routes = [
     PurchaseModule,
     EmptyImageDirective,
     NgxSkeletonLoaderModule,
+    KelemanMapComponent,
+    MatProgressSpinnerModule,
+    EmptyContentComponent,
+    MatDividerModule,
+    LoadingProgressDirective,
+    InputGroupComponent,
   ],
   providers: [DecimalPipe, CheckoutService],
 })

@@ -1,0 +1,54 @@
+<span mat-dialog-title>
+  <span>انتخاب آدرس</span>
+</span>
+<div mat-dialog-content>
+  <div class="card card-rounded-3 border">
+    <div class="card-body">
+      <a
+        class="text-primary cursor-pointer d-flex align-items-center"
+        (click)="modifyAddress()"
+      >
+        <mat-icon class="material-icons-outlined">add_location</mat-icon>
+        افزودن آدرس جدید
+      </a>
+
+      <mat-divider class="my-3"></mat-divider>
+      <div>
+        @if((loadingService.getLoadingStateObservable('read','getShippingAddresses')|async)!){
+        <ngx-skeleton-loader
+          [theme]="{ width: '100%', height: '10rem' }"
+          [count]="2"
+        ></ngx-skeleton-loader>
+        } @else if (userAddresses.length>0){
+        <mat-radio-group [(ngModel)]="selectedAddress">
+          @for (address of userAddresses;track address.id){
+
+          <mat-radio-button
+            class="example-margin"
+            [color]="'primary'"
+            [value]="address"
+            (selectionchange)="selectAddress(address)"
+          >
+            <keleman-shipping-address-item
+              [address]="address"
+              [showMap]="false"
+              [editable]="true"
+              (edit)="modifyAddress(true, address)"
+            ></keleman-shipping-address-item>
+          </mat-radio-button>
+
+          }
+        </mat-radio-group>
+
+        } @else {
+        <keleman-empty-content></keleman-empty-content>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions class="justify-content-center">
+  <button class="btn btn-warning text-white" type="button" (click)="submit()">
+    ثبت
+  </button>
+</div>

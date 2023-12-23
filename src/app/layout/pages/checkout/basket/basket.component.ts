@@ -19,7 +19,6 @@ export class BasketComponent implements OnDestroy {
   destroy$ = new Subject<void>();
 
   constructor(
-    private _repository: BasketRepository,
     private _guestBasketService: GuestBasketService,
     public basketService: BasketService,
     public loadingService: LoadingService

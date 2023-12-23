@@ -12,14 +12,10 @@ import {
   NgbAccordionHeader,
   NgbAccordionItem,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  OrderCanReturnViewModel,
-  ReturnOrderProductViewModel,
-} from '../../../data/view-models/order-CanReturn.view-model';
+import { ReturnOrderProductViewModel } from '../../../data/view-models/order-CanReturn.view-model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 import { FormsModule } from '@angular/forms';
 import { ValueChangerComponent } from '../../../../../../shared/components/value-changer/value-changer.component';
-import { ReturnOrderProductComponent } from './return-order-product/return-order-product.component';
 
 @Component({
   selector: 'keleman-return-order',
@@ -38,23 +34,24 @@ import { ReturnOrderProductComponent } from './return-order-product/return-order
     NgbAccordionItem,
     FormsModule,
     ValueChangerComponent,
-    ReturnOrderProductComponent,
   ],
   templateUrl: './return-order.component.html',
   styleUrl: './return-order.component.scss',
 })
 export class ReturnOrderComponent {
-  @Input() order!: OrderCanReturnViewModel;
+  @Input() product!: ReturnOrderProductViewModel;
 
   @Output() remove = new EventEmitter<number>();
 
   constructor(public persianDateTimeService: PersianDateTimeService) {}
 
   onRemove() {
-    this.remove.emit(this.order.id);
+    this.remove.emit(this.product.id);
   }
 
   amountChange($event: number, product: ReturnOrderProductViewModel) {
     product.amount = $event;
   }
+
+  max!: number;
 }

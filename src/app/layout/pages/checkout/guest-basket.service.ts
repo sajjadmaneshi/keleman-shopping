@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GuestBasketModel } from './data/models/guest-basket.model';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ProductViewModel } from '../products/data/models/view-models/product.view-model';
 import { ProductDetailViewModel } from '../products/data/models/view-models/product-detail.view-model';
 
 @Injectable({ providedIn: 'root' })

@@ -11,7 +11,10 @@ import {
   NgbAccordionItem,
   NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
-import { OrderCanReturnViewModel } from '../../../data/view-models/order-CanReturn.view-model';
+import {
+  OrderCanReturnViewModel,
+  ReturnOrderProductViewModel,
+} from '../../../data/view-models/order-CanReturn.view-model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -19,7 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
 
 @Component({
-  selector: 'keleman-order-can-return-item',
+  selector: 'keleman-order-can-return',
   standalone: true,
   imports: [
     LazyLoadingDirective,
@@ -36,14 +39,14 @@ import { SnackBarService } from '../../../../../../shared/components/snack-bar/s
     MatCheckboxModule,
     FormsModule,
   ],
-  templateUrl: './order-can-return-item.component.html',
-  styleUrl: './order-can-return-item.component.scss',
+  templateUrl: './order-can-return.component.html',
+  styleUrl: './order-can-return.component.scss',
 })
-export class OrderCanReturnItemComponent {
-  @Input() order!: OrderCanReturnViewModel;
+export class OrderCanReturnComponent {
+  @Input() product!: ReturnOrderProductViewModel;
 
   @Output('addTo') addToReturnOrderList =
-    new EventEmitter<OrderCanReturnViewModel>();
+    new EventEmitter<ReturnOrderProductViewModel>();
   checked = false;
 
   constructor(
@@ -52,17 +55,6 @@ export class OrderCanReturnItemComponent {
   ) {}
 
   addToReturnList() {
-    const selectedProducts = this.order.products.filter((x) => x.selected);
-    if (selectedProducts.length === 0) {
-      this._snackBarService.showDangerSnackBar(
-        'لطفا حداقل یک محصول را جهت مرجوعی انتخاب نمایید'
-      );
-    } else {
-      const returnOrder = {
-        ...this.order,
-        products: selectedProducts,
-      } as OrderCanReturnViewModel;
-      this.addToReturnOrderList.emit(returnOrder);
-    }
+    this.addToReturnOrderList.emit(this.product);
   }
 }
