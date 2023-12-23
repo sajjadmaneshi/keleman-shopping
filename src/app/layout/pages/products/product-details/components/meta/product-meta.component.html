@@ -3,38 +3,37 @@
 >
   <div class="card-body">
     <table class="product-details-meta-list w-100">
-      <ng-container
-        *ngIf="isLoading; then loading; else content"
-      ></ng-container>
-      <ng-template #loading>
-        <tr *ngFor="let _ of sharedVariableService.counter(7)">
-          <td class="h6 fw-light text-muted">
-            <ngx-skeleton-loader
-              [theme]="{ width: '100%', height: '20px' }"
-            ></ngx-skeleton-loader>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template #content>
-        <tr *ngFor="let item of specifications.slice(0, 7)">
-          <td class="h6 fw-light text-muted">{{ item.key }}</td>
-          <td class="h6 fw-bolder">{{ item.value }}</td>
-        </tr>
-      </ng-template>
+      @if(isLoading){ @for (_ of sharedVariableService.counter(7);track _){
+      <tr>
+        <td class="h6 fw-light text-muted">
+          <ngx-skeleton-loader
+            [theme]="{ width: '100%', height: '20px' }"
+          ></ngx-skeleton-loader>
+        </td>
+      </tr>
+      } } @else { @for ( item of specifications.slice(0, 7);track item.key){
+      <tr>
+        <td class="h6 fw-light text-muted">{{ item.key }}</td>
+        <td class="h6 fw-bolder">{{ item.value }}</td>
+      </tr>
+      } }
     </table>
 
-    <ng-template #price [ngIf]="details.price > 0">
-      <keleman-price [size]="'h5'" [value]="details.price!"></keleman-price>
-    </ng-template>
+    @if(details.price>0){
+    <keleman-price [size]="'h5'" [value]="details.price!"></keleman-price>
+    }
     <div class="row align-items-center d-none d-lg-flex">
       @if (inBasketCount == 0){
       <div class="col-12">
         <button
           class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
           kelemanLoadingProgress
-          [loading]="(loadingService.getLoadingStateObservable('add') | async)!"
+          [loading]="
+            (loadingService.getLoadingStateObservable('add', 'addToBasket')
+              | async)!
+          "
           [disabled]="details.price < 1 || details.currentStock < 1"
-          (click)="isLoggedIn ? addToBasketAuthorized() : addToBasketGuest()"
+          (click)="addToBasket()"
         >
           {{
             details.currentStock > 1 && details.price > 1
@@ -53,7 +52,9 @@
             isLoggedIn ? updateBasketAuthorized($event) : addToBasketGuest()
           "
           (decrease)="
-            isLoggedIn ? updateBasketAuthorized($event) : removeFromBasket()
+            isLoggedIn
+              ? updateBasketAuthorized($event)
+              : removeFromBasketGuest()
           "
         ></keleman-value-changer>
       </div>

@@ -19,7 +19,7 @@ import { InitialAppService } from './shared/services/initial-app.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BasketRepository } from './layout/pages/checkout/data/repositories/basket.repository';
-import { PaymentGatewayRepository } from './layout/pages/checkout/data/repositories/payment-gateway.repository';
+import { BillRepository } from './layout/pages/checkout/data/repositories/bill.repository';
 
 export function initializeApp(
   initialAppService: InitialAppService
@@ -53,7 +53,7 @@ export function tokenGetter() {
   ],
   providers: [
     BasketRepository,
-    PaymentGatewayRepository,
+    BillRepository,
     ApplicationStateService,
     InitialAppService,
     {

@@ -1,5 +1,4 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { WithdrawRequestDialogComponent } from './components/withdraw-request-dialog/withdraw-request-dialog.component';
 
@@ -22,28 +21,8 @@ export class WalletComponent {
       })
       .afterClosed()
       .subscribe((res) => {
-        if (res) {
-          this.updateRequests = res;
-        }
+        if (res) this.updateRequests = res;
       });
-  }
-
-  printDiv() {
-    const content = this.printableContent.nativeElement.innerHTML;
-    const printWindow = window.open('', '_blank');
-    printWindow?.document.open();
-    printWindow?.document.write(`
-      <html>
-        <head>
-          <title>Print</title>
-        </head>
-        <body id="printable-content">
-          ${content}
-        </body>
-      </html>
-    `);
-    printWindow?.document.close();
-    printWindow?.print();
   }
 
   showRequests() {

@@ -21,6 +21,7 @@ export class ProductMetaComponent implements OnInit {
   isLoading = true;
   specifications!: ProductSpecificViewModel[];
   subscription!: Subscription;
+  addToBasketLoading = false;
 
   isInBasket = false;
   inBasketCount = 0;
@@ -50,16 +51,22 @@ export class ProductMetaComponent implements OnInit {
       });
   }
 
+  addToBasket() {
+    this.isLoggedIn ? this.addToBasketAuthorized() : this.addToBasketGuest();
+  }
+
   addToBasketGuest() {
     const productItem = {
       product: this.productDetail,
       count: 1,
     };
+    this._guestBasketService.addToBasket(productItem);
+    this.inBasketCount++;
+  }
 
-    if (!this.isLoggedIn) {
-      this._guestBasketService.addToBasket(productItem);
-      this.inBasketCount++;
-    }
+  removeFromBasketGuest() {
+    this._guestBasketService.removeFromBasket(this.productDetail.id);
+    this.inBasketCount--;
   }
 
   addToBasketAuthorized() {
@@ -77,13 +84,6 @@ export class ProductMetaComponent implements OnInit {
       count,
     } as UpdateBasketDto;
     this._basketService.updateBasket(dto);
-  }
-
-  removeFromBasket() {
-    if (!this.isLoggedIn) {
-      this._guestBasketService.removeFromBasket(this.productDetail.id);
-      this.inBasketCount--;
-    }
   }
 
   ngOnInit(): void {

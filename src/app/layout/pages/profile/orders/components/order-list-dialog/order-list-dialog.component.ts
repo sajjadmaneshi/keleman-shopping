@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductCommentViewModel } from '../../../../products/data/models/view-models/product-comment.view-model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
-import { OrderProduct } from '../../../data/view-models/order-view.model';
+import { OrderProduct } from '../../../data/view-models/order.view.model';
 
 @Component({
   selector: 'keleman-order-list-dialog',

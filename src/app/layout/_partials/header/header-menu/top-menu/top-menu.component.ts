@@ -40,6 +40,7 @@ export class TopMenuComponent implements OnDestroy {
         this.userCreditInfo = userCredit;
         this.isLoading = false;
       });
+
     this.userService.userSimpleInfo
       .pipe(
         tap(() => (this.profileInfoLoading = false)),

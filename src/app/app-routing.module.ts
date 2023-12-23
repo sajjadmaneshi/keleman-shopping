@@ -10,6 +10,7 @@ import { Routing } from './routing';
 import { TokenResolver } from '../common/resolvers/token.resolver';
 import { CustomRouteReuseStrategy } from './shared/custom-route-reuse-strategy';
 import { CanonicalResolver } from 'src/common/resolvers/canonical.resolver';
+import { BankCallbackComponent } from './layout/pages/checkout/bank-callback/bank-callback.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
       token: () => inject(TokenResolver).resolve(),
     },
   },
+  { path: Routing.callback, component: BankCallbackComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

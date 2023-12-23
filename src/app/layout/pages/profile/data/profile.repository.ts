@@ -8,7 +8,7 @@ import { ProfileDto } from './dto/profile.dto';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { HttpRequestOptions } from '../../../../shared/data/models/http/http-request-options';
 import { FavoriteProductViewModel } from './view-models/favorite-product.view-model';
-import { OrderViewModel } from './view-models/order-view.model';
+import { OrderViewModel } from './view-models/order.view.model';
 import { OrderCountViewModel } from './view-models/order-count.view-model';
 import { OrdersStatusEnum } from './enums/orders-status.enum';
 import { UserCreditViewModel } from './view-models/user-credit.view-model';
@@ -22,6 +22,11 @@ import { WithdrawRequestDto } from './dto/withdraw-request.dto';
 import { WithdrawRequestViewModel } from './view-models/withdraw-request-view.model';
 import { UserCommentViewModel } from './view-models/user-comment.view-model';
 import { UserQuestionViewModel } from './view-models/user-question.view-model';
+import { ReturnReasonViewModel } from './view-models/return-reason.view-model';
+import { ReturnRequestViewModel } from './view-models/return-request.view-model';
+import { ReturnRequestStatusEnum } from './enums/return-request-status.enum';
+import { OrderCanReturnViewModel } from './view-models/order-can-return.view-model';
+import { ReturnRequestDto } from './dto/return-request.dto';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileRepository extends DataService<any> {
@@ -166,6 +171,8 @@ export class ProfileRepository extends DataService<any> {
     >;
   }
 
+  /*================= userAddress ================================*/
+
   getUserAddresses(): Observable<HttpClientResult<UserAddressViewModel[]>> {
     return this._http.get(
       `${this._getProfileUrl}/address?userId=${localStorage.getItem('USERID')}`
@@ -176,6 +183,14 @@ export class ProfileRepository extends DataService<any> {
   ): Observable<HttpClientResult<UserAddressViewModel>> {
     return this._http.get(
       `${this._getProfileUrl}/address/${id}?userId=${localStorage.getItem(
+        'USERID'
+      )}`
+    ) as Observable<HttpClientResult<UserAddressViewModel>>;
+  }
+
+  getDefaultAddress(): Observable<HttpClientResult<UserAddressViewModel>> {
+    return this._http.get(
+      `${this._getProfileUrl}/address/default?userId=${localStorage.getItem(
         'USERID'
       )}`
     ) as Observable<HttpClientResult<UserAddressViewModel>>;
@@ -216,6 +231,8 @@ export class ProfileRepository extends DataService<any> {
     ) as Observable<HttpClientResult<void>>;
   }
 
+  /*================= userAddress ================================*/
+
   addWithdrawRequest(
     dto: WithdrawRequestDto
   ): Observable<HttpClientResult<void>> {
@@ -251,5 +268,61 @@ export class ProfileRepository extends DataService<any> {
     ) as Observable<
       HttpClientResult<PaginationViewModel<WithdrawRequestViewModel>>
     >;
+  }
+
+  /* ---------------------------------- return requests ---------------------------------------  */
+
+  getReturnReasons(): Observable<HttpClientResult<ReturnReasonViewModel[]>> {
+    return this._http.get(`${this._getProfileUrl}/returnReason`) as Observable<
+      HttpClientResult<ReturnReasonViewModel[]>
+    >;
+  }
+
+  getReturnRequests(
+    page: number,
+    limit: number,
+    status?: ReturnRequestStatusEnum
+  ): Observable<HttpClientResult<PaginationViewModel<ReturnRequestViewModel>>> {
+    return this._http.get(
+      `${this._getProfileUrl}/returnRequest?userId=${localStorage.getItem(
+        'USERID'
+      )}&&offset=${page}&&limit=${limit}${
+        status != undefined ? '&&status=' + status : ''
+      }`
+    ) as Observable<
+      HttpClientResult<PaginationViewModel<ReturnRequestViewModel>>
+    >;
+  }
+
+  addReturnRequest(dto: ReturnRequestDto): Observable<HttpClientResult<void>> {
+    return this._http.post(
+      `${this._getProfileUrl}/returnOrder?userId=${localStorage.getItem(
+        'USERID'
+      )}`,
+      dto
+    ) as Observable<HttpClientResult<void>>;
+  }
+
+  cancelReturnRequest(dto: { id: number }): Observable<HttpClientResult<void>> {
+    return this._http.post(
+      `${this._getProfileUrl}/returnOrder/cancel?userId=${localStorage.getItem(
+        'USERID'
+      )}`,
+      dto
+    ) as Observable<HttpClientResult<void>>;
+  }
+
+  getOrdersCanReturn(
+    fromDate: string = '',
+    toDate: string = '',
+    search: string = ''
+  ): Observable<HttpClientResult<OrderCanReturnViewModel[]>> {
+    return this._http.get(
+      `${
+        this._getProfileUrl
+      }/orders/paidUnreturned?userId=${localStorage.getItem(
+        'USERID'
+      )}&fromDate=${fromDate}&toDate=${toDate}&search=${search}`
+    ) as Observable<HttpClientResult<OrderCanReturnViewModel[]>>;
   }
 }

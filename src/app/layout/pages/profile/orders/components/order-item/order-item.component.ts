@@ -1,12 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ReturnRequestDialogComponent } from './return-request-dialog/return-request-dialog.component';
-import { OrderViewModel } from '../../../data/view-models/order-view.model';
+
+import { OrderViewModel } from '../../../data/view-models/order.view.model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 import { OrdersStatusEnum } from '../../../data/enums/orders-status.enum';
 import { OrderListDialogComponent } from '../order-list-dialog/order-list-dialog.component';
 import { ProfileRepository } from '../../../data/profile.repository';
+import { AddReturnRequestDialogComponent } from '../../../returned-request/add-return-request-dialog/add-return-request-dialog.component';
+import { OrderCanReturnViewModel } from '../../../data/view-models/order-can-return.view-model';
 
 @Component({
   selector: 'keleman-order-item',
@@ -26,9 +28,16 @@ export class OrderItemComponent {
   ) {}
 
   openReturnRequestDialog(): void {
-    this._dialog.open(ReturnRequestDialogComponent, {
-      width: '550px',
-      panelClass: 'custom-mat-dialog',
+    const productsWithReasonId = this.orderDetail.products.map((product) => ({
+      ...product,
+      reasonId: -1,
+    }));
+    this._dialog.open(AddReturnRequestDialogComponent, {
+      width: '1000px',
+      data: {
+        ...this.orderDetail,
+        products: productsWithReasonId,
+      } as OrderCanReturnViewModel,
     });
   }
 

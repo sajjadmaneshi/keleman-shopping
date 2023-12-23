@@ -13,4 +13,6 @@ export interface ReturnOrderProductViewModel {
   brand: string;
   url: string;
   thumbnailImage: string;
+  reasonId: number;
+  description?: string;
 }

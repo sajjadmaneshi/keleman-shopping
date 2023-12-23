@@ -1,3 +1,35 @@
+@if(range){
+
+<input
+  id="date"
+  class="keleman-text-field mb-3"
+  placeholder="yyyy-mm-dd"
+  ngbDatepicker
+  #d="ngbDatepicker"
+  [autoClose]="'outside'"
+  [firstDayOfWeek]="6"
+  (dateSelect)="onDateSelection($event)"
+  [dayTemplate]="t"
+  [startDate]="fromDate!"
+  (click)="d.toggle()"
+  tabindex="-1"
+  outsideDays="hidden"
+/>
+
+<ng-template #t let-date let-focused="focused">
+  <span
+    class="custom-day"
+    [class.focused]="focused"
+    [class.range]="isRange(date)"
+    [class.faded]="isHovered(date) || isInside(date)"
+    (mouseenter)="hoveredDate = date"
+    (mouseleave)="hoveredDate = null"
+  >
+    {{ date.day }}
+  </span>
+</ng-template>
+
+} @else {
 <input
   id="date"
   class="keleman-text-field"
@@ -8,3 +40,4 @@
   #d="ngbDatepicker"
   (click)="d.toggle()"
 />
+}

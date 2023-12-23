@@ -5,7 +5,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 body.menuOpened {
@@ -70,21 +71,16 @@ body.menuOpened {
 }
 
 .menuOpened .menu1 {
-  transform: translate(-105px, 20px);
+  transform: translate(-78px, 33px);
   transition-delay: 0s;
 }
 
 .menuOpened .menu2 {
-  transform: translate(-78px, -33px);
+  transform: translate(-68px, -25px);
   transition-delay: 0.05s;
 }
 
 .menuOpened .menu3 {
-  transform: translate(-38px, -76px);
+  transform: translate(-28px, -71px);
   transition-delay: 0.1s;
-}
-
-.menuOpened .menu4 {
-  transform: translate(18px, -99px);
-  transition-delay: 0.15s;
 }

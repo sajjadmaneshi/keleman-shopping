@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { OrderViewModel } from '../../../data/view-models/order-view.model';
+import { OrderViewModel } from '../../../data/view-models/order.view.model';
 import { ProfileRepository } from '../../../data/profile.repository';
 import { map, Subject, takeUntil, tap } from 'rxjs';
 import { OrdersStatusEnum } from '../../../data/enums/orders-status.enum';

@@ -1,4 +1,4 @@
-@if (isLoading){
+@if ((loadingService.getLoadingStateObservable('read','aboutUs')|async)!){
 <div class="text-center">
   <ngx-skeleton-loader
     [theme]="{ width: '50%', height: '20px' }"

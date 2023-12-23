@@ -14,7 +14,12 @@
         <app-product-category-item
           class="cursor-pointer"
           [category]="category"
-          [isLoading]="(productCategoryService.isLoading | async)!"
+          [isLoading]="
+            (loadingService.getLoadingStateObservable(
+              'read',
+              'productCategories'
+            ) | async)!
+          "
           (click)="getCategoryProducts(category)"
         ></app-product-category-item>
       </ng-template>

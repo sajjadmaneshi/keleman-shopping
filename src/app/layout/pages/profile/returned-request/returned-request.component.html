@@ -1,16 +1,15 @@
-<keleman-input-group class="search-bar">
-  <span class="prepend material-icons-outlined mx-2">search</span>
-  <button class="append btn btn-klm-primary h-100 search-button">جستجو</button>
-</keleman-input-group>
-
 <div class="credits-history">
   <div class="card card-rounded-3 shadow-sm border border-gray-300">
     <div class="card-body">
-      <span class="d-flex align-items-center">
-        <mat-icon class="d-lg-none" routerLink="../">arrow_right_alt</mat-icon>
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="d-flex align-items-center">
+          <mat-icon class="d-lg-none" routerLink="../"
+            >arrow_right_alt</mat-icon
+          >
+          <h6 class="fw-bold p-3">تاریخچه درخواست ها</h6>
+        </span>
+      </div>
 
-        <h6 class="fw-bold p-3">تاریخچه درخواست ها</h6>
-      </span>
       <ng-container *ngIf="true; then full"></ng-container>
       <ng-template #full>
         <keleman-returned-request-history></keleman-returned-request-history>

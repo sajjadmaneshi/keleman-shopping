@@ -38,43 +38,40 @@
           [zoom]="50"
         ></keleman-map>
         <span class="actions d-flex flex-column mx-3">
+          @if (canSetDefault){
           <button
             class="btn btn-icon text-klm-primary"
             ngbTooltip="انتخاب به عنوان آدرس پیشفرض"
             [disabled]="address.isDefault"
             (click)="addToDefault(address.id)"
           >
-            <ng-content
-              *ngIf="isLoading; then loading; else content"
-            ></ng-content>
-            <ng-template #content>
-              <mat-icon>{{
-                address.isDefault ? "bookmark" : "bookmark_border"
-              }}</mat-icon>
-            </ng-template>
-            <ng-template #loading>
-              <mat-spinner [diameter]="20"></mat-spinner>
-            </ng-template>
+            @if(isLoading){
+            <mat-spinner [diameter]="20"></mat-spinner>
+            } @else {
+
+            <mat-icon>{{
+              address.isDefault ? "bookmark" : "bookmark_border"
+            }}</mat-icon>
+            }
           </button>
+          } @if (editable){
           <button (click)="openEditDialog()" class="btn btn-icon text-warning">
             <mat-icon>edit</mat-icon>
           </button>
+          } @if (deletable){
           <button
             href="#"
             class="btn btn-icon text-danger"
             [disabled]="deleteLoading"
             (click)="getAcceptBeforeRemove($event)"
           >
-            <ng-content
-              *ngIf="deleteLoading; then loadingDelete; else deleteContent"
-            ></ng-content>
-            <ng-template #deleteContent>
-              <mat-icon>delete</mat-icon>
-            </ng-template>
-            <ng-template #loadingDelete>
-              <mat-spinner [diameter]="20"></mat-spinner>
-            </ng-template>
+            @if (deleteLoading){
+            <mat-spinner [diameter]="20"></mat-spinner>
+            } @else {
+            <mat-icon>delete</mat-icon>
+            }
           </button>
+          }
         </span>
       </div>
     </div>

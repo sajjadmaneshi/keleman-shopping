@@ -3,22 +3,30 @@
 <div
   class="cornerMenu"
   [ngClass]="{ animate__heartBeat: !menuOpened }"
-  (click)="toggleClass()"
+  (click)="$event.preventDefault(); toggleClass()"
 >
   <mat-icon class="menu-icon contact-us" [inline]="true">
     @if(menuOpened){ close } @else { headset_mic }
   </mat-icon>
 
-  <div class="menu menu1" ngbTooltip="درخواست تماس" container="body">
-    <mat-icon class="menu-icon" [inline]="true">edit</mat-icon>
+  <div class="menu menu1" ngbTooltip="واتساپ" container="body">
+    <a
+      target="_blank"
+      aria-label="whatsapp"
+      rel="noopener noreferrer"
+      href="https://web.whatsapp.com/send?phone=+987138080000"
+    >
+      <fa-icon [icon]="['fab', 'whatsapp']"></fa-icon>
+    </a>
   </div>
-  <div class="menu menu2" ngbTooltip="واتساپ" container="body">
-    <i class="fa-brands fa-whatsapp fa-2xl"></i>
+  <div class="menu menu2" ngbTooltip="شماره پیامک" container="body">
+    <a rel="noopener noreferrer" href="tel: 071-3808">
+      <mat-icon class="menu-icon" [inline]="true">sms</mat-icon>
+    </a>
   </div>
-  <div class="menu menu3" ngbTooltip="شماره پیامک" container="body">
-    <mat-icon class="menu-icon" [inline]="true">sms</mat-icon>
-  </div>
-  <div class="menu menu4" ngbTooltip="شماره تماس" container="body">
-    <mat-icon class="menu-icon" [inline]="true">phone_in_talk</mat-icon>
+  <div class="menu menu3" ngbTooltip="شماره تماس" container="body">
+    <a rel="noopener noreferrer" href="tel: 071-3808">
+      <mat-icon class="menu-icon" [inline]="true">phone_in_talk</mat-icon></a
+    >
   </div>
 </div>

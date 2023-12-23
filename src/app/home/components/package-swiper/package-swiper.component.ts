@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 
 import Swiper, { EffectCreative, Navigation } from 'swiper';
 import SwiperCore from 'swiper';
 import { ProductViewModel } from '../../../layout/pages/products/data/models/view-models/product.view-model';
 import { HttpClientResult } from '../../../shared/data/models/http/http-client.result';
 import { HomeRepository } from '../../data/repositories/home.repository';
-import { ENVIRONMENT } from '../../../../environments/environment';
+import { LoadingService } from '../../../../common/services/loading.service';
 
 SwiperCore.use([EffectCreative, Navigation]);
 @Component({
@@ -15,29 +15,28 @@ SwiperCore.use([EffectCreative, Navigation]);
   styleUrls: ['./package-swiper.component.scss'],
 })
 export class PackageSwiperComponent implements AfterViewInit, OnDestroy {
-  downloadUrl = ENVIRONMENT.downloadUrl;
-  isLoading = new BehaviorSubject(false);
   slides: ProductViewModel[] = [];
   swiper: any;
-
   destroy$ = new Subject<void>();
-  constructor(private _homeRepository: HomeRepository) {}
+  constructor(
+    private _homeRepository: HomeRepository,
+    public loadingSerive: LoadingService
+  ) {}
 
   private _init() {
-    this.isLoading.next(true);
+    this.loadingSerive.startLoading('read', 'packages');
     this._homeRepository
       .getPackages()
       .pipe(
-        tap(() => this.isLoading.next(false)),
+        tap(() => this.loadingSerive.stopLoading('read', 'packages')),
         takeUntil(this.destroy$)
       )
-      .subscribe((result: HttpClientResult<ProductViewModel[]>) => {
-        this.slides = [...result.result!];
+      .subscribe({
+        next: (result: HttpClientResult<ProductViewModel[]>) => {
+          this.slides = [...result.result!];
+        },
+        error: () => this.loadingSerive.stopLoading('read', 'packages'),
       });
-  }
-
-  tranckByFn(index: number, item: ProductViewModel) {
-    return item.id;
   }
 
   ngAfterViewInit(): void {

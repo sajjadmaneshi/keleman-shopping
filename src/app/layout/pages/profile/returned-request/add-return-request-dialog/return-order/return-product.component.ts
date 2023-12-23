@@ -12,13 +12,15 @@ import {
   NgbAccordionHeader,
   NgbAccordionItem,
 } from '@ng-bootstrap/ng-bootstrap';
-import { ReturnOrderProductViewModel } from '../../../data/view-models/order-CanReturn.view-model';
+import { ReturnOrderProductViewModel } from '../../../data/view-models/order-can-return.view-model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValueChangerComponent } from '../../../../../../shared/components/value-changer/value-changer.component';
+import { JsonPipe } from '@angular/common';
+import { AutoCompleteComponent } from '../../../../../../shared/components/auto-complete/auto-complete.component';
 
 @Component({
-  selector: 'keleman-return-order',
+  selector: 'keleman-return-product',
   standalone: true,
   imports: [
     EmptyImageDirective,
@@ -34,23 +36,29 @@ import { ValueChangerComponent } from '../../../../../../shared/components/value
     NgbAccordionItem,
     FormsModule,
     ValueChangerComponent,
+    JsonPipe,
+    ReactiveFormsModule,
+    AutoCompleteComponent,
   ],
-  templateUrl: './return-order.component.html',
-  styleUrl: './return-order.component.scss',
+  templateUrl: './return-product.component.html',
+  styleUrl: './return-product.component.scss',
 })
-export class ReturnOrderComponent {
+export class ReturnProductComponent implements OnInit {
   @Input() product!: ReturnOrderProductViewModel;
-
   @Output() remove = new EventEmitter<number>();
 
   constructor(public persianDateTimeService: PersianDateTimeService) {}
+
+  ngOnInit(): void {
+    if (this.product) this.max = this.product.amount;
+  }
 
   onRemove() {
     this.remove.emit(this.product.id);
   }
 
-  amountChange($event: number, product: ReturnOrderProductViewModel) {
-    product.amount = $event;
+  amountChange($event: number) {
+    this.product.amount = $event;
   }
 
   max!: number;

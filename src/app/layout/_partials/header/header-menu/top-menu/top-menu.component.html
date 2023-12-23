@@ -10,37 +10,33 @@
 
   @if (isLoggedIn){
   <div ngbDropdown class="d-inline-block">
-    <ng-content
-      *ngIf="profileInfoLoading; then loading; else content"
-    ></ng-content>
-    <ng-template #loading>
-      <span class="d-flex align-items-center">
-        <ngx-skeleton-loader
-          [theme]="{ width: '5rem', height: '1rem' }"
-        ></ngx-skeleton-loader>
+    @if(profileInfoLoading){
+    <span class="d-flex align-items-center">
+      <ngx-skeleton-loader
+        [theme]="{ width: '5rem', height: '1rem' }"
+      ></ngx-skeleton-loader>
 
-        <ngx-skeleton-loader
-          [theme]="{ width: '50px', height: '50px' }"
-          [appearance]="'circle'"
-        ></ngx-skeleton-loader>
-      </span>
-    </ng-template>
-    <ng-template #content>
-      <span class="d-flex align-items-center cursor-pointer" ngbDropdownToggle>
-        <p class="mx-3">
-          {{ userProfileInfo.firstName }}
-          {{ userProfileInfo.lastName }}
-        </p>
-        <div class="symbol symbol-10 symbol-circle">
-          <img
-            loadingLazy
-            emptyImage
-            [src]="userProfileInfo.avatar!"
-            [isAvatar]="true"
-          />
-        </div>
-      </span>
-    </ng-template>
+      <ngx-skeleton-loader
+        [theme]="{ width: '50px', height: '50px' }"
+        [appearance]="'circle'"
+      ></ngx-skeleton-loader>
+    </span>
+    } @else {
+    <span class="d-flex align-items-center cursor-pointer" ngbDropdownToggle>
+      <p class="mx-3">
+        {{ userProfileInfo.firstName }}
+        {{ userProfileInfo.lastName }}
+      </p>
+      <div class="symbol symbol-10 symbol-circle">
+        <img
+          loadingLazy
+          emptyImage
+          [src]="userProfileInfo.avatar!"
+          [isAvatar]="true"
+        />
+      </div>
+    </span>
+    }
 
     <div
       ngbDropdownMenu

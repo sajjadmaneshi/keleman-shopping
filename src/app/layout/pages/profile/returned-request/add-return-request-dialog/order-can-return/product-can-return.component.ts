@@ -14,7 +14,7 @@ import {
 import {
   OrderCanReturnViewModel,
   ReturnOrderProductViewModel,
-} from '../../../data/view-models/order-CanReturn.view-model';
+} from '../../../data/view-models/order-can-return.view-model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
 
 @Component({
-  selector: 'keleman-order-can-return',
+  selector: 'keleman-product-can-return',
   standalone: true,
   imports: [
     LazyLoadingDirective,
@@ -39,20 +39,17 @@ import { SnackBarService } from '../../../../../../shared/components/snack-bar/s
     MatCheckboxModule,
     FormsModule,
   ],
-  templateUrl: './order-can-return.component.html',
-  styleUrl: './order-can-return.component.scss',
+  templateUrl: './product-can-return.component.html',
+  styleUrl: './product-can-return.component.scss',
 })
-export class OrderCanReturnComponent {
+export class ProductCanReturnComponent {
   @Input() product!: ReturnOrderProductViewModel;
 
   @Output('addTo') addToReturnOrderList =
     new EventEmitter<ReturnOrderProductViewModel>();
   checked = false;
 
-  constructor(
-    public persianDateTimeService: PersianDateTimeService,
-    private _snackBarService: SnackBarService
-  ) {}
+  constructor(public persianDateTimeService: PersianDateTimeService) {}
 
   addToReturnList() {
     this.addToReturnOrderList.emit(this.product);

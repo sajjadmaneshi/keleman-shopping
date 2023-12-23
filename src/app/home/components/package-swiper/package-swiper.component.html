@@ -26,21 +26,25 @@
         }
       }"
     >
-      <ng-container *ngFor="let slide of slides; trackBy: tranckByFn">
-        <ng-template swiperSlide>
-          <div class="swiper-slide">
-            <img
-              loadingLazy
-              emptyImage
-              [alt]="slide.name"
-              [src]="slide.thumbnailImage"
-            />
-            <div class="package-info">
-              <h6>{{ slide.name }}</h6>
-            </div>
+      @for (slide of slides;track slide.id){
+
+      <ng-template swiperSlide>
+        <div
+          class="swiper-slide"
+          [routerLink]="['/products/detail/' + slide.customUrl]"
+        >
+          <img
+            loadingLazy
+            emptyImage
+            [alt]="slide.name"
+            [src]="slide.thumbnailImage"
+          />
+          <div class="package-info">
+            <h6>{{ slide.name }}</h6>
           </div>
-        </ng-template>
-      </ng-container>
+        </div>
+      </ng-template>
+      }
     </swiper>
   </div>
 </div>

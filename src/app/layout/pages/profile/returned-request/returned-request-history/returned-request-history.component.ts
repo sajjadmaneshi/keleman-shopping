@@ -1,5 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { PersianDateTimeService } from '../../../../../shared/services/date-time/persian-datetime.service';
+import { ProfileRepository } from '../../data/profile.repository';
+import { ReturnRequestViewModel } from '../../data/view-models/return-request.view-model';
+import { map, Subject, takeUntil, tap } from 'rxjs';
+import { ReturnRequestStatusEnum } from '../../data/enums/return-request-status.enum';
+import { AlertDialogComponent } from '../../../../../shared/components/alert-dialog/alert-dialog.component';
+import { AlertDialogDataModel } from '../../../../../shared/components/alert-dialog/alert-dialog-data.model';
+import { MatDialog } from '@angular/material/dialog';
+import { LoadingService } from '../../../../../../common/services/loading.service';
+import { SnackBarService } from '../../../../../shared/components/snack-bar/snack-bar.service';
+
+export interface SelectedStatusFilterReurnRequest {
+  id: number;
+  status?: ReturnRequestStatusEnum;
+  title: string;
+}
 
 @Component({
   selector: 'keleman-returned-request-history',
@@ -7,47 +22,116 @@ import { PersianDateTimeService } from '../../../../../shared/services/date-time
   styleUrls: ['./returned-request-history.component.scss'],
 })
 export class ReturnedRequestHistoryComponent {
-  @Input() status: ReturnedStatus = 0;
+  isLoading = true;
+  destroy$ = new Subject<void>();
+  statusEnum = ReturnRequestStatusEnum;
+  requests: ReturnRequestViewModel[] = [];
+  page = 1;
+  totalElements = 0;
+  limit = 10;
 
-  statusEnum = ReturnedStatus;
+  selectedStatus: SelectedStatusFilterReurnRequest = { id: 0, title: 'همه' };
 
-  requests = [
+  statusMap: SelectedStatusFilterReurnRequest[] = [
+    { id: 0, title: 'همه' },
     {
-      returnedNum: 123456,
-      orderNum: 123456,
-      date: '2022-01-01T13:34:45',
-      status: ReturnedStatus.approved,
+      id: ReturnRequestStatusEnum.SentByUser,
+      title: 'درحال بررسی',
+      status: ReturnRequestStatusEnum.SentByUser,
     },
     {
-      returnedNum: 123456,
-      orderNum: 123456,
-      date: '2022-01-01T13:34:45',
-      status: ReturnedStatus.rejected,
+      id: ReturnRequestStatusEnum.ReadByAdmin,
+      title: 'خوانده شده',
+      status: ReturnRequestStatusEnum.ReadByAdmin,
     },
     {
-      returnedNum: 123456,
-      orderNum: 123456,
-      date: '2022-01-01T13:34:45',
-      status: ReturnedStatus.inProgress,
+      id: ReturnRequestStatusEnum.ApprovedByAdmin,
+      title: 'تایید شده',
+      status: ReturnRequestStatusEnum.ApprovedByAdmin,
     },
     {
-      returnedNum: 123456,
-      orderNum: 123456,
-      date: '2022-01-01T13:34:45',
-      status: ReturnedStatus.approved,
+      id: ReturnRequestStatusEnum.Rejected,
+      title: 'ردشده',
+      status: ReturnRequestStatusEnum.Rejected,
     },
     {
-      returnedNum: 123456,
-      orderNum: 123456,
-      date: '2022-01-01T13:34:45',
-      status: ReturnedStatus.approved,
+      id: ReturnRequestStatusEnum.Cancelled,
+      title: 'لغو شده',
+      status: ReturnRequestStatusEnum.Cancelled,
     },
   ];
 
-  constructor(public persianDateTimeService: PersianDateTimeService) {}
-}
-export enum ReturnedStatus {
-  inProgress,
-  approved,
-  rejected,
+  constructor(
+    public readonly persianDateTimeService: PersianDateTimeService,
+    public readonly loadingService: LoadingService,
+    private readonly _profileRepository: ProfileRepository,
+    private readonly _dialog: MatDialog,
+    private readonly _snackBar: SnackBarService
+  ) {
+    this._getRequests();
+  }
+
+  private _getRequests() {
+    this._profileRepository
+      .getReturnRequests(this.page - 1, this.limit, this.selectedStatus.status)
+      .pipe(
+        tap(() => (this.isLoading = false)),
+        takeUntil(this.destroy$),
+        map((result) => result.result!)
+      )
+      .subscribe(
+        (result) => {
+          this.requests = [...result.items!];
+          this.totalElements = result.totalElements;
+        },
+        () => (this.isLoading = false)
+      );
+  }
+
+  public getAcceptBeforeCancell($event: any, reuestId: number) {
+    $event.stopPropagation();
+    this._dialog.open(AlertDialogComponent, {
+      autoFocus: false,
+      data: {
+        message: 'آیا  از لغو درخواست  مطمئن می باشید؟',
+        callBackButtonText: 'لغو ',
+        cancelButtonText: 'انصراف',
+        callBackFunction: () => this.cancelRequest(reuestId),
+      } as AlertDialogDataModel,
+    });
+  }
+
+  cancelRequest(id: number) {
+    this.loadingService.startLoading('add', 'cancel');
+    this._profileRepository
+      .cancelReturnRequest({ id })
+      .pipe(
+        tap(() => this.loadingService.stopLoading('add', 'cancel')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(
+        () => this._showSuccessMessage(),
+        () => this.loadingService.stopLoading('add', 'cancel')
+      );
+  }
+
+  getStatusTitle(status: ReturnRequestStatusEnum): string {
+    const statusObject = this.statusMap.find((item) => item.status === status);
+    return statusObject ? statusObject.title : '';
+  }
+
+  onSelectStatus(selectedId: number) {
+    this.selectedStatus = this.statusMap.find((x) => x.id === selectedId)!;
+    this._getRequests();
+  }
+
+  pageChange($event: number) {
+    this.page = $event;
+    this._getRequests();
+  }
+
+  private _showSuccessMessage() {
+    this._snackBar.showWarningSnackBar('درخواستش ما با موفقیت لغو گردید ');
+    this._getRequests();
+  }
 }
