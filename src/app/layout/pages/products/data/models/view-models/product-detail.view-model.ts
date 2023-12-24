@@ -17,6 +17,7 @@ export interface ProductDetailViewModel {
     englishName: string;
   };
   seoTitle: string;
+  priceAfterDiscount: number;
   seoDescription: string;
   deliveryDescription: 'string';
   imageAlt: 'string';
@@ -24,6 +25,7 @@ export interface ProductDetailViewModel {
   brand: 'string';
   haveSelectableProperty: true;
   currentStock: number;
+  currentDiscountPercent: number;
   stores: [
     {
       title: string;

@@ -19,9 +19,21 @@
       } }
     </table>
 
-    @if(details.price>0){
-    <keleman-price [size]="'h5'" [value]="details.price!"></keleman-price>
-    }
+    @if(productDetails.priceAfterDiscount>0){
+
+    <keleman-price
+      [size]="'h5'"
+      [value]="productDetails.priceAfterDiscount"
+    ></keleman-price>
+    @if (productDetails.currentDiscountPercent>0){
+    <keleman-price
+      [value]="productDetails.currentPrice"
+      [off]="true"
+      [discount]="productDetails.currentDiscountPercent"
+      [color]="'dark'"
+      [size]="'h6'"
+    ></keleman-price>
+    } }
     <div class="row align-items-center d-none d-lg-flex">
       @if (inBasketCount == 0){
       <div class="col-12">
@@ -32,13 +44,17 @@
             (loadingService.getLoadingStateObservable('add', 'addToBasket')
               | async)!
           "
-          [disabled]="details.price < 1 || details.currentStock < 1"
+          [disabled]="
+            productDetails.priceAfterDiscount < 1 ||
+            productDetails.currentStock < 1
+          "
           (click)="addToBasket()"
         >
           {{
-            details.currentStock > 1 && details.price > 1
+            productDetails.currentStock > 1 &&
+            productDetails.priceAfterDiscount > 0
               ? "افزودن به سبد خرید"
-              : details.currentStock < 1
+              : productDetails.currentStock < 1
               ? "ناموجود"
               : "تماس بگیرید"
           }}

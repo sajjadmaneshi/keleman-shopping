@@ -24,11 +24,11 @@
     زمان و نحوه ارسال
   </button>
   <button
-    class="btn d-flex justify-content-center align-items-center shrink-0 stepper-header"
+    class="btn d-flex justify-content-center align-items-center shrink-0 stepper-header payment-step"
+    disabled
     [ngClass]="{
       active: (checkoutService.selectedIndex | async) === 2
     }"
-    (click)="checkoutService.changeStep(2, 'payment')"
   >
     <mat-icon>wallet</mat-icon>
     پرداخت

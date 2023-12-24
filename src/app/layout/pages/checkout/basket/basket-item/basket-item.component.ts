@@ -7,6 +7,7 @@ import { ProductDetailViewModel } from '../../../products/data/models/view-model
 import { GuestBasketService } from '../../guest-basket.service';
 import { BasketService } from '../../purchase/basket.service';
 import { UpdateBasketDto } from '../../data/dto/update-basket.dto';
+import { AuthService } from '../../../../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-basket-item',
@@ -14,20 +15,26 @@ import { UpdateBasketDto } from '../../data/dto/update-basket.dto';
   styleUrls: ['./basket-item.component.scss'],
 })
 export class BasketItemComponent {
-  @Input() guestBasketItem!: { product: ProductDetailViewModel; count: number };
   @Input() basketItem!: BasketItemViewModel;
   @Output() remove = new EventEmitter<BasketItemViewModel>();
+  isLoggedIn = false;
   constructor(
     public applicationStateService: ApplicationStateService,
     private readonly _guestBasketService: GuestBasketService,
-    private readonly _basketService: BasketService
-  ) {}
+    private readonly _basketService: BasketService,
+    private readonly _authService: AuthService
+  ) {
+    this._authService.isLoggedIn$.subscribe((result) => {
+      this.isLoggedIn = result;
+    });
+  }
 
   removeProduct() {
-    // this._guestBasketService.removeProduct(this.guestBasketItem);
-    this._basketService.remove(this.basketItem.id).subscribe((result) => {
-      if (result) this.remove.emit(this.basketItem);
-    });
+    if (this.isLoggedIn) {
+      this._basketService.remove(this.basketItem.id!).subscribe((result) => {
+        if (result) this.remove.emit(this.basketItem);
+      });
+    } else this._guestBasketService.removeProduct(this.basketItem);
   }
 
   updateBasketAuthorized(count: number) {
@@ -39,11 +46,11 @@ export class BasketItemComponent {
     this._basketService.updateBasket(dto);
   }
 
-  addToBasket() {
-    this._guestBasketService.addToBasket(this.guestBasketItem);
+  addToBasketGuest() {
+    this._guestBasketService.addToBasket(this.basketItem);
   }
 
-  removeFromBasket() {
-    this._guestBasketService.removeFromBasket(this.guestBasketItem.product.id);
+  removeFromBasketGuest() {
+    this._guestBasketService.removeFromBasket(this.basketItem.product.id);
   }
 }

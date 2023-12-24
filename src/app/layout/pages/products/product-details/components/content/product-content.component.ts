@@ -1,25 +1,10 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  BehaviorSubject,
-  map,
-  Subject,
-  Subscription,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, map, Subject, takeUntil, tap } from 'rxjs';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 import SwiperCore, { Pagination } from 'swiper';
 import { MatDialog } from '@angular/material/dialog';
 import { PriceChartDialogComponent } from './price-chart-dialog/price-chart-dialog.component';
 import { ProductDetailViewModel } from '../../../data/models/view-models/product-detail.view-model';
-import { ENVIRONMENT } from '../../../../../../../environments/environment';
 import { SharedVariablesService } from '../../../../../../shared/services/shared-variables.service';
 import { ProductGalleryViewModel } from '../../../data/models/view-models/product-gallery.view-model';
 import { ProductRepository } from '../../../data/repositories/product.repository';
@@ -27,7 +12,7 @@ import { ProductService } from '../../../services/product.service';
 import { ProductPriceChartViewModel } from '../../../data/models/view-models/product-price-chart.view-model';
 import { AlertDialogComponent } from '../../../../../../shared/components/alert-dialog/alert-dialog.component';
 import { AlertDialogDataModel } from '../../../../../../shared/components/alert-dialog/alert-dialog-data.model';
-import { Router, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../../../../shared/services/auth/auth.service';
 import { Routing } from '../../../../../../routing';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
@@ -45,8 +30,6 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
   favoriteLoading = false;
 
   isFavorite$ = new BehaviorSubject(false);
-
-  productMeta!: { price: number; currentStock: number };
 
   productCurrentImage!: ProductGalleryViewModel;
 
@@ -82,7 +65,7 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openRegisterBeforeActionDialog() {
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
+    this.dialog.open(AlertDialogComponent, {
       data: {
         message: 'لطفا قبل از افزودن به علاقه مندی ها وارد سایت شوید',
         callBackButtonText: 'واردشوید',
@@ -95,7 +78,7 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openShareDialog() {
-    const dialogRef = this.dialog.open(ShareDialogComponent);
+    this.dialog.open(ShareDialogComponent);
   }
 
   private _doFavorite() {
@@ -154,14 +137,11 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.productDetails) {
       this._getGallary();
       this.LoadNewImage(this.productDetails);
-      this.productMeta = {
-        price: this.productDetails.currentPrice,
-        currentStock: this.productDetails.currentStock,
-      };
+
       if (this.isLoggedIn) this._checkFavoriteStatus();
     }
   }

@@ -4,13 +4,13 @@ import { ProductRepository } from '../../../data/repositories/product.repository
 import { Subscription, tap } from 'rxjs';
 import { ProductSpecificViewModel } from '../../../data/models/view-models/product-specific.view-model';
 import { SharedVariablesService } from '../../../../../../shared/services/shared-variables.service';
-import { GuestBasketModel } from '../../../../checkout/data/models/guest-basket.model';
 import { ProductDetailViewModel } from '../../../data/models/view-models/product-detail.view-model';
 import { GuestBasketService } from '../../../../checkout/guest-basket.service';
 import { BasketService } from '../../../../checkout/purchase/basket.service';
 import { AddToCartDto } from '../../../../checkout/data/dto/add-to-cart.dto';
 import { UpdateBasketDto } from '../../../../checkout/data/dto/update-basket.dto';
 import { LoadingService } from '../../../../../../../common/services/loading.service';
+import { BasketItemViewModel } from '../../../../checkout/data/models/basket-item.view-model';
 
 @Component({
   selector: 'keleman-product-meta',
@@ -26,8 +26,8 @@ export class ProductMetaComponent implements OnInit {
   isInBasket = false;
   inBasketCount = 0;
   @Input() isLoggedIn = false;
-  @Input() productDetail!: ProductDetailViewModel;
-  @Input() details!: { price: number; currentStock: number };
+  @Input() productDetails!: ProductDetailViewModel;
+
   constructor(
     private _productService: ProductService,
     private _productRepository: ProductRepository,
@@ -57,21 +57,29 @@ export class ProductMetaComponent implements OnInit {
 
   addToBasketGuest() {
     const productItem = {
-      product: this.productDetail,
+      product: {
+        id: this.productDetails.id,
+        priceAfterDiscount: this.productDetails.currentPrice,
+        name: this.productDetails.name,
+        thumbnailImage: this.productDetails.image,
+        discount: 0,
+        price: this.productDetails.currentPrice,
+        seller: this.productDetails.seller.name,
+      },
       count: 1,
-    };
+    } as BasketItemViewModel;
     this._guestBasketService.addToBasket(productItem);
-    this.inBasketCount++;
+    this._basketService.cartCount.next(this.inBasketCount + 1);
   }
 
   removeFromBasketGuest() {
-    this._guestBasketService.removeFromBasket(this.productDetail.id);
-    this.inBasketCount--;
+    this._guestBasketService.removeFromBasket(this.productDetails.id);
+    this._basketService.cartCount.next(this.inBasketCount - 1);
   }
 
   addToBasketAuthorized() {
     const dto = {
-      productId: this.productDetail.id,
+      productId: this.productDetails.id,
       // storeId: this.productDetail.stores[0].id,
     } as AddToCartDto;
     this._basketService.addToBasket(dto);
@@ -79,7 +87,7 @@ export class ProductMetaComponent implements OnInit {
 
   updateBasketAuthorized(count: number) {
     const dto = {
-      productId: this.productDetail.id,
+      productId: this.productDetails.id,
       // storeId: this.productDetail.stores[0].id,
       count,
     } as UpdateBasketDto;
@@ -87,16 +95,16 @@ export class ProductMetaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.productDetail) {
+    if (this.productDetails) {
       this.isInBasket = this._guestBasketService.isProductInBasket(
-        this.productDetail.id
+        this.productDetails.id
       );
       if (this.isInBasket)
         this.inBasketCount = this._guestBasketService.getProductCountInBasket(
-          this.productDetail.id
+          this.productDetails.id
         );
       this._basketService
-        .inBasketCount(this.productDetail.id)
+        .inBasketCount(this.productDetails.id)
         .subscribe((result) => (this.inBasketCount = result));
     }
   }

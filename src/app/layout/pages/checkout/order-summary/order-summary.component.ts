@@ -21,7 +21,7 @@ export class OrderSummaryComponent implements OnDestroy {
     this._guestBasketService.basket$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
-        this.summary = res.products;
+        this.basketItems = res.items;
       });
     this.basketService.basketItems.subscribe((result) => {
       this.basketItems = result!;

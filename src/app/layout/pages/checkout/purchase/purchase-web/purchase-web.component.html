@@ -13,15 +13,19 @@
 
       @if((checkoutService.selectedIndex|async)===2){
 
-      <button class="btn btn-success submit-button align-self-center w-100">
+      <button
+        class="btn btn-success submit-button align-self-center w-100"
+        [disabled]="checkout.payablePrice > 0"
+      >
         پرداخت
       </button>
       } @else {
       <button
         class="btn btn-warning submit-button align-self-center w-100"
         (click)="checkoutService.nextStep()"
+        [disabled]="(checkoutService.selectedIndex | async) === 1 && !addressId"
       >
-        ادامه خرید
+        ادامه
       </button>
       }
     </div>

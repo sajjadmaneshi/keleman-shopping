@@ -20,6 +20,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BasketRepository } from './layout/pages/checkout/data/repositories/basket.repository';
 import { BillRepository } from './layout/pages/checkout/data/repositories/bill.repository';
+import { PaymentRepository } from './layout/pages/checkout/data/repositories/payment.repository';
 
 export function initializeApp(
   initialAppService: InitialAppService
@@ -54,6 +55,7 @@ export function tokenGetter() {
   providers: [
     BasketRepository,
     BillRepository,
+    PaymentRepository,
     ApplicationStateService,
     InitialAppService,
     {

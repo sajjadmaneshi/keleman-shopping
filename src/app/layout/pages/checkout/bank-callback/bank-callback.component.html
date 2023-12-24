@@ -1,24 +1,36 @@
 <div class="container callback-body">
-  <div class="card card-rounded-3 border callback-result">
-    <div class="card-body d-flex flex-column align-items-center">
-      <h3 class="mb-3">نتیجه پرداخت</h3>
+  <img class="keleman-logo mb-3" src="assets/media/logo/keleman-logo.webp" />
+  <div class="card card-rounded-3 border callback-result shadow">
+    <div
+      class="card-body d-flex flex-column align-items-center justify-content-center"
+    >
+      <h3 class="mb-3 fw-bold">نتیجه پرداخت</h3>
       <mat-icon
-        [ngClass]="paymentResult.status === 0 ? 'text-success' : 'text-danger'"
+        [ngClass]="paymentResult.status === 1 ? 'text-success' : 'text-danger'"
         class="mb-3 status-icon"
-        >{{ paymentResult.status === 0 ? "task_alt" : "cancel" }}</mat-icon
+        >{{ paymentResult.status === 1 ? "task_alt" : "cancel" }}</mat-icon
       >
-      <p class="mb-3">
+      <h3 class="mb-3">
         {{
-          paymentResult.status === 0
+          paymentResult.status === 1
             ? "پرداخت شما با موفقیت انجام شد"
-            : "مشکلی در پرداخت رخ داد"
+            : "متاسفانه مشکلی در پرداخت رخ داد"
         }}
-      </p>
-      @if (paymentResult.trackingCode){
-      <h6 class="mb-3">کدرهگیری:{{ paymentResult.trackingCode }}</h6>
+      </h3>
+      @if (paymentResult.billId){
+      <h6 class="mb-3">کدرهگیری:{{ paymentResult.billId }}</h6>
       }
+      <div class="text-center w-100">
+        @if(paymentResult.status===1){
+        <a class="btn btn-outline-success mx-3" (click)="getFactor()"
+          >چاپ فاکتور</a
+        >
+        }
 
-      <a class="btn btn-outline-info" [routerLink]="['/']">بازگشت به فروشگاه</a>
+        <a class="btn btn-outline-info" [routerLink]="['/']"
+          >بازگشت به فروشگاه</a
+        >
+      </div>
     </div>
   </div>
 </div>

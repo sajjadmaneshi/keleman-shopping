@@ -8,7 +8,6 @@ import { AddToCartDto } from '../dto/add-to-cart.dto';
 import { UpdateBasketDto } from '../dto/update-basket.dto';
 import { BasketCheckoutViewModel } from '../models/basket-checkout.view-model';
 import { MergeBasketDto } from '../dto/merge-basket.dto';
-import { PaymentGatewayViewModel } from '../models/payment-gateway.view-model';
 
 @Injectable()
 export class BasketRepository extends DataService<BasketItemViewModel> {
@@ -50,20 +49,6 @@ export class BasketRepository extends DataService<BasketItemViewModel> {
         storeId != undefined ? '/' + storeId : ''
       }?userId=${localStorage.getItem('USERID')}`
     ) as Observable<HttpClientResult<number>>;
-  }
-
-  getPaymentGateways(): Observable<
-    HttpClientResult<PaymentGatewayViewModel[]>
-  > {
-    return this._http.get(`${this._getCartUrl}/paymentGateway`) as Observable<
-      HttpClientResult<PaymentGatewayViewModel[]>
-    >;
-  }
-
-  pay(billId: number, bankId: number): Observable<HttpClientResult<string>> {
-    return this._http.get(
-      `${this._getCartUrl}/payment/${billId}/${bankId}`
-    ) as Observable<HttpClientResult<string>>;
   }
 
   addToCart(dto: AddToCartDto): Observable<HttpClientResult<number>> {

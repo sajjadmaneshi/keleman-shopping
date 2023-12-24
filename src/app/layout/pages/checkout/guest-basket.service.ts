@@ -1,46 +1,49 @@
 import { Injectable } from '@angular/core';
-import { GuestBasketModel } from './data/models/guest-basket.model';
+import { GuestBasketViewModel } from './data/models/guest-basket.view-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductDetailViewModel } from '../products/data/models/view-models/product-detail.view-model';
+import { BasketItemViewModel } from './data/models/basket-item.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class GuestBasketService {
   private readonly storageKey = 'GUEST_BASKET';
-  private basketSubject: BehaviorSubject<GuestBasketModel>;
+  private basketSubject: BehaviorSubject<GuestBasketViewModel>;
   private totalPriceSubject: BehaviorSubject<number>;
   constructor() {
     const initialBasket = this.getBasketFromLocalStorage();
-    this.basketSubject = new BehaviorSubject<GuestBasketModel>(initialBasket);
+    this.basketSubject = new BehaviorSubject<GuestBasketViewModel>(
+      initialBasket
+    );
     this.totalPriceSubject = new BehaviorSubject<number>(
       initialBasket.totalPrice
     );
   }
 
-  get basket$(): Observable<GuestBasketModel> {
+  get basket$(): Observable<GuestBasketViewModel> {
     return this.basketSubject.asObservable();
   }
 
-  private emitBasketUpdate(basketData: GuestBasketModel): void {
+  private emitBasketUpdate(basketData: GuestBasketViewModel): void {
     this.basketSubject.next(basketData);
     this.totalPriceSubject.next(basketData.totalPrice);
   }
 
-  private updateBasketLocalStorage(basketData: GuestBasketModel): void {
+  private updateBasketLocalStorage(basketData: GuestBasketViewModel): void {
     localStorage.setItem(this.storageKey, JSON.stringify(basketData));
   }
 
-  private getBasketFromLocalStorage(): GuestBasketModel {
+  private getBasketFromLocalStorage(): GuestBasketViewModel {
     const storedData = localStorage.getItem(this.storageKey);
-    return storedData ? JSON.parse(storedData) : new GuestBasketModel();
+    return storedData ? JSON.parse(storedData) : new GuestBasketViewModel();
   }
 
   private updateBasketState(
-    products: { product: ProductDetailViewModel; count: number }[],
+    items: BasketItemViewModel[],
     totalCount: number,
     totalPrice: number
   ): void {
-    const updatedBasket = new GuestBasketModel(
-      products,
+    const updatedBasket = new GuestBasketViewModel(
+      items,
       totalCount,
       totalPrice
     );
@@ -48,75 +51,67 @@ export class GuestBasketService {
     this.emitBasketUpdate(updatedBasket);
   }
 
-  addToBasket(product: {
-    product: ProductDetailViewModel;
-    count: number;
-  }): void {
-    const { products, totalCount, totalPrice } = this.basketSubject.value;
-    const existingProduct = products.find(
+  addToBasket(product: BasketItemViewModel): void {
+    const { items, totalCount, totalPrice } = this.basketSubject.value;
+    const existingProduct = items.find(
       (p) => p.product.id === product.product.id
     );
     if (existingProduct) {
       existingProduct.count++;
     } else {
-      products.push(product);
+      items.push(product);
     }
 
     this.updateBasketState(
-      products,
+      items,
       totalCount + 1,
-      totalPrice + product.product.currentPrice
+      totalPrice + product.product.priceAfterDiscount
     );
   }
 
   removeFromBasket(productId: number): void {
-    let { products, totalCount, totalPrice } = this.basketSubject.value;
-    const existingProduct = products.find((p) => p.product.id === productId);
+    let { items, totalCount, totalPrice } = this.basketSubject.value;
+    const existingProduct = items.find((p) => p.product.id === productId);
     if (existingProduct) {
       existingProduct.count > 1
         ? existingProduct.count--
-        : (products = products.filter((p) => p.product.id !== productId));
+        : (items = items.filter((p) => p.product.id !== productId));
       this.updateBasketState(
-        products,
+        items,
         totalCount - 1,
-        totalPrice - existingProduct.product.currentPrice
+        totalPrice - existingProduct.product.priceAfterDiscount
       );
     }
   }
 
-  removeProduct(removeData: {
-    product: ProductDetailViewModel;
-    count: number;
-  }): void {
-    const { products, totalCount, totalPrice } = this.basketSubject.value;
-    const updatedProducts = products.filter(
-      (p) => p.product.id !== removeData.product.id
-    );
+  removeProduct(basketItem: BasketItemViewModel): void {
+    const { items, totalCount, totalPrice } = this.basketSubject.value;
+    const updatedProducts = items.filter((p) => p.id !== basketItem.id);
 
     this.updateBasketState(
       updatedProducts,
-      totalCount - removeData.count,
-      totalPrice - removeData.product.currentPrice
+      totalCount - basketItem.count,
+      totalPrice - basketItem.product.priceAfterDiscount
     );
   }
 
   updateQuantity(productId: number, newQuantity: number): void {
-    const { products, totalCount, totalPrice } = this.basketSubject.value;
+    const { items, totalCount, totalPrice } = this.basketSubject.value;
 
-    const updatedProducts = products.map((p) =>
+    const updatedProducts = items.map((p) =>
       p.product.id === productId ? { ...p, count: newQuantity } : p
     );
-    this.updateBasketState(products, totalCount, totalPrice);
+    this.updateBasketState(updatedProducts, totalCount, totalPrice);
   }
 
   isProductInBasket(productId: number): boolean {
-    return this.basketSubject.value.products.some(
+    return this.basketSubject.value.items.some(
       (p) => p.product.id === productId
     );
   }
 
   getProductCountInBasket(productId: number): number {
-    const product = this.basketSubject.value.products.find(
+    const product = this.basketSubject.value.items.find(
       (p) => p.product.id === productId
     );
     return product ? product.count : 0;
@@ -131,6 +126,6 @@ export class GuestBasketService {
 
   clearBasket(): void {
     localStorage.removeItem(this.storageKey);
-    this.emitBasketUpdate(new GuestBasketModel());
+    this.emitBasketUpdate(new GuestBasketViewModel());
   }
 }

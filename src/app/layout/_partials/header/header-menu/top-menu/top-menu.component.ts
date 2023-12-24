@@ -23,8 +23,7 @@ export class TopMenuComponent implements OnDestroy {
 
   constructor(
     private _authService: AuthService,
-    public userService: InitialAppService,
-    private _basketService: GuestBasketService
+    public userService: InitialAppService
   ) {
     this._getInitialDate();
   }

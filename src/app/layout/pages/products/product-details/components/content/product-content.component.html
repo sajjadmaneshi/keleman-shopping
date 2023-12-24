@@ -1,176 +1,161 @@
-<ng-container *ngIf="isLoading; then loading; else content"> </ng-container>
+@if(isLoading){
+<ngx-skeleton-loader
+  count="1"
+  [theme]="{ width: '57%', height: '50px' }"
+  class="ms-1"
+></ngx-skeleton-loader>
+<ngx-skeleton-loader
+  count="2"
+  class="mx-1"
+  [theme]="{ width: '20%', height: '50px' }"
+></ngx-skeleton-loader>
+<ngx-skeleton-loader
+  class="mx-1"
+  [theme]="{ width: '57%', height: '300px' }"
+></ngx-skeleton-loader>
+<ngx-skeleton-loader
+  class="mx-1"
+  [theme]="{ width: '40%', height: '300px' }"
+></ngx-skeleton-loader>
 
-<ng-template #loading>
-  <ngx-skeleton-loader
-    count="1"
-    [theme]="{ width: '57%', height: '50px' }"
-    class="ms-1"
-  ></ngx-skeleton-loader>
-  <ngx-skeleton-loader
-    count="2"
-    class="mx-1"
-    [theme]="{ width: '20%', height: '50px' }"
-  ></ngx-skeleton-loader>
-  <ngx-skeleton-loader
-    class="mx-1"
-    [theme]="{ width: '57%', height: '300px' }"
-  ></ngx-skeleton-loader>
-  <ngx-skeleton-loader
-    class="mx-1"
-    [theme]="{ width: '40%', height: '300px' }"
-  ></ngx-skeleton-loader>
+<ngx-skeleton-loader
+  count="5"
+  class="mx-1"
+  [theme]="{ width: '10%', height: '50px' }"
+></ngx-skeleton-loader>
 
-  <ngx-skeleton-loader
-    count="5"
-    class="mx-1"
-    [theme]="{ width: '10%', height: '50px' }"
-  ></ngx-skeleton-loader>
-
-  <ngx-skeleton-loader
-    class="mx-1"
-    [theme]="{ width: '40%', height: '50px' }"
-  ></ngx-skeleton-loader>
-</ng-template>
-
-<ng-template #content>
-  <keleman-bread-crumb
-    [type]="0"
-    [id]="productDetails.id"
-  ></keleman-bread-crumb>
-  <div class="container">
-    <div class="row mb-3">
-      <div class="col-12">
-        <h1 class="h4 product-name">{{ productDetails.name! }}</h1>
-      </div>
-    </div>
-  </div>
+<ngx-skeleton-loader
+  class="mx-1"
+  [theme]="{ width: '40%', height: '50px' }"
+></ngx-skeleton-loader>
+} @else {
+<keleman-bread-crumb [type]="0" [id]="productDetails.id"></keleman-bread-crumb>
+<div class="container">
   <div class="row mb-3">
-    <div class="col-12 col-lg-7">
-      <div
-        class="product-image card card-rounded-3 shadow position-relative mb-5 mb-lg-3 box-shadow-none"
-      >
-        <div class="card-body d-flex align-items-center justify-content-center">
-          <ng-container
-            *ngIf="
-              applicationState.isPhone || applicationState.isTablet;
-              then phoneView;
-              else webView
-            "
-          ></ng-container>
-          <ng-template #phoneView>
-            <swiper
-              class="product-image-swipper"
-              [spaceBetween]="10"
-              [pagination]="{ el: '.swiper-pagination' }"
-            >
-              <ng-container *ngFor="let productImage of gallary">
-                <ng-template swiperSlide>
-                  <div class="symbol symbol-70">
-                    <img
-                      emptyImage
-                      [src]="productImage.image!"
-                      [alt]="productImage.imageAlt"
-                    />
-                  </div>
-                </ng-template>
-              </ng-container>
-            </swiper>
-            <div class="swiper-pagination">
-              <span
-                class="swiper-pagination-bullet"
-                *ngFor="let _ of sharedVariableService.counter(gallary.length)"
-              ></span>
-            </div>
-          </ng-template>
-          <ng-template #webView>
-            <lib-ngx-image-zoom
-              [thumbImage]="
-                sharedVariableService.downloadUrl + productCurrentImage.image!
-              "
-              [fullImage]="
-                sharedVariableService.downloadUrl + productCurrentImage.image!
-              "
-              [magnification]="2"
-              [altText]="productCurrentImage.imageAlt!"
-            ></lib-ngx-image-zoom>
-          </ng-template>
-        </div>
-        <div class="action-buttons">
-          <ng-content
-            *ngIf="favoriteLoading; then loading; else favorite"
-          ></ng-content>
-          <ng-template #favorite>
-            <span
-              [class.text-danger]="isFavorite$ | async"
-              class="material-icons favorite-button cursor-pointer"
-              (click)="likeDislike()"
-            >
-              {{ (isFavorite$ | async) ? "favorite" : "favorite_border" }}
-            </span>
-          </ng-template>
-          <ng-template #loading>
-            <mat-spinner [diameter]="20"></mat-spinner>
-          </ng-template>
-          <mat-icon class="cursor-pointer" (click)="openShareDialog()"
-            >share</mat-icon
-          >
-          <mat-icon> create_new_folder </mat-icon>
-          <mat-icon> compare </mat-icon>
-          <mat-icon class="cursor-pointer" (click)="showChart()">
-            show_chart
-          </mat-icon>
-        </div>
-        <ng-template [ngIf]="productDetails.rate > 0">
-          <keleman-text-with-icon
-            class="rate"
-            [text]="productDetails.rate.toString()"
-            [iconName]="'star'"
-            [iconClass]="'text-warning'"
-          ></keleman-text-with-icon>
-        </ng-template>
-      </div>
-    </div>
-    <div class="col-12 col-lg-5">
-      <div class="d-none d-lg-grid grid-container mb-3">
-        <div class="card card-rounded-3 shadow seller">
-          <h6 class="fw-bolder">فروشنده:</h6>
-          <h6 *ngIf="productDetails.seller">
-            {{ productDetails.seller.name }}
-          </h6>
-          <a href="#" class="text-warning">سایر فروشنده ها</a>
-        </div>
-        <div class="card card-rounded-3 shadow waranty">
-          <h6 class="fw-bolder mx-3">گارانتی</h6>
-          <h6>اصالت و سلامت فیزیکی کالا</h6>
-        </div>
-      </div>
-      <keleman-product-meta
-        [details]="productMeta"
-        [productDetail]="productDetails"
-        [isLoggedIn]="isLoggedIn"
-      ></keleman-product-meta>
+    <div class="col-12">
+      <h1 class="h4 product-name">{{ productDetails.name! }}</h1>
     </div>
   </div>
+</div>
+<div class="row mb-3">
+  <div class="col-12 col-lg-7">
+    <div
+      class="product-image card card-rounded-3 shadow position-relative mb-5 mb-lg-3 box-shadow-none"
+    >
+      <button class="btn btn-klm-primary package-items">
+        مشاهده جزئیات پکیج
+      </button>
+      <div class="card-body d-flex align-items-center justify-content-center">
+        @if(applicationState.isPhone || applicationState.isTablet){
+        <swiper
+          class="product-image-swipper"
+          [spaceBetween]="10"
+          [pagination]="{ el: '.swiper-pagination' }"
+        >
+          <ng-container *ngFor="let productImage of gallary">
+            <ng-template swiperSlide>
+              <div class="symbol symbol-70">
+                <img
+                  emptyImage
+                  [src]="productImage.image!"
+                  [alt]="productImage.imageAlt"
+                />
+              </div>
+            </ng-template>
+          </ng-container>
+        </swiper>
+        <div class="swiper-pagination">
+          <span
+            class="swiper-pagination-bullet"
+            *ngFor="let _ of sharedVariableService.counter(gallary.length)"
+          ></span>
+        </div>
+        }@else{
+        <lib-ngx-image-zoom
+          [thumbImage]="
+            sharedVariableService.downloadUrl + productCurrentImage.image!
+          "
+          [fullImage]="
+            sharedVariableService.downloadUrl + productCurrentImage.image!
+          "
+          [magnification]="2"
+          [altText]="productCurrentImage.imageAlt!"
+        ></lib-ngx-image-zoom>
+        }
+      </div>
+      <div class="action-buttons">
+        @if(favoriteLoading){
+        <mat-spinner [diameter]="20"></mat-spinner>
+        } @else {
+        <span
+          [class.text-danger]="isFavorite$ | async"
+          class="material-icons favorite-button cursor-pointer"
+          (click)="likeDislike()"
+        >
+          {{ (isFavorite$ | async) ? "favorite" : "favorite_border" }}
+        </span>
+        }
 
-  <div class="row mb-3">
-    <div class="col-12 col-lg-7">
-      <keleman-product-album
-        class="d-none d-lg-block"
-        [isLoading]="gallaryLoading"
-        [gallery]="gallary"
-        (imageClick)="LoadNewImage($event)"
-      ></keleman-product-album>
-    </div>
-    <div class="col-12 col-lg-5">
-      <div class="card card-rounded-3 shadow delivery border-0 box-shadow-none">
-        <div class="card-body mx-0">
-          <h5 class="fw-semibold d-inline">
-            {{ productDetails.deliveryDescription }}
-          </h5>
-          <h6 class="mt-3">شرایط ارسال رایگان</h6>
-        </div>
+        <mat-icon class="cursor-pointer" (click)="openShareDialog()"
+          >share</mat-icon
+        >
+        <mat-icon> create_new_folder </mat-icon>
+        <mat-icon> compare </mat-icon>
+        <mat-icon class="cursor-pointer" (click)="showChart()">
+          show_chart
+        </mat-icon>
       </div>
-      <div class="gradient-border flex-grow-1 my-3 d-lg-none"></div>
+      @if (productDetails.rate > 0){
+      <keleman-text-with-icon
+        class="rate"
+        [text]="productDetails.rate.toString()"
+        [iconName]="'star'"
+        [iconClass]="'text-warning'"
+      ></keleman-text-with-icon>
+      }
     </div>
   </div>
-</ng-template>
+  <div class="col-12 col-lg-5">
+    <div class="d-none d-lg-grid grid-container mb-3">
+      <div class="card card-rounded-3 shadow seller">
+        <h6 class="fw-bolder">فروشنده:</h6>
+        @if(productDetails.seller){
+        <h6>
+          {{ productDetails.seller.name }}
+        </h6>
+        }
+      </div>
+      <div class="card card-rounded-3 shadow waranty">
+        <h6 class="fw-bolder mx-3">گارانتی</h6>
+        <h6>اصالت و سلامت فیزیکی کالا</h6>
+      </div>
+    </div>
+    <keleman-product-meta
+      [productDetails]="productDetails"
+      [isLoggedIn]="isLoggedIn"
+    ></keleman-product-meta>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-12 col-lg-7">
+    <keleman-product-album
+      class="d-none d-lg-block"
+      [isLoading]="gallaryLoading"
+      [gallery]="gallary"
+      (imageClick)="LoadNewImage($event)"
+    ></keleman-product-album>
+  </div>
+  <div class="col-12 col-lg-5">
+    <div class="card card-rounded-3 shadow delivery border-0 box-shadow-none">
+      <div class="card-body mx-0">
+        <h5 class="fw-semibold d-inline">
+          {{ productDetails.deliveryDescription }}
+        </h5>
+        <h6 class="mt-3">شرایط ارسال رایگان</h6>
+      </div>
+    </div>
+    <div class="gradient-border flex-grow-1 my-3 d-lg-none"></div>
+  </div>
+</div>
+}
