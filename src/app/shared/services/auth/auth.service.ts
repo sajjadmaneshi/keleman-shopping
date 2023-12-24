@@ -86,7 +86,7 @@ export class AuthService {
       localStorage.removeItem('KELEMAN_TOKEN');
       localStorage.removeItem('MOBILE');
       localStorage.removeItem('USERID');
-      this._basketService.basketItems.next([]);
+      this._basketService.resetBasket();
       this.isLoggedIn$.next(false);
     }
   }

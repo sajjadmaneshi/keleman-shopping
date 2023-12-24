@@ -1,27 +1,27 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AttachReceiptDialogComponent } from './attach-receipt-dilog/attach-receipt-dialog.component';
-import { AttachChequeDialogComponent } from './attach-cheque-dialog/attach-cheque-dialog.component';
-import { Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { BasketService } from '../purchase/basket.service';
 import { PaymentGatewayViewModel } from '../data/models/payment-gateway.view-model';
 import { UserCreditViewModel } from '../../profile/data/view-models/user-credit.view-model';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { BillRepository } from '../data/repositories/bill.repository';
-import { SaveOrderDto } from '../data/repositories/save-order.dto';
+import { SaveOrderDto } from '../data/dto/save-order.dto';
 import { FormControl, Validators } from '@angular/forms';
 import { SetDiscountDto } from '../data/dto/set-discount.dto';
+import { SnackBarService } from '../../../../shared/components/snack-bar/snack-bar.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TransferToBankDialogComponent } from './transfer-to-bank-dialog/transfer-to-bank-dialog.component';
+import { PayResultViewModel } from '../data/models/pay-result.view-model';
 
 @Component({
   selector: 'keleman-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
 })
-export class PaymentComponent {
+export class PaymentComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   paymentGateWays: PaymentGatewayViewModel[] = [];
-  sunbscriptions = new Subscription();
   userCredit = new UserCreditViewModel(0, 0);
   isFormSubmitted = false;
   billId: number | null = null;
@@ -31,14 +31,16 @@ export class PaymentComponent {
   discountCode = new FormControl('', Validators.required);
   description = new FormControl('');
   constructor(
-    private readonly _dialog: MatDialog,
     private readonly _basketService: BasketService,
     private readonly _initialAppService: InitialAppService,
     private readonly _billRepository: BillRepository,
+    private readonly _snackBarService: SnackBarService,
+    private readonly _dialog: MatDialog,
     public readonly loadingService: LoadingService
-  ) {
-    this.loadingService.startLoading('read', 'paymentGateway');
+  ) {}
 
+  ngOnInit(): void {
+    this.loadingService.startLoading('read', 'paymentGateway');
     this._basketService.paymentGateways
       .pipe(
         tap(() => this.loadingService.stopLoading('read', 'paymentGateway')),
@@ -51,32 +53,46 @@ export class PaymentComponent {
     this._initialAppService.userCredit
       .pipe(takeUntil(this.destroy$))
       .subscribe((result) => (this.userCredit = result));
+
     this._basketService.delivaryAddress
       .pipe(takeUntil(this.destroy$))
       .subscribe((address) => {
         this.delivaryAddress = address!;
       });
-    this._basketService.bankAddress.subscribe((result) => {
-      if (result) {
-        window.open(result, '_blank');
-      }
-    });
+    this._basketService.payResult
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result: PayResultViewModel | undefined) => {
+        if (result) this._handleAfterSaveOrder(result);
+      });
   }
 
-  openAttachReceiptDialog(): void {
-    this._dialog.open(AttachReceiptDialogComponent, {
-      width: '800px',
-      autoFocus: false,
-      panelClass: 'custom-mat-dialog',
-    });
+  private _handleAfterSaveOrder(payResult: PayResultViewModel) {
+    this._dialog.open(TransferToBankDialogComponent);
+    if (payResult.url) {
+      window.open(payResult.url);
+      this._dialog.closeAll();
+    }
+    if (payResult.refId) {
+      this._mellatPay(payResult.refId);
+      this._dialog.closeAll();
+    }
   }
 
-  openAttachChequeDialog() {
-    this._dialog.open(AttachChequeDialogComponent, {
-      width: '800px',
-      autoFocus: false,
-      panelClass: 'custom-mat-dialog',
-    });
+  private _mellatPay(refId: any) {
+    var form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute(
+      'action',
+      'https://bpm.shaparak.ir/pgwchannel/startpay.mellat'
+    );
+    form.setAttribute('target', '_self');
+    var hiddenField = document.createElement('input');
+    hiddenField.setAttribute('name', 'RefId');
+    hiddenField.setAttribute('value', refId);
+    form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
   }
 
   saveOrder(paymentGatewayId: number) {
@@ -96,23 +112,24 @@ export class PaymentComponent {
         takeUntil(this.destroy$)
       )
       .subscribe({
-        next: (result) => {
-          this.billId = result.result!;
-          this.selectedPaymentGateWayIds.push(paymentGatewayId);
-          this._initialAppService.getUserCredit();
-          if (paymentGatewayId < 8) {
-            this._basketService.pay(this.billId, paymentGatewayId);
-          }
-        },
+        next: (result) =>
+          this._actionsAfterSaveOrder(result.result!, paymentGatewayId),
         error: () => this.loadingService.stopLoading('add', 'saveOrder'),
       });
   }
 
+  private _actionsAfterSaveOrder(billId: number, paymentGatewayId: number) {
+    this.billId = billId;
+    this.selectedPaymentGateWayIds.push(paymentGatewayId);
+    this._basketService.getBillInvoice(this.billId);
+    this._initialAppService.getUserCredit();
+    if (paymentGatewayId < 8) {
+      this._basketService.pay(this.billId, paymentGatewayId);
+    }
+  }
+
   isInSelectedGateways(paymentGatwayId: number) {
-    return (
-      this.selectedPaymentGateWayIds.findIndex((x) => x === paymentGatwayId) !=
-      -1
-    );
+    return this.selectedPaymentGateWayIds.includes(paymentGatwayId);
   }
 
   submitDiscount() {
@@ -130,10 +147,19 @@ export class PaymentComponent {
           next: (result) => {
             this._basketService.basketCheckout.next(result.result!);
             this.submittedDiscountCode = this.discountCode.value!;
+            this._showSuccessMessage('کدتخفیف شما با موفقیت اعمال شد');
           },
-
           error: () => this.loadingService.stopLoading('add', 'discount'),
         });
     }
+  }
+
+  private _showSuccessMessage(message: string) {
+    this._snackBarService.showSuccessSnackBar(message);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

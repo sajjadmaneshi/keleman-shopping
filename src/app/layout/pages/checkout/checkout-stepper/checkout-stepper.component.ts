@@ -18,7 +18,6 @@ export class CheckoutStepperComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
 
   constructor(
-    private _route: Router,
     private _activatedRoute: ActivatedRoute,
     public checkoutService: CheckoutService
   ) {}

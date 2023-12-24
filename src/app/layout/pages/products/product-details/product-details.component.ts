@@ -11,6 +11,7 @@ import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { GuestBasketService } from '../../checkout/guest-basket.service';
 import { ModifyMetaDataService } from '../../../../../common/services/modify-meta-data.service';
 import { BasketService } from '../../checkout/purchase/basket.service';
+import { BasketItemViewModel } from '../../checkout/data/models/basket-item.view-model';
 
 @Component({
   selector: 'app-product-details',
@@ -111,9 +112,17 @@ export class ProductDetailsComponent implements OnInit {
   addToBasket() {
     if (!this.isLoggedIn) {
       const productItem = {
-        product: this.productDetails,
+        product: {
+          id: this.productDetails.id,
+          priceAfterDiscount: this.productDetails.currentPrice,
+          name: this.productDetails.name,
+          thumbnailImage: this.productDetails.thumbnailImage,
+          discount: 0,
+          price: this.productDetails.currentPrice,
+          seller: this.productDetails.seller.name,
+        },
         count: 1,
-      };
+      } as BasketItemViewModel;
       this._guestBasketService.addToBasket(productItem);
       this.productCountInBasket++;
     }

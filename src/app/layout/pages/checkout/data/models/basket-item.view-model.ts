@@ -1,5 +1,5 @@
 export interface BasketItemViewModel {
-  id: number;
+  id?: number;
   product: {
     id: number;
     name: string;
@@ -10,5 +10,5 @@ export interface BasketItemViewModel {
     discount: number;
   };
   count: number;
-  reciveTime: string;
+  reciveTime?: string;
 }

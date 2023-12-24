@@ -1,0 +1,6 @@
+:host ::ng-deep .mdc-form-field {
+  width: 100% !important;
+  .mdc-label {
+    width: inherit !important;
+  }
+}

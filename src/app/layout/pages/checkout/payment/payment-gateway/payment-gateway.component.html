@@ -1,0 +1,55 @@
+<button class="payment-item" [disabled]="selected" [class.selected]="selected">
+  @if ((loading|async)!){
+  <div class="payment-item-loading-overlay">
+    <mat-spinner class="loading" [diameter]="20"></mat-spinner>
+  </div>
+  }
+
+  <div class="symbol">
+    <img
+      loadingLazy
+      [src]="'assets/media/pGateway/' + gateway.enName + '.png'"
+    />
+  </div>
+  <span class="fs-6 d-flex flex-column">
+    <p>{{ gateway.name }}</p>
+    @if (gateway.id>7){
+    <span class="text-success text-center"
+      >({{
+        gateway.id === 8
+          ? credit.creditValue > 0
+            ? (credit.creditValue | number : ".0") + "تومان"
+            : 0
+          : credit.walletValue > 0
+          ? (credit.walletValue | number : ".0") + "تومان"
+          : 0
+      }})</span
+    >
+    }
+  </span>
+</button>
+
+<!--<button class="payment-item" (click)="openAttachReceiptDialog()">-->
+<!--  <span-->
+<!--    class="text-center d-flex justify-content-between text-danger w-100 remaining-time"-->
+<!--  >-->
+<!--    <span>زمان باقی مانده</span>-->
+<!--    <span>11:54:09</span>-->
+<!--  </span>-->
+<!--  <div class="symbol">-->
+<!--    <img src="assets/media/pGateway/bill.png" />-->
+<!--  </div>-->
+<!--  <span class="fs-6">الصاق فیش بانکی</span>-->
+<!--</button>-->
+<!--<button class="payment-item" (click)="openAttachChequeDialog()">-->
+<!--  <span-->
+<!--    class="text-center d-flex justify-content-between text-danger w-100 remaining-time"-->
+<!--  >-->
+<!--    <span>زمان باقی مانده</span>-->
+<!--    <span>11:54:09</span>-->
+<!--  </span>-->
+<!--  <div class="symbol">-->
+<!--    <img src="assets/media/pGateway/cheque.png" />-->
+<!--  </div>-->
+<!--  <span class="fs-6">ثبت چک صیادی</span>-->
+<!--</button>-->

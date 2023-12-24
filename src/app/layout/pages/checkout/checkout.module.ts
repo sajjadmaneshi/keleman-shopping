@@ -43,6 +43,8 @@ import { LoadingProgressDirective } from '../../../shared/directives/loading-pro
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
 import { basketPaymentGuard } from './guard/basket-payment.guard';
 import { BankCallbackComponent } from './bank-callback/bank-callback.component';
+import { PaymentGatewayComponent } from './payment/payment-gateway/payment-gateway.component';
+import { AuthGuard } from '../../../shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -51,11 +53,15 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: Routing.basket, pathMatch: 'full' },
       { path: Routing.basket, component: BasketComponent },
-      { path: Routing.shipping, component: ShippingComponent },
+      {
+        path: Routing.shipping,
+        component: ShippingComponent,
+        canActivate: [AuthGuard],
+      },
       {
         path: Routing.payment,
         component: PaymentComponent,
-        canActivate: [basketPaymentGuard],
+        canActivate: [AuthGuard, basketPaymentGuard],
       },
     ],
   },
@@ -107,6 +113,7 @@ export const routes: Routes = [
     MatDividerModule,
     LoadingProgressDirective,
     InputGroupComponent,
+    PaymentGatewayComponent,
   ],
   providers: [DecimalPipe, CheckoutService],
 })

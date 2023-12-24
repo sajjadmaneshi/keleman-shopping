@@ -3,42 +3,7 @@
 .payment-methods {
   display: grid;
   grid-gap: 0.5rem;
-  .payment-item {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 1rem;
-    border: 1px solid $gray-300;
-    align-items: center;
-    min-height: 125px !important;
-    position: relative;
-    .symbol {
-      margin-bottom: 1rem;
-    }
-    &.selected {
-      border: 2px solid $klm-primary;
-    }
-    &:disabled {
-      opacity: 0.5;
-    }
-  }
-  .payment-item-loading-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 2;
-    border-radius: 1rem;
-    .loading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
+
   @media (min-width: 768.98px) {
     & {
       grid-template-columns: repeat(6, 1fr);

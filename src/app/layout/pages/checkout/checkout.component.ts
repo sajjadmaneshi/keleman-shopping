@@ -9,6 +9,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
+  isBasketFull = false;
   constructor(
     private _basketService: BasketService,
     private _authService: AuthService
@@ -16,6 +17,9 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleUserAuthentication();
+    this._basketService.cartCount.subscribe(
+      (result) => (this.isBasketFull = result > 0)
+    );
   }
 
   private handleUserAuthentication(): void {

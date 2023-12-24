@@ -2,10 +2,10 @@ import { Component, OnDestroy } from '@angular/core';
 import { BasketRepository } from '../data/repositories/basket.repository';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
 import { Subject, takeUntil } from 'rxjs';
-import { GuestBasketModel } from '../data/models/guest-basket.model';
 import { GuestBasketService } from '../guest-basket.service';
 import { BasketService } from '../purchase/basket.service';
 import { LoadingService } from '../../../../../common/services/loading.service';
+import { AuthService } from '../../../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'keleman-basket',
@@ -14,28 +14,34 @@ import { LoadingService } from '../../../../../common/services/loading.service';
   providers: [BasketRepository],
 })
 export class BasketComponent implements OnDestroy {
-  guestBasketItems!: GuestBasketModel;
   basketItems: BasketItemViewModel[] = [];
   destroy$ = new Subject<void>();
+  isLoggedIn = false;
 
   constructor(
     private _guestBasketService: GuestBasketService,
+    private _authService: AuthService,
     public basketService: BasketService,
     public loadingService: LoadingService
   ) {
+    this._authService.isLoggedIn$.subscribe((res) => {
+      this.isLoggedIn = res;
+    });
     this._getBasketItems();
   }
 
   private _getBasketItems() {
-    this._guestBasketService.basket$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((result) => {
-        this.guestBasketItems = result;
+    if (this.isLoggedIn) {
+      this.basketService.basketItems.subscribe((result) => {
+        this.basketItems = result!;
       });
-    this.basketService.basketItems.subscribe((result) => {
-      this.basketItems = result!;
-      console.log(this.basketItems);
-    });
+    } else {
+      this._guestBasketService.basket$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((result) => {
+          this.basketItems = result.items;
+        });
+    }
   }
 
   ngOnDestroy(): void {
@@ -53,7 +59,6 @@ export class BasketComponent implements OnDestroy {
 
       const updatedProductCount =
         this.basketService.cartCount.value - basketItem.count;
-
       this.basketService.cartCount.next(updatedProductCount);
     }
   }

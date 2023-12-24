@@ -35,16 +35,17 @@ export class ShippingComponent {
         ),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        (result) => {
+      .subscribe({
+        next: (result) => {
           this.address = result.result!;
           this._basketService.delivaryAddress.next(this.address.id);
           if (this.address) {
             this._basketService.getShippingCost(this.address.id);
           }
         },
-        () => this.loadingSerivce.stopLoading('read', 'getShippingAddress')
-      );
+        error: () =>
+          this.loadingSerivce.stopLoading('read', 'getShippingAddress'),
+      });
   }
 
   addAddress() {
@@ -55,9 +56,7 @@ export class ShippingComponent {
       })
       .afterClosed()
       .subscribe((res) => {
-        if (res) {
-          this.address = res;
-        }
+        if (res) this.address = res;
       });
   }
 }

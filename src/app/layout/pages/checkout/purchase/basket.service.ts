@@ -22,6 +22,8 @@ import { GuestBasketService } from '../guest-basket.service';
 import { MergeBasketDto } from '../data/dto/merge-basket.dto';
 import { ShippingCostViewModel } from '../data/models/shipping-cost-view.model';
 import { BillRepository } from '../data/repositories/bill.repository';
+import { PaymentRepository } from '../data/repositories/payment.repository';
+import { PayResultViewModel } from '../data/models/pay-result.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class BasketService {
@@ -29,19 +31,20 @@ export class BasketService {
   productCountInBasket = new BehaviorSubject(0);
   cartCount = new BehaviorSubject(0);
   basketItems = new BehaviorSubject<BasketItemViewModel[]>([]);
-  shippingCost = new BehaviorSubject<ShippingCostViewModel>(
-    new ShippingCostViewModel(0, 0)
+  shippingCost = new BehaviorSubject<ShippingCostViewModel | undefined>(
+    undefined
   );
   paymentGateways = new BehaviorSubject<PaymentGatewayViewModel[]>([]);
   basketCheckout = new BehaviorSubject<BasketCheckoutViewModel>(
     new BasketCheckoutViewModel(0, 0, 0, 0)
   );
   delivaryAddress = new BehaviorSubject<number | undefined>(undefined);
-  bankAddress = new BehaviorSubject<string | undefined>(undefined);
+  payResult = new BehaviorSubject<PayResultViewModel | undefined>(undefined);
 
   constructor(
     private readonly _basketRepository: BasketRepository,
     private readonly _billRepository: BillRepository,
+    private readonly _paymentRepository: PaymentRepository,
     private readonly _guestBasketService: GuestBasketService,
     private readonly _snackBar: SnackBarService,
     private readonly _loadingService: LoadingService
@@ -55,14 +58,14 @@ export class BasketService {
         tap(() => this._loadingService.stopLoading('add', 'addToBasket')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.getCartCount();
           this._showSuccessMessage();
           this.productCountInBasket.next(this.productCountInBasket.value + 1);
         },
-        () => this._loadingService.stopLoading('add', 'addToBasket')
-      );
+        error: () => this._loadingService.stopLoading('add', 'addToBasket'),
+      });
   }
 
   public updateBasket(dto: UpdateBasketDto) {
@@ -73,12 +76,14 @@ export class BasketService {
         tap(() => this._loadingService.stopLoading('update', 'updateBasket')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.getCartCount();
+          this.getBasketCheckout();
+          if (dto.count === 0) this.getBasket();
         },
-        () => this._loadingService.stopLoading('update', 'updateBasket')
-      );
+        error: () => this._loadingService.stopLoading('update', 'updateBasket'),
+      });
   }
 
   public getShippingCost(addressId: number) {
@@ -89,10 +94,10 @@ export class BasketService {
         tap(() => this._loadingService.stopLoading('read', 'shoppingCost')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        (result) => this.shippingCost.next(result.result!),
-        () => this._loadingService.stopLoading('read', 'shoppingCost')
-      );
+      .subscribe({
+        next: (result) => this.shippingCost.next(result.result!),
+        error: () => this._loadingService.stopLoading('read', 'shoppingCost'),
+      });
   }
 
   public getCartCount() {
@@ -103,40 +108,40 @@ export class BasketService {
         tap(() => this._loadingService.stopLoading('read', 'cartCount')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.cartCount.next(res.result!);
         },
-        () => this._loadingService.stopLoading('read', 'cartCount')
-      );
+        error: () => this._loadingService.stopLoading('read', 'cartCount'),
+      });
   }
 
   public getPaymentGateways() {
     this._loadingService.startLoading('read', 'paymentGateway');
-    this._basketRepository
+    this._paymentRepository
       .getPaymentGateways()
       .pipe(
         tap(() => this._loadingService.stopLoading('read', 'paymentGateway')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.paymentGateways.next(res.result!);
         },
-        () => this._loadingService.stopLoading('read', 'paymentGateway')
-      );
+        error: () => this._loadingService.stopLoading('read', 'paymentGateway'),
+      });
   }
 
   public pay(billId: number, bankId: number) {
     this._loadingService.startLoading('read', 'pay');
-    this._basketRepository
+    this._paymentRepository
       .pay(billId, bankId)
       .pipe(
         tap(() => this._loadingService.stopLoading('read', 'pay')),
         takeUntil(this.destroy$)
       )
       .subscribe({
-        next: (result) => this.bankAddress.next(result.result!),
+        next: (result) => this.payResult.next(result.result!),
         error: () => this._loadingService.stopLoading('read', 'pay'),
       });
   }
@@ -160,7 +165,7 @@ export class BasketService {
   public mergeBasket(): Observable<boolean> {
     return this._guestBasketService.basket$.pipe(
       switchMap((basket) => {
-        const mergeDto = basket.products.map((x) => {
+        const mergeDto = basket.items.map((x) => {
           return {
             productId: x.product.id,
             storeId: 0,
@@ -184,12 +189,12 @@ export class BasketService {
         tap(() => this._loadingService.stopLoading('read', 'getBasket')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        (result) => {
+      .subscribe({
+        next: (result) => {
           this.basketItems.next(result.result!);
         },
-        () => this._loadingService.stopLoading('read', 'getBasket')
-      );
+        error: () => this._loadingService.stopLoading('read', 'getBasket'),
+      });
   }
   public getBasketCheckout() {
     this._loadingService.startLoading('read', 'getCheckout');
@@ -199,12 +204,12 @@ export class BasketService {
         tap(() => this._loadingService.stopLoading('read', 'getCheckout')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.basketCheckout.next(res.result!);
         },
-        () => this._loadingService.stopLoading('read', 'getCheckout')
-      );
+        error: () => this._loadingService.stopLoading('read', 'getCheckout'),
+      });
   }
 
   public remove(orderId: number) {
@@ -218,6 +223,26 @@ export class BasketService {
         return of(false);
       })
     );
+  }
+  getBillInvoice(billId: number) {
+    this._loadingService.startLoading('read', 'billInvoice');
+    this._billRepository
+      .getBillInvoice(billId)
+      .pipe(
+        tap(() => this._loadingService.stopLoading('read', 'billInvoice')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (result) => this.basketCheckout.next(result.result!),
+        error: () => this._loadingService.stopLoading('read', 'billInvoice'),
+      });
+  }
+
+  public resetBasket() {
+    this.basketItems.next([]);
+    this.cartCount.next(0);
+    this.basketCheckout.next(new BasketCheckoutViewModel(0, 0, 0, 0));
+    this.shippingCost.next(new ShippingCostViewModel(0, 0));
   }
 
   private _showSuccessMessage() {

@@ -5,24 +5,11 @@
 ></ngx-skeleton-loader>
 } @else {
 <div class="basket-body d-flex flex-column align-items-center">
-  @if (basketItems.length > 0){ @for (basketItem of basketItems;track
-  basketItem.id){
+  @for (basketItem of basketItems;track basketItem.id){
   <app-basket-item
     [basketItem]="basketItem"
     (remove)="removeItem($event)"
   ></app-basket-item>
-  } } @else {
-  <ng-container>
-    <img
-      alt="empty-basket"
-      class="empty-basket-img"
-      src="../../../../../assets/media/empty-basket.webp"
-    />
-    <span class="fs-6">سبد خرید شما خالی است!</span>
-    <a class="fw-bold text-klm-primary" [routerLink]="'/'"
-      ><u>بازگشت به فروشگاه</u></a
-    >
-  </ng-container>
   }
 </div>
 }

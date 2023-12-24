@@ -15,7 +15,7 @@ export class MainPurchaseComponent {
   destroy$ = new Subject();
 
   totalPrice: number = 0;
-  shippingCost!: ShippingCostViewModel | null;
+  shippingCost!: ShippingCostViewModel;
   checkoutDetails = new BasketCheckoutViewModel(0, 0, 0, 0);
 
   constructor(
@@ -31,7 +31,7 @@ export class MainPurchaseComponent {
       .subscribe(([totalPrice, basketCheckout, shippingCost]) => {
         this.totalPrice = totalPrice;
         this.checkoutDetails = basketCheckout;
-        this.shippingCost = shippingCost;
+        this.shippingCost = shippingCost!;
       });
   }
 }
