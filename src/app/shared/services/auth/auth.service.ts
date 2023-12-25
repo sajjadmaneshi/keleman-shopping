@@ -7,7 +7,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { UserSimpleInfoViewModel } from '../../data/models/view-models/user-simple-info.view-model';
 import { UserRepository } from '../../data/repositories/user/user.repository';
 import { isPlatformBrowser } from '@angular/common';
-import { BasketRepository } from '../../../layout/pages/checkout/data/repositories/basket.repository';
 import { BasketService } from '../../../layout/pages/checkout/purchase/basket.service';
 
 @Injectable({
@@ -75,11 +74,12 @@ export class AuthService {
     token: string;
     mobile: string;
   }) {
-    if (isPlatformBrowser(this.platformId))
+    if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('KELEMAN_TOKEN', data.token);
-    const decodeToken = this.jwtHelper.decodeToken(data.token);
-    localStorage.setItem('USERID', decodeToken.sub);
-    this.isLoggedIn$.next(true);
+      const decodeToken = this.jwtHelper.decodeToken(data.token);
+      localStorage.setItem('USERID', decodeToken.sub);
+      this.isLoggedIn$.next(true);
+    }
   }
   public logout() {
     if (isPlatformBrowser(this.platformId)) {

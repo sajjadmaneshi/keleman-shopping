@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { PaymentRepository } from '../data/repositories/payment.repository';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { VerifyPaymentDto } from '../data/dto/verify-payment.dto';
 import { BasketRepository } from '../data/repositories/basket.repository';
 
 @Component({

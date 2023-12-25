@@ -7,8 +7,13 @@
     "types": [
       "@angular/localize"
     ],
+
     "sourceMap": true
   },
+  "angularCompilerOptions": {
+    "strictNullCkecks": false
+  },
+
   "files": [
     "src/main.ts"
   ],

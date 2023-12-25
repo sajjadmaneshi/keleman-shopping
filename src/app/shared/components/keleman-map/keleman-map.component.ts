@@ -1,30 +1,17 @@
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
+  Inject,
   Input,
-  OnDestroy,
   Output,
+  PLATFORM_ID,
 } from '@angular/core';
-import {
-  Icon,
-  icon,
-  latLng,
-  LatLng,
-  LatLngExpression,
-  LeafletEvent,
-  LeafletMouseEvent,
-  Map,
-  MapOptions,
-  marker,
-  Marker,
-  PanOptions,
-  tileLayer,
-} from 'leaflet';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import * as L from 'leaflet';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MapService } from '../../services/map.service';
 import { SearchResult } from 'leaflet-geosearch/lib/providers/provider';
 import { RawResult } from 'leaflet-geosearch/lib/providers/openStreetMapProvider';
@@ -37,67 +24,86 @@ import { GeoSearchComponent } from './geo-search/geo-search.component';
   standalone: true,
   imports: [
     CommonModule,
-    LeafletModule,
     NgbTypeahead,
     MatInputModule,
     MatAutocompleteModule,
     GeoSearchComponent,
   ],
 })
-export class KelemanMapComponent implements OnDestroy {
-  @Input() options!: MapOptions;
-  @Input() defaultLatLng: LatLngExpression = {
+export class KelemanMapComponent implements AfterViewInit {
+  @Input() options!: L.MapOptions;
+  @Input() defaultLatLng: L.LatLngExpression = {
     lat: 29.612936035963546,
     lng: 52.48360186815262,
   };
 
-  @Input() markerLatLng!: LatLngExpression;
+  @Input() markerLatLng!: L.LatLngExpression;
   @Input() zoom!: number;
   @Input() readOnly!: boolean;
   @Input() showSearch!: boolean;
   @Input() searchLabel!: string;
-  @Output() map$: EventEmitter<Map> = new EventEmitter();
+  @Output() map$: EventEmitter<L.Map> = new EventEmitter();
   @Output() zoom$: EventEmitter<number> = new EventEmitter();
   @Output() mapClick: EventEmitter<SearchResult<RawResult>> =
     new EventEmitter();
   @Output() mapClickWaiting: EventEmitter<boolean> = new EventEmitter();
+  @Input() mapId: string = `map-${Date.now()}`;
 
-  private _map!: Map;
-  private _marker!: Marker;
+  private _map!: L.Map;
+  private _marker!: L.Marker;
 
-  constructor(private _mapService: MapService) {}
+  constructor(
+    private _mapService: MapService,
+    @Inject(PLATFORM_ID) private platformId: any
+  ) {}
 
-  onMapReady(map: Map) {
-    this._map = map;
-    if (this.markerLatLng) {
-      this._addMarker(this.markerLatLng as LatLng);
+  ngAfterViewInit() {
+    if (!this._map) {
+      this.onMapReady();
     }
-
-    this.map$.emit(map);
-    this.zoom$.emit(map.getZoom());
   }
 
-  onMapZoomEnd(e: LeafletEvent): void {
+  onMapReady() {
+    if (isPlatformBrowser(this.platformId)) {
+      this._map = L.map(this.mapId, {
+        center: this.defaultLatLng,
+        zoom: 3,
+        ...this.getOptions(),
+      });
+
+      if (this.markerLatLng) {
+        this._addMarker(this.markerLatLng as L.LatLng);
+      }
+
+      this.map$.emit(this._map);
+      this.zoom$.emit(this._map.getZoom());
+      this._map.on('zoomend', (e) => this.onMapZoomEnd(e));
+      this._map.on('click', (e) => this.onMapClick(e));
+    }
+  }
+  onMapZoomEnd(e: L.LeafletEvent): void {
     this.zoom$.emit(e.target.getZoom());
   }
 
-  panTo(latLngExpression: LatLngExpression, options?: PanOptions): void {
-    if (this._map) {
-      this._map.panTo(latLngExpression, options);
+  panTo(latLngExpression: L.LatLngExpression, options?: L.PanOptions): void {
+    if (isPlatformBrowser(this.platformId)) {
+      if (this._map) {
+        this._map.panTo(latLngExpression, options);
+      }
     }
   }
 
-  onMapClick(mouseEvent: LeafletMouseEvent): void {
+  onMapClick(mouseEvent: L.LeafletMouseEvent): void {
     if (mouseEvent && !this.readOnly) {
       this._removeMarker();
       this._addMarker(mouseEvent.latlng);
     }
   }
 
-  getOptions(): MapOptions {
+  getOptions(): L.MapOptions {
     return {
       layers: [
-        tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           detectRetina: true,
           attribution:
             '&copy; <a href="https://www.keleman.org/">keleman</a> contributors',
@@ -113,21 +119,21 @@ export class KelemanMapComponent implements OnDestroy {
       attributionControl: false,
       dragging: !this.readOnly,
 
-      center: this.markerLatLng ?? this.defaultLatLng ?? latLng(0, 0),
+      center: this.markerLatLng ?? this.defaultLatLng ?? L.latLng(0, 0),
     };
   }
   onSelectAddress($event: SearchResult<RawResult>) {
     if (!this.readOnly) {
       this._removeMarker();
-      this.panTo(latLng($event.y, $event.x));
-      this._addMarker(latLng($event.y, $event.x));
+      this.panTo(L.latLng($event.y, $event.x));
+      this._addMarker(L.latLng($event.y, $event.x));
 
       this.mapClick.emit($event);
     }
   }
 
-  private _addMarker(markerLatLng: LatLng): void {
-    const m = marker(markerLatLng, {
+  private _addMarker(markerLatLng: L.LatLng): void {
+    const m = L.marker(markerLatLng, {
       icon: this._markerIcon(),
     });
 
@@ -144,6 +150,9 @@ export class KelemanMapComponent implements OnDestroy {
           contentPopup += `<br><br><b>${result[0].label}</b>`;
         }
       })
+      .catch((error: any) => {
+        console.error('Error getting address by LatLng:', error);
+      })
       .finally(() => {
         m.bindPopup(contentPopup).openPopup();
         m.addTo(this._map);
@@ -153,13 +162,15 @@ export class KelemanMapComponent implements OnDestroy {
   }
 
   private _removeMarker(): void {
-    if (this._marker) {
-      this._map.removeLayer(this._marker);
+    if (isPlatformBrowser(this.platformId)) {
+      if (this._marker) {
+        this._map.removeLayer(this._marker);
+      }
     }
   }
 
-  private _markerIcon(): Icon {
-    return icon({
+  private _markerIcon(): L.Icon {
+    return L.icon({
       iconSize: [41, 41],
       iconAnchor: [13, 41],
       popupAnchor: [0, -41],
@@ -169,9 +180,11 @@ export class KelemanMapComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    try {
-      this._map.clearAllEventListeners();
-      this._map.remove();
-    } catch (error) {}
+    if (isPlatformBrowser(this.platformId)) {
+      try {
+        this._map.clearAllEventListeners();
+        this._map.remove();
+      } catch (error) {}
+    }
   }
 }

@@ -1,10 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  Output,
+  PLATFORM_ID,
+} from '@angular/core';
 
 import { UserAddressViewModel } from '../../../profile/data/view-models/user-address.view-model';
 import { ShippingUserAddressDialogComponent } from '../shipping-user-address-dialog/shipping-user-address-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { LatLngExpression } from 'leaflet';
 import { BasketService } from '../../purchase/basket.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'keleman-shipping-address-item',
@@ -19,10 +27,14 @@ export class ShippingAddressItemComponent {
 
   @Output() edit = new EventEmitter<void>();
 
+  isBrowser!: boolean;
   constructor(
     private readonly _dialog: MatDialog,
-    private readonly _basketService: BasketService
-  ) {}
+    private readonly _basketService: BasketService,
+    @Inject(PLATFORM_ID) private platformId: any
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   openAddressDialog() {
     this._dialog

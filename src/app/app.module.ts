@@ -4,11 +4,20 @@ import {
   NgModule,
   isDevMode,
 } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+  withHttpTransferCacheOptions,
+} from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+  provideHttpClient,
+  withFetch,
+} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApplicationStateService } from './shared/services/application-state.service';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
@@ -70,6 +79,12 @@ export function tokenGetter() {
       multi: true,
     },
     { provide: ErrorHandler, useClass: AppErrorHandler },
+    provideHttpClient(withFetch()),
+    provideClientHydration(
+      withHttpTransferCacheOptions({
+        includePostRequests: true,
+      })
+    ),
   ],
   bootstrap: [AppComponent],
 })

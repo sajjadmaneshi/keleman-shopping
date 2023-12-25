@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  Output,
+  PLATFORM_ID,
+} from '@angular/core';
 
 import { LatLngExpression } from 'leaflet';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +15,7 @@ import { UserAddressViewModel } from '../../data/view-models/user-address.view-m
 import { ProfileRepository } from '../../data/profile.repository';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+import { isPlatformBrowser, NgIf } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertDialogComponent } from '../../../../../shared/components/alert-dialog/alert-dialog.component';
 import { AlertDialogDataModel } from '../../../../../shared/components/alert-dialog/alert-dialog-data.model';
@@ -41,11 +48,15 @@ export class AddressItemComponent {
   @Output('update') onUpdate = new EventEmitter<void>();
 
   dialogRef!: MatDialogRef<AlertDialogComponent>;
+  isBrowser!: boolean;
 
   constructor(
     private readonly _profuleRepository: ProfileRepository,
+    @Inject(PLATFORM_ID) private platformId: any,
     private _dialog: MatDialog
-  ) {}
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   getMarkerLatLng(lat: number, lng: number): LatLngExpression {
     return { lat, lng } as LatLngExpression;

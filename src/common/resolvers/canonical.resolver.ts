@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
@@ -6,10 +6,14 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, take } from 'rxjs/operators';
 import { environment } from '@ng-bootstrap/ng-bootstrap/environment';
 import { ENVIRONMENT } from '../../environments/environment';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable()
 export class CanonicalResolver implements Resolve<boolean> {
-  constructor(private meta: Meta, private router: Router) {}
+  constructor(
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
   resolve(): Observable<boolean> {
     const subscription = this.router.events
@@ -27,14 +31,14 @@ export class CanonicalResolver implements Resolve<boolean> {
 
   private setCanonicalURL(): void {
     const canonicalURL = ENVIRONMENT.baseDomain + this.router.url;
-    const head = document.getElementsByTagName('head')[0];
+    const head = this.document.getElementsByTagName('head')[0];
 
     const existingCanonicalLink = head.querySelector('link[rel="canonical"]');
     if (existingCanonicalLink) {
       head.removeChild(existingCanonicalLink);
     }
 
-    const linkElement = document.createElement('link');
+    const linkElement = this.document.createElement('link');
     linkElement.rel = 'canonical';
     linkElement.href = canonicalURL;
     head.appendChild(linkElement);

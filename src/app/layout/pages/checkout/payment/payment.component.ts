@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { BasketService } from '../purchase/basket.service';
 import { PaymentGatewayViewModel } from '../data/models/payment-gateway.view-model';
@@ -13,6 +13,7 @@ import { SnackBarService } from '../../../../shared/components/snack-bar/snack-b
 import { MatDialog } from '@angular/material/dialog';
 import { TransferToBankDialogComponent } from './transfer-to-bank-dialog/transfer-to-bank-dialog.component';
 import { PayResultViewModel } from '../data/models/pay-result.view-model';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'keleman-payment',
@@ -36,6 +37,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     private readonly _billRepository: BillRepository,
     private readonly _snackBarService: SnackBarService,
     private readonly _dialog: MatDialog,
+    @Inject(DOCUMENT) private document: Document,
     public readonly loadingService: LoadingService
   ) {}
 
@@ -79,20 +81,20 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   private _mellatPay(refId: any) {
-    var form = document.createElement('form');
+    var form = this.document.createElement('form');
     form.setAttribute('method', 'POST');
     form.setAttribute(
       'action',
       'https://bpm.shaparak.ir/pgwchannel/startpay.mellat'
     );
     form.setAttribute('target', '_self');
-    var hiddenField = document.createElement('input');
+    var hiddenField = this.document.createElement('input');
     hiddenField.setAttribute('name', 'RefId');
     hiddenField.setAttribute('value', refId);
     form.appendChild(hiddenField);
-    document.body.appendChild(form);
+    this.document.body.appendChild(form);
     form.submit();
-    document.body.removeChild(form);
+    this.document.body.removeChild(form);
   }
 
   saveOrder(paymentGatewayId: number) {

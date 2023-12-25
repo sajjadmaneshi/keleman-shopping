@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { GuestBasketViewModel } from './data/models/guest-basket.view-model';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ProductDetailViewModel } from '../products/data/models/view-models/product-detail.view-model';
 import { BasketItemViewModel } from './data/models/basket-item.view-model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class GuestBasketService {
   private readonly storageKey = 'GUEST_BASKET';
   private basketSubject: BehaviorSubject<GuestBasketViewModel>;
   private totalPriceSubject: BehaviorSubject<number>;
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
     const initialBasket = this.getBasketFromLocalStorage();
     this.basketSubject = new BehaviorSubject<GuestBasketViewModel>(
       initialBasket
@@ -29,11 +29,15 @@ export class GuestBasketService {
   }
 
   private updateBasketLocalStorage(basketData: GuestBasketViewModel): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(basketData));
+    if (isPlatformBrowser(this.platformId))
+      localStorage.setItem(this.storageKey, JSON.stringify(basketData));
   }
 
   private getBasketFromLocalStorage(): GuestBasketViewModel {
-    const storedData = localStorage.getItem(this.storageKey);
+    let storedData!: string | null;
+    if (isPlatformBrowser(this.platformId)) {
+      storedData = localStorage.getItem(this.storageKey);
+    }
     return storedData ? JSON.parse(storedData) : new GuestBasketViewModel();
   }
 
@@ -125,7 +129,8 @@ export class GuestBasketService {
   }
 
   clearBasket(): void {
-    localStorage.removeItem(this.storageKey);
+    if (isPlatformBrowser(this.platformId))
+      localStorage.removeItem(this.storageKey);
     this.emitBasketUpdate(new GuestBasketViewModel());
   }
 }
