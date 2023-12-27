@@ -5,7 +5,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { ProfileRepository } from '../../profile/data/profile.repository';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { ModifyAddressDialogComponent } from '../../profile/address/add-address-dialog/modify-address-dialog.component';
-import { BasketService } from '../purchase/basket.service';
+import { BasketService } from '../services/basket.service';
 
 @Component({
   selector: 'keleman-shipping',
@@ -38,9 +38,9 @@ export class ShippingComponent {
       .subscribe({
         next: (result) => {
           this.address = result.result!;
-          this._basketService.delivaryAddress.next(this.address.id);
+          this._basketService.delivaryAddress$.next(this.address.id);
           if (this.address) {
-            this._basketService.getShippingCost(this.address.id);
+            this._basketService.shippingCost(this.address.id);
           }
         },
         error: () =>

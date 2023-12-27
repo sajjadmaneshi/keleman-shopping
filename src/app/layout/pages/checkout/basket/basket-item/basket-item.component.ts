@@ -2,12 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
 import { BasketItemViewModel } from '../../data/models/basket-item.view-model';
-
-import { ProductDetailViewModel } from '../../../products/data/models/view-models/product-detail.view-model';
-import { GuestBasketService } from '../../guest-basket.service';
-import { BasketService } from '../../purchase/basket.service';
 import { UpdateBasketDto } from '../../data/dto/update-basket.dto';
 import { AuthService } from '../../../../../shared/services/auth/auth.service';
+import { BasketService } from '../../services/basket.service';
 
 @Component({
   selector: 'app-basket-item',
@@ -20,7 +17,6 @@ export class BasketItemComponent {
   isLoggedIn = false;
   constructor(
     public applicationStateService: ApplicationStateService,
-    private readonly _guestBasketService: GuestBasketService,
     private readonly _basketService: BasketService,
     private readonly _authService: AuthService
   ) {
@@ -30,27 +26,21 @@ export class BasketItemComponent {
   }
 
   removeProduct() {
-    if (this.isLoggedIn) {
-      this._basketService.remove(this.basketItem.id!).subscribe((result) => {
-        if (result) this.remove.emit(this.basketItem);
-      });
-    } else this._guestBasketService.removeProduct(this.basketItem);
+    const id = this.isLoggedIn
+      ? this.basketItem.id!
+      : this.basketItem.product.id;
+
+    this._basketService.remove(id).then((result) => {
+      if (result) this.remove.emit(this.basketItem);
+    });
   }
 
-  updateBasketAuthorized(count: number) {
+  updateBasket(count: number) {
     const dto = {
       productId: this.basketItem.product.id,
       // storeId: this.productDetail.stores[0].id,
       count,
     } as UpdateBasketDto;
     this._basketService.updateBasket(dto);
-  }
-
-  addToBasketGuest() {
-    this._guestBasketService.addToBasket(this.basketItem);
-  }
-
-  removeFromBasketGuest() {
-    this._guestBasketService.removeFromBasket(this.basketItem.product.id);
   }
 }

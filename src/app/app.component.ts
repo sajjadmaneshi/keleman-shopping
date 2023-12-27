@@ -1,32 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ApplicationStateService } from './shared/services/application-state.service';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { Subscription } from 'rxjs';
-import { PageLoadingService } from './shared/services/pageLoadingService';
+import { BehaviorSubject, Subject, Subscription, takeUntil } from 'rxjs';
 
 import { Platform } from '@angular/cdk/platform';
+import { NavigationLoadingService } from './shared/services/navigation-loading.service';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  providers: [PageLoadingService],
+
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   title = 'بازرگانی آسانسور کلمان';
-
-  private _loadingSubscription!: Subscription;
+  destroy$ = new Subject<void>();
 
   constructor(
+    _title: Title,
     private _applicationState: ApplicationStateService,
-    private _title: Title,
     private meta: Meta,
-    private _platform: Platform
+    private _platform: Platform,
+    private readonly _router: Router,
+    private readonly _navigationLoading: NavigationLoadingService
   ) {
     _title.setTitle(this.title);
     this._setMetaTag();
     this._applicationState.init();
+    this._router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this._navigationLoading.show();
+      } else if (event instanceof NavigationEnd) {
+        this._navigationLoading.hide();
+      }
+    });
   }
 
   private _setMetaTag() {
@@ -37,5 +46,9 @@ export class AppComponent {
         : metaTagBase;
 
     this.meta.addTags([{ name: 'viewport', content: metaTagContent }]);
+  }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -8,6 +8,7 @@ export interface BasketItemViewModel {
     price: number;
     priceAfterDiscount: number;
     discount: number;
+    currentStock: number;
   };
   count: number;
   reciveTime?: string;

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { GuestBasketService } from '../../../guest-basket.service';
-import { BasketService } from '../../basket.service';
 
 import { BasketCheckoutViewModel } from '../../../data/models/basket-checkout.view-model';
 import { ShippingCostViewModel } from '../../../data/models/shipping-cost-view.model';
-import { Subject, combineLatest, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from '../../../../../../shared/services/auth/auth.service';
+import { BasketService } from '../../../services/basket.service';
 
 @Component({
   selector: 'keleman-main-purchase',
@@ -12,25 +12,24 @@ import { Subject, combineLatest, takeUntil } from 'rxjs';
   styleUrls: ['./main-purchase.component.scss'],
 })
 export class MainPurchaseComponent {
-  destroy$ = new Subject();
-
+  destroy$ = new Subject<void>();
   totalPrice: number = 0;
   shippingCost!: ShippingCostViewModel;
   checkoutDetails = new BasketCheckoutViewModel(0, 0, 0, 0);
-
+  isLoggedIn = false;
   constructor(
-    private _guestBasketService: GuestBasketService,
-    private _basketService: BasketService
+    private _basketService: BasketService,
+    private readonly _authService: AuthService
   ) {
-    combineLatest(
-      this._guestBasketService.totalPrice$,
-      this._basketService.basketCheckout,
-      this._basketService.shippingCost
-    )
+    this._authService.isLoggedIn$.subscribe((res) => (this.isLoggedIn = res));
+
+    this._basketService.basketCheckout$.subscribe((res) => {
+      this.checkoutDetails = res;
+    });
+
+    this._basketService.shippingCost$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(([totalPrice, basketCheckout, shippingCost]) => {
-        this.totalPrice = totalPrice;
-        this.checkoutDetails = basketCheckout;
+      .subscribe((shippingCost) => {
         this.shippingCost = shippingCost!;
       });
   }

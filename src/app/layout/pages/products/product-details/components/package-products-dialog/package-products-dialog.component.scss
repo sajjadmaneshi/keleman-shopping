@@ -1,0 +1,10 @@
+@import "base/variables/colors";
+.list-title {
+  border-bottom: 1px solid $gray-300;
+  .list-title-caption {
+    border-bottom: 2px solid $klm-secondary;
+  }
+}
+.submit {
+  min-width: 10rem;
+}

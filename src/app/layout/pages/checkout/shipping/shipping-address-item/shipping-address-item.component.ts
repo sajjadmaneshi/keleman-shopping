@@ -11,8 +11,8 @@ import { UserAddressViewModel } from '../../../profile/data/view-models/user-add
 import { ShippingUserAddressDialogComponent } from '../shipping-user-address-dialog/shipping-user-address-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { LatLngExpression } from 'leaflet';
-import { BasketService } from '../../purchase/basket.service';
 import { isPlatformBrowser } from '@angular/common';
+import { BasketService } from '../../services/basket.service';
 
 @Component({
   selector: 'keleman-shipping-address-item',
@@ -46,8 +46,8 @@ export class ShippingAddressItemComponent {
       .subscribe((res: UserAddressViewModel) => {
         if (res) {
           this.address = res;
-          this._basketService.getShippingCost(res.id);
-          this._basketService.delivaryAddress.next(res.id);
+          this._basketService.shippingCost(res.id);
+          this._basketService.delivaryAddress$.next(res.id);
         }
       });
   }

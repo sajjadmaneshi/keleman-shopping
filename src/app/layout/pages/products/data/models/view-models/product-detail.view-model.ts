@@ -26,6 +26,7 @@ export interface ProductDetailViewModel {
   haveSelectableProperty: true;
   currentStock: number;
   currentDiscountPercent: number;
+  isPackage: boolean;
   stores: [
     {
       title: string;

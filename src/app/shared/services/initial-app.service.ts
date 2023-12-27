@@ -15,7 +15,7 @@ import { ArticleRepository } from 'src/app/layout/pages/magazine/data/repositori
 import { ArticleCategoryViewModel } from '../../layout/pages/magazine/data/view-models/article-category.view-model';
 import { ProfileService } from '../../layout/pages/profile/shared/profile.service';
 import { ProfileViewModel } from '../../layout/pages/profile/data/view-models/profile.view-model';
-import { BasketService } from '../../layout/pages/checkout/purchase/basket.service';
+import { BasketService } from '../../layout/pages/checkout/services/basket.service';
 
 @Injectable({ providedIn: 'root' })
 export class InitialAppService implements OnDestroy {
@@ -41,11 +41,13 @@ export class InitialAppService implements OnDestroy {
   init() {
     this.isLoading = true;
 
-    combineLatest(
+    combineLatest([
       this._authService.isAuthenticated,
       this._productCategoryService.getCategories(),
-      this._articleRepository.getArticleCategories().pipe(map((x) => x.result!))
-    )
+      this._articleRepository
+        .getArticleCategories()
+        .pipe(map((x) => x.result!)),
+    ])
       .pipe(
         tap(() => (this.isLoading = false)),
         takeUntil(this.destroy$)
@@ -56,8 +58,8 @@ export class InitialAppService implements OnDestroy {
             this.userSimpleInfo.next(result!);
           });
           this.getUserCredit();
-          this._basketService.getCartCount();
         }
+        this._basketService.cartBalance();
 
         if (productcategories) this.productCategories.next(productcategories);
         if (articleCategories) this.articleCategories.next(articleCategories);

@@ -18,6 +18,7 @@ import { ProductCommentViewModel } from '../models/view-models/product-comment.v
 import { ProductSpecificViewModel } from '../models/view-models/product-specific.view-model';
 import { ProductPriceChartViewModel } from '../models/view-models/product-price-chart.view-model';
 import { ProductDescriptionsViewModel } from '../models/view-models/product-descriptions.view-model';
+import { PackageItemsViewModel } from '../models/view-models/package-items.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductRepository extends DataService<
@@ -82,6 +83,14 @@ export class ProductRepository extends DataService<
     return this._http.get(`${this._getUrl}/${url}/priceChart`) as Observable<
       HttpClientResult<ProductPriceChartViewModel[]>
     >;
+  }
+
+  getPackageDetails(
+    packageId: number
+  ): Observable<HttpClientResult<PackageItemsViewModel>> {
+    return this._http.get(
+      `${this._getUrl}/${packageId}/packageDetail`
+    ) as Observable<HttpClientResult<PackageItemsViewModel>>;
   }
 
   favorite(productId: number): Observable<HttpClientResult<boolean>> {

@@ -2,8 +2,9 @@ import { CanActivateFn, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
 
-import { BasketService } from '../purchase/basket.service';
+import { AuthenticatedBasketService } from '../purchase/authenticated-basket.service';
 import { Routing } from '../../../../routing';
+import { BasketService } from '../services/basket.service';
 @Injectable({ providedIn: 'root' })
 export class BasketPaymentGuard {
   destroy$ = new Subject<void>();
@@ -15,7 +16,7 @@ export class BasketPaymentGuard {
 
   canActivate(): boolean {
     let flag = false;
-    this._basketService.delivaryAddress
+    this._basketService.delivaryAddress$
       .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         if (result) {

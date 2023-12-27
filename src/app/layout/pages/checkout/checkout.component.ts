@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BasketService } from './purchase/basket.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { take } from 'rxjs/operators';
+import { BasketService } from './services/basket.service';
 
 @Component({
   selector: 'app-checkout',
@@ -10,29 +10,18 @@ import { take } from 'rxjs/operators';
 })
 export class CheckoutComponent implements OnInit {
   isBasketFull = false;
-  constructor(
-    private _basketService: BasketService,
-    private _authService: AuthService
-  ) {}
+  constructor(private _basketService: BasketService) {}
 
   ngOnInit(): void {
-    this.handleUserAuthentication();
-    this._basketService.cartCount.subscribe(
+    this.loadBasketData();
+    this._basketService.cartCount$.subscribe(
       (result) => (this.isBasketFull = result > 0)
     );
   }
 
-  private handleUserAuthentication(): void {
-    this._authService.isLoggedIn$.pipe(take(1)).subscribe((isLoggedIn) => {
-      if (isLoggedIn) {
-        this.loadBasketData();
-      }
-    });
-  }
-
   private loadBasketData(): void {
-    this._basketService.getBasket();
-    this._basketService.getBasketCheckout();
-    this._basketService.getPaymentGateways();
+    this._basketService.basket();
+    this._basketService.checkout();
+    this._basketService.paymentGateways();
   }
 }

@@ -26,8 +26,16 @@
         }
       }"
     >
-      @for (slide of slides;track slide.id){
-
+      @if((loadingSerive.getLoadingStateObservable('read','packages')|async)!){
+      @for(_ of sharedVariablesService.counter(3);track _){
+      <ng-template swiperSlide>
+        <div class="swiper-slide cursor-pointer">
+          <ngx-skeleton-loader
+            [theme]="{ width: '22rem', height: '20rem' }"
+          ></ngx-skeleton-loader>
+        </div>
+      </ng-template>
+      } } @else { @for (slide of slides;track slide.id){
       <ng-template swiperSlide>
         <div
           class="swiper-slide cursor-pointer"
@@ -44,7 +52,8 @@
           </div>
         </div>
       </ng-template>
-      }
+
+      } }
     </swiper>
   </div>
 </div>

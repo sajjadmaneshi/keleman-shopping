@@ -3,19 +3,17 @@ import { GuestBasketViewModel } from './data/models/guest-basket.view-model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BasketItemViewModel } from './data/models/basket-item.view-model';
 import { isPlatformBrowser } from '@angular/common';
+import { UpdateBasketDto } from './data/dto/update-basket.dto';
 
 @Injectable({ providedIn: 'root' })
 export class GuestBasketService {
   private readonly storageKey = 'GUEST_BASKET';
   private basketSubject: BehaviorSubject<GuestBasketViewModel>;
-  private totalPriceSubject: BehaviorSubject<number>;
+
   constructor(@Inject(PLATFORM_ID) private platformId: any) {
     const initialBasket = this.getBasketFromLocalStorage();
     this.basketSubject = new BehaviorSubject<GuestBasketViewModel>(
       initialBasket
-    );
-    this.totalPriceSubject = new BehaviorSubject<number>(
-      initialBasket.totalPrice
     );
   }
 
@@ -25,7 +23,6 @@ export class GuestBasketService {
 
   private emitBasketUpdate(basketData: GuestBasketViewModel): void {
     this.basketSubject.next(basketData);
-    this.totalPriceSubject.next(basketData.totalPrice);
   }
 
   private updateBasketLocalStorage(basketData: GuestBasketViewModel): void {
@@ -35,83 +32,67 @@ export class GuestBasketService {
 
   private getBasketFromLocalStorage(): GuestBasketViewModel {
     let storedData!: string | null;
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId))
       storedData = localStorage.getItem(this.storageKey);
-    }
+
     return storedData ? JSON.parse(storedData) : new GuestBasketViewModel();
   }
 
-  private updateBasketState(
-    items: BasketItemViewModel[],
-    totalCount: number,
-    totalPrice: number
-  ): void {
-    const updatedBasket = new GuestBasketViewModel(
-      items,
-      totalCount,
-      totalPrice
-    );
+  private updateBasketState(items: BasketItemViewModel[]): void {
+    const updatedBasket = new GuestBasketViewModel(items);
     this.updateBasketLocalStorage(updatedBasket);
     this.emitBasketUpdate(updatedBasket);
   }
 
   addToBasket(product: BasketItemViewModel): void {
-    const { items, totalCount, totalPrice } = this.basketSubject.value;
+    const { items } = this.basketSubject.value;
     const existingProduct = items.find(
       (p) => p.product.id === product.product.id
     );
-    if (existingProduct) {
-      existingProduct.count++;
-    } else {
-      items.push(product);
-    }
-
-    this.updateBasketState(
-      items,
-      totalCount + 1,
-      totalPrice + product.product.priceAfterDiscount
-    );
+    existingProduct ? existingProduct.count++ : items.push(product);
+    this.updateBasketState(items);
   }
 
-  removeFromBasket(productId: number): void {
-    let { items, totalCount, totalPrice } = this.basketSubject.value;
-    const existingProduct = items.find((p) => p.product.id === productId);
+  updateBasket(dto: UpdateBasketDto) {
+    let { items } = this.basketSubject.value;
+    const existingProduct = items.find((p) => p.product.id === dto.productId);
     if (existingProduct) {
-      existingProduct.count > 1
-        ? existingProduct.count--
-        : (items = items.filter((p) => p.product.id !== productId));
-      this.updateBasketState(
-        items,
-        totalCount - 1,
-        totalPrice - existingProduct.product.priceAfterDiscount
-      );
+      if (dto.count === 0)
+        items = this.removeProduct(existingProduct.product.id);
+      else {
+        existingProduct.count = dto.count;
+      }
+      this.updateBasketState(items);
     }
   }
 
-  removeProduct(basketItem: BasketItemViewModel): void {
-    const { items, totalCount, totalPrice } = this.basketSubject.value;
-    const updatedProducts = items.filter((p) => p.id !== basketItem.id);
-
-    this.updateBasketState(
-      updatedProducts,
-      totalCount - basketItem.count,
-      totalPrice - basketItem.product.priceAfterDiscount
-    );
-  }
-
-  updateQuantity(productId: number, newQuantity: number): void {
-    const { items, totalCount, totalPrice } = this.basketSubject.value;
-
-    const updatedProducts = items.map((p) =>
-      p.product.id === productId ? { ...p, count: newQuantity } : p
-    );
-    this.updateBasketState(updatedProducts, totalCount, totalPrice);
+  removeProduct(id: number): BasketItemViewModel[] {
+    const { items } = this.basketSubject.value;
+    const updatedProducts = items.filter((p) => p.product.id != id);
+    this.updateBasketState(updatedProducts);
+    if (updatedProducts.length === 0) this.clearBasket();
+    return updatedProducts;
   }
 
   isProductInBasket(productId: number): boolean {
     return this.basketSubject.value.items.some(
       (p) => p.product.id === productId
     );
+  }
+
+  calculateCheckout() {
+    const totalPrice = this.basketSubject.value.items.reduce(
+      (sum: number, current: BasketItemViewModel) =>
+        sum + current.product.price * current.count,
+      0
+    );
+    const payablePrice = this.basketSubject.value.items.reduce(
+      (sum: number, current: BasketItemViewModel) =>
+        sum + current.product.priceAfterDiscount * current.count,
+      0
+    );
+    const profit = totalPrice - payablePrice;
+    return { payablePrice, totalPrice, profit, totalDiscount: 0 };
   }
 
   getProductCountInBasket(productId: number): number {
@@ -121,11 +102,10 @@ export class GuestBasketService {
     return product ? product.count : 0;
   }
 
-  get totalCount(): number {
-    return this.basketSubject.value.totalCount;
-  }
-  get totalPrice$(): Observable<number> {
-    return this.totalPriceSubject.asObservable();
+  get cartBalance() {
+    return this.basketSubject.value.items.reduce((sum, currentItem) => {
+      return sum + currentItem.count;
+    }, 0);
   }
 
   clearBasket(): void {

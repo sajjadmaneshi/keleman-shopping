@@ -12,7 +12,7 @@
   <div class="card shadow-lg bg-white">
     <div class="card-body row m-0">
       <div class="col-6">
-        @if ( inBasketCount == 0){
+        @if (inBasketCount == 0){
         <button
           class="actions__buttons text-klm-primary fs-5 fw-bolder w-100"
           [disabled]="productStatus !== availableStatusEnum.AVAILABLE"
@@ -23,8 +23,8 @@
         } @else {
         <keleman-value-changer
           [initialValue]="productCountInBasket"
-          (increse)="addToBasket()"
-          (decrease)="removeFromBasket()"
+          (increse)="updateBasket($event)"
+          (decrease)="updateBasket($event)"
         ></keleman-value-changer>
         }
       </div>

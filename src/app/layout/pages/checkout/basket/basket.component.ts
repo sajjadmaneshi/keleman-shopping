@@ -1,11 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { BasketRepository } from '../data/repositories/basket.repository';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
-import { Subject, takeUntil } from 'rxjs';
-import { GuestBasketService } from '../guest-basket.service';
-import { BasketService } from '../purchase/basket.service';
+import { Subject } from 'rxjs';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
+import { BasketService } from '../services/basket.service';
 
 @Component({
   selector: 'keleman-basket',
@@ -19,7 +18,6 @@ export class BasketComponent implements OnDestroy {
   isLoggedIn = false;
 
   constructor(
-    private _guestBasketService: GuestBasketService,
     private _authService: AuthService,
     public basketService: BasketService,
     public loadingService: LoadingService
@@ -31,17 +29,9 @@ export class BasketComponent implements OnDestroy {
   }
 
   private _getBasketItems() {
-    if (this.isLoggedIn) {
-      this.basketService.basketItems.subscribe((result) => {
-        this.basketItems = result!;
-      });
-    } else {
-      this._guestBasketService.basket$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((result) => {
-          this.basketItems = result.items;
-        });
-    }
+    this.basketService.basketItems$.subscribe((result) => {
+      this.basketItems = result!;
+    });
   }
 
   ngOnDestroy(): void {
@@ -50,16 +40,17 @@ export class BasketComponent implements OnDestroy {
   }
 
   removeItem(basketItem: BasketItemViewModel) {
-    const indexToRemove = this.basketItems.findIndex(
-      (item) => item.id === basketItem.id
-    );
-
-    if (indexToRemove !== -1) {
-      this.basketItems.splice(indexToRemove, 1);
-
-      const updatedProductCount =
-        this.basketService.cartCount.value - basketItem.count;
-      this.basketService.cartCount.next(updatedProductCount);
+    if (this.isLoggedIn) {
+      const indexToRemove = this.basketItems.findIndex(
+        (item) => item.product.id === basketItem.product.id
+      );
+      if (indexToRemove !== -1) {
+        this.basketItems.splice(indexToRemove, 1);
+      }
     }
+    const updatedProductCount =
+      this.basketService.cartCount$.value - basketItem.count;
+    this.basketService.cartCount$.next(updatedProductCount);
+    this.basketService.checkout();
   }
 }

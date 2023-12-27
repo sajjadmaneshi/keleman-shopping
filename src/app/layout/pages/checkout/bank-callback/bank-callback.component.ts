@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { LoadingService } from '../../../../../common/services/loading.service';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Subject } from 'rxjs';
 import { BasketRepository } from '../data/repositories/basket.repository';
 
 @Component({

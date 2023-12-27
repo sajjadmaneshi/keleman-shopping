@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { BasketService } from '../purchase/basket.service';
+import { AuthenticatedBasketService } from '../purchase/authenticated-basket.service';
 import { PaymentGatewayViewModel } from '../data/models/payment-gateway.view-model';
 import { UserCreditViewModel } from '../../profile/data/view-models/user-credit.view-model';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TransferToBankDialogComponent } from './transfer-to-bank-dialog/transfer-to-bank-dialog.component';
 import { PayResultViewModel } from '../data/models/pay-result.view-model';
 import { DOCUMENT } from '@angular/common';
+import { BasketService } from '../services/basket.service';
 
 @Component({
   selector: 'keleman-payment',
@@ -43,7 +44,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadingService.startLoading('read', 'paymentGateway');
-    this._basketService.paymentGateways
+    this._basketService.paymentGateways$
       .pipe(
         tap(() => this.loadingService.stopLoading('read', 'paymentGateway')),
         takeUntil(this.destroy$)
@@ -56,12 +57,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((result) => (this.userCredit = result));
 
-    this._basketService.delivaryAddress
+    this._basketService.delivaryAddress$
       .pipe(takeUntil(this.destroy$))
       .subscribe((address) => {
         this.delivaryAddress = address!;
       });
-    this._basketService.payResult
+    this._basketService.payResult$
       .pipe(takeUntil(this.destroy$))
       .subscribe((result: PayResultViewModel | undefined) => {
         if (result) this._handleAfterSaveOrder(result);
@@ -123,7 +124,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   private _actionsAfterSaveOrder(billId: number, paymentGatewayId: number) {
     this.billId = billId;
     this.selectedPaymentGateWayIds.push(paymentGatewayId);
-    this._basketService.getBillInvoice(this.billId);
+    this._basketService.billInvoice(this.billId);
     this._initialAppService.getUserCredit();
     if (paymentGatewayId < 8) {
       this._basketService.pay(this.billId, paymentGatewayId);
@@ -147,7 +148,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
         )
         .subscribe({
           next: (result) => {
-            this._basketService.basketCheckout.next(result.result!);
+            this._basketService.basketCheckout$.next(result.result!);
             this.submittedDiscountCode = this.discountCode.value!;
             this._showSuccessMessage('کدتخفیف شما با موفقیت اعمال شد');
           },

@@ -1,11 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ApplicationStateService } from '../../../shared/services/application-state.service';
-import { GuestBasketService } from '../../pages/checkout/guest-basket.service';
-import { Subject, takeUntil, combineLatest } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
-import { InitialAppService } from '../../../shared/services/initial-app.service';
-import { BasketService } from '../../pages/checkout/purchase/basket.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
+import { BasketService } from '../../pages/checkout/services/basket.service';
 
 @Component({
   selector: 'keleman-header',
@@ -19,22 +17,17 @@ export class HeaderComponent {
   constructor(
     public applicationState: ApplicationStateService,
     private readonly _basketService: BasketService,
-    private readonly _authService: AuthService,
-    private readonly _guestBasketService: GuestBasketService
+    private readonly _authService: AuthService
   ) {
     this._authService.isLoggedIn$.subscribe((result) => {
       this.isLoggedIn = result;
     });
 
-    if (this.isLoggedIn) {
-      this._basketService.cartCount
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((result) => {
-          this.basketCount = result;
-        });
-    } else {
-      this.basketCount = this._guestBasketService.totalCount;
-    }
+    this._basketService.cartCount$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.basketCount = result;
+      });
   }
 
   getHeader() {

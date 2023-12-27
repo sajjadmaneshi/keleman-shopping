@@ -3,7 +3,8 @@
 >
   <div class="card-body">
     <table class="product-details-meta-list w-100">
-      @if(isLoading){ @for (_ of sharedVariableService.counter(7);track _){
+      @if((loadingService.getLoadingStateObservable('read','productSpecification')|async)!){
+      @for (_ of sharedVariableService.counter(7);track _){ @defer {
       <tr>
         <td class="h6 fw-light text-muted">
           <ngx-skeleton-loader
@@ -11,12 +12,13 @@
           ></ngx-skeleton-loader>
         </td>
       </tr>
-      } } @else { @for ( item of specifications.slice(0, 7);track item.key){
+      } } } @else { @for ( item of specifications.slice(0, 7);track item.key){
+      @defer {
       <tr>
         <td class="h6 fw-light text-muted">{{ item.key }}</td>
         <td class="h6 fw-bolder">{{ item.value }}</td>
       </tr>
-      } }
+      } } }
     </table>
 
     @if(productDetails.priceAfterDiscount>0){
@@ -35,8 +37,20 @@
     ></keleman-price>
     } }
     <div class="row align-items-center d-none d-lg-flex">
-      @if (inBasketCount == 0){
-      <div class="col-12">
+      <div class="col-12 row mx-0">
+        @if(productDetails.isPackage){
+        <button
+          class="btn btn-klm-primary mb-3 fs-5 fw-bolder w-100"
+          kelemanLoadingProgress
+          [loading]="
+            (loadingService.getLoadingStateObservable('read', 'packageItems')
+              | async)!
+          "
+          (click)="getPackageData()"
+        >
+          مشاهده جزئیات پکیج
+        </button>
+        } @if (inBasketCount == 0){
         <button
           class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
           kelemanLoadingProgress
@@ -59,26 +73,21 @@
               : "تماس بگیرید"
           }}
         </button>
+        } @else {
+        <div class="col-6">
+          <keleman-value-changer
+            [initialValue]="inBasketCount"
+            (increse)="updateBasket($event)"
+            (decrease)="updateBasket($event)"
+            [max]="productDetails.currentStock"
+          ></keleman-value-changer>
+        </div>
+        <div class="col-6">
+          <span class="d-block">در سبد خرید شما</span>
+          <span>مشاهده سبد خرید</span>
+        </div>
+        }
       </div>
-      } @else {
-      <div class="col-6">
-        <keleman-value-changer
-          [initialValue]="inBasketCount"
-          (increse)="
-            isLoggedIn ? updateBasketAuthorized($event) : addToBasketGuest()
-          "
-          (decrease)="
-            isLoggedIn
-              ? updateBasketAuthorized($event)
-              : removeFromBasketGuest()
-          "
-        ></keleman-value-changer>
-      </div>
-      <div class="col-6">
-        <span class="d-block">در سبد خرید شما</span>
-        <span>مشاهده سبد خرید</span>
-      </div>
-      }
     </div>
   </div>
 </div>

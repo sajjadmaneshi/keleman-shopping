@@ -1,5 +1,6 @@
-@if (isLoading){
 <div class="banners row g-3">
+  @if
+  ((loadingService.getLoadingStateObservable('read','advertisingBanner')|async)!){
   <div
     class="col-6 col-lg-3"
     *ngFor="let _ of sharedVariablesService.counter(8)"
@@ -8,17 +9,17 @@
       [theme]="{ width: '100%', height: '300px ' }"
     ></ngx-skeleton-loader>
   </div>
-</div>
-} @else {
-<div class="banners row g-3">
+  } @else {
   <div class="col-6 col-lg-3" *ngFor="let ad of banners">
     <a [href]="ad.linkAddress">
       <img
-        [src]="ad.fileAddress ? downloadUrl + ad.fileAddress : ''"
+        loadingLazy
+        emptyImage
+        [src]="ad.fileAddress"
         [alt]="ad.alt"
         class="rounded-3 w-100 h-auto"
       />
     </a>
   </div>
+  }
 </div>
-}

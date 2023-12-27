@@ -2,8 +2,9 @@ import { Component, OnDestroy } from '@angular/core';
 import { GuestBasketService } from '../guest-basket.service';
 import { ProductDetailViewModel } from '../../products/data/models/view-models/product-detail.view-model';
 import { Subject, takeUntil } from 'rxjs';
-import { BasketService } from '../purchase/basket.service';
+import { AuthenticatedBasketService } from '../purchase/authenticated-basket.service';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
+import { BasketService } from '../services/basket.service';
 
 @Component({
   selector: 'keleman-order-summary',
@@ -14,16 +15,8 @@ export class OrderSummaryComponent implements OnDestroy {
   destroy$ = new Subject<void>();
   summary: { product: ProductDetailViewModel; count: number }[] = [];
   basketItems: BasketItemViewModel[] = [];
-  constructor(
-    private _guestBasketService: GuestBasketService,
-    public basketService: BasketService
-  ) {
-    this._guestBasketService.basket$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.basketItems = res.items;
-      });
-    this.basketService.basketItems.subscribe((result) => {
+  constructor(public basketService: BasketService) {
+    this.basketService.basketItems$.subscribe((result) => {
       this.basketItems = result!;
     });
   }

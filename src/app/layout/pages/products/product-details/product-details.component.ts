@@ -8,10 +8,11 @@ import { ProductService } from '../services/product.service';
 import { DOCUMENT } from '@angular/common';
 import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
-import { GuestBasketService } from '../../checkout/guest-basket.service';
 import { ModifyMetaDataService } from '../../../../../common/services/modify-meta-data.service';
-import { BasketService } from '../../checkout/purchase/basket.service';
 import { BasketItemViewModel } from '../../checkout/data/models/basket-item.view-model';
+import { AddToCartDto } from '../../checkout/data/dto/add-to-cart.dto';
+import { UpdateBasketDto } from '../../checkout/data/dto/update-basket.dto';
+import { BasketService } from '../../checkout/services/basket.service';
 
 @Component({
   selector: 'app-product-details',
@@ -35,7 +36,6 @@ export class ProductDetailsComponent implements OnInit {
     private readonly _productRepository: ProductRepository,
     private readonly _productService: ProductService,
     private readonly _authService: AuthService,
-    private readonly _guestBasketService: GuestBasketService,
     private readonly _basketService: BasketService,
     private readonly _metaDataService: ModifyMetaDataService,
     @Inject(DOCUMENT) private document: Document
@@ -43,6 +43,9 @@ export class ProductDetailsComponent implements OnInit {
     this._authService.isLoggedIn$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => (this.isLoggedIn = res));
+    this._basketService.productCountInBasket$.subscribe((result) => {
+      this.inBasketCount = result;
+    });
     this._getDataFromUrl();
   }
 
@@ -82,19 +85,7 @@ export class ProductDetailsComponent implements OnInit {
 
   private checkBasketStatus() {
     if (this.productDetails) {
-      this.isInBasket = this._guestBasketService.isProductInBasket(
-        this.productDetails.id
-      );
-      if (this.isInBasket) {
-        this.productCountInBasket =
-          this._guestBasketService.getProductCountInBasket(
-            this.productDetails.id
-          );
-      }
-
-      this._basketService
-        .inBasketCount(this.productDetails.id)
-        .subscribe((result) => (this.inBasketCount = result));
+      this._basketService.inBasketCount(this.productDetails.id);
     }
   }
 
@@ -110,28 +101,39 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToBasket() {
-    if (!this.isLoggedIn) {
-      const productItem = {
-        product: {
-          id: this.productDetails.id,
-          priceAfterDiscount: this.productDetails.currentPrice,
-          name: this.productDetails.name,
-          thumbnailImage: this.productDetails.thumbnailImage,
-          discount: 0,
-          price: this.productDetails.currentPrice,
-          seller: this.productDetails.seller.name,
-        },
-        count: 1,
-      } as BasketItemViewModel;
-      this._guestBasketService.addToBasket(productItem);
-      this.productCountInBasket++;
-    }
+    this.isLoggedIn ? this.addToBasketAuthorized() : this.addToBasketGuest();
   }
 
-  removeFromBasket() {
-    if (!this.isLoggedIn) {
-      this._guestBasketService.removeFromBasket(this.productDetails.id);
-      this.productCountInBasket--;
-    }
+  addToBasketGuest() {
+    const productItem = {
+      product: {
+        id: this.productDetails.id,
+        priceAfterDiscount: this.productDetails.currentPrice,
+        name: this.productDetails.name,
+        thumbnailImage: this.productDetails.image,
+        discount: 0,
+        price: this.productDetails.currentPrice,
+        seller: this.productDetails.seller.name,
+      },
+      count: 1,
+    } as BasketItemViewModel;
+    this._basketService.addToBasket({ guestBasketItem: productItem });
+  }
+
+  addToBasketAuthorized() {
+    const dto = {
+      productId: this.productDetails.id,
+      // storeId: this.productDetail.stores[0].id,
+    } as AddToCartDto;
+    this._basketService.addToBasket({ authBasketItem: dto });
+  }
+
+  updateBasket(count: number) {
+    const dto = {
+      productId: this.productDetails.id,
+      // storeId: this.productDetail.stores[0].id,
+      count,
+    } as UpdateBasketDto;
+    this._basketService.updateBasket(dto);
   }
 }

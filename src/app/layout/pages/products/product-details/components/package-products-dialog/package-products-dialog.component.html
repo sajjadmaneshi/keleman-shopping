@@ -1,1 +1,49 @@
-<p>package-products-dialog works!</p>
+<h3 mat-dialog-title>محتویات {{ data.name }}</h3>
+<div mat-dialog-content>
+  @for (packageGroup of data.items;track packageGroup.id){
+
+  <div
+    mat-subheader
+    class="d-flex justify-content-between align-items-center list-title"
+  >
+    <p class="list-title-caption">{{ packageGroup.caption }}</p>
+    <p>حداقل مقدار سفارش:{{ packageGroup.minValue }}</p>
+  </div>
+  @for (packageGroupItem of packageGroup.items; track
+  packageGroupItem.productId) {
+
+  <div class="card card-rounded-1 border mb-2">
+    <div class="card-body">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="symbol symbol-10 mx-3">
+          <img loadingLazy emptyImage [src]="packageGroupItem.image" />
+        </div>
+        <span class="d-flex flex-column">
+          <h6>{{ packageGroupItem.caption }}</h6>
+          <p>{{ packageGroupItem.price }}</p>
+        </span>
+
+        <keleman-value-changer
+          [removable]="false"
+          [initialValue]="packageGroupItem.amount"
+          [canDecrease]="packageGroupItem.canDecrease"
+          (increse)="increaseDecrease($event, packageGroupItem, packageGroup)"
+          (decrease)="increaseDecrease($event, packageGroupItem, packageGroup)"
+        ></keleman-value-changer>
+      </div>
+    </div>
+  </div>
+
+  } }
+</div>
+<div mat-dialog-actions class="justify-content-between">
+  <button class="btn btn-klm-primary text-white submit" type="submit">
+    ثبت
+  </button>
+  <span>
+    <span class="float-end px-3">قیمت پکیج:</span>
+    <span class="float-start">
+      <keleman-price [size]="'h6'" [value]="totalPrice"></keleman-price>
+    </span>
+  </span>
+</div>

@@ -7,6 +7,7 @@ import { ProductViewModel } from '../../../layout/pages/products/data/models/vie
 import { HttpClientResult } from '../../../shared/data/models/http/http-client.result';
 import { HomeRepository } from '../../data/repositories/home.repository';
 import { LoadingService } from '../../../../common/services/loading.service';
+import { SharedVariablesService } from '../../../shared/services/shared-variables.service';
 
 SwiperCore.use([EffectCreative, Navigation]);
 @Component({
@@ -20,6 +21,7 @@ export class PackageSwiperComponent implements AfterViewInit, OnDestroy {
   destroy$ = new Subject<void>();
   constructor(
     private _homeRepository: HomeRepository,
+    public sharedVariablesService: SharedVariablesService,
     public loadingSerive: LoadingService
   ) {}
 

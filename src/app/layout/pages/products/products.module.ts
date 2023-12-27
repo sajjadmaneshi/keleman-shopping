@@ -14,13 +14,7 @@ import { ProductMetaComponent } from './product-details/components/meta/product-
 import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import {
   NgbAccordionModule,
-  NgbNav,
-  NgbNavContent,
-  NgbNavItem,
-  NgbNavLink,
   NgbNavModule,
-  NgbNavOutlet,
-  NgbRating,
   NgbRatingModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { ProductSpecificationsComponent } from './product-details/components/specifications/product-specifications.component';
@@ -32,7 +26,7 @@ import {
   ReadMoreContentDirective,
   ReadMoreTemplateDirective,
 } from '../../../shared/directives/read-more-list-template.directive';
-import { ReadMoreComponent } from '../../../shared/components/read-more/read-more.component';
+
 import { ProductSpecializedSpecificationsComponent } from './product-details/components/specifications/special-specification/product-specialized-specifications.component';
 import { TextWithIconComponent } from '../../../shared/components/text-with-icon/text-with-icon.component';
 import { PriceChartDialogComponent } from './product-details/components/content/price-chart-dialog/price-chart-dialog.component';
@@ -49,7 +43,6 @@ import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.di
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
 import { CardComponent } from '../../../shared/components/card/card.component';
 import { BottomSheetComponent } from '../../../shared/components/bottom-sheet/bottom-sheet.component';
-import { MatComponentsModule } from '../../../mat-components.module';
 import { ProductFiltersModule } from './product-list/components/product-filters/product-filters.module';
 import { FAQComponent } from './product-details/components/faq/faq.component';
 import { FaqItemComponent } from './product-details/components/faq/faq-item/faq-item.component';
@@ -60,7 +53,6 @@ import { ProductCommentsModule } from './product-details/components/comments/pro
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { CategoryAboutComponent } from './product-list/components/category-about/category-about.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { ProductService } from './services/product.service';
 import { SwiperModule } from 'swiper/angular';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -73,7 +65,6 @@ import { LoadingProgressDirective } from '../../../shared/directives/loading-pro
 import { ShareDialogComponent } from './product-details/components/content/share-dialog/share-dialog.component';
 import { MagazineModule } from '../magazine/magazine.module';
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
-import { BasketRepository } from '../checkout/data/repositories/basket.repository';
 
 @NgModule({
   declarations: [
@@ -112,7 +103,6 @@ import { BasketRepository } from '../checkout/data/repositories/basket.repositor
     NgbNavModule,
     ReadMoreContentDirective,
     ReadMoreTemplateDirective,
-    ReadMoreComponent,
     NgbRatingModule,
     TextWithIconComponent,
     InputGroupComponent,
@@ -140,8 +130,7 @@ import { BasketRepository } from '../checkout/data/repositories/basket.repositor
     ValueChangerComponent,
   ],
 
-  providers: [ProductFilterService, RouteHandlerService, BasketRepository],
-
+  providers: [ProductFilterService, RouteHandlerService],
   exports: [ProductItemComponent, ProductSearchComponent],
 })
 export class ProductsModule {}

@@ -1,3 +1,4 @@
+@if (amazingOffers.length>0){
 <div class="card card-rounded-3 amazing-offer-container">
   <div class="card-body position-relative d-flex amazing-swiper">
     <div class="swiper-start d-flex flex-column justify-content-between">
@@ -7,7 +8,9 @@
       <div class="swiper-start-image">
         <img
           alt="پیشنهادات شگفت انگیز کلمان"
-          src="../../../../../assets/media/amazing-offer.webp"
+          ngSrc="../../../../../assets/media/amazing-offer.webp"
+          width="70"
+          height="70"
         />
       </div>
     </div>
@@ -20,26 +23,30 @@
         [navigation]="true"
         [navigationButtonClassPrefix]="'amazing-offer'"
       >
-        @if(isLoading | async){
-        <appSwiperContent *ngFor="let _ of sahredVariableService.counter(10)">
+        @if(loadingService.getLoadingStateObservable('read','amazingOffers') |
+        async){ @for(_ of sahredVariableService.counter(10);track _){ @defer {
+        <appSwiperContent>
           <ng-template appSwiperTemplate>
             <ngx-skeleton-loader
               [theme]="{ height: '18.75rem', width: '12.5rem' }"
             ></ngx-skeleton-loader>
           </ng-template>
         </appSwiperContent>
-        } @else { @for (slide of slides;track slide.id){
+        } } } @else { @for (amazingOffer of amazingOffers;track
+        amazingOffer.id){ @defer {
         <appSwiperContent>
           <ng-template appSwiperTemplate>
             <keleman-background-swiper-item
               class="cursor-pointer"
-              [routerLink]="['/products/detail/' + slide.customUrl]"
-              [product]="slide"
+              [routerLink]="['/products/detail/' + amazingOffer.customUrl]"
+              [product]="amazingOffer"
             ></keleman-background-swiper-item>
           </ng-template>
         </appSwiperContent>
-        } }
+        } } }
       </keleman-swiper>
     </div>
   </div>
 </div>
+
+}

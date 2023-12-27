@@ -28,10 +28,10 @@ export class CheckoutService {
   nextStep() {
     switch (this.selectedIndex.value) {
       case 0:
-        if (this.isLoggedIn) this.changeStep(1, Routing.shipping);
+        this.changeStep(1, Routing.shipping);
         break;
       case 1:
-        if (this.isLoggedIn) this.changeStep(2, Routing.payment);
+        this.changeStep(2, Routing.payment);
         break;
     }
   }

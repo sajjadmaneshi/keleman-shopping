@@ -21,8 +21,9 @@
         <keleman-value-changer
           class="w-100"
           [initialValue]="basketItem.count"
-          (increse)="updateBasketAuthorized($event)"
-          (decrease)="updateBasketAuthorized($event)"
+          (increse)="updateBasket($event)"
+          (decrease)="updateBasket($event)"
+          [max]="basketItem.product.currentStock"
         ></keleman-value-changer>
       </div>
       <div class="col-9">

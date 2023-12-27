@@ -9,7 +9,7 @@ import { UpdateBasketDto } from '../dto/update-basket.dto';
 import { BasketCheckoutViewModel } from '../models/basket-checkout.view-model';
 import { MergeBasketDto } from '../dto/merge-basket.dto';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BasketRepository extends DataService<BasketItemViewModel> {
   constructor(_http: HttpClient) {
     super('cart', _http);
@@ -51,18 +51,18 @@ export class BasketRepository extends DataService<BasketItemViewModel> {
     ) as Observable<HttpClientResult<number>>;
   }
 
-  addToCart(dto: AddToCartDto): Observable<HttpClientResult<number>> {
+  addToCart(dto: AddToCartDto): Observable<HttpClientResult<boolean>> {
     return this._http.post(
       `${this._getCartUrl}?userId=${localStorage.getItem('USERID')}`,
       dto
-    ) as Observable<HttpClientResult<number>>;
+    ) as Observable<HttpClientResult<boolean>>;
   }
 
-  updateCart(dto: UpdateBasketDto): Observable<HttpClientResult<number>> {
+  updateCart(dto: UpdateBasketDto): Observable<HttpClientResult<boolean>> {
     return this._http.patch(
       `${this._getCartUrl}?userId=${localStorage.getItem('USERID')}`,
       dto
-    ) as Observable<HttpClientResult<number>>;
+    ) as Observable<HttpClientResult<boolean>>;
   }
   removeFromCart(orderId: number): Observable<HttpClientResult<boolean>> {
     return this._http.delete(

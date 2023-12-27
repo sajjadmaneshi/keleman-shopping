@@ -27,9 +27,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { InitialAppService } from './shared/services/initial-app.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { BasketRepository } from './layout/pages/checkout/data/repositories/basket.repository';
 import { BillRepository } from './layout/pages/checkout/data/repositories/bill.repository';
 import { PaymentRepository } from './layout/pages/checkout/data/repositories/payment.repository';
+import { NavigationLoadingComponent } from './shared/components/navigation-loading/navigation-loading.component';
 
 export function initializeApp(
   initialAppService: InitialAppService
@@ -60,9 +60,9 @@ export function tokenGetter() {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    NavigationLoadingComponent,
   ],
   providers: [
-    BasketRepository,
     BillRepository,
     PaymentRepository,
     ApplicationStateService,
