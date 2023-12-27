@@ -14,6 +14,7 @@ export class ValueChangerComponent {
   @Input('removable') removable: boolean = true;
   @Input('max') max!: number;
   @Input('min') min!: number;
+  @Input() canDecrease: boolean = true;
 
   @Output('increse') onIncrease = new EventEmitter<number>();
   @Output('decrease') onDncrease = new EventEmitter<number>();

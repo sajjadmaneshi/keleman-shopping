@@ -17,7 +17,7 @@
       <span class="fw-bolder">{{ value }}</span>
       <mat-icon
         class="text-danger cursor-pointer"
-        [class.disabled]="min ? min === value : value === 0"
+        [class.disabled]="(min ? min === value : value === 0) || !canDecrease"
         inline
         (click)="decrease()"
       >

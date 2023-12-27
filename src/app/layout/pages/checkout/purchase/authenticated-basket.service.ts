@@ -10,7 +10,6 @@ import {
   Observable,
   of,
   Subject,
-  switchMap,
   takeUntil,
   tap,
 } from 'rxjs';
@@ -18,8 +17,6 @@ import { UpdateBasketDto } from '../data/dto/update-basket.dto';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
 import { BasketCheckoutViewModel } from '../data/models/basket-checkout.view-model';
 import { PaymentGatewayViewModel } from '../data/models/payment-gateway.view-model';
-import { GuestBasketService } from '../guest-basket.service';
-import { MergeBasketDto } from '../data/dto/merge-basket.dto';
 import { ShippingCostViewModel } from '../data/models/shipping-cost-view.model';
 import { BillRepository } from '../data/repositories/bill.repository';
 import { PaymentRepository } from '../data/repositories/payment.repository';
@@ -45,7 +42,6 @@ export class BasketService {
     private readonly _basketRepository: BasketRepository,
     private readonly _billRepository: BillRepository,
     private readonly _paymentRepository: PaymentRepository,
-    private readonly _guestBasketService: GuestBasketService,
     private readonly _snackBar: SnackBarService,
     private readonly _loadingService: LoadingService
   ) {}
@@ -158,24 +154,6 @@ export class BasketService {
       catchError(() => {
         this._loadingService.stopLoading('read', 'inBasketCount');
         return of(0);
-      })
-    );
-  }
-
-  public mergeBasket(): Observable<boolean> {
-    return this._guestBasketService.basket$.pipe(
-      switchMap((basket) => {
-        const mergeDto = basket.items.map((x) => {
-          return {
-            productId: x.product.id,
-            storeId: 0,
-            count: x.count,
-          } as MergeBasketDto;
-        });
-
-        return this._basketRepository
-          .mergeCart(mergeDto)
-          .pipe(map((result) => result.result!));
       })
     );
   }
