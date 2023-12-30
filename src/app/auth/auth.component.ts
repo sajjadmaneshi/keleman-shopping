@@ -1,14 +1,16 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
+
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
 import { AutoCompleteComponent } from '../shared/components/auto-complete/auto-complete.component';
 import { NgOtpInputModule } from 'ng-otp-input';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { InputGroupComponent } from '../shared/components/input-group/input-group.component';
 import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
 import { LoadingProgressDirective } from '../shared/directives/loading-progress.directive';
@@ -28,6 +30,7 @@ import { CustomPersianNumberService } from '../shared/services/persian-number.se
 import { TextOnlyDirective } from '../shared/directives/text-only.directive';
 import { GeneralRepository } from '../shared/data/repositories/general.repository';
 import { MatStepperModule } from '@angular/material/stepper';
+import { LoadingService } from '../../common/services/loading.service';
 
 @Component({
   selector: 'app-authentication',
@@ -60,9 +63,6 @@ export class AuthComponent implements OnDestroy {
   selectedCity!: number;
   registerForm!: FormGroup;
   isFormSubmitted = false;
-  submitLoading = false;
-  stateLoading = false;
-  cityLoading = false;
   isSendAgainActive = false;
   hasCompleteInfo!: boolean;
   verificationCodeValid = true;
@@ -103,7 +103,8 @@ export class AuthComponent implements OnDestroy {
     private _geoLocationRepository: GeneralRepository,
     private _accountRepository: AccountRepository,
     private _persianNumberSerive: CustomPersianNumberService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    public loadingService: LoadingService
   ) {
     this._initForm();
     this._activatedRoute.queryParams
@@ -115,32 +116,39 @@ export class AuthComponent implements OnDestroy {
   }
 
   private _getAllStates() {
-    this.stateLoading = true;
+    this.loadingService.startLoading('read', 'states');
     this.province.disable();
     this._geoLocationRepository
       .getAllStates()
       .pipe(
-        tap(() => (this.stateLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'states')),
         takeUntil(this.destroy$)
       )
-      .subscribe((result: HttpClientResult<StatesViewModel[]>) => {
-        this.provinces = result.result as StatesViewModel[];
-        this.province.enable();
+      .subscribe({
+        next: (result: HttpClientResult<StatesViewModel[]>) => {
+          this.provinces = result.result as StatesViewModel[];
+          this.province.enable();
+        },
+        error: () => this.loadingService.stopLoading('read', 'states'),
       });
   }
 
   private _getCitiesOfState(provienceID: number) {
-    this.cityLoading = true;
+    this.loadingService.startLoading('read', 'cities');
+
     this.city.disable();
     this._geoLocationRepository
       .getCitiesOfState(provienceID)
       .pipe(
-        tap(() => (this.cityLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'cities')),
         takeUntil(this.destroy$)
       )
-      .subscribe((result: HttpClientResult<CityViewModel[]>) => {
-        this.cities = result.result as CityViewModel[];
-        this.city.enable();
+      .subscribe({
+        next: (result: HttpClientResult<CityViewModel[]>) => {
+          this.cities = result.result as CityViewModel[];
+          this.city.enable();
+        },
+        error: () => this.loadingService.stopLoading('read', 'cities'),
       });
   }
 
@@ -156,7 +164,8 @@ export class AuthComponent implements OnDestroy {
   sendVerificationCode() {
     this.isFormSubmitted = true;
     if (this.mobileFormControl.valid) {
-      this.submitLoading = true;
+      this.loadingService.startLoading('add', 'submit');
+
       let mobileNumber = this._persianNumberSerive.toEnglish(
         this.mobileFormControl.value!
       );
@@ -169,14 +178,14 @@ export class AuthComponent implements OnDestroy {
           this.countDown.restart();
         })
         .finally(() => {
-          this.submitLoading = false;
+          this.loadingService.stopLoading('add', 'submit');
         });
     }
   }
 
   private _login() {
     if (this.otpVerificationCode.valid) {
-      this.submitLoading = true;
+      this.loadingService.startLoading('add', 'login');
       const loginDto: LoginDto = {
         mobile: this.mobileFormControl.value!,
         token: this.otpVerificationCode.value!,
@@ -185,7 +194,7 @@ export class AuthComponent implements OnDestroy {
         .login(loginDto)
         .then(() => this._handleSuccessLogin())
         .finally(() => {
-          this.submitLoading = false;
+          this.loadingService.stopLoading('add', 'login');
         });
     }
   }
@@ -209,7 +218,7 @@ export class AuthComponent implements OnDestroy {
   }
 
   private _hasCompleteProfile(): void {
-    this.submitLoading = true;
+    this.loadingService.startLoading('read', 'hasCompleteProfile');
     this._authservice
       .hasCompleteProfile(this.mobileFormControl.value!)
       .then((result: boolean) => {
@@ -218,7 +227,7 @@ export class AuthComponent implements OnDestroy {
         if (!result) this._getAllStates();
       })
       .finally(() => {
-        this.submitLoading = false;
+        this.loadingService.stopLoading('read', 'hasCompleteProfile');
       });
   }
 
@@ -230,7 +239,7 @@ export class AuthComponent implements OnDestroy {
     this.isFormSubmitted = true;
     this.verificationCodeValid = this.otpVerificationCode.value?.length! === 5;
     if (this.registerForm.valid && this.verificationCodeValid) {
-      this.submitLoading = true;
+      this.loadingService.startLoading('update', 'completeInfo');
       const dto = {
         mobile: this.mobileFormControl.value,
         firstName: this.name.value,
@@ -241,15 +250,19 @@ export class AuthComponent implements OnDestroy {
       this._accountRepository
         .completeInfo(dto)
         .pipe(
-          tap(() => (this.submitLoading = false)),
+          tap(() => this.loadingService.stopLoading('update', 'completeInfo')),
           takeUntil(this.destroy$)
         )
-        .subscribe((result) => {
-          this._authservice.setAuthorizedInfoToLocalStorage({
-            token: result.result.token,
-            mobile: dto.mobile,
-          });
-          this._router.navigate(['/']);
+        .subscribe({
+          next: (result) => {
+            this._authservice.setAuthorizedInfoToLocalStorage({
+              token: result.result.token,
+              mobile: dto.mobile,
+            });
+            this._router.navigate(['/']);
+          },
+          error: () =>
+            this.loadingService.stopLoading('update', 'completeInfo'),
         });
     }
   }
@@ -267,7 +280,6 @@ export class AuthComponent implements OnDestroy {
 
   public changeNumber() {
     this.changeTab(0);
-
     this.verificationCodeValid = true;
     this.otpVerificationCode.reset();
     this.registerForm.reset();

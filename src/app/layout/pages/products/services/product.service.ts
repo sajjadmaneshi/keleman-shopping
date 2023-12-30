@@ -56,8 +56,35 @@ export class ProductService implements OnDestroy {
       );
   }
 
+  public checkProductValidation(productDetails: ProductDetailViewModel) {
+    if (productDetails.currentStock === 0)
+      return new ProductStatusViewModel(
+        'ناموجود',
+        AvailableStatusEnum.UNAVAILABLE,
+        true
+      );
+    if (productDetails.currentPrice === 0)
+      return new ProductStatusViewModel(
+        'تماس بگیرید',
+        AvailableStatusEnum.NOPRICE,
+        true
+      );
+    return new ProductStatusViewModel(
+      'افزودن به سبد خرید',
+      AvailableStatusEnum.AVAILABLE
+    );
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
+}
+
+export class ProductStatusViewModel {
+  constructor(
+    public text: string,
+    public status: AvailableStatusEnum,
+    public disable = false
+  ) {}
 }

@@ -3,7 +3,7 @@ import { GuestBasketService } from '../guest-basket.service';
 import { AddToCartDto } from '../data/dto/add-to-cart.dto';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { UpdateBasketDto } from '../data/dto/update-basket.dto';
 import { MergeBasketDto } from '../data/dto/merge-basket.dto';
 import { BasketCheckoutViewModel } from '../data/models/basket-checkout.view-model';
@@ -28,6 +28,7 @@ export class BasketService {
   );
   delivaryAddress$ = new BehaviorSubject<number | undefined>(undefined);
   payResult$ = new BehaviorSubject<PayResultViewModel | undefined>(undefined);
+  billId = new BehaviorSubject<number | undefined>(undefined);
 
   constructor(
     private readonly _authenticatedBasketService: AuthenticatedBasketService,
@@ -35,9 +36,12 @@ export class BasketService {
     private readonly _authService: AuthService,
     private readonly _snackBar: SnackBarService
   ) {
-    this._authService.isLoggedIn$.subscribe(
-      (result) => (this.isLoggedIn$ = result)
-    );
+    this._authService.isLoggedIn$.subscribe((result) => {
+      this.isLoggedIn$ = result;
+      if (this.isLoggedIn$) {
+        this.mergeBasket();
+      }
+    });
   }
 
   public addToBasket(input: {
@@ -89,20 +93,27 @@ export class BasketService {
     this.checkout();
   }
 
-  public mergeBasket(): Observable<boolean> {
-    return this._guestBasketService.basket$.pipe(
-      switchMap((basket) => {
-        const mergeDto = basket.items.map((x) => {
-          return {
-            productId: x.product.id,
-            storeId: 0,
-            count: x.count,
-          } as MergeBasketDto;
-        });
+  public mergeBasket(): void {
+    this._guestBasketService.basket$.subscribe((y) => {
+      const mergeDto = y.items.map((x) => {
+        return {
+          productId: x.product.id,
+          storeId: 0,
+          count: x.count,
+        } as MergeBasketDto;
+      });
 
-        return this._authenticatedBasketService.mergeBasket(mergeDto);
-      })
-    );
+      this._authenticatedBasketService
+        .mergeBasket(mergeDto)
+        .subscribe((res) => {
+          if (res) {
+            localStorage.removeItem('GUEST_BASKET');
+
+            localStorage.setItem('MERGED_BASKET', 'true');
+            this.basket();
+          }
+        });
+    });
   }
 
   public shippingCost(addressId: number) {

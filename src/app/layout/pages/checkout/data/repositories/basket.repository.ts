@@ -21,11 +21,11 @@ export class BasketRepository extends DataService<BasketItemViewModel> {
     ) as Observable<HttpClientResult<BasketItemViewModel[]>>;
   }
 
-  mergeCart(dto: MergeBasketDto[]): Observable<HttpClientResult<boolean>> {
+  mergeCart(dto: MergeBasketDto[]): Observable<HttpClientResult<any>> {
     return this._http.post(
       `${this._getCartUrl}/merge?userId=${localStorage.getItem('USERID')}`,
       dto
-    ) as Observable<HttpClientResult<boolean>>;
+    ) as Observable<HttpClientResult<any>>;
   }
 
   getBasketCheckout(): Observable<HttpClientResult<BasketCheckoutViewModel>> {

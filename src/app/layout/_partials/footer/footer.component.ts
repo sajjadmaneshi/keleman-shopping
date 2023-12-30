@@ -1,7 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { GeneralRepository } from '../../../shared/data/repositories/general.repository';
 import { FooterViewModel } from '../../../shared/data/models/view-models/footer.view-model';
-import { Subscription, tap } from 'rxjs';
+import { Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { LoadingService } from '../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-footer',
@@ -9,27 +10,35 @@ import { Subscription, tap } from 'rxjs';
 })
 export class FooterComponent implements OnDestroy {
   footerData!: FooterViewModel;
-  isLoading = false;
 
-  subscription!: Subscription;
+  destroy$ = new Subject<void>();
 
   iconNamesCol1 = ['contact_support', 'policy', 'call'];
   iconNamesCol2 = ['credit_card', 'shopping_cart', 'undo', 'policy', 'article'];
 
-  constructor(private _generalRepository: GeneralRepository) {
+  constructor(
+    private _generalRepository: GeneralRepository,
+    public loadingService: LoadingService
+  ) {
     this._init();
   }
 
   private _init() {
-    this.subscription = this._generalRepository
+    this.loadingService.startLoading('read', 'footer');
+    this._generalRepository
       .getFooter()
-      .pipe(tap(() => (this.isLoading = false)))
-      .subscribe((result) => {
-        this.footerData = result.result!;
+      .pipe(
+        tap(() => this.loadingService.stopLoading('read', 'footer')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (result) => (this.footerData = result.result!),
+        error: () => this.loadingService.stopLoading('read', 'footer'),
       });
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

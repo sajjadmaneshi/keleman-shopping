@@ -16,7 +16,7 @@ import {
 } from '../../../shared/directives/swiper-template.directive';
 import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import { ProductCategoryViewModel } from '../../../shared/data/models/view-models/product-category.view-model';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { LoadingService } from '../../../../common/services/loading.service';
 
 @Component({
@@ -65,11 +65,18 @@ export class ProductCategoryComponent implements OnChanges, OnDestroy {
   }
 
   private _getCategories() {
+    this.loadingService.startLoading('read', 'categories');
     this.productCategoryService
       .getCategories(this.parentId!)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((result) => {
-        this.categories = result;
+      .pipe(
+        tap(() => this.loadingService.stopLoading('read', 'categories')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (result) => {
+          this.categories = result;
+        },
+        error: () => this.loadingService.stopLoading('read', 'categories'),
       });
   }
   ngOnDestroy(): void {

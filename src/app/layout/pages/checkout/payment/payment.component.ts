@@ -26,7 +26,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   paymentGateWays: PaymentGatewayViewModel[] = [];
   userCredit = new UserCreditViewModel(0, 0);
   isFormSubmitted = false;
-  billId: number | null = null;
+
   delivaryAddress!: number;
   selectedPaymentGateWayIds: number[] = [];
   submittedDiscountCode: string = '';
@@ -105,7 +105,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       paymentGatewayId,
       addressId: this.delivaryAddress,
       description: this.description.value,
-      billId: this.billId,
+      billId: this._basketService.billId.value,
     } as SaveOrderDto;
 
     this._billRepository
@@ -122,12 +122,16 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   private _actionsAfterSaveOrder(billId: number, paymentGatewayId: number) {
-    this.billId = billId;
+    this._basketService.billId.next(billId);
+
     this.selectedPaymentGateWayIds.push(paymentGatewayId);
-    this._basketService.billInvoice(this.billId);
+    this._basketService.billInvoice(this._basketService.billId.value!);
     this._initialAppService.getUserCredit();
     if (paymentGatewayId < 8) {
-      this._basketService.pay(this.billId, paymentGatewayId);
+      this._basketService.pay(
+        this._basketService.billId.value!,
+        paymentGatewayId
+      );
     }
   }
 

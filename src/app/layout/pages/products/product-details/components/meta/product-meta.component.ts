@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProductService } from '../../../services/product.service';
+import {
+  ProductService,
+  ProductStatusViewModel,
+} from '../../../services/product.service';
 import { ProductRepository } from '../../../data/repositories/product.repository';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { ProductSpecificViewModel } from '../../../data/models/view-models/product-specific.view-model';
@@ -25,6 +28,8 @@ export class ProductMetaComponent implements OnInit {
   isInBasket = false;
   inBasketCount = 0;
   destroy$ = new Subject<void>();
+  packageItems!: PackageItemsViewModel;
+  productValidationStatus!: ProductStatusViewModel;
   @Input() isLoggedIn = false;
   @Input() productDetails!: ProductDetailViewModel;
 
@@ -45,6 +50,8 @@ export class ProductMetaComponent implements OnInit {
   ngOnInit(): void {
     if (this.productDetails) {
       this.updateInBasketCount();
+      this.productValidationStatus =
+        this._productService.checkProductValidation(this.productDetails);
     }
   }
 
@@ -92,7 +99,17 @@ export class ProductMetaComponent implements OnInit {
     const dto = {
       productId: this.productDetails.id,
       // storeId: this.productDetail.stores[0].id,
+      packageDetailItems: this.packageItems
+        ? this.packageItems.items
+            .map((x) => {
+              return x.items.map((y) => {
+                return { id: y.productId, count: y.amount };
+              });
+            })
+            .flat(Infinity)
+        : undefined,
     } as AddToCartDto;
+
     this._basketService.addToBasket({ authBasketItem: dto });
   }
 
@@ -106,11 +123,17 @@ export class ProductMetaComponent implements OnInit {
   }
 
   openPackageDetailDialog(data: PackageItemsViewModel) {
-    this._dialog.open(PackageProductsDialogComponent, {
-      width: '500px',
-      autoFocus: false,
-      data,
-    });
+    console.log(this.packageItems);
+    this._dialog
+      .open(PackageProductsDialogComponent, {
+        width: '500px',
+        autoFocus: false,
+        data: this.packageItems || data,
+      })
+      .afterClosed()
+      .subscribe((result: PackageItemsViewModel) => {
+        this.packageItems = result;
+      });
   }
 
   getPackageData() {

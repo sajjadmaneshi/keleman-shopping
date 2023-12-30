@@ -10,7 +10,7 @@
 
   @if (isLoggedIn){
   <div ngbDropdown class="d-inline-block">
-    @if(profileInfoLoading){
+    @if(loadingService.getLoadingStateObservable('read','profileInfo')|async){
     <span class="d-flex align-items-center">
       <ngx-skeleton-loader
         [theme]="{ width: '5rem', height: '1rem' }"

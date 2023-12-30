@@ -1,8 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { HomeRepository } from '../../data/repositories/home.repository';
 import { AdsBannerViewModel } from '../../data/view-models/ads-banner.view-model';
-import { Subject, Subscription, takeUntil, tap } from 'rxjs';
-import { ENVIRONMENT } from '../../../../environments/environment';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { SharedVariablesService } from '../../../shared/services/shared-variables.service';
 import { LoadingService } from '../../../../common/services/loading.service';
 

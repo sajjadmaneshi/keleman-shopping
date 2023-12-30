@@ -8,65 +8,79 @@
       (click)="removeProduct()"
       >delete</mat-icon
     >
-
-    <div class="row border-end border-gray-400 w-100 p-3">
-      <div class="col-3 d-flex flex-column align-items-center">
-        <div class="mb-3 symbol symbol-22 symbol-lg-30">
-          <img
-            loadingLazy
-            emptyImage
-            [src]="basketItem.product.thumbnailImage"
-          />
-        </div>
-        <keleman-value-changer
-          class="w-100"
-          [initialValue]="basketItem.count"
-          (increse)="updateBasket($event)"
-          (decrease)="updateBasket($event)"
-          [max]="basketItem.product.currentStock"
-        ></keleman-value-changer>
-      </div>
-      <div class="col-9">
-        <a [routerLink]="['/products/detail/' + basketItem.product.name]">
-          <h6 class="fw-bold mb-3">
-            {{ basketItem.product.name }}
-          </h6>
-        </a>
-
-        <h6 class="d-flex align-items-center">
-          <mat-icon class="mx-3" inline> verified_user</mat-icon>
-          گارانتی اصالت و سلامت فیزیکی کالا
-        </h6>
-
-        <h6 class="d-flex align-items-center">
-          <mat-icon class="mx-3" inline>store</mat-icon>
-          {{ basketItem.product.seller }}
-        </h6>
-        <span class="fs-6 d-flex align-items-center">
-          <mat-icon class="mx-3" inline>local_shipping</mat-icon>
-          4 تا 10 روز کاری
-        </span>
-        <div class="position-absolute left-4 bottom-4">
-          <keleman-price
-            [value]="
-              basketItem.product.discount > 0
-                ? basketItem.product.priceAfterDiscount
-                : basketItem.product.price
-            "
-            [color]="'dark'"
-            [size]="'h5'"
-          ></keleman-price>
-          @if(basketItem.product.discount>0){
-          <keleman-price
-            [value]="basketItem.product.price"
-            [color]="'dark'"
-            [size]="'h6'"
-            [off]="true"
-            [discount]="basketItem.product.discount"
-          ></keleman-price>
+    <div class="d-flex flex-column flex-grow-1 border-end border-gray-400">
+      <div class="row w-100 p-3">
+        <div class="col-3 d-flex flex-column align-items-center">
+          <div class="mb-3 symbol symbol-22 symbol-lg-30">
+            <img
+              loadingLazy
+              emptyImage
+              [src]="basketItem.product.thumbnailImage"
+            />
+          </div>
+          @if(basketItem.product.details){
+          <button class="btn btn-klm-primary">ویرایش محتویات پکیج</button>
+          } @else {
+          <keleman-value-changer
+            class="w-100"
+            [initialValue]="basketItem.count"
+            (increse)="updateBasket($event)"
+            (decrease)="updateBasket($event)"
+            [max]="basketItem.product.currentStock"
+          ></keleman-value-changer>
           }
         </div>
+        <div class="col-9 position-relative">
+          <a [routerLink]="['/products/detail/' + basketItem.product.name]">
+            <h6 class="fw-bold mb-3">
+              {{ basketItem.product.name }}
+            </h6>
+          </a>
+
+          <h6 class="d-flex align-items-center">
+            <mat-icon class="mx-3" inline> verified_user</mat-icon>
+            گارانتی اصالت و سلامت فیزیکی کالا
+          </h6>
+
+          <h6 class="d-flex align-items-center">
+            <mat-icon class="mx-3" inline>store</mat-icon>
+            {{ basketItem.product.seller }}
+          </h6>
+          <span class="fs-6 d-flex align-items-center">
+            <mat-icon class="mx-3" inline>local_shipping</mat-icon>
+            4 تا 10 روز کاری
+          </span>
+          <div class="position-absolute left-4 bottom-4">
+            <keleman-price
+              [value]="
+                basketItem.product.discount > 0
+                  ? basketItem.product.priceAfterDiscount
+                  : basketItem.product.price
+              "
+              [color]="'dark'"
+              [size]="'h5'"
+            ></keleman-price>
+            @if(basketItem.product.discount>0){
+            <keleman-price
+              [value]="basketItem.product.price"
+              [color]="'dark'"
+              [size]="'h6'"
+              [off]="true"
+              [discount]="basketItem.product.discount"
+            ></keleman-price>
+            }
+          </div>
+        </div>
       </div>
+      @if(basketItem.product.details){
+      <mat-divider class="mb-3"></mat-divider>
+      <ol>
+        @for (packageItem of basketItem.product.details;track packageItem.id){
+
+        <li>{{ packageItem.name }} ({{ packageItem.count }})</li>
+        }
+      </ol>
+      }
     </div>
   </div>
 </div>

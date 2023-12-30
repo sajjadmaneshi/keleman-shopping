@@ -44,7 +44,10 @@
               <button
                 class="btn btn-warning text-white w-25 text-klm-primary register-button mb-3"
                 kelemanLoadingProgress
-                [loading]="submitLoading"
+                [loading]="
+                  (loadingService.getLoadingStateObservable('add', 'submit')
+                    | async)!
+                "
                 (click)="sendVerificationCode()"
               >
                 ادامه
@@ -113,7 +116,12 @@
                       [formControl]="province"
                       [label]="'استان'"
                       [isInavlid]="province.invalid && isFormSubmitted"
-                      [isLoading]="stateLoading"
+                      [isLoading]="
+                        (loadingService.getLoadingStateObservable(
+                          'read',
+                          'states'
+                        ) | async)!
+                      "
                       (onSelectionChange)="selectProvience($event)"
                     ></keleman-auto-complete>
                   </div>
@@ -122,7 +130,12 @@
                       [options]="cities"
                       [formControl]="city"
                       [label]="'شهر'"
-                      [isLoading]="stateLoading"
+                      [isLoading]="
+                        (loadingService.getLoadingStateObservable(
+                          'read',
+                          'cities'
+                        ) | async)!
+                      "
                       [isInavlid]="city.invalid && isFormSubmitted"
                       (onSelectionChange)="selectCity($event)"
                     ></keleman-auto-complete>
@@ -132,6 +145,13 @@
                 <button
                   class="btn btn-warning text-klm-primary w-25 register-button"
                   type="submit"
+                  kelemanLoadingProgress
+                  [loading]="
+                    (loadingService.getLoadingStateObservable(
+                      'update',
+                      'completeInfo'
+                    ) | async)!
+                  "
                 >
                   تایید
                 </button>
@@ -169,6 +189,10 @@
   <button
     class="btn btn-warning text-white text-klm-primary register-button mb-3"
     [disabled]="!isSendAgainActive"
+    kelemanLoadingProgress
+    [loading]="
+      (loadingService.getLoadingStateObservable('add', 'submit') | async)!
+    "
     (click)="sendVerificationCode()"
   >
     دریافت مجدد کد

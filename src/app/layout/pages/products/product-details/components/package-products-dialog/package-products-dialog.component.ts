@@ -3,6 +3,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogContent,
+  MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
 import {
@@ -40,7 +41,10 @@ export class PackageProductsDialogComponent {
   totalPrice = 0;
 
   packageDatas: PackegeItemGroupViewModel[] = [];
-  constructor(@Inject(MAT_DIALOG_DATA) public data: PackageItemsViewModel) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: PackageItemsViewModel,
+    private _dialogRef: MatDialogRef<PackageProductsDialogComponent>
+  ) {
     this.packageDatas = [...data.items];
     this.totalPrice = data.totalPrice;
   }
@@ -75,5 +79,9 @@ export class PackageProductsDialogComponent {
         }, 0)
       );
     }, 0);
+  }
+
+  submit() {
+    this._dialogRef.close(this.data);
   }
 }

@@ -32,7 +32,6 @@ export class AddressesComponent {
       )
       .subscribe((result) => {
         this.myAddresses = [...result.result!];
-        console.log(result.result!);
       });
   }
 

@@ -1,7 +1,8 @@
 <li (click)="openFilterDialog(propertyOption)">
   <a class="d-flex align-items-center"
     >{{ propertyOption.title }}
-    <mat-chip *ngIf="selectedItem" class="mx-1">
+    @if(selectedItem){
+    <mat-chip class="mx-1">
       <span class="d-flex align-items-center chip-text">
         <mat-icon
           class="cursor-pointer m-0"
@@ -14,6 +15,7 @@
         {{ selectedItem.title }}
       </span>
     </mat-chip>
+    }
   </a>
   <mat-icon>chevron_left</mat-icon>
 </li>

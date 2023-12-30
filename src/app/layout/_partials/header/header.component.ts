@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { ApplicationStateService } from '../../../shared/services/application-state.service';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { BasketService } from '../../pages/checkout/services/basket.service';
   selector: 'keleman-header',
   templateUrl: './header.component.html',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
   basketCount = 0;
   destroy$ = new Subject<void>();
   isLoggedIn = false;

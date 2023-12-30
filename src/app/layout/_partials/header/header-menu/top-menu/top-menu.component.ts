@@ -1,11 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../../../shared/services/auth/auth.service';
 import { InitialAppService } from '../../../../../shared/services/initial-app.service';
-import { Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { ProfileViewModel } from '../../../../pages/profile/data/view-models/profile.view-model';
 import { UserCreditViewModel } from '../../../../pages/profile/data/view-models/user-credit.view-model';
 import { combineLatest } from 'rxjs';
-import { GuestBasketService } from '../../../../pages/checkout/guest-basket.service';
+import { LoadingService } from '../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-top-menu',
@@ -13,8 +13,6 @@ import { GuestBasketService } from '../../../../pages/checkout/guest-basket.serv
 })
 export class TopMenuComponent implements OnDestroy {
   isLoggedIn = false;
-  isLoading = true;
-  profileInfoLoading = true;
   userProfileInfo!: ProfileViewModel;
   userCreditInfo!: UserCreditViewModel;
 
@@ -22,31 +20,42 @@ export class TopMenuComponent implements OnDestroy {
   @Input() basketCount = 0;
 
   constructor(
-    private _authService: AuthService,
-    public userService: InitialAppService
+    private readonly _authService: AuthService,
+    public readonly userService: InitialAppService,
+    public readonly loadingService: LoadingService
   ) {
     this._getInitialDate();
   }
 
   private _getInitialDate() {
-    combineLatest(
+    this.loadingService.startLoading('read', 'init');
+    this.loadingService.startLoading('read', 'profileInfo');
+    combineLatest([
       this._authService.isAuthenticated,
-      this.userService.userCredit
-    )
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(([isLoggedIn, userCredit]) => {
-        this.isLoggedIn = isLoggedIn;
-        this.userCreditInfo = userCredit;
-        this.isLoading = false;
+      this.userService.userCredit,
+    ])
+      .pipe(
+        tap(() => this.loadingService.stopLoading('read', 'init')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: ([isLoggedIn, userCredit]) => {
+          this.isLoggedIn = isLoggedIn;
+          this.userCreditInfo = userCredit;
+        },
+        error: () => this.loadingService.stopLoading('read', 'init'),
       });
 
     this.userService.userSimpleInfo
       .pipe(
-        tap(() => (this.profileInfoLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'profileInfo')),
         takeUntil(this.destroy$)
       )
-      .subscribe((userInfo) => {
-        this.userProfileInfo = userInfo;
+      .subscribe({
+        next: (userInfo) => {
+          this.userProfileInfo = userInfo;
+        },
+        error: () => this.loadingService.stopLoading('read', 'profileInfo'),
       });
   }
 

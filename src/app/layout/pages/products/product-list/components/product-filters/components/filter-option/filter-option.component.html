@@ -5,7 +5,8 @@
         <span>
           {{ propertyOption.title }}
         </span>
-        <mat-chip *ngIf="selectedItem" class="mx-1">
+        @if(selectedItem){
+        <mat-chip class="mx-1">
           <span class="d-flex align-items-center chip-text">
             <mat-icon
               class="cursor-pointer m-0"
@@ -18,6 +19,7 @@
             {{ selectedItem.title }}
           </span>
         </mat-chip>
+        }
       </button>
     </h2>
     <div ngbAccordionCollapse>

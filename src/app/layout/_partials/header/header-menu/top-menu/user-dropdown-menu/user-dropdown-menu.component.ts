@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { UserSimpleInfoViewModel } from '../../../../../../shared/data/models/view-models/user-simple-info.view-model';
 import { AuthService } from '../../../../../../shared/services/auth/auth.service';
 import { ProfileViewModel } from '../../../../../pages/profile/data/view-models/profile.view-model';
 import { UserCreditViewModel } from '../../../../../pages/profile/data/view-models/user-credit.view-model';

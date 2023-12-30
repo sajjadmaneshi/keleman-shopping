@@ -6,7 +6,7 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { ProductCategoryViewModel } from '../data/models/view-models/product-category.view-model';
 
 import { AuthService } from './auth/auth.service';
@@ -16,6 +16,7 @@ import { ArticleCategoryViewModel } from '../../layout/pages/magazine/data/view-
 import { ProfileService } from '../../layout/pages/profile/shared/profile.service';
 import { ProfileViewModel } from '../../layout/pages/profile/data/view-models/profile.view-model';
 import { BasketService } from '../../layout/pages/checkout/services/basket.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class InitialAppService implements OnDestroy {
@@ -35,7 +36,8 @@ export class InitialAppService implements OnDestroy {
     private _articleRepository: ArticleRepository,
     private _profileService: ProfileService,
     private _basketService: BasketService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: any
   ) {}
 
   init() {
@@ -58,6 +60,11 @@ export class InitialAppService implements OnDestroy {
             this.userSimpleInfo.next(result!);
           });
           this.getUserCredit();
+          if (isPlatformBrowser(this.platformId)) {
+            if (!localStorage.getItem('MERGED_BASKET')) {
+              this._basketService.mergeBasket();
+            }
+          }
         }
         this._basketService.cartBalance();
 

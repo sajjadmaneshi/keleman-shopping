@@ -39,7 +39,11 @@
           >{{ userCredit.walletValue | number : ".0" }} تومان</span
         >
       </li>
-      <li class="position-relative p-0 cursor-pointer" ngbDropdownItem>
+      <li
+        class="position-relative p-0 cursor-pointer"
+        ngbDropdownItem
+        [routerLink]="['profile/credits']"
+      >
         <span class="prefix2"></span>
         اعتبار
         <span class="text-success"

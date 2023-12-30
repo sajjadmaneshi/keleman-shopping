@@ -8,7 +8,9 @@
       (click)="showMenu = searchText ? true : false"
     />
 
-    <ng-template [ngIf]="isLoading">
+    <ng-template
+      [ngIf]="loadingService.getLoadingStateObservable('add', 'search') | async"
+    >
       <mat-spinner [diameter]="25"></mat-spinner>
     </ng-template>
 

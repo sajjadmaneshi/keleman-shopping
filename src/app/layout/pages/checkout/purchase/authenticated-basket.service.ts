@@ -168,8 +168,15 @@ export class AuthenticatedBasketService {
   }
 
   public mergeBasket(dto: MergeBasketDto[]) {
-    return this._basketRepository
-      .mergeCart(dto)
-      .pipe(map((result) => result.result!));
+    this._loadingService.startLoading('read', 'merge');
+    return this._basketRepository.mergeCart(dto).pipe(
+      tap(() => this._loadingService.stopLoading('read', 'merge')),
+      takeUntil(this.destroy$),
+      map((result) => result.result!),
+      catchError(() => {
+        this._loadingService.stopLoading('read', 'merge');
+        return of(false);
+      })
+    );
   }
 }

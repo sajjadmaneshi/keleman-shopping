@@ -1,22 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../shared/services/auth/auth.service';
-import { take } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+import { tap } from 'rxjs/operators';
 import { BasketService } from './services/basket.service';
+import { LoadingService } from '../../../../common/services/loading.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
   isBasketFull = false;
-  constructor(private _basketService: BasketService) {}
+  destory$ = new Subject<void>();
+  constructor(
+    private _basketService: BasketService,
+    public loadingService: LoadingService
+  ) {}
+
+  ngOnDestroy(): void {
+    this.destory$.next();
+    this.destory$.complete();
+  }
 
   ngOnInit(): void {
     this.loadBasketData();
-    this._basketService.cartCount$.subscribe(
-      (result) => (this.isBasketFull = result > 0)
-    );
+    this.loadingService.startLoading('read', 'basketFull');
+    this._basketService.cartCount$.pipe(takeUntil(this.destory$)).subscribe({
+      next: (result) => {
+        this.isBasketFull = result > 0;
+        setTimeout(() => {
+          this.loadingService.stopLoading('read', 'basketFull');
+        }, 1000);
+      },
+      error: () => this.loadingService.stopLoading('read', 'basketFull'),
+    });
   }
 
   private loadBasketData(): void {

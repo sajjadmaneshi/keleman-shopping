@@ -1,4 +1,4 @@
-@if (isLoading$|async){
+@if (loadingService.getLoadingStateObservable('read','slider')|async){
 <ngx-skeleton-loader
   count="1"
   [theme]="{ height: '25rem' }"
@@ -8,7 +8,7 @@
   <swiper
     [spaceBetween]="0"
     [pagination]="{ el: '.swiper-pagination' }"
-    [autoplay]="{ delay: 1500 }"
+    [autoplay]="{ delay: 2500 }"
   >
     @for (slide of slides;track slide.id){
 
@@ -18,9 +18,9 @@
           <img
             [alt]="slide.alt"
             class="main-slider-image"
-            [ngSrc]="downloadUrl + slide.imageAddress"
-            fill
-            priority
+            loadingLazy
+            emptyImage
+            [src]="slide.imageAddress"
           />
         </picture>
       </a>

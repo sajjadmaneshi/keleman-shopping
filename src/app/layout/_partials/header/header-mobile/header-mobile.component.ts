@@ -8,11 +8,12 @@ import {
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
-import { combineLatest, Subject, Subscription, takeUntil } from 'rxjs';
+import { combineLatest, Subject, takeUntil, tap } from 'rxjs';
 import { ProductCategoryService } from '../../../../home/components/product-category/product-category.service';
 import { ProductCategoryViewModel } from '../../../../shared/data/models/view-models/product-category.view-model';
 import { ProfileViewModel } from '../../../pages/profile/data/view-models/profile.view-model';
 import { UserCreditViewModel } from '../../../pages/profile/data/view-models/user-credit.view-model';
+import { LoadingService } from '../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-header-mobile',
@@ -22,18 +23,18 @@ export class HeaderMobileComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   userProfileInfo!: ProfileViewModel;
   userCreditInfo!: UserCreditViewModel;
-  isLoading = true;
   destroy$ = new Subject<void>();
 
   @Input() basketCount = 0;
   constructor(
-    private offcanvasService: NgbOffcanvas,
-    private _authService: AuthService,
-    public userService: InitialAppService,
-    private _categoryService: ProductCategoryService
+    private readonly _offcanvasService: NgbOffcanvas,
+    private readonly _authService: AuthService,
+    private readonly _categoryService: ProductCategoryService,
+    public readonly userService: InitialAppService,
+    public readonly loadingService: LoadingService
   ) {}
   openOffCanvas(content: TemplateRef<any>) {
-    this.offcanvasService.open(content, { position: 'end' });
+    this._offcanvasService.open(content, { position: 'end' });
   }
 
   navigateToPage($event: ProductCategoryViewModel) {
@@ -41,17 +42,23 @@ export class HeaderMobileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    combineLatest(
+    this.loadingService.startLoading('read', 'init');
+    combineLatest([
       this._authService.isAuthenticated,
       this.userService.userSimpleInfo,
-      this.userService.userCredit
-    )
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(([isLoggedIn, userInfo, userCredit]) => {
-        this.isLoggedIn = isLoggedIn;
-        this.userProfileInfo = userInfo;
-        this.userCreditInfo = userCredit;
-        this.isLoading = false;
+      this.userService.userCredit,
+    ])
+      .pipe(
+        tap(() => this.loadingService.stopLoading('read', 'init')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: ([isLoggedIn, userInfo, userCredit]) => {
+          this.isLoggedIn = isLoggedIn;
+          this.userProfileInfo = userInfo;
+          this.userCreditInfo = userCredit;
+        },
+        error: () => this.loadingService.stopLoading('read', 'init'),
       });
   }
 

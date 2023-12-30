@@ -42,6 +42,7 @@
         <button
           class="btn btn-klm-primary mb-3 fs-5 fw-bolder w-100"
           kelemanLoadingProgress
+          [disabled]="productValidationStatus.disable"
           [loading]="
             (loadingService.getLoadingStateObservable('read', 'packageItems')
               | async)!
@@ -50,7 +51,6 @@
         >
           مشاهده جزئیات پکیج
         </button>
-        } @if (inBasketCount == 0){
         <button
           class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
           kelemanLoadingProgress
@@ -58,22 +58,27 @@
             (loadingService.getLoadingStateObservable('add', 'addToBasket')
               | async)!
           "
-          [disabled]="
-            productDetails.priceAfterDiscount < 1 ||
-            productDetails.currentStock < 1
-          "
+          [disabled]="!packageItems"
           (click)="addToBasket()"
         >
-          {{
-            productDetails.currentStock > 1 &&
-            productDetails.priceAfterDiscount > 0
-              ? "افزودن به سبد خرید"
-              : productDetails.currentStock < 1
-              ? "ناموجود"
-              : "تماس بگیرید"
-          }}
+          {{ productValidationStatus.text }}
+        </button>
+
+        } @else if (inBasketCount == 0){
+        <button
+          class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
+          kelemanLoadingProgress
+          [loading]="
+            (loadingService.getLoadingStateObservable('add', 'addToBasket')
+              | async)!
+          "
+          [disabled]="productValidationStatus.disable"
+          (click)="addToBasket()"
+        >
+          {{ productValidationStatus.text }}
         </button>
         } @else {
+
         <div class="col-6">
           <keleman-value-changer
             [initialValue]="inBasketCount"

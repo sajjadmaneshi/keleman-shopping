@@ -3,5 +3,5 @@ export interface HttpClientResult<T> {
   message: string;
   isError: boolean;
   result?: T;
-  responseException?: string;
+  responseException?: { exceptionMessage: string };
 }

@@ -15,9 +15,10 @@
 
       <button
         class="btn btn-success submit-button align-self-center w-100"
-        [disabled]="checkout.payablePrice > 0"
+        (click)="submitPay()"
+        [disabled]="checkout.payablePrice !== 0"
       >
-        پرداخت
+        تکمیل پرداخت
       </button>
       } @else {
       <button

@@ -1,7 +1,20 @@
-@if(isBasketFull){
 <div class="container py-5">
   <keleman-checkout-stepper></keleman-checkout-stepper>
   <div class="row">
+    @if((loadingService.getLoadingStateObservable('read','basketFull')|async)!){
+    <div class="col-12 col-lg-8">
+      <ngx-skeleton-loader
+        [theme]="{ width: '100%', height: '150px' }"
+        count="2"
+      ></ngx-skeleton-loader>
+    </div>
+    <div class="col-12 col-lg-4">
+      <ngx-skeleton-loader
+        [theme]="{ width: '100%', height: '300px' }"
+      ></ngx-skeleton-loader>
+    </div>
+    } @else if (isBasketFull){
+
     <div class="col-12 col-lg-8">
       <router-outlet> </router-outlet>
       <div class="border-top border-gray-300 mt-3 py-3">
@@ -11,20 +24,20 @@
     <div class="col-12 col-lg-4">
       <keleman-purchase></keleman-purchase>
     </div>
+    } @else {
+    <div class="container py-5">
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <img
+          alt="empty-basket"
+          class="empty-basket-img"
+          src="../../../../../assets/media/empty-basket.webp"
+        />
+        <span class="fs-6">سبد خرید شما خالی است!</span>
+        <a class="fw-bold text-klm-primary" [routerLink]="'/'"
+          ><u>بازگشت به فروشگاه</u></a
+        >
+      </div>
+    </div>
+    }
   </div>
 </div>
-} @else {
-<div class="container py-5">
-  <div class="d-flex flex-column align-items-center justify-content-center">
-    <img
-      alt="empty-basket"
-      class="empty-basket-img"
-      src="../../../../../assets/media/empty-basket.webp"
-    />
-    <span class="fs-6">سبد خرید شما خالی است!</span>
-    <a class="fw-bold text-klm-primary" [routerLink]="'/'"
-      ><u>بازگشت به فروشگاه</u></a
-    >
-  </div>
-</div>
-}

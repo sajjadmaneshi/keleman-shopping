@@ -4,7 +4,6 @@ import { Routing } from '../routing';
 import { LayoutComponent } from './layout.component';
 import { authGuard } from '../shared/guards/auth.guard';
 import { CanonicalResolver } from '../../common/resolvers/canonical.resolver';
-import { BankCallbackComponent } from './pages/checkout/bank-callback/bank-callback.component';
 
 const routes: Routes = [
   {

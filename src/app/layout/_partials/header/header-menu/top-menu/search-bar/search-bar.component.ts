@@ -10,29 +10,29 @@ import { GeneralRepository } from '../../../../../../shared/data/repositories/ge
 import { SearchViewModel } from '../../../../../../shared/data/models/search.view-model';
 import { Router } from '@angular/router';
 import { Routing } from '../../../../../../routing';
+import { LoadingService } from '../../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-search-bar',
   templateUrl: './search-bar.component.html',
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
-  isLoading = false;
   searchTextChanged = new Subject<string>();
   showMenu = false;
   destroy$ = new Subject<void>();
   searchText!: string;
-
   searchResult: SearchViewModel = { products: [], articles: [] };
 
   constructor(
-    private _generalRepository: GeneralRepository,
-    private _router: Router
+    private readonly _generalRepository: GeneralRepository,
+    private readonly _router: Router,
+    public readonly loadingService: LoadingService
   ) {}
   keyChange($event: any) {
     if ($event.code === 'Enter') this._navigateToProduct();
     else {
       this.searchTextChanged.next($event.target.value);
-      this.isLoading = true;
+      this.loadingService.startLoading('add', 'search');
     }
   }
 
@@ -57,16 +57,20 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this._generalRepository
       .search(queryParam)
       .pipe(
-        tap(() => (this.isLoading = false)),
+        tap(() => this.loadingService.stopLoading('add', 'search')),
         takeUntil(this.destroy$)
       )
-      .subscribe((result) => {
-        this.searchResult = result.result!;
+      .subscribe({
+        next: (result) => {
+          this.searchResult = result.result!;
+        },
+        error: () => this.loadingService.stopLoading('add', 'search'),
       });
   }
 
   resetSearchResult() {
-    [this.showMenu, this.isLoading, this.searchText] = [false, false, ''];
+    [this.showMenu, this.searchText] = [false, ''];
+    this.loadingService.stopLoading('add', 'search');
     this.searchResult = { products: [], articles: [] };
   }
 

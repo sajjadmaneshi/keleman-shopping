@@ -3,7 +3,6 @@ import { ArticleRepository } from '../../../layout/pages/magazine/data/repositor
 import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/view-models/article-simple-data-view.model';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { HttpClientResult } from '../../../shared/data/models/http/http-client.result';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'keleman-main-page-latest-articles',
@@ -11,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class MainPageLatestArticlesComponent implements OnDestroy {
   isLoading = false;
-
   articles!: ArticleSimpleDataViewModel[];
   destroy$ = new Subject<void>();
 

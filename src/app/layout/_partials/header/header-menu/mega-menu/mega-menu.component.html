@@ -1,7 +1,8 @@
 <div class="d-flex h-100 mega-menu-body" id="mega-menu" #megamenu>
   <ul class="mega-menu-side-bar__menu nil-space">
+    @for (rootCategory of productCategories;track rootCategory.id;let i =
+    $index){ @defer {
     <li
-      *ngFor="let rootCategory of productCategories; let i = index"
       (mouseenter)="onHover(i + 1)"
       [class.active]="i === activeIndex - 1"
       (click)="onClick({ c1: rootCategory.url })"
@@ -10,10 +11,12 @@
       <span class="material-icons"> {{ iconNames[i] }} </span>
       <span> {{ rootCategory.titleFa }}</span>
     </li>
+    } }
   </ul>
   <div class="mega-menu-items-menu flex-grow-1">
+    @for (rootCategory of productCategories;track rootCategory.id;let i =
+    $index){ @defer {
     <div
-      *ngFor="let rootCategory of productCategories; let i = index"
       [ngClass]="activeIndex === i + 1 ? 'd-flex flex-column' : 'd-none'"
       class="container-fluid mega-menu-items-menu__inner p-3"
     >
@@ -26,33 +29,29 @@
       </span>
 
       <ul class="column">
-        <ng-template
-          ngFor
-          let-child
-          [ngForOf]="rootCategory.children"
-          let-i="index"
+        @for (child of rootCategory.children;track child.id){ @defer {
+        <li
+          class="head"
+          (click)="onClick({ c1: rootCategory.url, c2: child.url })"
         >
-          <li
-            class="head"
-            (click)="onClick({ c1: rootCategory.url, c2: child.url })"
-          >
-            <span> {{ child.titleFa }}</span>
-          </li>
-          <li
-            class="p-1"
-            *ngFor="let childChild of child.children"
-            (click)="
-              onClick({
-                c1: rootCategory.url,
-                c2: child.url,
-                c3: childChild.url
-              })
-            "
-          >
-            <span> {{ childChild.titleFa }}</span>
-          </li>
-        </ng-template>
+          <span> {{ child.titleFa }}</span>
+        </li>
+        @for (childChild of child.children;track childChild.id){ @defer {
+        <li
+          class="p-1"
+          (click)="
+            onClick({
+              c1: rootCategory.url,
+              c2: child.url,
+              c3: childChild.url
+            })
+          "
+        >
+          <span> {{ childChild.titleFa }}</span>
+        </li>
+        } } } }
       </ul>
     </div>
+    } }
   </div>
 </div>

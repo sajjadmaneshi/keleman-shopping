@@ -39,12 +39,12 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private _platformId: any,
-    private _renderer2: Renderer2,
-    private _activatedRoute: ActivatedRoute,
-    private _router: Router,
-    private _initialAppService: InitialAppService,
-    private _ssrService: SsrService,
-    public categoryService: ProductCategoryService
+    private readonly _renderer2: Renderer2,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _router: Router,
+    private readonly _initialAppService: InitialAppService,
+    private readonly _ssrService: SsrService,
+    public readonly categoryService: ProductCategoryService
   ) {
     this.screenWidth = this._ssrService.getWidth;
   }
@@ -87,7 +87,7 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private _getQueryParamsFromUrl() {
-    combineLatest(this._router.events, this._activatedRoute.queryParams)
+    combineLatest([this._router.events, this._activatedRoute.queryParams])
       .pipe(takeUntil(this.destroy$))
       .subscribe(([events, queryParams]) => {
         if (events instanceof NavigationEnd) {
@@ -115,10 +115,10 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    combineLatest(
+    combineLatest([
       this._initialAppService.productCategories,
-      this._initialAppService.articleCategories
-    ).subscribe(([productCategories, articleCategories]) => {
+      this._initialAppService.articleCategories,
+    ]).subscribe(([productCategories, articleCategories]) => {
       this.productCategories = productCategories!;
       this.articleCategories = articleCategories!;
     });
