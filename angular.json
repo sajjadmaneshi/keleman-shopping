@@ -129,10 +129,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "keleman-shopping:build:production"
+              "browserTarget": "keleman-shopping:build:production"
             },
             "development": {
-              "buildTarget": "keleman-shopping:build:development"
+              "browserTarget": "keleman-shopping:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -140,7 +140,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "keleman-shopping:build"
+            "browserTarget": "keleman-shopping:build"
           }
         },
         "test": {
@@ -208,11 +208,11 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
             "development": {
-              "buildTarget": "keleman-shopping:build:development",
+              "browserTarget": "keleman-shopping:build:development",
               "serverTarget": "keleman-shopping:server:development"
             },
             "production": {
-              "buildTarget": "keleman-shopping:build:production",
+              "browserTarget": "keleman-shopping:build:production",
               "serverTarget": "keleman-shopping:server:production"
             }
           },
@@ -227,11 +227,11 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "keleman-shopping:build:production",
+              "browserTarget": "keleman-shopping:build:production",
               "serverTarget": "keleman-shopping:server:production"
             },
             "development": {
-              "buildTarget": "keleman-shopping:build:development",
+              "browserTarget": "keleman-shopping:build:development",
               "serverTarget": "keleman-shopping:server:development"
             }
           },

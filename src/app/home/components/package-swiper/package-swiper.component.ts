@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+} from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
 
 import Swiper, { EffectCreative, Navigation } from 'swiper';
@@ -22,7 +27,8 @@ export class PackageSwiperComponent implements AfterViewInit, OnDestroy {
   constructor(
     private _homeRepository: HomeRepository,
     public sharedVariablesService: SharedVariablesService,
-    public loadingSerive: LoadingService
+    public loadingSerive: LoadingService,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   private _init() {
@@ -48,6 +54,7 @@ export class PackageSwiperComponent implements AfterViewInit, OnDestroy {
       effect: 'creative',
     });
     this._init();
+    this._cdr.detectChanges();
   }
 
   ngOnDestroy(): void {
