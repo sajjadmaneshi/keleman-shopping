@@ -29,14 +29,16 @@ export class CheckoutStepperComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    combineLatest(
-      this._activatedRoute.firstChild?.url!,
-      this.checkoutService.selectedIndex
-    )
+    this.checkoutService.selectedIndex
+
       .pipe(takeUntil(this.destroy$))
-      .subscribe(([routeSegment, index]) => {
-        this.checkoutService.determineSelectedIndex(routeSegment[0].path);
+      .subscribe((index) => {
         this.passed(index);
+      });
+    this._activatedRoute.firstChild
+      ?.url!.pipe(takeUntil(this.destroy$))
+      .subscribe((routeSegment) => {
+        this.checkoutService.determineSelectedIndex(routeSegment[0].path);
       });
   }
 

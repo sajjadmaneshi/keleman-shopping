@@ -10,6 +10,7 @@ import { BillRepository } from '../data/repositories/bill.repository';
 import { PaymentRepository } from '../data/repositories/payment.repository';
 import { MergeBasketDto } from '../data/dto/merge-basket.dto';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
+import { MergeResultViewModel } from '../data/models/merge-result.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticatedBasketService {
@@ -167,7 +168,9 @@ export class AuthenticatedBasketService {
     );
   }
 
-  public mergeBasket(dto: MergeBasketDto[]) {
+  public mergeBasket(
+    dto: MergeBasketDto[]
+  ): Observable<MergeResultViewModel[]> {
     this._loadingService.startLoading('read', 'merge');
     return this._basketRepository.mergeCart(dto).pipe(
       tap(() => this._loadingService.stopLoading('read', 'merge')),
@@ -175,7 +178,7 @@ export class AuthenticatedBasketService {
       map((result) => result.result!),
       catchError(() => {
         this._loadingService.stopLoading('read', 'merge');
-        return of(false);
+        return of([]);
       })
     );
   }

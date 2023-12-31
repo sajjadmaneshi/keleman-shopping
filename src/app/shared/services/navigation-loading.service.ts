@@ -11,6 +11,6 @@ export class NavigationLoadingService {
   }
 
   hide() {
-    setTimeout(() => this.loadingSubject.next(false), 1500);
+    setTimeout(() => this.loadingSubject.next(false), 500);
   }
 }

@@ -8,6 +8,8 @@ import { AddToCartDto } from '../dto/add-to-cart.dto';
 import { UpdateBasketDto } from '../dto/update-basket.dto';
 import { BasketCheckoutViewModel } from '../models/basket-checkout.view-model';
 import { MergeBasketDto } from '../dto/merge-basket.dto';
+import { PackageItemsViewModel } from '../../../products/data/models/view-models/package-items.view-model';
+import { MergeResultViewModel } from '../models/merge-result.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class BasketRepository extends DataService<BasketItemViewModel> {
@@ -21,11 +23,13 @@ export class BasketRepository extends DataService<BasketItemViewModel> {
     ) as Observable<HttpClientResult<BasketItemViewModel[]>>;
   }
 
-  mergeCart(dto: MergeBasketDto[]): Observable<HttpClientResult<any>> {
+  mergeCart(
+    dto: MergeBasketDto[]
+  ): Observable<HttpClientResult<MergeResultViewModel[]>> {
     return this._http.post(
       `${this._getCartUrl}/merge?userId=${localStorage.getItem('USERID')}`,
       dto
-    ) as Observable<HttpClientResult<any>>;
+    ) as Observable<HttpClientResult<MergeResultViewModel[]>>;
   }
 
   getBasketCheckout(): Observable<HttpClientResult<BasketCheckoutViewModel>> {
@@ -77,5 +81,13 @@ export class BasketRepository extends DataService<BasketItemViewModel> {
       }?userId=${localStorage.getItem('USERID')}`,
       { responseType: 'blob' }
     ) as Observable<Blob>;
+  }
+
+  getPackageDetails(packageId: number) {
+    return this._http.get(
+      `${
+        this._getCartUrl
+      }/packageDetail/${packageId}?userId=${localStorage.getItem('USERID')}`
+    ) as Observable<HttpClientResult<PackageItemsViewModel>>;
   }
 }

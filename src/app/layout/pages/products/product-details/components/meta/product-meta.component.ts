@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   ProductService,
   ProductStatusViewModel,
@@ -22,7 +22,7 @@ import { BasketService } from '../../../../checkout/services/basket.service';
   templateUrl: './product-meta.component.html',
   styleUrls: ['./product-meta.component.scss'],
 })
-export class ProductMetaComponent implements OnInit {
+export class ProductMetaComponent implements OnInit, OnDestroy {
   specifications!: ProductSpecificViewModel[];
   addToBasketLoading = false;
   isInBasket = false;
@@ -45,6 +45,11 @@ export class ProductMetaComponent implements OnInit {
     this._basketService.productCountInBasket$.subscribe((result) => {
       this.inBasketCount = result;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   ngOnInit(): void {
@@ -123,7 +128,6 @@ export class ProductMetaComponent implements OnInit {
   }
 
   openPackageDetailDialog(data: PackageItemsViewModel) {
-    console.log(this.packageItems);
     this._dialog
       .open(PackageProductsDialogComponent, {
         width: '500px',

@@ -19,7 +19,19 @@
             />
           </div>
           @if(basketItem.product.details){
-          <button class="btn btn-klm-primary">ویرایش محتویات پکیج</button>
+          <button
+            class="btn btn-klm-primary"
+            kelemanLoadingProgress
+            [loading]="
+              (loadingService.getLoadingStateObservable(
+                'read',
+                'basketPackageItems'
+              ) | async)!
+            "
+            (click)="getPackageDetails()"
+          >
+            ویرایش محتویات پکیج
+          </button>
           } @else {
           <keleman-value-changer
             class="w-100"

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { BasketCheckoutViewModel } from '../../../data/models/basket-checkout.view-model';
-import { ShippingCostViewModel } from '../../../data/models/shipping-cost-view.model';
+import { ShippingCostViewModel } from '../../../data/models/shipping-cost.view-model';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../../../../../../shared/services/auth/auth.service';
 import { BasketService } from '../../../services/basket.service';

@@ -91,6 +91,7 @@ export class AuthService {
       localStorage.removeItem('MOBILE');
       localStorage.removeItem('USERID');
       localStorage.removeItem('MERGED_BASKET');
+      localStorage.removeItem('GUEST_BASKET');
       basketService.resetBasket();
       this.isLoggedIn$.next(false);
     }

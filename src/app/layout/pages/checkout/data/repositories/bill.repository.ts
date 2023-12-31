@@ -3,7 +3,7 @@ import { DataService } from '../../../../../shared/services/data.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
-import { ShippingCostViewModel } from '../models/shipping-cost-view.model';
+import { ShippingCostViewModel } from '../models/shipping-cost.view-model';
 import { SetDiscountDto } from '../dto/set-discount.dto';
 import { SaveOrderDto } from '../dto/save-order.dto';
 import { BasketCheckoutViewModel } from '../models/basket-checkout.view-model';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Routing } from '../../../../routing';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 
@@ -10,11 +10,7 @@ export class CheckoutService {
   baseUrl = Routing.checkout + '/';
   isLoggedIn = false;
 
-  constructor(
-    private _router: Router,
-    private _authService: AuthService,
-    private _activatedRoute: ActivatedRoute
-  ) {
+  constructor(private _router: Router, private _authService: AuthService) {
     this._authService.isLoggedIn$.subscribe((result) => {
       this.isLoggedIn = result;
     });

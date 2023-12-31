@@ -28,35 +28,30 @@ export class TopMenuComponent implements OnDestroy {
   }
 
   private _getInitialDate() {
-    this.loadingService.startLoading('read', 'init');
     this.loadingService.startLoading('read', 'profileInfo');
-    combineLatest([
-      this._authService.isAuthenticated,
-      this.userService.userCredit,
-    ])
-      .pipe(
-        tap(() => this.loadingService.stopLoading('read', 'init')),
-        takeUntil(this.destroy$)
-      )
-      .subscribe({
-        next: ([isLoggedIn, userCredit]) => {
-          this.isLoggedIn = isLoggedIn;
-          this.userCreditInfo = userCredit;
-        },
-        error: () => this.loadingService.stopLoading('read', 'init'),
-      });
-
-    this.userService.userSimpleInfo
-      .pipe(
-        tap(() => this.loadingService.stopLoading('read', 'profileInfo')),
-        takeUntil(this.destroy$)
-      )
-      .subscribe({
-        next: (userInfo) => {
-          this.userProfileInfo = userInfo;
-        },
-        error: () => this.loadingService.stopLoading('read', 'profileInfo'),
-      });
+    this.loadingService.startLoading('read', 'userCredit');
+    this._authService.isAuthenticated.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+      if (isLoggedIn) {
+        this.userService.userCredit
+          .pipe(
+            tap(() => this.loadingService.stopLoading('read', 'userCredit')),
+            takeUntil(this.destroy$)
+          )
+          .subscribe((credit) => (this.userCreditInfo = credit));
+        this.userService.userSimpleInfo
+          .pipe(
+            tap(() => this.loadingService.stopLoading('read', 'profileInfo')),
+            takeUntil(this.destroy$)
+          )
+          .subscribe({
+            next: (userInfo) => {
+              this.userProfileInfo = userInfo;
+            },
+            error: () => this.loadingService.stopLoading('read', 'profileInfo'),
+          });
+      }
+    });
   }
 
   ngOnDestroy(): void {

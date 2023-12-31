@@ -3,15 +3,16 @@ import { GuestBasketService } from '../guest-basket.service';
 import { AddToCartDto } from '../data/dto/add-to-cart.dto';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { UpdateBasketDto } from '../data/dto/update-basket.dto';
 import { MergeBasketDto } from '../data/dto/merge-basket.dto';
 import { BasketCheckoutViewModel } from '../data/models/basket-checkout.view-model';
-import { ShippingCostViewModel } from '../data/models/shipping-cost-view.model';
+import { ShippingCostViewModel } from '../data/models/shipping-cost.view-model';
 import { PaymentGatewayViewModel } from '../data/models/payment-gateway.view-model';
 import { PayResultViewModel } from '../data/models/pay-result.view-model';
 import { Injectable } from '@angular/core';
 import { SnackBarService } from '../../../../shared/components/snack-bar/snack-bar.service';
+import { MergeResultViewModel } from '../data/models/merge-result.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class BasketService {
@@ -29,7 +30,9 @@ export class BasketService {
   delivaryAddress$ = new BehaviorSubject<number | undefined>(undefined);
   payResult$ = new BehaviorSubject<PayResultViewModel | undefined>(undefined);
   billId = new BehaviorSubject<number | undefined>(undefined);
-
+  mergeResult = new BehaviorSubject<MergeResultViewModel[] | undefined>(
+    undefined
+  );
   constructor(
     private readonly _authenticatedBasketService: AuthenticatedBasketService,
     private readonly _guestBasketService: GuestBasketService,
@@ -38,9 +41,6 @@ export class BasketService {
   ) {
     this._authService.isLoggedIn$.subscribe((result) => {
       this.isLoggedIn$ = result;
-      if (this.isLoggedIn$) {
-        this.mergeBasket();
-      }
     });
   }
 
@@ -108,9 +108,10 @@ export class BasketService {
         .subscribe((res) => {
           if (res) {
             localStorage.removeItem('GUEST_BASKET');
-
             localStorage.setItem('MERGED_BASKET', 'true');
             this.basket();
+            this.cartBalance();
+            this.mergeResult.next(res);
           }
         });
     });
