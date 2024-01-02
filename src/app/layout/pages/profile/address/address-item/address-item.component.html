@@ -1,7 +1,4 @@
-<div
-  class="card card-rounded-1 address-item mb-3"
-  [class.selected]="address.isDefault"
->
+<div class="card card-rounded-1 address-item mb-3">
   <div class="card-body align-items-center">
     <div class="d-flex justify-content-between align-items-center">
       <ul class="address-info">
@@ -39,23 +36,7 @@
         ></keleman-map>
 
         <span class="actions d-flex flex-column mx-3">
-          @if (canSetDefault){
-          <button
-            class="btn btn-icon text-klm-primary"
-            ngbTooltip="انتخاب به عنوان آدرس پیشفرض"
-            [disabled]="address.isDefault"
-            (click)="addToDefault(address.id)"
-          >
-            @if(isLoading){
-            <mat-spinner [diameter]="20"></mat-spinner>
-            } @else {
-
-            <mat-icon>{{
-              address.isDefault ? "bookmark" : "bookmark_border"
-            }}</mat-icon>
-            }
-          </button>
-          } @if (editable){
+          @if (editable){
           <button (click)="openEditDialog()" class="btn btn-icon text-warning">
             <mat-icon>edit</mat-icon>
           </button>
@@ -63,10 +44,16 @@
           <button
             href="#"
             class="btn btn-icon text-danger"
-            [disabled]="deleteLoading"
+            [disabled]="
+              (loadingService.getLoadingStateObservable(
+                'delete',
+                'deleteAddress'
+              ) | async)!
+            "
             (click)="getAcceptBeforeRemove($event)"
           >
-            @if (deleteLoading){
+            @if
+            ((loadingService.getLoadingStateObservable('delete','deleteAddress')|async)!){
             <mat-spinner [diameter]="20"></mat-spinner>
             } @else {
             <mat-icon>delete</mat-icon>

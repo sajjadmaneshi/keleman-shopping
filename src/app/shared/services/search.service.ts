@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { HttpClientResult } from '../data/models/http/http-client.result';
 import { HttpClient } from '@angular/common/http';
 import { QueryParamGeneratorService } from './query-params-generator.service';
-import { ProductCategoryViewModel } from '../data/models/view-models/product-category.view-model';
 
 export interface ProductSearchResult {
   products: ProductViewModel[];
@@ -27,7 +26,7 @@ export interface ArticleSearchResult {
   category?: CategoryMinifyViewModel;
 }
 @Injectable({ providedIn: 'root' })
-export class SearchService<T> {
+export class SearchService {
   constructor(
     private _http: HttpClient,
     private _queryParamService: QueryParamGeneratorService

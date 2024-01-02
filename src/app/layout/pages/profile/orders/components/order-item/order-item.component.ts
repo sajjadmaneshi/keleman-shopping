@@ -1,30 +1,33 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 import { MatDialog } from '@angular/material/dialog';
 
-import { OrderViewModel } from '../../../data/view-models/order.view.model';
+import { OrderViewModel } from '../../../data/view-models/order.view-model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 import { OrdersStatusEnum } from '../../../data/enums/orders-status.enum';
 import { OrderListDialogComponent } from '../order-list-dialog/order-list-dialog.component';
 import { ProfileRepository } from '../../../data/profile.repository';
 import { AddReturnRequestDialogComponent } from '../../../returned-request/add-return-request-dialog/add-return-request-dialog.component';
 import { OrderCanReturnViewModel } from '../../../data/view-models/order-can-return.view-model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'keleman-order-item',
   templateUrl: './order-item.component.html',
   styleUrls: ['./order-item.component.scss'],
 })
-export class OrderItemComponent {
+export class OrderItemComponent implements OnDestroy {
   @Input() orderDetail!: OrderViewModel;
   @Input() orderStatus!: OrdersStatusEnum;
 
   orderstatusEnum = OrdersStatusEnum;
+
+  subscriptions = new Subscription();
   constructor(
-    public applicationState: ApplicationStateService,
-    public persianDateTimeService: PersianDateTimeService,
+    public readonly applicationState: ApplicationStateService,
+    public readonly persianDateTimeService: PersianDateTimeService,
     private readonly _profileRepository: ProfileRepository,
-    private _dialog: MatDialog
+    private readonly _dialog: MatDialog
   ) {}
 
   openReturnRequestDialog(): void {
@@ -53,11 +56,15 @@ export class OrderItemComponent {
   }
 
   getOrderFactor() {
-    this._profileRepository
+    const subscription = this._profileRepository
       .getOrderFactor(this.orderDetail.id)
       .subscribe((res) => {
         const fileUrl = URL.createObjectURL(res);
         window.open(fileUrl, '_blank');
       });
+    this.subscriptions.add(subscription);
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

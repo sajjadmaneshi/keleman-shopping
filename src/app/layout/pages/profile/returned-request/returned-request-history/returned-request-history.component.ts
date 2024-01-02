@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { PersianDateTimeService } from '../../../../../shared/services/date-time/persian-datetime.service';
 import { ProfileRepository } from '../../data/profile.repository';
 import { ReturnRequestViewModel } from '../../data/view-models/return-request.view-model';
@@ -19,10 +19,8 @@ export interface SelectedStatusFilterReurnRequest {
 @Component({
   selector: 'keleman-returned-request-history',
   templateUrl: './returned-request-history.component.html',
-  styleUrls: ['./returned-request-history.component.scss'],
 })
-export class ReturnedRequestHistoryComponent {
-  isLoading = true;
+export class ReturnedRequestHistoryComponent implements OnDestroy {
   destroy$ = new Subject<void>();
   statusEnum = ReturnRequestStatusEnum;
   requests: ReturnRequestViewModel[] = [];
@@ -68,6 +66,7 @@ export class ReturnedRequestHistoryComponent {
     private readonly _dialog: MatDialog,
     private readonly _snackBar: SnackBarService
   ) {
+    this.loadingService.startLoading('read', 'returnedRequest');
     this._getRequests();
   }
 
@@ -75,20 +74,20 @@ export class ReturnedRequestHistoryComponent {
     this._profileRepository
       .getReturnRequests(this.page - 1, this.limit, this.selectedStatus.status)
       .pipe(
-        tap(() => (this.isLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'returnedRequest')),
         takeUntil(this.destroy$),
         map((result) => result.result!)
       )
-      .subscribe(
-        (result) => {
+      .subscribe({
+        next: (result) => {
           this.requests = [...result.items!];
           this.totalElements = result.totalElements;
         },
-        () => (this.isLoading = false)
-      );
+        error: () => this.loadingService.stopLoading('read', 'returnedRequest'),
+      });
   }
 
-  public getAcceptBeforeCancell($event: any, reuestId: number) {
+  public getAcceptBeforeCancel($event: any, reuestId: number) {
     $event.stopPropagation();
     this._dialog.open(AlertDialogComponent, {
       autoFocus: false,
@@ -109,10 +108,10 @@ export class ReturnedRequestHistoryComponent {
         tap(() => this.loadingService.stopLoading('add', 'cancel')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        () => this._showSuccessMessage(),
-        () => this.loadingService.stopLoading('add', 'cancel')
-      );
+      .subscribe({
+        next: () => this._showSuccessMessage(),
+        error: () => this.loadingService.stopLoading('add', 'cancel'),
+      });
   }
 
   getStatusTitle(status: ReturnRequestStatusEnum): string {
@@ -133,5 +132,10 @@ export class ReturnedRequestHistoryComponent {
   private _showSuccessMessage() {
     this._snackBar.showWarningSnackBar('درخواستش ما با موفقیت لغو گردید ');
     this._getRequests();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

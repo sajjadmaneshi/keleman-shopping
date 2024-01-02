@@ -11,15 +11,11 @@ import {
   NgbAccordionItem,
   NgbTooltip,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  OrderCanReturnViewModel,
-  ReturnOrderProductViewModel,
-} from '../../../data/view-models/order-can-return.view-model';
+import { ReturnOrderProductViewModel } from '../../../data/view-models/order-can-return.view-model';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
-import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'keleman-product-can-return',
@@ -40,7 +36,6 @@ import { SnackBarService } from '../../../../../../shared/components/snack-bar/s
     FormsModule,
   ],
   templateUrl: './product-can-return.component.html',
-  styleUrl: './product-can-return.component.scss',
 })
 export class ProductCanReturnComponent {
   @Input() product!: ReturnOrderProductViewModel;

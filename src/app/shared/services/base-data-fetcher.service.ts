@@ -22,7 +22,6 @@ export class BaseDataFetcherService<
 
   fetchData(params: { [key: string]: any }): Observable<T | undefined> {
     this.isLoading = true;
-
     return (
       this._repository.search(params) as Observable<HttpClientResult<T>>
     ).pipe(

@@ -7,8 +7,6 @@ import { ProductFilterService } from './product-filter.service';
 
 @Injectable()
 export class FilterOptionService {
-  private _propertyOption!: SelectableOption;
-
   constructor(private _productFilterService: ProductFilterService) {}
 
   public determineSelectableArray(propertyOption: SelectableOption) {

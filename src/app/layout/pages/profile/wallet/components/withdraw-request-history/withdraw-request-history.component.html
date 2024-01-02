@@ -6,7 +6,7 @@
       count="3"
     ></ngx-skeleton-loader>
     } @else if (withdrawRequests.length > 0) { @for (request of
-    withdrawRequests;track request.id){
+    withdrawRequests;track request.id){ @defer {
     <div
       class="alert request-item"
       [ngClass]="
@@ -53,7 +53,7 @@
         لغو درخواست
       </button>
     </div>
-    }
+    } }
 
     <keleman-pagination
       [totalElements]="totalElemnts"

@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { GeneralRepository } from '../../../shared/data/repositories/general.repository';
 import { FooterViewModel } from '../../../shared/data/models/view-models/footer.view-model';
-import { Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { LoadingService } from '../../../../common/services/loading.service';
 
 @Component({

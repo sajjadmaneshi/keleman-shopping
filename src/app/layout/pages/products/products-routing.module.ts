@@ -1,6 +1,6 @@
 import { inject, NgModule } from '@angular/core';
 
-import { Router, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductsComponent } from './products.component';
 import { ProductListComponent } from './product-list/product-list.component';

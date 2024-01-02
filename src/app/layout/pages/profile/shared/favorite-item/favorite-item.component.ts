@@ -5,14 +5,12 @@ import {
   OnDestroy,
   Output,
 } from '@angular/core';
-import { ProductViewModel } from '../../../products/data/models/view-models/product.view-model';
 import { FavoriteProductViewModel } from '../../data/view-models/favorite-product.view-model';
 import { AlertDialogComponent } from '../../../../../shared/components/alert-dialog/alert-dialog.component';
 import { AlertDialogDataModel } from '../../../../../shared/components/alert-dialog/alert-dialog-data.model';
-import { ProfileRepository } from '../../data/profile.repository';
 import { ProductRepository } from '../../../products/data/repositories/product.repository';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'keleman-favorite-item',
@@ -29,7 +27,6 @@ export class FavoriteItemComponent implements OnDestroy {
   dialogRef!: MatDialogRef<AlertDialogComponent>;
 
   constructor(
-    private readonly _profileRepository: ProfileRepository,
     private readonly _productRepository: ProductRepository,
     private _alertDialog: MatDialog
   ) {}

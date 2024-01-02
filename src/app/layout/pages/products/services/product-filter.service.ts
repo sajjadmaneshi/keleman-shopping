@@ -1,25 +1,23 @@
-import { ApplicationRef, Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { SelectedFilterModel } from '../product-list/components/product-filters/data/selected-filter.model';
 import { ProductCategoryRepository } from '../data/repositories/product-category.repository';
 import {
   CategoryPropertyOptionViewModel,
-  OptionViewModel,
   SelectableOption,
   SelectablePropertyModel,
 } from '../data/models/view-models/category-property-option.view-model';
-import { BehaviorSubject, map, Subject, take, takeUntil, tap } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { BehaviorSubject, map, Subject, takeUntil, tap } from 'rxjs';
+import { Params } from '@angular/router';
 import { QueryParamGeneratorService } from '../../../../shared/services/query-params-generator.service';
 import { RouteHandlerService } from '../../../../shared/services/route-handler/route-handler.service';
 import { PriceRange } from '../product-list/components/product-filters/components/product-price-filter/product-price-filter.component';
 import { ProductSortTypeEnum } from '../data/enums/product-sort-type .enum';
 import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
+import { LoadingService } from '../../../../../common/services/loading.service';
 
 @Injectable()
 export class ProductFilterService implements OnDestroy {
-  isLoading = new BehaviorSubject(true);
   maxPrice = new BehaviorSubject<number>(0);
-
   filterList!: SelectedFilterModel[];
   priceSliderReset = false;
   destroy$ = new Subject<void>();
@@ -38,10 +36,10 @@ export class ProductFilterService implements OnDestroy {
   ];
 
   constructor(
-    private _cr: ApplicationRef,
     private _productCategoryRepository: ProductCategoryRepository,
     private _routeHandlerService: RouteHandlerService,
-    private _queryParamsService: QueryParamGeneratorService
+    private _queryParamsService: QueryParamGeneratorService,
+    private _loadingService: LoadingService
   ) {
     this.filterList = this._initNewFilterList();
     this._routeHandlerService
@@ -57,19 +55,32 @@ export class ProductFilterService implements OnDestroy {
   }
 
   public getCategoryFilterPropertyOptions(categoryId: number) {
-    this.isLoading.next(true);
+    this._loadingService.startLoading('read', 'categoryFilterPropertyOptions');
     this._productCategoryRepository
       .getCategoryOptions(categoryId)
       .pipe(
+        tap(() =>
+          this._loadingService.stopLoading(
+            'read',
+            'categoryFilterPropertyOptions'
+          )
+        ),
         takeUntil(this.destroy$),
         map(
           (response: HttpClientResult<CategoryPropertyOptionViewModel[]>) =>
             response.result!
         )
       )
-      .subscribe((properties: CategoryPropertyOptionViewModel[]) => {
-        this.isLoading.next(false);
-        this.propertyOptions = [...this._manipulatePropertyOptions(properties)];
+      .subscribe({
+        next: (properties: CategoryPropertyOptionViewModel[]) =>
+          (this.propertyOptions = [
+            ...this._manipulatePropertyOptions(properties),
+          ]),
+        error: () =>
+          this._loadingService.stopLoading(
+            'read',
+            'categoryFilterPropertyOptions'
+          ),
       });
   }
 
@@ -111,6 +122,7 @@ export class ProductFilterService implements OnDestroy {
 
   public navigateWithNewParams(queryParams?: Params) {
     let query: Params = {};
+    if (queryParams) query = { ...queryParams };
 
     this.filterList.forEach((filter) => {
       query[filter.key] = filter.value;

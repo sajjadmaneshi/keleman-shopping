@@ -1,13 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-  TemplateRef,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProductSortTypeEnum } from '../../../data/enums/product-sort-type .enum';
 import { ProductFilterService } from '../../../services/product-filter.service';
 

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MatTabsModule } from '@angular/material/tabs';
 import { EmptyContentComponent } from '../empty-content/empty-content.component';
 import { OrderListComponent } from './components/order-list/order-list.component';

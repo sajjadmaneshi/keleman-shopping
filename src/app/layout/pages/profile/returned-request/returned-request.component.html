@@ -10,13 +10,7 @@
         </span>
       </div>
 
-      <ng-container *ngIf="true; then full"></ng-container>
-      <ng-template #full>
-        <keleman-returned-request-history></keleman-returned-request-history>
-      </ng-template>
-      <ng-template #empty>
-        <keleman-empty-content></keleman-empty-content>
-      </ng-template>
+      <keleman-returned-request-history></keleman-returned-request-history>
     </div>
   </div>
 </div>

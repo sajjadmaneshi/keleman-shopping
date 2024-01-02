@@ -2,18 +2,17 @@
   class="address-content p-3 d-flex justify-content-between align-items-start border-bottom border-gray-300 mx-3"
 >
   <span class="d-flex flex-column w-50">
-    <ng-template [ngIf]="showMap" [ngIfElse]="addressDetailTitle">
-      <span>آدرس جدید</span>
-      <span class="text-muted">موقعیت مکانی آدرس را انتخاب نمایید</span>
-    </ng-template>
-    <ng-template #addressDetailTitle>
-      <span class="d-flex align-items-center">
-        <mat-icon class="cursor-pointer mx-1" (click)="toggleShowMap()"
-          >east</mat-icon
-        >
-        جزئیات آدرس
-      </span>
-    </ng-template>
+    @if(showMap){
+    <span>آدرس جدید</span>
+    <span class="text-muted">موقعیت مکانی آدرس را انتخاب نمایید</span>
+    } @else {
+    <span class="d-flex align-items-center">
+      <mat-icon class="cursor-pointer mx-1" (click)="toggleShowMap()"
+        >east</mat-icon
+      >
+      جزئیات آدرس
+    </span>
+    }
   </span>
   <span
     class="material-icons-outlined text-danger close cursor-pointer"
@@ -65,7 +64,10 @@
           [options]="provinces"
           [formControl]="province"
           [label]="'استان'"
-          [isLoading]="stateLoading"
+          [isLoading]="
+            (loadingService.getLoadingStateObservable('read', 'states')
+              | async)!
+          "
           (onSelectionChange)="selectProvience($event)"
         >
         </keleman-auto-complete>
@@ -75,7 +77,10 @@
           [options]="cities"
           [formControl]="city"
           [label]="'شهر'"
-          [isLoading]="stateLoading"
+          [isLoading]="
+            (loadingService.getLoadingStateObservable('read', 'cities')
+              | async)!
+          "
           [isInavlid]="city.invalid && isFormSubmitted"
           (onSelectionChange)="onCitySelect($event)"
         >
@@ -177,7 +182,10 @@
     type="button"
     class="btn btn-warning submit-button text-white"
     kelemanLoadingProgress
-    [loading]="submitLoading"
+    [loading]="
+      (loadingService.getLoadingStateObservable('read', 'submitAddress')
+        | async)!
+    "
     (click)="sumbitForm()"
   >
     ثبت آدرس

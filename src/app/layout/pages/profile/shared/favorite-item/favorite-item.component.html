@@ -16,15 +16,15 @@
           [size]="'h6'"
           class="mb-md-3"
         ></keleman-price>
-        <ng-template [ngIf]="productDetails.discount > 0">
-          <keleman-price
-            [value]="productDetails.price"
-            [off]="true"
-            [discount]="productDetails.discount"
-            [color]="'dark'"
-            [size]="'h6'"
-          ></keleman-price>
-        </ng-template>
+        @if(productDetails.discount > 0){
+        <keleman-price
+          [value]="productDetails.price"
+          [off]="true"
+          [discount]="productDetails.discount"
+          [color]="'dark'"
+          [size]="'h6'"
+        ></keleman-price>
+        }
       </span>
     </div>
     <div class="d-flex flex-column justify-content-between">

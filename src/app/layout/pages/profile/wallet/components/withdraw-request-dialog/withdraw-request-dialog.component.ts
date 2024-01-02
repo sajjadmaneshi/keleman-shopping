@@ -5,6 +5,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { WithdrawRequestDto } from '../../../data/dto/withdraw-request.dto';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { LoadingService } from '../../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-withdraw-request-dialog',
@@ -14,16 +15,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class WithdrawRequestDialogComponent implements OnDestroy {
   withdrawRequestForm!: FormGroup;
   isFormSubmitted = false;
-
-  submitLoading = false;
   destroy$ = new Subject<void>();
-
   amountVal = 0;
 
   constructor(
     private readonly _profileRepository: ProfileRepository,
     private readonly _snackBar: SnackBarService,
-    public dialogRef: MatDialogRef<WithdrawRequestDialogComponent>
+    public readonly dialogRef: MatDialogRef<WithdrawRequestDialogComponent>,
+    public readonly loadingService: LoadingService
   ) {
     this._initForm();
   }
@@ -45,7 +44,7 @@ export class WithdrawRequestDialogComponent implements OnDestroy {
   submitForm() {
     this.isFormSubmitted = true;
     if (this.withdrawRequestForm.valid) {
-      this.submitLoading = true;
+      this.loadingService.startLoading('add', 'withdrawRequest');
       const dto = {
         amount: +this.amount.value,
         description: this.description.value,
@@ -53,12 +52,13 @@ export class WithdrawRequestDialogComponent implements OnDestroy {
       this._profileRepository
         .addWithdrawRequest(dto)
         .pipe(
-          tap(() => (this.submitLoading = false)),
+          tap(() => this.loadingService.stopLoading('add', 'withdrawRequest')),
           takeUntil(this.destroy$)
         )
         .subscribe({
           next: () => this._showSuccessMessage(),
-          error: () => (this.submitLoading = false),
+          error: () =>
+            this.loadingService.stopLoading('add', 'withdrawRequest'),
         });
     }
   }

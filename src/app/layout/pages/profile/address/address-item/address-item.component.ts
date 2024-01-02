@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  Output,
-  PLATFORM_ID,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { LatLngExpression } from 'leaflet';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,11 +8,12 @@ import { UserAddressViewModel } from '../../data/view-models/user-address.view-m
 import { ProfileRepository } from '../../data/profile.repository';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { isPlatformBrowser, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertDialogComponent } from '../../../../../shared/components/alert-dialog/alert-dialog.component';
 import { AlertDialogDataModel } from '../../../../../shared/components/alert-dialog/alert-dialog-data.model';
 import { ModifyAddressDialogComponent } from '../add-address-dialog/modify-address-dialog.component';
+import { LoadingService } from '../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-address-item',
@@ -32,12 +26,10 @@ import { ModifyAddressDialogComponent } from '../add-address-dialog/modify-addre
     NgbTooltip,
     MatProgressSpinnerModule,
     NgIf,
+    AsyncPipe,
   ],
 })
 export class AddressItemComponent {
-  isLoading = false;
-  deleteLoading = false;
-  destroy$ = new Subject<void>();
   @Input() address!: UserAddressViewModel;
   @Input() deletable = true;
   @Input() editable = true;
@@ -47,16 +39,14 @@ export class AddressItemComponent {
   @Output('delete') onDelete = new EventEmitter<void>();
   @Output('update') onUpdate = new EventEmitter<void>();
 
+  destroy$ = new Subject<void>();
   dialogRef!: MatDialogRef<AlertDialogComponent>;
-  isBrowser!: boolean;
 
   constructor(
+    public readonly loadingService: LoadingService,
     private readonly _profuleRepository: ProfileRepository,
-    @Inject(PLATFORM_ID) private platformId: any,
-    private _dialog: MatDialog
-  ) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
+    private readonly _dialog: MatDialog
+  ) {}
 
   getMarkerLatLng(lat: number, lng: number): LatLngExpression {
     return { lat, lng } as LatLngExpression;
@@ -70,20 +60,8 @@ export class AddressItemComponent {
         data: this.address,
       })
       .afterClosed()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.onUpdate.emit());
-  }
-
-  addToDefault(id: number) {
-    this._profuleRepository
-      .addDefaultAddress(id)
-      .pipe(
-        tap(() => {
-          this.isLoading = false;
-          this.onAddToDefault.emit(this.address.id);
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
   }
 
   public getAcceptBeforeRemove($event: any) {
@@ -100,17 +78,21 @@ export class AddressItemComponent {
   }
 
   private _delete() {
+    this.loadingService.startLoading('delete', 'deleteAddress');
     this._profuleRepository
       .deleteAddress(this.address.id)
       .pipe(
         tap(() => {
-          this.deleteLoading = false;
+          this.loadingService.stopLoading('delete', 'deleteAddress');
         }),
         takeUntil(this.destroy$)
       )
-      .subscribe(() => {
-        this.dialogRef.close();
-        this.onDelete.emit();
+      .subscribe({
+        next: () => {
+          this.dialogRef.close();
+          this.onDelete.emit();
+        },
+        error: () => this.loadingService.stopLoading('delete', 'deleteAddress'),
       });
   }
 }

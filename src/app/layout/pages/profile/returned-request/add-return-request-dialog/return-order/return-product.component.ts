@@ -44,6 +44,7 @@ import { AutoCompleteComponent } from '../../../../../../shared/components/auto-
   styleUrl: './return-product.component.scss',
 })
 export class ReturnProductComponent implements OnInit {
+  max!: number;
   @Input() product!: ReturnOrderProductViewModel;
   @Output() remove = new EventEmitter<number>();
 
@@ -60,6 +61,4 @@ export class ReturnProductComponent implements OnInit {
   amountChange($event: number) {
     this.product.amount = $event;
   }
-
-  max!: number;
 }

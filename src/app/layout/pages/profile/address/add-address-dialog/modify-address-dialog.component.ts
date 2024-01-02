@@ -1,10 +1,4 @@
-import {
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -21,6 +15,7 @@ import { ProfileRepository } from '../../data/profile.repository';
 import { InitialAppService } from '../../../../../shared/services/initial-app.service';
 import { ProfileViewModel } from '../../data/view-models/profile.view-model';
 import { UserAddressViewModel } from '../../data/view-models/user-address.view-model';
+import { LoadingService } from '../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-modify-address-dialog',
@@ -28,18 +23,13 @@ import { UserAddressViewModel } from '../../data/view-models/user-address.view-m
   styleUrls: ['./modify-address-dialog.component.scss'],
 })
 export class ModifyAddressDialogComponent implements OnInit, OnDestroy {
+  destroy$ = new Subject<void>();
   editMode = false;
   isFormSubmitted = false;
   showMap = true;
   addressForm!: FormGroup;
-  private destroy$ = new Subject<void>();
   provinces: StatesViewModel[] = [];
   cities: CityViewModel[] = [];
-  stateLoading = false;
-  cityLoading = false;
-
-  submitLoading = false;
-
   location!: { lat: number; lng: number };
   selectedCityId!: number;
   iAmReciver = false;
@@ -68,13 +58,13 @@ export class ModifyAddressDialogComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private _dialogRef: MatDialogRef<ModifyAddressDialogComponent>,
-    private _geoLocationRepository: GeneralRepository,
-    private _profileRepository: ProfileRepository,
-
-    private _initialAppService: InitialAppService,
-
-    @Inject(MAT_DIALOG_DATA) private data: UserAddressViewModel | undefined
+    private readonly _dialogRef: MatDialogRef<ModifyAddressDialogComponent>,
+    private readonly _geoLocationRepository: GeneralRepository,
+    private readonly _profileRepository: ProfileRepository,
+    private readonly _initialAppService: InitialAppService,
+    @Inject(MAT_DIALOG_DATA)
+    private readonly data: UserAddressViewModel | undefined,
+    public loadingService: LoadingService
   ) {}
 
   ngOnInit() {
@@ -84,9 +74,11 @@ export class ModifyAddressDialogComponent implements OnInit, OnDestroy {
 
     if (this.editMode) this._setFormData();
 
-    this._initialAppService.userSimpleInfo.subscribe((baseInfo) => {
-      this.userBaseInfo = baseInfo;
-    });
+    this._initialAppService.userSimpleInfo
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((baseInfo) => {
+        this.userBaseInfo = baseInfo;
+      });
   }
 
   private _setFormData() {
@@ -106,17 +98,21 @@ export class ModifyAddressDialogComponent implements OnInit, OnDestroy {
   }
 
   private _getAllStates() {
-    this.stateLoading = true;
+    this.loadingService.startLoading('read', 'states');
+
     this.province.disable();
     this._geoLocationRepository
       .getAllStates()
       .pipe(
-        tap(() => (this.stateLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'states')),
         takeUntil(this.destroy$)
       )
-      .subscribe((result: HttpClientResult<StatesViewModel[]>) => {
-        this.provinces = result.result as StatesViewModel[];
-        this.province.enable();
+      .subscribe({
+        next: (result: HttpClientResult<StatesViewModel[]>) => {
+          this.provinces = result.result as StatesViewModel[];
+          this.province.enable();
+        },
+        error: () => this.loadingService.stopLoading('read', 'states'),
       });
   }
 
@@ -124,17 +120,20 @@ export class ModifyAddressDialogComponent implements OnInit, OnDestroy {
     if ($event) this._getCitiesOfState($event);
   }
   private _getCitiesOfState(provienceID: number) {
-    this.cityLoading = true;
+    this.loadingService.startLoading('read', 'cities');
     this.city.disable();
     this._geoLocationRepository
       .getCitiesOfState(provienceID)
       .pipe(
-        tap(() => (this.cityLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'cities')),
         takeUntil(this.destroy$)
       )
-      .subscribe((result: HttpClientResult<CityViewModel[]>) => {
-        this.cities = result.result as CityViewModel[];
-        this.city.enable();
+      .subscribe({
+        next: (result: HttpClientResult<CityViewModel[]>) => {
+          this.cities = result.result as CityViewModel[];
+          this.city.enable();
+        },
+        error: () => this.loadingService.stopLoading('read', 'cities'),
       });
   }
 
@@ -163,7 +162,7 @@ export class ModifyAddressDialogComponent implements OnInit, OnDestroy {
   sumbitForm() {
     this.isFormSubmitted = true;
     if (this.addressForm.valid) {
-      this.submitLoading = true;
+      this.loadingService.startLoading('add', 'submitAddress');
       const dto = {
         addressText: this.address.value,
         postalCode: this.postalCode.value.toString(),
@@ -183,30 +182,26 @@ export class ModifyAddressDialogComponent implements OnInit, OnDestroy {
     this._profileRepository
       .addNewAddress(dto)
       .pipe(
-        tap(() => (this.submitLoading = false)),
+        tap(() => this.loadingService.stopLoading('add', 'submitAddress')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        () => {
-          this.close();
-        },
-        () => (this.submitLoading = false)
-      );
+      .subscribe({
+        next: () => this.close(),
+        error: () => this.loadingService.stopLoading('add', 'submitAddress'),
+      });
   }
 
   private _editSpecific(dto: AddressDto) {
     this._profileRepository
       .updateAddress(this.data?.id!, dto)
       .pipe(
-        tap(() => (this.submitLoading = false)),
+        tap(() => this.loadingService.stopLoading('add', 'submitAddress')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        () => {
-          this.close();
-        },
-        () => (this.submitLoading = false)
-      );
+      .subscribe({
+        next: () => this.close(),
+        error: () => this.loadingService.stopLoading('add', 'submitAddress'),
+      });
   }
 
   changeCheckBox($event: MatCheckboxChange) {

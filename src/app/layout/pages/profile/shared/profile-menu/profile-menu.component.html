@@ -1,162 +1,173 @@
-<div class="border-bottom mb-3">
-  <div class="mb-3 d-flex align-items-center">
-    <ng-content *ngIf="isLoading; then loading; else content"></ng-content>
-    <ng-template #loading>
-      <ngx-skeleton-loader
-        appearance="circle"
-        [theme]="{ width: '5rem', height: '5rem' }"
-      ></ngx-skeleton-loader>
-      <span
-        class="d-inline-flex flex-column flex-grow-1 align-items-start mx-1"
-      >
-        <ngx-skeleton-loader
-          [theme]="{ width: '10rem', height: '20px' }"
-        ></ngx-skeleton-loader>
-        <ngx-skeleton-loader
-          [theme]="{ width: '10rem', height: '20px' }"
-        ></ngx-skeleton-loader>
-      </span>
-    </ng-template>
+<div class="card mb-3 card-rounded-3 shadow-sm border border-gray-300">
+  <div class="card-body d-flex flex-column">
+    <div class="border-bottom mb-3">
+      <div class="mb-3 d-flex align-items-center">
+        <ng-content *ngIf="isLoading; then loading; else content"></ng-content>
+        <ng-template #loading>
+          <ngx-skeleton-loader
+            appearance="circle"
+            [theme]="{ width: '5rem', height: '5rem' }"
+          ></ngx-skeleton-loader>
+          <span
+            class="d-inline-flex flex-column flex-grow-1 align-items-start mx-1"
+          >
+            <ngx-skeleton-loader
+              [theme]="{ width: '10rem', height: '20px' }"
+            ></ngx-skeleton-loader>
+            <ngx-skeleton-loader
+              [theme]="{ width: '10rem', height: '20px' }"
+            ></ngx-skeleton-loader>
+          </span>
+        </ng-template>
 
-    <ng-template #content>
-      <div class="symbol symbol-md-20 symbol-circle position-relative">
-        <img
-          loadingLazy
-          emptyImage
-          [src]="personalInfo.avatar!"
-          [isAvatar]="true"
-        />
-        <mat-spinner
-          *ngIf="(fileUploading | async)!"
-          class="spinner"
-          [diameter]="20"
-        ></mat-spinner>
-        <button
-          mat-mini-fab
-          color="primary"
-          class="change-profile"
-          (click)="fileManagerService.openFileBrowser($event, fileInput)"
+        <ng-template #content>
+          <div class="symbol symbol-md-20 symbol-circle position-relative">
+            <img
+              loadingLazy
+              emptyImage
+              [src]="personalInfo.avatar!"
+              [isAvatar]="true"
+            />
+            <mat-spinner
+              *ngIf="(fileUploading | async)!"
+              class="spinner"
+              [diameter]="20"
+            ></mat-spinner>
+            <button
+              mat-mini-fab
+              color="primary"
+              class="change-profile"
+              (click)="fileManagerService.openFileBrowser($event, fileInput)"
+            >
+              <mat-icon class="material-icons-outlined">edit</mat-icon>
+            </button>
+            <input
+              value=""
+              type="file"
+              name="profile_avatar"
+              id="imagePicker"
+              multiple
+              [disabled]="fileUploading | async"
+              #fileInput
+              (click)="fileInput.value = null!"
+              (change)="onChangeFileListener($event)"
+              [accept]="fileManagerService.generateAcceptedImageTypes()"
+              style="display: none"
+            />
+          </div>
+          <span
+            class="d-inline-flex flex-column flex-grow-1 align-items-start mx-4"
+          >
+            <h5>{{ personalInfo.firstName }} {{ personalInfo.lastName }}</h5>
+            <a
+              routerLink="/profile"
+              routerLinkActive="active"
+              class="text-muted"
+              >تکمیل اطلاعات کاربری</a
+            >
+          </span>
+        </ng-template>
+
+        <mat-icon
+          routerLink="personal-info"
+          class="material-icons-outlined text-muted cursor-pointer"
+          >drive_file_rename_outline</mat-icon
         >
-          <mat-icon class="material-icons-outlined">edit</mat-icon>
-        </button>
-        <input
-          value=""
-          type="file"
-          name="profile_avatar"
-          id="imagePicker"
-          multiple
-          [disabled]="fileUploading | async"
-          #fileInput
-          (click)="fileInput.value = null!"
-          (change)="onChangeFileListener($event)"
-          [accept]="fileManagerService.generateAcceptedImageTypes()"
-          style="display: none"
-        />
       </div>
-      <span
-        class="d-inline-flex flex-column flex-grow-1 align-items-start mx-4"
-      >
-        <h5>{{ personalInfo.firstName }} {{ personalInfo.lastName }}</h5>
-        <a routerLink="/profile" routerLinkActive="active" class="text-muted"
-          >تکمیل اطلاعات کاربری</a
+      <ul class="user-wallet-menu p-0">
+        <li
+          class="d-flex align-items-center justify-content-between mb-3 menu-item cursor-pointer"
+          [routerLink]="'wallet'"
+          routerLinkActive="active"
         >
-      </span>
-    </ng-template>
+          <span class="d-flex align-items-center">
+            <mat-icon class="mx-1"> account_balance_wallet </mat-icon>
 
-    <mat-icon
-      routerLink="personal-info"
-      class="material-icons-outlined text-muted cursor-pointer"
-      >drive_file_rename_outline</mat-icon
-    >
+            <span>کیف پول</span>
+          </span>
+          <span class="flex-grow-1 text-start mx-3"
+            >{{ userCredit.walletValue | number : ".0" }} تومان</span
+          >
+          <mat-icon> more_vert</mat-icon>
+        </li>
+        <li
+          class="d-flex align-items-center justify-content-between mb-3 menu-item cursor-pointer"
+          [routerLink]="'credits'"
+          routerLinkActive="active"
+        >
+          <span class="d-flex align-items-center">
+            <mat-icon class="mx-1"> credit_card </mat-icon>
+            <span>اعتبار</span>
+          </span>
+
+          <span class="flex-grow-1 text-start mx-3"
+            >{{ userCredit.creditValue | number : ".0" }} تومان</span
+          >
+          <mat-icon> more_vert</mat-icon>
+        </li>
+      </ul>
+    </div>
+    <ul class="profile-menu m-0">
+      <li class="menu-item" [routerLink]="'orders'" routerLinkActive="active">
+        <a class="menu-link">
+          <mat-icon class="ms-2">shopping_basket</mat-icon>
+          سفارش ها
+        </a>
+        <mat-icon> chevron_left</mat-icon>
+      </li>
+      <li
+        class="menu-item"
+        [routerLink]="'favorites'"
+        routerLinkActive="active"
+      >
+        <a class="menu-link">
+          <mat-icon class="ms-2">favorite</mat-icon>
+          علاقه مندی ها
+        </a>
+        <mat-icon> chevron_left</mat-icon>
+      </li>
+      <li
+        class="menu-item"
+        [routerLink]="'returned-requests'"
+        routerLinkActive="active"
+      >
+        <a class="menu-link">
+          <mat-icon class="ms-2">assignment_return</mat-icon>
+          درخواست مرجوعی
+        </a>
+        <mat-icon> chevron_left</mat-icon>
+      </li>
+      <li class="menu-item" [routerLink]="'address'" routerLinkActive="active">
+        <a class="menu-link">
+          <mat-icon class="ms-2">place</mat-icon>
+          آدرس ها
+        </a>
+        <mat-icon> chevron_left</mat-icon>
+      </li>
+
+      <li class="menu-item" [routerLink]="'comments'" routerLinkActive="active">
+        <a class="menu-link">
+          <mat-icon class="ms-2">chat</mat-icon>
+          دیدگاه و پرسش ها
+        </a>
+        <mat-icon> chevron_left</mat-icon>
+      </li>
+      <!--  <li class="menu-item"  [routerLink]="'my-box'" routerLinkActive="active">-->
+      <!--    <a class="menu-link">-->
+      <!--      <mat-icon class="ms-2">inventory_2</mat-icon>-->
+      <!--      باکس های من-->
+      <!--    </a>-->
+      <!--    <mat-icon> chevron_left</mat-icon>-->
+      <!--  </li>-->
+      <li class="menu-item">
+        <a
+          class="menu-link text-danger cursor-pointer"
+          (click)="authService.logout()"
+        >
+          <mat-icon class="ms-2">power_settings_new</mat-icon>
+          خروج
+        </a>
+      </li>
+    </ul>
   </div>
-  <ul class="user-wallet-menu p-0">
-    <li
-      class="d-flex align-items-center justify-content-between mb-3 menu-item cursor-pointer"
-      [routerLink]="'wallet'"
-      routerLinkActive="active"
-    >
-      <span class="d-flex align-items-center">
-        <mat-icon class="mx-1"> account_balance_wallet </mat-icon>
-
-        <span>کیف پول</span>
-      </span>
-      <span class="flex-grow-1 text-start mx-3"
-        >{{ userCredit.walletValue | number : ".0" }} تومان</span
-      >
-      <mat-icon> more_vert</mat-icon>
-    </li>
-    <li
-      class="d-flex align-items-center justify-content-between mb-3 menu-item cursor-pointer"
-      [routerLink]="'credits'"
-      routerLinkActive="active"
-    >
-      <span class="d-flex align-items-center">
-        <mat-icon class="mx-1"> credit_card </mat-icon>
-        <span>اعتبار</span>
-      </span>
-
-      <span class="flex-grow-1 text-start mx-3"
-        >{{ userCredit.creditValue | number : ".0" }} تومان</span
-      >
-      <mat-icon> more_vert</mat-icon>
-    </li>
-  </ul>
 </div>
-<ul class="profile-menu m-0">
-  <li class="menu-item" [routerLink]="'orders'" routerLinkActive="active">
-    <a class="menu-link">
-      <mat-icon class="ms-2">shopping_basket</mat-icon>
-      سفارش ها
-    </a>
-    <mat-icon> chevron_left</mat-icon>
-  </li>
-  <li class="menu-item" [routerLink]="'favorites'" routerLinkActive="active">
-    <a class="menu-link">
-      <mat-icon class="ms-2">favorite</mat-icon>
-      علاقه مندی ها
-    </a>
-    <mat-icon> chevron_left</mat-icon>
-  </li>
-  <li
-    class="menu-item"
-    [routerLink]="'returned-requests'"
-    routerLinkActive="active"
-  >
-    <a class="menu-link">
-      <mat-icon class="ms-2">assignment_return</mat-icon>
-      درخواست مرجوعی
-    </a>
-    <mat-icon> chevron_left</mat-icon>
-  </li>
-  <li class="menu-item" [routerLink]="'address'" routerLinkActive="active">
-    <a class="menu-link">
-      <mat-icon class="ms-2">place</mat-icon>
-      آدرس ها
-    </a>
-    <mat-icon> chevron_left</mat-icon>
-  </li>
-
-  <li class="menu-item" [routerLink]="'comments'" routerLinkActive="active">
-    <a class="menu-link">
-      <mat-icon class="ms-2">chat</mat-icon>
-      دیدگاه و پرسش ها
-    </a>
-    <mat-icon> chevron_left</mat-icon>
-  </li>
-  <!--  <li class="menu-item"  [routerLink]="'my-box'" routerLinkActive="active">-->
-  <!--    <a class="menu-link">-->
-  <!--      <mat-icon class="ms-2">inventory_2</mat-icon>-->
-  <!--      باکس های من-->
-  <!--    </a>-->
-  <!--    <mat-icon> chevron_left</mat-icon>-->
-  <!--  </li>-->
-  <li class="menu-item">
-    <a
-      class="menu-link text-danger cursor-pointer"
-      (click)="authService.logout()"
-    >
-      <mat-icon class="ms-2">power_settings_new</mat-icon>
-      خروج
-    </a>
-  </li>
-</ul>

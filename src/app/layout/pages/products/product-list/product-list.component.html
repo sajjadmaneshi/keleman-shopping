@@ -1,26 +1,20 @@
-<keleman-bread-crumb
-  *ngIf="categoryId"
-  [type]="1"
-  [id]="categoryId!"
-></keleman-bread-crumb>
+@if(categoryId){
+<keleman-bread-crumb [type]="1" [id]="categoryId!"></keleman-bread-crumb>
+}
 
 <ng-container class="product-list d-flex flex-column">
-  <ng-template
-    [ngIf]="
-      !applicationStateService.isPhone && !applicationStateService.isTablet
-    "
-  >
-    <div class="top-categories card card-rounded-3 mb-3">
-      <div class="card-body p-0">
-        <ng-template [ngIf]="categoryId!">
-          <keleman-product-categories
-            [parentId]="categoryId!"
-            (onItemClick)="updateCurrentRoute($event)"
-          ></keleman-product-categories>
-        </ng-template>
-      </div>
+  @if(!applicationStateService.isPhone && !applicationStateService.isTablet){
+  <div class="top-categories card card-rounded-3 mb-3">
+    <div class="card-body p-0">
+      <ng-template [ngIf]="categoryId!">
+        <keleman-product-categories
+          [parentId]="categoryId!"
+          (onItemClick)="updateCurrentRoute($event)"
+        ></keleman-product-categories>
+      </ng-template>
     </div>
-  </ng-template>
+  </div>
+  }
 
   <div class="products row mx-0">
     <div class="col-12 col-lg-3">
@@ -37,50 +31,36 @@
         <keleman-products-sort [initialSort]="sortBy"></keleman-products-sort>
 
         <div class="row mx-0 gx-3 gy-3 gx-lg-3">
-          <ng-container
-            *ngIf="fetchDataService.isLoading; then loading; else productList"
-          ></ng-container>
-          <ng-template #loading>
-            <div
-              class="col-12 col-md-4 col-xl-3"
-              *ngFor="let _ of sharedVaribaleService.counter(10)"
-            >
-              <ngx-skeleton-loader
-                [theme]="{ width: '100%', height: '300px ' }"
-              ></ngx-skeleton-loader>
-            </div>
-          </ng-template>
-          <ng-template #productList>
-            <ng-container
-              *ngIf="products.length > 0; then fullProduct; else empty"
-            ></ng-container>
-            <ng-template #fullProduct>
-              <div
-                class="col-12 col-md-4 col-xl-3"
-                *ngFor="let product of products; trackBy: trackByFn"
-              >
-                <keleman-product-item
-                  [product]="product"
-                ></keleman-product-item>
-              </div>
-            </ng-template>
-            <ng-template #empty>
-              <div
-                class="empty-product-list d-flex flex-column align-items-center"
-              >
-                <img src="assets/media/static-resources/notFound.png" />
-                <p>کالایی در این دسته یا با این مشخصات موجود نمی باشد</p>
-              </div>
-            </ng-template>
-          </ng-template>
+          @if(fetchDataService.isLoading){
+          <div
+            class="col-12 col-md-4 col-xl-3"
+            *ngFor="let _ of sharedVaribaleService.counter(10)"
+          >
+            <ngx-skeleton-loader
+              [theme]="{ width: '100%', height: '300px ' }"
+            ></ngx-skeleton-loader>
+          </div>
+          } @else if (products.length > 0) { @for ( product of products;track
+          product.id){
+          <div class="col-12 col-md-4 col-xl-3">
+            <keleman-product-item [product]="product"></keleman-product-item>
+          </div>
+          }
+
+          <keleman-pagination
+            *ngIf="products.length! > 0"
+            [totalElements]="totalElements"
+            (pageChange)="pageChange($event)"
+            [limit]="limit"
+            [currentPage]="page"
+          ></keleman-pagination>
+          } @else {
+          <div class="empty-product-list d-flex flex-column align-items-center">
+            <img src="assets/media/static-resources/notFound.png" />
+            <p>کالایی در این دسته یا با این مشخصات موجود نمی باشد</p>
+          </div>
+          }
         </div>
-        <keleman-pagination
-          *ngIf="products.length! > 0"
-          [totalElements]="totalElements"
-          (pageChange)="pageChange($event)"
-          [limit]="limit"
-          [currentPage]="page"
-        ></keleman-pagination>
       </div>
     </div>
 

@@ -28,26 +28,13 @@ export class CustomPersianNumberService implements PersianService {
     '9',
   ];
 
-  /**
-   * Splits input value by persian letters and then returns length of matched array.
-   *
-   * @param value
-   * @return 0 if input value has no persian letter, numbers of persian letters in the input value otherwise.
-   */
   private static _getMatchedPatternLength(value: string): number {
-    // Language=JSRegexp
     const matchResult = value.match(
       new RegExp(`[${CustomPersianNumberService.persianNumberPattern}]`, 'g')
     );
     return matchResult ? matchResult.length : 0;
   }
 
-  /**
-   * Checks if input value contains any persian number or not.
-   *
-   * @param value
-   * @return true if input value contains any persian number. false otherwise.
-   */
   containsPersian(value: string): boolean {
     if (!value) {
       return false;
@@ -59,11 +46,6 @@ export class CustomPersianNumberService implements PersianService {
     return persianRegex.test(value);
   }
 
-  /**
-   * Checks if input value contains only persian letters.
-   *
-   * @param value
-   */
   isPersian(value: string): boolean {
     if (!value) {
       return false;
@@ -74,11 +56,6 @@ export class CustomPersianNumberService implements PersianService {
     );
   }
 
-  /**
-   * Converts arabic numbers to the persian ones.
-   *
-   * @param value
-   */
   arabicToPersian(value: string): string {
     return value
       .replace(/٤/g, CustomPersianNumberService.persianNumbersTable[4])
@@ -86,11 +63,6 @@ export class CustomPersianNumberService implements PersianService {
       .replace(/٦/g, CustomPersianNumberService.persianNumbersTable[6]);
   }
 
-  /**
-   * Converts all arabic and english numbers to the persian numbers.
-   *
-   * @param value
-   */
   toPersian(value: string | number): string {
     if (value === undefined || value === null) {
       throw new InvalidServiceInputError();
@@ -116,11 +88,6 @@ export class CustomPersianNumberService implements PersianService {
     return persianValue;
   }
 
-  /**
-   * Convert persian numbers in input value to the english numbers.
-   *
-   * @param value
-   */
   toEnglish(value: string): string {
     let englishValue: string = value;
     let regex: RegExp;

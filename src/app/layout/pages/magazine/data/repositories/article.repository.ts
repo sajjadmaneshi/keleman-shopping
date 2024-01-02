@@ -14,10 +14,7 @@ import { ArticleCategoryViewModel } from '../view-models/article-category.view-m
 
 @Injectable({ providedIn: 'root' })
 export class ArticleRepository extends DataService<any> {
-  constructor(
-    _http: HttpClient,
-    private _searchService: SearchService<ArticleSimpleDataViewModel>
-  ) {
+  constructor(_http: HttpClient, private _searchService: SearchService) {
     super('article', _http);
   }
 

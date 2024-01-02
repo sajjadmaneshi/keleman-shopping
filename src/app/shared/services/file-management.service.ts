@@ -1,6 +1,6 @@
-import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
+import { Injectable, Renderer2 } from '@angular/core';
 
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { FileUnit } from '../enums/file-unit.enum';
 import { FileExtension } from '../enums/file-extension.enum';
@@ -21,10 +21,7 @@ export class FileManagementService {
     FileExtension.image_jfif,
   ];
 
-  constructor(
-    private _snackBarService: SnackBarService,
-    private _renderer2: Renderer2
-  ) {}
+  constructor(private _snackBarService: SnackBarService) {}
 
   public generateAcceptedImageTypes = (): string =>
     this.imageFileAccepts.join(',');

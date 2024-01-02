@@ -1,28 +1,22 @@
-import { Component, InjectionToken, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
-import { combineLatest, map, Subject, takeUntil, tap } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { combineLatest, Subject, takeUntil } from 'rxjs';
+import { Params } from '@angular/router';
 import { ProductRepository } from '../data/repositories/product.repository';
-import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
 import { SharedVariablesService } from '../../../../shared/services/shared-variables.service';
 import { ProductCategoryViewModel } from 'src/app/shared/data/models/view-models/product-category.view-model';
 import { Routing } from '../../../../routing';
-import { CategorySimpleInfoViewModel } from '../data/models/view-models/category-simple-info.view-model';
 import { QueryParamGeneratorService } from '../../../../shared/services/query-params-generator.service';
 import {
   BaseDataFetcherService,
   REPOSITORY_TOKEN,
 } from '../../../../shared/services/base-data-fetcher.service';
-import {
-  CategoryMinifyViewModel,
-  ProductSearchResult,
-} from '../../../../shared/services/search.service';
+import { ProductSearchResult } from '../../../../shared/services/search.service';
 import { ProductSortTypeEnum } from '../data/enums/product-sort-type .enum';
 import { RouteHandlerService } from '../../../../shared/services/route-handler/route-handler.service';
 import { ProductFilterService } from '../services/product-filter.service';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 import { SelectedFilterModel } from './components/product-filters/data/selected-filter.model';
-import { Meta, Title } from '@angular/platform-browser';
 import { ModifyMetaDataService } from '../../../../../common/services/modify-meta-data.service';
 
 @Component({
@@ -53,13 +47,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   constructor(
     private _routeHandlerService: RouteHandlerService,
-    private _router: Router,
+    private _metDataService: ModifyMetaDataService,
     private _productFilterService: ProductFilterService,
     private _queryParamService: QueryParamGeneratorService,
     public fetchDataService: BaseDataFetcherService<ProductSearchResult>,
     public sharedVaribaleService: SharedVariablesService,
-    public applicationStateService: ApplicationStateService,
-    private _metDataService: ModifyMetaDataService
+    public applicationStateService: ApplicationStateService
   ) {}
 
   ngOnInit(): void {
@@ -101,10 +94,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
       ...this._parseQueryParams(urlQueryParams),
     };
     this._getAllProducts(queryParams);
-  }
-
-  trackByFn(index: number, item: ProductViewModel) {
-    return item.id;
   }
 
   pageChange($event: number) {

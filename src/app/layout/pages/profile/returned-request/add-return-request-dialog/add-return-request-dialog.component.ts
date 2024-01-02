@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { AutoCompleteComponent } from '../../../../../shared/components/auto-complete/auto-complete.component';
 import { BidiModule } from '@angular/cdk/bidi';
 import { KelemanMapComponent } from '../../../../../shared/components/keleman-map/keleman-map.component';
@@ -36,6 +36,7 @@ import { MatListModule } from '@angular/material/list';
 import { ReturnRequestDto } from '../../data/dto/return-request.dto';
 import { PersianDateTimeService } from '../../../../../shared/services/date-time/persian-datetime.service';
 import { SnackBarService } from '../../../../../shared/components/snack-bar/snack-bar.service';
+import { LoadingService } from '../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-add-return-request-dialog',
@@ -65,16 +66,13 @@ import { SnackBarService } from '../../../../../shared/components/snack-bar/snac
   templateUrl: './add-return-request-dialog.component.html',
   styleUrl: './add-return-request-dialog.component.scss',
 })
-export class AddReturnRequestDialogComponent {
+export class AddReturnRequestDialogComponent implements OnDestroy {
   returnProducts: ReturnOrderProductViewModel[] = [];
   returnReasons: ReturnReasonViewModel[] = [];
   destroy$ = new Subject<void>();
   selectedReasonId: number = -1;
 
   isFormSubmitted = false;
-  isLoading = false;
-  submitLoading = false;
-  reasonLoading = true;
   returnOrderForm!: FormGroup;
   public get reason(): FormControl {
     return this.returnOrderForm.get('reason') as FormControl;
@@ -85,13 +83,15 @@ export class AddReturnRequestDialogComponent {
   }
 
   constructor(
-    private _profileRepository: ProfileRepository,
-    private _dialogRef: MatDialogRef<AddReturnRequestDialogComponent>,
-    public persianDateTimeService: PersianDateTimeService,
+    private readonly _profileRepository: ProfileRepository,
+    private readonly _dialogRef: MatDialogRef<AddReturnRequestDialogComponent>,
     private _snackBarService: SnackBarService,
+    public persianDateTimeService: PersianDateTimeService,
+    public loadingService: LoadingService,
 
     @Inject(MAT_DIALOG_DATA) public data: OrderCanReturnViewModel
   ) {
+    loadingService.startLoading('read', 'returnReasons');
     this.getReturnReasons();
     this._initForm();
   }
@@ -105,6 +105,8 @@ export class AddReturnRequestDialogComponent {
 
   close() {
     this._dialogRef.close(true);
+    this.destroy$.next();
+    this.destroy$.complete();
     this.isFormSubmitted = false;
   }
 
@@ -112,15 +114,15 @@ export class AddReturnRequestDialogComponent {
     this._profileRepository
       .getReturnReasons()
       .pipe(
-        tap(() => (this.reasonLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'returnReasons')),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        (result) => {
+      .subscribe({
+        next: (result) => {
           this.returnReasons = [...result.result!];
         },
-        () => (this.reasonLoading = false)
-      );
+        error: () => this.loadingService.stopLoading('read', 'returnReasons'),
+      });
   }
 
   addReturnProductList(returnProductItem: ReturnOrderProductViewModel) {
@@ -153,7 +155,7 @@ export class AddReturnRequestDialogComponent {
   sumbitForm() {
     this.isFormSubmitted = true;
     if (this.returnProducts.length > 0 && this.returnOrderForm.valid) {
-      this.submitLoading = true;
+      this.loadingService.startLoading('add', 'submitReturnRequest');
       const dto = {
         billId: this.data.id,
         description: this.description.value,
@@ -166,18 +168,26 @@ export class AddReturnRequestDialogComponent {
       this._profileRepository
         .addReturnRequest(dto)
         .pipe(
-          tap(() => (this.submitLoading = false)),
+          tap(() =>
+            this.loadingService.stopLoading('add', 'submitReturnRequest')
+          ),
           takeUntil(this.destroy$)
         )
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this._snackBarService.showSuccessSnackBar(
               'درخواست شما با موفقیت ثبت گردید'
             );
             this.close();
           },
-          () => (this.submitLoading = false)
-        );
+          error: () =>
+            this.loadingService.stopLoading('add', 'submitReturnRequest'),
+        });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

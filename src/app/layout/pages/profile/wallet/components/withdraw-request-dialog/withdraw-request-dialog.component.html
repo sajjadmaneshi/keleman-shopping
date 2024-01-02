@@ -57,7 +57,10 @@
         class="btn btn-warning text-white"
         type="submit"
         kelemanLoadingProgress
-        [loading]="submitLoading"
+        [loading]="
+          (loadingService.getLoadingStateObservable('add', 'withdrawRequest')
+            | async)!
+        "
       >
         ثبت درخواست
       </button>

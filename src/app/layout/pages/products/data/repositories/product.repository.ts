@@ -24,10 +24,7 @@ import { PackageItemsViewModel } from '../models/view-models/package-items.view-
 export class ProductRepository extends DataService<
   HttpClientResult<CategorySimpleInfoViewModel>
 > {
-  constructor(
-    _http: HttpClient,
-    private _searchService: SearchService<ProductViewModel>
-  ) {
+  constructor(_http: HttpClient, private _searchService: SearchService) {
     super('product', _http);
   }
 

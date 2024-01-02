@@ -31,7 +31,10 @@
             [formControl]="reason"
             [label]="'دلیل مرجوعی'"
             [placeHolder]="'دلیل مرجوعی'"
-            [isLoading]="isLoading"
+            [isLoading]="
+              (loadingService.getLoadingStateObservable('read', 'returnReasons')
+                | async)!
+            "
             [isInavlid]="reason.invalid && isFormSubmitted"
             (onSelectionChange)="selectReason($event)"
           >
@@ -46,12 +49,7 @@
         <div class="col-12 col-md-6 mb-3 orders">
           <span class="mb-3">محصولات</span>
           <div class="product-list">
-            @if(isLoading){
-            <ngx-skeleton-loader
-              [theme]="{ width: '100%', height: '100px' }"
-              count="3"
-            ></ngx-skeleton-loader>
-            } @else if (data.products.length>0){
+            @if (data.products.length>0){
 
             <div class="order-list">
               @for (product of data.products;track data.id){
@@ -91,7 +89,10 @@
     class="btn btn-warning mx-1"
     [disabled]="returnProducts.length === 0"
     kelemanLoadingProgress
-    [loading]="submitLoading"
+    [loading]="
+      (loadingService.getLoadingStateObservable('read', 'returnReasons')
+        | async)!
+    "
     (click)="sumbitForm()"
   >
     ثبت درخواست

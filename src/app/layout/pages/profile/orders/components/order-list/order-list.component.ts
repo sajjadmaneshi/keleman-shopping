@@ -1,54 +1,48 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { OrderViewModel } from '../../../data/view-models/order.view.model';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
+import { OrderViewModel } from '../../../data/view-models/order.view-model';
 import { ProfileRepository } from '../../../data/profile.repository';
 import { map, Subject, takeUntil, tap } from 'rxjs';
 import { OrdersStatusEnum } from '../../../data/enums/orders-status.enum';
-import { SelectedFilterModel } from '../../../../products/product-list/components/product-filters/data/selected-filter.model';
-import { OrdersComponent } from '../../orders.component';
-
+import { LoadingService } from '../../../../../../../common/services/loading.service';
 @Component({
   selector: 'keleman-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss'],
 })
 export class OrderListComponent implements OnDestroy, AfterViewInit {
-  orderPaidStatus: boolean | undefined;
-
   @Input() status: OrdersStatusEnum = OrdersStatusEnum.Current;
 
+  orderPaidStatus: boolean | undefined;
   statusEnum = OrdersStatusEnum;
-
-  isLoading = true;
   orders: OrderViewModel[] = [];
   totalElements = 0;
-
   page = 1;
   limit = 5;
-
   isPaid = false;
-
   destroy$ = new Subject<void>();
 
-  constructor(private readonly _profileRepository: ProfileRepository) {}
+  constructor(
+    private readonly _profileRepository: ProfileRepository,
+    public loadingService: LoadingService
+  ) {
+    loadingService.startLoading('read', 'orders');
+  }
 
   private _getOrders() {
     this._profileRepository
       .getOrders(this.page - 1, this.limit, this.orderPaidStatus, this.status)
       .pipe(
-        tap(() => (this.isLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'orders')),
         takeUntil(this.destroy$),
         map((order) => order.result!)
       )
 
-      .subscribe((result) => {
-        this.orders = [...result.items];
-        this.totalElements = result.totalElements;
+      .subscribe({
+        next: (result) => {
+          this.orders = [...result.items];
+          this.totalElements = result.totalElements;
+        },
+        error: () => this.loadingService.stopLoading('read', 'orders'),
       });
   }
 

@@ -12,7 +12,7 @@ export class WalletComponent {
   printableContent!: ElementRef;
   showRequest = false;
   updateRequests = false;
-  constructor(private _matDialog: MatDialog) {}
+  constructor(private readonly _matDialog: MatDialog) {}
 
   openWithdrawRequestDialog() {
     this._matDialog

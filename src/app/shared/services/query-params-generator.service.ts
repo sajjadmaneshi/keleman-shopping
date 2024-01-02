@@ -7,7 +7,6 @@ import { RouteHandlerService } from './route-handler/route-handler.service';
 })
 export class QueryParamGeneratorService {
   private queryParams: string[] = [];
-  private _queryParamsOrder: string[] = [];
 
   constructor(private _routerHandlerService: RouteHandlerService) {}
 
@@ -26,7 +25,7 @@ export class QueryParamGeneratorService {
 
   generateSearchQueryParam(value?: string): QueryParamGeneratorService {
     const key = 'q';
-    const param = `q=${encodeURIComponent(value ?? '')}`;
+    const param = `${key}=${encodeURIComponent(value ?? '')}`;
     this.addToQueryParams(param);
     return this;
   }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProfileRepository } from '../data/profile.repository';
@@ -14,13 +14,8 @@ import { OrdersStatusEnum } from '../data/enums/orders-status.enum';
 })
 export class OrdersComponent implements OnDestroy {
   orderStatus = OrdersStatusEnum;
-
   selectedIndex$ = new BehaviorSubject<number | null>(null);
-
-  isLoading = true;
-
   destroy$ = new Subject<void>();
-
   orderCounts = new OrderCountViewModel();
 
   constructor(

@@ -1,13 +1,5 @@
-<ng-container
-  *ngIf="
-    applicationState.isPhone || applicationState.isTablet;
-    then mobileView;
-    else desktopView
-  "
-></ng-container>
-<ng-template #mobileView>
-  <keleman-profile-mobile-menu></keleman-profile-mobile-menu>
-</ng-template>
-<ng-template #desktopView>
-  <keleman-personal-info></keleman-personal-info>
-</ng-template>
+@if ( applicationState.isPhone || applicationState.isTablet){
+<keleman-profile-menu></keleman-profile-menu>
+} @else {
+<keleman-personal-info></keleman-personal-info>
+}

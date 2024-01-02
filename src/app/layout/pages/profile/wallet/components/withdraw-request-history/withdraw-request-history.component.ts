@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { map, Subject, takeUntil, tap } from 'rxjs';
-import { WithdrawRequestViewModel } from '../../../data/view-models/withdraw-request-view.model';
+import { WithdrawRequestViewModel } from '../../../data/view-models/withdraw-request.view-model';
 import { ProfileRepository } from '../../../data/profile.repository';
 import { PersianDateTimeService } from '../../../../../../shared/services/date-time/persian-datetime.service';
 import { WithdrawRequestStatusEnum } from '../../../data/enums/withdraw-request-status.enum';

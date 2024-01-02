@@ -2,12 +2,13 @@
   <li class="label text-warning fw-bold d-none d-md-block">
     مرتب سازی بر اساس:
   </li>
+  @for (sortItem of productFilterService.sortItems;track sortItem.title){
   <li
-    *ngFor="let sortItem of productFilterService.sortItems"
     [ngClass]="{ selected: selectedSortValue === sortItem.value }"
     (click)="selectSort(sortItem.value)"
     class="cursor-pointer"
   >
     <a>{{ sortItem.title }}</a>
   </li>
+  }
 </ul>

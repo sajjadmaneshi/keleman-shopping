@@ -9,6 +9,4 @@ import { ENVIRONMENT } from '../../../../../../../environments/environment';
 })
 export class ProductItemComponent {
   @Input() product!: ProductViewModel;
-
-  downloadUrl = ENVIRONMENT.downloadUrl;
 }

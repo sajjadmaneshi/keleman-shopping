@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, Subject, takeUntil, tap } from 'rxjs';
@@ -6,6 +6,7 @@ import { PersianDateTimeService } from 'src/app/shared/services/date-time/persia
 import { ProfileRepository } from '../data/profile.repository';
 import { CreditTransactionViewModel } from '../data/view-models/credit-transaction.view-model';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
+import { LoadingService } from '../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-credits',
@@ -33,13 +34,13 @@ export class CreditsComponent {
 
   isPaid: boolean | undefined;
 
-  isLoading = true;
-
   constructor(
     private readonly _profileRepositoy: ProfileRepository,
     public readonly persianDateTimeService: PersianDateTimeService,
-    public readonly applicationState: ApplicationStateService
+    public readonly applicationState: ApplicationStateService,
+    public readonly loadingService: LoadingService
   ) {
+    this.loadingService.startLoading('read', 'creditTransaction');
     this.getTransactions();
   }
 
@@ -50,17 +51,21 @@ export class CreditsComponent {
     this._profileRepositoy
       .getCreditTransactions(this.page - 1, this.limit, isPaid)
       .pipe(
-        tap(() => (this.isLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'creditTransaction')),
         takeUntil(this.destroy$),
         map((t) => t.result!)
       )
-      .subscribe((res) => {
-        this.transactions = [...res.items];
-        this.dataSource = new MatTableDataSource<CreditTransactionViewModel>(
-          this.transactions
-        );
-        this.dataSource.sort = this.sort;
-        this.totalElement = res.totalElements;
+      .subscribe({
+        next: (res) => {
+          this.transactions = [...res.items];
+          this.dataSource = new MatTableDataSource<CreditTransactionViewModel>(
+            this.transactions
+          );
+          this.dataSource.sort = this.sort;
+          this.totalElement = res.totalElements;
+        },
+        error: () =>
+          this.loadingService.stopLoading('read', 'creditTransaction'),
       });
   }
 

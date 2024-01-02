@@ -56,16 +56,9 @@ export class InitialAppService implements OnDestroy {
       )
       .subscribe(([isAuthenticated, productcategories, articleCategories]) => {
         if (isAuthenticated) {
-          this._profileService.getPersonalInfo().then((result) => {
-            this.userSimpleInfo.next(result!);
-          });
-          this.getUserCredit();
-          if (isPlatformBrowser(this.platformId)) {
-            if (!localStorage.getItem('MERGED_BASKET')) {
-              this._basketService.mergeBasket();
-            }
-          }
+          this.handleAuthenticatedUserActions();
         }
+
         this._basketService.cartBalance();
 
         if (productcategories) this.productCategories.next(productcategories);
@@ -73,10 +66,23 @@ export class InitialAppService implements OnDestroy {
       });
   }
 
-  public getUserCredit() {
-    this._profileService.getUserAccount().then((result) => {
-      this.userCredit.next(result!);
-    });
+  private async handleAuthenticatedUserActions() {
+    const result = await this._profileService.getPersonalInfo();
+    this.userSimpleInfo.next(result!);
+
+    this.getUserCredit();
+
+    if (
+      isPlatformBrowser(this.platformId) &&
+      !localStorage.getItem('MERGED_BASKET')
+    ) {
+      this._basketService.mergeBasket();
+    }
+  }
+
+  public async getUserCredit() {
+    const result = await this._profileService.getUserAccount();
+    this.userCredit.next(result!);
   }
 
   ngOnDestroy(): void {

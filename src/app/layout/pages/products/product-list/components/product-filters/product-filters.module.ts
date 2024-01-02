@@ -10,9 +10,7 @@ import { BottomSheetComponent } from '../../../../../../shared/components/bottom
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { ActivatedRoute } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
-import { ProductsModule } from '../../../products.module';
 import { FilterOptionService } from '../../../services/filter-option.service';
 import { FilterOptionBottomSheetComponent } from './components/filter-option-bottom-sheet/filter-option-bottom-sheet.component';
 

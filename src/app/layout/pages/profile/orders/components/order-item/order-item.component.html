@@ -7,9 +7,10 @@
       جزئیات سفارش
     </button>
     <div class="row g-1">
+      @for (product of orderDetail.products | slice : 0 : 3;track product.id){
+      @defer {
       <a
         class="col-12 col-md-4 mb-3"
-        *ngFor="let product of orderDetail.products | slice : 0 : 3"
         [routerLink]="['/products/detail/' + product.url]"
       >
         <div
@@ -26,6 +27,7 @@
           </div>
         </div>
       </a>
+      } }
     </div>
     <mat-divider class="mb-3"></mat-divider>
     <div class="d-flex align-items-start position-relative order-details">
@@ -75,49 +77,36 @@
         </span>
       </div>
 
-      <ng-container
-        *ngIf="
-          applicationState.isPhone || applicationState.isTablet;
-          then mobileMenu;
-          else desktopMenu
-        "
+      @if(applicationState.isPhone || applicationState.isTablet){
+      <mat-icon class="show-more" [matMenuTriggerFor]="menu"
+        >more_vert</mat-icon
       >
-      </ng-container>
-      <ng-template #desktopMenu>
-        <div class="d-flex flex-column justify-content-between h-100">
-          <mat-chip-option
-            class="align-self-end"
-            [selected]="orderDetail.isPaid"
-            [ngClass]="[orderDetail.isPaid ? 'paid-chip' : 'notPaid-chip']"
-          >
-            {{ orderDetail.isPaid ? "پرداخت شده" : "پرداخت نشده" }}
-          </mat-chip-option>
-          <span class="d-flex align-items-center align-self-end">
-            <a
-              class="text-warning mx-1 cursor-pointer"
-              (click)="getOrderFactor()"
-              >مشاهده فاکتور</a
-            >
-            <a
-              *ngIf="orderStatus == orderstatusEnum.Delivered"
-              class="text-danger mx-1 cursor-pointer"
-              (click)="openReturnRequestDialog()"
-              >درخواست مرجوعی</a
-            >
-          </span>
-        </div>
-      </ng-template>
-      <ng-template #mobileMenu>
-        <mat-icon class="show-more" [matMenuTriggerFor]="menu"
-          >more_vert</mat-icon
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="getOrderFactor()">مشاهده فاکتور</button>
+        <button mat-menu-item>درخواست مرجوعی</button>
+      </mat-menu>
+      } @else {
+      <div class="d-flex flex-column justify-content-between h-100">
+        <mat-chip-option
+          class="align-self-end"
+          [selected]="orderDetail.isPaid"
+          [ngClass]="[orderDetail.isPaid ? 'paid-chip' : 'notPaid-chip']"
         >
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="getOrderFactor()">
-            مشاهده فاکتور
-          </button>
-          <button mat-menu-item>درخواست مرجوعی</button>
-        </mat-menu>
-      </ng-template>
+          {{ orderDetail.isPaid ? "پرداخت شده" : "پرداخت نشده" }}
+        </mat-chip-option>
+        <span class="d-flex align-items-center align-self-end">
+          <a class="text-warning mx-1 cursor-pointer" (click)="getOrderFactor()"
+            >مشاهده فاکتور</a
+          >
+          <a
+            *ngIf="orderStatus == orderstatusEnum.Delivered"
+            class="text-danger mx-1 cursor-pointer"
+            (click)="openReturnRequestDialog()"
+            >درخواست مرجوعی</a
+          >
+        </span>
+      </div>
+      }
     </div>
   </div>
 </div>

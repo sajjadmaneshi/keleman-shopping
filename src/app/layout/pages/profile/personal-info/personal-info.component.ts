@@ -1,25 +1,13 @@
-import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  EmailValidator,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { nationalCodeValidator } from '../../../../shared/validators/national-code.validator';
 import { ProfileViewModel } from '../data/view-models/profile.view-model';
 import { ProfileRepository } from '../data/profile.repository';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
 import { ProfileDto } from '../data/dto/profile.dto';
-import { ProfileService } from '../shared/profile.service';
 import { SnackBarService } from '../../../../shared/components/snack-bar/snack-bar.service';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
+import { LoadingService } from '../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-personal-info',
@@ -30,13 +18,8 @@ export class PersonalInfoComponent implements OnDestroy, OnInit {
   personalInfoForm!: FormGroup;
   activeEditMainDetails = false;
   isFormSubmitted = false;
-
-  isLoading = false;
-
   destroy$ = new Subject<void>();
-
   phoneNumber!: string;
-
   personalInfo!: ProfileViewModel;
 
   public get firstName(): FormControl {
@@ -56,11 +39,14 @@ export class PersonalInfoComponent implements OnDestroy, OnInit {
 
   constructor(
     private readonly _profileRepository: ProfileRepository,
-
     private readonly _snackBarService: SnackBarService,
-    private readonly _initialAppService: InitialAppService
+    private readonly _initialAppService: InitialAppService,
+    public readonly loadingService: LoadingService
   ) {
     this._initForm();
+  }
+  ngOnInit(): void {
+    this._setFormData();
   }
 
   private _initForm() {
@@ -86,7 +72,8 @@ export class PersonalInfoComponent implements OnDestroy, OnInit {
   submitForm() {
     this.isFormSubmitted = true;
     if (this.personalInfoForm.valid) {
-      this.isLoading = true;
+      this.loadingService.startLoading('add', 'submitPersonalInfo');
+
       const dto = {
         firstName: this.firstName.value,
         lastName: this.lastName.value,
@@ -99,17 +86,18 @@ export class PersonalInfoComponent implements OnDestroy, OnInit {
         .pipe(
           tap(
             () => (
-              (this.isLoading = false),
+              this.loadingService.stopLoading('add', 'submitPersonalInfo'),
               (this.isFormSubmitted = false),
               (this.activeEditMainDetails = false)
             )
           ),
           takeUntil(this.destroy$)
         )
-        .subscribe(
-          () => this._handleSuccessRequest(dto),
-          () => (this.isLoading = false)
-        );
+        .subscribe({
+          next: () => this._handleSuccessRequest(dto),
+          error: () =>
+            this.loadingService.stopLoading('add', 'submitPersonalInfo'),
+        });
     }
   }
 
@@ -124,9 +112,5 @@ export class PersonalInfoComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  ngOnInit(): void {
-    this._setFormData();
   }
 }

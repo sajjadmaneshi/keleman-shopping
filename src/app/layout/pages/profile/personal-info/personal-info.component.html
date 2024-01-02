@@ -109,7 +109,12 @@
           class="btn btn-warning"
           type="submit"
           kelemanLoadingProgress
-          [loading]="isLoading"
+          [loading]="
+            (loadingService.getLoadingStateObservable(
+              'add',
+              'submitPersonalInfo'
+            ) | async)!
+          "
         >
           ثبت
         </button>
