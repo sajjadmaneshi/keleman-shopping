@@ -1,4 +1,4 @@
-import { ArticleSimpleDataViewModel } from './article-simple-data-view.model';
+import { ArticleSimpleDataViewModel } from './article-simple-data.view-model';
 
 export interface ArticleViewModel extends ArticleSimpleDataViewModel {
   customUrl: string;

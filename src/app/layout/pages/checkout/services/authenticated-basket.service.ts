@@ -20,7 +20,6 @@ export class AuthenticatedBasketService {
     private readonly _basketRepository: BasketRepository,
     private readonly _billRepository: BillRepository,
     private readonly _paymentRepository: PaymentRepository,
-
     private readonly _loadingService: LoadingService
   ) {}
 

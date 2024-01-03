@@ -1,13 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CheckoutService } from '../services/checkout.service';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  combineLatest,
-  takeUntil,
-} from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'keleman-checkout-stepper',

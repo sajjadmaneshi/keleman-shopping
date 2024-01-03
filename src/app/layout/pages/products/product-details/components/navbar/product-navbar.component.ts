@@ -30,8 +30,6 @@ export class ProductNavbarComponent implements AfterViewInit {
   ) {}
 
   makeSticky() {
-    const menuPosition =
-      this.menuElement.nativeElement.getBoundingClientRect().top;
     const headerHeight = document
       .getElementById('keleman-header')
       ?.getBoundingClientRect().height;
@@ -43,10 +41,10 @@ export class ProductNavbarComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (isPlatformBrowser(this._platformId)) {
-      if (this.applicationState.isTablet || this.applicationState.isPhone) {
-        this.makeSticky();
-      }
-    }
+    if (
+      isPlatformBrowser(this._platformId) &&
+      (this.applicationState.isTablet || this.applicationState.isPhone)
+    )
+      this.makeSticky();
   }
 }

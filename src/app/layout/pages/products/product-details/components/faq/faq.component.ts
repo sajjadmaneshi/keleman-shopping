@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Subscription, tap } from 'rxjs';
-import { FaqViewModel } from './data/model/faq.view-model';
+import { Subscription, tap } from 'rxjs';
+import { FaqViewModel } from './data/faq.view-model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddQuestionDialogComponent } from './add-question-dialog/add-question-dialog.component';
 import { FaqListDialogComponent } from './faq-list-dialog/faq-list-dialog.component';
@@ -10,7 +10,6 @@ import { AlertDialogComponent } from '../../../../../../shared/components/alert-
 import { Routing } from '../../../../../../routing';
 import { AlertDialogDataModel } from '../../../../../../shared/components/alert-dialog/alert-dialog-data.model';
 import { Router } from '@angular/router';
-import { ArticleCommentViewModel } from '../../../../../../shared/data/models/article-comment.view-model';
 @Component({
   selector: 'keleman-faq',
   templateUrl: './faq.component.html',
@@ -18,7 +17,7 @@ import { ArticleCommentViewModel } from '../../../../../../shared/data/models/ar
   providers: [FaqRepository],
 })
 export class FAQComponent implements OnInit, OnDestroy {
-  isLoading = false;
+  isLoading = true;
 
   @Input() productId!: number;
 
@@ -53,17 +52,13 @@ export class FAQComponent implements OnInit, OnDestroy {
     });
   }
 
-  tranckByFn(index: number, item: FaqViewModel) {
-    return item.id;
-  }
-
   public addquestion() {
     if (this.isLoggedIn) this.openAddQuestionDialog();
     else this.openRegisterBeforeActionDialog();
   }
 
   openRegisterBeforeActionDialog() {
-    const dialogRef = this._dialog.open(AlertDialogComponent, {
+    this._dialog.open(AlertDialogComponent, {
       data: {
         message: 'لطفا برای ثبت پرسش ابتدا وارد سایت شوید',
         callBackButtonText: 'واردشوید',
@@ -76,18 +71,16 @@ export class FAQComponent implements OnInit, OnDestroy {
   }
 
   private _getAllQuetions() {
-    this.isLoading;
     const faq$ = this._faqRepository
       .getAllQuestions(this.productId)
       .pipe(tap(() => (this.isLoading = false)))
-      .subscribe((result) => {
-        this.questions = [...result.result!];
+      .subscribe({
+        next: (result) => {
+          this.questions = [...result.result!];
+        },
+        error: () => (this.isLoading = false),
       });
     this.subscriptions.add(faq$);
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -97,5 +90,9 @@ export class FAQComponent implements OnInit, OnDestroy {
     this._authService.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

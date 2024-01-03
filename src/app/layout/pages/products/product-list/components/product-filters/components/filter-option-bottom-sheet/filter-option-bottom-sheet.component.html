@@ -6,10 +6,7 @@
       <span class="d-flex align-items-center chip-text">
         <mat-icon
           class="cursor-pointer m-0"
-          (click)="
-            filterOptionService.removeFilter($event, selectedItem);
-            selectedItem = undefined
-          "
+          (click)="removeFilter($event, selectedItem)"
           >cancel</mat-icon
         >
         {{ selectedItem.title }}

@@ -1,8 +1,6 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
-
-import { AuthenticatedBasketService } from '../purchase/authenticated-basket.service';
 import { Routing } from '../../../../routing';
 import { BasketService } from '../services/basket.service';
 @Injectable({ providedIn: 'root' })

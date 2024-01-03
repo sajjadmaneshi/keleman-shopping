@@ -4,10 +4,8 @@
 
     @if (comments.length > 0){
     <mat-list>
-      <mat-list-item
-        *ngFor="let comment of comments; trackBy: tranckByFn"
-        class="px-0"
-      >
+      @for (comment of comments;track comment.id){
+      <mat-list-item class="px-0">
         <div matListItemIcon class="symbol symbol-10 symbol-circle mx-3">
           <img src="assets/media/blank.webp" />
         </div>
@@ -29,6 +27,7 @@
         </div>
         <div matListItemLine [innerHTML]="comment.comment"></div>
       </mat-list-item>
+      }
     </mat-list>
     <mat-divider></mat-divider>
     } @else {
@@ -71,7 +70,12 @@
       <button
         class="btn btn-klm-primary rounded-pill float-start keleman-button"
         kelemanLoadingProgress
-        [loading]="addCommentLoading"
+        [loading]="
+          (this.loadingService.getLoadingStateObservable(
+            'add',
+            'articleComment'
+          ) | async)!
+        "
         type="submit"
       >
         فرستادن دیدگاه

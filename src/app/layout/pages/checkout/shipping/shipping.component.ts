@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { UserAddressViewModel } from '../../profile/data/view-models/user-address.view-model';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil, tap } from 'rxjs';
@@ -10,14 +10,13 @@ import { BasketService } from '../services/basket.service';
 @Component({
   selector: 'keleman-shipping',
   templateUrl: './shipping.component.html',
-  styleUrls: ['./shipping.component.scss'],
 })
-export class ShippingComponent {
+export class ShippingComponent implements OnDestroy {
   address!: UserAddressViewModel;
   destroy$ = new Subject<void>();
 
   constructor(
-    private _dialog: MatDialog,
+    private readonly _dialog: MatDialog,
     private readonly _profileRepository: ProfileRepository,
     private readonly _basketService: BasketService,
     public readonly loadingSerivce: LoadingService
@@ -55,8 +54,14 @@ export class ShippingComponent {
         autoFocus: false,
       })
       .afterClosed()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         if (res) this.address = res;
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

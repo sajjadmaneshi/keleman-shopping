@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PersianDateTimeService } from '../../services/date-time/persian-datetime.service';
 import { LazyLoadingDirective } from '../../directives/lazy-loading.directive';
 import { RouterModule } from '@angular/router';
-import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/view-models/article-simple-data-view.model';
+import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/view-models/article-simple-data.view-model';
 import { EmptyImageDirective } from '../../directives/empty-image.directive';
 import { ENVIRONMENT } from '../../../../environments/environment';
 

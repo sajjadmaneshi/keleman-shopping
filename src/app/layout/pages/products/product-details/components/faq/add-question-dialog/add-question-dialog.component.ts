@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { FaqRepository } from '../data/faq.repository';
 import { Subscription, tap } from 'rxjs';
@@ -9,10 +9,9 @@ import { FaqDto } from '../data/faq.dto';
 @Component({
   selector: 'keleman-add-question-dialog',
   templateUrl: './add-question-dialog.component.html',
-  styleUrls: ['./add-question-dialog.component.scss'],
   providers: [FaqRepository],
 })
-export class AddQuestionDialogComponent {
+export class AddQuestionDialogComponent implements OnDestroy {
   isFormSubmitted = false;
   isLoading = false;
   question = new FormControl('', Validators.required);
@@ -37,12 +36,10 @@ export class AddQuestionDialogComponent {
       this.subscription = this._faqRepository
         .addQuestion(dto)
         .pipe(tap(() => (this.isLoading = false)))
-        .subscribe(
-          (result) => this._showSuccessMessage(),
-          (error) => {
-            this.isLoading = false;
-          }
-        );
+        .subscribe({
+          next: () => this._showSuccessMessage(),
+          error: () => (this.isLoading = false),
+        });
     }
   }
   private _showSuccessMessage() {
@@ -50,5 +47,9 @@ export class AddQuestionDialogComponent {
     this.isFormSubmitted = false;
     this.question.reset();
     this.dialogRef.close();
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }

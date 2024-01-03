@@ -6,6 +6,14 @@ import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
   standalone: true,
   imports: [MatDialogActions, MatDialogContent],
   templateUrl: './transfer-to-bank-dialog.component.html',
-  styleUrl: './transfer-to-bank-dialog.component.scss',
+  styles: [
+    `
+      .transfer-to-bank {
+        img {
+          width: 35%;
+        }
+      }
+    `,
+  ],
 })
 export class TransferToBankDialogComponent {}

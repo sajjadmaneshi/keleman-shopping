@@ -1,5 +1,5 @@
-import { AuthenticatedBasketService } from '../purchase/authenticated-basket.service';
-import { GuestBasketService } from '../guest-basket.service';
+import { AuthenticatedBasketService } from './authenticated-basket.service';
+import { GuestBasketService } from './guest-basket.service';
 import { AddToCartDto } from '../data/dto/add-to-cart.dto';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';

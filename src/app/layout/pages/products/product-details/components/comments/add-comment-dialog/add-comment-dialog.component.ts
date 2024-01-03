@@ -1,9 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommentRepository } from '../../../../../../../shared/data/repositories/comment.repository';
 import { AddProductCommentDto } from '../../../../data/models/dto/add-product-comment.dto';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductCommentViewModel } from '../../../../data/models/view-models/product-comment.view-model';
 import { Subscription, tap } from 'rxjs';
 import { SnackBarService } from '../../../../../../../shared/components/snack-bar/snack-bar.service';
 
@@ -12,7 +11,7 @@ import { SnackBarService } from '../../../../../../../shared/components/snack-ba
   templateUrl: './add-comment-dialog.component.html',
   styleUrls: ['./add-comment-dialog.component.scss'],
 })
-export class AddCommentDialogComponent {
+export class AddCommentDialogComponent implements OnDestroy {
   commentForm!: FormGroup;
   isFormSubmitted = false;
 
@@ -56,12 +55,10 @@ export class AddCommentDialogComponent {
       this.subscription = this._commentRepository
         .addProductComment(dto)
         .pipe(tap(() => (this.isLoading = false)))
-        .subscribe(
-          (result) => this._showSuccessMessage(),
-          (error) => {
-            this.isLoading = false;
-          }
-        );
+        .subscribe({
+          next: () => this._showSuccessMessage(),
+          error: () => (this.isLoading = false),
+        });
     }
   }
 
@@ -79,5 +76,9 @@ export class AddCommentDialogComponent {
     this.commentForm = new FormGroup<any>({
       comment: new FormControl('', Validators.required),
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }

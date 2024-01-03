@@ -1,7 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { ProductRepository } from '../../../data/repositories/product.repository';
-import { ProductDescriptionsViewModel } from '../../../data/models/view-models/product-descriptions.view-model';
-import { map, Subscription, tap } from 'rxjs';
+import { Component } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 
 @Component({
@@ -9,11 +6,6 @@ import { ProductService } from '../../../services/product.service';
   templateUrl: './product-specifications.component.html',
 })
 export class ProductSpecificationsComponent {
-  isLoading = true;
-
-  productDescriptions!: ProductDescriptionsViewModel;
-
-  subscription!: Subscription;
   constructor(private _productService: ProductService) {
     this._productService.getProductDescriptions();
   }

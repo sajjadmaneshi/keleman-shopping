@@ -1,5 +1,5 @@
 import { ProductViewModel } from 'src/app/layout/pages/products/data/models/view-models/product.view-model';
-import { ArticleSimpleDataViewModel } from '../../layout/pages/magazine/data/view-models/article-simple-data-view.model';
+import { ArticleSimpleDataViewModel } from '../../layout/pages/magazine/data/view-models/article-simple-data.view-model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClientResult } from '../data/models/http/http-client.result';

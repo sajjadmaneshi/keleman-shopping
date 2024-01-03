@@ -81,7 +81,7 @@
         }
       </div>
       <div class="action-buttons">
-        @if(favoriteLoading){
+        @if((loadingService.getLoadingStateObservable('add','doFavorite')|async)!){
         <mat-spinner [diameter]="20"></mat-spinner>
         } @else {
         <span
@@ -138,7 +138,9 @@
   <div class="col-12 col-lg-7">
     <keleman-product-album
       class="d-none d-lg-block"
-      [isLoading]="gallaryLoading"
+      [isLoading]="
+        loadingService.getLoadingStateObservable('read', 'productGallery')
+      "
       [gallery]="gallary"
       (imageClick)="LoadNewImage($event)"
     ></keleman-product-album>

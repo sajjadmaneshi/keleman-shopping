@@ -13,6 +13,8 @@ import { BasketItemViewModel } from '../../checkout/data/models/basket-item.view
 import { AddToCartDto } from '../../checkout/data/dto/add-to-cart.dto';
 import { UpdateBasketDto } from '../../checkout/data/dto/update-basket.dto';
 import { BasketService } from '../../checkout/services/basket.service';
+import { LoadingService } from '../../../../../common/services/loading.service';
+import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
 
 @Component({
   selector: 'app-product-details',
@@ -22,7 +24,6 @@ import { BasketService } from '../../checkout/services/basket.service';
 })
 export class ProductDetailsComponent implements OnInit {
   productDetails!: ProductDetailViewModel;
-  isLoading = false;
   productStatus: AvailableStatusEnum = AvailableStatusEnum.AVAILABLE;
   availableStatusEnum = AvailableStatusEnum;
   isInBasket = false;
@@ -32,6 +33,7 @@ export class ProductDetailsComponent implements OnInit {
   private destroy$ = new Subject<void>();
   constructor(
     public readonly applicationState: ApplicationStateService,
+    public readonly loadingService: LoadingService,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _productRepository: ProductRepository,
     private readonly _productService: ProductService,
@@ -40,9 +42,12 @@ export class ProductDetailsComponent implements OnInit {
     private readonly _metaDataService: ModifyMetaDataService,
     @Inject(DOCUMENT) private document: Document
   ) {
+    loadingService.startLoading('read', 'productDetails');
+
     this._authService.isLoggedIn$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => (this.isLoggedIn = res));
+
     this._basketService.productCountInBasket$.subscribe((result) => {
       this.inBasketCount = result;
     });
@@ -63,24 +68,31 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   private _getProductDetails() {
-    this.isLoading = true;
     this._productRepository
       .getProductDetails(this._productService.productUrl)
       .pipe(
-        tap(() => (this.isLoading = false)),
+        tap(() => this.loadingService.stopLoading('read', 'productDetails')),
         takeUntil(this.destroy$)
       )
-      .subscribe((result) => {
-        this.productDetails = result.result!;
-        this._metaDataService.setMetaData(
-          this.productDetails.seoTitle,
-          this.productDetails.seoDescription
-        );
-        this.productStatus = this._productService.getProductStatus(
-          this.productDetails
-        );
-        this.checkBasketStatus();
+      .subscribe({
+        next: (result) => this._handleSuccessRequest(result),
+
+        error: () => this.loadingService.stopLoading('read', 'productDetails'),
       });
+  }
+
+  private _handleSuccessRequest(
+    response: HttpClientResult<ProductDetailViewModel>
+  ) {
+    this.productDetails = response.result!;
+    this._metaDataService.setMetaData(
+      this.productDetails.seoTitle,
+      this.productDetails.seoDescription
+    );
+    this.productStatus = this._productService.getProductStatus(
+      this.productDetails
+    );
+    this.checkBasketStatus();
   }
 
   private checkBasketStatus() {

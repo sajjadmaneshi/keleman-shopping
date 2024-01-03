@@ -23,6 +23,9 @@ import { BasketService } from '../../../../checkout/services/basket.service';
   styleUrls: ['./product-meta.component.scss'],
 })
 export class ProductMetaComponent implements OnInit, OnDestroy {
+  @Input() isLoggedIn = false;
+  @Input() productDetails!: ProductDetailViewModel;
+
   specifications!: ProductSpecificViewModel[];
   addToBasketLoading = false;
   isInBasket = false;
@@ -30,8 +33,6 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   packageItems!: PackageItemsViewModel;
   productValidationStatus!: ProductStatusViewModel;
-  @Input() isLoggedIn = false;
-  @Input() productDetails!: ProductDetailViewModel;
 
   constructor(
     private readonly _productService: ProductService,
@@ -42,14 +43,11 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
     public readonly sharedVariableService: SharedVariablesService
   ) {
     this._getProductSpecification();
-    this._basketService.productCountInBasket$.subscribe((result) => {
-      this.inBasketCount = result;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this._basketService.productCountInBasket$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.inBasketCount = result;
+      });
   }
 
   ngOnInit(): void {
@@ -135,6 +133,7 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
         data: this.packageItems || data,
       })
       .afterClosed()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result: PackageItemsViewModel) => {
         this.packageItems = result;
       });
@@ -158,5 +157,10 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
 
   private updateInBasketCount(): void {
     this._basketService.inBasketCount(this.productDetails.id);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

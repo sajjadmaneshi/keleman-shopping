@@ -1,7 +1,8 @@
 <div mat-dialog-content>
   <h3 class="text-center mb-3">پرسش ها ({{ data.length }})</h3>
   <div class="questions-list">
-    <div *ngFor="let question of data">
+    @for (question of data;track question.id){ @defer {
+    <div>
       <div
         class="card card-rounded-3 border border-gray-500 mb-3 bg-white question-item"
       >
@@ -25,22 +26,23 @@
           <p class="py-3">{{ question.text }}</p>
         </div>
       </div>
-      <ng-template [ngIf]="question.answer.text">
-        <div class="answer-section position-relative">
+      @if(question.answer.text){
+      <div class="answer-section position-relative">
+        <div
+          class="card card-rounded-3 border border-gray-500 mb-3 bg-white me-5 answer-card"
+        >
           <div
-            class="card card-rounded-3 border border-gray-500 mb-3 bg-white me-5 answer-card"
+            class="card-header d-flex justify-content-between p-3 border-bottom border-klm-primary"
           >
-            <div
-              class="card-header d-flex justify-content-between p-3 border-bottom border-klm-primary"
-            >
-              <h6 class="fw-bolder commenter-name">پاسخ مدیر</h6>
-            </div>
-            <div class="card-body">
-              <p class="py-3">{{ question.answer.text }}</p>
-            </div>
+            <h6 class="fw-bolder commenter-name">پاسخ مدیر</h6>
+          </div>
+          <div class="card-body">
+            <p class="py-3">{{ question.answer.text }}</p>
           </div>
         </div>
-      </ng-template>
+      </div>
+      }
     </div>
+    } }
   </div>
 </div>

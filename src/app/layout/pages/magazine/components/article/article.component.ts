@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { ArticleRepository } from '../../data/repositories/article.repository';
 import { ArticleViewModel } from '../../data/view-models/article.view-model';
 import { PersianDateTimeService } from '../../../../../shared/services/date-time/persian-datetime.service';
-import { ENVIRONMENT } from '../../../../../../environments/environment';
-import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simple-data-view.model';
+import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simple-data.view-model';
+import { LoadingService } from '../../../../../../common/services/loading.service';
+import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 
 @Component({
   selector: 'app-article',
@@ -16,19 +16,15 @@ import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simpl
 })
 export class ArticleComponent {
   pageUrl!: string;
-  isLoading = true;
-
   relatedArticles: ArticleSimpleDataViewModel[] = [];
   articleDetails!: ArticleViewModel;
-
-  downloadUrl = ENVIRONMENT.downloadUrl;
   private destroy$ = new Subject<void>();
   constructor(
-    private _met: Meta,
-    private _activatedRoute: ActivatedRoute,
-
-    private _articleRepository: ArticleRepository,
-    public persianDateTimeService: PersianDateTimeService
+    private readonly _met: Meta,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _articleRepository: ArticleRepository,
+    public readonly persianDateTimeService: PersianDateTimeService,
+    public readonly loadingService: LoadingService
   ) {
     this._getUrlFromRoute();
   }
@@ -43,31 +39,39 @@ export class ArticleComponent {
   }
 
   private _getArticleData() {
+    this.loadingService.startLoading('read', 'articleData');
     this._articleRepository
       .getSingleArticle(this.pageUrl)
       .pipe(
         takeUntil(this.destroy$),
-        tap(() => (this.isLoading = false))
+        tap(() => this.loadingService.stopLoading('read', 'articleData'))
       )
-      .subscribe((result) => {
-        this.articleDetails = result.result!;
-        this._getRelatedArticles();
-        this._met.updateTag({
-          name: 'title',
-          content: this.articleDetails.title,
-        });
+      .subscribe({
+        next: (result) => this._handleSuccessResult(result),
+        error: () => this.loadingService.stopLoading('read', 'articleData'),
       });
   }
 
+  private _handleSuccessResult(response: HttpClientResult<ArticleViewModel>) {
+    this.articleDetails = response.result!;
+    this._getRelatedArticles();
+    this._met.updateTag({
+      name: 'title',
+      content: this.articleDetails.title,
+    });
+  }
+
   private _getRelatedArticles() {
+    this.loadingService.startLoading('read', 'relatedArticles');
     this._articleRepository
       .getRelatedArticles(this.articleDetails.id)
       .pipe(
         takeUntil(this.destroy$),
-        tap(() => (this.isLoading = false))
+        tap(() => this.loadingService.stopLoading('read', 'relatedArticles'))
       )
-      .subscribe((result) => {
-        this.relatedArticles = result.result!;
+      .subscribe({
+        next: (result) => (this.relatedArticles = result.result!),
+        error: () => this.loadingService.stopLoading('read', 'relatedArticles'),
       });
   }
 }

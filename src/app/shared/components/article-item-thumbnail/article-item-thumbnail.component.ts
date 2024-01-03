@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PersianDateTimeService } from '../../services/date-time/persian-datetime.service';
 import { LazyLoadingDirective } from '../../directives/lazy-loading.directive';
-import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/view-models/article-simple-data-view.model';
+import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/view-models/article-simple-data.view-model';
 import { EmptyImageDirective } from '../../directives/empty-image.directive';
 import { ENVIRONMENT } from '../../../../environments/environment';
 import { RouterLink } from '@angular/router';

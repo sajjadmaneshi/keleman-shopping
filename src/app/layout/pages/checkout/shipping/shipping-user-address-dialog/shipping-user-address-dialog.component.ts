@@ -8,7 +8,7 @@ import { UserAddressViewModel } from '../../../profile/data/view-models/user-add
 import { ProfileRepository } from '../../../profile/data/profile.repository';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { LoadingService } from '../../../../../../common/services/loading.service';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { ModifyAddressDialogComponent } from '../../../profile/address/add-address-dialog/modify-address-dialog.component';
 
 @Component({
@@ -17,7 +17,7 @@ import { ModifyAddressDialogComponent } from '../../../profile/address/add-addre
   templateUrl: './shipping-user-address-dialog.component.html',
   styleUrl: './shipping-user-address-dialog.component.scss',
 })
-export class ShippingUserAddressDialogComponent {
+export class ShippingUserAddressDialogComponent implements OnDestroy {
   userAddresses: UserAddressViewModel[] = [];
   selectedAddress!: UserAddressViewModel;
 
@@ -44,15 +44,16 @@ export class ShippingUserAddressDialogComponent {
         ),
         takeUntil(this.destroy$)
       )
-      .subscribe(
-        (result) => {
+      .subscribe({
+        next: (result) => {
           this.userAddresses = [...result.result!];
           this.selectedAddress = this.userAddresses.find(
             (x) => x.id === this.selectedId
           )!;
         },
-        () => this.loadingService.stopLoading('read', 'getShippingAddresses')
-      );
+        error: () =>
+          this.loadingService.stopLoading('read', 'getShippingAddresses'),
+      });
   }
 
   modifyAddress(isEdit = false, address?: UserAddressViewModel) {
@@ -63,6 +64,7 @@ export class ShippingUserAddressDialogComponent {
         data: isEdit ? address : null,
       })
       .afterClosed()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         if (res) this.getAddresses();
       });
@@ -73,5 +75,10 @@ export class ShippingUserAddressDialogComponent {
   }
   submit() {
     this._dialogRef.close(this.selectedAddress);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ArticleRepository } from '../../../layout/pages/magazine/data/repositories/article.repository';
-import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/view-models/article-simple-data-view.model';
+import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/view-models/article-simple-data.view-model';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { HttpClientResult } from '../../../shared/data/models/http/http-client.result';
 

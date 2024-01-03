@@ -4,7 +4,7 @@ import { ProductPriceFilterComponent } from './components/product-price-filter/p
 import { FilterItemsComponent } from './components/filter-option/filter-items/filter-items.component';
 import { CommonModule } from '@angular/common';
 import { MatComponentsModule } from '../../../../../../mat-components.module';
-import { FiltersDialogComponent } from './components/dialogs/filters-dialog/filters-dialog.component';
+import { FiltersDialogComponent } from './components/filters-dialog/filters-dialog.component';
 import { FilterOptionComponent } from './components/filter-option/filter-option.component';
 import { BottomSheetComponent } from '../../../../../../shared/components/bottom-sheet/bottom-sheet.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

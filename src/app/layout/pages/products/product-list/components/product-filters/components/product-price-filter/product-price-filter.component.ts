@@ -1,16 +1,13 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
-  ViewChild,
 } from '@angular/core';
 import { ProductFilterService } from '../../../../../services/product-filter.service';
-import { debounce, debounceTime, Subject } from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'keleman-product-price-filter',
@@ -91,7 +88,7 @@ export class ProductPriceFilterComponent implements OnInit, OnChanges {
     this.change.emit(priceRange);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.reset) {
       this.minValue = 0;
       this.maxValue = this.max;

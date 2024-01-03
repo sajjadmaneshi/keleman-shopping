@@ -42,7 +42,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
 import { basketPaymentGuard } from './guard/basket-payment.guard';
-import { BankCallbackComponent } from './bank-callback/bank-callback.component';
 import { PaymentGatewayComponent } from './payment/payment-gateway/payment-gateway.component';
 import { AuthGuard } from '../../../shared/guards/auth.guard';
 
@@ -87,7 +86,6 @@ export const routes: Routes = [
     ValueChangerComponent,
     RouterModule.forChild(routes),
     PriceComponent,
-
     MatIconModule,
     MatStepperModule,
     AddressItemComponent,

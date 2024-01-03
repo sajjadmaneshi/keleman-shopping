@@ -1,8 +1,7 @@
-import { Component, InjectionToken, OnInit } from '@angular/core';
-import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simple-data-view.model';
-import { combineLatest, Subject, takeUntil, tap } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ArticleSimpleDataViewModel } from '../../data/view-models/article-simple-data.view-model';
+import { combineLatest, Subject, takeUntil } from 'rxjs';
+import { Params } from '@angular/router';
 import { ArticleRepository } from '../../data/repositories/article.repository';
 import { SharedVariablesService } from '../../../../../shared/services/shared-variables.service';
 import {
@@ -10,11 +9,8 @@ import {
   REPOSITORY_TOKEN,
 } from '../../../../../shared/services/base-data-fetcher.service';
 import { ArticleSearchResult } from '../../../../../shared/services/search.service';
-import { ProductRepository } from '../../../products/data/repositories/product.repository';
 import { RouteHandlerService } from '../../../../../shared/services/route-handler/route-handler.service';
-import { BreadCrumbViewModel } from '../../../../../home/data/view-models/bread-crumb.view-model';
 import { QueryParamGeneratorService } from '../../../../../shared/services/query-params-generator.service';
-import { Routing } from '../../../../../routing';
 import { ModifyMetaDataService } from '../../../../../../common/services/modify-meta-data.service';
 
 @Component({
@@ -31,15 +27,15 @@ import { ModifyMetaDataService } from '../../../../../../common/services/modify-
     ModifyMetaDataService,
   ],
 })
-export class MagazineListComponent implements OnInit {
+export class MagazineListComponent implements OnInit, OnDestroy {
   articles: ArticleSimpleDataViewModel[] = [];
   totalElements = 0;
   searchText = '';
   page = 1;
   limit = 12;
-  private destroy$ = new Subject<void>();
   categoryUrl: string = '';
   categoryId!: number;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private readonly _queryParamService: QueryParamGeneratorService,
@@ -84,13 +80,10 @@ export class MagazineListComponent implements OnInit {
     this.getAllArticles(queryParams);
   }
 
-  trackByFn(index: number, item: ArticleSimpleDataViewModel) {
-    return item.id;
-  }
-
   getAllArticles(params: { [key: string]: any }) {
     this.fetchDataService
       .fetchData(params)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result: ArticleSearchResult | undefined) => {
         const { articles, totalElements, category } = result!;
         this.articles = [...articles!];
@@ -110,5 +103,10 @@ export class MagazineListComponent implements OnInit {
       ...this._routeHandlerService.getQueryParamsSnapShot,
       ...queryParams,
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

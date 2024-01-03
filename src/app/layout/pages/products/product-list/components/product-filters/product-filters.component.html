@@ -22,12 +22,12 @@
       </span>
       <ul>
         @for(option of productFilterService.propertyOptions;track option.title){
+        @defer {
 
         <keleman-filter-option-bottom-sheet
           [propertyOption]="option"
         ></keleman-filter-option-bottom-sheet>
-        }
-
+        } }
         <li class="d-flex flex-column align-items-center">
           <a>محدوده قیمت</a>
           <keleman-product-price-filter

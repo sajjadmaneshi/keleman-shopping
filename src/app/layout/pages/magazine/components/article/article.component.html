@@ -1,7 +1,7 @@
 <div class="card card-rounded-3 shadow">
   <div class="card-body">
     <ng-container>
-      @if(isLoading){
+      @if((loadingService.getLoadingStateObservable('read','articleData')|async)!){
       <ngx-skeleton-loader
         class="mx-2"
         [theme]="{ width: '15%', height: '25px' }"
@@ -67,17 +67,19 @@
         <span>مقالات مرتبط</span>
       </h6>
       <div class="row mx-0 mb-3">
-        <div class="col-12 col-md-6" *ngFor="let article of relatedArticles">
+        @for (article of relatedArticles;track article.id){
+
+        <div class="col-12 col-md-6">
           <keleman-article-item-thumbnail
             [article]="article"
           ></keleman-article-item-thumbnail>
         </div>
+        }
       </div>
       <mat-divider></mat-divider>
-      <ng-template [ngIf]="articleDetails.id">
-        <article-comments [articleId]="articleDetails.id"></article-comments>
-      </ng-template>
-      }
+      @if (articleDetails.id){
+      <article-comments [articleId]="articleDetails.id"></article-comments>
+      } }
     </ng-container>
   </div>
 </div>

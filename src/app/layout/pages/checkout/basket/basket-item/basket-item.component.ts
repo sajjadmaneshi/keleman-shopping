@@ -37,9 +37,11 @@ export class BasketItemComponent implements OnDestroy {
     private readonly _basketRepository: BasketRepository,
     private readonly _dialog: MatDialog
   ) {
-    this._authService.isLoggedIn$.subscribe((result) => {
-      this.isLoggedIn = result;
-    });
+    this._authService.isLoggedIn$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.isLoggedIn = result;
+      });
   }
 
   removeProduct() {

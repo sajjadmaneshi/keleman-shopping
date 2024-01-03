@@ -1,5 +1,8 @@
 <keleman-product-content
-  [isLoading]="isLoading"
+  [isLoading]="
+    (loadingService.getLoadingStateObservable('read', 'productDetails')
+      | async)!
+  "
   [productDetails]="productDetails"
 ></keleman-product-content>
 

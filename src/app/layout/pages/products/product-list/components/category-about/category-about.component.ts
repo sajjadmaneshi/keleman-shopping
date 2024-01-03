@@ -1,17 +1,8 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { ProductRepository } from '../../../data/repositories/product.repository';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { CategorySimpleInfoViewModel } from '../../../data/models/view-models/category-simple-info.view-model';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProductCategoryRepository } from '../../../data/repositories/product-category.repository';
-import { combineLatest } from 'rxjs';
 import { CategoryPropertyOptionViewModel } from '../../../data/models/view-models/category-property-option.view-model';
 
 @Component({
@@ -22,9 +13,9 @@ import { CategoryPropertyOptionViewModel } from '../../../data/models/view-model
 export class CategoryAboutComponent implements OnInit, OnChanges, OnDestroy {
   @Input() categoryId!: number;
 
-  isLoading = false;
+  isLoading = true;
 
-  categoryDetails!: CategorySimpleInfoViewModel | null;
+  categoryDetails!: CategorySimpleInfoViewModel;
   propertyOptions: CategoryPropertyOptionViewModel[] = [];
 
   destroy$ = new Subject<void>();
@@ -38,7 +29,7 @@ export class CategoryAboutComponent implements OnInit, OnChanges, OnDestroy {
     this._getCategoryDetails();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this._getCategoryDetails();
   }
 
@@ -50,13 +41,13 @@ export class CategoryAboutComponent implements OnInit, OnChanges, OnDestroy {
           tap(() => (this.isLoading = false)),
           takeUntil(this.destroy$)
         )
-        .subscribe((categoryDetails) => {
-          this.categoryDetails = categoryDetails.result!;
+        .subscribe({
+          next: (categoryDetails) =>
+            (this.categoryDetails = categoryDetails.result!),
+          error: () => (this.isLoading = false),
         });
     }
   }
-
-  private _getCategoryPropertOptions() {}
 
   ngOnDestroy(): void {
     this.destroy$.next();

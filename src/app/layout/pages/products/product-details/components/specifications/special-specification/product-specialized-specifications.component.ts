@@ -2,7 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { ProductService } from '../../../../services/product.service';
 import { ProductRepository } from '../../../../data/repositories/product.repository';
 import { ProductSpecificViewModel } from '../../../../data/models/view-models/product-specific.view-model';
-import { Subscription, tap } from 'rxjs';
+import { Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { LoadingService } from '../../../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-product-specialization',
@@ -24,10 +25,12 @@ import { Subscription, tap } from 'rxjs';
   ],
 })
 export class ProductSpecializedSpecificationsComponent implements OnDestroy {
-  isLoading = true;
+  destroy$ = new Subject<void>();
+
   constructor(
-    private _productService: ProductService,
-    private _productRepository: ProductRepository
+    private readonly _productService: ProductService,
+    private readonly _productRepository: ProductRepository,
+    public readonly loadingService: LoadingService
   ) {
     this._getProductSpecification();
   }
@@ -38,11 +41,19 @@ export class ProductSpecializedSpecificationsComponent implements OnDestroy {
   subscription!: Subscription;
 
   private _getProductSpecification() {
-    this.subscription = this._productRepository
+    this.loadingService.startLoading('read', 'productSpecification');
+    this._productRepository
       .getProductSpecifics(this._productService.productUrl)
-      .pipe(tap(() => (this.isLoading = false)))
-      .subscribe((result) => {
-        this._separateSpecification([...result.result!]);
+      .pipe(
+        tap(() =>
+          this.loadingService.stopLoading('read', 'productSpecification')
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (result) => this._separateSpecification([...result.result!]),
+        error: () =>
+          this.loadingService.stopLoading('read', 'productSpecification'),
       });
   }
 
@@ -57,6 +68,7 @@ export class ProductSpecializedSpecificationsComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -2,12 +2,11 @@
   <div class="card-body d-flex flex-column">
     <span class="d-flex align-items-center justify-content-between mb-3">
       <h6 class="fw-bold text-klm-primary">
-        پرسش های شما
-        <ng-template [ngIf]="questions.length > 0">
-          <a class="cursor-pointer" (click)="openAllQuestionsDialog()"
-            >(مشاهده همه)</a
-          >
-        </ng-template>
+        پرسش های شما @if(questions.length > 0){
+        <a class="cursor-pointer" (click)="openAllQuestionsDialog()"
+          >(مشاهده همه)</a
+        >
+        }
       </h6>
       <button class="btn btn-lilac text-white" (click)="addquestion()">
         افزودن پرسش
@@ -18,36 +17,30 @@
       [class.d-flex]="questions.length === 0"
       class="justify-content-center h-100"
     >
-      <ng-container
-        *ngIf="questions.length > 0; then hasQuestion; else empty"
-      ></ng-container>
-      <ng-template #empty>
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <h6 class="text-muted pb-3">پرسشی برای این محصول ثبت نشده است!</h6>
-          <button class="btn btn-lilac text-white" (click)="addquestion()">
-            افزودن پرسش
-          </button>
-        </div>
-      </ng-template>
-      <ng-template #hasQuestion>
-        <keleman-swiper
-          [showTitle]="false"
-          [showMoreButton]="false"
-          [spaceBetween]="5"
-          [navigation]="true"
-          [navigationButtonClassPrefix]="'faq-'"
-        >
-          <appSwiperContent
-            *ngFor="let question of questions; trackBy: tranckByFn"
-          >
-            <ng-template appSwiperTemplate>
-              <keleman-faq-item [faq]="question"> </keleman-faq-item>
-            </ng-template>
-          </appSwiperContent>
-        </keleman-swiper>
-      </ng-template>
+      @if(questions.length > 0){
+      <keleman-swiper
+        [showTitle]="false"
+        [showMoreButton]="false"
+        [spaceBetween]="5"
+        [navigation]="true"
+        [navigationButtonClassPrefix]="'faq-'"
+      >
+        @for (question of questions;track question.id){
+        <appSwiperContent>
+          <ng-template appSwiperTemplate>
+            <keleman-faq-item [faq]="question"> </keleman-faq-item>
+          </ng-template>
+        </appSwiperContent>
+        }
+      </keleman-swiper>
+      } @else {
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h6 class="text-muted pb-3">پرسشی برای این محصول ثبت نشده است!</h6>
+        <button class="btn btn-lilac text-white" (click)="addquestion()">
+          افزودن پرسش
+        </button>
+      </div>
+      }
     </div>
   </div>
 </div>

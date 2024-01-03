@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { BasketRepository } from '../data/repositories/basket.repository';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { BasketService } from '../services/basket.service';
@@ -22,21 +22,20 @@ export class BasketComponent implements OnDestroy {
     public basketService: BasketService,
     public loadingService: LoadingService
   ) {
-    this._authService.isLoggedIn$.subscribe((res) => {
-      this.isLoggedIn = res;
-    });
+    this._authService.isLoggedIn$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.isLoggedIn = res;
+      });
     this._getBasketItems();
   }
 
   private _getBasketItems() {
-    this.basketService.basketItems$.subscribe((result) => {
-      this.basketItems = result!;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.basketService.basketItems$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.basketItems = result!;
+      });
   }
 
   removeItem(basketItem: BasketItemViewModel) {
@@ -52,5 +51,10 @@ export class BasketComponent implements OnDestroy {
       this.basketService.cartCount$.value - basketItem.count;
     this.basketService.cartCount$.next(updatedProductCount);
     this.basketService.checkout();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

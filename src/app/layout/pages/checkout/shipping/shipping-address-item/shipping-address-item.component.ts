@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnDestroy,
   Output,
   PLATFORM_ID,
 } from '@angular/core';
@@ -13,28 +14,25 @@ import { MatDialog } from '@angular/material/dialog';
 import { LatLngExpression } from 'leaflet';
 import { isPlatformBrowser } from '@angular/common';
 import { BasketService } from '../../services/basket.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'keleman-shipping-address-item',
-
   templateUrl: './shipping-address-item.component.html',
   styleUrl: './shipping-address-item.component.scss',
 })
-export class ShippingAddressItemComponent {
+export class ShippingAddressItemComponent implements OnDestroy {
   @Input() address!: UserAddressViewModel;
   @Input() showMap = true;
   @Input() editable = false;
-
   @Output() edit = new EventEmitter<void>();
 
-  isBrowser!: boolean;
+  destroy$ = new Subject<void>();
+
   constructor(
     private readonly _dialog: MatDialog,
-    private readonly _basketService: BasketService,
-    @Inject(PLATFORM_ID) private platformId: any
-  ) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
+    private readonly _basketService: BasketService
+  ) {}
 
   openAddressDialog() {
     this._dialog
@@ -43,6 +41,7 @@ export class ShippingAddressItemComponent {
         data: this.address.id,
       })
       .afterClosed()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res: UserAddressViewModel) => {
         if (res) {
           this.address = res;
@@ -58,5 +57,10 @@ export class ShippingAddressItemComponent {
 
   onEdit() {
     this.edit.emit();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

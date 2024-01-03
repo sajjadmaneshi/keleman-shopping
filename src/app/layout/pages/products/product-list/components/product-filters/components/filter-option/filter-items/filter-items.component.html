@@ -2,12 +2,13 @@
   class="d-flex flex-column align-items-start"
   [color]="'primary'"
 >
+  @for (property of initialProperties;track property.title){ @defer {
   <mat-radio-button
-    *ngFor="let property of initialProperties"
     [checked]="property.selected"
     [value]="property.selected"
     (change)="changeSelection(property)"
   >
     {{ property.title }}
   </mat-radio-button>
+  } }
 </mat-radio-group>

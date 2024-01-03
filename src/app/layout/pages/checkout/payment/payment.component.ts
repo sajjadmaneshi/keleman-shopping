@@ -1,6 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { AuthenticatedBasketService } from '../purchase/authenticated-basket.service';
 import { PaymentGatewayViewModel } from '../data/models/payment-gateway.view-model';
 import { UserCreditViewModel } from '../../profile/data/view-models/user-credit.view-model';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';

@@ -9,17 +9,16 @@ import { Location } from '@angular/common';
   styleUrls: ['./share-buttons.component.scss'],
 })
 export class ShareButtonsComponent implements OnInit {
-  pageUrl!: string;
   @Input() title!: string;
   @Input() description!: string;
   @Input() include!: string[];
-
+  pageUrl!: string;
   shareUrls!: any[];
 
   constructor(
-    private _snackBar: SnackBarService,
-    private _location: Location,
-    private _ssrService: SsrService
+    private readonly _snackBar: SnackBarService,
+    private readonly _location: Location,
+    private readonly _ssrService: SsrService
   ) {
     this.pageUrl = this._location.path();
   }

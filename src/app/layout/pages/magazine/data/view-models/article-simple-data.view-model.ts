@@ -4,7 +4,6 @@ export interface ArticleSimpleDataViewModel {
   description: string;
   imageAddress: string;
   date: string;
-
   url: string;
   authorFullName: string;
 }

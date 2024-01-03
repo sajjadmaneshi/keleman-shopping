@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DataService } from 'src/app/shared/services/data.service';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
-import { ArticleSimpleDataViewModel } from '../view-models/article-simple-data-view.model';
+import { ArticleSimpleDataViewModel } from '../view-models/article-simple-data.view-model';
 import {
   ArticleSearchResult,
   SearchService,

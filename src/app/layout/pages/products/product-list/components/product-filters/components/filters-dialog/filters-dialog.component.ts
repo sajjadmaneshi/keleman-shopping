@@ -1,18 +1,25 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ProductFilterService } from '../../../../../../services/product-filter.service';
+import { ProductFilterService } from '../../../../../services/product-filter.service';
 import {
   SelectableOption,
   SelectablePropertyModel,
-} from '../../../../../../data/models/view-models/category-property-option.view-model';
-import { FilterOptionComponent } from '../../filter-option/filter-option.component';
+} from '../../../../../data/models/view-models/category-property-option.view-model';
+import { FilterOptionComponent } from '../filter-option/filter-option.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'keleman-filters-dialog',
   templateUrl: './filters-dialog.component.html',
-  styleUrls: ['filters-dialog.component.scss'],
+  styles: [
+    `
+      .filter-items {
+        max-height: 300px;
+        overflow-y: auto;
+      }
+    `,
+  ],
 })
 export class FiltersDialogComponent implements OnInit {
   selectedItem!: SelectablePropertyModel;

@@ -1,6 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-
-import { tap } from 'rxjs/operators';
 import { BasketService } from './services/basket.service';
 import { LoadingService } from '../../../../common/services/loading.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -17,11 +15,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     private _basketService: BasketService,
     public loadingService: LoadingService
   ) {}
-
-  ngOnDestroy(): void {
-    this.destory$.next();
-    this.destory$.complete();
-  }
 
   ngOnInit(): void {
     this.loadBasketData();
@@ -41,5 +34,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this._basketService.basket();
     this._basketService.checkout();
     this._basketService.paymentGateways();
+  }
+
+  ngOnDestroy(): void {
+    this.destory$.next();
+    this.destory$.complete();
   }
 }

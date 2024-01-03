@@ -31,29 +31,26 @@
         <keleman-products-sort [initialSort]="sortBy"></keleman-products-sort>
 
         <div class="row mx-0 gx-3 gy-3 gx-lg-3">
-          @if(fetchDataService.isLoading){
-          <div
-            class="col-12 col-md-4 col-xl-3"
-            *ngFor="let _ of sharedVaribaleService.counter(10)"
-          >
+          @if(fetchDataService.isLoading){ @for ( _ of
+          sharedVaribaleService.counter(10);track _){
+          <div class="col-12 col-md-4 col-xl-3">
             <ngx-skeleton-loader
               [theme]="{ width: '100%', height: '300px ' }"
             ></ngx-skeleton-loader>
           </div>
-          } @else if (products.length > 0) { @for ( product of products;track
+          } } @else if (products.length > 0) { @for ( product of products;track
           product.id){
           <div class="col-12 col-md-4 col-xl-3">
             <keleman-product-item [product]="product"></keleman-product-item>
           </div>
           }
-
           <keleman-pagination
-            *ngIf="products.length! > 0"
             [totalElements]="totalElements"
             (pageChange)="pageChange($event)"
             [limit]="limit"
             [currentPage]="page"
           ></keleman-pagination>
+
           } @else {
           <div class="empty-product-list d-flex flex-column align-items-center">
             <img src="assets/media/static-resources/notFound.png" />

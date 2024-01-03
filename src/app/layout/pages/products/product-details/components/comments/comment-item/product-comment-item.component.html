@@ -8,16 +8,15 @@
       {{ comment.user.lastName ?? "مهمان"! }}
     </h6>
 
-    <span
-      class="col-6 d-flex align-items-center justify-content-end p-0"
-      *ngIf="comment.rate"
-    >
+    @if (comment.rate){
+    <span class="col-6 d-flex align-items-center justify-content-end p-0">
       <keleman-text-with-icon
         [text]="comment.rate.toString()"
         [iconName]="'star'"
         [iconClass]="'text-warning'"
       ></keleman-text-with-icon>
     </span>
+    }
   </div>
   <div class="comment-body px-3 py-1">
     <p class="comment-text mb-3">

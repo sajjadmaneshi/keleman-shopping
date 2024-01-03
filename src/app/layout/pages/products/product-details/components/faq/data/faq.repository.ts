@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DataService } from 'src/app/shared/services/data.service';
 import { HttpClientResult } from 'src/app/shared/data/models/http/http-client.result';
-import { FaqViewModel } from './model/faq.view-model';
+import { FaqViewModel } from './faq.view-model';
 import { FaqDto } from './faq.dto';
 
 @Injectable()

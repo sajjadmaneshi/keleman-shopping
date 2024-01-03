@@ -1,20 +1,27 @@
-<ng-template [ngIf]="categoryDetails && categoryDetails.description">
-  <div class="text-end">
-    <div class="d-flex align-items-center mb-3">
-      <h4 class="fw-bold text-klm-primary px-3">
-        {{ categoryDetails.name! }}
-      </h4>
-      <div class="gradient-border flex-grow-1"></div>
-    </div>
-    <div class="card card-rounded-3 border border-gray-300">
-      <div class="card-body">
-        <article
-          class="category-content p-3"
-          [innerHTML]="
-            sanitizer.bypassSecurityTrustHtml(categoryDetails.description!)
-          "
-        ></article>
-      </div>
+@if(isLoading){
+<ngx-skeleton-loader
+  [theme]="{ width: '100%', height: '50px' }"
+></ngx-skeleton-loader>
+<ngx-skeleton-loader
+  [theme]="{ width: '100%', height: '300px' }"
+></ngx-skeleton-loader>
+} @else if(categoryDetails.description) {
+<div class="text-end">
+  <div class="d-flex align-items-center mb-3">
+    <h4 class="fw-bold text-klm-primary px-3">
+      {{ categoryDetails.name! }}
+    </h4>
+    <div class="gradient-border flex-grow-1"></div>
+  </div>
+  <div class="card card-rounded-3 border border-gray-300">
+    <div class="card-body">
+      <article
+        class="category-content p-3"
+        [innerHTML]="
+          sanitizer.bypassSecurityTrustHtml(categoryDetails.description!)
+        "
+      ></article>
     </div>
   </div>
-</ng-template>
+</div>
+}

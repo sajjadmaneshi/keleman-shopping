@@ -1,9 +1,9 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { GuestBasketViewModel } from './data/models/guest-basket.view-model';
+import { GuestBasketViewModel } from '../data/models/guest-basket.view-model';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { BasketItemViewModel } from './data/models/basket-item.view-model';
+import { BasketItemViewModel } from '../data/models/basket-item.view-model';
 import { isPlatformBrowser } from '@angular/common';
-import { UpdateBasketDto } from './data/dto/update-basket.dto';
+import { UpdateBasketDto } from '../data/dto/update-basket.dto';
 
 @Injectable({ providedIn: 'root' })
 export class GuestBasketService {

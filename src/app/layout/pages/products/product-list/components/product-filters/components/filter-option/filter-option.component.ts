@@ -4,8 +4,6 @@ import {
   SelectableOption,
   SelectablePropertyModel,
 } from '../../../../../data/models/view-models/category-property-option.view-model';
-import { take } from 'rxjs';
-import { SelectedFilterModel } from '../../data/selected-filter.model';
 import { FilterOptionService } from '../../../../../services/filter-option.service';
 
 @Component({
@@ -16,12 +14,10 @@ import { FilterOptionService } from '../../../../../services/filter-option.servi
 })
 export class FilterOptionComponent implements OnInit {
   @Input() propertyOption!: SelectableOption;
-
   selectedItem!: SelectablePropertyModel | undefined;
 
   constructor(
     public productFilterService: ProductFilterService,
-
     public filterOptionService: FilterOptionService
   ) {}
 
@@ -37,5 +33,10 @@ export class FilterOptionComponent implements OnInit {
   public changeSelection(item: SelectablePropertyModel) {
     this.selectedItem = item;
     this.productFilterService.manageSelectedArray(item);
+  }
+
+  removeFilter($event: any, selectedItem: SelectablePropertyModel) {
+    this.filterOptionService.removeFilter($event, selectedItem);
+    this.selectedItem = undefined;
   }
 }

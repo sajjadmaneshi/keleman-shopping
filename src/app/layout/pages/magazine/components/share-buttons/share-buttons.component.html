@@ -1,32 +1,24 @@
 <span class="d-flex justify-content-end align-items-center">
-  <a
-    *ngFor="let shares of include"
-    [href]="determineUrl(shares)"
-    class="btn btn-icon sc-icon"
-  >
+  @for (shares of include;track shares){
+  <a [href]="determineUrl(shares)" class="btn btn-icon sc-icon">
     <div class="symbol symbol-7 cursor-pointer" appSymbol [ngSwitch]="shares">
+      @switch (shares){ @case ('mail'){
       <fa-icon
         *ngSwitchCase="'mail'"
         [icon]="['fab', 'google']"
         [size]="'1x'"
       ></fa-icon>
-      <fa-icon
-        *ngSwitchCase="'whatsapp'"
-        [icon]="['fab', 'square-whatsapp']"
-        [size]="'1x'"
-      ></fa-icon>
-      <fa-icon
-        *ngSwitchCase="'twitter'"
-        [icon]="['fab', 'square-twitter']"
-        [size]="'1x'"
-      ></fa-icon>
-      <fa-icon
-        *ngSwitchCase="'telegram'"
-        [icon]="['fab', 'telegram']"
-        [size]="'1x'"
-      ></fa-icon>
+      } @case ('whatsapp'){
+      <fa-icon [icon]="['fab', 'square-whatsapp']" [size]="'1x'"></fa-icon>
+      } @case ('twitter'){
+      <fa-icon [icon]="['fab', 'square-twitter']" [size]="'1x'"></fa-icon>
+      } @case ('telegram'){
+
+      <fa-icon [icon]="['fab', 'telegram']" [size]="'1x'"></fa-icon>
+      } }
     </div>
   </a>
+  }
 
   <div class="address-copy">
     <input class="py-1 ps-5 pe-3" type="text" readonly [value]="this.pageUrl" />

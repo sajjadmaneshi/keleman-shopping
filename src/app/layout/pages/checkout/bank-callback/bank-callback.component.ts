@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { LoadingService } from '../../../../../common/services/loading.service';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { BasketRepository } from '../data/repositories/basket.repository';
 
 @Component({
@@ -13,7 +13,7 @@ import { BasketRepository } from '../data/repositories/basket.repository';
   templateUrl: './bank-callback.component.html',
   styleUrl: './bank-callback.component.scss',
 })
-export class BankCallbackComponent {
+export class BankCallbackComponent implements OnDestroy {
   destroy$ = new Subject<void>();
   paymentResult!: PaymentResult;
 
@@ -26,23 +26,30 @@ export class BankCallbackComponent {
   }
 
   private _getParamsFromRoute() {
-    this._activatedRoute.queryParams.subscribe((result) => {
-      console.log(result);
-      this.paymentResult = new PaymentResult(
-        +result['billId'],
-        +result['status']
-      );
-      this.loadingService.startLoading('add', 'verify');
-    });
+    this._activatedRoute.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.paymentResult = new PaymentResult(
+          +result['billId'],
+          +result['status']
+        );
+        this.loadingService.startLoading('add', 'verify');
+      });
   }
 
   getFactor() {
     this._basketRepository
       .getReport(this.paymentResult.billId)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         const fileUrl = URL.createObjectURL(res);
         window.open(fileUrl, '_blank');
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
 

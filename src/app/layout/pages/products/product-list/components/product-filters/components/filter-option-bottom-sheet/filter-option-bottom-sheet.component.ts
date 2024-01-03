@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FilterOptionComponent } from '../filter-option/filter-option.component';
 import { MatDialog } from '@angular/material/dialog';
 import {
   SelectableOption,
   SelectablePropertyModel,
 } from '../../../../../data/models/view-models/category-property-option.view-model';
-import { FiltersDialogComponent } from '../dialogs/filters-dialog/filters-dialog.component';
+import { FiltersDialogComponent } from '../filters-dialog/filters-dialog.component';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { ProductFilterService } from '../../../../../services/product-filter.service';
 import { FilterOptionService } from '../../../../../services/filter-option.service';
@@ -15,7 +15,10 @@ import { FilterOptionService } from '../../../../../services/filter-option.servi
   templateUrl: './filter-option-bottom-sheet.component.html',
   styleUrls: ['./filter-option-bottom-sheet.component.scss'],
 })
-export class FilterOptionBottomSheetComponent extends FilterOptionComponent {
+export class FilterOptionBottomSheetComponent
+  extends FilterOptionComponent
+  implements OnDestroy
+{
   dialogConfigs = {
     width: '500px',
     panelClass: 'custom-mat-dialog',
@@ -48,5 +51,10 @@ export class FilterOptionBottomSheetComponent extends FilterOptionComponent {
         this.selectedItem = result;
         this.productFilterService.manageSelectedArray(result);
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

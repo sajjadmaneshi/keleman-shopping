@@ -1,20 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Subscription, tap } from 'rxjs';
-import { ProductRepository } from '../../../data/repositories/product.repository';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { ProductGalleryViewModel } from '../../../data/models/view-models/product-gallery.view-model';
-import { ENVIRONMENT } from '../../../../../../../environments/environment';
-import { ActivatedRoute, Params } from '@angular/router';
-import { ProductService } from '../../../services/product.service';
 
 @Component({
   selector: 'keleman-product-album',
   templateUrl: './product-album.component.html',
 })
 export class ProductAlbumComponent {
-  downloadUrl = ENVIRONMENT.downloadUrl;
-  @Input() isLoading = new BehaviorSubject(true);
-
-  subscription!: Subscription;
+  @Input() isLoading = new Observable<boolean>();
 
   @Input() gallery: ProductGalleryViewModel[] = [];
 

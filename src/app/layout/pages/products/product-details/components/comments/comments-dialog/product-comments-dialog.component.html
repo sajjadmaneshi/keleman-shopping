@@ -1,10 +1,8 @@
 <div mat-dialog-content>
   <label class="text-center mb-3">دیدگاه ها ({{ data.length }})</label>
   <div class="comment-list">
-    <app-comment-item
-      *ngFor="let comment of data"
-      [comment]="comment"
-      [fullWidth]="true"
-    ></app-comment-item>
+    @for(comment of data;track comment.id){ @defer {
+    <app-comment-item [comment]="comment" [fullWidth]="true"></app-comment-item>
+    } }
   </div>
 </div>

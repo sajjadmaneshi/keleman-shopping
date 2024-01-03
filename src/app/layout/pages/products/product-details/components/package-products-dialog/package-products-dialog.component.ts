@@ -39,7 +39,6 @@ import { DecimalPipe } from '@angular/common';
 })
 export class PackageProductsDialogComponent {
   totalPrice = 0;
-
   packageDatas: PackegeItemGroupViewModel[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: PackageItemsViewModel,

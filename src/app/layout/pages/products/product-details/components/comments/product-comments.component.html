@@ -2,12 +2,11 @@
   <div class="card-body d-flex flex-column">
     <span class="d-flex align-items-center justify-content-between mb-3">
       <h6 class="fw-bold text-klm-primary">
-        نظرات کاربران
-        <ng-template [ngIf]="comments.length > 0">
-          <a class="cursor-pointer" (click)="openAllCommentsDialog()"
-            >(مشاهده همه)</a
-          >
-        </ng-template>
+        نظرات کاربران @if (comments.length>0){
+        <a class="cursor-pointer" (click)="openAllCommentsDialog()"
+          >(مشاهده همه)</a
+        >
+        }
       </h6>
       <button class="btn btn-lilac text-white" (click)="addComment()">
         افزودن دیدگاه
@@ -18,51 +17,38 @@
       [class.d-flex]="comments.length === 0"
       class="justify-content-center h-100"
     >
-      <ng-container
-        *ngIf="comments.length > 0; then hasComment; else empty"
-      ></ng-container>
-
-      <ng-template #empty>
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <h6 class="text-muted pb-3">نظری برای این محصول ثبت نشده است!</h6>
-          <button class="btn btn-lilac text-white" (click)="addComment()">
-            افزودن دیدگاه
-          </button>
-        </div>
-      </ng-template>
-      <ng-template #hasComment>
-        <keleman-swiper
-          [showTitle]="false"
-          [showMoreButton]="false"
-          [spaceBetween]="5"
-          [navigation]="true"
-          [navigationButtonClassPrefix]="'comment-'"
-        >
-          <ng-container
-            *ngIf="isLoading | async; then loading; else content"
-          ></ng-container>
-          <ng-template #loading>
-            <appSwiperContent
-              *ngFor="let _ of sharedVariablesService.counter(7)"
-            >
-              <ng-template appSwiperTemplate>
-                <ngx-skeleton-loader
-                  [theme]="{ width: '15rem', height: '11rem' }"
-                ></ngx-skeleton-loader>
-              </ng-template>
-            </appSwiperContent>
+      @if((loadingService.getLoadingStateObservable('read','comments')|async)!){
+      <appSwiperContent *ngFor="let _ of sharedVariablesService.counter(7)">
+        <ng-template appSwiperTemplate>
+          <ngx-skeleton-loader
+            [theme]="{ width: '15rem', height: '11rem' }"
+          ></ngx-skeleton-loader>
+        </ng-template>
+      </appSwiperContent>
+      } @else if(comments.length > 0){
+      <keleman-swiper
+        [showTitle]="false"
+        [showMoreButton]="false"
+        [spaceBetween]="5"
+        [navigation]="true"
+        [navigationButtonClassPrefix]="'comment-'"
+      >
+        @for(comment of comments;track comment.id){ @defer {
+        <appSwiperContent>
+          <ng-template appSwiperTemplate>
+            <app-comment-item [comment]="comment"></app-comment-item>
           </ng-template>
-          <ng-template #content>
-            <appSwiperContent *ngFor="let comment of comments">
-              <ng-template appSwiperTemplate>
-                <app-comment-item [comment]="comment"></app-comment-item>
-              </ng-template>
-            </appSwiperContent>
-          </ng-template>
-        </keleman-swiper>
-      </ng-template>
+        </appSwiperContent>
+        } }
+      </keleman-swiper>
+      } @else {
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h6 class="text-muted pb-3">نظری برای این محصول ثبت نشده است!</h6>
+        <button class="btn btn-lilac text-white" (click)="addComment()">
+          افزودن دیدگاه
+        </button>
+      </div>
+      }
     </div>
   </div>
 </div>

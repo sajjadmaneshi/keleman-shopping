@@ -1,7 +1,6 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as Highcharts from 'highcharts';
-import { ProductRepository } from '../../../../data/repositories/product.repository';
 import { Subject } from 'rxjs';
 import { ProductPriceChartViewModel } from '../../../../data/models/view-models/product-price-chart.view-model';
 import { PersianDateTimeService } from '../../../../../../../shared/services/date-time/persian-datetime.service';
@@ -14,7 +13,6 @@ export class PriceChartDialogComponent {
   prices: number[] = [];
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions!: Highcharts.Options;
-  destory$ = new Subject<void>();
   constructor(
     private _dialogRef: MatDialogRef<PriceChartDialogComponent>,
     private _persianDateTimeService: PersianDateTimeService,
@@ -100,11 +98,6 @@ export class PriceChartDialogComponent {
       ],
       accessibility: { enabled: false },
     };
-  }
-
-  ngOnDestroy() {
-    this.destory$.next();
-    this.destory$.complete();
   }
 
   close() {

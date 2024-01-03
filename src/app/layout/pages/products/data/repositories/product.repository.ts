@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DataService } from '../../../../../shared/services/data.service';
-import { ProductCategoryViewModel } from '../../../../../shared/data/models/view-models/product-category.view-model';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
-
 import { ProductViewModel } from '../models/view-models/product.view-model';
 import { CategorySimpleInfoViewModel } from '../models/view-models/category-simple-info.view-model';
 import {
@@ -14,7 +12,6 @@ import {
 } from '../../../../../shared/services/search.service';
 import { ProductDetailViewModel } from '../models/view-models/product-detail.view-model';
 import { ProductGalleryViewModel } from '../models/view-models/product-gallery.view-model';
-import { ProductCommentViewModel } from '../models/view-models/product-comment.view-model';
 import { ProductSpecificViewModel } from '../models/view-models/product-specific.view-model';
 import { ProductPriceChartViewModel } from '../models/view-models/product-price-chart.view-model';
 import { ProductDescriptionsViewModel } from '../models/view-models/product-descriptions.view-model';

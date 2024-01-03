@@ -1,11 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import SwiperCore, { Navigation } from 'swiper';
-import { BehaviorSubject, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentDialogComponent } from './add-comment-dialog/add-comment-dialog.component';
 import { ProductCommentsDialogComponent } from './comments-dialog/product-comments-dialog.component';
-
-import { ProductRepository } from '../../../data/repositories/product.repository';
 import { ProductCommentViewModel } from '../../../data/models/view-models/product-comment.view-model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
@@ -15,6 +13,7 @@ import { AuthService } from '../../../../../../shared/services/auth/auth.service
 import { AlertDialogComponent } from '../../../../../../shared/components/alert-dialog/alert-dialog.component';
 import { Routing } from '../../../../../../routing';
 import { AlertDialogDataModel } from '../../../../../../shared/components/alert-dialog/alert-dialog-data.model';
+import { LoadingService } from '../../../../../../../common/services/loading.service';
 
 SwiperCore.use([Navigation]);
 @Component({
@@ -26,21 +25,20 @@ SwiperCore.use([Navigation]);
 export class ProductCommentsComponent implements OnInit, OnDestroy {
   @Input() productId!: number;
 
-  isLoading = new BehaviorSubject(false);
   comments: ProductCommentViewModel[] = [];
 
-  subscription!: Subscription;
+  destroy$ = new Subject<void>();
 
   isLoggedIn = false;
 
   constructor(
-    private _dialog: MatDialog,
-    private _productService: ProductService,
-    private _commentRepository: CommentRepository,
-    public sharedVariablesService: SharedVariablesService,
-    private _router: Router,
-    private _activatedRoute: ActivatedRoute,
-    private _authService: AuthService
+    private readonly _dialog: MatDialog,
+    private readonly _commentRepository: CommentRepository,
+    private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _authService: AuthService,
+    public readonly sharedVariablesService: SharedVariablesService,
+    public readonly loadingService: LoadingService
   ) {}
 
   private _openAddCommentDialog() {
@@ -61,12 +59,18 @@ export class ProductCommentsComponent implements OnInit, OnDestroy {
   }
 
   private _getAllComment() {
-    this.isLoading.next(true);
-    this.subscription = this._commentRepository
+    this.loadingService.startLoading('read', 'comments');
+    this._commentRepository
       .getProductComments(this.productId)
-      .pipe(tap(() => this.isLoading.next(false)))
-      .subscribe((result) => {
-        return (this.comments = [...result.result!]);
+      .pipe(
+        tap(() => this.loadingService.stopLoading('read', 'comments')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (result) => {
+          return (this.comments = [...result.result!]);
+        },
+        error: () => this.loadingService.stopLoading('read', 'comments'),
       });
   }
 
@@ -93,16 +97,20 @@ export class ProductCommentsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.productId) this._getAllComment();
-    this._authService.isLoggedIn$.subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
-    });
-    this._activatedRoute.queryParams.subscribe((params) => {
-      console.log(params['openAddCommentDialog']);
-      if (params['openAddCommentDialog']) this._openAddCommentDialog();
-    });
+    this._authService.isLoggedIn$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isLoggedIn) => {
+        this.isLoggedIn = isLoggedIn;
+      });
+    this._activatedRoute.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        if (params['openAddCommentDialog']) this._openAddCommentDialog();
+      });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

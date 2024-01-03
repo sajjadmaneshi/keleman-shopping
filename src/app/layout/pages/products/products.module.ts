@@ -22,10 +22,6 @@ import { ProductIntroductionComponent } from './product-details/components/speci
 import { ProductContentComponent } from './product-details/components/content/product-content.component';
 import { RelatedProductsComponent } from './product-details/components/relateds/related-products.component';
 import { SwiperItemComponent } from '../../../shared/components/swiper/swiper-item/swiper-item.component';
-import {
-  ReadMoreContentDirective,
-  ReadMoreTemplateDirective,
-} from '../../../shared/directives/read-more-list-template.directive';
 
 import { ProductSpecializedSpecificationsComponent } from './product-details/components/specifications/special-specification/product-specialized-specifications.component';
 import { TextWithIconComponent } from '../../../shared/components/text-with-icon/text-with-icon.component';
@@ -101,8 +97,6 @@ import { ValueChangerComponent } from '../../../shared/components/value-changer/
     SwiperComponent,
     SwiperItemComponent,
     NgbNavModule,
-    ReadMoreContentDirective,
-    ReadMoreTemplateDirective,
     NgbRatingModule,
     TextWithIconComponent,
     InputGroupComponent,

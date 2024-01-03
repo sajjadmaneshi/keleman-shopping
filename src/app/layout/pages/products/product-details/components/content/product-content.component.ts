@@ -17,6 +17,7 @@ import { AuthService } from '../../../../../../shared/services/auth/auth.service
 import { Routing } from '../../../../../../routing';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
 import { ShareDialogComponent } from './share-dialog/share-dialog.component';
+import { LoadingService } from '../../../../../../../common/services/loading.service';
 
 SwiperCore.use([Pagination]);
 @Component({
@@ -27,36 +28,34 @@ SwiperCore.use([Pagination]);
 export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() productDetails!: ProductDetailViewModel;
   @Input() isLoading = false;
-  favoriteLoading = false;
-
   isFavorite$ = new BehaviorSubject(false);
-
   productCurrentImage!: ProductGalleryViewModel;
-
   gallary: ProductGalleryViewModel[] = [];
   priceChartData: ProductPriceChartViewModel[] = [];
-  gallaryLoading = new BehaviorSubject<boolean>(true);
   destroy$ = new Subject<void>();
 
   isLoggedIn = false;
 
   constructor(
-    public applicationState: ApplicationStateService,
-    public sharedVariableService: SharedVariablesService,
-    public dialog: MatDialog,
-    private _router: Router,
-    private _productRepository: ProductRepository,
-    private _productService: ProductService,
-    private _authService: AuthService,
-    private _snackBarService: SnackBarService
+    public readonly applicationState: ApplicationStateService,
+    public readonly sharedVariableService: SharedVariablesService,
+    public readonly dialog: MatDialog,
+    public readonly loadingService: LoadingService,
+    private readonly _router: Router,
+    private readonly _productRepository: ProductRepository,
+    private readonly _productService: ProductService,
+    private readonly _authService: AuthService,
+    private readonly _snackBarService: SnackBarService
   ) {
     this.loadPriceChart();
   }
 
   ngOnInit(): void {
-    this._authService.isLoggedIn$.subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
-    });
+    this._authService.isLoggedIn$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isLoggedIn) => {
+        this.isLoggedIn = isLoggedIn;
+      });
   }
 
   public likeDislike() {
@@ -82,43 +81,49 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private _doFavorite() {
-    this.favoriteLoading = true;
+    this.loadingService.startLoading('add', 'doFavorite');
     this._productRepository
       .favorite(this.productDetails.id)
       .pipe(
-        tap(() => (this.favoriteLoading = false)),
+        tap(() => this.loadingService.stopLoading('add', 'doFavorite')),
         takeUntil(this.destroy$),
         map((x) => x.result!)
       )
-      .subscribe((res) => {
-        this.isFavorite$.next(res);
+      .subscribe({
+        next: (res) => {
+          this.isFavorite$.next(res);
 
-        this._snackBarService.showPrimarySnackBar(
-          res
-            ? 'با موفقیت به لیست علاقه مندی هاافزوده شد'
-            : 'با موفقیت از لیست علاقه مندی ها حذف شد',
-          {
-            horizontalPosition: 'center',
-            verticalPosition:
-              this.applicationState.isTablet || this.applicationState.isPhone
-                ? 'top'
-                : 'bottom',
-          }
-        );
+          this._snackBarService.showPrimarySnackBar(
+            res
+              ? 'با موفقیت به لیست علاقه مندی هاافزوده شد'
+              : 'با موفقیت از لیست علاقه مندی ها حذف شد',
+            {
+              horizontalPosition: 'center',
+              verticalPosition:
+                this.applicationState.isTablet || this.applicationState.isPhone
+                  ? 'top'
+                  : 'bottom',
+            }
+          );
+        },
+        error: () => this.loadingService.stopLoading('add', 'doFavorite'),
       });
   }
 
   private _checkFavoriteStatus() {
     if (!this.isLoading && this.productDetails) {
-      this.favoriteLoading = true;
+      this.loadingService.startLoading('add', 'doFavorite');
       this._productRepository
         .isLiked(this.productDetails.id)
         .pipe(
-          tap(() => (this.favoriteLoading = false)),
+          tap(() => this.loadingService.stopLoading('add', 'doFavorite')),
           takeUntil(this.destroy$),
           map((x) => x.result!)
         )
-        .subscribe((favoriteStatus) => this.isFavorite$.next(favoriteStatus));
+        .subscribe({
+          next: (favoriteStatus) => this.isFavorite$.next(favoriteStatus),
+          error: () => this.loadingService.stopLoading('add', 'doFavorite'),
+        });
     }
   }
 
@@ -147,14 +152,16 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private _getGallary() {
+    this.loadingService.startLoading('read', 'productGallery');
     this._productRepository
       .getProductGallary(this._productService.productUrl)
       .pipe(
-        tap(() => this.gallaryLoading.next(false)),
+        tap(() => this.loadingService.stopLoading('read', 'productGallery')),
         takeUntil(this.destroy$)
       )
-      .subscribe((result) => {
-        this.gallary = [...result.result!];
+      .subscribe({
+        next: (result) => (this.gallary = [...result.result!]),
+        error: () => this.loadingService.stopLoading('read', 'productGallery'),
       });
   }
 
