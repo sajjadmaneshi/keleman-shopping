@@ -14,6 +14,11 @@ import { TransferToBankDialogComponent } from './transfer-to-bank-dialog/transfe
 import { PayResultViewModel } from '../data/models/pay-result.view-model';
 import { DOCUMENT } from '@angular/common';
 import { BasketService } from '../services/basket.service';
+import { BasketCheckoutViewModel } from '../data/models/basket-checkout.view-model';
+import { PaymentEnum } from './payment-gateway/payment.enum';
+import { Router } from '@angular/router';
+import { AttachReceiptDialogComponent } from './attach-receipt-dilog/attach-receipt-dialog.component';
+import { AttachChequeDialogComponent } from './attach-cheque-dialog/attach-cheque-dialog.component';
 
 @Component({
   selector: 'keleman-payment',
@@ -25,17 +30,18 @@ export class PaymentComponent implements OnInit, OnDestroy {
   paymentGateWays: PaymentGatewayViewModel[] = [];
   userCredit = new UserCreditViewModel(0, 0);
   isFormSubmitted = false;
-
-  delivaryAddress!: number;
-  selectedPaymentGateWayIds: number[] = [];
   submittedDiscountCode: string = '';
+  basketCheckout!: BasketCheckoutViewModel;
   discountCode = new FormControl('', Validators.required);
   description = new FormControl('');
+  paymentEnums = PaymentEnum;
+  selectedPaymentGateway!: PaymentGatewayViewModel;
   constructor(
     private readonly _basketService: BasketService,
     private readonly _initialAppService: InitialAppService,
     private readonly _billRepository: BillRepository,
     private readonly _snackBarService: SnackBarService,
+    private readonly _router: Router,
     private readonly _dialog: MatDialog,
     @Inject(DOCUMENT) private document: Document,
     public readonly loadingService: LoadingService
@@ -56,15 +62,46 @@ export class PaymentComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((result) => (this.userCredit = result));
 
-    this._basketService.delivaryAddress$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((address) => {
-        this.delivaryAddress = address!;
-      });
     this._basketService.payResult$
       .pipe(takeUntil(this.destroy$))
       .subscribe((result: PayResultViewModel | undefined) => {
         if (result) this._handleAfterSaveOrder(result);
+      });
+    this._basketService.basketCheckout$.subscribe((result) => {
+      this.basketCheckout = result;
+    });
+    this._basketService.readyForPay.subscribe((result) => {
+      if (result) {
+        this.saveOrder();
+      }
+    });
+  }
+
+  openAttachReceiptDialog(billId: number): void {
+    this._dialog
+      .open(AttachReceiptDialogComponent, {
+        width: '800px',
+        autoFocus: false,
+        panelClass: 'custom-mat-dialog',
+        data: billId,
+      })
+      .afterClosed()
+      .subscribe((result: number) => {
+        if (result) this._navigateToPaymentResultPage(result);
+      });
+  }
+
+  openAttachChequeDialog(billId: number) {
+    this._dialog
+      .open(AttachChequeDialogComponent, {
+        width: '600px',
+        autoFocus: false,
+        panelClass: 'custom-mat-dialog',
+        data: billId,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) this._navigateToPaymentResultPage(billId);
       });
   }
 
@@ -97,12 +134,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.document.body.removeChild(form);
   }
 
-  saveOrder(paymentGatewayId: number) {
+  saveOrder() {
     this.loadingService.startLoading('add', 'saveOrder');
     const dto = {
       discountCode: this.submittedDiscountCode,
-      paymentGatewayId,
-      addressId: this.delivaryAddress,
+      paymentGatewayId: this.selectedPaymentGateway.id,
       description: this.description.value,
       billId: this._basketService.billId.value,
     } as SaveOrderDto;
@@ -114,28 +150,46 @@ export class PaymentComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe({
-        next: (result) =>
-          this._actionsAfterSaveOrder(result.result!, paymentGatewayId),
+        next: (result) => this._actionsAfterSaveOrder(result.result!),
         error: () => this.loadingService.stopLoading('add', 'saveOrder'),
       });
   }
 
-  private _actionsAfterSaveOrder(billId: number, paymentGatewayId: number) {
+  private _actionsAfterSaveOrder(billId: number) {
     this._basketService.billId.next(billId);
-
-    this.selectedPaymentGateWayIds.push(paymentGatewayId);
     this._basketService.billInvoice(this._basketService.billId.value!);
     this._initialAppService.getUserCredit();
-    if (paymentGatewayId < 8) {
-      this._basketService.pay(
-        this._basketService.billId.value!,
-        paymentGatewayId
-      );
+    if (
+      this.selectedPaymentGateway.enName === this.paymentEnums.WalletPay ||
+      this.selectedPaymentGateway.enName === this.paymentEnums.CreditPay
+    ) {
+      this._navigateToPaymentResultPage(billId);
+      return;
     }
+    if (this.selectedPaymentGateway.enName === this.paymentEnums.BankCheque) {
+      this.openAttachChequeDialog(billId);
+      return;
+    }
+    if (this.selectedPaymentGateway.enName === this.paymentEnums.BankRecipt) {
+      this.openAttachReceiptDialog(billId);
+      return;
+    }
+
+    this._basketService.pay(
+      this._basketService.billId.value!,
+      this.selectedPaymentGateway.id
+    );
   }
 
-  isInSelectedGateways(paymentGatwayId: number) {
-    return this.selectedPaymentGateWayIds.includes(paymentGatwayId);
+  private _navigateToPaymentResultPage(billId: number) {
+    this._router.navigate(['/callback'], {
+      queryParams: { billid: billId, status: 1 },
+    });
+  }
+
+  selectPaymentGateWay(paymentGateway: PaymentGatewayViewModel) {
+    this.selectedPaymentGateway = paymentGateway;
+    this._basketService.selectedPaymentGateWay.next(paymentGateway.id);
   }
 
   submitDiscount() {

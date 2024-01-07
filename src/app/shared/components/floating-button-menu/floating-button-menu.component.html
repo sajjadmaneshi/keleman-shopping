@@ -1,10 +1,6 @@
 <div class="menu_overlay" (click)="removeClass()"></div>
 
-<div
-  class="cornerMenu"
-  [ngClass]="{ animate__heartBeat: !menuOpened }"
-  (click)="$event.preventDefault(); toggleClass()"
->
+<div class="cornerMenu" (click)="$event.preventDefault(); toggleClass()">
   <mat-icon class="menu-icon contact-us" [inline]="true">
     @if(menuOpened){ close } @else { headset_mic }
   </mat-icon>

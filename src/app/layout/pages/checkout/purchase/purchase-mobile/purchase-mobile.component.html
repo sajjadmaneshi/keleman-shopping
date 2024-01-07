@@ -13,7 +13,7 @@
         <button
           class="btn btn-success actions__buttons fs-5 fw-bolder"
           (click)="submitPay()"
-          [disabled]="checkout.payablePrice !== 0"
+          [disabled]="paymentGatewayId === -1"
         >
           تکمیل پرداخت
         </button>

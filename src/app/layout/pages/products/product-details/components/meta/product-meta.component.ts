@@ -4,7 +4,7 @@ import {
   ProductStatusViewModel,
 } from '../../../services/product.service';
 import { ProductRepository } from '../../../data/repositories/product.repository';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { of, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { ProductSpecificViewModel } from '../../../data/models/view-models/product-specific.view-model';
 import { SharedVariablesService } from '../../../../../../shared/services/shared-variables.service';
 import { ProductDetailViewModel } from '../../../data/models/view-models/product-detail.view-model';
@@ -26,7 +26,7 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
   @Input() isLoggedIn = false;
   @Input() productDetails!: ProductDetailViewModel;
 
-  specifications!: ProductSpecificViewModel[];
+  specifications: ProductSpecificViewModel[] = [];
   addToBasketLoading = false;
   isInBasket = false;
   inBasketCount = 0;
@@ -78,7 +78,9 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
   }
 
   addToBasket() {
-    this.isLoggedIn ? this.addToBasketAuthorized() : this.addToBasketGuest();
+    return this.isLoggedIn
+      ? this.addToBasketAuthorized()
+      : this.addToBasketGuest();
   }
 
   addToBasketGuest() {
@@ -92,16 +94,26 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
         price: this.productDetails.currentPrice,
         seller: this.productDetails.seller.name,
         currentStock: this.productDetails.currentStock,
+        details: this.packageItems
+          ? this.packageItems.items
+              .map((x) => {
+                return x.items.map((y) => {
+                  return { id: y.productId, count: y.amount, name: y.caption };
+                });
+              })
+              .flat(Infinity)
+          : undefined,
       },
+
       count: 1,
     } as BasketItemViewModel;
-    this._basketService.addToBasket({ guestBasketItem: productItem });
+    return this._basketService.addToBasket({ guestBasketItem: productItem });
   }
 
   addToBasketAuthorized() {
     const dto = {
       productId: this.productDetails.id,
-      // storeId: this.productDetail.stores[0].id,
+      // storeId: this.productDetails.stores[0]?.id!,
       packageDetailItems: this.packageItems
         ? this.packageItems.items
             .map((x) => {
@@ -113,45 +125,59 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
         : undefined,
     } as AddToCartDto;
 
-    this._basketService.addToBasket({ authBasketItem: dto });
+    return this._basketService.addToBasket({ authBasketItem: dto });
   }
 
   updateBasket(count: number) {
     const dto = {
       productId: this.productDetails.id,
-      // storeId: this.productDetail.stores[0].id,
+      // storeId: this.productDetails.stores[0]?.id!,
+      packageDetailItems: this.packageItems
+        ? this.packageItems.items
+            .map((x) => {
+              return x.items.map((y) => {
+                return { id: y.productId, count: y.amount };
+              });
+            })
+            .flat(Infinity)
+        : undefined,
       count,
     } as UpdateBasketDto;
-    this._basketService.updateBasket(dto);
+    return this._basketService.updateBasket(dto);
   }
 
   openPackageDetailDialog(data: PackageItemsViewModel) {
-    this._dialog
-      .open(PackageProductsDialogComponent, {
-        width: '500px',
-        autoFocus: false,
-        data: this.packageItems || data,
-      })
-      .afterClosed()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((result: PackageItemsViewModel) => {
-        this.packageItems = result;
+    const dialogRef = this._dialog.open(PackageProductsDialogComponent, {
+      width: '500px',
+      autoFocus: false,
+      data: this.packageItems || data,
+    });
+    dialogRef.componentInstance.dialogSubmit
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((result: PackageItemsViewModel) => {
+          this.packageItems = result;
+          return of(
+            this.inBasketCount > 0 ? this.updateBasket(1) : this.addToBasket()
+          );
+        })
+      )
+      .subscribe((response: boolean) => {
+        if (response) {
+          dialogRef.close();
+        }
       });
   }
 
   getPackageData() {
-    this.loadingService.startLoading('read', 'packageItems');
-    this._productRepository
-      .getPackageDetails(this.productDetails.id)
-      .pipe(
-        tap(() => this.loadingService.stopLoading('read', 'packageItems')),
-        takeUntil(this.destroy$)
+    this._productService
+      .getPackageData(
+        this.productDetails.id,
+        this.inBasketCount,
+        this.isLoggedIn
       )
-      .subscribe({
-        next: (result) => {
-          this.openPackageDetailDialog(result.result!);
-        },
-        error: () => this.loadingService.stopLoading('read', 'packageItems'),
+      .then((result) => {
+        if (result) this.openPackageDetailDialog(result);
       });
   }
 

@@ -1,14 +1,16 @@
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 import { UserAddressViewModel } from '../../../profile/data/view-models/user-address.view-model';
 import { ProfileRepository } from '../../../profile/data/profile.repository';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { LoadingService } from '../../../../../../common/services/loading.service';
-import { Component, Inject, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { ModifyAddressDialogComponent } from '../../../profile/address/add-address-dialog/modify-address-dialog.component';
 
 @Component({
@@ -20,15 +22,15 @@ import { ModifyAddressDialogComponent } from '../../../profile/address/add-addre
 export class ShippingUserAddressDialogComponent implements OnDestroy {
   userAddresses: UserAddressViewModel[] = [];
   selectedAddress!: UserAddressViewModel;
-
   destroy$ = new Subject<void>();
+
+  @Output() submit = new EventEmitter<UserAddressViewModel>();
 
   constructor(
     private readonly _profileRepository: ProfileRepository,
     public readonly loadingService: LoadingService,
     public readonly _dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public selectedId: number,
-    private readonly _dialogRef: MatDialogRef<ShippingUserAddressDialogComponent>
+    @Inject(MAT_DIALOG_DATA) public selectedId: number
   ) {
     loadingService.startLoading('read', 'getShippingAddresses');
 
@@ -73,8 +75,8 @@ export class ShippingUserAddressDialogComponent implements OnDestroy {
   selectAddress(address: UserAddressViewModel) {
     this.selectedAddress = address;
   }
-  submit() {
-    this._dialogRef.close(this.selectedAddress);
+  onSubmit() {
+    this.submit.emit(this.selectedAddress);
   }
 
   ngOnDestroy(): void {

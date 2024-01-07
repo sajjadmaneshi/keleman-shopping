@@ -6,6 +6,8 @@ import { HttpClientResult } from '../../../../../shared/data/models/http/http-cl
 import { PaymentGatewayViewModel } from '../models/payment-gateway.view-model';
 import { VerifyPaymentDto } from '../dto/verify-payment.dto';
 import { PayResultViewModel } from '../models/pay-result.view-model';
+import { AttachChequeDto } from '../dto/attach-cheque.dto';
+import { AttachReceiptDto } from '../dto/attach-receipt.dto';
 
 @Injectable()
 export class PaymentRepository extends DataService<PaymentGatewayViewModel> {
@@ -33,5 +35,22 @@ export class PaymentRepository extends DataService<PaymentGatewayViewModel> {
       `${this._getCartUrl}/verify?userId=${localStorage.getItem('USERID')}`,
       dto
     ) as Observable<HttpClientResult<boolean>>;
+  }
+
+  attachCheque(
+    billId: number,
+    dto: AttachChequeDto[]
+  ): Observable<HttpClientResult<boolean>> {
+    return this._http.post(
+      `${this._getCartUrl}/cheque/${billId}`,
+      dto
+    ) as Observable<HttpClientResult<boolean>>;
+  }
+
+  attachRecipt(billId: number, dto: AttachReceiptDto[]): Observable<boolean> {
+    return this._http.post(
+      `${this._getCartUrl}/receipt/${billId}`,
+      dto
+    ) as Observable<boolean>;
   }
 }

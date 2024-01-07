@@ -17,4 +17,5 @@ export class Routing {
   static myBox = 'my-box';
   static credits = 'credits';
   static callback = 'callback';
+  static notFound = 'not-found';
 }

@@ -30,7 +30,7 @@ export class BankCallbackComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         this.paymentResult = new PaymentResult(
-          +result['billId'],
+          +result['billid'],
           +result['status']
         );
         this.loadingService.startLoading('add', 'verify');

@@ -9,6 +9,7 @@
 } @else if (address){
 <keleman-shipping-address-item
   [address]="address"
+  (addressChange)="changeAddress($event)"
 ></keleman-shipping-address-item>
 } @else {
 <div

@@ -14,16 +14,6 @@ export class BillRepository extends DataService<ShippingCostViewModel> {
     super('bill', _http);
   }
 
-  getShippingCost(
-    addressId: number
-  ): Observable<HttpClientResult<ShippingCostViewModel>> {
-    return this._http.get(
-      `${
-        this._getCartUrl
-      }/shippingCost/${addressId}?userId=${localStorage.getItem('USERID')}`
-    ) as Observable<HttpClientResult<ShippingCostViewModel>>;
-  }
-
   setDiscount(
     dto: SetDiscountDto
   ): Observable<HttpClientResult<BasketCheckoutViewModel>> {

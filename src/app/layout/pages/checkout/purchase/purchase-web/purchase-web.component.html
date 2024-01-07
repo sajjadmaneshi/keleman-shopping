@@ -16,7 +16,12 @@
       <button
         class="btn btn-success submit-button align-self-center w-100"
         (click)="submitPay()"
-        [disabled]="checkout.payablePrice !== 0"
+        [disabled]="paymentGatewayId === -1"
+        kelemanLoadingProgress
+        [loading]="
+          (loadingServcie.getLoadingStateObservable('add', 'saveOrder')
+            | async)!
+        "
       >
         تکمیل پرداخت
       </button>
@@ -24,7 +29,6 @@
       <button
         class="btn btn-warning submit-button align-self-center w-100"
         (click)="checkoutService.nextStep()"
-        [disabled]="(checkoutService.selectedIndex | async) === 1 && !addressId"
       >
         ادامه
       </button>

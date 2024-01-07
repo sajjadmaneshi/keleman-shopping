@@ -3,10 +3,12 @@ import { ApplicationStateService } from '../../../../shared/services/application
 import { ActivatedRoute, Params } from '@angular/router';
 import { ProductDetailViewModel } from '../data/models/view-models/product-detail.view-model';
 import { ProductRepository } from '../data/repositories/product.repository';
-import { Subject, takeUntil, tap } from 'rxjs';
-import { ProductService } from '../services/product.service';
+import { of, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import {
+  ProductService,
+  ProductStatusViewModel,
+} from '../services/product.service';
 import { DOCUMENT } from '@angular/common';
-import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { ModifyMetaDataService } from '../../../../../common/services/modify-meta-data.service';
 import { BasketItemViewModel } from '../../checkout/data/models/basket-item.view-model';
@@ -15,6 +17,10 @@ import { UpdateBasketDto } from '../../checkout/data/dto/update-basket.dto';
 import { BasketService } from '../../checkout/services/basket.service';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
+import { PackageItemsViewModel } from '../data/models/view-models/package-items.view-model';
+import { PackageProductsDialogComponent } from './components/package-products-dialog/package-products-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 
 @Component({
   selector: 'app-product-details',
@@ -24,12 +30,12 @@ import { HttpClientResult } from '../../../../shared/data/models/http/http-clien
 })
 export class ProductDetailsComponent implements OnInit {
   productDetails!: ProductDetailViewModel;
-  productStatus: AvailableStatusEnum = AvailableStatusEnum.AVAILABLE;
-  availableStatusEnum = AvailableStatusEnum;
   isInBasket = false;
   inBasketCount: number = 0;
-  productCountInBasket = 0;
   isLoggedIn = false;
+  productValidationStatus!: ProductStatusViewModel;
+  availableStatusEnum = AvailableStatusEnum;
+  packageItems!: PackageItemsViewModel;
   private destroy$ = new Subject<void>();
   constructor(
     public readonly applicationState: ApplicationStateService,
@@ -40,6 +46,7 @@ export class ProductDetailsComponent implements OnInit {
     private readonly _authService: AuthService,
     private readonly _basketService: BasketService,
     private readonly _metaDataService: ModifyMetaDataService,
+    private readonly _dialog: MatDialog,
     @Inject(DOCUMENT) private document: Document
   ) {
     loadingService.startLoading('read', 'productDetails');
@@ -89,10 +96,45 @@ export class ProductDetailsComponent implements OnInit {
       this.productDetails.seoTitle,
       this.productDetails.seoDescription
     );
-    this.productStatus = this._productService.getProductStatus(
+    this.productValidationStatus = this._productService.checkProductValidation(
       this.productDetails
     );
     this.checkBasketStatus();
+  }
+
+  getPackageData() {
+    this._productService
+      .getPackageData(
+        this.productDetails.id,
+        this.inBasketCount,
+        this.isLoggedIn
+      )
+      .then((result) => {
+        if (result) this.openPackageDetailDialog(result);
+      });
+  }
+
+  openPackageDetailDialog(data: PackageItemsViewModel) {
+    const dialogRef = this._dialog.open(PackageProductsDialogComponent, {
+      width: '500px',
+      autoFocus: false,
+      data: this.packageItems || data,
+    });
+    dialogRef.componentInstance.dialogSubmit
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((result: PackageItemsViewModel) => {
+          this.packageItems = result;
+          return of(
+            this.inBasketCount > 0 ? this.updateBasket(1) : this.addToBasket()
+          );
+        })
+      )
+      .subscribe((response: boolean) => {
+        if (response) {
+          dialogRef.close();
+        }
+      });
   }
 
   private checkBasketStatus() {
@@ -113,7 +155,9 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToBasket() {
-    this.isLoggedIn ? this.addToBasketAuthorized() : this.addToBasketGuest();
+    return this.isLoggedIn
+      ? this.addToBasketAuthorized()
+      : this.addToBasketGuest();
   }
 
   addToBasketGuest() {
@@ -126,26 +170,56 @@ export class ProductDetailsComponent implements OnInit {
         discount: 0,
         price: this.productDetails.currentPrice,
         seller: this.productDetails.seller.name,
+        currentStock: this.productDetails.currentStock,
+        details: this.packageItems
+          ? this.packageItems.items
+              .map((x) => {
+                return x.items.map((y) => {
+                  return { id: y.productId, count: y.amount, name: y.caption };
+                });
+              })
+              .flat(Infinity)
+          : undefined,
       },
+
       count: 1,
     } as BasketItemViewModel;
-    this._basketService.addToBasket({ guestBasketItem: productItem });
+    return this._basketService.addToBasket({ guestBasketItem: productItem });
   }
 
   addToBasketAuthorized() {
     const dto = {
       productId: this.productDetails.id,
-      // storeId: this.productDetail.stores[0].id,
+      // storeId: this.productDetails.stores[0]?.id!,
+      packageDetailItems: this.packageItems
+        ? this.packageItems.items
+            .map((x) => {
+              return x.items.map((y) => {
+                return { id: y.productId, count: y.amount };
+              });
+            })
+            .flat(Infinity)
+        : undefined,
     } as AddToCartDto;
-    this._basketService.addToBasket({ authBasketItem: dto });
+
+    return this._basketService.addToBasket({ authBasketItem: dto });
   }
 
   updateBasket(count: number) {
     const dto = {
       productId: this.productDetails.id,
-      // storeId: this.productDetail.stores[0].id,
+      // storeId: this.productDetails.stores[0]?.id!,
+      packageDetailItems: this.packageItems
+        ? this.packageItems.items
+            .map((x) => {
+              return x.items.map((y) => {
+                return { id: y.productId, count: y.amount };
+              });
+            })
+            .flat(Infinity)
+        : undefined,
       count,
     } as UpdateBasketDto;
-    this._basketService.updateBasket(dto);
+    return this._basketService.updateBasket(dto);
   }
 }

@@ -6,6 +6,8 @@ import { ProductRepository } from '../data/repositories/product.repository';
 import { ProductDescriptionsViewModel } from '../data/models/view-models/product-descriptions.view-model';
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
 import { LoadingService } from '../../../../../common/services/loading.service';
+import { BasketService } from '../../checkout/services/basket.service';
+import { PackageItemsViewModel } from '../data/models/view-models/package-items.view-model';
 
 @Injectable()
 export class ProductService implements OnDestroy {
@@ -16,6 +18,7 @@ export class ProductService implements OnDestroy {
 
   constructor(
     private _productRepository: ProductRepository,
+    private _basketService: BasketService,
     private readonly _loadingService: LoadingService
   ) {}
 
@@ -81,6 +84,49 @@ export class ProductService implements OnDestroy {
       'افزودن به سبد خرید',
       AvailableStatusEnum.AVAILABLE
     );
+  }
+
+  getPackageData(
+    productId: number,
+    inBasketCount: number,
+    isLoggedIn: boolean
+  ): Promise<PackageItemsViewModel | undefined> {
+    return new Promise((resolve, reject) => {
+      this._loadingService.startLoading('read', 'packageItems');
+      if (inBasketCount > 0 && isLoggedIn) {
+        this._basketService
+          .getPackageDetails(productId)
+          .pipe(
+            tap(() => this._loadingService.stopLoading('read', 'packageItems')),
+            takeUntil(this.destroy$)
+          )
+          .subscribe({
+            next: (result) => {
+              resolve(result!);
+            },
+            error: () => {
+              this._loadingService.stopLoading('read', 'packageItems');
+              resolve(undefined);
+            },
+          });
+      } else {
+        this._productRepository
+          .getPackageDetails(productId)
+          .pipe(
+            tap(() => this._loadingService.stopLoading('read', 'packageItems')),
+            takeUntil(this.destroy$)
+          )
+          .subscribe({
+            next: (result) => {
+              resolve(result.result!);
+            },
+            error: () => {
+              this._loadingService.stopLoading('read', 'packageItems');
+              resolve(undefined);
+            },
+          });
+      }
+    });
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,8 @@
-.cheque-form {
-  max-height: 500px;
-  overflow-y: scroll;
+.remove {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  height: 1.5rem;
+  width: 1.5rem;
 }

@@ -1,6 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
+  MatDialog,
   MatDialogActions,
   MatDialogContent,
   MatDialogRef,
@@ -18,6 +19,11 @@ import { ValueChangerComponent } from '../../../../../../shared/components/value
 import { LoadingProgressDirective } from '../../../../../../shared/directives/loading-progress.directive';
 import { PriceComponent } from '../../../../../../shared/components/price/price.component';
 import { DecimalPipe } from '@angular/common';
+import { AuthService } from '../../../../../../shared/services/auth/auth.service';
+import { AlertDialogComponent } from '../../../../../../shared/components/alert-dialog/alert-dialog.component';
+import { Routing } from '../../../../../../routing';
+import { AlertDialogDataModel } from '../../../../../../shared/components/alert-dialog/alert-dialog-data.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'keleman-package-products-dialog',
@@ -40,12 +46,19 @@ import { DecimalPipe } from '@angular/common';
 export class PackageProductsDialogComponent {
   totalPrice = 0;
   packageDatas: PackegeItemGroupViewModel[] = [];
+  isLoggedIn = false;
+  @Output() dialogSubmit = new EventEmitter<PackageItemsViewModel>();
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: PackageItemsViewModel,
-    private _dialogRef: MatDialogRef<PackageProductsDialogComponent>
+    private _authService: AuthService,
+    private _dialog: MatDialog,
+    private _router: Router
   ) {
     this.packageDatas = [...data.items];
     this.totalPrice = data.totalPrice;
+    this._authService.isLoggedIn$.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
 
   canDecrease(packageGroup: PackegeItemGroupViewModel) {
@@ -80,7 +93,25 @@ export class PackageProductsDialogComponent {
     }, 0);
   }
 
+  openRegisterBeforeActionDialog() {
+    this._dialog.open(AlertDialogComponent, {
+      data: {
+        message: 'لطفا برای افزودن پکیج به سبد خرید ابتدا وارد سایت شوید',
+        callBackButtonText: 'واردشوید',
+        callBackFunction: () =>
+          this._router.navigate([Routing.register], {
+            queryParams: {
+              redirectUrl: this._router.routerState.snapshot.url,
+              openAddCommentDialog: true,
+            },
+          }),
+      } as AlertDialogDataModel,
+    });
+  }
+
   submit() {
-    this._dialogRef.close(this.data);
+    if (this.isLoggedIn) {
+      this.dialogSubmit.emit(this.data);
+    } else this.openRegisterBeforeActionDialog();
   }
 }

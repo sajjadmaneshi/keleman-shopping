@@ -27,12 +27,14 @@ export class BasketService {
   basketCheckout$ = new BehaviorSubject<BasketCheckoutViewModel>(
     new BasketCheckoutViewModel(0, 0, 0, 0)
   );
-  delivaryAddress$ = new BehaviorSubject<number | undefined>(undefined);
   payResult$ = new BehaviorSubject<PayResultViewModel | undefined>(undefined);
   billId = new BehaviorSubject<number | undefined>(undefined);
   mergeResult = new BehaviorSubject<MergeResultViewModel[] | undefined>(
     undefined
   );
+  selectedPaymentGateWay = new BehaviorSubject<number>(-1);
+  readyForPay = new BehaviorSubject<boolean>(false);
+
   constructor(
     private readonly _authenticatedBasketService: AuthenticatedBasketService,
     private readonly _guestBasketService: GuestBasketService,
@@ -47,7 +49,7 @@ export class BasketService {
   public addToBasket(input: {
     authBasketItem?: AddToCartDto;
     guestBasketItem?: BasketItemViewModel;
-  }) {
+  }): boolean {
     let addresult = true;
     if (this.isLoggedIn$)
       this._authenticatedBasketService
@@ -66,6 +68,7 @@ export class BasketService {
     if (addresult) {
       this.productCountInBasket$.next(this.productCountInBasket$.value + 1);
     }
+    return addresult;
   }
 
   public updateBasket(updateDto: UpdateBasketDto) {
@@ -81,6 +84,7 @@ export class BasketService {
       this._guestBasketService.updateBasket(updateDto);
       this.handleUpdateSuccess(updateDto.count);
     }
+    return updateResult;
   }
 
   private handleUpdateSuccess(count: number) {
@@ -117,13 +121,6 @@ export class BasketService {
     });
   }
 
-  public shippingCost(addressId: number) {
-    if (this.isLoggedIn$)
-      this._authenticatedBasketService
-        .getShippingCost(addressId)
-        .subscribe((result) => this.shippingCost$.next(result));
-  }
-
   cartBalance() {
     if (this.isLoggedIn$) {
       this._authenticatedBasketService.getCartCount().subscribe((result) => {
@@ -139,6 +136,10 @@ export class BasketService {
       this._authenticatedBasketService
         .getPaymentGateways()
         .subscribe((result) => this.paymentGateways$.next(result));
+  }
+
+  getPackageDetails(packageId: number) {
+    return this._authenticatedBasketService.getPackageDetails(packageId);
   }
 
   pay(billId: number, bankId: number) {

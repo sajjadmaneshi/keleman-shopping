@@ -5,7 +5,6 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { ProfileRepository } from '../../profile/data/profile.repository';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { ModifyAddressDialogComponent } from '../../profile/address/add-address-dialog/modify-address-dialog.component';
-import { BasketService } from '../services/basket.service';
 
 @Component({
   selector: 'keleman-shipping',
@@ -18,10 +17,13 @@ export class ShippingComponent implements OnDestroy {
   constructor(
     private readonly _dialog: MatDialog,
     private readonly _profileRepository: ProfileRepository,
-    private readonly _basketService: BasketService,
     public readonly loadingSerivce: LoadingService
   ) {
     this.getShipingAddress();
+  }
+
+  changeAddress(selectedAddress: UserAddressViewModel) {
+    if (selectedAddress) this.address = selectedAddress;
   }
 
   getShipingAddress() {
@@ -35,13 +37,7 @@ export class ShippingComponent implements OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe({
-        next: (result) => {
-          this.address = result.result!;
-          this._basketService.delivaryAddress$.next(this.address.id);
-          if (this.address) {
-            this._basketService.shippingCost(this.address.id);
-          }
-        },
+        next: (result) => (this.address = result.result!),
         error: () =>
           this.loadingSerivce.stopLoading('read', 'getShippingAddress'),
       });

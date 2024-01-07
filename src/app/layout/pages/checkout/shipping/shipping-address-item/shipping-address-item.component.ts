@@ -1,20 +1,18 @@
 import {
   Component,
   EventEmitter,
-  Inject,
   Input,
   OnDestroy,
   Output,
-  PLATFORM_ID,
 } from '@angular/core';
 
 import { UserAddressViewModel } from '../../../profile/data/view-models/user-address.view-model';
 import { ShippingUserAddressDialogComponent } from '../shipping-user-address-dialog/shipping-user-address-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { LatLngExpression } from 'leaflet';
-import { isPlatformBrowser } from '@angular/common';
-import { BasketService } from '../../services/basket.service';
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, map, of, Subject, takeUntil, tap } from 'rxjs';
+import { ProfileRepository } from '../../../profile/data/profile.repository';
+import { LoadingService } from '../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-shipping-address-item',
@@ -26,29 +24,47 @@ export class ShippingAddressItemComponent implements OnDestroy {
   @Input() showMap = true;
   @Input() editable = false;
   @Output() edit = new EventEmitter<void>();
-
+  @Output() addressChange = new EventEmitter<UserAddressViewModel>();
   destroy$ = new Subject<void>();
 
   constructor(
     private readonly _dialog: MatDialog,
-    private readonly _basketService: BasketService
+    private readonly _profileRepository: ProfileRepository,
+    public loadingService: LoadingService
   ) {}
 
   openAddressDialog() {
-    this._dialog
-      .open(ShippingUserAddressDialogComponent, {
-        width: '700px',
-        data: this.address.id,
-      })
-      .afterClosed()
+    const dialogRef = this._dialog.open(ShippingUserAddressDialogComponent, {
+      width: '700px',
+      data: this.address.id,
+    });
+    dialogRef.componentInstance.submit
       .pipe(takeUntil(this.destroy$))
-      .subscribe((res: UserAddressViewModel) => {
-        if (res) {
-          this.address = res;
-          this._basketService.shippingCost(res.id);
-          this._basketService.delivaryAddress$.next(res.id);
+      .subscribe((selectedAddress: UserAddressViewModel) => {
+        if (selectedAddress) {
+          this.setShippingAddress(selectedAddress.id)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((result) => {
+              if (result) {
+                dialogRef.close();
+                this.addressChange.emit(selectedAddress);
+              }
+            });
         }
       });
+  }
+
+  setShippingAddress(addressId: number) {
+    this.loadingService.startLoading('add', 'defaultAddress');
+    return this._profileRepository.addDefaultAddress(addressId).pipe(
+      tap(() => this.loadingService.stopLoading('add', 'defaultAddress')),
+      takeUntil(this.destroy$),
+      map(() => true),
+      catchError(() => {
+        this.loadingService.stopLoading('add', 'defaultAddress');
+        return of(false);
+      })
+    );
   }
 
   getMarkerLatLng(lat: number, lng: number): LatLngExpression {

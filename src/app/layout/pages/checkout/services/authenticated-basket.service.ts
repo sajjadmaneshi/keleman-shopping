@@ -11,6 +11,8 @@ import { PaymentRepository } from '../data/repositories/payment.repository';
 import { MergeBasketDto } from '../data/dto/merge-basket.dto';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
 import { MergeResultViewModel } from '../data/models/merge-result.view-model';
+import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
+import { PackageItemsViewModel } from '../../products/data/models/view-models/package-items.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticatedBasketService {
@@ -45,19 +47,6 @@ export class AuthenticatedBasketService {
       catchError(() => {
         this._loadingService.stopLoading('update', 'updateBasket');
         return of(false);
-      })
-    );
-  }
-
-  public getShippingCost(addressId: number) {
-    this._loadingService.startLoading('read', 'shippingCost');
-    return this._billRepository.getShippingCost(addressId).pipe(
-      tap(() => this._loadingService.stopLoading('read', 'shoppingCost')),
-      takeUntil(this.destroy$),
-      map((x) => x.result!),
-      catchError(() => {
-        this._loadingService.stopLoading('read', 'shoppingCost');
-        return of(undefined);
       })
     );
   }
@@ -163,6 +152,19 @@ export class AuthenticatedBasketService {
       catchError(() => {
         this._loadingService.stopLoading('read', 'getCheckout');
         return of(new BasketCheckoutViewModel(0, 0, 0, 0));
+      })
+    );
+  }
+
+  getPackageDetails(packageId: number) {
+    this._loadingService.startLoading('read', 'packageDetails');
+    return this._basketRepository.getPackageDetails(packageId).pipe(
+      tap(() => this._loadingService.stopLoading('read', 'packageDetails')),
+      takeUntil(this.destroy$),
+      map((x) => x.result!),
+      catchError(() => {
+        this._loadingService.stopLoading('read', 'packageDetails');
+        return of(undefined);
       })
     );
   }

@@ -13,6 +13,7 @@ export interface BasketItemViewModel {
   };
   count: number;
   reciveTime?: string;
+  url: string;
 }
 
 export interface BasketPackageItemsViewModel {

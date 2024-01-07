@@ -28,7 +28,8 @@ const routes: Routes = [
     },
   },
   { path: Routing.callback, component: BankCallbackComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: Routing.notFound, component: NotFoundComponent },
+  { path: '**', redirectTo: Routing.notFound, pathMatch: 'full' },
 ];
 
 @NgModule({

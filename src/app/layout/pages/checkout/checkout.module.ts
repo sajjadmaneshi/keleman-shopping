@@ -41,7 +41,6 @@ import { EmptyContentComponent } from '../profile/empty-content/empty-content.co
 import { MatDividerModule } from '@angular/material/divider';
 import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
-import { basketPaymentGuard } from './guard/basket-payment.guard';
 import { PaymentGatewayComponent } from './payment/payment-gateway/payment-gateway.component';
 import { AuthGuard } from '../../../shared/guards/auth.guard';
 
@@ -60,7 +59,7 @@ export const routes: Routes = [
       {
         path: Routing.payment,
         component: PaymentComponent,
-        canActivate: [AuthGuard, basketPaymentGuard],
+        canActivate: [AuthGuard],
       },
     ],
   },

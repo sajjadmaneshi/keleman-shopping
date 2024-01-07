@@ -18,12 +18,20 @@
 
     @if (isLoggedIn && userProfileInfo;){
     <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
-      <div
-        class="symbol symbol-13 cursor-pointer symbol-circle"
-        ngbDropdownToggle
-      >
-        <img src="assets/media/blank.webp" />
-      </div>
+      <span class="d-flex align-items-center cursor-pointer" ngbDropdownToggle>
+        <p class="mx-3">
+          {{ userProfileInfo.firstName }}
+          {{ userProfileInfo.lastName }}
+        </p>
+        <div class="symbol symbol-10 symbol-circle">
+          <img
+            loadingLazy
+            emptyImage
+            [src]="userProfileInfo.avatar!"
+            [isAvatar]="true"
+          />
+        </div>
+      </span>
 
       <div
         ngbDropdownMenu

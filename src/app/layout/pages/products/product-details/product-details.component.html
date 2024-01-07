@@ -15,26 +15,44 @@
   <div class="card shadow-lg bg-white">
     <div class="card-body row m-0">
       <div class="col-6">
-        @if (inBasketCount == 0){
+        @if(productDetails.isPackage){
+        <button
+          class="btn btn-klm-primary fs-5 fw-bolder w-100"
+          kelemanLoadingProgress
+          [disabled]="productValidationStatus.disable"
+          [loading]="
+            (loadingService.getLoadingStateObservable('read', 'packageItems')
+              | async)!
+          "
+          (click)="getPackageData()"
+        >
+          تغییر محتویات و افزودن به سبد خرید
+        </button>
+
+        } @else if (inBasketCount == 0){
         <button
           class="actions__buttons text-klm-primary fs-5 fw-bolder w-100"
-          [disabled]="productStatus !== availableStatusEnum.AVAILABLE"
+          kelemanLoadingProgress
+          [loading]="
+            (loadingService.getLoadingStateObservable('add', 'addToBasket')
+              | async)!
+          "
+          [disabled]="productValidationStatus.disable"
           (click)="addToBasket()"
         >
           افزودن به سبد خرید
         </button>
         } @else {
         <keleman-value-changer
-          [initialValue]="productCountInBasket"
+          [initialValue]="inBasketCount"
           (increse)="updateBasket($event)"
           (decrease)="updateBasket($event)"
+          [max]="productDetails.currentStock"
         ></keleman-value-changer>
         }
       </div>
       <div class="col-6 d-flex align-items-center justify-content-center">
-        @if (productStatus === availableStatusEnum.UNAVAILABLE){
-        <h3>نا موجود</h3>
-        } @else if (productStatus === availableStatusEnum.AVAILABLE) {
+        @if (productValidationStatus.status === availableStatusEnum.AVAILABLE) {
         <keleman-price
           [value]="productDetails.currentPrice"
           [color]="'dark'"
@@ -43,7 +61,7 @@
           [discount]="25"
         ></keleman-price>
         } @else {
-        <h3>تماس بگیرید</h3>
+        <h3>{{ productValidationStatus.text }}</h3>
         }
       </div>
     </div>

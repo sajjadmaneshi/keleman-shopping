@@ -6,6 +6,7 @@ import { UntilFreeShippingComponent } from './components/until-free-shipping/unt
 import { PurchaseComponent } from './purchase.component';
 import { PriceComponent } from '../../../../shared/components/price/price.component';
 import { MainPurchaseComponent } from './components/main-purchase/main-purchase.component';
+import { LoadingProgressDirective } from '../../../../shared/directives/loading-progress.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,14 @@ import { MainPurchaseComponent } from './components/main-purchase/main-purchase.
     UntilFreeShippingComponent,
     MainPurchaseComponent,
   ],
-  imports: [CommonModule, AsyncPipe, NgIf, DecimalPipe, PriceComponent],
+  imports: [
+    CommonModule,
+    AsyncPipe,
+    NgIf,
+    DecimalPipe,
+    PriceComponent,
+    LoadingProgressDirective,
+  ],
   exports: [PurchaseComponent],
 })
 export class PurchaseModule {}

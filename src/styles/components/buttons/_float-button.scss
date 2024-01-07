@@ -14,8 +14,8 @@ body.menuOpened {
 }
 
 .cornerMenu {
-  width: 5.2rem;
-  height: 5.2rem;
+  width: 3rem;
+  height: 3rem;
   position: fixed;
   right: 25px;
   bottom: 65px;
@@ -23,23 +23,22 @@ body.menuOpened {
   box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   text-align: center;
-  line-height: 5.2rem;
+  line-height: 3rem;
   vertical-align: middle;
   color: map-get($theme-colors, "klm-primary");
-  font-size: 22px;
+  font-size: 3rem;
   z-index: 1000;
   cursor: pointer;
-  animation-duration: 5s;
 
   .contact-us {
     vertical-align: middle;
-    font-size: 3rem !important;
+    font-size: 2rem !important;
   }
 }
 
 .menu {
-  width: 40px;
-  height: 40px;
+  width: 3rem;
+  height: 3rem;
   position: absolute;
   background: map-get($theme-colors, "klm-secondary");
   box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.1);

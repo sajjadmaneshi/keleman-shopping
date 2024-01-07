@@ -39,10 +39,4 @@ export class ReceiptFormComponent {
   }
 
   constructor() {}
-
-  onFileSelected($event: NgxDropzoneChangeEvent) {
-    this.files.push(...$event.addedFiles);
-  }
-
-  selectedFiles($event: SelectedFiles) {}
 }

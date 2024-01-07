@@ -26,6 +26,7 @@
     <keleman-price
       [size]="'h5'"
       [value]="productDetails.priceAfterDiscount"
+      class="d-block mb-3"
     ></keleman-price>
     @if (productDetails.currentDiscountPercent>0){
     <keleman-price
@@ -34,13 +35,14 @@
       [discount]="productDetails.currentDiscountPercent"
       [color]="'dark'"
       [size]="'h6'"
+      class="d-block mb-3"
     ></keleman-price>
     } }
     <div class="row align-items-center d-none d-lg-flex">
       <div class="col-12 row mx-0">
         @if(productDetails.isPackage){
         <button
-          class="btn btn-klm-primary mb-3 fs-5 fw-bolder w-100"
+          class="btn btn-klm-primary fs-5 fw-bolder w-100"
           kelemanLoadingProgress
           [disabled]="productValidationStatus.disable"
           [loading]="
@@ -49,19 +51,7 @@
           "
           (click)="getPackageData()"
         >
-          مشاهده جزئیات پکیج
-        </button>
-        <button
-          class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
-          kelemanLoadingProgress
-          [loading]="
-            (loadingService.getLoadingStateObservable('add', 'addToBasket')
-              | async)!
-          "
-          [disabled]="!packageItems"
-          (click)="addToBasket()"
-        >
-          {{ productValidationStatus.text }}
+          تغییر محتویات و افزودن به سبد خرید
         </button>
 
         } @else if (inBasketCount == 0){

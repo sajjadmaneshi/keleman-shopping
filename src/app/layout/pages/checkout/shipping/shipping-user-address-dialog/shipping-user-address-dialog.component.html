@@ -48,7 +48,16 @@
   </div>
 </div>
 <div mat-dialog-actions class="justify-content-center">
-  <button class="btn btn-warning text-white" type="button" (click)="submit()">
+  <button
+    class="btn btn-warning text-white"
+    type="button"
+    kelemanLoadingProgress
+    [loading]="
+      (loadingService.getLoadingStateObservable('add', 'defaultAddress')
+        | async)!
+    "
+    (click)="onSubmit()"
+  >
     ثبت
   </button>
 </div>

@@ -12,8 +12,7 @@ import { UpdateBasketDto } from '../../data/dto/update-basket.dto';
 import { AuthService } from '../../../../../shared/services/auth/auth.service';
 import { BasketService } from '../../services/basket.service';
 import { LoadingService } from '../../../../../../common/services/loading.service';
-import { Subject, takeUntil, tap } from 'rxjs';
-import { BasketRepository } from '../../data/repositories/basket.repository';
+import { of, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { PackageItemsViewModel } from '../../../products/data/models/view-models/package-items.view-model';
 import { PackageProductsDialogComponent } from '../../../products/product-details/components/package-products-dialog/package-products-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -34,7 +33,6 @@ export class BasketItemComponent implements OnDestroy {
     public readonly loadingService: LoadingService,
     private readonly _basketService: BasketService,
     private readonly _authService: AuthService,
-    private readonly _basketRepository: BasketRepository,
     private readonly _dialog: MatDialog
   ) {
     this._authService.isLoggedIn$
@@ -57,15 +55,23 @@ export class BasketItemComponent implements OnDestroy {
   updateBasket(count: number) {
     const dto = {
       productId: this.basketItem.product.id,
-      // storeId: this.productDetail.stores[0].id,
       count,
+      packageDetailItems: this.packageItems
+        ? this.packageItems.items
+            .map((x) => {
+              return x.items.map((y) => {
+                return { id: y.productId, count: y.amount };
+              });
+            })
+            .flat(Infinity)
+        : undefined,
     } as UpdateBasketDto;
-    this._basketService.updateBasket(dto);
+    return this._basketService.updateBasket(dto);
   }
 
   getPackageDetails() {
     this.loadingService.startLoading('read', 'basketPackageItems');
-    this._basketRepository
+    this._basketService
       .getPackageDetails(this.basketItem.product.id!)
       .pipe(
         tap(() =>
@@ -75,7 +81,7 @@ export class BasketItemComponent implements OnDestroy {
       )
       .subscribe({
         next: (result) => {
-          this.openPackageDetailDialog(result.result!);
+          this.openPackageDetailDialog(result!);
         },
         error: () =>
           this.loadingService.stopLoading('read', 'basketPackageItems'),
@@ -83,15 +89,24 @@ export class BasketItemComponent implements OnDestroy {
   }
 
   openPackageDetailDialog(data: PackageItemsViewModel) {
-    this._dialog
-      .open(PackageProductsDialogComponent, {
-        width: '500px',
-        autoFocus: false,
-        data: this.packageItems || data,
-      })
-      .afterClosed()
-      .subscribe((result: PackageItemsViewModel) => {
-        this.packageItems = result;
+    const dialogRef = this._dialog.open(PackageProductsDialogComponent, {
+      width: '500px',
+      autoFocus: false,
+      data: this.packageItems || data,
+    });
+    dialogRef.componentInstance.dialogSubmit
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((result: PackageItemsViewModel) => {
+          this.packageItems = result;
+          return of(this.updateBasket(1));
+        })
+      )
+      .subscribe((response: boolean) => {
+        if (response) {
+          this._basketService.basket();
+          dialogRef.close();
+        }
       });
   }
 

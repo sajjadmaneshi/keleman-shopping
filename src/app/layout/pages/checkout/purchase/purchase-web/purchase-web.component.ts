@@ -1,41 +1,35 @@
 import { Component, OnDestroy } from '@angular/core';
 import { CheckoutService } from '../../services/checkout.service';
 import { BasketRepository } from '../../data/repositories/basket.repository';
-import { BasketCheckoutViewModel } from '../../data/models/basket-checkout.view-model';
+
 import { BasketService } from '../../services/basket.service';
-import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { LoadingService } from '../../../../../../common/services/loading.service';
 
 @Component({
   selector: 'keleman-purchase-web',
   templateUrl: './purchase-web.component.html',
 })
 export class PurchaseWebComponent implements OnDestroy {
-  checkout!: BasketCheckoutViewModel;
-  addressId!: number;
   billId!: number;
   destroy$ = new Subject<void>();
+  paymentGatewayId = -1;
 
   constructor(
-    public checkoutService: CheckoutService,
-    private _basketService: BasketService,
-    private _router: Router,
-    private _basketRepository: BasketRepository
+    public readonly checkoutService: CheckoutService,
+    public readonly loadingServcie: LoadingService,
+    private readonly _basketService: BasketService,
+    private readonly _basketRepository: BasketRepository
   ) {
-    this._basketService.basketCheckout$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.checkout = res;
-      });
-    this._basketService.delivaryAddress$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.addressId = res!;
-      });
     this._basketService.billId
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.billId = res!;
+      });
+    this._basketService.selectedPaymentGateWay
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        if (result != -1) this.paymentGatewayId = result;
       });
   }
 
@@ -50,9 +44,7 @@ export class PurchaseWebComponent implements OnDestroy {
   }
 
   submitPay() {
-    this._router.navigate(['/callback'], {
-      queryParams: { billid: this.billId, status: 1 },
-    });
+    this._basketService.readyForPay.next(true);
   }
 
   ngOnDestroy(): void {

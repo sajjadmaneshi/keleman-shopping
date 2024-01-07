@@ -43,15 +43,23 @@
     <keleman-payment-gateway
       [gateway]="gateway"
       [credit]="userCredit"
-      [selected]="isInSelectedGateways(gateway.id)"
-      [loading]="loadingService.getLoadingStateObservable('add', 'saveOrder')"
-      (click)="saveOrder(gateway.id)"
+      [selected]="selectedPaymentGateway === gateway"
+      [disabled]="
+        (gateway.enName == paymentEnums.CreditPay &&
+          userCredit.creditValue < basketCheckout.payablePrice) ||
+        (gateway.enName == paymentEnums.WalletPay &&
+          userCredit.walletValue < basketCheckout.payablePrice)
+      "
+      [loading]="
+        (loadingService.getLoadingStateObservable('add', 'saveOrder') | async)!
+      "
+      (click)="selectPaymentGateWay(gateway)"
     ></keleman-payment-gateway>
     }
   </div>
 
   <span class="text-danger my-3"
-    >*درصورت لزوم میتوانید چند روش پرداخت با <a> شرایط مشخص</a> به طور همزمان
-    انتخاب کنید.</span
+    >جهت تکمیل خرید یکی از روش های پرداخت را انتخاب کرده و دکمه تکمیل پرداخت را
+    کلیک کنید.</span
   >
 </div>
