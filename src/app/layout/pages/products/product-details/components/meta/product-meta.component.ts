@@ -92,7 +92,6 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
         thumbnailImage: this.productDetails.image,
         discount: 0,
         price: this.productDetails.currentPrice,
-        seller: this.productDetails.seller.name,
         currentStock: this.productDetails.currentStock,
         details: this.packageItems
           ? this.packageItems.items
@@ -113,7 +112,10 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
   addToBasketAuthorized() {
     const dto = {
       productId: this.productDetails.id,
-      // storeId: this.productDetails.stores[0]?.id!,
+      storeId:
+        this.productDetails.stores.length > 0
+          ? this.productDetails.stores[0]?.id!
+          : null,
       packageDetailItems: this.packageItems
         ? this.packageItems.items
             .map((x) => {
@@ -131,7 +133,10 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
   updateBasket(count: number) {
     const dto = {
       productId: this.productDetails.id,
-      // storeId: this.productDetails.stores[0]?.id!,
+      storeId:
+        this.productDetails.stores.length > 0
+          ? this.productDetails.stores[0]?.id!
+          : null,
       packageDetailItems: this.packageItems
         ? this.packageItems.items
             .map((x) => {

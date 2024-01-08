@@ -67,7 +67,6 @@ export class AttachReceiptDialogComponent implements OnDestroy {
       }
     });
     if (allFormsValid) {
-      debugger;
       this.loadingService.startLoading('add', 'attachReceipt');
       this._paymentRepositoy
         .attachRecipt(this.data, this.receipts)

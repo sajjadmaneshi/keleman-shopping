@@ -215,7 +215,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   private _showSuccessMessage(message: string) {
-    this._snackBarService.showSuccessSnackBar(message);
+    this._snackBarService.showPrimarySnackBar(message);
   }
 
   ngOnDestroy(): void {

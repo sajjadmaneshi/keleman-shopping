@@ -57,13 +57,6 @@ export class InitialAppService implements OnDestroy {
       .subscribe(([isAuthenticated, productcategories, articleCategories]) => {
         if (isAuthenticated) {
           this.handleAuthenticatedUserActions();
-          if (
-            isPlatformBrowser(this.platformId) &&
-            !localStorage.getItem('MERGED_BASKET')
-          ) {
-            console.log(localStorage.getItem('MERGED_BASKET'));
-            this._basketService.mergeBasket();
-          }
         }
 
         this._basketService.cartBalance();

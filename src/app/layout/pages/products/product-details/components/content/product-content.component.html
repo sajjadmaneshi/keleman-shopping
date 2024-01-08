@@ -116,11 +116,14 @@
     <div class="d-none d-lg-grid grid-container mb-3">
       <div class="card card-rounded-3 shadow seller">
         <h6 class="fw-bolder">فروشنده</h6>
-        @if(productDetails.seller){
+
         <h6>
-          {{ productDetails.seller.name }}
+          {{
+            productDetails.stores.length > 0
+              ? productDetails.stores[0].title
+              : "کلمان"
+          }}
         </h6>
-        }
       </div>
       <div class="card card-rounded-3 shadow waranty">
         <h6 class="fw-bolder">گارانتی</h6>

@@ -1,4 +1,10 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
 import { BehaviorSubject, Subject, takeUntil, tap } from 'rxjs';
 
 import {
@@ -10,7 +16,11 @@ import {
 
 import { AutoCompleteComponent } from '../shared/components/auto-complete/auto-complete.component';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser,
+  NgOptimizedImage,
+} from '@angular/common';
 import { InputGroupComponent } from '../shared/components/input-group/input-group.component';
 import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
 import { LoadingProgressDirective } from '../shared/directives/loading-progress.directive';
@@ -31,6 +41,7 @@ import { TextOnlyDirective } from '../shared/directives/text-only.directive';
 import { GeneralRepository } from '../shared/data/repositories/general.repository';
 import { MatStepperModule } from '@angular/material/stepper';
 import { LoadingService } from '../../common/services/loading.service';
+import { BasketService } from '../layout/pages/checkout/services/basket.service';
 
 @Component({
   selector: 'app-authentication',
@@ -58,7 +69,6 @@ export class AuthComponent implements OnDestroy {
   selectedIndex$ = new BehaviorSubject<number | null>(null);
   @ViewChild('cd') private countDown!: CountdownComponent;
   private destroy$ = new Subject<void>();
-
   lastOtpLength = 0;
   selectedCity!: number;
   registerForm!: FormGroup;
@@ -98,13 +108,15 @@ export class AuthComponent implements OnDestroy {
   ]);
 
   constructor(
-    private _authservice: AuthService,
-    private _router: Router,
-    private _geoLocationRepository: GeneralRepository,
-    private _accountRepository: AccountRepository,
-    private _persianNumberSerive: CustomPersianNumberService,
-    private _activatedRoute: ActivatedRoute,
-    public loadingService: LoadingService
+    private readonly _authservice: AuthService,
+    private readonly _router: Router,
+    private readonly _geoLocationRepository: GeneralRepository,
+    private readonly _accountRepository: AccountRepository,
+    private readonly _persianNumberSerive: CustomPersianNumberService,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _basketService: BasketService,
+    public readonly loadingService: LoadingService,
+    @Inject(PLATFORM_ID) private _platformId: any
   ) {
     this._initForm();
     this._activatedRoute.queryParams
@@ -206,6 +218,12 @@ export class AuthComponent implements OnDestroy {
         openAddCommentDialog: this.openAddCommentDialogFlag,
       },
     });
+    if (
+      isPlatformBrowser(this._platformId) &&
+      !localStorage.getItem('MERGED_BASKET')
+    ) {
+      this._basketService.mergeBasket();
+    }
     this.openAddCommentDialogFlag = false;
     this._authservice.decodeJson();
   }

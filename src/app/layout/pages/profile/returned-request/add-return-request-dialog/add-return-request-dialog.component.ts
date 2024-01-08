@@ -175,7 +175,7 @@ export class AddReturnRequestDialogComponent implements OnDestroy {
         )
         .subscribe({
           next: () => {
-            this._snackBarService.showSuccessSnackBar(
+            this._snackBarService.showPrimarySnackBar(
               'درخواست شما با موفقیت ثبت گردید'
             );
             this.close();

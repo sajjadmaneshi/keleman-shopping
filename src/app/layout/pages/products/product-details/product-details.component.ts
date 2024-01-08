@@ -169,7 +169,6 @@ export class ProductDetailsComponent implements OnInit {
         thumbnailImage: this.productDetails.image,
         discount: 0,
         price: this.productDetails.currentPrice,
-        seller: this.productDetails.seller.name,
         currentStock: this.productDetails.currentStock,
         details: this.packageItems
           ? this.packageItems.items

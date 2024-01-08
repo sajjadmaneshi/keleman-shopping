@@ -15,3 +15,10 @@
   left: 10%;
   transform: translate(-50%, -50%);
 }
+.product-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}

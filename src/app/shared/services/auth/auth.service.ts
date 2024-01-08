@@ -3,7 +3,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AccountRepository } from './account.repository';
 import { LoginDto } from './data/login.dto';
 import { HttpClientResult } from '../../data/models/http/http-client.result';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, map, Observable } from 'rxjs';
 import { UserSimpleInfoViewModel } from '../../data/models/view-models/user-simple-info.view-model';
 import { UserRepository } from '../../data/repositories/user/user.repository';
 import { isPlatformBrowser } from '@angular/common';
@@ -41,7 +41,7 @@ export class AuthService {
   public sendVerificationCode(
     mobile: string
   ): Promise<HttpClientResult<void> | undefined> {
-    return this._authRepository.sendVerificationCode(mobile).toPromise();
+    return lastValueFrom(this._authRepository.sendVerificationCode(mobile));
   }
 
   public decodeJson() {
@@ -52,7 +52,7 @@ export class AuthService {
 
   public async login(dto: LoginDto): Promise<void> {
     try {
-      const result = await this._authRepository.login(dto).toPromise();
+      const result = await lastValueFrom(this._authRepository.login(dto));
       this.setAuthorizedInfoToLocalStorage(result?.result);
     } catch (error) {
       throw error;
@@ -80,7 +80,6 @@ export class AuthService {
       localStorage.setItem('KELEMAN_TOKEN', data.token);
       const decodeToken = this.jwtHelper.decodeToken(data.token);
       localStorage.setItem('USERID', decodeToken.sub);
-
       this.isLoggedIn$.next(true);
     }
   }
@@ -103,9 +102,10 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       if (localStorage.getItem('KELEMAN_TOKEN')) {
         try {
-          const response = await this._userRepository
-            .getSimpleInfo()
-            .toPromise();
+          const response = await lastValueFrom(
+            this._userRepository.getSimpleInfo()
+          );
+
           return response?.result as UserSimpleInfoViewModel;
         } catch (error) {
           throw error;

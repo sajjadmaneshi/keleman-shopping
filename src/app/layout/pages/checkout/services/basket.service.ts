@@ -212,6 +212,6 @@ export class BasketService {
   }
 
   private _showSuccessMessage() {
-    this._snackBar.showSuccessSnackBar('محصول با موفقیت به سبد خرید افزوده شد');
+    this._snackBar.showPrimarySnackBar('محصول با موفقیت به سبد خرید افزوده شد');
   }
 }

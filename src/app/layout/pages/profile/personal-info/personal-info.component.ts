@@ -102,7 +102,7 @@ export class PersonalInfoComponent implements OnDestroy, OnInit {
   }
 
   private _handleSuccessRequest(data: ProfileDto) {
-    this._snackBarService.showSuccessSnackBar('اطلاعات شما با موفقت ثبت گردید');
+    this._snackBarService.showPrimarySnackBar('اطلاعات شما با موفقت ثبت گردید');
     this._initialAppService.userSimpleInfo.next({
       ...this.personalInfo,
       ...data,

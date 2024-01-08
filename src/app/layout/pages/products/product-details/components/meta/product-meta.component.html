@@ -16,7 +16,7 @@
       @defer {
       <tr>
         <td class="h6 fw-light text-muted">{{ item.key }}</td>
-        <td class="h6 fw-bolder">{{ item.value }}</td>
+        <td class="h6 fw-bolder">{{ item.value || "---" }}</td>
       </tr>
       } } }
     </table>
@@ -77,9 +77,16 @@
             [max]="productDetails.currentStock"
           ></keleman-value-changer>
         </div>
-        <div class="col-6">
+        <div
+          class="col-6 d-flex flex-column align-items-start justify-content-center"
+        >
           <span class="d-block">در سبد خرید شما</span>
-          <span>مشاهده سبد خرید</span>
+          <span
+            >مشاهده
+            <a class="fw-bolder text-klm-secondary" [routerLink]="['/checkout']"
+              >سبد خرید</a
+            >
+          </span>
         </div>
         }
       </div>
