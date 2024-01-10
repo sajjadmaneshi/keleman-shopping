@@ -7,6 +7,14 @@
 ></keleman-product-content>
 
 @if(productDetails){
+
+<keleman-stores
+  [sellers]="sellers"
+  [productId]="productDetails.id"
+  (addToBasket)="productService.addToBasket($event)"
+  (updateBasket)="productService.updateBasket($event.count, $event.sellerId)"
+></keleman-stores>
+
 <keleman-product-navbar
   [productId]="productDetails.id"
 ></keleman-product-navbar>
@@ -24,7 +32,7 @@
             (loadingService.getLoadingStateObservable('read', 'packageItems')
               | async)!
           "
-          (click)="getPackageData()"
+          (click)="productService.getPackageData(inBasketCount)"
         >
           تغییر محتویات و افزودن به سبد خرید
         </button>
@@ -38,15 +46,15 @@
               | async)!
           "
           [disabled]="productValidationStatus.disable"
-          (click)="addToBasket()"
+          (click)="productService.addToBasket(0)"
         >
           افزودن به سبد خرید
         </button>
         } @else {
         <keleman-value-changer
           [initialValue]="inBasketCount"
-          (increse)="updateBasket($event)"
-          (decrease)="updateBasket($event)"
+          (increse)="productService.updateBasket($event, 0)"
+          (decrease)="productService.updateBasket($event, 0)"
           [max]="productDetails.currentStock"
         ></keleman-value-changer>
         }

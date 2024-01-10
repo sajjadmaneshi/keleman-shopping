@@ -61,6 +61,7 @@ import { LoadingProgressDirective } from '../../../shared/directives/loading-pro
 import { ShareDialogComponent } from './product-details/components/content/share-dialog/share-dialog.component';
 import { MagazineModule } from '../magazine/magazine.module';
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
+import { StoresComponent } from './product-details/components/stores/stores.component';
 
 @NgModule({
   declarations: [
@@ -122,6 +123,8 @@ import { ValueChangerComponent } from '../../../shared/components/value-changer/
     LoadingProgressDirective,
     MagazineModule,
     ValueChangerComponent,
+    StoresComponent,
+    StoresComponent,
   ],
 
   providers: [ProductFilterService, RouteHandlerService],

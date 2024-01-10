@@ -1,0 +1,11 @@
+@import "base/variables/colors";
+.actions__buttons {
+  background-color: $klm-secondary;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+  padding: 0.5rem;
+}
+.store-value-changer {
+  min-width: 150px;
+}

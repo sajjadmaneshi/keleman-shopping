@@ -65,10 +65,14 @@ export class BasketService {
       this._guestBasketService.addToBasket(input.guestBasketItem!);
       this.cartCount$.next(this._guestBasketService.cartBalance);
     }
-    if (addresult) {
+    if (addresult && this._isStoreKeleman(input.authBasketItem?.storeId)) {
       this.productCountInBasket$.next(this.productCountInBasket$.value + 1);
     }
     return addresult;
+  }
+
+  private _isStoreKeleman(storeId: number | undefined) {
+    return storeId === 0 || !storeId;
   }
 
   public updateBasket(updateDto: UpdateBasketDto) {
@@ -84,6 +88,7 @@ export class BasketService {
       this._guestBasketService.updateBasket(updateDto);
       this.handleUpdateSuccess(updateDto.count);
     }
+
     return updateResult;
   }
 

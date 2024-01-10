@@ -1,3 +1,5 @@
+import { SellerViewModel } from '../../../product-details/components/stores/seller.view-model';
+
 export interface ProductDetailViewModel {
   id: number;
   name: string;
@@ -27,11 +29,5 @@ export interface ProductDetailViewModel {
   currentStock: number;
   currentDiscountPercent: number;
   isPackage: boolean;
-  stores: [
-    {
-      title: string;
-      id: number;
-      price: number;
-    }
-  ];
+  stores: SellerViewModel[];
 }

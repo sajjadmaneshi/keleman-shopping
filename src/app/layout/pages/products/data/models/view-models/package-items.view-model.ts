@@ -1,9 +1,9 @@
 export interface PackageItemsViewModel {
   name: string;
-  items: PackegeItemGroupViewModel[];
+  items: PackageItemGroupViewModel[];
   totalPrice: number;
 }
-export interface PackegeItemGroupViewModel {
+export interface PackageItemGroupViewModel {
   id: number;
   caption: string;
   minValue: number;

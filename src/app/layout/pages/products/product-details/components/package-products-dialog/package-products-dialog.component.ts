@@ -9,7 +9,7 @@ import {
 } from '@angular/material/dialog';
 import {
   PackageItemsViewModel,
-  PackegeItemGroupViewModel,
+  PackageItemGroupViewModel,
   PackegeItemViewModel,
 } from '../../../data/models/view-models/package-items.view-model';
 import { MatListModule } from '@angular/material/list';
@@ -45,7 +45,7 @@ import { Router } from '@angular/router';
 })
 export class PackageProductsDialogComponent {
   totalPrice = 0;
-  packageDatas: PackegeItemGroupViewModel[] = [];
+  packageDatas: PackageItemGroupViewModel[] = [];
   isLoggedIn = false;
   @Output() dialogSubmit = new EventEmitter<PackageItemsViewModel>();
   constructor(
@@ -61,7 +61,7 @@ export class PackageProductsDialogComponent {
     });
   }
 
-  canDecrease(packageGroup: PackegeItemGroupViewModel) {
+  canDecrease(packageGroup: PackageItemGroupViewModel) {
     const totalCount = packageGroup.items.reduce(
       (sum, current) => sum + current.amount,
       0
@@ -73,7 +73,7 @@ export class PackageProductsDialogComponent {
   increaseDecrease(
     amount: number,
     packageItem: PackegeItemViewModel,
-    packageGroup: PackegeItemGroupViewModel
+    packageGroup: PackageItemGroupViewModel
   ) {
     if (packageGroup.isSameValue)
       packageGroup.items.map((x) => (x.amount = amount));

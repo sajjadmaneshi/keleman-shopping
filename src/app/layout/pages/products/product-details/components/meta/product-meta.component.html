@@ -49,7 +49,7 @@
             (loadingService.getLoadingStateObservable('read', 'packageItems')
               | async)!
           "
-          (click)="getPackageData()"
+          (click)="productService.getPackageData(inBasketCount)"
         >
           تغییر محتویات و افزودن به سبد خرید
         </button>
@@ -63,7 +63,7 @@
               | async)!
           "
           [disabled]="productValidationStatus.disable"
-          (click)="addToBasket()"
+          (click)="productService.addToBasket(0)"
         >
           {{ productValidationStatus.text }}
         </button>
@@ -72,8 +72,8 @@
         <div class="col-6">
           <keleman-value-changer
             [initialValue]="inBasketCount"
-            (increse)="updateBasket($event)"
-            (decrease)="updateBasket($event)"
+            (increse)="productService.updateBasket($event, 0)"
+            (decrease)="productService.updateBasket($event, 0)"
             [max]="productDetails.currentStock"
           ></keleman-value-changer>
         </div>

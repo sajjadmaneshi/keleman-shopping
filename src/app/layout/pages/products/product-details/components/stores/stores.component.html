@@ -1,0 +1,47 @@
+<div class="d-flex align-items-center pb-3">
+  <h4 class="fw-bold text-klm-primary px-3">فروشندگان</h4>
+  <div class="gradient-border flex-grow-1"></div>
+</div>
+@for (seller of sellers;track seller.id){
+<div class="card card-rounded-3 shadow mb-3">
+  <div class="card-body d-flex justify-content-between">
+    <div class="d-flex flex-column">
+      <h5>{{ seller.title }}</h5>
+
+      <keleman-price
+        [size]="'h5'"
+        [value]="seller.priceAfterDiscount"
+        class="d-block"
+      ></keleman-price>
+      @if (seller.discountPercent>0){
+      <keleman-price
+        [value]="seller.price"
+        [off]="true"
+        [discount]="seller.discountPercent"
+        [color]="'dark'"
+        [size]="'h6'"
+        class="d-block mb-3"
+      ></keleman-price>
+      }
+    </div>
+    @if(seller.inBasketCount===0){
+
+    <button
+      class="text-klm-primary actions__buttons fs-5 fw-bolder px-5"
+      (click)="onAdd(seller.id)"
+    >
+      افزودن به سبد خرید
+    </button>
+
+    } @else {
+    <keleman-value-changer
+      class="store-value-changer"
+      [initialValue]="seller.inBasketCount"
+      (increse)="onUpdate(seller.id, $event)"
+      (decrease)="onUpdate(seller.id, $event)"
+      [max]="seller.currentStock"
+    ></keleman-value-changer>
+    }
+  </div>
+</div>
+}
