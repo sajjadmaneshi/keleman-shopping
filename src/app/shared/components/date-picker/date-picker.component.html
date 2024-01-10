@@ -31,11 +31,11 @@
 
 } @else {
 <input
-  id="date"
   class="keleman-text-field"
-  placeholder="yyyy-mm-dd"
+  placeholder="روز/ماه/سال"
   ngbDatepicker
   [firstDayOfWeek]="6"
+  [minDate]="minDate"
   (dateSelect)="onDateSelect($event)"
   #d="ngbDatepicker"
   (click)="d.toggle()"

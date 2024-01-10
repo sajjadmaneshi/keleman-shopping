@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Output, inject, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   NgbCalendar,
@@ -25,28 +32,32 @@ import * as moment from 'jalali-moment';
     { provide: NgbDatepickerI18n, useClass: PersianDatePickerService },
   ],
 })
-export class DatePickerComponent {
+export class DatePickerComponent implements OnInit {
   @Input('range') range: boolean = false;
+  @Input('minDate') minDate!: NgbDateStruct;
 
   @Output('onDatePickerClick') change = new EventEmitter<string>();
 
-  date!: { year: number; month: number };
   calendar = inject(NgbCalendar);
-
   hoveredDate: NgbDate | null = null;
   fromDate: NgbDate = this.calendar.getToday();
   toDate: NgbDate | null = this.calendar.getNext(this.fromDate, 'd', 10);
 
+  ngOnInit(): void {
+    this.minDate = this.minDate || this.calendar.getToday();
+  }
   toDateString(date: NgbDateStruct): string {
     return `${date.year}/${date.month}/${date.day}`;
   }
 
-  toGregorianUTC(persianDateTime: NgbDateStruct, format?: string): string {
+  toGregorianUTC(persianDateTime: NgbDateStruct): string {
+    moment.locale('en');
     const stringifyDate = this.toDateString(persianDateTime);
-    return moment
-      .from(stringifyDate, 'fa', format)
-      .utc()
+    const convertedDate = moment
+      .from(stringifyDate, 'fa', 'YYYY/MM/DD')
       .format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+
+    return convertedDate;
   }
   onDateSelect($event: NgbDate) {
     this.change.emit(this.toGregorianUTC($event));

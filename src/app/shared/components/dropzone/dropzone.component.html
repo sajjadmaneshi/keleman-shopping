@@ -1,6 +1,6 @@
 <div
   class="keleman-dropzone p-3"
-  [ngClass]="{ 'invalid-dr': !valid }"
+  [ngClass]="{ 'invalid-dr': invalid }"
   ngx-dropzone
   #drop
   [multiple]="multiple"
@@ -11,14 +11,14 @@
 >
   <div class="d-flex align-items-center justify-content-between w-100">
     <ng-content></ng-content>
-    <ng-template [ngIf]="showSelectButton">
-      <button class="btn btn-primary" (click)="drop.showFileSelector()">
-        {{ selectButtonText }}
-      </button>
-    </ng-template>
+    @if(showSelectButton){
+    <button class="btn btn-primary" (click)="drop.showFileSelector()">
+      {{ selectButtonText }}
+    </button>
+    }
   </div>
 </div>
-<div class="d-flex align-items-center">
+<div class="d-flex align-items-center position-relative">
   <ngx-dropzone-image-preview
     [removable]="true"
     (removed)="removeFile($event)"
@@ -27,5 +27,14 @@
     *ngFor="let f of acceptedFiles"
     [file]="f"
   >
+    @if(loading){
+    <ngx-dropzone-label class="w-100">
+      <mat-spinner
+        class="loading"
+        [diameter]="30"
+        [color]="'warn'"
+      ></mat-spinner>
+    </ngx-dropzone-label>
+    }
   </ngx-dropzone-image-preview>
 </div>

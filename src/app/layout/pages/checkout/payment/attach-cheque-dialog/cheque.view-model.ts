@@ -5,4 +5,6 @@ export interface ChequeViewModel {
   date: string;
   fullName: string;
   nationalCode: string;
+  frontImage: string;
+  backImage: string;
 }

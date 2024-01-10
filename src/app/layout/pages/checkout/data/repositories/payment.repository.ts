@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpClientResult } from '../../../../../shared/data/models/http/http-client.result';
 import { PaymentGatewayViewModel } from '../models/payment-gateway.view-model';
@@ -8,6 +8,7 @@ import { VerifyPaymentDto } from '../dto/verify-payment.dto';
 import { PayResultViewModel } from '../models/pay-result.view-model';
 import { AttachChequeDto } from '../dto/attach-cheque.dto';
 import { AttachReceiptDto } from '../dto/attach-receipt.dto';
+import { HttpRequestOptions } from '../../../../../shared/data/models/http/http-request-options';
 
 @Injectable()
 export class PaymentRepository extends DataService<PaymentGatewayViewModel> {
@@ -37,14 +38,11 @@ export class PaymentRepository extends DataService<PaymentGatewayViewModel> {
     ) as Observable<HttpClientResult<boolean>>;
   }
 
-  attachCheque(
-    billId: number,
-    dto: AttachChequeDto[]
-  ): Observable<HttpClientResult<boolean>> {
+  attachCheque(billId: number, dto: AttachChequeDto[]): Observable<boolean> {
     return this._http.post(
       `${this._getCartUrl}/cheque/${billId}`,
       dto
-    ) as Observable<HttpClientResult<boolean>>;
+    ) as Observable<boolean>;
   }
 
   attachRecipt(billId: number, dto: AttachReceiptDto[]): Observable<boolean> {
@@ -52,5 +50,11 @@ export class PaymentRepository extends DataService<PaymentGatewayViewModel> {
       `${this._getCartUrl}/receipt/${billId}`,
       dto
     ) as Observable<boolean>;
+  }
+
+  uploadFile(billId: number, fileData: FormData): Observable<string> {
+    return this._http.post(`${this._getCartUrl}/upload/${billId}`, fileData, {
+      isBodyFormData: false,
+    } as HttpRequestOptions) as Observable<string>;
   }
 }

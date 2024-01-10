@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChequeViewModel } from './cheque.view-model';
 import { LoadingService } from '../../../../../../common/services/loading.service';
@@ -7,6 +7,7 @@ import { PersianDateTimeService } from '../../../../../shared/services/date-time
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PaymentRepository } from '../../data/repositories/payment.repository';
 import { Subject, takeUntil, tap } from 'rxjs';
+import { SelectedFiles } from '../../../../../shared/components/dropzone/dropzone.component';
 
 @Component({
   selector: 'keleman-attach-cheque-dialog',
@@ -19,6 +20,9 @@ export class AttachChequeDialogComponent {
   showForm = true;
   isFormSubmitted = false;
   destroy$ = new Subject<void>();
+
+  frontImageUrl: string | null = null;
+  backImageUrl: string | null = null;
 
   public get bankName(): FormControl {
     return this.chequeForm.get('chequeDetails')?.get('bankName') as FormControl;
@@ -87,6 +91,47 @@ export class AttachChequeDialogComponent {
     }
   }
 
+  uploadFile(files: SelectedFiles, isFront: boolean = true) {
+    if (files) {
+      if (files.addedFiles.length > 0) {
+        this.loadingService.startLoading(
+          'add',
+          isFront ? 'uploadFront' : 'uploadBack'
+        );
+        const formData = new FormData();
+        formData.append('file', files.addedFiles[0], files.addedFiles[0].name);
+        this._paymentRepository
+          .uploadFile(this.data, formData)
+          .pipe(
+            tap(() =>
+              this.loadingService.stopLoading(
+                'add',
+                isFront ? 'uploadFront' : 'uploadBack'
+              )
+            ),
+            takeUntil(this.destroy$)
+          )
+          .subscribe({
+            next: (result) => {
+              isFront
+                ? (this.frontImageUrl = result)
+                : (this.backImageUrl = result);
+            },
+            error: () =>
+              this.loadingService.stopLoading(
+                'add',
+                isFront ? 'uploadFront' : 'uploadBack'
+              ),
+          });
+      }
+    }
+  }
+  removeFrontImage() {
+    this.frontImageUrl = '';
+  }
+  removeBackImage() {
+    this.backImageUrl = '';
+  }
   selectDate(date: any) {
     if (date) {
       this.date.patchValue(date);
@@ -94,7 +139,7 @@ export class AttachChequeDialogComponent {
   }
   submitForm() {
     this.isFormSubmitted = true;
-    if (this.chequeForm.valid) {
+    if (this.chequeForm.valid && this.frontImageUrl && this.backImageUrl) {
       this.loadingService.startLoading('add', 'cheque');
       const dto = {
         bankName: this.bankName.value,
@@ -103,12 +148,16 @@ export class AttachChequeDialogComponent {
         date: this.date.value,
         nationalCode: this.nationalCode.value,
         serial: this.chequeId.value,
+        backImage: this.backImageUrl,
+        frontImage: this.frontImageUrl,
       } as ChequeViewModel;
       this.chequeList.push(dto);
       this.loadingService.stopLoading('add', 'cheque');
       this.showForm = false;
       this.isFormSubmitted = false;
       this.chequeForm.reset();
+      this.frontImageUrl = null;
+      this.backImageUrl = null;
     }
   }
 
@@ -124,8 +173,11 @@ export class AttachChequeDialogComponent {
         tap(() => this.loadingService.stopLoading('add', 'attachCheque')),
         takeUntil(this.destroy$)
       )
-      .subscribe((res) => {
-        if (res.result) this._dialogRef.close(res.result);
+      .subscribe({
+        next: (res) => {
+          if (res) this._dialogRef.close(this.date);
+        },
+        error: () => this.loadingService.stopLoading('add', 'attachCheque'),
       });
   }
 }

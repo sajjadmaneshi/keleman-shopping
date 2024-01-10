@@ -35,107 +35,89 @@ export class NumberToPersianPipe implements PipeTransform {
       'هشتصد',
       'نهصد',
     ],
-    [
-      '',
-      ' هزار ',
-      ' میلیون ',
-      ' میلیارد ',
-      ' بیلیون ',
-      ' بیلیارد ',
-      ' تریلیون ',
-      ' تریلیارد ',
-      ' کوآدریلیون ',
-      ' کادریلیارد ',
-      ' کوینتیلیون ',
-      ' کوانتینیارد ',
-      ' سکستیلیون ',
-      ' سکستیلیارد ',
-      ' سپتیلیون ',
-      ' سپتیلیارد ',
-      ' اکتیلیون ',
-      ' اکتیلیارد ',
-      ' نانیلیون ',
-      ' نانیلیارد ',
-      ' دسیلیون ',
-      ' دسیلیارد ',
-    ],
+    ['', ' هزار ', ' میلیون ', ' میلیارد '],
   ];
 
-  ThreeNumbersToLetter(num: string) {
-    // return zero
-    if (parseInt(num, 0) === 0) {
+  private ThreeNumbersToLetter(num: number): string {
+    if (num === 0) {
       return '';
     }
-    const parsedInt = parseInt(num, 0);
-    if (parsedInt < 10) {
-      return this.Letters[0][parsedInt];
+
+    if (num < 10) {
+      return this.Letters[0][num];
     }
-    if (parsedInt <= 20) {
-      return this.Letters[1][parsedInt - 10];
+
+    if (num <= 20) {
+      return this.Letters[1][num - 10];
     }
-    if (parsedInt < 100) {
-      // tslint:disable-next-line:no-shadowed-variable
-      const one = parsedInt % 10;
-      // tslint:disable-next-line:no-shadowed-variable
-      const ten = (parsedInt - one) / 10;
-      if (one > 0) {
-        return this.Letters[2][ten] + this.splitter + this.Letters[0][one];
-      }
-      return this.Letters[2][ten];
+
+    if (num < 100) {
+      const one = num % 10;
+      const ten = Math.floor(num / 10);
+
+      return one > 0
+        ? `${this.Letters[2][ten]}${this.splitter}${this.Letters[0][one]}`
+        : this.Letters[2][ten];
     }
-    const one = parsedInt % 10;
-    const hundreds = (parsedInt - (parsedInt % 100)) / 100;
-    const ten = (parsedInt - (hundreds * 100 + one)) / 10;
+
+    const one = num % 10;
+    const tens = Math.floor((num % 100) / 10);
+    const hundreds = Math.floor(num / 100);
+
     const out = [this.Letters[3][hundreds]];
-    const SecondPart = ten * 10 + one;
-    if (SecondPart > 0) {
-      if (SecondPart < 10) {
-        out.push(this.Letters[0][SecondPart]);
-      } else if (SecondPart <= 20) {
-        out.push(this.Letters[1][SecondPart - 10]);
+    const secondPart = num % 100;
+
+    if (secondPart > 0) {
+      if (secondPart < 10) {
+        out.push(this.Letters[0][secondPart]);
+      } else if (secondPart <= 20) {
+        out.push(this.Letters[1][secondPart - 10]);
       } else {
-        out.push(this.Letters[2][ten]);
-        if (one > 0) {
-          out.push(this.Letters[0][one]);
-        }
+        out.push(
+          one > 0
+            ? `${this.Letters[2][tens]}${this.splitter}${this.Letters[0][one]}`
+            : this.Letters[2][tens]
+        );
       }
     }
     return out.join(this.splitter);
   }
 
-  prepareNumber(num: number): string[] {
-    const numString = String(num);
+  private prepareNumber(num: number): string[] {
+    const numString = num.toString();
     const numLength = numString.length;
-    const paddingLength = 3 - (numLength % 3);
-    const paddedNum = '0'.repeat(paddingLength) + numString;
+
+    const paddingLength = numLength % 3 === 0 ? 0 : 3 - (numLength % 3);
+    const paddedNum =
+      paddingLength > 0 ? '0'.repeat(paddingLength) + numString : numString;
+
     const result = [];
-    for (let i = 0; i < numLength; i += 3) {
+    for (let i = 0; i < paddedNum.length; i += 3) {
       result.push(paddedNum.slice(i, i + 3));
     }
     return result;
   }
 
-  transform(value: any, symbol: 'T' | 'R' = 'T'): any {
+  transform(value: number, symbol: 'T' | 'R' = 'T'): string {
     if (value === 0) {
       return this.zero;
     }
 
-    if (value.length > 66) {
+    if (value.toString().length > 66) {
       return 'خارج از محدوده';
     }
 
     const splittedNumber = this.prepareNumber(value);
 
-    const convertedResult: any = [];
-    const SplitLength = splittedNumber.length;
+    const convertedResult = splittedNumber
+      .map((num, index) => {
+        const sectionTitle =
+          this.Letters[4][splittedNumber.length - (index + 1)];
+        const converted = this.ThreeNumbersToLetter(Number(num));
+        return converted !== '' ? `${converted}${sectionTitle}` : '';
+      })
+      .filter((converted) => converted !== '');
 
-    for (let i = 0; i < SplitLength; i++) {
-      const SectionTitle = this.Letters[4][SplitLength - (i + 1)];
-      const converted = this.ThreeNumbersToLetter(splittedNumber[i]);
-      if (converted !== '') {
-        convertedResult.push(converted + SectionTitle);
-      }
-    }
     return `${convertedResult.join(this.splitter)} ${
       symbol === 'T' ? 'تومان' : 'ریال'
     }`;

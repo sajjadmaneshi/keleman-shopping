@@ -87,7 +87,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       })
       .afterClosed()
       .subscribe((result: number) => {
-        if (result) this._navigateToPaymentResultPage(result);
+        if (result) this._navigateToPaymentResultPage(billId);
       });
   }
 
@@ -100,7 +100,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
         data: billId,
       })
       .afterClosed()
-      .subscribe((result) => {
+      .subscribe((result: number) => {
         if (result) this._navigateToPaymentResultPage(billId);
       });
   }

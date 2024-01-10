@@ -53,7 +53,6 @@
             <keleman-date-picker
               id="date"
               (onDatePickerClick)="selectDate($event)"
-              formControlName="date"
               [class.is-invalid]="date.invalid && isFormSubmitted"
             ></keleman-date-picker>
             @if (date.invalid && isFormSubmitted){
@@ -128,11 +127,41 @@
         </div>
       </div>
       <div class="card card-rounded-3 border-0">
-        <keleman-dropzone [showSelectButton]="true" [multiple]="true">
-          <p class="fs-5">
-            برای بارگذاری عکس پشت و رو چک ، فایل را در اینجا رها کنید
-          </p>
+        <div class="mb-3">
+          <keleman-dropzone
+            [showSelectButton]="true"
+            [multiple]="false"
+            [invalid]="isFormSubmitted && !frontImageUrl"
+            [loading]="
+              (loadingService.getLoadingStateObservable('add', 'uploadFront')
+                | async)!
+            "
+            (onFileSelect)="uploadFile($event)"
+            (onRemove)="removeFrontImage()"
+          >
+            <p>برای بارگذاری عکس روی چک ، فایل را در اینجا رها کنید</p>
+          </keleman-dropzone>
+          @if (!frontImageUrl&& isFormSubmitted){
+          <span class="text-danger">لطفا عکس روی چک را بارگذاری کنید</span>
+          }
+        </div>
+
+        <keleman-dropzone
+          [showSelectButton]="true"
+          [multiple]="false"
+          [invalid]="isFormSubmitted && !backImageUrl"
+          [loading]="
+            (loadingService.getLoadingStateObservable('add', 'uploadBack')
+              | async)!
+          "
+          (onFileSelect)="uploadFile($event, false)"
+          (onRemove)="removeBackImage()"
+        >
+          <p>برای بارگذاری عکس پشت چک ، فایل را در اینجا رها کنید</p>
         </keleman-dropzone>
+        @if (!backImageUrl&& isFormSubmitted){
+        <span class="text-danger">لطفا عکس پشت چک را بارگذاری کنید</span>
+        }
       </div>
     </form>
   </div>
@@ -142,7 +171,7 @@
     @for(cheque of chequeList;track cheque.serial){
 
     <div class="card card-rounded-3 border mb-3">
-      <div class="card-body row position-relative">
+      <div class="card-body row position-relative g-3">
         <button
           class="btn btn-icon btn-circle btn-danger remove"
           (click)="remove(cheque.serial)"
@@ -170,6 +199,18 @@
         <div class="col-6">{{ cheque.fullName }}</div>
         <div class="col-6 fw-bold">کد ملی</div>
         <div class="col-6">{{ cheque.nationalCode }}</div>
+        <div class="col-6 fw-bold">عکس رو</div>
+        <div class="col-6">
+          <div class="symbol symbol-10">
+            <img loadingLazy emptyImage [src]="cheque.frontImage" />
+          </div>
+        </div>
+        <div class="col-6 fw-bold">عکس پشت</div>
+        <div class="col-6">
+          <div class="symbol symbol-10">
+            <img loadingLazy emptyImage [src]="cheque.backImage" />
+          </div>
+        </div>
       </div>
     </div>
     }
@@ -193,20 +234,22 @@
         هماهنگ فرمایید.
       </span>
     </span>
-    <button
-      class="btn btn-success text-white mx-3"
-      type="button"
-      kelemanLoadingProgress
-      [loading]="
-        (loadingService.getLoadingStateObservable(
-          'add',
-          showForm ? 'cheque' : 'attachCheque'
-        ) | async)!
-      "
-      (click)="showForm ? submitForm() : submitList()"
-    >
-      ذخیره
-    </button>
-    <button class="btn btn-danger" (click)="close()">انصراف</button>
+    <div class="d-flex align-items-center justify-content-center">
+      <button
+        class="btn btn-success text-white mx-3"
+        type="button"
+        kelemanLoadingProgress
+        [loading]="
+          (loadingService.getLoadingStateObservable(
+            'add',
+            showForm ? 'cheque' : 'attachCheque'
+          ) | async)!
+        "
+        (click)="showForm ? submitForm() : submitList()"
+      >
+        ذخیره
+      </button>
+      <button class="btn btn-danger" (click)="close()">انصراف</button>
+    </div>
   </div>
 </div>
