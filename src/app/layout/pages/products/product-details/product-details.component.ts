@@ -15,7 +15,6 @@ import { BasketService } from '../../checkout/services/basket.service';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { PackageItemsViewModel } from '../data/models/view-models/package-items.view-model';
 import { AvailableStatusEnum } from '../data/enums/available-status.enum';
-import { SellerViewModel } from './components/stores/seller.view-model';
 
 @Component({
   selector: 'app-product-details',
@@ -32,7 +31,6 @@ export class ProductDetailsComponent implements OnInit {
   availableStatusEnum = AvailableStatusEnum;
   packageItems!: PackageItemsViewModel;
   private destroy$ = new Subject<void>();
-  sellers: SellerViewModel[] = [];
   constructor(
     public readonly applicationState: ApplicationStateService,
     public readonly loadingService: LoadingService,
@@ -44,18 +42,19 @@ export class ProductDetailsComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document
   ) {
     loadingService.startLoading('read', 'productDetails');
+    this._setupSubscription();
+    this._getDataFromUrl();
+  }
 
+  private _setupSubscription() {
     this._authService.isLoggedIn$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => (this.isLoggedIn = res));
-
-    this._basketService.productCountInBasket$.subscribe((result) => {
-      this.inBasketCount = result;
-    });
-    this.productService.productDetails$.subscribe((produltDetail) => {
-      this.productDetails = produltDetail!;
-    });
-    this._getDataFromUrl();
+    this.productService.productDetails$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((produltDetail) => {
+        this.productDetails = produltDetail!;
+      });
   }
 
   private _getDataFromUrl(): void {
@@ -74,22 +73,6 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
 
-  private _initialSellers() {
-    const kelemanStore = new SellerViewModel(
-      'فروشگاه کلمان',
-      0,
-      this.productDetails.currentPrice,
-      this.productDetails.currentDiscountPercent,
-      this.productDetails.priceAfterDiscount,
-      this.productDetails.currentStock,
-      this.inBasketCount
-    );
-
-    this.sellers = [...this.productDetails.stores];
-    this.sellers.push(kelemanStore);
-    this.sellers.reverse();
-  }
-
   private _handleSuccessRequest() {
     this._metaDataService.setMetaData(
       this.productDetails.seoTitle,
@@ -99,7 +82,7 @@ export class ProductDetailsComponent implements OnInit {
       this.productDetails
     );
     this.checkBasketStatus();
-    this._initialSellers();
+    this.productService.initialSellers();
   }
 
   private checkBasketStatus() {

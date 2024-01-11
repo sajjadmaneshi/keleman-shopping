@@ -10,6 +10,7 @@ import { BasketCheckoutViewModel } from '../models/basket-checkout.view-model';
 import { MergeBasketDto } from '../dto/merge-basket.dto';
 import { PackageItemsViewModel } from '../../../products/data/models/view-models/package-items.view-model';
 import { MergeResultViewModel } from '../models/merge-result.view-model';
+import { InBasketCountViewModel } from '../models/in-basket-count.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class BasketRepository extends DataService<BasketItemViewModel> {
@@ -45,14 +46,13 @@ export class BasketRepository extends DataService<BasketItemViewModel> {
   }
 
   isInCart(
-    productId: number,
-    storeId?: number
-  ): Observable<HttpClientResult<number>> {
+    productId: number
+  ): Observable<HttpClientResult<InBasketCountViewModel[]>> {
     return this._http.get(
-      `${this._getCartUrl}/inCart/${productId}${
-        storeId != undefined ? '/' + storeId : ''
-      }?userId=${localStorage.getItem('USERID')}`
-    ) as Observable<HttpClientResult<number>>;
+      `${this._getCartUrl}/inCart/${productId}?userId=${localStorage.getItem(
+        'USERID'
+      )}`
+    ) as Observable<HttpClientResult<InBasketCountViewModel[]>>;
   }
 
   addToCart(dto: AddToCartDto): Observable<HttpClientResult<boolean>> {

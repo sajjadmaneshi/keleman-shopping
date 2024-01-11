@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
 import { isPlatformBrowser } from '@angular/common';
 import { UpdateBasketDto } from '../data/dto/update-basket.dto';
+import { InBasketCountViewModel } from '../data/models/in-basket-count.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class GuestBasketService {
@@ -47,7 +48,9 @@ export class GuestBasketService {
   addToBasket(product: BasketItemViewModel): void {
     const { items } = this.basketSubject.value;
     const existingProduct = items.find(
-      (p) => p.product.id === product.product.id
+      (p) =>
+        p.product.id === product.product.id &&
+        p.product.seller.id === product.product.seller.id
     );
     existingProduct ? existingProduct.count++ : items.push(product);
     this.updateBasketState(items);
@@ -55,10 +58,13 @@ export class GuestBasketService {
 
   updateBasket(dto: UpdateBasketDto) {
     let { items } = this.basketSubject.value;
-    const existingProduct = items.find((p) => p.product.id === dto.productId);
+    const existingProduct = items.find(
+      (p) =>
+        p.product.id === dto.productId && p.product.seller.id === dto.storeId
+    );
     if (existingProduct) {
       if (dto.count === 0)
-        items = this.removeProduct(existingProduct.product.id);
+        items = this.removeProduct(existingProduct.product.id, dto.storeId!);
       else {
         existingProduct.count = dto.count;
       }
@@ -66,12 +72,18 @@ export class GuestBasketService {
     }
   }
 
-  removeProduct(id: number): BasketItemViewModel[] {
+  removeProduct(id: number, sellerId: number): BasketItemViewModel[] {
     const { items } = this.basketSubject.value;
-    const updatedProducts = items.filter((p) => p.product.id != id);
-    this.updateBasketState(updatedProducts);
-    if (updatedProducts.length === 0) this.clearBasket();
-    return updatedProducts;
+    const index = items.findIndex(
+      (x) => x.product.id === id && x.product.seller.id === sellerId
+    );
+    if (index != -1) {
+      items.splice(index, 1);
+    }
+
+    this.updateBasketState(items);
+    if (items.length === 0) this.clearBasket();
+    return items;
   }
 
   isProductInBasket(productId: number): boolean {
@@ -95,11 +107,18 @@ export class GuestBasketService {
     return { payablePrice, totalPrice, profit, totalDiscount: 0 };
   }
 
-  getProductCountInBasket(productId: number): number {
-    const product = this.basketSubject.value.items.find(
+  getProductCountInBasket(productId: number): InBasketCountViewModel[] {
+    debugger;
+    const products = this.basketSubject.value.items.filter(
       (p) => p.product.id === productId
-    );
-    return product ? product.count : 0;
+    ) as BasketItemViewModel[];
+
+    return products.map((x) => {
+      return {
+        storeId: x.product.seller.id,
+        count: x.count,
+      } as InBasketCountViewModel;
+    });
   }
 
   get cartBalance() {

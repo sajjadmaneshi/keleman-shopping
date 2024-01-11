@@ -1,19 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SellerViewModel } from './seller.view-model';
 import { PriceComponent } from '../../../../../../shared/components/price/price.component';
 import { ValueChangerComponent } from '../../../../../../shared/components/value-changer/value-changer.component';
 import { AsyncPipe } from '@angular/common';
 import { LoadingProgressDirective } from '../../../../../../shared/directives/loading-progress.directive';
 import { LoadingService } from '../../../../../../../common/services/loading.service';
-import { BasketRepository } from '../../../../checkout/data/repositories/basket.repository';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
+import { ProductService } from '../../../services/product.service';
 
 @Component({
   selector: 'keleman-stores',
@@ -27,50 +20,32 @@ import { lastValueFrom, Subject, takeUntil } from 'rxjs';
   templateUrl: './stores.component.html',
   styleUrl: './stores.component.scss',
 })
-export class StoresComponent implements OnInit {
-  @Input() sellers: SellerViewModel[] = [];
+export class StoresComponent {
   @Input() productId!: number;
-  @Output() addToBasket = new EventEmitter<number>();
+  @Output() addToBasket = new EventEmitter<{ id: number; name: string }>();
   @Output() updateBasket = new EventEmitter<{
-    sellerId: number;
+    seller: { id: number; name: string };
     count: number;
   }>();
   $destroy = new Subject<void>();
+  sellers: SellerViewModel[] = [];
 
   constructor(
     public loadingService: LoadingService,
-    private _basketRepository: BasketRepository
-  ) {}
-
-  ngOnInit(): void {
-    if (this.productId) {
-      this.sellers.forEach((x) => {
-        this.getInBasketCount(x.id).then((y) => {
-          console.log(y);
-          x.inBasketCount = y;
-        });
-      });
-    }
+    private _productService: ProductService
+  ) {
+    this._productService.sellers$.subscribe((result) => {
+      this.sellers = result;
+    });
   }
 
-  onAdd(sellerId: number) {
-    this.addToBasket.emit(sellerId);
+  onAdd(seller: SellerViewModel) {
+    this.addToBasket.emit({ id: seller.id, name: seller.title });
   }
-  onUpdate(sellerId: number, count: number) {
-    this.updateBasket.emit({ sellerId, count });
-  }
-
-  async getInBasketCount(storeId: number): Promise<number> {
-    try {
-      const result = await lastValueFrom(
-        this._basketRepository
-          .isInCart(this.productId, storeId)
-          .pipe(takeUntil(this.$destroy))
-      );
-
-      return result.result!;
-    } catch (error) {
-      throw error;
-    }
+  onUpdate(seller: SellerViewModel, count: number) {
+    this.updateBasket.emit({
+      seller: { id: seller.id, name: seller.title },
+      count,
+    });
   }
 }

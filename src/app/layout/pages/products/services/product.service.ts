@@ -15,10 +15,7 @@ import { ProductDescriptionsViewModel } from '../data/models/view-models/product
 import { ProductViewModel } from '../data/models/view-models/product.view-model';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { BasketService } from '../../checkout/services/basket.service';
-import {
-  PackageItemsViewModel,
-  PackageItemGroupViewModel,
-} from '../data/models/view-models/package-items.view-model';
+import { PackageItemsViewModel } from '../data/models/view-models/package-items.view-model';
 import { BasketItemViewModel } from '../../checkout/data/models/basket-item.view-model';
 import { ProductSpecificViewModel } from '../data/models/view-models/product-specific.view-model';
 import { AddToCartDto } from '../../checkout/data/dto/add-to-cart.dto';
@@ -26,6 +23,7 @@ import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { UpdateBasketDto } from '../../checkout/data/dto/update-basket.dto';
 import { PackageProductsDialogComponent } from '../product-details/components/package-products-dialog/package-products-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SellerViewModel } from '../product-details/components/stores/seller.view-model';
 
 @Injectable()
 export class ProductService implements OnDestroy {
@@ -41,6 +39,8 @@ export class ProductService implements OnDestroy {
     undefined
   );
   isLoggedIn = false;
+
+  sellers$ = new BehaviorSubject<SellerViewModel[]>([]);
   constructor(
     private _productRepository: ProductRepository,
     private _basketService: BasketService,
@@ -131,10 +131,11 @@ export class ProductService implements OnDestroy {
     );
   }
 
-  getPackageData(inBasketCount: number) {
+  getPackageData(sellerId: number) {
     const productDetails = this.productDetails$.value!;
     this._loadingService.startLoading('read', 'packageItems');
-    if (inBasketCount > 0 && this.isLoggedIn) {
+    const basketCount = this.basketCount(sellerId);
+    if (basketCount > 0 && this.isLoggedIn) {
       this._basketService
         .getPackageDetails(productDetails.id)
         .pipe(
@@ -167,8 +168,9 @@ export class ProductService implements OnDestroy {
     }
   }
 
-  openPackageDetailDialog(data: PackageItemsViewModel, inBasketCount: number) {
+  openPackageDetailDialog(data: PackageItemsViewModel) {
     const packageItems = this.packageItems$.value;
+    const sellers = this.sellers$.value;
     const dialogRef = this._dialog.open(PackageProductsDialogComponent, {
       width: '500px',
       autoFocus: false,
@@ -180,7 +182,12 @@ export class ProductService implements OnDestroy {
         switchMap((result: PackageItemsViewModel) => {
           this.packageItems$.next(result);
           return of(
-            inBasketCount > 0 ? this.updateBasket(1, 0) : this.addToBasket(0)
+            sellers[0].inBasketCount > 0
+              ? this.updateBasket(1, {
+                  id: sellers[0].id,
+                  name: sellers[0].title,
+                })
+              : this.addToBasket({ id: sellers[0].id, name: sellers[0].title })
           );
         })
       )
@@ -210,26 +217,40 @@ export class ProductService implements OnDestroy {
       });
   }
 
-  updateBasket(count: number, storeId: number) {
+  updateBasket(count: number, store?: { id: number; name: string }) {
+    const sellers = this.sellers$.value;
+    if (!store) store = { id: sellers[0].id, name: sellers[0].title };
     const productDetails = this.productDetails$.value!;
 
     const dto = {
       productId: productDetails.id,
-      storeId,
+      storeId: store.id,
       packageDetailItems: this._mapPackageItems,
 
       count,
     } as UpdateBasketDto;
-    return this._basketService.updateBasket(dto);
+    const result = this._basketService.updateBasket(dto);
+    if (result) this._updateStoreInBasketCount(store.id, count);
+    return result;
   }
 
-  addToBasket(storeId: number) {
-    return this.isLoggedIn
-      ? this.addToBasketAuthorized(storeId)
-      : this.addToBasketGuest();
+  addToBasket(store?: { id: number; name: string }) {
+    const sellers = this.sellers$.value;
+    if (!store) store = { id: sellers[0].id, name: sellers[0].title };
+    const result = this.isLoggedIn
+      ? this.addToBasketAuthorized(store.id)
+      : this.addToBasketGuest(store);
+    if (result) this._updateStoreInBasketCount(store.id, 1);
+    return result;
   }
 
-  addToBasketGuest() {
+  private _updateStoreInBasketCount(storeId: number, count: number) {
+    const sellers = this.sellers$.value;
+    const store = sellers.find((x) => x.id == storeId);
+    if (store) store.inBasketCount = count;
+  }
+
+  addToBasketGuest(seller: { id: number; name: string }) {
     const productDetails = this.productDetails$.value!;
     const productItem = {
       product: {
@@ -240,6 +261,7 @@ export class ProductService implements OnDestroy {
         discount: productDetails.currentDiscountPercent,
         price: productDetails.currentPrice,
         currentStock: productDetails.currentStock,
+        seller,
         details: this._mapPackageItems,
       },
 
@@ -248,14 +270,41 @@ export class ProductService implements OnDestroy {
     return this._basketService.addToBasket({ guestBasketItem: productItem });
   }
 
+  public initialSellers() {
+    const productDetails = this.productDetails$.value!;
+    this._basketService.inBasketCount(productDetails.id).then((res) => {
+      const kelemanStore = new SellerViewModel(
+        'فروشگاه کلمان',
+        0,
+        productDetails.currentPrice,
+        productDetails.currentDiscountPercent,
+        productDetails.priceAfterDiscount,
+        productDetails.currentStock,
+        0
+      );
+      const sellerArray = [kelemanStore, ...productDetails.stores].map((x) => {
+        return {
+          ...x,
+          inBasketCount: res.find((y) => y.storeId === x.id)?.count! || 0,
+        };
+      });
+      this.sellers$.next(sellerArray);
+    });
+  }
+
+  public basketCount(sellerId: number) {
+    const sellers = this.sellers$.value;
+
+    return sellers.find((x) => x.id === sellerId)?.inBasketCount || 0;
+  }
+
   addToBasketAuthorized(storeId: number) {
     const productDetails = this.productDetails$.value!;
-    const dto = {
+    const dto: AddToCartDto = {
       productId: productDetails.id,
       storeId,
       packageDetailItems: this._mapPackageItems,
     } as AddToCartDto;
-
     return this._basketService.addToBasket({ authBasketItem: dto });
   }
 

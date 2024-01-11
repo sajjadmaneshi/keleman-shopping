@@ -4,7 +4,10 @@ export interface BasketItemViewModel {
     id: number;
     name: string;
     thumbnailImage: string;
-    seller: string;
+    seller: {
+      id: number;
+      name: string;
+    };
     price: number;
     priceAfterDiscount: number;
     discount: number;

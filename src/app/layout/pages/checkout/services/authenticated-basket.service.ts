@@ -13,6 +13,7 @@ import { BasketItemViewModel } from '../data/models/basket-item.view-model';
 import { MergeResultViewModel } from '../data/models/merge-result.view-model';
 import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
 import { PackageItemsViewModel } from '../../products/data/models/view-models/package-items.view-model';
+import { InBasketCountViewModel } from '../data/models/in-basket-count.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticatedBasketService {
@@ -91,17 +92,16 @@ export class AuthenticatedBasketService {
   }
 
   public inBasketCount(
-    productId: number,
-    storeId?: number
-  ): Observable<number> {
+    productId: number
+  ): Observable<InBasketCountViewModel[]> {
     this._loadingService.startLoading('read', 'inBasketCount');
-    return this._basketRepository.isInCart(productId, storeId).pipe(
+    return this._basketRepository.isInCart(productId).pipe(
       tap(() => this._loadingService.stopLoading('read', 'inBasketCount')),
       takeUntil(this.destroy$),
-      map((result) => result.result || 0),
+      map((result) => result.result || []),
       catchError(() => {
         this._loadingService.stopLoading('read', 'inBasketCount');
-        return of(0);
+        return of([]);
       })
     );
   }

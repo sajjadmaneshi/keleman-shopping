@@ -3,7 +3,7 @@ import { GuestBasketService } from './guest-basket.service';
 import { AddToCartDto } from '../data/dto/add-to-cart.dto';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { BasketItemViewModel } from '../data/models/basket-item.view-model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { UpdateBasketDto } from '../data/dto/update-basket.dto';
 import { MergeBasketDto } from '../data/dto/merge-basket.dto';
 import { BasketCheckoutViewModel } from '../data/models/basket-checkout.view-model';
@@ -16,8 +16,8 @@ import { MergeResultViewModel } from '../data/models/merge-result.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class BasketService {
+  destroy$ = new Subject<void>();
   isLoggedIn$ = false;
-  productCountInBasket$ = new BehaviorSubject(0);
   cartCount$ = new BehaviorSubject(0);
   basketItems$ = new BehaviorSubject<BasketItemViewModel[]>([]);
   shippingCost$ = new BehaviorSubject<ShippingCostViewModel | undefined>(
@@ -54,6 +54,7 @@ export class BasketService {
     if (this.isLoggedIn$)
       this._authenticatedBasketService
         .addToBasket(input.authBasketItem!)
+        .pipe(takeUntil(this.destroy$))
         .subscribe((result) => {
           addresult = result;
           if (result) {
@@ -65,14 +66,8 @@ export class BasketService {
       this._guestBasketService.addToBasket(input.guestBasketItem!);
       this.cartCount$.next(this._guestBasketService.cartBalance);
     }
-    if (addresult && this._isStoreKeleman(input.authBasketItem?.storeId)) {
-      this.productCountInBasket$.next(this.productCountInBasket$.value + 1);
-    }
-    return addresult;
-  }
 
-  private _isStoreKeleman(storeId: number | undefined) {
-    return storeId === 0 || !storeId;
+    return addresult;
   }
 
   public updateBasket(updateDto: UpdateBasketDto) {
@@ -95,7 +90,6 @@ export class BasketService {
   private handleUpdateSuccess(count: number) {
     if (count === 0) {
       this.basket();
-      this.productCountInBasket$.next(0);
     }
 
     this.cartBalance();
@@ -107,7 +101,7 @@ export class BasketService {
       const mergeDto = y.items.map((x) => {
         return {
           productId: x.product.id,
-          storeId: 0,
+          storeId: x.product.seller.id,
           count: x.count,
         } as MergeBasketDto;
       });
@@ -154,15 +148,13 @@ export class BasketService {
         .subscribe((result) => this.payResult$.next(result));
   }
 
-  inBasketCount(productId: number, storeId?: number) {
+  async inBasketCount(productId: number) {
     if (this.isLoggedIn$) {
-      this._authenticatedBasketService
-        .inBasketCount(productId, storeId)
-        .subscribe((result) => this.productCountInBasket$.next(result));
-    } else {
-      this.productCountInBasket$.next(
-        this._guestBasketService.getProductCountInBasket(productId)
+      return await lastValueFrom(
+        this._authenticatedBasketService.inBasketCount(productId)
       );
+    } else {
+      return this._guestBasketService.getProductCountInBasket(productId);
     }
   }
 
@@ -188,14 +180,14 @@ export class BasketService {
     }
   }
 
-  remove(id: number): Promise<boolean> {
+  remove(id: number, storeId: number): Promise<boolean> {
     return new Promise((resolve) => {
       if (this.isLoggedIn$) {
         this._authenticatedBasketService
           .remove(id)
           .subscribe((result) => resolve(result));
       } else {
-        this._guestBasketService.removeProduct(id);
+        this._guestBasketService.removeProduct(id, storeId);
         resolve(true);
       }
     });

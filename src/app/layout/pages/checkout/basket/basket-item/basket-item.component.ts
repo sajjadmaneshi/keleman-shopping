@@ -47,9 +47,11 @@ export class BasketItemComponent implements OnDestroy {
       ? this.basketItem.id!
       : this.basketItem.product.id;
 
-    this._basketService.remove(id).then((result) => {
-      if (result) this.remove.emit(this.basketItem);
-    });
+    this._basketService
+      .remove(id, this.basketItem.product.seller.id)
+      .then((result) => {
+        if (result) this.remove.emit(this.basketItem);
+      });
   }
 
   updateBasket(count: number) {

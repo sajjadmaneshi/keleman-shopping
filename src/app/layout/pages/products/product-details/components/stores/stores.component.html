@@ -28,7 +28,7 @@
 
     <button
       class="text-klm-primary actions__buttons fs-5 fw-bolder px-5"
-      (click)="onAdd(seller.id)"
+      (click)="onAdd(seller)"
     >
       افزودن به سبد خرید
     </button>
@@ -37,8 +37,8 @@
     <keleman-value-changer
       class="store-value-changer"
       [initialValue]="seller.inBasketCount"
-      (increse)="onUpdate(seller.id, $event)"
-      (decrease)="onUpdate(seller.id, $event)"
+      (increse)="onUpdate(seller, $event)"
+      (decrease)="onUpdate(seller, $event)"
       [max]="seller.currentStock"
     ></keleman-value-changer>
     }

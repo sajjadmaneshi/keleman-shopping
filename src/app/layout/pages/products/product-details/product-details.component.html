@@ -9,10 +9,9 @@
 @if(productDetails){
 
 <keleman-stores
-  [sellers]="sellers"
   [productId]="productDetails.id"
   (addToBasket)="productService.addToBasket($event)"
-  (updateBasket)="productService.updateBasket($event.count, $event.sellerId)"
+  (updateBasket)="productService.updateBasket($event.count, $event.seller)"
 ></keleman-stores>
 
 <keleman-product-navbar
@@ -46,15 +45,15 @@
               | async)!
           "
           [disabled]="productValidationStatus.disable"
-          (click)="productService.addToBasket(0)"
+          (click)="productService.addToBasket()"
         >
           افزودن به سبد خرید
         </button>
         } @else {
         <keleman-value-changer
           [initialValue]="inBasketCount"
-          (increse)="productService.updateBasket($event, 0)"
-          (decrease)="productService.updateBasket($event, 0)"
+          (increse)="productService.updateBasket($event)"
+          (decrease)="productService.updateBasket($event)"
           [max]="productDetails.currentStock"
         ></keleman-value-changer>
         }

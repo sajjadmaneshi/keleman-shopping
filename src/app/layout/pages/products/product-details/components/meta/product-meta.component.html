@@ -22,7 +22,6 @@
     </table>
 
     @if(productDetails.priceAfterDiscount>0){
-
     <keleman-price
       [size]="'h5'"
       [value]="productDetails.priceAfterDiscount"
@@ -49,12 +48,12 @@
             (loadingService.getLoadingStateObservable('read', 'packageItems')
               | async)!
           "
-          (click)="productService.getPackageData(inBasketCount)"
+          (click)="productService.getPackageData(0)"
         >
           تغییر محتویات و افزودن به سبد خرید
         </button>
 
-        } @else if (inBasketCount == 0){
+        } @else if (productService.basketCount(0) == 0){
         <button
           class="text-klm-primary actions__buttons fs-5 fw-bolder w-100"
           kelemanLoadingProgress
@@ -63,7 +62,7 @@
               | async)!
           "
           [disabled]="productValidationStatus.disable"
-          (click)="productService.addToBasket(0)"
+          (click)="productService.addToBasket()"
         >
           {{ productValidationStatus.text }}
         </button>
@@ -71,9 +70,9 @@
 
         <div class="col-6">
           <keleman-value-changer
-            [initialValue]="inBasketCount"
-            (increse)="productService.updateBasket($event, 0)"
-            (decrease)="productService.updateBasket($event, 0)"
+            [initialValue]="productService.basketCount(0)"
+            (increse)="productService.updateBasket($event)"
+            (decrease)="productService.updateBasket($event)"
             [max]="productDetails.currentStock"
           ></keleman-value-changer>
         </div>
