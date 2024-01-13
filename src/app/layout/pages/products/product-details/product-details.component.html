@@ -6,13 +6,13 @@
   [productDetails]="productDetails"
 ></keleman-product-content>
 
-@if(productDetails){
-
+@if(productDetails){ @if (!productDetails.isPackage){
 <keleman-stores
   [productId]="productDetails.id"
   (addToBasket)="productService.addToBasket($event)"
   (updateBasket)="productService.updateBasket($event.count, $event.seller)"
 ></keleman-stores>
+}
 
 <keleman-product-navbar
   [productId]="productDetails.id"
@@ -36,7 +36,7 @@
           تغییر محتویات و افزودن به سبد خرید
         </button>
 
-        } @else if (inBasketCount == 0){
+        } @else if (productService.basketCount(0) == 0){
         <button
           class="actions__buttons text-klm-primary fs-5 fw-bolder w-100"
           kelemanLoadingProgress
@@ -51,9 +51,8 @@
         </button>
         } @else {
         <keleman-value-changer
-          [initialValue]="inBasketCount"
-          (increse)="productService.updateBasket($event)"
-          (decrease)="productService.updateBasket($event)"
+          [initialValue]="productService.basketCount(0)"
+          (value-change)="productService.updateBasket($event)"
           [max]="productDetails.currentStock"
         ></keleman-value-changer>
         }

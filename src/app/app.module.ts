@@ -80,11 +80,6 @@ export function tokenGetter() {
     },
     { provide: ErrorHandler, useClass: AppErrorHandler },
     provideHttpClient(withFetch()),
-    provideClientHydration(
-      withHttpTransferCacheOptions({
-        includePostRequests: true,
-      })
-    ),
   ],
   bootstrap: [AppComponent],
 })

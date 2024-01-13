@@ -135,7 +135,7 @@ export class ProductService implements OnDestroy {
     const productDetails = this.productDetails$.value!;
     this._loadingService.startLoading('read', 'packageItems');
     const basketCount = this.basketCount(sellerId);
-    if (basketCount > 0 && this.isLoggedIn) {
+    if (basketCount > 0) {
       this._basketService
         .getPackageDetails(productDetails.id)
         .pipe(
@@ -169,25 +169,20 @@ export class ProductService implements OnDestroy {
   }
 
   openPackageDetailDialog(data: PackageItemsViewModel) {
-    const packageItems = this.packageItems$.value;
     const sellers = this.sellers$.value;
     const dialogRef = this._dialog.open(PackageProductsDialogComponent, {
       width: '500px',
       autoFocus: false,
-      data: packageItems || data,
+      data: data,
     });
     dialogRef.componentInstance.dialogSubmit
       .pipe(
         takeUntil(this.destroy$),
         switchMap((result: PackageItemsViewModel) => {
-          this.packageItems$.next(result);
           return of(
             sellers[0].inBasketCount > 0
-              ? this.updateBasket(1, {
-                  id: sellers[0].id,
-                  name: sellers[0].title,
-                })
-              : this.addToBasket({ id: sellers[0].id, name: sellers[0].title })
+              ? this.updateBasket(1, sellers[0])
+              : this.addToBasket(sellers[0])
           );
         })
       )
@@ -217,30 +212,30 @@ export class ProductService implements OnDestroy {
       });
   }
 
-  updateBasket(count: number, store?: { id: number; name: string }) {
+  updateBasket(count: number, seller?: SellerViewModel) {
     const sellers = this.sellers$.value;
-    if (!store) store = { id: sellers[0].id, name: sellers[0].title };
+    if (!seller) seller = sellers[0];
     const productDetails = this.productDetails$.value!;
 
     const dto = {
       productId: productDetails.id,
-      storeId: store.id,
+      storeId: seller.id,
       packageDetailItems: this._mapPackageItems,
 
       count,
     } as UpdateBasketDto;
     const result = this._basketService.updateBasket(dto);
-    if (result) this._updateStoreInBasketCount(store.id, count);
+    if (result) this._updateStoreInBasketCount(seller.id, count);
     return result;
   }
 
-  addToBasket(store?: { id: number; name: string }) {
+  addToBasket(seller?: SellerViewModel) {
     const sellers = this.sellers$.value;
-    if (!store) store = { id: sellers[0].id, name: sellers[0].title };
+    if (!seller) seller = sellers[0];
     const result = this.isLoggedIn
-      ? this.addToBasketAuthorized(store.id)
-      : this.addToBasketGuest(store);
-    if (result) this._updateStoreInBasketCount(store.id, 1);
+      ? this.addToBasketAuthorized(seller.id)
+      : this.addToBasketGuest(seller);
+    if (result) this._updateStoreInBasketCount(seller.id, 1);
     return result;
   }
 
@@ -250,20 +245,21 @@ export class ProductService implements OnDestroy {
     if (store) store.inBasketCount = count;
   }
 
-  addToBasketGuest(seller: { id: number; name: string }) {
+  addToBasketGuest(seller: SellerViewModel) {
     const productDetails = this.productDetails$.value!;
     const productItem = {
       product: {
         id: productDetails.id,
-        priceAfterDiscount: productDetails.currentPrice,
+        priceAfterDiscount: seller.priceAfterDiscount,
         name: productDetails.name,
         thumbnailImage: productDetails.image,
-        discount: productDetails.currentDiscountPercent,
-        price: productDetails.currentPrice,
-        currentStock: productDetails.currentStock,
-        seller,
+        discount: seller.discountPercent,
+        price: seller.price,
+        currentStock: seller.currentStock,
+        seller: { id: seller.id, name: seller.title },
         details: this._mapPackageItems,
       },
+      url: this.productUrl,
 
       count: 1,
     } as BasketItemViewModel;

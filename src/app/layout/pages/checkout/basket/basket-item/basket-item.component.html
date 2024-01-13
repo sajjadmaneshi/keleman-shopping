@@ -36,8 +36,7 @@
           <keleman-value-changer
             class="w-100"
             [initialValue]="basketItem.count"
-            (increse)="updateBasket($event)"
-            (decrease)="updateBasket($event)"
+            (value-change)="updateBasket($event)"
             [max]="basketItem.product.currentStock"
           ></keleman-value-changer>
           }

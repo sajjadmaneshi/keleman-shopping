@@ -26,9 +26,11 @@
         <keleman-value-changer
           [removable]="false"
           [initialValue]="packageGroupItem.amount"
-          [canDecrease]="packageGroupItem.canDecrease"
-          (increse)="increaseDecrease($event, packageGroupItem, packageGroup)"
-          (decrease)="increaseDecrease($event, packageGroupItem, packageGroup)"
+          [disableDecrease]="!packageGroupItem.canDecrease || !isLoggedIn"
+          [disableIncrease]="!isLoggedIn"
+          (value-change)="
+            increaseDecrease($event, packageGroupItem, packageGroup)
+          "
         ></keleman-value-changer>
       </div>
     </div>

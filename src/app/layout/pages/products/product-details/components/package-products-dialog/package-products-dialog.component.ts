@@ -59,6 +59,7 @@ export class PackageProductsDialogComponent {
     this._authService.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
     });
+    this.packageDatas.forEach(this.canDecrease);
   }
 
   canDecrease(packageGroup: PackageItemGroupViewModel) {
@@ -98,13 +99,15 @@ export class PackageProductsDialogComponent {
       data: {
         message: 'لطفا برای افزودن پکیج به سبد خرید ابتدا وارد سایت شوید',
         callBackButtonText: 'واردشوید',
-        callBackFunction: () =>
+        callBackFunction: () => {
+          this._dialog.closeAll();
           this._router.navigate([Routing.register], {
             queryParams: {
               redirectUrl: this._router.routerState.snapshot.url,
-              openAddCommentDialog: true,
+              openAddCommentDialog: false,
             },
-          }),
+          });
+        },
       } as AlertDialogDataModel,
     });
   }

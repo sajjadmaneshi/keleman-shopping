@@ -7,19 +7,14 @@
       (keyup)="keyChange($event)"
       (click)="showMenu = searchText ? true : false"
     />
-
-    <ng-template
-      [ngIf]="loadingService.getLoadingStateObservable('add', 'search') | async"
-    >
-      <mat-spinner [diameter]="25"></mat-spinner>
-    </ng-template>
-
-    <ng-template [ngIf]="this.showMenu">
-      <keleman-search-result-menu
-        [searchResult]="searchResult!"
-        [searchText]="searchText!"
-        (onItemClick)="resetSearchResult()"
-      ></keleman-search-result-menu>
-    </ng-template>
+    @if (loadingService.getLoadingStateObservable('add', 'search') | async){
+    <mat-spinner [diameter]="25"></mat-spinner>
+    } @if (showMenu){
+    <keleman-search-result-menu
+      [searchResult]="searchResult!"
+      [searchText]="searchText!"
+      (onItemClick)="resetSearchResult()"
+    ></keleman-search-result-menu>
+    }
   </div>
 </div>

@@ -57,6 +57,10 @@ export class BasketItemComponent implements OnDestroy {
   updateBasket(count: number) {
     const dto = {
       productId: this.basketItem.product.id,
+      storeId:
+        this.basketItem.product.seller.id === 0
+          ? null
+          : this.basketItem.product.seller.id,
       count,
       packageDetailItems: this.packageItems
         ? this.packageItems.items

@@ -22,9 +22,9 @@ import { ProductService } from '../../../services/product.service';
 })
 export class StoresComponent {
   @Input() productId!: number;
-  @Output() addToBasket = new EventEmitter<{ id: number; name: string }>();
+  @Output() addToBasket = new EventEmitter<SellerViewModel>();
   @Output() updateBasket = new EventEmitter<{
-    seller: { id: number; name: string };
+    seller: SellerViewModel;
     count: number;
   }>();
   $destroy = new Subject<void>();
@@ -40,11 +40,11 @@ export class StoresComponent {
   }
 
   onAdd(seller: SellerViewModel) {
-    this.addToBasket.emit({ id: seller.id, name: seller.title });
+    this.addToBasket.emit(seller);
   }
   onUpdate(seller: SellerViewModel, count: number) {
     this.updateBasket.emit({
-      seller: { id: seller.id, name: seller.title },
+      seller,
       count,
     });
   }

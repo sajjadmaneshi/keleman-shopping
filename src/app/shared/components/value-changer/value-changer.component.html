@@ -1,13 +1,9 @@
 <div class="card card-rounded-3 border">
   <div class="card-body">
-    @if (title){
-    <p class="mb-1 text-center">{{ title }}</p>
-    }
-
     <div class="d-flex align-items-center justify-content-between fw-bold fs-3">
       <mat-icon
         class="text-success cursor-pointer"
-        [class.disabled]="max ? max === value : false"
+        [class.disabled]="(max ? max === value : false) || disableIncrease"
         inline
         (click)="increase()"
       >
@@ -17,7 +13,9 @@
       <span class="fw-bold">{{ value }}</span>
       <mat-icon
         class="text-danger cursor-pointer"
-        [class.disabled]="(min ? min === value : value === 0) || !canDecrease"
+        [class.disabled]="
+          (min ? min === value : value === 0) || disableDecrease
+        "
         inline
         (click)="decrease()"
       >

@@ -41,7 +41,7 @@ export class BasketComponent implements OnDestroy {
   removeItem(basketItem: BasketItemViewModel) {
     if (this.isLoggedIn) {
       const indexToRemove = this.basketItems.findIndex(
-        (item) => item.product.id === basketItem.product.id
+        (item) => item.id === basketItem.id
       );
       if (indexToRemove !== -1) {
         this.basketItems.splice(indexToRemove, 1);

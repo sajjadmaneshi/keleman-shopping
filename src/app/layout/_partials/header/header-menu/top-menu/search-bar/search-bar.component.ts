@@ -76,7 +76,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   private _navigateToProduct() {
     this.showMenu = false;
-    this._router.navigate([Routing.products], {
+    this._router.navigate([`${Routing.products}/خرید-قطعات-آسانسور`], {
       queryParams: { q: this.searchText, p: '0' },
     });
   }

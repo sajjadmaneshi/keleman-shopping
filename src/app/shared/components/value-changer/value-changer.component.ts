@@ -10,24 +10,23 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class ValueChangerComponent {
   @Input('initialValue') value: number = 1;
-  @Input('title') title!: string;
   @Input('removable') removable: boolean = true;
   @Input('max') max!: number;
-  @Input('min') min!: number;
-  @Input() canDecrease: boolean = true;
-
-  @Output('increse') onIncrease = new EventEmitter<number>();
-  @Output('decrease') onDncrease = new EventEmitter<number>();
+  @Input('min') min: number = 0;
+  @Input('disableIncrease') disableIncrease: boolean = false;
+  @Input('disableDecrease') disableDecrease: boolean = false;
+  @Output('value-change') valueChange = new EventEmitter<number>();
 
   increase(): void {
     if (this.max && this.max == this.value) return;
     this.value++;
-    this.onIncrease.emit(this.value);
+    this.valueChange.emit(this.value);
   }
   decrease(): void {
-    if (this.value > 1) {
+    if (this.min && this.min === this.value) return;
+    if (this.value > 0) {
       this.value--;
-    } else this.value = 0;
-    this.onDncrease.emit(this.value);
+    }
+    this.valueChange.emit(this.value);
   }
 }

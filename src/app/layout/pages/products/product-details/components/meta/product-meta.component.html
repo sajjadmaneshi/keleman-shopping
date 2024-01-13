@@ -71,8 +71,7 @@
         <div class="col-6">
           <keleman-value-changer
             [initialValue]="productService.basketCount(0)"
-            (increse)="productService.updateBasket($event)"
-            (decrease)="productService.updateBasket($event)"
+            (value-change)="productService.updateBasket($event)"
             [max]="productDetails.currentStock"
           ></keleman-value-changer>
         </div>
