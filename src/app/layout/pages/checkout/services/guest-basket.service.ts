@@ -108,7 +108,6 @@ export class GuestBasketService {
   }
 
   getProductCountInBasket(productId: number): InBasketCountViewModel[] {
-    debugger;
     const products = this.basketSubject.value.items.filter(
       (p) => p.product.id === productId
     ) as BasketItemViewModel[];
@@ -122,9 +121,12 @@ export class GuestBasketService {
   }
 
   get cartBalance() {
-    return this.basketSubject.value.items.reduce((sum, currentItem) => {
-      return sum + currentItem.count;
-    }, 0);
+    let { items } = this.basketSubject.value;
+    if (items) {
+      return items.reduce((sum, currentItem) => {
+        return sum + currentItem.count;
+      }, 0);
+    } else return 0;
   }
 
   clearBasket(): void {
