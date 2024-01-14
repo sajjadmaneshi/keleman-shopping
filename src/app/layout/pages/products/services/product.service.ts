@@ -246,6 +246,7 @@ export class ProductService implements OnDestroy {
   }
 
   addToBasketGuest(seller: SellerViewModel) {
+    debugger;
     const productDetails = this.productDetails$.value!;
     const productItem = {
       product: {
