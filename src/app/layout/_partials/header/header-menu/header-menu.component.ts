@@ -35,6 +35,7 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   productCategories!: ProductCategoryViewModel[];
   articleCategories!: ArticleCategoryViewModel[];
   page = 0;
+  routing = Routing;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -108,7 +109,7 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   checkResetPage(route: string) {
     const routeSplit = route.split('?')[0];
-    if (this.currentRoute === `/${Routing.magazine}`) {
+    if (this.currentRoute === `/${Routing.blogs}`) {
       if (this.currentRoute !== routeSplit) this.page = 0;
     }
     this.currentRoute = routeSplit;

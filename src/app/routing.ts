@@ -3,9 +3,10 @@ export class Routing {
   static shipping = 'shipping';
   static payment = 'payment';
   static basket = 'basket';
-  static magazine = 'magazine';
+  static blogs = 'blogs';
+  static category = 'category';
   static register = 'register';
-  static products = 'products';
+  static product = 'product';
   static wallet = 'wallet';
   static profile = 'profile';
   static orders = 'orders';

@@ -30,7 +30,7 @@ const routes: Routes = [
       },
 
       {
-        path: Routing.magazine,
+        path: Routing.blogs,
         loadChildren: () =>
           import('./pages/magazine/magazine.module').then(
             (m) => m.MagazineModule
@@ -40,7 +40,7 @@ const routes: Routes = [
         },
       },
       {
-        path: Routing.products,
+        path: Routing.product,
         loadChildren: () =>
           import('./pages/products/products.module').then(
             (m) => m.ProductsModule

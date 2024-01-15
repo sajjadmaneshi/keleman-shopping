@@ -89,7 +89,7 @@
       <div class="d-flex flex-column justify-content-between h-100">
         <mat-chip-option
           class="align-self-end"
-          [selected]="orderDetail.isPaid"
+          [disabled]="true"
           [ngClass]="[orderDetail.isPaid ? 'paid-chip' : 'notPaid-chip']"
         >
           {{ orderDetail.isPaid ? "پرداخت شده" : "پرداخت نشده" }}

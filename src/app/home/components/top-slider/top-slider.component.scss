@@ -1,43 +1,14 @@
-@import "components/swiper";
-@include swiper-button();
-.top-slider-container {
-  height: 268px;
-}
 .slide {
   display: block;
-  min-height: 268px;
   width: 100%;
-  height: 100%;
-}
-
-@media (min-width: 1024px) {
-  .top-slider-container {
-    height: 300px;
-  }
-  .slide {
-    min-height: 300px;
-  }
-}
-
-@media (min-width: 1281px) {
-  .top-slider-container {
-    height: 400px;
-  }
-  .slide {
-    min-height: 400px;
-  }
-}
-
-.swiper {
-  width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .main-slider-image {
-  height: 100%;
   width: 100%;
-  display: inline-block;
+  height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 ::ng-deep .swiper-pagination {
@@ -55,4 +26,9 @@
       background-color: white !important;
     }
   }
+}
+
+.img-container {
+  position: relative;
+  overflow: hidden;
 }

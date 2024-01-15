@@ -3,20 +3,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { MagazineComponent } from './magazine.component';
 import { MagazineListComponent } from './components/list/magazine-list.component';
 import { ArticleComponent } from './components/article/article.component';
+import { Routing } from '../../../routing';
 
 export const routes: Routes = [
   {
     path: '',
     component: MagazineComponent,
     children: [
-      { path: 'detail/:url', component: ArticleComponent },
+      { path: ':url', component: ArticleComponent },
       {
-        path: ':categoryUrl',
+        path: `${Routing.category}/:categoryUrl`,
         component: MagazineListComponent,
         data: {
           shouldDetach: true,
         },
       },
+
       {
         path: '',
         component: MagazineListComponent,

@@ -1,6 +1,6 @@
 <div
   class="card card-rounded-3 border border-gray-300 product cursor-pointer"
-  [routerLink]="['/products/detail/' + product.customUrl]"
+  [routerLink]="['/' + routing.product, product.customUrl]"
 >
   <div
     class="card-body d-flex align-items-center flex-row flex-md-column justify-content-md-between position-relative"
@@ -24,7 +24,7 @@
     </div>
     <a
       class="fs-6 align-self-md-center flex-grow-1 text-center product-title"
-      [routerLink]="['/products/detail/' + product.customUrl]"
+      [routerLink]="['/' + routing.product, product.customUrl]"
     >
       {{ product.name! }}
     </a>

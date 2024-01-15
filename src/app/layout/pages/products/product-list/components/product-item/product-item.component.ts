@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ProductViewModel } from '../../../data/models/view-models/product.view-model';
 import { ENVIRONMENT } from '../../../../../../../environments/environment';
+import { Routing } from '../../../../../../routing';
 
 @Component({
   selector: 'keleman-product-item',
@@ -9,4 +10,5 @@ import { ENVIRONMENT } from '../../../../../../../environments/environment';
 })
 export class ProductItemComponent {
   @Input() product!: ProductViewModel;
+  routing = Routing;
 }

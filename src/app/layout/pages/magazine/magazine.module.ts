@@ -23,8 +23,6 @@ import { MatListModule } from '@angular/material/list';
 import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-export const routes: Routes = [{ path: '', component: MagazineComponent }];
-
 @NgModule({
   declarations: [
     MagazineComponent,
@@ -36,7 +34,6 @@ export const routes: Routes = [{ path: '', component: MagazineComponent }];
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
     MagazineRoutingModule,
     ReactiveFormsModule,
     ArticleItemComponent,

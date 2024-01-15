@@ -32,22 +32,22 @@ export class BreadCrumbComponent implements OnChanges, OnDestroy {
     new TypeBreadCrumbs(
       BreadCrumbTypeEnum.Product,
       'محصولات',
-      `/${Routing.products}/خرید-قطعات-آسانسور`
+      `/${Routing.product}/خرید-قطعات-آسانسور`
     ),
     new TypeBreadCrumbs(
       BreadCrumbTypeEnum.ProductCategory,
       'محصولات',
-      `/${Routing.products}/خرید-قطعات-آسانسور`
+      `/${Routing.product}/خرید-قطعات-آسانسور`
     ),
     new TypeBreadCrumbs(
       BreadCrumbTypeEnum.Article,
       'مقالات',
-      `/${Routing.magazine}`
+      `/${Routing.blogs}/${Routing.category}`
     ),
     new TypeBreadCrumbs(
       BreadCrumbTypeEnum.ArticleCategory,
       'مقالات',
-      `/${Routing.magazine}`
+      `/${Routing.blogs}`
     ),
   ];
 

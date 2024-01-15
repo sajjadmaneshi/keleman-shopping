@@ -18,6 +18,7 @@ import { SwiperComponent } from '../../../shared/components/swiper/swiper.compon
 import { ProductCategoryViewModel } from '../../../shared/data/models/view-models/product-category.view-model';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { LoadingService } from '../../../../common/services/loading.service';
+import { InitialAppService } from '../../../shared/services/initial-app.service';
 
 @Component({
   selector: 'keleman-product-categories',
@@ -35,30 +36,26 @@ import { LoadingService } from '../../../../common/services/loading.service';
 })
 export class ProductCategoryComponent implements OnChanges, OnDestroy {
   @Input() parentId!: number | null;
-
   @Output() onItemClick = new EventEmitter<ProductCategoryViewModel>();
-
   categories: ProductCategoryViewModel[] = [];
-
   destroy$ = new Subject<void>();
 
   constructor(
     public productCategoryService: ProductCategoryService,
-    public loadingService: LoadingService
-  ) {}
-  private previousValue: any;
-  inputHasChanged: boolean = false;
+    public loadingService: LoadingService,
+    private _initialAppService: InitialAppService
+  ) {
+    this._initialAppService.productCategories.subscribe((result) => {
+      this.categories = result;
+    });
+  }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['parentId']) {
-      const currentValue = changes['parentId'].currentValue;
-      if (currentValue !== this.previousValue) {
-        this.inputHasChanged = true;
-        this._getCategories();
-      }
-      this.previousValue = currentValue;
+  ngOnChanges(): void {
+    if (this.parentId) {
+      this._getCategories();
     }
   }
+  inputHasChanged: boolean = false;
 
   getCategoryProducts(category: ProductCategoryViewModel) {
     this.onItemClick.emit(category);

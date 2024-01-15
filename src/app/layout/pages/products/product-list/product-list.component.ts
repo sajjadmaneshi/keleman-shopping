@@ -134,7 +134,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     this._routeHandlerService.updateQueryParams(
       this._routeHandlerService.getQueryParamsSnapShot,
-      `${Routing.products}/${newCategoryUrlSegment}`
+      `${Routing.product}/${Routing.category}/${newCategoryUrlSegment}`
     );
   }
 

@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { ArticleSimpleDataViewModel } from '../../../layout/pages/magazine/data/view-models/article-simple-data.view-model';
 import { EmptyImageDirective } from '../../directives/empty-image.directive';
 import { ENVIRONMENT } from '../../../../environments/environment';
+import { Routing } from '../../../routing';
 
 @Component({
   selector: 'keleman-article-item',
@@ -27,5 +28,6 @@ export class ArticleItemComponent {
   @Input() articleDetails!: ArticleSimpleDataViewModel;
 
   dwonloadUrl: string = ENVIRONMENT.downloadUrl;
+  routing = Routing;
   constructor(public persianDateTime: PersianDateTimeService) {}
 }

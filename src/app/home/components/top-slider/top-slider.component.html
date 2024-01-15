@@ -5,11 +5,7 @@
 ></ngx-skeleton-loader>
 } @else {
 <div class="d-flex position-relative top-slider-container">
-  <swiper
-    [spaceBetween]="0"
-    [pagination]="{ el: '.swiper-pagination' }"
-    [autoplay]="{ delay: 2500 }"
-  >
+  <swiper [spaceBetween]="0" [pagination]="{ el: '.swiper-pagination' }">
     @for (slide of slides;track slide.id){
 
     <ng-template swiperSlide>
@@ -21,6 +17,7 @@
             loadingLazy
             emptyImage
             [src]="slide.imageAddress"
+            style="width: 100%; height: auto"
           />
         </picture>
       </a>

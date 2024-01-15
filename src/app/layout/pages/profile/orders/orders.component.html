@@ -68,7 +68,6 @@
         </a>
         <a
           class="col-6 col-lg-3 d-flex flex-column flex-lg-row align-items-center order-link"
-          (click)="changeTab(3)"
         >
           <img
             loadingLazy
@@ -126,18 +125,18 @@
             </keleman-order-list>
           </ng-template>
         </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            لغو شده
-            <span class="text-danger mx-1">{{
-              orderCounts.cancelledCount
-            }}</span>
-          </ng-template>
-          <ng-template matTabContent>
-            <keleman-order-list [status]="orderStatus.Cancelled">
-            </keleman-order-list>
-          </ng-template>
-        </mat-tab>
+        <!--        <mat-tab>-->
+        <!--          <ng-template mat-tab-label>-->
+        <!--            لغو شده-->
+        <!--            <span class="text-danger mx-1">{{-->
+        <!--              orderCounts.cancelledCount-->
+        <!--            }}</span>-->
+        <!--          </ng-template>-->
+        <!--          <ng-template matTabContent>-->
+        <!--            <keleman-order-list [status]="orderStatus.Cancelled">-->
+        <!--            </keleman-order-list>-->
+        <!--          </ng-template>-->
+        <!--        </mat-tab>-->
       </mat-tab-group>
     </ng-template>
   </div>

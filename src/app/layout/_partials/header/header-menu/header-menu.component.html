@@ -10,7 +10,7 @@
           <a
             type="button"
             class="nav-link text-black px-3 d-flex align-items-center"
-            [routerLink]="['products/خرید-قطعات-آسانسور']"
+            [routerLink]="[routing.product + '/خرید-قطعات-آسانسور']"
             [queryParams]="{ p: 0 }"
           >
             <span class="material-icons-outlined"> grid_view </span>
@@ -48,7 +48,7 @@
           <a
             type="button"
             class="nav-link text-black px-3"
-            [routerLink]="['magazine']"
+            [routerLink]="[routing.blogs]"
             routerLinkActive="active"
             >مجله کلمان</a
           >
@@ -60,7 +60,10 @@
               <mat-list-item
                 (click)="closeMenu(articleCategoryDropDownMenu)"
                 class="cursor-pointer"
-                [routerLink]="['magazine', articleCategory.url]"
+                [routerLink]="[
+                  routing.blogs + '/' + routing.category,
+                  articleCategory.url
+                ]"
                 [queryParams]="{ p: 0 }"
                 *ngFor="let articleCategory of articleCategories"
               >

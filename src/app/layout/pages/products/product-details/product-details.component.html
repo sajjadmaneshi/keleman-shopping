@@ -6,7 +6,8 @@
   [productDetails]="productDetails"
 ></keleman-product-content>
 
-@if(productDetails){ @if (!productDetails.isPackage){
+@if(productDetails){ @if (!productDetails.isPackage &&
+!productValidationStatus.disable){
 <keleman-stores
   [productId]="productDetails.id"
   (addToBasket)="productService.addToBasket($event)"

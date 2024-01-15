@@ -42,8 +42,11 @@ export class ProductCategoryService {
       '/'
     );
     const queryParams = { p: '0' };
+
     this._router
-      .navigate([`${Routing.products}/${params}`], { queryParams })
+      .navigate([`${Routing.product}/${Routing.category}/${params}`], {
+        queryParams,
+      })
       .finally();
   }
 }

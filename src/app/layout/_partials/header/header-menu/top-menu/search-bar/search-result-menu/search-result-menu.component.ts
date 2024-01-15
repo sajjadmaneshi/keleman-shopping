@@ -14,14 +14,14 @@ export class SearchResultMenuComponent {
   constructor(private _router: Router) {}
   navigateProduct(url: string) {
     this.onItemClick.emit();
-    this._router.navigate([`${Routing.products}/${url}`], {
+    this._router.navigate([`${Routing.product}/${url}`], {
       queryParams: { q: this.searchText, p: 0 },
     });
   }
 
   navigateArticle(url: string) {
     this.onItemClick.emit();
-    this._router.navigate([`${Routing.magazine}/${url}`], {
+    this._router.navigate([`${Routing.blogs}/${url}`], {
       queryParams: { q: this.searchText, p: 0 },
     });
   }
