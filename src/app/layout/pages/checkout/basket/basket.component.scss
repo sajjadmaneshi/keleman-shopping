@@ -3,7 +3,3 @@
 app-basket-item:not(:last-child) {
   border-bottom: 1px solid $gray-200;
 }
-.empty-basket-img {
-  width: 20rem;
-  max-width: 30rem !important;
-}
