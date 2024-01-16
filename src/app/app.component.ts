@@ -6,7 +6,12 @@ import { BehaviorSubject, Subject, Subscription, takeUntil } from 'rxjs';
 
 import { Platform } from '@angular/cdk/platform';
 import { NavigationLoadingService } from './shared/services/navigation-loading.service';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import {
+  NavigationEnd,
+  NavigationSkipped,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -30,9 +35,13 @@ export class AppComponent implements OnDestroy {
     this._setMetaTag();
     this._applicationState.init();
     this._router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+      console.log(event);
       if (event instanceof NavigationStart) {
         this._navigationLoading.show();
-      } else if (event instanceof NavigationEnd) {
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationSkipped
+      ) {
         this._navigationLoading.hide();
       }
     });
