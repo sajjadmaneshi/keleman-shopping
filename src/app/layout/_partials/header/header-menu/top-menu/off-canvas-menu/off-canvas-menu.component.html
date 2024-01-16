@@ -40,8 +40,7 @@
               <button ngbAccordionButton class="text-black p-0">
                 <span
                   class="d-flex align-items-center"
-                  [routerLink]="['magazine']"
-                  [queryParams]="{ p: 0 }"
+                  [routerLink]="[routing.blogs]"
                   (click)="onClose()"
                 >
                   <h5>مجله کلمان</h5>
@@ -54,7 +53,11 @@
                   <ul class="column pe-3">
                     @for (child of articleCategories;track child.id){
                     <li
-                      [routerLink]="['magazine', child.url]"
+                      [routerLink]="[
+                        routing.blogs + '/' + routing.category,
+                        child.url
+                      ]"
+                      [queryParams]="{ p: 0 }"
                       (click)="onClose()"
                     >
                       {{ child.name }}

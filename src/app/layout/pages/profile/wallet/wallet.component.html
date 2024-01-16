@@ -13,14 +13,25 @@
               class="keleman-text-field equal-height-elements"
               id="increase-amount"
               placeholder="مقدار را به تومان وارد کنید"
+              [(ngModel)]="increaseAmount"
             />
 
             <button
               class="btn btn-warning text-white wallet-action-button equal-height-elements"
+              kelemanLoadingProgress
+              [loading]="submitLoading"
+              (click)="increaseWallet()"
             >
-              پرداخت
+              {{ submitLoading ? "لطفا منتظر بمانید" : "پرداخت" }}
             </button>
           </span>
+          @if(increaseAmount&&increaseAmount>0){
+          <span class="d-flex my-3">
+            <label class="fw-bold mx-1">معادل: </label>
+
+            <span>{{ increaseAmount | numberToPersian }}</span>
+          </span>
+          }
         </div>
         <div class="d-flex align-items-center justify-content-center">
           <button

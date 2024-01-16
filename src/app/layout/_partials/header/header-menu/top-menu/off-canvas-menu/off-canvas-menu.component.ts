@@ -6,6 +6,7 @@ import { AuthService } from '../../../../../../shared/services/auth/auth.service
 import { combineLatest, Subject, Subscription, takeUntil } from 'rxjs';
 import { ArticleCategoryViewModel } from '../../../../../pages/magazine/data/view-models/article-category.view-model';
 import { ProfileViewModel } from '../../../../../pages/profile/data/view-models/profile.view-model';
+import { Routing } from '../../../../../../routing';
 
 @Component({
   selector: 'keleman-off-canvas-menu',
@@ -15,7 +16,7 @@ export class OffCanvasMenuComponent implements OnDestroy {
   @Output() close = new EventEmitter();
   productCategories!: ProductCategoryViewModel[];
   articleCategories!: ArticleCategoryViewModel[];
-
+  routing = Routing;
   isLoggedIn = false;
   subscription!: Subscription;
 

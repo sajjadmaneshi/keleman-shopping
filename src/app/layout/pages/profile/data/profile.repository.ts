@@ -324,4 +324,15 @@ export class ProfileRepository extends DataService<any> {
       )}&fromDate=${fromDate}&toDate=${toDate}&search=${search}`
     ) as Observable<HttpClientResult<OrderCanReturnViewModel[]>>;
   }
+
+  increaseWallet(amount: number): Observable<string> {
+    return this._http.post(
+      `${
+        this._getProfileUrl
+      }/payment/increaseWallet?userId=${localStorage.getItem(
+        'USERID'
+      )}&amount=${amount}`,
+      {}
+    ) as Observable<string>;
+  }
 }
