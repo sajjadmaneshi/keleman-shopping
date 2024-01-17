@@ -4,7 +4,10 @@ import { ApplicationStateService } from '../../../../../../shared/services/appli
 import SwiperCore, { Pagination } from 'swiper';
 import { MatDialog } from '@angular/material/dialog';
 import { PriceChartDialogComponent } from './price-chart-dialog/price-chart-dialog.component';
-import { ProductDetailViewModel } from '../../../data/models/view-models/product-detail.view-model';
+import {
+  ProductDetailViewModel,
+  ProductOptionViewModel,
+} from '../../../data/models/view-models/product-detail.view-model';
 import { SharedVariablesService } from '../../../../../../shared/services/shared-variables.service';
 import { ProductGalleryViewModel } from '../../../data/models/view-models/product-gallery.view-model';
 import { ProductRepository } from '../../../data/repositories/product.repository';
@@ -18,6 +21,8 @@ import { Routing } from '../../../../../../routing';
 import { SnackBarService } from '../../../../../../shared/components/snack-bar/snack-bar.service';
 import { ShareDialogComponent } from './share-dialog/share-dialog.component';
 import { LoadingService } from '../../../../../../../common/services/loading.service';
+import { FormControl } from '@angular/forms';
+import { OptionPriceDto } from '../../../data/models/dto/option-price.dto';
 
 SwiperCore.use([Pagination]);
 @Component({
@@ -146,7 +151,6 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
     if (this.productDetails) {
       this._getGallary();
       this.LoadNewImage(this.productDetails);
-
       if (this.isLoggedIn) this._checkFavoriteStatus();
     }
   }
@@ -184,6 +188,12 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  changeOptions(selectedOptions: OptionPriceDto[]) {
+    this._productService.getPriceOptions(selectedOptions);
+  }
+
+  protected readonly FormControl = FormControl;
 }
 
 function createProductImageMapper(productDetails: ProductDetailViewModel): any {

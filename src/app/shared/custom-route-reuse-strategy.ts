@@ -9,7 +9,7 @@ import { Routing } from '../routing';
 export class CustomRouteReuseStrategy implements RouteReuseStrategy {
   private handlers: { [key: string]: RootHandler } = {};
 
-  //call when change component ===> if we want to reuse it we shold return true.
+  //call when component changed ===> if we want to reuse component we shold return true.
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
     return this.isDetachable(route);
   }

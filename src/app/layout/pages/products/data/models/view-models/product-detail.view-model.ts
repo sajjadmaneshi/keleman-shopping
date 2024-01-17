@@ -30,4 +30,11 @@ export interface ProductDetailViewModel {
   currentDiscountPercent: number;
   isPackage: boolean;
   stores: SellerViewModel[];
+  options: ProductOptionViewModel[];
+}
+
+export interface ProductOptionViewModel {
+  id: number;
+  title: string;
+  options: ProductOptionViewModel[];
 }

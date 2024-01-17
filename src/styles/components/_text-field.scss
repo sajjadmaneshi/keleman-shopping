@@ -10,6 +10,7 @@
   border: none !important;
   border-radius: math.div(1rem, 4);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) !important;
+  background-color: $gray-300;
   &::placeholder {
     color: #b5b9ca !important;
   }

@@ -130,6 +130,12 @@
         <h6>اصالت و سلامت فیزیکی کالا</h6>
       </div>
     </div>
+    @if(productDetails.options.length>0){
+    <keleman-property-options
+      [propertyOptions]="productDetails.options"
+      (change)="changeOptions($event)"
+    ></keleman-property-options>
+    }
     <keleman-product-meta></keleman-product-meta>
   </div>
 </div>
@@ -149,10 +155,9 @@
     <div class="card card-rounded-3 shadow delivery border-0 box-shadow-none">
       <div class="card-body mx-0">
         <p class="lh-lg">زمان تحویل کالا</p>
-        <h5 class="fw-semibold">4 تا 10 روز کاری</h5>
+        <h5 class="fw-semibold">{{ productDetails.deliveryDescription }}</h5>
       </div>
     </div>
-    <div class="gradient-border flex-grow-1 my-3 d-lg-none"></div>
   </div>
 </div>
 }

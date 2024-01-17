@@ -62,6 +62,9 @@ import { ShareDialogComponent } from './product-details/components/content/share
 import { MagazineModule } from '../magazine/magazine.module';
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
 import { StoresComponent } from './product-details/components/stores/stores.component';
+import { AutoCompleteComponent } from '../../../shared/components/auto-complete/auto-complete.component';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
+import { PropertyOptionsComponent } from './product-details/components/property-options/property-options.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +128,9 @@ import { StoresComponent } from './product-details/components/stores/stores.comp
     ValueChangerComponent,
     StoresComponent,
     StoresComponent,
+    AutoCompleteComponent,
+    LoaderComponent,
+    PropertyOptionsComponent,
   ],
 
   providers: [ProductFilterService, RouteHandlerService],

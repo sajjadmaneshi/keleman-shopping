@@ -16,6 +16,8 @@ import { ProductSpecificViewModel } from '../models/view-models/product-specific
 import { ProductPriceChartViewModel } from '../models/view-models/product-price-chart.view-model';
 import { ProductDescriptionsViewModel } from '../models/view-models/product-descriptions.view-model';
 import { PackageItemsViewModel } from '../models/view-models/package-items.view-model';
+import { OptionPriceDto } from '../models/dto/option-price.dto';
+import { OptionPriceViewModel } from '../models/view-models/option-price.view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductRepository extends DataService<
@@ -97,6 +99,14 @@ export class ProductRepository extends DataService<
   isLiked(productId: number): Observable<HttpClientResult<boolean>> {
     return this._http.get(`${this._getUrl}/${productId}/isLiked`) as Observable<
       HttpClientResult<boolean>
+    >;
+  }
+
+  optionPrice(
+    dto: OptionPriceDto[]
+  ): Observable<HttpClientResult<OptionPriceViewModel[]>> {
+    return this._http.post(`${this._getUrl}/optionPrice`, dto) as Observable<
+      HttpClientResult<OptionPriceViewModel[]>
     >;
   }
 }

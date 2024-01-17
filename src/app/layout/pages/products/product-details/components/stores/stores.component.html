@@ -1,11 +1,11 @@
-<div class="align-items-center pb-3 d-none d-md-flex">
+<div class="d-flex align-items-center pb-3">
   <h4 class="fw-bold text-klm-primary px-3">فروشندگان</h4>
   <div class="gradient-border flex-grow-1"></div>
 </div>
 @for (seller of sellers;track seller.id){
 <div class="card card-rounded-3 shadow mb-3">
   <div class="card-body d-flex justify-content-between">
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column align-items-start">
       <h5>{{ seller.title }}</h5>
 
       <keleman-price

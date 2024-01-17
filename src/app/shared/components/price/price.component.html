@@ -1,5 +1,7 @@
 <span class="d-flex align-items-center w-100 justify-content-end">
-  @switch (size){ @case ('h1'){ @if (off){
+  @if(loading){
+  <keleman-loader></keleman-loader>
+  } @else { @switch (size){ @case ('h1'){ @if (off){
   <span class="text-danger ms-3 fs-1">{{ discount }}%</span>
   }
 
@@ -108,5 +110,5 @@
     {{ value | number : ".0" }}
     <span class="mx-1">{{ append }}</span>
   </span>
-  } }
+  } } }
 </span>

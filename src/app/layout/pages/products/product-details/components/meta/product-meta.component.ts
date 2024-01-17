@@ -9,6 +9,7 @@ import { SharedVariablesService } from '../../../../../../shared/services/shared
 import { ProductDetailViewModel } from '../../../data/models/view-models/product-detail.view-model';
 import { LoadingService } from '../../../../../../../common/services/loading.service';
 import { PackageItemsViewModel } from '../../../data/models/view-models/package-items.view-model';
+import { SellerViewModel } from '../stores/seller.view-model';
 
 @Component({
   selector: 'keleman-product-meta',
@@ -22,7 +23,7 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   packageItems!: PackageItemsViewModel;
   productValidationStatus!: ProductStatusViewModel;
-
+  seller!: SellerViewModel;
   constructor(
     public readonly productService: ProductService,
     public readonly loadingService: LoadingService,
@@ -31,6 +32,10 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
     this.productService.productDetails$.subscribe((produltDetail) => {
       this.productDetails = produltDetail!;
     });
+    this.productService.sellers$.subscribe((result) => {
+      this.seller = result[0];
+    });
+
     this.productService.packageItems$.subscribe((result) => {
       if (result) {
         this.productService.openPackageDetailDialog(result);

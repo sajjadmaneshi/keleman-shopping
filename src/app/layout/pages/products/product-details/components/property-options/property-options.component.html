@@ -1,0 +1,14 @@
+<div class="card card-rounded-3 shadow mb-3">
+  <div class="card-body">
+    <p class="lh-lg text-center fw-bolder">ویژگی های کالا</p>
+    @for (option of propertyOptions;track option;let idx = $index){
+
+    <keleman-auto-complete
+      [options]="option.options"
+      [label]="option.title"
+      [formControl]="formControlDetector(idx + 1)"
+      (onSelectionChange)="changeOptions($event, option.id)"
+    ></keleman-auto-complete>
+    }
+  </div>
+</div>

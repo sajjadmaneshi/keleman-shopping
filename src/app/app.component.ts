@@ -35,7 +35,6 @@ export class AppComponent implements OnDestroy {
     this._setMetaTag();
     this._applicationState.init();
     this._router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
-      console.log(event);
       if (event instanceof NavigationStart) {
         this._navigationLoading.show();
       } else if (

@@ -24,6 +24,8 @@ import { UpdateBasketDto } from '../../checkout/data/dto/update-basket.dto';
 import { PackageProductsDialogComponent } from '../product-details/components/package-products-dialog/package-products-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SellerViewModel } from '../product-details/components/stores/seller.view-model';
+import { OptionPriceDto } from '../data/models/dto/option-price.dto';
+import { OptionPriceViewModel } from '../data/models/view-models/option-price.view-model';
 
 @Injectable()
 export class ProductService implements OnDestroy {
@@ -291,7 +293,6 @@ export class ProductService implements OnDestroy {
 
   public basketCount(sellerId: number) {
     const sellers = this.sellers$.value;
-
     return sellers.find((x) => x.id === sellerId)?.inBasketCount || 0;
   }
 
@@ -316,6 +317,40 @@ export class ProductService implements OnDestroy {
           })
           .flat(Infinity)
       : undefined;
+  }
+
+  getPriceOptions(optionPricesDto: OptionPriceDto[]) {
+    this._loadingService.startLoading('read', 'priceOptions');
+    this._productRepository
+      .optionPrice(optionPricesDto)
+      .pipe(
+        tap(() => this._loadingService.stopLoading('read', 'priceOptions')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (result) => this._updateStorePrices(result.result!),
+        error: () => this._loadingService.stopLoading('read', 'priceOptions'),
+      });
+  }
+
+  private _updateStorePrices(optionPrices: OptionPriceViewModel[]) {
+    const sellers = this.sellers$.value;
+    const updatedSellers: SellerViewModel[] = [];
+    optionPrices.forEach((op) => {
+      let seller = sellers.find((x) => x.id === op.storeId);
+      if (seller) {
+        seller = {
+          ...seller,
+          price: op.price,
+          currentStock: op.currentStock,
+          priceAfterDiscount: op.priceAfterDiscount,
+          discountPercent: op.discountPercent,
+        };
+        updatedSellers.push(seller);
+      }
+    });
+
+    this.sellers$.next([...updatedSellers]);
   }
 
   ngOnDestroy(): void {
