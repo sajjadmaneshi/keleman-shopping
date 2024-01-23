@@ -37,7 +37,7 @@ export class KelemanMapComponent implements AfterViewInit {
     lng: 52.48360186815262,
   };
 
-  @Input() markerLatLng!: L.LatLngExpression;
+  @Input() markerLatLng!: { lat: number; lng: number };
   @Input() zoom!: number;
   @Input() readOnly!: boolean;
   @Input() showSearch!: boolean;
