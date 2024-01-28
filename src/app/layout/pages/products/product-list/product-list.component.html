@@ -4,12 +4,10 @@
   @if(!applicationStateService.isPhone && !applicationStateService.isTablet){
   <div class="top-categories card card-rounded-3 mb-3">
     <div class="card-body p-0">
-      <ng-template [ngIf]="categoryId!">
-        <keleman-product-categories
-          [parentId]="categoryId!"
-          (onItemClick)="updateCurrentRoute($event)"
-        ></keleman-product-categories>
-      </ng-template>
+      <keleman-product-categories
+        [parentId]="null"
+        (onItemClick)="updateCurrentRoute($event)"
+      ></keleman-product-categories>
     </div>
   </div>
   }

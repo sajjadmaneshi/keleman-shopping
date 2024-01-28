@@ -14,22 +14,25 @@ import { ENVIRONMENT } from '../../../environments/environment';
 })
 export class EmptyImageDirective implements OnInit, OnChanges {
   @Input() src!: string;
+  @Input() ngSrc!: string;
   @Input() isAvatar = false;
 
   downloadUrl = ENVIRONMENT.downloadUrl;
   constructor(private el: ElementRef<HTMLImageElement>) {}
 
   ngOnInit(): void {
-    this.el.nativeElement.src = this.src
-      ? `${this.downloadUrl}/${this.src}`
+    const src = this.src ? this.src : this.ngSrc;
+    this.el.nativeElement.src = src
+      ? `${this.downloadUrl}/${src}`
       : this.isAvatar
       ? 'assets/media/blank.webp'
       : 'assets/media/no-image.webp';
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.el.nativeElement.src = this.src
-      ? `${this.downloadUrl}/${this.src}`
+    const src = this.src ? this.src : this.ngSrc;
+    this.el.nativeElement.src = src
+      ? `${this.downloadUrl}/${src}`
       : 'assets/media/no-image.webp';
   }
 }

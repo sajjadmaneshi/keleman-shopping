@@ -44,7 +44,7 @@
   h4,
   h5,
   h6 {
-    margin-bottom: 1rem !important;
+    margin: 1.2rem 0 !important;
     color: $klm-primary;
     font-weight: bold;
   }
@@ -89,5 +89,6 @@
   img,
   video {
     width: 100% !important;
+    height: auto;
   }
 }

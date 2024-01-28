@@ -18,7 +18,6 @@ import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Routing } from '../../../../routing';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
-import { ProductCategoryViewModel } from '../../../../shared/data/models/view-models/product-category.view-model';
 import { SsrService } from '../../../../shared/services/ssr/ssr.service';
 import { ArticleCategoryViewModel } from '../../../pages/magazine/data/view-models/article-category.view-model';
 import { MegaMenuViewModel } from '../../../../shared/data/models/view-models/mega-menu.view-model';
@@ -33,7 +32,6 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   destroy$ = new Subject<void>();
   screenWidth!: number;
   currentRoute = '/';
-  // productCategories!: ProductCategoryViewModel[];
   productCategories!: MegaMenuViewModel[];
   articleCategories!: ArticleCategoryViewModel[];
   page = 0;

@@ -1,57 +1,23 @@
-<div class="d-flex h-100 mega-menu-body" id="mega-menu" #megamenu>
-  <ul class="mega-menu-side-bar__menu nil-space">
-    @for (rootCategory of productCategories;track rootCategory.id;let i =
-    $index){ @defer {
-    <li
-      (mouseenter)="onHover(i + 1)"
-      [class.active]="i === activeIndex - 1"
-      (click)="onClick({ c1: rootCategory.url })"
-      class="p-2"
-    >
-      <span class="material-icons"> {{ iconNames[i] }} </span>
-      <span> {{ rootCategory.title }}</span>
-    </li>
-    } }
-  </ul>
-  <div class="mega-menu-items-menu flex-grow-1">
-    @for (rootCategory of productCategories;track rootCategory.id;let i =
-    $index){ @defer {
-    <div
-      [ngClass]="activeIndex === i + 1 ? 'd-flex flex-column' : 'd-none'"
-      class="container-fluid mega-menu-items-menu__inner p-3"
-    >
-      <span
-        class="text-klm-primary all-products cursor-pointer"
-        (click)="onClick({ c1: rootCategory.url })"
-      >
-        همه محصولات
-        <mat-icon>chevron_left</mat-icon>
-      </span>
-
-      <ul class="column">
-        @for (child of rootCategory.children;track child.id){ @defer {
-        <li
-          class="head"
-          (click)="onClick({ c1: rootCategory.url, c2: child.url })"
-        >
-          <span> {{ child.title }}</span>
-        </li>
-        @for (childChild of child.children;track childChild.id){ @defer {
-        <li
-          class="p-1"
-          (click)="
-            onClick({
-              c1: rootCategory.url,
-              c2: child.url,
-              c3: childChild.url
-            })
-          "
-        >
-          <span> {{ childChild.title }}</span>
-        </li>
-        } } } }
-      </ul>
+<div
+  class="d-flex h-100 mega-menu-body justify-content-center p-3"
+  id="mega-menu"
+  #megamenu
+>
+  @for (category of productCategories;track category.id){
+  <div
+    class="product-category-item d-flex flex-column align-items-center px-3 cursor-pointer"
+    (click)="onClick({ c1: category.url })"
+  >
+    <div class="mb-3 symbol symbol-13 symbol-circle">
+      <img
+        loadingLazy
+        emptyImage
+        [alt]="category.title"
+        [src]="category.imageAddress"
+      />
     </div>
-    } }
+    <a class="fs-6">{{ category.title }}</a>
   </div>
+
+  }
 </div>

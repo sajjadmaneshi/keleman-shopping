@@ -54,6 +54,9 @@ import {
   faTelegram,
 } from '@fortawesome/free-brands-svg-icons';
 import { MatListModule } from '@angular/material/list';
+import {
+    ProductCategoryItemComponent
+} from "../home/components/product-category/product-category-item/product-category-item.component";
 
 @NgModule({
   declarations: [
@@ -98,6 +101,7 @@ import { MatListModule } from '@angular/material/list';
     FontAwesomeModule,
     NgbPopover,
     MatListModule,
+    ProductCategoryItemComponent,
   ],
 })
 export class LayoutModule {

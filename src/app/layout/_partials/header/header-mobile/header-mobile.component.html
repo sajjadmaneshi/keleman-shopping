@@ -18,20 +18,17 @@
 
     @if (isLoggedIn && userProfileInfo;){
     <div ngbDropdown class="d-inline-block" [autoClose]="'outside'">
-      <span class="d-flex align-items-center cursor-pointer" ngbDropdownToggle>
-        <p class="mx-3">
-          {{ userProfileInfo.firstName }}
-          {{ userProfileInfo.lastName }}
-        </p>
-        <div class="symbol symbol-10 symbol-circle">
-          <img
-            loadingLazy
-            emptyImage
-            [src]="userProfileInfo.avatar!"
-            [isAvatar]="true"
-          />
-        </div>
-      </span>
+      <div
+        class="symbol symbol-10 symbol-circle cursor-pointer"
+        ngbDropdownToggle
+      >
+        <img
+          loadingLazy
+          emptyImage
+          [src]="userProfileInfo.avatar!"
+          [isAvatar]="true"
+        />
+      </div>
 
       <div
         ngbDropdownMenu
