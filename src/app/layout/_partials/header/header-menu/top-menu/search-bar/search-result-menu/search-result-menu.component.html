@@ -17,7 +17,10 @@
   </ul>
   <ul>
     @for ( item of searchResult.articles;track item.id){
-    <li class="search-result-menu-item" (click)="navigateArticle(item.url)">
+    <li
+      class="search-result-menu-item cursor-pointer"
+      (click)="navigateArticle(item.url)"
+    >
       <a class="d-flex">
         <mat-icon class="text-warning">search</mat-icon>
         <a>{{ item.title }}</a>

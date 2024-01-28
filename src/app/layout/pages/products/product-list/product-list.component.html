@@ -1,6 +1,4 @@
-@if(categoryId){
 <keleman-bread-crumb [type]="1" [id]="categoryId!"></keleman-bread-crumb>
-}
 
 <ng-container class="product-list d-flex flex-column">
   @if(!applicationStateService.isPhone && !applicationStateService.isTablet){
@@ -60,7 +58,8 @@
         </div>
       </div>
     </div>
-
+    @if (categoryId){
     <keleman-category-about [categoryId]="categoryId!"></keleman-category-about>
+    }
   </div>
 </ng-container>

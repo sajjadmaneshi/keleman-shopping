@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { LatLngExpression } from 'leaflet';
 import { MatIconModule } from '@angular/material/icon';
 import { KelemanMapComponent } from '../../../../../shared/components/keleman-map/keleman-map.component';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
@@ -48,8 +46,8 @@ export class AddressItemComponent {
     private readonly _dialog: MatDialog
   ) {}
 
-  getMarkerLatLng(lat: number, lng: number): LatLngExpression {
-    return { lat, lng } as LatLngExpression;
+  getMarkerLatLng(lat: number, lng: number): any {
+    return { lat, lng };
   }
 
   openEditDialog() {

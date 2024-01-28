@@ -75,7 +75,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   private _extractCategoryUrlFromParams(params: Params) {
     const keys = Object.keys(params);
-    this.categoryUrl = params[keys[keys.length - 1]].toString();
+    this.categoryUrl =
+      keys.length > 0 ? params[keys[keys.length - 1]].toString() : '';
   }
 
   private _parseQueryParams(urlQueryParams: Params) {
@@ -120,9 +121,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.totalElements = totalElements;
         this.maxPrice = maxPrice;
         this.categoryId = category?.id;
+
         this._metDataService.setMetaData(
-          category.seoTitle,
-          category.seoDescription
+          category ? category.seoTitle : 'همه محصولات',
+          category ? category.seoDescription : 'همه محصولات'
         );
       });
   }

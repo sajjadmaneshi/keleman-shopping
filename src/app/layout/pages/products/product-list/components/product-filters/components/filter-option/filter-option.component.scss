@@ -16,9 +16,9 @@
 }
 
 mat-chip {
-  background-color: map-get($theme-light-colors, "success") !important;
+  background-color: $klm-secondary !important;
 
   mat-icon {
-    margin: 0 0.5rem;
+    margin-left: 0.25rem !important;
   }
 }

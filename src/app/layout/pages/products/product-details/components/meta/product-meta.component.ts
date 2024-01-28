@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   ProductService,
   ProductStatusViewModel,
@@ -32,6 +32,7 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
     this.productService.productDetails$.subscribe((produltDetail) => {
       this.productDetails = produltDetail!;
     });
+
     this.productService.sellers$.subscribe((result) => {
       this.seller = result[0];
     });

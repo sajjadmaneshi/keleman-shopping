@@ -16,7 +16,8 @@ import { ArticleCategoryViewModel } from '../../layout/pages/magazine/data/view-
 import { ProfileService } from '../../layout/pages/profile/shared/profile.service';
 import { ProfileViewModel } from '../../layout/pages/profile/data/view-models/profile.view-model';
 import { BasketService } from '../../layout/pages/checkout/services/basket.service';
-import { isPlatformBrowser } from '@angular/common';
+import { MegaMenuViewModel } from '../data/models/view-models/mega-menu.view-model';
+import { MegaMenuRepository } from '../data/repositories/mega-menu.repository';
 
 @Injectable({ providedIn: 'root' })
 export class InitialAppService implements OnDestroy {
@@ -29,11 +30,12 @@ export class InitialAppService implements OnDestroy {
 
   productCategories = new BehaviorSubject<ProductCategoryViewModel[]>([]);
   articleCategories = new BehaviorSubject<ArticleCategoryViewModel[]>([]);
-
+  megaMenu = new BehaviorSubject<MegaMenuViewModel[]>([]);
   destroy$ = new Subject<void>();
   constructor(
     private _productCategoryService: ProductCategoryService,
     private _articleRepository: ArticleRepository,
+    private _megaMenuRepository: MegaMenuRepository,
     private _profileService: ProfileService,
     private _basketService: BasketService,
     private _authService: AuthService,
@@ -55,6 +57,16 @@ export class InitialAppService implements OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(([isAuthenticated, productcategories, articleCategories]) => {
+        this._megaMenuRepository
+          .getAll(null)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe({
+            next: (result) => {
+              this.megaMenu.next(result.result!);
+              console.log(this.megaMenu);
+            },
+          });
+
         if (isAuthenticated) {
           this.handleAuthenticatedUserActions();
         }

@@ -21,7 +21,7 @@
       } } }
     </table>
 
-    @if(seller.priceAfterDiscount>0){
+    @if(seller&&seller.priceAfterDiscount>0){
     <keleman-price
       [size]="'h5'"
       [value]="seller.priceAfterDiscount"

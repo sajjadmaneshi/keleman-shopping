@@ -7,7 +7,7 @@
 ></keleman-product-content>
 
 @if(productDetails){ @if (!productDetails.isPackage &&
-!productValidationStatus.disable){
+!productValidationStatus.disable&&productDetails.stores.length>0){
 <keleman-stores
   [productId]="productDetails.id"
   (addToBasket)="productService.addToBasket($event)"
@@ -58,16 +58,30 @@
         ></keleman-value-changer>
         }
       </div>
-      <div class="col-6 d-flex align-items-center justify-content-center">
+      <div
+        class="col-6 d-flex flex-column align-items-end justify-content-end product-price"
+      >
         @if (productValidationStatus.status === availableStatusEnum.AVAILABLE) {
+        @if(seller&&seller.priceAfterDiscount>0){
         <keleman-price
-          [value]="productDetails.currentPrice"
-          [color]="'dark'"
-          [size]="'h3'"
-          [off]="false"
-          [discount]="25"
+          [size]="'h4'"
+          [value]="seller.priceAfterDiscount"
+          class="d-block mb-2"
+          [loading]="
+            (loadingService.getLoadingStateObservable('read', 'propertyOptions')
+              | async)!
+          "
         ></keleman-price>
-        } @else {
+        @if (seller.discountPercent>0){
+        <keleman-price
+          [value]="seller.price"
+          [off]="true"
+          [discount]="seller.discountPercent"
+          [color]="'dark'"
+          [size]="'h5'"
+          class="d-block mb-2"
+        ></keleman-price>
+        } } } @else {
         <h3>{{ productValidationStatus.text }}</h3>
         }
       </div>

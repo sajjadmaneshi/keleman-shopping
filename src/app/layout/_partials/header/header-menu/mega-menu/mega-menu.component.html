@@ -9,7 +9,7 @@
       class="p-2"
     >
       <span class="material-icons"> {{ iconNames[i] }} </span>
-      <span> {{ rootCategory.titleFa }}</span>
+      <span> {{ rootCategory.title }}</span>
     </li>
     } }
   </ul>
@@ -34,7 +34,7 @@
           class="head"
           (click)="onClick({ c1: rootCategory.url, c2: child.url })"
         >
-          <span> {{ child.titleFa }}</span>
+          <span> {{ child.title }}</span>
         </li>
         @for (childChild of child.children;track childChild.id){ @defer {
         <li
@@ -47,7 +47,7 @@
             })
           "
         >
-          <span> {{ childChild.titleFa }}</span>
+          <span> {{ childChild.title }}</span>
         </li>
         } } } }
       </ul>

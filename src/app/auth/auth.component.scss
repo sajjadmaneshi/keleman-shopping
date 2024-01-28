@@ -15,6 +15,11 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+@media (max-width: 767px) {
+  .keleman-register-form {
+    width: 90% !important;
+  }
+}
 
 .keleman-logo {
   margin-bottom: 1rem;
@@ -38,4 +43,7 @@
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
+}
+.keleman-text-field {
+  background-color: white !important;
 }

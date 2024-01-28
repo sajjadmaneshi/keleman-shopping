@@ -7,6 +7,7 @@ import { combineLatest, Subject, Subscription, takeUntil } from 'rxjs';
 import { ArticleCategoryViewModel } from '../../../../../pages/magazine/data/view-models/article-category.view-model';
 import { ProfileViewModel } from '../../../../../pages/profile/data/view-models/profile.view-model';
 import { Routing } from '../../../../../../routing';
+import { MegaMenuViewModel } from '../../../../../../shared/data/models/view-models/mega-menu.view-model';
 
 @Component({
   selector: 'keleman-off-canvas-menu',
@@ -14,7 +15,7 @@ import { Routing } from '../../../../../../routing';
 })
 export class OffCanvasMenuComponent implements OnDestroy {
   @Output() close = new EventEmitter();
-  productCategories!: ProductCategoryViewModel[];
+  productCategories!: MegaMenuViewModel[];
   articleCategories!: ArticleCategoryViewModel[];
   routing = Routing;
   isLoggedIn = false;
@@ -31,7 +32,7 @@ export class OffCanvasMenuComponent implements OnDestroy {
   ) {
     combineLatest(
       _authService.isAuthenticated,
-      initialAppService.productCategories,
+      initialAppService.megaMenu,
       initialAppService.articleCategories,
       initialAppService.userSimpleInfo
     )

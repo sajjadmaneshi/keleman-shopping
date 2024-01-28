@@ -3,18 +3,14 @@
   <a [href]="determineUrl(shares)" class="btn btn-icon sc-icon">
     <div class="symbol symbol-7 cursor-pointer" appSymbol [ngSwitch]="shares">
       @switch (shares){ @case ('mail'){
-      <fa-icon
-        *ngSwitchCase="'mail'"
-        [icon]="['fab', 'google']"
-        [size]="'1x'"
-      ></fa-icon>
+      <i class="fab fa-1x fa-google"></i>
       } @case ('whatsapp'){
-      <fa-icon [icon]="['fab', 'square-whatsapp']" [size]="'1x'"></fa-icon>
-      } @case ('twitter'){
-      <fa-icon [icon]="['fab', 'square-twitter']" [size]="'1x'"></fa-icon>
-      } @case ('telegram'){
+      <i class="fab fa-1x fa-square-whatsapp"></i>
 
-      <fa-icon [icon]="['fab', 'telegram']" [size]="'1x'"></fa-icon>
+      } @case ('twitter'){
+      <i class="fab fa-1x fa-square-x-twitter"></i>
+      } @case ('telegram'){
+      <i class="fab fa-1x fa-telegram"></i>
       } }
     </div>
   </a>

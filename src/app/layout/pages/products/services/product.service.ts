@@ -235,7 +235,7 @@ export class ProductService implements OnDestroy {
     const sellers = this.sellers$.value;
     if (!seller) seller = sellers[0];
     const result = this.isLoggedIn
-      ? this.addToBasketAuthorized(seller.id)
+      ? this.addToBasketAuthorized(seller.id, seller.productId)
       : this.addToBasketGuest(seller);
     if (result) this._updateStoreInBasketCount(seller.id, 1);
     return result;
@@ -248,11 +248,10 @@ export class ProductService implements OnDestroy {
   }
 
   addToBasketGuest(seller: SellerViewModel) {
-    debugger;
     const productDetails = this.productDetails$.value!;
     const productItem = {
       product: {
-        id: productDetails.id,
+        id: seller.productId,
         priceAfterDiscount: seller.priceAfterDiscount,
         name: productDetails.name,
         thumbnailImage: productDetails.image,
@@ -279,7 +278,8 @@ export class ProductService implements OnDestroy {
         productDetails.currentDiscountPercent,
         productDetails.priceAfterDiscount,
         productDetails.currentStock,
-        0
+        0,
+        productDetails.id
       );
       const sellerArray = [kelemanStore, ...productDetails.stores].map((x) => {
         return {
@@ -296,10 +296,9 @@ export class ProductService implements OnDestroy {
     return sellers.find((x) => x.id === sellerId)?.inBasketCount || 0;
   }
 
-  addToBasketAuthorized(storeId: number) {
-    const productDetails = this.productDetails$.value!;
+  addToBasketAuthorized(storeId: number, productId: number) {
     const dto: AddToCartDto = {
-      productId: productDetails.id,
+      productId: productId,
       storeId,
       packageDetailItems: this._mapPackageItems,
     } as AddToCartDto;
@@ -345,6 +344,7 @@ export class ProductService implements OnDestroy {
           currentStock: op.currentStock,
           priceAfterDiscount: op.priceAfterDiscount,
           discountPercent: op.discountPercent,
+          productId: op.productId,
         };
         updatedSellers.push(seller);
       }

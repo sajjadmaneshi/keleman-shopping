@@ -18,7 +18,9 @@
     }"
   >
     {{ value | number : ".0" }}
-    <span class="mx-1">{{ append }}</span>
+    <div class="symbol symbol-5">
+      <img [src]="appendUrl" />
+    </div>
   </span>
   } @case ('h2'){ @if (off){
   <span class="text-danger ms-3 fs-2">{{ discount }}%</span>
@@ -36,7 +38,9 @@
     }"
   >
     {{ value | number : ".0" }}
-    <span class="mx-1">{{ append }}</span>
+    <div class="symbol symbol-5">
+      <img [src]="appendUrl" />
+    </div>
   </span>
   } @case ('h3'){ @if (off){
   <span class="text-danger ms-3 fs-3">{{ discount }}%</span>
@@ -54,7 +58,9 @@
     }"
   >
     {{ value | number : ".0" }}
-    <span class="mx-1">{{ append }}</span>
+    <div class="symbol symbol-8">
+      <img [src]="appendUrl" />
+    </div>
   </span>
   } @case ('h4'){ @if (off){
   <span class="text-danger ms-3 fs-4">{{ discount }}%</span>
@@ -72,7 +78,9 @@
     }"
   >
     {{ value | number : ".0" }}
-    <span class="mx-1">{{ append }}</span>
+    <div class="symbol symbol-6">
+      <img [src]="appendUrl" />
+    </div>
   </span>
   } @case ('h5'){ @if (off){
   <span class="text-danger ms-3 fs-5">{{ discount }}%</span>
@@ -90,7 +98,9 @@
     }"
   >
     {{ value | number : ".0" }}
-    <span class="mx-1">{{ append }}</span>
+    <div class="symbol symbol-6">
+      <img [src]="appendUrl" />
+    </div>
   </span>
   } @case ('h6'){ @if (off){
   <span class="text-danger ms-3 fs-6">{{ discount }}%</span>
@@ -108,7 +118,9 @@
     }"
   >
     {{ value | number : ".0" }}
-    <span class="mx-1">{{ append }}</span>
+    <div class="symbol symbol-5">
+      <img [src]="appendUrl" />
+    </div>
   </span>
   } } }
 </span>

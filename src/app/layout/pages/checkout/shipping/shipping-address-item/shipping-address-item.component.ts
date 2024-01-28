@@ -67,8 +67,8 @@ export class ShippingAddressItemComponent implements OnDestroy {
     );
   }
 
-  getMarkerLatLng(lat: number, lng: number): LatLngExpression {
-    return { lat, lng } as LatLngExpression;
+  getMarkerLatLng(lat: number, lng: number): any {
+    return { lat, lng };
   }
 
   onEdit() {

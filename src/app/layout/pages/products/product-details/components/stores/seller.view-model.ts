@@ -6,6 +6,7 @@ export class SellerViewModel {
     public discountPercent: number,
     public priceAfterDiscount: number,
     public currentStock: number,
-    public inBasketCount: number
+    public inBasketCount: number,
+    public productId: number
   ) {}
 }

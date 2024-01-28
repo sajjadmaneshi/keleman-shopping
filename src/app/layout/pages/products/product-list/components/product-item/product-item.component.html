@@ -28,7 +28,7 @@
     >
       {{ product.name! }}
     </a>
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column align-items-center">
       @if (product.price > 0){
       <keleman-price
         [value]="product.priceAfterDiscount!"
@@ -37,7 +37,7 @@
         class="mb-md-3"
       ></keleman-price>
       } @else {
-      <h5 class="mb-md-3 text-klm-primary fw-bold">تماس بگیرید</h5>
+      <h6 class="mb-md-3 text-klm-primary fw-bold text-center">تماس بگیرید</h6>
       } @if (product.discount > 0){
       <keleman-price
         [value]="product.price"

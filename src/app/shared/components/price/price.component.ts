@@ -19,7 +19,7 @@ export class PriceComponent {
     | 'danger'
     | 'success'
     | 'warning' = 'primary';
-  @Input() append: string = 'تومان';
+  @Input() appendUrl: string = 'assets/media/tuman.png';
   @Input() size: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' = 'h4';
   @Input() off = false;
   @Input() discount = 0;

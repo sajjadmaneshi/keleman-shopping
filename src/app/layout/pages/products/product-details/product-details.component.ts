@@ -15,6 +15,7 @@ import { BasketService } from '../../checkout/services/basket.service';
 import { LoadingService } from '../../../../../common/services/loading.service';
 import { PackageItemsViewModel } from '../data/models/view-models/package-items.view-model';
 import { AvailableStatusEnum } from '../data/enums/available-status.enum';
+import { SellerViewModel } from './components/stores/seller.view-model';
 
 @Component({
   selector: 'app-product-details',
@@ -30,6 +31,7 @@ export class ProductDetailsComponent implements OnInit {
   productValidationStatus!: ProductStatusViewModel;
   availableStatusEnum = AvailableStatusEnum;
   packageItems!: PackageItemsViewModel;
+  seller!: SellerViewModel;
   private destroy$ = new Subject<void>();
   constructor(
     public readonly applicationState: ApplicationStateService,
@@ -44,6 +46,9 @@ export class ProductDetailsComponent implements OnInit {
     loadingService.startLoading('read', 'productDetails');
     this._setupSubscription();
     this._getDataFromUrl();
+    this.productService.sellers$.subscribe((result) => {
+      this.seller = result[0];
+    });
   }
 
   private _setupSubscription() {

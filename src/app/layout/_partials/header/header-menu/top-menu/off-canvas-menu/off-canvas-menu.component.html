@@ -92,7 +92,7 @@
           @for (rootCategory of productCategories;track rootCategory.id){
           <div ngbAccordionItem="">
             <h2 ngbAccordionHeader>
-              <button ngbAccordionButton>{{ rootCategory.titleFa }}</button>
+              <button ngbAccordionButton>{{ rootCategory.title }}</button>
             </h2>
             <div ngbAccordionCollapse>
               <div ngbAccordionBody>
@@ -112,7 +112,7 @@
                         onNavigate({ c1: rootCategory.url, c2: child.url })
                       "
                     >
-                      <a>{{ child.titleFa }} </a>
+                      <a>{{ child.title }} </a>
                     </li>
                     @for (childChild of child.children;track childChild.id){
                     <li
@@ -124,7 +124,7 @@
                         })
                       "
                     >
-                      <a>{{ childChild.titleFa }}</a>
+                      <a>{{ childChild.title }}</a>
                     </li>
                     } }
                   </ul>

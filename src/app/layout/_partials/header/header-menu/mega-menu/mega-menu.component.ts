@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 
 import { ProductCategoryViewModel } from '../../../../../shared/data/models/view-models/product-category.view-model';
+import { MegaMenuViewModel } from '../../../../../shared/data/models/view-models/mega-menu.view-model';
 
 @Component({
   selector: 'keleman-mega-menu',
@@ -31,7 +32,7 @@ export class MegaMenuComponent {
   @ViewChild('megaMenu') megaMenu!: HTMLElement;
   activeIndex = 1;
 
-  @Input() productCategories!: ProductCategoryViewModel[];
+  @Input() productCategories!: MegaMenuViewModel[];
   @Output() clickItem = new EventEmitter<{
     c1?: string;
     c2?: string;

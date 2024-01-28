@@ -14,13 +14,6 @@ export const routes: Routes = [
 
     children: [
       {
-        path: ':url',
-        component: ProductDetailsComponent,
-        resolve: {
-          canonical: () => inject(CanonicalResolver).resolve(),
-        },
-      },
-      {
         path: `${Routing.category}/:catUrl1/:catUrl2/:catUrl3`,
         component: ProductListComponent,
         resolve: {
@@ -42,8 +35,15 @@ export const routes: Routes = [
         },
       },
       {
-        path: '',
+        path: Routing.category,
         component: ProductListComponent,
+        resolve: {
+          canonical: () => inject(CanonicalResolver).resolve(),
+        },
+      },
+      {
+        path: ':url',
+        component: ProductDetailsComponent,
         resolve: {
           canonical: () => inject(CanonicalResolver).resolve(),
         },
