@@ -10,7 +10,7 @@ import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { ProductCategoryViewModel } from '../data/models/view-models/product-category.view-model';
 
 import { AuthService } from './auth/auth.service';
-import { ProductCategoryService } from '../../home/components/product-category/product-category.service';
+
 import { ArticleRepository } from 'src/app/layout/pages/magazine/data/repositories/article.repository';
 import { ArticleCategoryViewModel } from '../../layout/pages/magazine/data/view-models/article-category.view-model';
 import { ProfileService } from '../../layout/pages/profile/shared/profile.service';
@@ -18,6 +18,7 @@ import { ProfileViewModel } from '../../layout/pages/profile/data/view-models/pr
 import { BasketService } from '../../layout/pages/checkout/services/basket.service';
 import { MegaMenuViewModel } from '../data/models/view-models/mega-menu.view-model';
 import { MegaMenuRepository } from '../data/repositories/mega-menu.repository';
+import { ProductCategoryService } from '../components/product-category/product-category.service';
 
 @Injectable({ providedIn: 'root' })
 export class InitialAppService implements OnDestroy {

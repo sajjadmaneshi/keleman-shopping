@@ -1,13 +1,13 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { InitialAppService } from '../../../../../../shared/services/initial-app.service';
-import { ProductCategoryViewModel } from '../../../../../../shared/data/models/view-models/product-category.view-model';
-import { ProductCategoryService } from '../../../../../../home/components/product-category/product-category.service';
+
 import { AuthService } from '../../../../../../shared/services/auth/auth.service';
 import { combineLatest, Subject, Subscription, takeUntil } from 'rxjs';
 import { ArticleCategoryViewModel } from '../../../../../pages/magazine/data/view-models/article-category.view-model';
 import { ProfileViewModel } from '../../../../../pages/profile/data/view-models/profile.view-model';
 import { Routing } from '../../../../../../routing';
 import { MegaMenuViewModel } from '../../../../../../shared/data/models/view-models/mega-menu.view-model';
+import { ProductCategoryService } from 'src/app/shared/components/product-category/product-category.service';
 
 @Component({
   selector: 'keleman-off-canvas-menu',
@@ -30,12 +30,12 @@ export class OffCanvasMenuComponent implements OnDestroy {
     private readonly _categoryService: ProductCategoryService,
     private readonly _authService: AuthService
   ) {
-    combineLatest(
+    combineLatest([
       _authService.isAuthenticated,
       initialAppService.megaMenu,
       initialAppService.articleCategories,
-      initialAppService.userSimpleInfo
-    )
+      initialAppService.userSimpleInfo,
+    ])
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         ([

@@ -39,7 +39,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { LazyLoadingDirective } from '../shared/directives/lazy-loading.directive';
 import { EmptyImageDirective } from '../shared/directives/empty-image.directive';
 import { TextWithIconComponent } from '../shared/components/text-with-icon/text-with-icon.component';
-import { ProductCategoryComponent } from '../home/components/product-category/product-category.component';
+
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -54,9 +54,8 @@ import {
   faTelegram,
 } from '@fortawesome/free-brands-svg-icons';
 import { MatListModule } from '@angular/material/list';
-import {
-    ProductCategoryItemComponent
-} from "../home/components/product-category/product-category-item/product-category-item.component";
+import { ProductCategoryComponent } from '../shared/components/product-category/product-category.component';
+import { ProductCategoryItemComponent } from '../shared/components/product-category/product-category-item/product-category-item.component';
 
 @NgModule({
   declarations: [

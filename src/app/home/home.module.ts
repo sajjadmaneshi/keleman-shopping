@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { TopSliderComponent } from './components/top-slider/top-slider.component';
-import { ProductCategoryComponent } from './components/product-category/product-category.component';
 import { AmazingOfferSwiperComponent } from './components/background-swiper/amazing-offer-swiper/amazing-offer-swiper.component';
 import { BackgroundSwiperItemComponent } from './components/background-swiper/background-swiper-item/background-swiper-item.component';
 import { AdvertisingBannersComponent } from './components/advertising-banners/advertising-banners.component';
@@ -23,6 +22,7 @@ import { ArticleItemComponent } from '../shared/components/article-item/article-
 import { TextWithIconComponent } from '../shared/components/text-with-icon/text-with-icon.component';
 import { PriceComponent } from '../shared/components/price/price.component';
 import { HomeRoutingModule } from './home-routing.module';
+import { ProductCategoryComponent } from '../shared/components/product-category/product-category.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { HomeRoutingModule } from './home-routing.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    ProductCategoryComponent,
+
     NgxSkeletonLoaderModule,
     SwiperModule,
     NgOptimizedImage,
@@ -51,6 +51,7 @@ import { HomeRoutingModule } from './home-routing.module';
     TextWithIconComponent,
     PriceComponent,
     BackgroundSwiperItemComponent,
+    ProductCategoryComponent,
   ],
 })
 export class HomeModule {}

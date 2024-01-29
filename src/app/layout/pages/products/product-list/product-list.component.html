@@ -14,6 +14,10 @@
 
   <div class="products row mx-0">
     <div class="col-12 col-lg-3">
+      <keleman-sub-categories
+        [parentId]="categoryId!"
+        (onItemClick)="updateCurrentRoute($event)"
+      ></keleman-sub-categories>
       <keleman-product-search
         [initialSearchText]="searchText"
       ></keleman-product-search>

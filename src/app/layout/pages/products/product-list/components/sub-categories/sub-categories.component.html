@@ -1,0 +1,22 @@
+@if(categories.length>0){
+<p class="text-warning fw-bold mb-3">زیر دسته ها</p>
+
+<div class="card card-rounded-3 border">
+  <div class="card-body">
+    <mat-list role="list">
+      @for ( category of categories;track category.id;let i = $index){
+      <mat-list-item
+        class="cursor-pointer"
+        role="listitem"
+        (click)="getCategoryProducts(category)"
+      >
+        {{ category.titleFa }}
+      </mat-list-item>
+      @if(i!==categories.length-1){
+      <mat-divider></mat-divider>
+      } }
+    </mat-list>
+  </div>
+</div>
+
+}

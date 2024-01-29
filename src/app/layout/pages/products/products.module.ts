@@ -44,7 +44,6 @@ import { FAQComponent } from './product-details/components/faq/faq.component';
 import { FaqItemComponent } from './product-details/components/faq/faq-item/faq-item.component';
 import { AddQuestionDialogComponent } from './product-details/components/faq/add-question-dialog/add-question-dialog.component';
 import { FaqListDialogComponent } from './product-details/components/faq/faq-list-dialog/faq-list-dialog.component';
-import { ProductCategoryComponent } from '../../../home/components/product-category/product-category.component';
 import { ProductCommentsModule } from './product-details/components/comments/product-comments.module';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { CategoryAboutComponent } from './product-list/components/category-about/category-about.component';
@@ -65,6 +64,9 @@ import { StoresComponent } from './product-details/components/stores/stores.comp
 import { AutoCompleteComponent } from '../../../shared/components/auto-complete/auto-complete.component';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { PropertyOptionsComponent } from './product-details/components/property-options/property-options.component';
+import { MatListModule } from '@angular/material/list';
+import { SubCategoriesComponent } from './product-list/components/sub-categories/sub-categories.component';
+import { ProductCategoryComponent } from 'src/app/shared/components/product-category/product-category.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +133,8 @@ import { PropertyOptionsComponent } from './product-details/components/property-
     AutoCompleteComponent,
     LoaderComponent,
     PropertyOptionsComponent,
+    MatListModule,
+    SubCategoriesComponent,
   ],
 
   providers: [ProductFilterService, RouteHandlerService],

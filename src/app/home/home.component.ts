@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ProductCategoryService } from './components/product-category/product-category.service';
+
 import { ProductCategoryViewModel } from '../shared/data/models/view-models/product-category.view-model';
+import { ProductCategoryService } from '../shared/components/product-category/product-category.service';
 
 @Component({
   selector: 'keleman-home',

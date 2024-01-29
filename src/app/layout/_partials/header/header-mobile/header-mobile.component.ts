@@ -9,11 +9,11 @@ import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { InitialAppService } from '../../../../shared/services/initial-app.service';
 import { combineLatest, Subject, takeUntil, tap } from 'rxjs';
-import { ProductCategoryService } from '../../../../home/components/product-category/product-category.service';
 import { ProductCategoryViewModel } from '../../../../shared/data/models/view-models/product-category.view-model';
 import { ProfileViewModel } from '../../../pages/profile/data/view-models/profile.view-model';
 import { UserCreditViewModel } from '../../../pages/profile/data/view-models/user-credit.view-model';
 import { LoadingService } from '../../../../../common/services/loading.service';
+import { ProductCategoryService } from '../../../../shared/components/product-category/product-category.service';
 
 @Component({
   selector: 'keleman-header-mobile',
