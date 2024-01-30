@@ -19,13 +19,13 @@
   </div>
 </div>
 <div class="d-flex align-items-center position-relative">
+  @for (acceptedFile of acceptedFiles;track acceptedFile){
   <ngx-dropzone-image-preview
     [removable]="true"
     (removed)="removeFile($event)"
     class="justify-content-start"
     ngProjectAs="ngx-dropzone-preview"
-    *ngFor="let f of acceptedFiles"
-    [file]="f"
+    [file]="acceptedFile"
   >
     @if(loading){
     <ngx-dropzone-label class="w-100">
@@ -37,4 +37,5 @@
     </ngx-dropzone-label>
     }
   </ngx-dropzone-image-preview>
+  }
 </div>

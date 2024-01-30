@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'keleman-floating-button-menu',
@@ -17,13 +17,13 @@ export class FloatingButtonMenuComponent {
 
   removeClass() {
     this.document.body.classList.remove('menuOpened');
+    this.menuOpened = false;
   }
 
   toggleClass() {
     const body = this.document.body;
     if (body.classList.contains('menuOpened')) {
       this.removeClass();
-      this.menuOpened = false;
     } else {
       body.classList.add('menuOpened');
       this.menuOpened = true;

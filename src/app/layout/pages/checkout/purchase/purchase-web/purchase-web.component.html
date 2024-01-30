@@ -11,21 +11,8 @@
         دریافت پیش فاکتور
       </button>
 
-      @if((checkoutService.selectedIndex|async)===2){
+      @if((checkoutService.selectedIndex|async)!<2){
 
-      <button
-        class="btn btn-success submit-button align-self-center w-100"
-        (click)="submitPay()"
-        [disabled]="paymentGatewayId === -1"
-        kelemanLoadingProgress
-        [loading]="
-          (loadingServcie.getLoadingStateObservable('add', 'saveOrder')
-            | async)!
-        "
-      >
-        تکمیل پرداخت
-      </button>
-      } @else {
       <button
         class="btn btn-warning submit-button align-self-center w-100"
         (click)="checkoutService.nextStep()"

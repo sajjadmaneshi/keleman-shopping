@@ -18,7 +18,7 @@ export class PurchaseWebComponent implements OnDestroy {
   constructor(
     public readonly checkoutService: CheckoutService,
     public readonly loadingServcie: LoadingService,
-    private readonly _basketService: BasketService,
+    protected readonly _basketService: BasketService,
     private readonly _basketRepository: BasketRepository
   ) {
     this._basketService.billId
@@ -41,10 +41,6 @@ export class PurchaseWebComponent implements OnDestroy {
         const fileUrl = URL.createObjectURL(res);
         window.open(fileUrl, '_blank');
       });
-  }
-
-  submitPay() {
-    this._basketService.readyForPay.next(true);
   }
 
   ngOnDestroy(): void {

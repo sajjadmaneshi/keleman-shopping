@@ -1,9 +1,10 @@
-<div class="d-flex flex-column">
+<div class="d-flex flex-column align-items-center">
+  @if(applicationState.isPhone||applicationState.isTablet){
   <label class="text-klm-primary fw-bolder mb-3" for="discountCode"
     >کدتخفیف</label
   >
 
-  <span class="add-discount mb-3">
+  <span class="add-discount mb-3 w-100">
     <input
       id="discountCode"
       class="keleman-text-field bg-gray-300"
@@ -62,4 +63,100 @@
     >جهت تکمیل خرید یکی از روش های پرداخت را انتخاب کرده و دکمه تکمیل پرداخت را
     کلیک کنید.</span
   >
+  } @else {
+  <div class="step1 mb-3 w-100" [class.is-enable]="selectedStep >= 1">
+    <h5 class="fw-bolder mb-3">
+      <span class="text-danger">مرحله1: </span>
+      انتخاب روش پرداخت
+    </h5>
+
+    <div class="payment-methods">
+      @for (gateway of paymentGateWays;track gateway.id){
+      <keleman-payment-gateway
+        [gateway]="gateway"
+        [credit]="userCredit"
+        [selected]="selectedPaymentGateway === gateway"
+        [disabled]="
+          (gateway.enName == paymentEnums.CreditPay &&
+            userCredit.creditValue < basketCheckout.payablePrice) ||
+          (gateway.enName == paymentEnums.WalletPay &&
+            userCredit.walletValue < basketCheckout.payablePrice)
+        "
+        [loading]="
+          (loadingService.getLoadingStateObservable('add', 'saveOrder')
+            | async)!
+        "
+        (click)="selectPaymentGateWay(gateway)"
+      ></keleman-payment-gateway>
+      }
+    </div>
+  </div>
+  <div class="step2 mb-3 w-100" [class.disabled]="selectedStep === 1">
+    <mat-icon class="material-icons-outlined text-danger"
+      >arrow_downward</mat-icon
+    >
+
+    <h5 class="fw-bolder mb-3">
+      <span class="text-danger">مرحله2: </span>
+      بررسی کد تخفیف
+    </h5>
+
+    <span class="add-discount mb-3">
+      <input
+        id="discountCode"
+        class="keleman-text-field bg-gray-300"
+        [formControl]="discountCode"
+        [class.is-invalid]="discountCode.invalid && isFormSubmitted"
+        [readOnly]="selectedStep === 1"
+        [disabled]="selectedStep === 1"
+        placeholder="کد تخفیف را وارد کنید"
+      />
+      <button
+        class="btn btn-klm-primary"
+        kelemanLoadingProgress
+        [disabled]="selectedStep === 1"
+        [loading]="
+          (loadingService.getLoadingStateObservable('add', 'discount') | async)!
+        "
+        (click)="submitDiscount()"
+      >
+        ثبت کد تخفیف
+      </button>
+      @if (discountCode.invalid&&isFormSubmitted){
+      <span class="invalid-feedback">لطفا کد را وارد نمایید</span>
+      }
+    </span>
+  </div>
+  <div class="step3 w-100" [class.disabled]="selectedStep < 3">
+    <mat-icon class="material-icons-outlined text-danger"
+      >arrow_downward</mat-icon
+    >
+    <h5 class="fw-bolder mb-3">
+      <span class="text-danger">مرحله3: </span>
+      افزودن توضیحات
+    </h5>
+    <textarea
+      id="description"
+      class="keleman-text-field bg-gray-300 mb-3"
+      placeholder="توضیحات"
+      [formControl]="description"
+      [disabled]="selectedStep != 3"
+      [readOnly]="selectedStep != 3"
+    ></textarea>
+  </div>
+  <button
+    class="btn btn-warning payment-action"
+    (click)="selectedStep < 3 ? changeStep() : submitPay()"
+    [disabled]="
+      !selectedPaymentGateway ||
+      (loadingService.getLoadingStateObservable('add', 'discount') | async)!
+    "
+    kelemanLoadingProgress
+    [loading]="
+      (loadingService.getLoadingStateObservable('add', 'saveOrder') | async)!
+    "
+  >
+    {{ selectedStep < 3 ? "ادامه فرایند" : "تکمیل پرداخت" }}
+  </button>
+  }
 </div>

@@ -20,7 +20,8 @@
   &:focus:not(:read-only) {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5) !important;
   }
-  &:read-only {
+  &:read-only,
+  &:disabled {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) !important;
     color: $gray-500;
   }

@@ -19,6 +19,7 @@ import { PaymentEnum } from './payment-gateway/payment.enum';
 import { Router } from '@angular/router';
 import { AttachReceiptDialogComponent } from './attach-receipt-dilog/attach-receipt-dialog.component';
 import { AttachChequeDialogComponent } from './attach-cheque-dialog/attach-cheque-dialog.component';
+import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 
 @Component({
   selector: 'keleman-payment',
@@ -36,6 +37,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   description = new FormControl('');
   paymentEnums = PaymentEnum;
   selectedPaymentGateway!: PaymentGatewayViewModel;
+  selectedStep = 1;
   constructor(
     private readonly _basketService: BasketService,
     private readonly _initialAppService: InitialAppService,
@@ -43,6 +45,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     private readonly _snackBarService: SnackBarService,
     private readonly _router: Router,
     private readonly _dialog: MatDialog,
+    public applicationState: ApplicationStateService,
     @Inject(DOCUMENT) private document: Document,
     public readonly loadingService: LoadingService
   ) {}
@@ -221,5 +224,13 @@ export class PaymentComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  changeStep() {
+    this.selectedStep++;
+  }
+
+  submitPay() {
+    this._basketService.readyForPay.next(true);
   }
 }
