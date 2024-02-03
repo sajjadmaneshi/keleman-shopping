@@ -72,8 +72,6 @@ export class ErrorFeedbackDirective implements OnChanges {
       this._renderer.appendChild(parentElement, feedBackSpan);
     }
   }
-  ngOnChange(): void {}
-
   ngOnChanges(changes: SimpleChanges): void {
     this._addSpan();
     if (this.isFormSubmitted) this._addErrorFeedBack();

@@ -145,7 +145,9 @@ export class BasketService {
     if (this.isLoggedIn$)
       this._authenticatedBasketService
         .pay(billId, bankId)
-        .subscribe((result) => this.payResult$.next(result));
+        .subscribe((result) => {
+          this.payResult$.next(result);
+        });
   }
 
   async inBasketCount(productId: number) {

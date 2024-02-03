@@ -6,6 +6,7 @@
   <div class="package-swiper mb-3">
     <swiper
       [effect]="'creative'"
+      dir="ltr"
       [centeredSlides]="true"
       [slidesPerView]="'auto'"
       [navigation]="true"
@@ -39,17 +40,12 @@
       <ng-template swiperSlide>
         <div
           class="swiper-slide cursor-pointer"
-          [routerLink]="['/products/detail/' + slide.customUrl]"
+          [routerLink]="['/product/' + slide.customUrl]"
         >
-          <img
-            loadingLazy
-            emptyImage
-            [alt]="slide.name"
-            [src]="slide.thumbnailImage"
-          />
-          <div class="package-info">
-            <h6>{{ slide.name }}</h6>
-          </div>
+          <img loadingLazy emptyImage [alt]="slide.name" [src]="slide.image" />
+          <!--          <div class="package-info d-flex align-items-end">-->
+          <!--            <h6 class="text-center">{{ slide.name }}</h6>-->
+          <!--          </div>-->
         </div>
       </ng-template>
 

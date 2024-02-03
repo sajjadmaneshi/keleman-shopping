@@ -18,6 +18,7 @@ import { ProductFilterService } from '../services/product-filter.service';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 import { SelectedFilterModel } from './components/product-filters/data/selected-filter.model';
 import { ModifyMetaDataService } from '../../../../../common/services/modify-meta-data.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'keleman-product-list',
@@ -114,7 +115,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private _getAllProducts(params: { [key: string]: any }) {
     this.fetchDataService
       .fetchData(params)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(take(1))
       .subscribe((result: ProductSearchResult | undefined) => {
         const { products, totalElements, maxPrice, category } = result!;
         this.products = [...products];

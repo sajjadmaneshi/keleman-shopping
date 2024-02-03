@@ -148,9 +148,7 @@ export class ProductService implements OnDestroy {
           next: (result) => {
             this.packageItems$.next(result!);
           },
-          error: () => {
-            this._loadingService.stopLoading('read', 'packageItems');
-          },
+          error: () => this._loadingService.stopLoading('read', 'packageItems'),
         });
     } else {
       this._productRepository
@@ -163,9 +161,7 @@ export class ProductService implements OnDestroy {
           next: (result) => {
             this.packageItems$.next(result.result!);
           },
-          error: () => {
-            this._loadingService.stopLoading('read', 'packageItems');
-          },
+          error: () => this._loadingService.stopLoading('read', 'packageItems'),
         });
     }
   }

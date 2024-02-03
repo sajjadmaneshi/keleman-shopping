@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   ProductService,
   ProductStatusViewModel,
@@ -10,6 +10,7 @@ import { ProductDetailViewModel } from '../../../data/models/view-models/product
 import { LoadingService } from '../../../../../../../common/services/loading.service';
 import { PackageItemsViewModel } from '../../../data/models/view-models/package-items.view-model';
 import { SellerViewModel } from '../stores/seller.view-model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'keleman-product-meta',
@@ -53,6 +54,7 @@ export class ProductMetaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.productService.packageItems$.next(undefined);
     this.destroy$.next();
     this.destroy$.complete();
   }

@@ -5,8 +5,9 @@ import { ValueChangerComponent } from '../../../../../../shared/components/value
 import { AsyncPipe } from '@angular/common';
 import { LoadingProgressDirective } from '../../../../../../shared/directives/loading-progress.directive';
 import { LoadingService } from '../../../../../../../common/services/loading.service';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { ProductService } from '../../../services/product.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'keleman-stores',
@@ -34,9 +35,11 @@ export class StoresComponent {
     public loadingService: LoadingService,
     private _productService: ProductService
   ) {
-    this._productService.sellers$.subscribe((result) => {
-      this.sellers = result;
-    });
+    this._productService.sellers$
+      .pipe(takeUntil(this.$destroy))
+      .subscribe((result) => {
+        this.sellers = result;
+      });
   }
 
   onAdd(seller: SellerViewModel) {

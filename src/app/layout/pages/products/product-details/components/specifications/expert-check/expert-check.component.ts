@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../../services/product.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'keleman-expert-check',
@@ -11,8 +12,8 @@ export class ExpertCheckComponent implements OnInit {
   constructor(private _productService: ProductService) {}
 
   ngOnInit(): void {
-    this._productService.productDescriptions.subscribe(
-      (result) => (this.expertCheck = result.introduction)
-    );
+    this._productService.productDescriptions
+      .pipe(take(1))
+      .subscribe((result) => (this.expertCheck = result.introduction));
   }
 }

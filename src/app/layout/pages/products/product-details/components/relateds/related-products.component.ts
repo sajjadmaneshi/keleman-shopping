@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 import { ProductViewModel } from '../../../data/models/view-models/product.view-model';
 import { ProductService } from '../../../services/product.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'keleman-related-products',
@@ -17,8 +18,8 @@ export class RelatedProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._productService.relatedProducts.subscribe(
-      (products) => (this.products = products)
-    );
+    this._productService.relatedProducts
+      .pipe(take(1))
+      .subscribe((products) => (this.products = products));
   }
 }

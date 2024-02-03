@@ -8,6 +8,5 @@ import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.di
   templateUrl: './not-found.component.html',
   standalone: true,
   imports: [NgOptimizedImage, RouterLink, LazyLoadingDirective],
-  styleUrls: ['./not-found.component.scss'],
 })
 export class NotFoundComponent {}

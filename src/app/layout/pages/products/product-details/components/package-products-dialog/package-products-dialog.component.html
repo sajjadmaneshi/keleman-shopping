@@ -20,7 +20,10 @@
         </div>
         <span class="d-flex flex-column">
           <h6>{{ packageGroupItem.caption }}</h6>
-          <p>{{ packageGroupItem.price }}</p>
+          <keleman-price
+            [size]="'h6'"
+            [value]="packageGroupItem.price"
+          ></keleman-price>
         </span>
 
         <keleman-value-changer

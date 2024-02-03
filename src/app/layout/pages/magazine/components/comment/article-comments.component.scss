@@ -2,7 +2,8 @@
 @import "base/variables/colors";
 
 #comment-text {
-  height: 245px;
+  min-height: 100px !important;
+  height: 100px !important;
   max-height: 245px;
   resize: none;
 }

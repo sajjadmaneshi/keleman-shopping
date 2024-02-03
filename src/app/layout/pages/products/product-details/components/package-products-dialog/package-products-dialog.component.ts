@@ -4,7 +4,6 @@ import {
   MatDialog,
   MatDialogActions,
   MatDialogContent,
-  MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
 import {
@@ -24,6 +23,7 @@ import { AlertDialogComponent } from '../../../../../../shared/components/alert-
 import { Routing } from '../../../../../../routing';
 import { AlertDialogDataModel } from '../../../../../../shared/components/alert-dialog/alert-dialog-data.model';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'keleman-package-products-dialog',
@@ -56,7 +56,7 @@ export class PackageProductsDialogComponent {
   ) {
     this.packageDatas = [...data.items];
     this.totalPrice = data.totalPrice;
-    this._authService.isLoggedIn$.subscribe((isLoggedIn) => {
+    this._authService.isLoggedIn$.pipe(take(1)).subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
     });
     this.packageDatas.forEach(this.canDecrease);

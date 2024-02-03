@@ -30,14 +30,22 @@
                 type="text"
                 [formControl]="mobileFormControl"
                 [numberOnly]="11"
+                [class.is-invalid]="
+                  mobileFormControl.invalid && isFormSubmitted
+                "
                 required
-                [appErrorFeedback]="'شماره همراه'"
-                [isFormSubmitted]="isFormSubmitted"
                 maxlength="11"
                 minlength="11"
                 placeholder="شماره موبایل خود را وارد کنید"
                 (keydown.enter)="sendVerificationCode()"
               />
+              @if (isFormSubmitted){
+              <span class="invalid-feedback text-center">
+                @if(mobileFormControl.hasError('required')){ لطفا شماره همراه را
+                وارد نمایید } @else { فرمت شماره هماره وارد شده صحیح نمی باشد }
+              </span>
+              }
+
               <span class="fw-semibold text-muted mb-3"
                 >(لطفا شماره را با صفر وارد نمایید)</span
               >

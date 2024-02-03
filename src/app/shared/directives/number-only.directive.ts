@@ -7,15 +7,18 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 export class NumberOnlyDirective {
   isSelectAll = false;
   @Input() numberOnly: number = 11;
+
   constructor(private _el: ElementRef) {}
 
   @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
     const keyCode = event.keyCode || event.which;
     const input = this._el.nativeElement as HTMLInputElement;
+
     if (this.isSelectAll) {
       input.value = '';
       this.isSelectAll = false;
     }
+
     const currentValue: string = input.value;
 
     // Allow special keys such as backspace, delete, and arrow keys
@@ -41,7 +44,20 @@ export class NumberOnlyDirective {
       }
     }
   }
-  @HostListener('dblclick', ['$event']) onDoubleClick(event: MouseEvent) {
+
+  @HostListener('input', ['$event']) onInput(event: Event) {
+    const input = this._el.nativeElement as HTMLInputElement;
+    const currentValue: string = input.value;
+
+    // Remove non-numeric characters
+    input.value = currentValue.replace(/[^0-9]/g, '');
+
+    if (input.value.length > this.numberOnly) {
+      input.value = input.value.slice(0, this.numberOnly);
+    }
+  }
+
+  @HostListener('dblclick', ['$event']) onDoubleClick() {
     const input = this._el.nativeElement as HTMLInputElement;
 
     // Check if the selection covers the entire input value

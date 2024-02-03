@@ -103,3 +103,11 @@ a {
   background: #555; /* color of the handle on hover */
   border-radius: 100px;
 }
+.mdc-dialog .mdc-dialog__content {
+  padding: 1.5rem !important;
+}
+@media (max-width: 767px) {
+  .mat-mdc-dialog-content {
+    max-height: 50vh !important;
+  }
+}

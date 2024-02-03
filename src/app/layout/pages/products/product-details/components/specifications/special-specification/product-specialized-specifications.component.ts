@@ -1,9 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProductService } from '../../../../services/product.service';
 import { ProductRepository } from '../../../../data/repositories/product.repository';
 import { ProductSpecificViewModel } from '../../../../data/models/view-models/product-specific.view-model';
-import { Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { LoadingService } from '../../../../../../../../common/services/loading.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'keleman-product-specialization',
@@ -24,9 +25,7 @@ import { LoadingService } from '../../../../../../../../common/services/loading.
     `,
   ],
 })
-export class ProductSpecializedSpecificationsComponent implements OnDestroy {
-  destroy$ = new Subject<void>();
-
+export class ProductSpecializedSpecificationsComponent {
   constructor(
     private readonly _productService: ProductService,
     private readonly _productRepository: ProductRepository,
@@ -48,7 +47,7 @@ export class ProductSpecializedSpecificationsComponent implements OnDestroy {
         tap(() =>
           this.loadingService.stopLoading('read', 'productSpecification')
         ),
-        takeUntil(this.destroy$)
+        take(1)
       )
       .subscribe({
         next: (result) => this._separateSpecification([...result.result!]),
@@ -65,10 +64,5 @@ export class ProductSpecializedSpecificationsComponent implements OnDestroy {
     this.rightColumnData = specifications.slice(
       Math.ceil(specifications.length / 2)
     );
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

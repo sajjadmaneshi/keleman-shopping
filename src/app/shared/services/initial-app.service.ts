@@ -1,12 +1,5 @@
-import {
-  BehaviorSubject,
-  combineLatest,
-  map,
-  Subject,
-  takeUntil,
-  tap,
-} from 'rxjs';
-import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { ProductCategoryViewModel } from '../data/models/view-models/product-category.view-model';
 
 import { AuthService } from './auth/auth.service';
@@ -19,9 +12,10 @@ import { BasketService } from '../../layout/pages/checkout/services/basket.servi
 import { MegaMenuViewModel } from '../data/models/view-models/mega-menu.view-model';
 import { MegaMenuRepository } from '../data/repositories/mega-menu.repository';
 import { ProductCategoryService } from '../components/product-category/product-category.service';
+import { take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class InitialAppService implements OnDestroy {
+export class InitialAppService {
   isLoading = false;
   userSimpleInfo = new BehaviorSubject<ProfileViewModel>({
     firstName: '',
@@ -32,20 +26,17 @@ export class InitialAppService implements OnDestroy {
   productCategories = new BehaviorSubject<ProductCategoryViewModel[]>([]);
   articleCategories = new BehaviorSubject<ArticleCategoryViewModel[]>([]);
   megaMenu = new BehaviorSubject<MegaMenuViewModel[]>([]);
-  destroy$ = new Subject<void>();
   constructor(
     private _productCategoryService: ProductCategoryService,
     private _articleRepository: ArticleRepository,
     private _megaMenuRepository: MegaMenuRepository,
     private _profileService: ProfileService,
     private _basketService: BasketService,
-    private _authService: AuthService,
-    @Inject(PLATFORM_ID) private platformId: any
+    private _authService: AuthService
   ) {}
 
   init() {
     this.isLoading = true;
-
     combineLatest([
       this._authService.isAuthenticated,
       this._productCategoryService.getCategories(),
@@ -53,46 +44,37 @@ export class InitialAppService implements OnDestroy {
         .getArticleCategories()
         .pipe(map((x) => x.result!)),
     ])
-      .pipe(
-        tap(() => (this.isLoading = false)),
-        takeUntil(this.destroy$)
-      )
+      .pipe(take(1))
       .subscribe(([isAuthenticated, productcategories, articleCategories]) => {
-        this._megaMenuRepository
-          .getAll(null)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe({
-            next: (result) => {
-              this.megaMenu.next(result.result!);
-              console.log(this.megaMenu);
-            },
-          });
-
-        if (isAuthenticated) {
-          this.handleAuthenticatedUserActions();
-        }
-
+        this.handleMegaMenu();
+        if (isAuthenticated) this.handleAuthenticatedUserActions();
         this._basketService.cartBalance();
-
         if (productcategories) this.productCategories.next(productcategories);
         if (articleCategories) this.articleCategories.next(articleCategories);
+        this.isLoading = false;
+      });
+  }
+
+  private handleMegaMenu(): void {
+    this._megaMenuRepository
+      .getAll(null)
+      .pipe(take(1))
+      .subscribe({
+        next: (result) => {
+          this.megaMenu.next(result.result!);
+        },
+        error: () => (this.isLoading = false),
       });
   }
 
   private async handleAuthenticatedUserActions() {
     const result = await this._profileService.getPersonalInfo();
     this.userSimpleInfo.next(result!);
-
     this.getUserCredit();
   }
 
   public async getUserCredit() {
     const result = await this._profileService.getUserAccount();
     this.userCredit.next(result!);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

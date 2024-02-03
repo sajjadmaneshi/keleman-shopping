@@ -14,6 +14,7 @@ import { MergeResultViewModel } from '../data/models/merge-result.view-model';
 import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
 import { PackageItemsViewModel } from '../../products/data/models/view-models/package-items.view-model';
 import { InBasketCountViewModel } from '../data/models/in-basket-count.view-model';
+import { take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticatedBasketService {
@@ -82,8 +83,10 @@ export class AuthenticatedBasketService {
     this._loadingService.startLoading('read', 'pay');
     return this._paymentRepository.pay(billId, bankId).pipe(
       tap(() => this._loadingService.stopLoading('read', 'pay')),
-      takeUntil(this.destroy$),
-      map((x) => x.result!),
+      take(1),
+      map((x) => {
+        return x.result!;
+      }),
       catchError(() => {
         this._loadingService.stopLoading('read', 'pay');
         return of(undefined);

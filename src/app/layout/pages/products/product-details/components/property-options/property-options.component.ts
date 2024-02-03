@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { ProductOptionViewModel } from '../../../data/models/view-models/product-detail.view-model';
 import { OptionPriceDto } from '../../../data/models/dto/option-price.dto';
-import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'keleman-property-options',

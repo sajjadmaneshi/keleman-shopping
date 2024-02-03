@@ -12,7 +12,7 @@
   <keleman-search-bar class="flex-grow-1"></keleman-search-bar>
 
   @if (isLoggedIn){
-  <div ngbDropdown class="d-inline-block">
+  <div ngbDropdown class="d-inline-block" autoClose="true">
     @if(loadingService.getLoadingStateObservable('read','profileInfo')|async){
     <span class="d-flex align-items-center">
       <ngx-skeleton-loader

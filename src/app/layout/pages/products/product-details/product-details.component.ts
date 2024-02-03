@@ -1,4 +1,10 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ProductDetailViewModel } from '../data/models/view-models/product-detail.view-model';
@@ -16,6 +22,7 @@ import { LoadingService } from '../../../../../common/services/loading.service';
 import { PackageItemsViewModel } from '../data/models/view-models/package-items.view-model';
 import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 import { SellerViewModel } from './components/stores/seller.view-model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-details',
@@ -23,7 +30,7 @@ import { SellerViewModel } from './components/stores/seller.view-model';
   styleUrls: ['./product-details.component.scss'],
   providers: [ModifyMetaDataService],
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
   productDetails!: ProductDetailViewModel;
   isInBasket = false;
   inBasketCount: number = 0;
@@ -46,36 +53,34 @@ export class ProductDetailsComponent implements OnInit {
     loadingService.startLoading('read', 'productDetails');
     this._setupSubscription();
     this._getDataFromUrl();
-    this.productService.sellers$.subscribe((result) => {
-      this.seller = result[0];
-    });
+    this.productService.sellers$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.seller = result[0];
+      });
   }
 
   private _setupSubscription() {
     this._authService.isLoggedIn$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(take(1))
       .subscribe((res) => (this.isLoggedIn = res));
     this.productService.productDetails$
       .pipe(takeUntil(this.destroy$))
       .subscribe((produltDetail) => {
         this.productDetails = produltDetail!;
+        this._handleSuccessRequest();
       });
   }
 
   private _getDataFromUrl(): void {
-    this._activatedRoute.params
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((params: Params) => {
-        this.productService.productUrl = params['url'];
-        this.productService.getProductDetails();
-      });
+    this._activatedRoute.params.pipe(take(1)).subscribe((params: Params) => {
+      this.productService.productUrl = params['url'];
+      this.productService.getProductDetails();
+    });
   }
 
   ngOnInit() {
     this.productService.getRelatedProducts();
-    this.productService.productDetails$.subscribe((result) => {
-      if (result) this._handleSuccessRequest();
-    });
   }
 
   private _handleSuccessRequest() {
@@ -131,5 +136,11 @@ export class ProductDetailsComponent implements OnInit {
       count: 1,
     } as BasketItemViewModel;
     return this._basketService.addToBasket({ guestBasketItem: productItem });
+  }
+
+  ngOnDestroy() {
+    this.document.removeEventListener('mousewheel', this.onScroll);
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
