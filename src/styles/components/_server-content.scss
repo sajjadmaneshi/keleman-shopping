@@ -86,9 +86,25 @@
     vertical-align: center;
     padding: 0.5rem;
   }
+  @media (min-width: 800px) {
+    img,
+    video {
+      max-width: 800px !important;
+      height: auto;
+    }
+  }
+  @media (max-width: 769px) {
+    img,
+    video {
+      max-width: 100% !important;
+      height: auto;
+    }
+  }
+}
+.article-content {
   img,
   video {
-    width: 100% !important;
+    max-width: 100% !important;
     height: auto;
   }
 }
