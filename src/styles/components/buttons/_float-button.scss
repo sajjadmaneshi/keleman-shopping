@@ -20,15 +20,16 @@ body.menuOpened {
   right: 25px;
   bottom: 65px;
   background: map-get($theme-colors, "klm-secondary");
+  border: 2px solid map-get($theme-colors, "klm-primary");
   box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   text-align: center;
-
-  vertical-align: middle;
   color: map-get($theme-colors, "klm-primary");
   font-size: 3rem;
   z-index: 1000;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 
   .contact-us {
     vertical-align: middle;
@@ -50,15 +51,16 @@ body.menuOpened {
   background: map-get($theme-colors, "klm-secondary");
   box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.1);
   border-radius: 50%;
-  text-align: center;
-  line-height: 42px;
-  color: #fff;
+  border: 2px solid map-get($theme-colors, "klm-primary");
   font-size: 16px;
   inset: 5px 0 0 0;
   margin: auto;
   transform: translate(0, 0);
   opacity: 0;
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.4s ease-in-out;
 }
 

@@ -1,3 +1,4 @@
+@import "base/variables/colors";
 .shipping ::ng-deep .map-container {
   width: 9rem !important;
   height: 9rem !important;
@@ -14,4 +15,7 @@
       margin: 0 0.5rem;
     }
   }
+}
+.selected {
+  border: 2px solid $klm-primary !important;
 }

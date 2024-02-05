@@ -1,39 +1,32 @@
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-
-import { UserAddressViewModel } from '../../../profile/data/view-models/user-address.view-model';
-import { ProfileRepository } from '../../../profile/data/profile.repository';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { UserAddressViewModel } from '../../../../profile/data/view-models/user-address.view-model';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { LoadingService } from '../../../../../../common/services/loading.service';
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  OnDestroy,
-  Output,
-} from '@angular/core';
-import { ModifyAddressDialogComponent } from '../../../profile/address/add-address-dialog/modify-address-dialog.component';
+import { ProfileRepository } from '../../../../profile/data/profile.repository';
+import { LoadingService } from '../../../../../../../common/services/loading.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModifyAddressDialogComponent } from '../../../../profile/address/add-address-dialog/modify-address-dialog.component';
+import { UserShippingAddressDialogComponent } from '../user-shipping-address-dialog/user-shipping-address-dialog.component';
 
 @Component({
-  selector: 'keleman-shipping-user-address-dialog',
+  selector: 'keleman-user-shipping-address-bottom-sheet',
 
-  templateUrl: './shipping-user-address-dialog.component.html',
-  styleUrl: './shipping-user-address-dialog.component.scss',
+  templateUrl: './user-shipping-address-bottom-sheet.component.html',
+  styleUrl: './user-shipping-address-bottom-sheet.component.scss',
 })
-export class ShippingUserAddressDialogComponent implements OnDestroy {
+export class UserShippingAddressBottomSheetComponent {
   userAddresses: UserAddressViewModel[] = [];
   selectedAddress!: UserAddressViewModel;
   destroy$ = new Subject<void>();
-
-  @Output() submit = new EventEmitter<UserAddressViewModel>();
+  @Input() selectedId!: number;
+  @Output() close = new EventEmitter();
+  @Output() select = new EventEmitter<UserAddressViewModel>();
 
   constructor(
     private readonly _profileRepository: ProfileRepository,
     public readonly loadingService: LoadingService,
-    public readonly _dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public selectedId: number
+    public readonly _dialog: MatDialog
   ) {
     loadingService.startLoading('read', 'getShippingAddresses');
-
     this.getAddresses();
   }
 
@@ -61,7 +54,9 @@ export class ShippingUserAddressDialogComponent implements OnDestroy {
   modifyAddress(isEdit = false, address?: UserAddressViewModel) {
     this._dialog
       .open(ModifyAddressDialogComponent, {
-        width: '700px',
+        width: '100%',
+        height: '100%',
+        maxWidth: '100vw',
         autoFocus: false,
         data: isEdit ? address : null,
       })
@@ -73,14 +68,16 @@ export class ShippingUserAddressDialogComponent implements OnDestroy {
   }
 
   selectAddress(address: UserAddressViewModel) {
+    this.select.emit(address);
     this.selectedAddress = address;
-  }
-  onSubmit() {
-    this.submit.emit(this.selectedAddress);
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  onClose() {
+    this.close.emit();
   }
 }

@@ -142,14 +142,14 @@
 
 <div class="row mb-3">
   <div class="col-12 col-lg-7">
-    <keleman-product-album
+    <keleman-product-gallery
       class="d-none d-lg-block"
       [isLoading]="
         loadingService.getLoadingStateObservable('read', 'productGallery')
       "
       [gallery]="gallary"
       (imageClick)="LoadNewImage($event)"
-    ></keleman-product-album>
+    ></keleman-product-gallery>
   </div>
   <div class="col-12 col-lg-5">
     <div class="card card-rounded-3 shadow delivery border-0 box-shadow-none">

@@ -4,6 +4,7 @@ import {
   Inject,
   OnDestroy,
   OnInit,
+  TemplateRef,
 } from '@angular/core';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -23,6 +24,7 @@ import { PackageItemsViewModel } from '../data/models/view-models/package-items.
 import { AvailableStatusEnum } from '../data/enums/available-status.enum';
 import { SellerViewModel } from './components/stores/seller.view-model';
 import { take } from 'rxjs/operators';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-product-details',
@@ -48,6 +50,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     private readonly _authService: AuthService,
     private readonly _basketService: BasketService,
     private readonly _metaDataService: ModifyMetaDataService,
+    private readonly _bottomSheet: MatBottomSheet,
     @Inject(DOCUMENT) private document: Document
   ) {
     loadingService.startLoading('read', 'productDetails');
@@ -142,5 +145,16 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.document.removeEventListener('mousewheel', this.onScroll);
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  closeBottomSheet() {
+    this._bottomSheet.dismiss();
+  }
+
+  addtoBasket(bttmSheet: TemplateRef<any>) {
+    const result = this.productService.addToBasket();
+    if (result) {
+      this._bottomSheet.open(bttmSheet);
+    }
   }
 }

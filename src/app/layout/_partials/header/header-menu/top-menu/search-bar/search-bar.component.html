@@ -5,7 +5,7 @@
       class="form-control search-input h-100"
       placeholder="جستجو"
       (keyup)="keyChange($event)"
-      (click)="showMenu = searchText ? true : false"
+      (click)="showResultMenu()"
     />
     @if (loadingService.getLoadingStateObservable('add', 'search') | async){
     <mat-spinner [diameter]="25"></mat-spinner>
@@ -14,6 +14,7 @@
       [searchResult]="searchResult!"
       [searchText]="searchText!"
       (onItemClick)="resetSearchResult()"
+      (close)="showMenu = false"
     ></keleman-search-result-menu>
     }
   </div>

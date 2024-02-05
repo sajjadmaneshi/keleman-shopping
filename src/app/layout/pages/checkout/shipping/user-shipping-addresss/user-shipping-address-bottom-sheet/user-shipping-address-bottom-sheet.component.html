@@ -1,0 +1,47 @@
+<keleman-bottom-sheet>
+  <div>
+    <div class="card card-rounded-3">
+      <div class="card-body">
+        <span class="d-flex justify-content-between w-100">
+          <a
+            class="text-primary cursor-pointer d-flex align-items-center"
+            (click)="modifyAddress()"
+          >
+            <mat-icon class="material-icons-outlined">add_location</mat-icon>
+            افزودن آدرس جدید
+          </a>
+          <mat-icon
+            class="material-symbols-outlined cursor-pointer"
+            (click)="onClose()"
+          >
+            close
+          </mat-icon>
+        </span>
+
+        <mat-divider class="my-3"></mat-divider>
+        <div>
+          @if((loadingService.getLoadingStateObservable('read','getShippingAddresses')|async)!){
+          <ngx-skeleton-loader
+            [theme]="{ width: '100%', height: '10rem' }"
+            [count]="2"
+          ></ngx-skeleton-loader>
+          } @else if (userAddresses.length>0){ @for (address of
+          userAddresses;track address.id){
+
+          <keleman-shipping-address-item
+            (addressChange)="selectAddress(address); onClose()"
+            [selected]="selectedAddress === address"
+            [address]="address"
+            [showMap]="false"
+            [editable]="true"
+            (edit)="modifyAddress(true, address)"
+          ></keleman-shipping-address-item>
+
+          } } @else {
+          <keleman-empty-content></keleman-empty-content>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</keleman-bottom-sheet>

@@ -4,15 +4,18 @@ import {
   Input,
   OnDestroy,
   Output,
+  TemplateRef,
 } from '@angular/core';
 
 import { UserAddressViewModel } from '../../../profile/data/view-models/user-address.view-model';
-import { ShippingUserAddressDialogComponent } from '../shipping-user-address-dialog/shipping-user-address-dialog.component';
+import { UserShippingAddressDialogComponent } from '../user-shipping-addresss/user-shipping-address-dialog/user-shipping-address-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LatLngExpression } from 'leaflet';
+
 import { catchError, map, of, Subject, takeUntil, tap } from 'rxjs';
 import { ProfileRepository } from '../../../profile/data/profile.repository';
 import { LoadingService } from '../../../../../../common/services/loading.service';
+import { ApplicationStateService } from '../../../../../shared/services/application-state.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'keleman-shipping-address-item',
@@ -21,6 +24,7 @@ import { LoadingService } from '../../../../../../common/services/loading.servic
 })
 export class ShippingAddressItemComponent implements OnDestroy {
   @Input() address!: UserAddressViewModel;
+  @Input() selected = false;
   @Input() showMap = true;
   @Input() editable = false;
   @Output() edit = new EventEmitter<void>();
@@ -30,11 +34,13 @@ export class ShippingAddressItemComponent implements OnDestroy {
   constructor(
     private readonly _dialog: MatDialog,
     private readonly _profileRepository: ProfileRepository,
+    private readonly _bottomSheet: MatBottomSheet,
+    public readonly applicationStateService: ApplicationStateService,
     public loadingService: LoadingService
   ) {}
 
   openAddressDialog() {
-    const dialogRef = this._dialog.open(ShippingUserAddressDialogComponent, {
+    const dialogRef = this._dialog.open(UserShippingAddressDialogComponent, {
       width: '700px',
       data: this.address.id,
     });
@@ -78,5 +84,17 @@ export class ShippingAddressItemComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  openBottomSheet(template: TemplateRef<any>) {
+    this._bottomSheet.open(template);
+  }
+
+  changeAddress() {
+    this.addressChange.emit();
+  }
+
+  closeBottomSheet() {
+    this._bottomSheet.dismiss();
   }
 }

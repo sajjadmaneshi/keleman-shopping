@@ -11,6 +11,9 @@ export class SearchResultMenuComponent {
   @Input() searchResult!: SearchViewModel;
   @Input() searchText!: string;
   @Output() onItemClick = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
+
+  showBackdrop = false;
   constructor(private _router: Router) {}
   navigateProduct(url: string) {
     this.onItemClick.emit();
@@ -24,5 +27,9 @@ export class SearchResultMenuComponent {
     this._router.navigate([`${Routing.blogs}/${url}`], {
       queryParams: { q: this.searchText, p: 0 },
     });
+  }
+
+  onClose() {
+    this.close.emit();
   }
 }

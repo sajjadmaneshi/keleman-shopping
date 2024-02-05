@@ -216,7 +216,7 @@ export class ProductService implements OnDestroy {
     const productDetails = this.productDetails$.value!;
 
     const dto = {
-      productId: productDetails.id,
+      productId: seller.productId,
       storeId: seller.id,
       packageDetailItems: this._mapPackageItems,
 

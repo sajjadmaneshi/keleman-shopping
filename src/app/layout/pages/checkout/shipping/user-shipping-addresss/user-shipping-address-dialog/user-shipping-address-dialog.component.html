@@ -19,28 +19,19 @@
           [theme]="{ width: '100%', height: '10rem' }"
           [count]="2"
         ></ngx-skeleton-loader>
-        } @else if (userAddresses.length>0){
-        <mat-radio-group [(ngModel)]="selectedAddress">
-          @for (address of userAddresses;track address.id){
+        } @else if (userAddresses.length>0){ @for (address of
+        userAddresses;track address.id){
 
-          <mat-radio-button
-            class="example-margin"
-            [color]="'primary'"
-            [value]="address"
-            (selectionchange)="selectAddress(address)"
-          >
-            <keleman-shipping-address-item
-              [address]="address"
-              [showMap]="false"
-              [editable]="true"
-              (edit)="modifyAddress(true, address)"
-            ></keleman-shipping-address-item>
-          </mat-radio-button>
+        <keleman-shipping-address-item
+          (addressChange)="selectAddress(address)"
+          [selected]="selectedAddress === address"
+          [address]="address"
+          [showMap]="false"
+          [editable]="true"
+          (edit)="modifyAddress(true, address)"
+        ></keleman-shipping-address-item>
 
-          }
-        </mat-radio-group>
-
-        } @else {
+        } } @else {
         <keleman-empty-content></keleman-empty-content>
         }
       </div>

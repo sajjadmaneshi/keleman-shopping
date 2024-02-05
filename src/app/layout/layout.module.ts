@@ -56,6 +56,7 @@ import {
 import { MatListModule } from '@angular/material/list';
 import { ProductCategoryComponent } from '../shared/components/product-category/product-category.component';
 import { ProductCategoryItemComponent } from '../shared/components/product-category/product-category-item/product-category-item.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { ProductCategoryItemComponent } from '../shared/components/product-categ
     NgbPopover,
     MatListModule,
     ProductCategoryItemComponent,
+    MatBadgeModule,
   ],
 })
 export class LayoutModule {

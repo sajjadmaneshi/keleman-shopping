@@ -1,4 +1,8 @@
-<div class="card card-rounded-3 border mb-3">
+<div
+  class="card card-rounded-3 border mb-3 cursor-pointer"
+  (click)="changeAddress()"
+  [class.selected]="selected"
+>
   <div class="card-body shipping">
     <div class="d-flex justify-content-between align-items-center">
       <span class="d-flex flex-column flex-grow-1">
@@ -39,7 +43,11 @@
         } @else {
         <a
           class="fw-bold align-self-end text-primary cursor-pointer"
-          (click)="openAddressDialog()"
+          (click)="
+            applicationStateService.isTablet || applicationStateService.isPhone
+              ? openBottomSheet(addressBtmSheet)
+              : openAddressDialog()
+          "
           >تغییر یا ویرایش آدرس
         </a>
         }
@@ -54,3 +62,10 @@
     </div>
   </div>
 </div>
+<ng-template #addressBtmSheet>
+  <keleman-user-shipping-address-bottom-sheet
+    [selectedId]="address.id"
+    (close)="closeBottomSheet()"
+    (select)="addressChange.emit($event)"
+  ></keleman-user-shipping-address-bottom-sheet>
+</ng-template>

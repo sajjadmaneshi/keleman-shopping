@@ -1,7 +1,16 @@
 @import "base/variables/colors";
 :host ::ng-deep {
+  keleman-map > div {
+    height: 100% !important;
+  }
   .map-container {
     height: 420px !important;
+  }
+
+  @media (max-width: 768px) {
+    .map-container {
+      height: 100% !important;
+    }
   }
 
   .custom-mat-dialog {
@@ -45,5 +54,10 @@
     padding-right: 1rem;
     padding-left: 1rem;
     background-color: $gray-300;
+  }
+  @media (max-width: 768px) {
+    .mat-mdc-dialog-content {
+      max-height: 100vh !important;
+    }
   }
 }

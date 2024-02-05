@@ -7,17 +7,25 @@
   width: 7.8rem;
   padding: 0.25rem;
 }
-
-.basket {
-  color: black !important;
-  .basket-icon {
-    width: 2.2rem;
-  }
-  .basket-count {
-    position: absolute;
-    left: 50%;
-    top: -10px;
-    transform: translateX(-50%);
+.header-mobile {
+  .basket {
+    color: black !important;
+    .basket-icon {
+      width: 3rem !important;
+    }
+    .basket-count {
+      position: absolute;
+      left: 50%;
+      top: -5% !important;
+      width: 1.75rem;
+      height: 1.75rem;
+      text-align: center;
+      font-weight: bolder;
+      transform: translateX(-50%);
+      background-color: $klm-secondary;
+      border-radius: 50%;
+      color: $klm-primary;
+    }
   }
 }
 

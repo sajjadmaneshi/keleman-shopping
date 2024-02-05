@@ -10,7 +10,6 @@ import { ProductDetailViewModel } from '../../../data/models/view-models/product
 import { LoadingService } from '../../../../../../../common/services/loading.service';
 import { PackageItemsViewModel } from '../../../data/models/view-models/package-items.view-model';
 import { SellerViewModel } from '../stores/seller.view-model';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'keleman-product-meta',

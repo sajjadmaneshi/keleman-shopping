@@ -1,6 +1,16 @@
 <div class="card card-rounded-1 border">
   <div class="card-body">
-    <div class="d-flex align-items-center justify-content-between fw-bold fs-3">
+    <div
+      class="d-flex align-items-center justify-content-between fw-bold"
+      [ngClass]="{
+        'fs-1': fontSize === 1,
+        'fs-2': fontSize === 2,
+        'fs-3': fontSize === 3,
+        'fs-4': fontSize === 4,
+        'fs-5': fontSize === 5,
+        'fs-6': fontSize === 6
+      }"
+    >
       <mat-icon
         class="text-success cursor-pointer"
         [class.disabled]="(max ? max === value : false) || disableIncrease"

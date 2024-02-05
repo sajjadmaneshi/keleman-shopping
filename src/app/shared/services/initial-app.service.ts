@@ -1,5 +1,5 @@
-import { BehaviorSubject, combineLatest, map } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { BehaviorSubject, combineLatest, map, Subject, takeUntil } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
 import { ProductCategoryViewModel } from '../data/models/view-models/product-category.view-model';
 
 import { AuthService } from './auth/auth.service';
@@ -15,7 +15,7 @@ import { ProductCategoryService } from '../components/product-category/product-c
 import { take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class InitialAppService {
+export class InitialAppService implements OnDestroy {
   isLoading = false;
   userSimpleInfo = new BehaviorSubject<ProfileViewModel>({
     firstName: '',
@@ -26,6 +26,7 @@ export class InitialAppService {
   productCategories = new BehaviorSubject<ProductCategoryViewModel[]>([]);
   articleCategories = new BehaviorSubject<ArticleCategoryViewModel[]>([]);
   megaMenu = new BehaviorSubject<MegaMenuViewModel[]>([]);
+  destroy$ = new Subject<void>();
   constructor(
     private _productCategoryService: ProductCategoryService,
     private _articleRepository: ArticleRepository,
@@ -44,7 +45,7 @@ export class InitialAppService {
         .getArticleCategories()
         .pipe(map((x) => x.result!)),
     ])
-      .pipe(take(1))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(([isAuthenticated, productcategories, articleCategories]) => {
         this.handleMegaMenu();
         if (isAuthenticated) this.handleAuthenticatedUserActions();
@@ -76,5 +77,9 @@ export class InitialAppService {
   public async getUserCredit() {
     const result = await this._profileService.getUserAccount();
     this.userCredit.next(result!);
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -34,6 +34,18 @@
             </span>
           </a>
         </li>
+        <li class="menu-item py-3">
+          <a
+            class="nav-link text-black"
+            [routerLink]="['/' + routing.product + '/' + routing.category]"
+            (click)="onClose()"
+            routerLinkActive="active"
+          >
+            <span class="d-flex align-items-center">
+              <h5>همه محصولات</h5>
+            </span>
+          </a>
+        </li>
         <div ngbAccordion [closeOthers]="true">
           <div ngbAccordionItem="">
             <li class="menu-item py-3" ngbAccordionHeader>
@@ -69,22 +81,6 @@
             </div>
           </div>
         </div>
-
-        <li class="menu-item py-3">
-          <span class="d-flex align-items-center">
-            <h5>خرید قطعات آسانسور</h5>
-          </span>
-        </li>
-        <li class="menu-item py-3">
-          <span class="d-flex align-items-center">
-            <h5>باشگاه مشتریان کلمان</h5>
-          </span>
-        </li>
-        <li class="menu-item py-3 border-bottom border-gray-300">
-          <span class="d-flex align-items-center">
-            <h5>باکلمان</h5>
-          </span>
-        </li>
 
         <h4 class="py-3 fw-bold">دسته بندی کالا ها</h4>
 

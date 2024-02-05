@@ -1,4 +1,4 @@
-<div class="d-block px-5">
+<div class="d-block px-5 header-mobile">
   <div
     class="d-flex align-items-center justify-content-between top-part w-100 mb-3"
   >
@@ -54,7 +54,8 @@
       class="d-flex position-relative flex-column align-items-center basket cursor-pointer"
       [routerLink]="['checkout']"
     >
-      <h3 class="basket-count text-warning">{{ basketCount }}</h3>
+      <h3 class="basket-count">{{ basketCount }}</h3>
+
       <img
         alt="سبد خرید"
         src="assets/media/static-resources/basket-icon.svg"

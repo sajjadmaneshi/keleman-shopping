@@ -36,13 +36,16 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { KelemanMapComponent } from '../../../shared/components/keleman-map/keleman-map.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ShippingAddressItemComponent } from './shipping/shipping-address-item/shipping-address-item.component';
-import { ShippingUserAddressDialogComponent } from './shipping/shipping-user-address-dialog/shipping-user-address-dialog.component';
+import { UserShippingAddressDialogComponent } from './shipping/user-shipping-addresss/user-shipping-address-dialog/user-shipping-address-dialog.component';
 import { EmptyContentComponent } from '../profile/empty-content/empty-content.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
 import { InputGroupComponent } from '../../../shared/components/input-group/input-group.component';
 import { PaymentGatewayComponent } from './payment/payment-gateway/payment-gateway.component';
 import { AuthGuard } from '../../../shared/guards/auth.guard';
+import { UserShippingAddressBottomSheetComponent } from './shipping/user-shipping-addresss/user-shipping-address-bottom-sheet/user-shipping-address-bottom-sheet.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { BottomSheetComponent } from '../../../shared/components/bottom-sheet/bottom-sheet.component';
 
 export const routes: Routes = [
   {
@@ -77,8 +80,9 @@ export const routes: Routes = [
     AttachReceiptDialogComponent,
     ReceiptFormComponent,
     AttachChequeDialogComponent,
-    ShippingUserAddressDialogComponent,
+    UserShippingAddressDialogComponent,
     ShippingAddressItemComponent,
+    UserShippingAddressBottomSheetComponent,
   ],
   imports: [
     CommonModule,
@@ -111,7 +115,10 @@ export const routes: Routes = [
     LoadingProgressDirective,
     InputGroupComponent,
     PaymentGatewayComponent,
+    MatBottomSheetModule,
+    BottomSheetComponent,
   ],
   providers: [DecimalPipe, CheckoutService],
+  exports: [ShippingAddressItemComponent],
 })
 export class CheckoutModule {}

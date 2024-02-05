@@ -106,8 +106,7 @@ a {
 .mdc-dialog .mdc-dialog__content {
   padding: 1.5rem !important;
 }
-@media (max-width: 767px) {
-  .mat-mdc-dialog-content {
-    max-height: 50vh !important;
-  }
+
+.fixed-bottom {
+  z-index: 999 !important;
 }

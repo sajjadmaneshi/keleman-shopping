@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { ProductGalleryViewModel } from '../../../data/models/view-models/product-gallery.view-model';
 
 @Component({
-  selector: 'keleman-product-album',
-  templateUrl: './product-album.component.html',
+  selector: 'keleman-product-gallery',
+  templateUrl: './product-gallery.component.html',
 })
-export class ProductAlbumComponent {
+export class ProductGalleryComponent {
   @Input() isLoading = new Observable<boolean>();
 
   @Input() gallery: ProductGalleryViewModel[] = [];

@@ -39,7 +39,12 @@ export class PurchaseWebComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         const fileUrl = URL.createObjectURL(res);
-        window.open(fileUrl, '_blank');
+        var a = document.createElement('a');
+        a.href = fileUrl;
+        a.target = '_blank';
+        // Don't set download attribute
+        // a.download = "Example.pdf";
+        a.click();
       });
   }
 

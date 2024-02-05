@@ -46,12 +46,13 @@
               | async)!
           "
           [disabled]="productValidationStatus.disable"
-          (click)="productService.addToBasket()"
+          (click)="addtoBasket(gotoBasketBottomSheet)"
         >
           افزودن به سبد خرید
         </button>
         } @else {
         <keleman-value-changer
+          [fontSize]="1"
           [initialValue]="productService.basketCount(0)"
           (value-change)="productService.updateBasket($event)"
           [max]="productDetails.currentStock"
@@ -104,3 +105,10 @@
 
 <keleman-related-products></keleman-related-products>
 }
+
+<ng-template #gotoBasketBottomSheet>
+  <keleman-go-to-basket-bottom-sheet
+    [productDetails]="productDetails"
+    (close)="closeBottomSheet()"
+  ></keleman-go-to-basket-bottom-sheet
+></ng-template>

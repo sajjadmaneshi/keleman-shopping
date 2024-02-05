@@ -29,9 +29,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     public readonly loadingService: LoadingService
   ) {}
   keyChange($event: any) {
+    this.showMenu = false;
     if ($event.code === 'Enter') this._navigateToProduct();
     else {
       this.searchTextChanged.next($event.target.value);
+      this.searchText = $event.target.value;
       this.loadingService.startLoading('add', 'search');
     }
   }
@@ -84,5 +86,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  showResultMenu() {
+    if (this.searchText) {
+      this.showMenu = true;
+    }
   }
 }

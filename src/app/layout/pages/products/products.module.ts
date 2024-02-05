@@ -9,7 +9,7 @@ import {
   SwiperTemplateDirective,
 } from '../../../shared/directives/swiper-template.directive';
 import { ProductNavbarComponent } from './product-details/components/navbar/product-navbar.component';
-import { ProductAlbumComponent } from './product-details/components/album/product-album.component';
+import { ProductGalleryComponent } from './product-details/components/gallery/product-gallery.component';
 import { ProductMetaComponent } from './product-details/components/meta/product-meta.component';
 import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
 import {
@@ -67,13 +67,14 @@ import { PropertyOptionsComponent } from './product-details/components/property-
 import { MatListModule } from '@angular/material/list';
 import { SubCategoriesComponent } from './product-list/components/sub-categories/sub-categories.component';
 import { ProductCategoryComponent } from 'src/app/shared/components/product-category/product-category.component';
+import { GoToBasketBottomSheetComponent } from './product-details/components/go-to-basket-bottom-sheet/go-to-basket-bottom-sheet.component';
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ProductSpecializedSpecificationsComponent,
     ProductNavbarComponent,
-    ProductAlbumComponent,
+    ProductGalleryComponent,
     ProductMetaComponent,
     ProductSpecificationsComponent,
     ProductIntroductionComponent,
@@ -135,6 +136,7 @@ import { ProductCategoryComponent } from 'src/app/shared/components/product-cate
     PropertyOptionsComponent,
     MatListModule,
     SubCategoriesComponent,
+    GoToBasketBottomSheetComponent,
   ],
 
   providers: [ProductFilterService, RouteHandlerService],
