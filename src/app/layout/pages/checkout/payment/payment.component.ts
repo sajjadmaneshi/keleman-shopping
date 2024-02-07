@@ -111,7 +111,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   private _handleAfterSaveOrder(payResult: PayResultViewModel) {
     this._dialog.open(TransferToBankDialogComponent);
     if (payResult.url) {
-      window.open(payResult.url);
+      window.location.href = payResult.url;
       this._dialog.closeAll();
     }
     if (payResult.refId) {
