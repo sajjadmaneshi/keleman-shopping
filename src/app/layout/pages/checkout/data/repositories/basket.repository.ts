@@ -19,9 +19,9 @@ export class BasketRepository extends DataService<BasketItemViewModel> {
   }
 
   getBasket(): Observable<HttpClientResult<BasketItemViewModel[]>> {
-    return this._http.get(
-      `${this._getCartUrl}?userId=${localStorage.getItem('USERID')}`
-    ) as Observable<HttpClientResult<BasketItemViewModel[]>>;
+    return this._http.get(`${this._getCartUrl}`) as Observable<
+      HttpClientResult<BasketItemViewModel[]>
+    >;
   }
 
   mergeCart(

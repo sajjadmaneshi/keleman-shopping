@@ -34,42 +34,33 @@ export class ProfileRepository extends DataService<any> {
   }
 
   uploadAvatar(fileData: FormData): Observable<HttpClientResult<string>> {
-    return this._http.post(
-      `${this._getProfileUrl}/uploadAvatar?userId=${localStorage.getItem(
-        'USERID'
-      )}`,
-      fileData,
-      { isBodyFormData: false } as HttpRequestOptions
-    ) as Observable<HttpClientResult<string>>;
+    return this._http.post(`${this._getProfileUrl}/uploadAvatar`, fileData, {
+      isBodyFormData: false,
+    } as HttpRequestOptions) as Observable<HttpClientResult<string>>;
   }
 
   getProfile(): Observable<HttpClientResult<ProfileViewModel>> {
-    return this._http.get(
-      `${this._getProfileUrl}?userId=${localStorage.getItem('USERID')}`
-    ) as Observable<HttpClientResult<ProfileViewModel>>;
+    return this._http.get(`${this._getProfileUrl}`) as Observable<
+      HttpClientResult<ProfileViewModel>
+    >;
   }
 
   completeProfile(dto: ProfileDto): Observable<HttpClientResult<void>> {
-    return this._http.patch(
-      `${this._getProfileUrl}?userId=${localStorage.getItem('USERID')}`,
-      dto
-    ) as Observable<HttpClientResult<void>>;
+    return this._http.patch(`${this._getProfileUrl}`, dto) as Observable<
+      HttpClientResult<void>
+    >;
   }
 
   getOrdersCount(): Observable<HttpClientResult<OrderCountViewModel>> {
-    return this._http.get(
-      `${this._getProfileUrl}/ordersCount?userId=${localStorage.getItem(
-        'USERID'
-      )}`
-    ) as Observable<HttpClientResult<OrderCountViewModel>>;
+    return this._http.get(`${this._getProfileUrl}/ordersCount`) as Observable<
+      HttpClientResult<OrderCountViewModel>
+    >;
   }
 
   getUserAccount(): Observable<HttpClientResult<UserCreditViewModel>> {
-    return this._http.get(
-      `${this._getProfileUrl}/userAccount?userId=${localStorage.getItem(
-        'USERID'
-      )}`
-    ) as Observable<HttpClientResult<UserCreditViewModel>>;
+    return this._http.get(`${this._getProfileUrl}/userAccount`) as Observable<
+      HttpClientResult<UserCreditViewModel>
+    >;
   }
   getOrders(
     page: number,
@@ -78,9 +69,7 @@ export class ProfileRepository extends DataService<any> {
     status?: OrdersStatusEnum
   ): Observable<HttpClientResult<PaginationViewModel<OrderViewModel>>> {
     return this._http.get(
-      `${this._getProfileUrl}/orders?userId=${localStorage.getItem(
-        'USERID'
-      )}&&offset=${page}&&limit=${limit}${
+      `${this._getProfileUrl}/orders?offset=${page}&&limit=${limit}${
         status != undefined ? '&&status=' + status : ''
       }${isPaid != undefined ? '&&isPaid=' + isPaid : ''}`
     ) as Observable<HttpClientResult<PaginationViewModel<OrderViewModel>>>;
@@ -88,21 +77,15 @@ export class ProfileRepository extends DataService<any> {
 
   getOrderFactor(orderId: number): Observable<Blob> {
     return this._http.get(
-      `${
-        this._getProfileUrl
-      }/orderFactor/${orderId}?userId=${localStorage.getItem(
-        'USERID'
-      )}&format=pdf`,
+      `${this._getProfileUrl}/orderFactor/${orderId}?format=pdf`,
       { responseType: 'blob' }
     ) as Observable<Blob>;
   }
 
   getFavorites(): Observable<HttpClientResult<FavoriteProductViewModel[]>> {
-    return this._http.get(
-      `${this._getProfileUrl}/favorites?userId=${localStorage.getItem(
-        'USERID'
-      )}`
-    ) as Observable<HttpClientResult<FavoriteProductViewModel[]>>;
+    return this._http.get(`${this._getProfileUrl}/favorites`) as Observable<
+      HttpClientResult<FavoriteProductViewModel[]>
+    >;
   }
 
   getComments(
@@ -111,9 +94,7 @@ export class ProfileRepository extends DataService<any> {
     allowToShow?: boolean
   ): Observable<HttpClientResult<PaginationViewModel<UserCommentViewModel>>> {
     return this._http.get(
-      `${this._getProfileUrl}/comments?userId=${localStorage.getItem(
-        'USERID'
-      )}&&offset=${page}&&limit=${limit}${
+      `${this._getProfileUrl}/comments?offset=${page}&&limit=${limit}${
         allowToShow != undefined ? '&&allowToShow=' + allowToShow : ''
       }`
     ) as Observable<
@@ -126,9 +107,7 @@ export class ProfileRepository extends DataService<any> {
     limit: number
   ): Observable<HttpClientResult<PaginationViewModel<UserQuestionViewModel>>> {
     return this._http.get(
-      `${this._getProfileUrl}/questions?userId=${localStorage.getItem(
-        'USERID'
-      )}&&offset=${page}&&limit=${limit}`
+      `${this._getProfileUrl}/questions?offset=${page}&&limit=${limit}`
     ) as Observable<
       HttpClientResult<PaginationViewModel<UserQuestionViewModel>>
     >;
@@ -142,9 +121,9 @@ export class ProfileRepository extends DataService<any> {
     HttpClientResult<PaginationViewModel<WalletTransactionViewModel>>
   > {
     return this._http.get(
-      `${this._getProfileUrl}/walletTransactions?userId=${localStorage.getItem(
-        'USERID'
-      )}&&offset=${page}&&limit=${limit}${
+      `${
+        this._getProfileUrl
+      }/walletTransactions?offset=${page}&&limit=${limit}${
         status != undefined ? '&&status=' + status : ''
       }`
     ) as Observable<
@@ -160,9 +139,9 @@ export class ProfileRepository extends DataService<any> {
     HttpClientResult<PaginationViewModel<CreditTransactionViewModel>>
   > {
     return this._http.get(
-      `${this._getProfileUrl}/creditTransactions?userId=${localStorage.getItem(
-        'USERID'
-      )}&&offset=${page}&&limit=${limit}${
+      `${
+        this._getProfileUrl
+      }/creditTransactions?offset=${page}&&limit=${limit}${
         isPaid != undefined ? '&&isPaid=' + isPaid : ''
       }`
     ) as Observable<
@@ -173,32 +152,27 @@ export class ProfileRepository extends DataService<any> {
   /*================= userAddress ================================*/
 
   getUserAddresses(): Observable<HttpClientResult<UserAddressViewModel[]>> {
-    return this._http.get(
-      `${this._getProfileUrl}/address?userId=${localStorage.getItem('USERID')}`
-    ) as Observable<HttpClientResult<UserAddressViewModel[]>>;
+    return this._http.get(`${this._getProfileUrl}/address`) as Observable<
+      HttpClientResult<UserAddressViewModel[]>
+    >;
   }
   getUserAddress(
     id: number
   ): Observable<HttpClientResult<UserAddressViewModel>> {
-    return this._http.get(
-      `${this._getProfileUrl}/address/${id}?userId=${localStorage.getItem(
-        'USERID'
-      )}`
-    ) as Observable<HttpClientResult<UserAddressViewModel>>;
+    return this._http.get(`${this._getProfileUrl}/address/${id}`) as Observable<
+      HttpClientResult<UserAddressViewModel>
+    >;
   }
 
   getDefaultAddress(): Observable<HttpClientResult<UserAddressViewModel>> {
     return this._http.get(
-      `${this._getProfileUrl}/address/default?userId=${localStorage.getItem(
-        'USERID'
-      )}`
+      `${this._getProfileUrl}/address/default`
     ) as Observable<HttpClientResult<UserAddressViewModel>>;
   }
   addNewAddress(dto: AddressDto): Observable<HttpClientResult<string>> {
-    return this._http.post(
-      `${this._getProfileUrl}/address?userId=${localStorage.getItem('USERID')}`,
-      dto
-    ) as Observable<HttpClientResult<string>>;
+    return this._http.post(`${this._getProfileUrl}/address`, dto) as Observable<
+      HttpClientResult<string>
+    >;
   }
 
   updateAddress(
@@ -206,26 +180,20 @@ export class ProfileRepository extends DataService<any> {
     dto: AddressDto
   ): Observable<HttpClientResult<string>> {
     return this._http.patch(
-      `${this._getProfileUrl}/address/${id}/?userId=${localStorage.getItem(
-        'USERID'
-      )}`,
+      `${this._getProfileUrl}/address/${id}`,
       dto
     ) as Observable<HttpClientResult<string>>;
   }
 
   deleteAddress(id: number): Observable<HttpClientResult<void>> {
     return this._http.delete(
-      `${this._getProfileUrl}/address/${id}?userId=${localStorage.getItem(
-        'USERID'
-      )}`
+      `${this._getProfileUrl}/address/${id}`
     ) as Observable<HttpClientResult<void>>;
   }
 
   addDefaultAddress(id: number): Observable<HttpClientResult<void>> {
     return this._http.put(
-      `${
-        this._getProfileUrl
-      }/address/${id}/addToDefault?userId=${localStorage.getItem('USERID')}`,
+      `${this._getProfileUrl}/address/${id}/addToDefault`,
       {}
     ) as Observable<HttpClientResult<void>>;
   }
@@ -236,9 +204,7 @@ export class ProfileRepository extends DataService<any> {
     dto: WithdrawRequestDto
   ): Observable<HttpClientResult<void>> {
     return this._http.post(
-      `${this._getProfileUrl}/withdraw?userId=${localStorage.getItem(
-        'USERID'
-      )}`,
+      `${this._getProfileUrl}/withdraw`,
       dto
     ) as Observable<HttpClientResult<void>>;
   }
@@ -247,9 +213,7 @@ export class ProfileRepository extends DataService<any> {
     id: number;
   }): Observable<HttpClientResult<void>> {
     return this._http.post(
-      `${this._getProfileUrl}/withdraw/cancel?userId=${localStorage.getItem(
-        'USERID'
-      )}`,
+      `${this._getProfileUrl}/withdraw/cancel`,
       dto
     ) as Observable<HttpClientResult<void>>;
   }
@@ -261,9 +225,7 @@ export class ProfileRepository extends DataService<any> {
     HttpClientResult<PaginationViewModel<WithdrawRequestViewModel>>
   > {
     return this._http.get(
-      `${this._getProfileUrl}/withdrawRequest?userId=${localStorage.getItem(
-        'USERID'
-      )}&&offset=${page}&&limit=${limit}`
+      `${this._getProfileUrl}/withdrawRequest?offset=${page}&&limit=${limit}`
     ) as Observable<
       HttpClientResult<PaginationViewModel<WithdrawRequestViewModel>>
     >;
@@ -283,9 +245,7 @@ export class ProfileRepository extends DataService<any> {
     status?: ReturnRequestStatusEnum
   ): Observable<HttpClientResult<PaginationViewModel<ReturnRequestViewModel>>> {
     return this._http.get(
-      `${this._getProfileUrl}/returnRequest?userId=${localStorage.getItem(
-        'USERID'
-      )}&&offset=${page}&&limit=${limit}${
+      `${this._getProfileUrl}/returnRequest?offset=${page}&&limit=${limit}${
         status != undefined ? '&&status=' + status : ''
       }`
     ) as Observable<
@@ -295,18 +255,14 @@ export class ProfileRepository extends DataService<any> {
 
   addReturnRequest(dto: ReturnRequestDto): Observable<HttpClientResult<void>> {
     return this._http.post(
-      `${this._getProfileUrl}/returnOrder?userId=${localStorage.getItem(
-        'USERID'
-      )}`,
+      `${this._getProfileUrl}/returnOrder`,
       dto
     ) as Observable<HttpClientResult<void>>;
   }
 
   cancelReturnRequest(dto: { id: number }): Observable<HttpClientResult<void>> {
     return this._http.post(
-      `${this._getProfileUrl}/returnOrder/cancel?userId=${localStorage.getItem(
-        'USERID'
-      )}`,
+      `${this._getProfileUrl}/returnOrder/cancel`,
       dto
     ) as Observable<HttpClientResult<void>>;
   }
@@ -317,21 +273,13 @@ export class ProfileRepository extends DataService<any> {
     search: string = ''
   ): Observable<HttpClientResult<OrderCanReturnViewModel[]>> {
     return this._http.get(
-      `${
-        this._getProfileUrl
-      }/orders/paidUnreturned?userId=${localStorage.getItem(
-        'USERID'
-      )}&fromDate=${fromDate}&toDate=${toDate}&search=${search}`
+      `${this._getProfileUrl}/orders/paidUnreturned?fromDate=${fromDate}&toDate=${toDate}&search=${search}`
     ) as Observable<HttpClientResult<OrderCanReturnViewModel[]>>;
   }
 
   increaseWallet(amount: number): Observable<string> {
     return this._http.post(
-      `${
-        this._getProfileUrl
-      }/payment/increaseWallet?userId=${localStorage.getItem(
-        'USERID'
-      )}&amount=${amount}`,
+      `${this._getProfileUrl}/payment/increaseWallet?amount=${amount}`,
       {}
     ) as Observable<string>;
   }

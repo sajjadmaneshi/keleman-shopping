@@ -1,10 +1,9 @@
 <div class="menu_overlay" (click)="removeClass()"></div>
 
-<div class="cornerMenu" (click)="$event.preventDefault(); toggleClass()">
+<div class="cornerMenu" (click)="toggleClass($event)">
   <mat-icon class="menu-icon contact-us" [inline]="true">
     @if(menuOpened){ close } @else { headset_mic }
   </mat-icon>
-
   <div class="menu menu1" ngbTooltip="واتساپ" container="body">
     <a
       target="_blank"
@@ -15,11 +14,11 @@
       <i class="fab fa-whatsapp"></i>
     </a>
   </div>
-  <div class="menu menu2" ngbTooltip="شماره پیامک" container="body">
-    <a rel="noopener noreferrer" href="tel: 071-3808">
+  <a rel="noopener noreferrer" href="tel: 071-3808">
+    <div class="menu menu2" ngbTooltip="شماره پیامک" container="body">
       <mat-icon class="menu-icon" [inline]="true">sms</mat-icon>
-    </a>
-  </div>
+    </div>
+  </a>
   <div class="menu menu3" ngbTooltip="شماره تماس" container="body">
     <a rel="noopener noreferrer" href="tel: 071-3808">
       <mat-icon class="menu-icon" [inline]="true">phone_in_talk</mat-icon></a

@@ -20,13 +20,17 @@ export class FloatingButtonMenuComponent {
     this.menuOpened = false;
   }
 
-  toggleClass() {
+  toggleClass($event: any) {
     const body = this.document.body;
+    if (!this.menuOpened) {
+      $event.preventDefault();
+    }
     if (body.classList.contains('menuOpened')) {
       this.removeClass();
     } else {
       body.classList.add('menuOpened');
       this.menuOpened = true;
+      // Check if the condition to prevent default is met
     }
   }
 }
