@@ -44,6 +44,7 @@ export class ProductService implements OnDestroy {
   isLoggedIn = false;
 
   sellers$ = new BehaviorSubject<SellerViewModel[]>([]);
+
   constructor(
     private _productRepository: ProductRepository,
     private _basketService: BasketService,
@@ -177,7 +178,7 @@ export class ProductService implements OnDestroy {
     dialogRef.componentInstance.dialogSubmit
       .pipe(
         takeUntil(this.destroy$),
-        switchMap((result: PackageItemsViewModel) => {
+        switchMap(() => {
           return of(
             sellers[0].inBasketCount > 0
               ? this.updateBasket(1, sellers[0])
@@ -214,8 +215,6 @@ export class ProductService implements OnDestroy {
   updateBasket(count: number, seller?: SellerViewModel) {
     const sellers = this.sellers$.value;
     if (!seller) seller = sellers[0];
-    const productDetails = this.productDetails$.value!;
-
     const dto = {
       productId: seller.productId,
       storeId: seller.id,
@@ -274,17 +273,17 @@ export class ProductService implements OnDestroy {
 
   public initialSellers() {
     const productDetails = this.productDetails$.value!;
+    const kelemanStore = new SellerViewModel(
+      'فروشگاه کلمان',
+      0,
+      productDetails.currentPrice,
+      productDetails.currentDiscountPercent,
+      productDetails.priceAfterDiscount,
+      productDetails.currentStock,
+      0,
+      productDetails.id
+    );
     this._basketService.inBasketCount(productDetails.id).then((res) => {
-      const kelemanStore = new SellerViewModel(
-        'فروشگاه کلمان',
-        0,
-        productDetails.currentPrice,
-        productDetails.currentDiscountPercent,
-        productDetails.priceAfterDiscount,
-        productDetails.currentStock,
-        0,
-        productDetails.id
-      );
       const sellerArray = [kelemanStore, ...productDetails.stores].map((x) => {
         return {
           ...x,
@@ -331,9 +330,24 @@ export class ProductService implements OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe({
-        next: (result) => this._updateStorePrices(result.result!),
+        next: (result) => {
+          const optionPrices = result.result! || [];
+          this._updateStorePrices(optionPrices);
+          if (optionPrices.length > 0) {
+            this._updateSellers(optionPrices[0].productId);
+          }
+        },
         error: () => this._loadingService.stopLoading('read', 'priceOptions'),
       });
+  }
+
+  private _updateSellers(productId: number) {
+    this._basketService.inBasketCount(productId).then((res) => {
+      const sellerArray = [...this.sellers$.value];
+      sellerArray[0].inBasketCount =
+        res.find((x) => x.storeId === 0)?.count || 0;
+      this.sellers$.next(sellerArray);
+    });
   }
 
   private _updateStorePrices(optionPrices: OptionPriceViewModel[]) {
