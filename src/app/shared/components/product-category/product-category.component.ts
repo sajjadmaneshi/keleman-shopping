@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ProductCategoryService } from './product-category.service';
 import { CommonModule } from '@angular/common';
 import { ProductCategoryItemComponent } from './product-category-item/product-category-item.component';
@@ -11,6 +11,7 @@ import { SwiperComponent } from '../../../shared/components/swiper/swiper.compon
 import { LoadingService } from '../../../../common/services/loading.service';
 import { InitialAppService } from '../../../shared/services/initial-app.service';
 import { BaseCategoryComponent } from './base-category.components';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'keleman-product-categories',
@@ -26,15 +27,26 @@ import { BaseCategoryComponent } from './base-category.components';
   ],
   standalone: true,
 })
-export class ProductCategoryComponent extends BaseCategoryComponent {
+export class ProductCategoryComponent
+  extends BaseCategoryComponent
+  implements OnDestroy
+{
   constructor(
     productCategoryService: ProductCategoryService,
     loadingService: LoadingService,
     private _initialAppService: InitialAppService
   ) {
     super(productCategoryService, loadingService);
-    this._initialAppService.productCategories.subscribe((result) => {
-      this.categories = result;
-    });
+    this._initialAppService.productCategories
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.categories = result;
+      });
+  }
+
+  override ngOnDestroy() {
+    super.ngOnDestroy();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

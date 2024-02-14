@@ -26,6 +26,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SellerViewModel } from '../product-details/components/stores/seller.view-model';
 import { OptionPriceDto } from '../data/models/dto/option-price.dto';
 import { OptionPriceViewModel } from '../data/models/view-models/option-price.view-model';
+import { GoToBasketDialogComponent } from '../product-details/components/go-to-basket/go-to-basket-dialog/go-to-basket-dialog.component';
 
 @Injectable()
 export class ProductService implements OnDestroy {
@@ -123,7 +124,7 @@ export class ProductService implements OnDestroy {
       );
     if (productDetails.currentPrice === 0)
       return new ProductStatusViewModel(
-        'تماس بگیرید',
+        'تماس بگیرید - (3808-071)',
         AvailableStatusEnum.NOPRICE,
         true
       );
@@ -229,11 +230,18 @@ export class ProductService implements OnDestroy {
 
   addToBasket(seller?: SellerViewModel) {
     const sellers = this.sellers$.value;
+    const productDetails = this.productDetails$.value;
     if (!seller) seller = sellers[0];
     const result = this.isLoggedIn
       ? this.addToBasketAuthorized(seller.id, seller.productId)
       : this.addToBasketGuest(seller);
-    if (result) this._updateStoreInBasketCount(seller.id, 1);
+    if (result) {
+      this._updateStoreInBasketCount(seller.id, 1);
+      this._dialog.open(GoToBasketDialogComponent, {
+        data: productDetails,
+        minWidth: '500px',
+      });
+    }
     return result;
   }
 

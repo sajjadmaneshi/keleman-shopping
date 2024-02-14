@@ -34,3 +34,15 @@ ul {
 .apply-filter {
   min-height: 3rem;
 }
+::ng-deep {
+  [dir="rtl"] {
+    .mdc-switch__handle-track {
+      left: 0 !important;
+      right: auto !important;
+    }
+    .mdc-switch--selected .mdc-switch__handle-track {
+      transform: translateX(100%) !important;
+      width: calc(100% - var(--mdc-switch-handle-width)) !important;
+    }
+  }
+}

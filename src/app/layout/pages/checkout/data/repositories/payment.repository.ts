@@ -32,10 +32,9 @@ export class PaymentRepository extends DataService<PaymentGatewayViewModel> {
     ) as Observable<HttpClientResult<PayResultViewModel>>;
   }
   verify(dto: VerifyPaymentDto): Observable<HttpClientResult<boolean>> {
-    return this._http.post(
-      `${this._getCartUrl}/verify?userId=${localStorage.getItem('USERID')}`,
-      dto
-    ) as Observable<HttpClientResult<boolean>>;
+    return this._http.post(`${this._getCartUrl}/verify`, dto) as Observable<
+      HttpClientResult<boolean>
+    >;
   }
 
   attachCheque(billId: number, dto: AttachChequeDto[]): Observable<boolean> {

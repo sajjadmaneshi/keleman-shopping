@@ -16,7 +16,7 @@ SwiperCore.use([Navigation, Pagination, Autoplay]);
   styleUrls: ['./top-slider.component.scss'],
 })
 export class TopSliderComponent implements OnDestroy {
-  slides!: SliderViewModel[];
+  slides: SliderViewModel[] = [];
   destroy$ = new Subject<void>();
 
   constructor(

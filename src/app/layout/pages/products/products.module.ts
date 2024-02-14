@@ -67,7 +67,7 @@ import { PropertyOptionsComponent } from './product-details/components/property-
 import { MatListModule } from '@angular/material/list';
 import { SubCategoriesComponent } from './product-list/components/sub-categories/sub-categories.component';
 import { ProductCategoryComponent } from 'src/app/shared/components/product-category/product-category.component';
-import { GoToBasketBottomSheetComponent } from './product-details/components/go-to-basket-bottom-sheet/go-to-basket-bottom-sheet.component';
+import { GoToBasketBottomSheetComponent } from './product-details/components/go-to-basket/go-to-basket-bottom-sheet/go-to-basket-bottom-sheet.component';
 
 @NgModule({
   declarations: [

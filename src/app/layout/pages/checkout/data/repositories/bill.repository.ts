@@ -18,27 +18,22 @@ export class BillRepository extends DataService<ShippingCostViewModel> {
     dto: SetDiscountDto
   ): Observable<HttpClientResult<BasketCheckoutViewModel>> {
     return this._http.post(
-      `${this._getCartUrl}/setDiscount?userId=${localStorage.getItem(
-        'USERID'
-      )}`,
+      `${this._getCartUrl}/setDiscount`,
       dto
     ) as Observable<HttpClientResult<BasketCheckoutViewModel>>;
   }
 
   save(dto: SaveOrderDto): Observable<HttpClientResult<number>> {
-    return this._http.post(
-      `${this._getCartUrl}/save?userId=${localStorage.getItem('USERID')}`,
-      dto
-    ) as Observable<HttpClientResult<number>>;
+    return this._http.post(`${this._getCartUrl}/save`, dto) as Observable<
+      HttpClientResult<number>
+    >;
   }
 
   getBillInvoice(
     billId: number
   ): Observable<HttpClientResult<BasketCheckoutViewModel>> {
     return this._http.get(
-      `${this._getCartUrl}/invoice/${billId}?userId=${localStorage.getItem(
-        'USERID'
-      )}`
+      `${this._getCartUrl}/invoice/${billId}`
     ) as Observable<HttpClientResult<BasketCheckoutViewModel>>;
   }
 }
