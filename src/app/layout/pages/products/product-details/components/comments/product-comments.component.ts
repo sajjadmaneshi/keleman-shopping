@@ -1,12 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import SwiperCore, { Navigation } from 'swiper';
-import { BehaviorSubject, Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCommentDialogComponent } from './add-comment-dialog/add-comment-dialog.component';
 import { ProductCommentsDialogComponent } from './comments-dialog/product-comments-dialog.component';
 import { ProductCommentViewModel } from '../../../data/models/view-models/product-comment.view-model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ProductService } from '../../../services/product.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SharedVariablesService } from '../../../../../../shared/services/shared-variables.service';
 import { CommentRepository } from '../../../../../../shared/data/repositories/comment.repository';
 import { AuthService } from '../../../../../../shared/services/auth/auth.service';
@@ -80,7 +79,7 @@ export class ProductCommentsComponent implements OnInit, OnDestroy {
   }
 
   openRegisterBeforeActionDialog() {
-    const dialogRef = this._dialog.open(AlertDialogComponent, {
+    this._dialog.open(AlertDialogComponent, {
       data: {
         message: 'لطفا برای ثبت نظر ابتدا وارد سایت شوید',
         callBackButtonText: 'واردشوید',

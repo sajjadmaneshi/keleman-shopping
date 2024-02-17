@@ -68,6 +68,8 @@ import { MatListModule } from '@angular/material/list';
 import { SubCategoriesComponent } from './product-list/components/sub-categories/sub-categories.component';
 import { ProductCategoryComponent } from 'src/app/shared/components/product-category/product-category.component';
 import { GoToBasketBottomSheetComponent } from './product-details/components/go-to-basket/go-to-basket-bottom-sheet/go-to-basket-bottom-sheet.component';
+import { CheckoutModule } from '../checkout/checkout.module';
+import { EmptyContentComponent } from '../profile/empty-content/empty-content.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +139,8 @@ import { GoToBasketBottomSheetComponent } from './product-details/components/go-
     MatListModule,
     SubCategoriesComponent,
     GoToBasketBottomSheetComponent,
+    CheckoutModule,
+    EmptyContentComponent,
   ],
 
   providers: [ProductFilterService, RouteHandlerService],

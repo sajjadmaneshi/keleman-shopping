@@ -1,4 +1,7 @@
-.receipt-form-body {
-  max-height: 500px;
-  overflow-y: scroll;
+:host ::ng-deep {
+  @media (max-width: 768px) {
+    .mat-mdc-dialog-content {
+      max-height: 100vh !important;
+    }
+  }
 }

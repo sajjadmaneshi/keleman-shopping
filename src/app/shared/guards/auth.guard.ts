@@ -17,14 +17,19 @@ export class AuthGuard {
     private readonly _router: Router
   ) {}
 
-  canActivate(): boolean {
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
     let flag = false;
     this._authService.isLoggedIn$
       .pipe(takeUntil(this.destroy$))
       .subscribe((isLoggedIn: boolean) => {
         if (isLoggedIn) flag = true;
         else {
-          this._router.navigate([Routing.register]);
+          this._router.navigate([Routing.register], {
+            queryParams: { redirectUrl: state.url },
+          });
           flag = false;
         }
       });
@@ -36,6 +41,9 @@ export class AuthGuard {
     this.destroy$.complete();
   }
 }
-export const authGuard: CanActivateFn = (): boolean => {
-  return inject(AuthGuard).canActivate();
+export const authGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+): boolean => {
+  return inject(AuthGuard).canActivate(route, state);
 };

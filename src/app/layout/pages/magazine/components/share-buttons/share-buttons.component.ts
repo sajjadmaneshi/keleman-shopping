@@ -43,11 +43,11 @@ export class ShareButtonsComponent implements OnInit {
     this.shareUrls = [
       {
         title: 'whatsapp',
-        value: `whatsapp://send?text=${this.title}: ${this.pageUrl} `,
+        value: `whatsapp://send?text=${this._ssrService.getLocation.href} `,
       },
       {
         title: 'telegram',
-        value: `https://telegram.me/share/url?url=${this.pageUrl}`,
+        value: `https://telegram.me/share/url?url=${this._ssrService.getLocation.href}`,
       },
       {
         title: 'mail',
@@ -55,7 +55,7 @@ export class ShareButtonsComponent implements OnInit {
       },
       {
         title: 'twitter',
-        value: `https://twitter.com/intent/tweet?text=${this.title}&amp;url=${this.pageUrl}`,
+        value: `https://twitter.com/intent/tweet?text=${this.title}&amp;url=${this._ssrService.getLocation.href}`,
       },
     ];
   }

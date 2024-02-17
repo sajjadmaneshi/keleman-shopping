@@ -93,7 +93,7 @@
         </span>
         }
 
-        <mat-icon class="cursor-pointer" (click)="openShareDialog()"
+        <mat-icon class="cursor-pointer" (click)="share(shareBottomSheet)"
           >share</mat-icon
         >
         <!--        <mat-icon> create_new_folder </mat-icon>-->
@@ -161,3 +161,27 @@
   </div>
 </div>
 }
+<ng-template #shareBottomSheet>
+  <keleman-bottom-sheet>
+    <div class="card card-rounded-3">
+      <div class="card-body">
+        <span class="d-flex justify-content-between w-100">
+          اشتراک گذاری
+
+          <mat-icon
+            class="material-symbols-outlined cursor-pointer"
+            (click)="onCloseBottomSheet()"
+          >
+            close
+          </mat-icon>
+        </span>
+        <mat-divider class="my-3"></mat-divider>
+        <keleman-share-buttons
+          [title]="''"
+          [description]="''"
+          [include]="['whatsapp', 'twitter', 'telegram', 'mail']"
+        ></keleman-share-buttons>
+      </div>
+    </div>
+  </keleman-bottom-sheet>
+</ng-template>

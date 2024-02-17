@@ -229,17 +229,13 @@ export class ProductService implements OnDestroy {
 
   addToBasket(seller?: SellerViewModel) {
     const sellers = this.sellers$.value;
-    const productDetails = this.productDetails$.value;
+
     if (!seller) seller = sellers[0];
     const result = this.isLoggedIn
       ? this.addToBasketAuthorized(seller.id, seller.productId)
       : this.addToBasketGuest(seller);
     if (result) {
       this._updateStoreInBasketCount(seller.id, 1);
-      this._dialog.open(GoToBasketDialogComponent, {
-        data: productDetails,
-        minWidth: '500px',
-      });
     }
     return result;
   }

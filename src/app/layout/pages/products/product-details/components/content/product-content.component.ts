@@ -1,4 +1,11 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import { BehaviorSubject, map, Subject, takeUntil, tap } from 'rxjs';
 import { ApplicationStateService } from '../../../../../../shared/services/application-state.service';
 import SwiperCore, { Pagination } from 'swiper';
@@ -23,6 +30,7 @@ import { ShareDialogComponent } from './share-dialog/share-dialog.component';
 import { LoadingService } from '../../../../../../../common/services/loading.service';
 import { FormControl } from '@angular/forms';
 import { OptionPriceDto } from '../../../data/models/dto/option-price.dto';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 SwiperCore.use([Pagination]);
 @Component({
@@ -50,7 +58,8 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
     private readonly _productRepository: ProductRepository,
     private readonly _productService: ProductService,
     private readonly _authService: AuthService,
-    private readonly _snackBarService: SnackBarService
+    private readonly _snackBarService: SnackBarService,
+    private readonly _bottomSheet: MatBottomSheet
   ) {
     this.loadPriceChart();
   }
@@ -194,6 +203,18 @@ export class ProductContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   protected readonly FormControl = FormControl;
+
+  share(template: TemplateRef<any>) {
+    if (this.applicationState.isPhone || this.applicationState.isTablet) {
+      this._bottomSheet.open(template);
+    } else {
+      this.openShareDialog();
+    }
+  }
+
+  onCloseBottomSheet() {
+    this._bottomSheet.dismiss();
+  }
 }
 
 function createProductImageMapper(productDetails: ProductDetailViewModel): any {

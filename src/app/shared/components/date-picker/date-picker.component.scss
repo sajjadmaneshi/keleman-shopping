@@ -5,8 +5,8 @@
   text-align: center;
   padding: 0.185rem 0.25rem;
   display: inline-block;
-  height: 2rem;
-  width: 2rem;
+  height: 3rem;
+  width: 3rem;
 }
 .custom-day.focused {
   background-color: #e6e6e6;
@@ -18,4 +18,18 @@
 }
 .custom-day.faded {
   background-color: rgba(216, 155, 2, 0.5);
+}
+::ng-deep {
+  .chequeDatePicker {
+    width: 350px !important;
+  }
+  .ngb-dp-month {
+    width: 100%;
+    .ngb-dp-day,
+    .ngb-dp-weekday,
+    .ngb-dp-week-number,
+    [ngbDatepickerDayView] {
+      width: 100%;
+    }
+  }
 }

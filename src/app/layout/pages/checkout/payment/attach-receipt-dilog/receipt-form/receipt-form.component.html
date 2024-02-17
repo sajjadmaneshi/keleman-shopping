@@ -1,10 +1,7 @@
 <form [formGroup]="formData.form">
   <div class="card card-rounded-3 border mb-3 position-relative">
     @if(number>0){
-    <button
-      class="btn btn-icon btn-circle btn-danger remove"
-      (click)="remove()"
-    >
+    <button mat-mini-fab class="btn-danger remove" (click)="remove()">
       <mat-icon>clear</mat-icon>
     </button>
     }
@@ -12,10 +9,11 @@
     <div class="d-flex align-items-center">
       <span class="text-warning payment-number"> پرداخت {{ number + 1 }}</span>
       <div
-        class="d-flex flex-column border-end border-gray-300 rounded mx-1 p-3"
+        class="d-flex flex-column border-end border-gray-300 rounded mx-1 p-3 w-100"
       >
         <div class="receipt-form mb-1">
           <div class="form-group">
+            <label for="bank-name">مبلغ</label>
             <input
               class="keleman-text-field"
               placeholder="مبلغ (تومان)"
@@ -28,6 +26,7 @@
             }
           </div>
           <div class="form-group">
+            <label for="bank-name">بانک مبدا</label>
             <input
               class="keleman-text-field"
               placeholder="ازبانک"
@@ -39,6 +38,7 @@
             }
           </div>
           <div class="form-group">
+            <label for="bank-name">شماره حساب مقصد</label>
             <input
               class="keleman-text-field"
               placeholder="شماره حساب مقصد"
@@ -53,6 +53,7 @@
             }
           </div>
           <div class="form-group">
+            <label for="bank-name">کد پیگیری</label>
             <input
               class="keleman-text-field"
               placeholder="کد پیگیری"

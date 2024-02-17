@@ -6,3 +6,10 @@
   height: 1.5rem;
   width: 1.5rem;
 }
+:host ::ng-deep {
+  @media (max-width: 768px) {
+    .mat-mdc-dialog-content {
+      max-height: 100vh !important;
+    }
+  }
+}

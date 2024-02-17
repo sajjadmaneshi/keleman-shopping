@@ -22,6 +22,7 @@ import { BreadCrumbComponent } from '../../../shared/components/bread-crumb/brea
 import { MatListModule } from '@angular/material/list';
 import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatListModule,
     LoadingProgressDirective,
     FontAwesomeModule,
+    MatButtonModule,
   ],
   exports: [ShareButtonsComponent],
 })

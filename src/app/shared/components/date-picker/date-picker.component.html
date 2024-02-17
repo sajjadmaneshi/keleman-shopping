@@ -38,6 +38,8 @@
   [minDate]="minDate"
   (dateSelect)="onDateSelect($event)"
   #d="ngbDatepicker"
+  [datepickerClass]="'chequeDatePicker'"
   (click)="d.toggle()"
 />
+
 }

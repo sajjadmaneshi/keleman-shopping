@@ -2,7 +2,7 @@
   // Reset outline
   outline: none !important;
 
-  i {
+  i:not(.fab) {
     display: inline-flex;
     font-size: $font-size-base;
     padding-right: 0.35rem;

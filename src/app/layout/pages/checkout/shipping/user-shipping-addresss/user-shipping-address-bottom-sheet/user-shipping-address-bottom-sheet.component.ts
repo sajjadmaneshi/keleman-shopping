@@ -5,7 +5,6 @@ import { ProfileRepository } from '../../../../profile/data/profile.repository';
 import { LoadingService } from '../../../../../../../common/services/loading.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModifyAddressDialogComponent } from '../../../../profile/address/add-address-dialog/modify-address-dialog.component';
-import { UserShippingAddressDialogComponent } from '../user-shipping-address-dialog/user-shipping-address-dialog.component';
 
 @Component({
   selector: 'keleman-user-shipping-address-bottom-sheet',

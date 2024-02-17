@@ -1,4 +1,10 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { PaymentGatewayViewModel } from '../data/models/payment-gateway.view-model';
 import { UserCreditViewModel } from '../../profile/data/view-models/user-credit.view-model';
@@ -9,7 +15,7 @@ import { SaveOrderDto } from '../data/dto/save-order.dto';
 import { FormControl, Validators } from '@angular/forms';
 import { SetDiscountDto } from '../data/dto/set-discount.dto';
 import { SnackBarService } from '../../../../shared/components/snack-bar/snack-bar.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TransferToBankDialogComponent } from './transfer-to-bank-dialog/transfer-to-bank-dialog.component';
 import { PayResultViewModel } from '../data/models/pay-result.view-model';
 import { DOCUMENT } from '@angular/common';
@@ -20,6 +26,7 @@ import { Router } from '@angular/router';
 import { AttachReceiptDialogComponent } from './attach-receipt-dilog/attach-receipt-dialog.component';
 import { AttachChequeDialogComponent } from './attach-cheque-dialog/attach-cheque-dialog.component';
 import { ApplicationStateService } from '../../../../shared/services/application-state.service';
+import { ComponentType } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'keleman-payment',
@@ -38,6 +45,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
   paymentEnums = PaymentEnum;
   selectedPaymentGateway!: PaymentGatewayViewModel;
   selectedStep = 1;
+  dialogBaseConfigs = {
+    width: '800px',
+    autoFocus: false,
+    panelClass: 'custom-mat-dialog',
+  } as MatDialogConfig;
   constructor(
     private readonly _basketService: BasketService,
     private readonly _initialAppService: InitialAppService,
@@ -80,28 +92,28 @@ export class PaymentComponent implements OnInit, OnDestroy {
     });
   }
 
-  openAttachReceiptDialog(billId: number): void {
+  openChequeOrReceiptDialog(billId: number, type: AttachmentType) {
+    const template = (
+      type === AttachmentType.cheque
+        ? AttachChequeDialogComponent
+        : AttachReceiptDialogComponent
+    ) as ComponentType<any>;
     this._dialog
-      .open(AttachReceiptDialogComponent, {
-        width: '800px',
-        autoFocus: false,
-        panelClass: 'custom-mat-dialog',
-        data: billId,
-      })
-      .afterClosed()
-      .subscribe((result: number) => {
-        if (result) this._navigateToPaymentResultPage(billId);
-      });
-  }
-
-  openAttachChequeDialog(billId: number) {
-    this._dialog
-      .open(AttachChequeDialogComponent, {
-        width: '600px',
-        autoFocus: false,
-        panelClass: 'custom-mat-dialog',
-        data: billId,
-      })
+      .open(
+        template,
+        this.applicationState.isPhone || this.applicationState.isTablet
+          ? {
+              ...this.dialogBaseConfigs,
+              width: '100%',
+              height: '100%',
+              maxWidth: '100vw',
+              data: billId,
+            }
+          : {
+              ...this.dialogBaseConfigs,
+              data: billId,
+            }
+      )
       .afterClosed()
       .subscribe((result: number) => {
         if (result) this._navigateToPaymentResultPage(billId);
@@ -170,11 +182,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
       return;
     }
     if (this.selectedPaymentGateway.enName === this.paymentEnums.BankCheque) {
-      this.openAttachChequeDialog(billId);
+      this.openChequeOrReceiptDialog(billId, 0);
       return;
     }
     if (this.selectedPaymentGateway.enName === this.paymentEnums.BankRecipt) {
-      this.openAttachReceiptDialog(billId);
+      this.openChequeOrReceiptDialog(billId, 1);
       return;
     }
 
@@ -221,11 +233,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this._snackBarService.showPrimarySnackBar(message);
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   changeStep() {
     this.selectedStep++;
   }
@@ -233,4 +240,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
   submitPay() {
     this._basketService.readyForPay.next(true);
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+}
+
+export enum AttachmentType {
+  cheque,
+  receipt,
 }

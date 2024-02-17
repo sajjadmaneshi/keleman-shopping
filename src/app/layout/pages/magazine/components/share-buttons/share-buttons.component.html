@@ -1,27 +1,30 @@
-<span class="d-flex justify-content-end align-items-center">
-  @for (shares of include;track shares){
-  <a [href]="determineUrl(shares)" class="btn btn-icon sc-icon">
-    <div class="symbol symbol-7 cursor-pointer" appSymbol [ngSwitch]="shares">
-      @switch (shares){ @case ('mail'){
-      <i class="fab fa-1x fa-google"></i>
-      } @case ('whatsapp'){
-      <i class="fab fa-1x fa-square-whatsapp"></i>
+<span class="d-flex flex-column justify-content-center align-items-center">
+  <div class="d-flex mb-3">
+    @for (shares of include;track shares){
+    <a
+      [href]="determineUrl(shares)"
+      mat-fab
+      class="bg-klm-primary text-white mx-1"
+    >
+      <div class="symbol symbol-7 cursor-pointer" appSymbol>
+        @switch (shares){ @case ('mail'){
+        <i class="fab fa-2x fa-google"></i>
+        } @case ('whatsapp'){
+        <i class="fab fa-2x fa-square-whatsapp"></i>
 
-      } @case ('twitter'){
-      <i class="fab fa-1x fa-square-x-twitter"></i>
-      } @case ('telegram'){
-      <i class="fab fa-1x fa-telegram"></i>
-      } }
-    </div>
-  </a>
-  }
+        } @case ('twitter'){
+        <i class="fab fa-2x fa-square-x-twitter"></i>
+        } @case ('telegram'){
+        <i class="fab fa-2x fa-telegram"></i>
+        } }
+      </div>
+    </a>
+    }
+  </div>
 
   <div class="address-copy">
-    <input class="py-1 ps-5 pe-3" type="text" readonly [value]="this.pageUrl" />
-    <mat-icon
-      (click)="copyUrl()"
-      class="cursor-pointer position-absolute left-3"
-      >content_copy</mat-icon
-    >
+    <button mat-raised-button class="bg-klm-secondary" (click)="copyUrl()">
+      کپی لینک
+    </button>
   </div>
 </span>

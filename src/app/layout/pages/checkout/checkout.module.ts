@@ -46,6 +46,7 @@ import { AuthGuard } from '../../../shared/guards/auth.guard';
 import { UserShippingAddressBottomSheetComponent } from './shipping/user-shipping-addresss/user-shipping-address-bottom-sheet/user-shipping-address-bottom-sheet.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { BottomSheetComponent } from '../../../shared/components/bottom-sheet/bottom-sheet.component';
+import { MatButtonModule } from '@angular/material/button';
 
 export const routes: Routes = [
   {
@@ -117,6 +118,7 @@ export const routes: Routes = [
     PaymentGatewayComponent,
     MatBottomSheetModule,
     BottomSheetComponent,
+    MatButtonModule,
   ],
   providers: [DecimalPipe, CheckoutService],
   exports: [ShippingAddressItemComponent],

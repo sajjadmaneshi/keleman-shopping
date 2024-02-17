@@ -1,7 +1,7 @@
+<h5 matDialogTitle class="fs-5 dialog-title mb-3 text-center text-klm-primary">
+  افزودن فیش بانکی
+</h5>
 <div mat-dialog-content>
-  <h5 class="fs-5 dialog-title mb-3 text-center text-klm-primary">
-    افزودن فیش بانکی
-  </h5>
   <div class="receipt-form-body">
     <keleman-receipt-form
       *ngFor="let baseFormData of receiptForms; let i = index"
@@ -41,7 +41,7 @@
       >
         ذخیره
       </button>
-      <button class="btn btn-danger">انصراف</button>
+      <button class="btn btn-danger" mat-dialog-close>انصراف</button>
     </div>
   </div>
 </div>
