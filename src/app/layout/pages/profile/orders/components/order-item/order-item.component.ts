@@ -9,7 +9,7 @@ import { OrderListDialogComponent } from '../order-list-dialog/order-list-dialog
 import { ProfileRepository } from '../../../data/profile.repository';
 import { AddReturnRequestDialogComponent } from '../../../returned-request/add-return-request-dialog/add-return-request-dialog.component';
 import { OrderCanReturnViewModel } from '../../../data/view-models/order-can-return.view-model';
-import { Subscription } from 'rxjs';
+import { Subscription, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'keleman-order-item',
@@ -21,8 +21,8 @@ export class OrderItemComponent implements OnDestroy {
   @Input() orderStatus!: OrdersStatusEnum;
 
   orderstatusEnum = OrdersStatusEnum;
-
   subscriptions = new Subscription();
+  getFactorLoading = false;
   constructor(
     public readonly applicationState: ApplicationStateService,
     public readonly persianDateTimeService: PersianDateTimeService,
@@ -56,11 +56,16 @@ export class OrderItemComponent implements OnDestroy {
   }
 
   getOrderFactor() {
+    this.getFactorLoading = true;
     const subscription = this._profileRepository
       .getOrderFactor(this.orderDetail.id)
-      .subscribe((res) => {
-        const fileUrl = URL.createObjectURL(res);
-        window.open(fileUrl, '_blank');
+      .pipe(tap(() => (this.getFactorLoading = false)))
+      .subscribe({
+        next: (res) => {
+          const fileUrl = URL.createObjectURL(res);
+          window.open(fileUrl, '_blank');
+        },
+        error: () => (this.getFactorLoading = false),
       });
     this.subscriptions.add(subscription);
   }

@@ -6,6 +6,11 @@
     <div class="text-center d-flex flex-column">
       <button
         class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary mb-3"
+        kelemanLoadingProgress
+        [loading]="
+          (loadingServcie.getLoadingStateObservable('read', 'getPreFactor')
+            | async)!
+        "
         (click)="getPreFactor()"
       >
         دریافت پیش فاکتور

@@ -3,7 +3,7 @@ import { CheckoutService } from '../../services/checkout.service';
 import { BasketRepository } from '../../data/repositories/basket.repository';
 
 import { BasketService } from '../../services/basket.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { LoadingService } from '../../../../../../common/services/loading.service';
 
 @Component({
@@ -34,17 +34,22 @@ export class PurchaseWebComponent implements OnDestroy {
   }
 
   getPreFactor() {
+    this.loadingServcie.startLoading('read', 'getPreFactor');
     this._basketRepository
       .getReport()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        const fileUrl = URL.createObjectURL(res);
-        var a = document.createElement('a');
-        a.href = fileUrl;
-        a.target = '_blank';
-        // Don't set download attribute
-        // a.download = "Example.pdf";
-        a.click();
+      .pipe(
+        tap(() => this.loadingServcie.stopLoading('read', 'getPreFactor')),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (res) => {
+          const fileUrl = URL.createObjectURL(res);
+          var a = document.createElement('a');
+          a.href = fileUrl;
+          a.target = '_blank';
+          a.click();
+        },
+        error: () => this.loadingServcie.stopLoading('read', 'getPreFactor'),
       });
   }
 

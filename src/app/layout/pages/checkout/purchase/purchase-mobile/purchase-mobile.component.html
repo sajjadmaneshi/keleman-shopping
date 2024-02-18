@@ -3,7 +3,6 @@
     <div class="card-body">
       <div class="card border border-gray-300 card-rounded-3 mb-3">
         <div class="card-body">
-          <!--          <keleman-until-free-shipping></keleman-until-free-shipping>-->
           <keleman-main-purchase></keleman-main-purchase>
         </div>
       </div>
@@ -28,6 +27,11 @@
 
         <button
           class="btn btn-klm-primary text-white actions__buttons fs-5 fw-bolder"
+          kelemanLoadingProgress
+          [loading]="
+            (loadingServcie.getLoadingStateObservable('read', 'getPreFactor')
+              | async)!
+          "
           (click)="getPreFactor()"
         >
           دریافت پیش فاکتور

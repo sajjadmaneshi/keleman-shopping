@@ -34,7 +34,7 @@ export class ShareButtonsComponent implements OnInit {
         this._snackBar.showSuccessSnackBar('آدرس در کلیپ بورد کپی شد');
       },
       (err) => {
-        console.error('Failed to copy URL to clipboard:', err);
+        this._snackBar.showDangerSnackBar('آدرس در کلیپ بورد کپی نشد');
       }
     );
   }
