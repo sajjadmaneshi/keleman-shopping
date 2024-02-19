@@ -79,7 +79,7 @@
             } @if(amount.value){
 
             <span class="d-flex my-3">
-              <label class="fw-bold">معادل: </label>
+              <label class="fw-bold text-klm-primary">معادل: </label>
 
               <span>{{ amount.value | numberToPersian }}</span>
             </span>
@@ -239,7 +239,8 @@
     </span>
     <div class="d-flex align-items-center justify-content-center">
       <button
-        class="btn btn-success text-white mx-3"
+        mat-raised-button
+        class="bg-warning text-white mx-3"
         type="button"
         kelemanLoadingProgress
         [loading]="
@@ -252,7 +253,7 @@
       >
         ذخیره
       </button>
-      <button class="btn btn-danger" (click)="close()">انصراف</button>
+      <button mat-raised-button (click)="close()">انصراف</button>
     </div>
   </div>
 </div>

@@ -1,10 +1,4 @@
 <button class="payment-item" [disabled]="disabled" [class.selected]="selected">
-  @if (loading){
-  <div class="payment-item-loading-overlay">
-    <mat-spinner class="loading" [diameter]="20"></mat-spinner>
-  </div>
-  }
-
   <div class="symbol">
     <img
       loadingLazy

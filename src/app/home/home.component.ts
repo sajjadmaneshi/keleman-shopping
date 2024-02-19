@@ -9,7 +9,7 @@ import { ProductCategoryService } from '../shared/components/product-category/pr
 })
 export class HomeComponent {
   constructor(private _categoryService: ProductCategoryService) {}
-  navigateToPage($event: ProductCategoryViewModel) {
-    this._categoryService.onNavigate({ c1: $event.url });
+  navigateToPage($event: string) {
+    this._categoryService.onNavigate($event);
   }
 }

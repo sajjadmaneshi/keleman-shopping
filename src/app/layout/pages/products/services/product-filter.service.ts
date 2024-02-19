@@ -1,5 +1,4 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { SelectedFilterModel } from '../product-list/components/product-filters/data/selected-filter.model';
 import { ProductCategoryRepository } from '../data/repositories/product-category.repository';
 import {
   CategoryPropertyOptionViewModel,
@@ -10,10 +9,11 @@ import { BehaviorSubject, map, Subject, takeUntil, tap } from 'rxjs';
 import { Params } from '@angular/router';
 import { QueryParamGeneratorService } from '../../../../shared/services/query-params-generator.service';
 import { RouteHandlerService } from '../../../../shared/services/route-handler/route-handler.service';
-import { PriceRange } from '../product-list/components/product-filters/components/product-price-filter/product-price-filter.component';
 import { ProductSortTypeEnum } from '../data/enums/product-sort-type .enum';
 import { HttpClientResult } from '../../../../shared/data/models/http/http-client.result';
 import { LoadingService } from '../../../../../common/services/loading.service';
+import { SelectedFilterModel } from '../../product-category/components/product-filters/data/selected-filter.model';
+import { PriceRange } from '../../product-category/components/product-filters/components/product-price-filter/product-price-filter.component';
 
 @Injectable()
 export class ProductFilterService implements OnDestroy {

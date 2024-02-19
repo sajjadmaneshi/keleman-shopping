@@ -22,7 +22,7 @@ import { ArticleItemComponent } from '../shared/components/article-item/article-
 import { TextWithIconComponent } from '../shared/components/text-with-icon/text-with-icon.component';
 import { PriceComponent } from '../shared/components/price/price.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { ProductCategoryComponent } from '../shared/components/product-category/product-category.component';
+import { ProductCategoryItemsComponent } from '../shared/components/product-category/product-category-items.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,7 @@ import { ProductCategoryComponent } from '../shared/components/product-category/
     TextWithIconComponent,
     PriceComponent,
     BackgroundSwiperItemComponent,
-    ProductCategoryComponent,
+    ProductCategoryItemsComponent,
   ],
 })
 export class HomeModule {}

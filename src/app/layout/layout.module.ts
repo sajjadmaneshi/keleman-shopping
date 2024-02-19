@@ -54,7 +54,7 @@ import {
   faTelegram,
 } from '@fortawesome/free-brands-svg-icons';
 import { MatListModule } from '@angular/material/list';
-import { ProductCategoryComponent } from '../shared/components/product-category/product-category.component';
+import { ProductCategoryItemsComponent } from '../shared/components/product-category/product-category-items.component';
 import { ProductCategoryItemComponent } from '../shared/components/product-category/product-category-item/product-category-item.component';
 import { MatBadgeModule } from '@angular/material/badge';
 
@@ -97,7 +97,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     EmptyImageDirective,
     TextWithIconComponent,
     NgbAccordionModule,
-    ProductCategoryComponent,
+    ProductCategoryItemsComponent,
     FontAwesomeModule,
     NgbPopover,
     MatListModule,

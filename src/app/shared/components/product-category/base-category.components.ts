@@ -17,7 +17,7 @@ import { LoadingService } from '../../../../common/services/loading.service';
 })
 export class BaseCategoryComponent implements OnChanges, OnDestroy {
   @Input() parentId!: number | null;
-  @Output() onItemClick = new EventEmitter<ProductCategoryViewModel>();
+  @Output() onItemClick = new EventEmitter<string>();
   categories: ProductCategoryViewModel[] = [];
   destroy$ = new Subject<void>();
 
@@ -26,8 +26,8 @@ export class BaseCategoryComponent implements OnChanges, OnDestroy {
     public loadingService: LoadingService
   ) {}
 
-  getCategoryProducts(category: ProductCategoryViewModel) {
-    this.onItemClick.emit(category);
+  getCategoryProducts(url: string) {
+    this.onItemClick.emit(url);
   }
 
   ngOnChanges(): void {

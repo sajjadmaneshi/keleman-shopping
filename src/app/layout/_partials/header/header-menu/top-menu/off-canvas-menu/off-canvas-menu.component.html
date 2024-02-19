@@ -37,7 +37,7 @@
         <li class="menu-item py-3">
           <a
             class="nav-link text-black"
-            [routerLink]="['/' + routing.product + '/' + routing.category]"
+            [routerLink]="['/' + routing.productCategory]"
             (click)="onClose()"
             routerLinkActive="active"
           >
@@ -95,31 +95,18 @@
                 <ng-template>
                   <span
                     class="text-klm-primary all-products cursor-pointer"
-                    (click)="onNavigate({ c1: rootCategory.url })"
+                    (click)="onNavigate(rootCategory.url)"
                   >
                     همه محصولات
                     <mat-icon>chevron_left</mat-icon>
                   </span>
                   <ul class="column pe-3">
                     @for (child of rootCategory.children;track child.id){
-                    <li
-                      class="head"
-                      (click)="
-                        onNavigate({ c1: rootCategory.url, c2: child.url })
-                      "
-                    >
+                    <li class="head" (click)="onNavigate(child.url)">
                       <a>{{ child.title }} </a>
                     </li>
                     @for (childChild of child.children;track childChild.id){
-                    <li
-                      (click)="
-                        onNavigate({
-                          c1: rootCategory.url,
-                          c2: child.url,
-                          c3: childChild.url
-                        })
-                      "
-                    >
+                    <li (click)="onNavigate(childChild.url)">
                       <a>{{ childChild.title }}</a>
                     </li>
                     } }

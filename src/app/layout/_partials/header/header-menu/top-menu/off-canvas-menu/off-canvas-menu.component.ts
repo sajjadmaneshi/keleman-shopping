@@ -56,7 +56,7 @@ export class OffCanvasMenuComponent implements OnDestroy {
     this.close.emit();
   }
 
-  onNavigate($event: { c1?: string; c2?: string; c3?: string }) {
+  onNavigate($event: string) {
     this._categoryService.onNavigate($event);
     this.onClose();
   }

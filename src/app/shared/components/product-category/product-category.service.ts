@@ -36,15 +36,11 @@ export class ProductCategoryService {
     );
   }
 
-  onNavigate({ c1, c2, c3 }: { c1?: string; c2?: string; c3?: string }) {
-    const params = `${c1 ?? ''}/${c2 ?? ''}/${c3 ?? ''}`.replace(
-      /\/{2,}/g,
-      '/'
-    );
+  onNavigate(url: string) {
     const queryParams = { p: '0' };
 
     this._router
-      .navigate([`${Routing.product}/${Routing.category}/${params}`], {
+      .navigate([`${Routing.productCategory}/${url}`], {
         queryParams,
       })
       .finally();

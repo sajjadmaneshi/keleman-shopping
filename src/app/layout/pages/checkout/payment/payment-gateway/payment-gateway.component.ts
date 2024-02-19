@@ -24,7 +24,6 @@ export class PaymentGatewayComponent {
   @Input() credit!: UserCreditViewModel;
   @Input() selected: boolean = false;
   @Input() disabled: boolean = false;
-  @Input() loading = false;
 
   paymentGatewyEnums = PaymentEnum;
   constructor() {}

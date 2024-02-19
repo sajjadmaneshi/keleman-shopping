@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+
 import { MagazineComponent } from './magazine.component';
 import { MagazineListComponent } from './components/list/magazine-list.component';
 import { MagazineRoutingModule } from './magazine-routing.module';
@@ -13,7 +13,7 @@ import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.di
 import { MatIconModule } from '@angular/material/icon';
 import { ArticleLinkListDirective } from './components/article/article-link-list.directive';
 import { ArticleItemThumbnailComponent } from '../../../shared/components/article-item-thumbnail/article-item-thumbnail.component';
-import { ProductCommentsModule } from '../products/product-details/components/comments/product-comments.module';
+
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
@@ -42,7 +42,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     ArticleLinkListDirective,
     ArticleItemThumbnailComponent,
-    ProductCommentsModule,
     NgxSkeletonLoaderModule,
     PaginationComponent,
     EmptyImageDirective,

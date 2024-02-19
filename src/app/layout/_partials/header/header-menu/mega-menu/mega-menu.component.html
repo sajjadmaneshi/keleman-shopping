@@ -6,7 +6,7 @@
   @for (category of productCategories;track category.id){
   <div
     class="product-category-item d-flex flex-column align-items-center px-3 cursor-pointer"
-    (click)="onClick({ c1: category.url })"
+    (click)="onClick(category.url)"
   >
     <div class="mb-3 symbol symbol-13 symbol-circle">
       <img

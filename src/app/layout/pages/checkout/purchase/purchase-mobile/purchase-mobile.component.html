@@ -10,7 +10,12 @@
         @if((checkoutService.selectedIndex|async)===2){
 
         <button
-          class="btn btn-success actions__buttons fs-5 fw-bolder"
+          class="btn btn-warning actions__buttons fs-5 fw-bolder"
+          kelemanLoadingProgress
+          [loading]="
+            (loadingService.getLoadingStateObservable('add', 'saveOrder')
+              | async)!
+          "
           (click)="submitPay()"
           [disabled]="paymentGatewayId === -1"
         >
@@ -29,7 +34,7 @@
           class="btn btn-klm-primary text-white actions__buttons fs-5 fw-bolder"
           kelemanLoadingProgress
           [loading]="
-            (loadingServcie.getLoadingStateObservable('read', 'getPreFactor')
+            (loadingService.getLoadingStateObservable('read', 'getPreFactor')
               | async)!
           "
           (click)="getPreFactor()"

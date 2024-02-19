@@ -32,12 +32,12 @@ export class BreadCrumbComponent implements OnChanges, OnDestroy {
     new TypeBreadCrumbs(
       BreadCrumbTypeEnum.Product,
       'محصولات',
-      `/${Routing.product}/${Routing.category}`
+      `/${Routing.productCategory}`
     ),
     new TypeBreadCrumbs(
       BreadCrumbTypeEnum.ProductCategory,
       'محصولات',
-      `/${Routing.product}/${Routing.category}`
+      `/${Routing.productCategory}`
     ),
     new TypeBreadCrumbs(
       BreadCrumbTypeEnum.Article,

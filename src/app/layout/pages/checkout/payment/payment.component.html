@@ -51,9 +51,6 @@
         (gateway.enName == paymentEnums.WalletPay &&
           userCredit.walletValue < basketCheckout.payablePrice)
       "
-      [loading]="
-        (loadingService.getLoadingStateObservable('add', 'saveOrder') | async)!
-      "
       (click)="selectPaymentGateWay(gateway)"
     ></keleman-payment-gateway>
     }
@@ -81,10 +78,6 @@
             userCredit.creditValue < basketCheckout.payablePrice) ||
           (gateway.enName == paymentEnums.WalletPay &&
             userCredit.walletValue < basketCheckout.payablePrice)
-        "
-        [loading]="
-          (loadingService.getLoadingStateObservable('add', 'saveOrder')
-            | async)!
         "
         (click)="selectPaymentGateWay(gateway)"
       ></keleman-payment-gateway>

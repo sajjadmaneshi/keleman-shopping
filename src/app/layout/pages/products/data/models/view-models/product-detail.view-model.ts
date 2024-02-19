@@ -1,4 +1,4 @@
-import { SellerViewModel } from '../../../product-details/components/stores/seller.view-model';
+import { SellerViewModel } from '../../../components/stores/seller.view-model';
 
 export interface ProductDetailViewModel {
   id: number;

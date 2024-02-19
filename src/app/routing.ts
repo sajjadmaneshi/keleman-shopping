@@ -5,6 +5,7 @@ export class Routing {
   static basket = 'basket';
   static blogs = 'blogs';
   static category = 'category';
+  static productCategory = 'product-category';
   static register = 'register';
   static product = 'product';
   static wallet = 'wallet';

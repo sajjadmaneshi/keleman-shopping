@@ -8,7 +8,7 @@
         class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary mb-3"
         kelemanLoadingProgress
         [loading]="
-          (loadingServcie.getLoadingStateObservable('read', 'getPreFactor')
+          (loadingService.getLoadingStateObservable('read', 'getPreFactor')
             | async)!
         "
         (click)="getPreFactor()"

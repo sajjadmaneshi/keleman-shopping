@@ -33,17 +33,13 @@ export class MegaMenuComponent {
   activeIndex = 1;
 
   @Input() productCategories!: MegaMenuViewModel[];
-  @Output() clickItem = new EventEmitter<{
-    c1?: string;
-    c2?: string;
-    c3?: string;
-  }>();
+  @Output() clickItem = new EventEmitter<string>();
 
   onHover(index: number) {
     this.activeIndex = index;
   }
 
-  onClick(url: { c1?: string; c2?: string; c3?: string }) {
+  onClick(url: string) {
     this.clickItem.emit(url);
   }
 }

@@ -46,7 +46,7 @@ import { BoxProductItemComponent } from './my-boxes/modify-box-form/product-item
 import { SelectedProductBoxComponent } from './my-boxes/modify-box-form/selected-product-box/selected-product-box.component';
 import { ValueChangerComponent } from '../../../shared/components/value-changer/value-changer.component';
 import { LazyLoadingDirective } from '../../../shared/directives/lazy-loading.directive';
-import { ProductCommentsModule } from '../products/product-details/components/comments/product-comments.module';
+
 import { EmptyImageDirective } from '../../../shared/directives/empty-image.directive';
 import { ProfileRepository } from './data/profile.repository';
 import { LoadingProgressDirective } from '../../../shared/directives/loading-progress.directive';
@@ -66,6 +66,7 @@ import { MatListModule } from '@angular/material/list';
 import { UserQuestionsComponent } from './comment-question/questions/user-questions.component';
 import { UserQuestionItemComponent } from './comment-question/questions/user-question-item/user-question-item.component';
 import { CommentQuestionComponent } from './comment-question/comment-question.component';
+import { ProductCommentsModule } from '../products/components/comments/product-comments.module';
 
 @NgModule({
   declarations: [

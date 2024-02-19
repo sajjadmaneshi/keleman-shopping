@@ -2,12 +2,12 @@
   <div
     class="d-flex align-items-center justify-content-between top-part w-100 mb-3"
   >
-    <span
-      class="material-icons-outlined cursor-pointer"
+    <mat-icon
+      class="material-icons-outlined cursor-pointer text-klm-primary"
       (click)="openOffCanvas(content)"
     >
       menu
-    </span>
+    </mat-icon>
     <a class="flex-grow-1 text-center" routerLink="">
       <img
         alt="بازرگانی آساسنسور و پله برقی کلمان"
@@ -18,17 +18,11 @@
 
     @if (isLoggedIn && userProfileInfo;){
     <div ngbDropdown class="d-inline-block" [autoClose]="'true'">
-      <div
-        class="symbol symbol-10 symbol-circle cursor-pointer"
+      <mat-icon
         ngbDropdownToggle
+        class="cursor-pointer material-icons-outlined text-klm-primary"
+        >account_circle</mat-icon
       >
-        <img
-          loadingLazy
-          emptyImage
-          [src]="userProfileInfo.avatar!"
-          [isAvatar]="true"
-        />
-      </div>
 
       <div
         ngbDropdownMenu
@@ -50,25 +44,23 @@
     </a>
     }
 
-    <a
-      class="d-flex position-relative flex-column align-items-center basket cursor-pointer"
-      [routerLink]="['checkout']"
-    >
-      <h3 class="basket-count">{{ basketCount }}</h3>
-
-      <img
-        alt="سبد خرید"
-        src="assets/media/static-resources/basket-icon.svg"
-        class="basket-icon"
-      />
+    <a [routerLink]="['checkout']">
+      <mat-icon
+        class="material-icons-outlined text-klm-primary"
+        aria-hidden="false"
+        [matBadge]="basketCount"
+        matBadgeSize="small"
+        matBadgePosition="above before"
+        >shopping_cart</mat-icon
+      >
     </a>
   </div>
   <keleman-search-bar class="flex-grow-1 w-100"></keleman-search-bar>
   <div class="py-3">
-    <keleman-product-categories
+    <keleman-product-category-items
       [parentId]="null"
       (onItemClick)="navigateToPage($event)"
-    ></keleman-product-categories>
+    ></keleman-product-category-items>
   </div>
 </div>
 

@@ -17,7 +17,7 @@ export class PurchaseWebComponent implements OnDestroy {
 
   constructor(
     public readonly checkoutService: CheckoutService,
-    public readonly loadingServcie: LoadingService,
+    public readonly loadingService: LoadingService,
     protected readonly _basketService: BasketService,
     private readonly _basketRepository: BasketRepository
   ) {
@@ -34,11 +34,11 @@ export class PurchaseWebComponent implements OnDestroy {
   }
 
   getPreFactor() {
-    this.loadingServcie.startLoading('read', 'getPreFactor');
+    this.loadingService.startLoading('read', 'getPreFactor');
     this._basketRepository
       .getReport()
       .pipe(
-        tap(() => this.loadingServcie.stopLoading('read', 'getPreFactor')),
+        tap(() => this.loadingService.stopLoading('read', 'getPreFactor')),
         takeUntil(this.destroy$)
       )
       .subscribe({
@@ -49,7 +49,7 @@ export class PurchaseWebComponent implements OnDestroy {
           a.target = '_blank';
           a.click();
         },
-        error: () => this.loadingServcie.stopLoading('read', 'getPreFactor'),
+        error: () => this.loadingService.stopLoading('read', 'getPreFactor'),
       });
   }
 

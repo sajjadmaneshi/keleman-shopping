@@ -99,10 +99,7 @@ export class HeaderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  onNavigate(
-    target: HTMLDivElement,
-    $event: { c1?: string; c2?: string; c3?: string }
-  ) {
+  onNavigate(target: HTMLDivElement, $event: string) {
     this.categoryService.onNavigate($event);
     this.closeMenu(target);
   }

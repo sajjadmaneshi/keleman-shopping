@@ -21,12 +21,13 @@ import { ProductSpecificViewModel } from '../data/models/view-models/product-spe
 import { AddToCartDto } from '../../checkout/data/dto/add-to-cart.dto';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { UpdateBasketDto } from '../../checkout/data/dto/update-basket.dto';
-import { PackageProductsDialogComponent } from '../product-details/components/package-products-dialog/package-products-dialog.component';
+
 import { MatDialog } from '@angular/material/dialog';
-import { SellerViewModel } from '../product-details/components/stores/seller.view-model';
+
 import { OptionPriceDto } from '../data/models/dto/option-price.dto';
 import { OptionPriceViewModel } from '../data/models/view-models/option-price.view-model';
-import { GoToBasketDialogComponent } from '../product-details/components/go-to-basket/go-to-basket-dialog/go-to-basket-dialog.component';
+import { SellerViewModel } from '../components/stores/seller.view-model';
+import { PackageProductsDialogComponent } from '../components/package-products-dialog/package-products-dialog.component';
 
 @Injectable()
 export class ProductService implements OnDestroy {

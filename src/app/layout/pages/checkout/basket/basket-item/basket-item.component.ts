@@ -14,8 +14,9 @@ import { BasketService } from '../../services/basket.service';
 import { LoadingService } from '../../../../../../common/services/loading.service';
 import { of, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { PackageItemsViewModel } from '../../../products/data/models/view-models/package-items.view-model';
-import { PackageProductsDialogComponent } from '../../../products/product-details/components/package-products-dialog/package-products-dialog.component';
+
 import { MatDialog } from '@angular/material/dialog';
+import { PackageProductsDialogComponent } from '../../../products/components/package-products-dialog/package-products-dialog.component';
 
 @Component({
   selector: 'app-basket-item',

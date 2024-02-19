@@ -42,8 +42,18 @@ const routes: Routes = [
       {
         path: Routing.product,
         loadChildren: () =>
-          import('./pages/products/products.module').then(
-            (m) => m.ProductsModule
+          import('./pages/products/product.module').then(
+            (m) => m.ProductModule
+          ),
+        resolve: {
+          canonical: () => inject(CanonicalResolver).resolve(),
+        },
+      },
+      {
+        path: Routing.productCategory,
+        loadChildren: () =>
+          import('./pages/product-category/product-category.module').then(
+            (m) => m.ProductCategoryModule
           ),
         resolve: {
           canonical: () => inject(CanonicalResolver).resolve(),

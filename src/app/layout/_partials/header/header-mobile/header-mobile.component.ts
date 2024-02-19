@@ -37,8 +37,8 @@ export class HeaderMobileComponent implements OnInit, OnDestroy {
     this._offcanvasService.open(content, { position: 'end' });
   }
 
-  navigateToPage($event: ProductCategoryViewModel) {
-    this._categoryService.onNavigate({ c1: $event.url });
+  navigateToPage($event: string) {
+    this._categoryService.onNavigate($event);
   }
 
   ngOnInit(): void {

@@ -23,6 +23,11 @@
             />
             @if(amount.invalid && formData.isSubmitted){
             <span class="invalid-feedback">لطفا مبلغ را وارد کنید</span>
+            } @if(amount.value){
+            <span class="d-block my-3"
+              ><span class="text-klm-primary">معادل: </span
+              >{{ amount.value | numberToPersian }}</span
+            >
             }
           </div>
           <div class="form-group">
@@ -67,9 +72,6 @@
             }
           </div>
         </div>
-        @if(amount.value){
-        <span class="mb-3">{{ amount.value | numberToPersian }}</span>
-        }
       </div>
     </div>
   </div>

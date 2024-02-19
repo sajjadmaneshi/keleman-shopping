@@ -25,6 +25,10 @@
         <a class="btn btn-outline-success mx-3" (click)="getFactor()"
           >چاپ فاکتور</a
         >
+        } @else {
+        <a class="btn btn-outline-success mx-3" (click)="getFactor()">
+          پرداخت مجدد
+        </a>
         }
 
         <a class="btn btn-outline-info" [routerLink]="['/']"

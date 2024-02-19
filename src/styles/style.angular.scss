@@ -1,6 +1,8 @@
 @import "base/init";
 @import "third-party-lib";
-
+* {
+  letter-spacing: 0 !important;
+}
 $global-gap: 1rem;
 
 .grid-divider > * {

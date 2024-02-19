@@ -10,9 +10,9 @@
 .header-mobile {
   .basket {
     color: black !important;
-    .basket-icon {
-      width: 3rem !important;
-    }
+    //.basket-icon {
+    //  width: 3rem !important;
+    //}
     .basket-count {
       position: absolute;
       left: 50%;
@@ -26,6 +26,18 @@
       border-radius: 50%;
       color: $klm-primary;
     }
+  }
+  mat-icon {
+    font-size: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .mat-badge-small.mat-badge-above .mat-badge-content {
+    top: -5px !important;
+    right: -5px !important;
+    background-color: $klm-secondary;
+    color: $klm-primary;
+    font-weight: bolder;
   }
 }
 
